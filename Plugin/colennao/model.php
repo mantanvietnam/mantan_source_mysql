@@ -29,8 +29,10 @@ include('model/snacks.php');
 include('model/user_packages.php');
 include('model/areas.php');
 include('model/tbcondition.php');
-include('model/questionsenglish.php');
-include('model/tbconditionenglish.php');
+
+include('model/newsquestions.php');
+include('model/newstbcondition.php');
+
 include('model/tablepost.php');
 include('model/myplane.php');
 include('model/userpeople.php');

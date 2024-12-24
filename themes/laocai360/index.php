@@ -214,7 +214,7 @@ global $urlThemeActive;
                 <?php 
                   if(!empty($listDataImage)){
                     foreach($listDataImage as $key => $item){
-                      echo '<div class="slide">
+                      echo '<div class="slide col-lg-3">
                       <a href="'.$item->link.'" target="_bank">
                     <img src="'.$item->image.'" alt="'.$item->name.'">
                     <div class="arrow-overlay">

@@ -108,10 +108,10 @@
                                     </select>
                                 </div>
 
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                   <label class="form-label" for="basic-default-fullname">Loại sách</label>
                                   <input type="text"  class="form-control" placeholder="" name="typebook" id="typebook" value="<?php echo @$data->typebook;?>" />
-                                </div>
+                                </div> -->
                               </div>
 
                             

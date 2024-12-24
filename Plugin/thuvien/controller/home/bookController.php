@@ -9,7 +9,8 @@ function listbook($input)
     global $session;
     global $modelCategoryConnects;
     $listcategorypublishers = $modelCategories->find()->where(['type' => 'category_publisher'])->all()->toList();
-    
+    $listcategorybooks = $modelCategories->find()->where(['type' => 'category_book'])->all()->toList();
+
      $user = checklogin('listbook');   
     if(!empty($user)){
        
@@ -31,8 +32,8 @@ function listbook($input)
          if(!empty($_GET['name'])){
             $conditions['name LIKE'] = '%'.$_GET['name'].'%';
         }
-        if(!empty($_GET['typebook'])){
-            $conditions['typebook LIKE'] = '%'.$_GET['typebook'].'%';
+        if(!empty($_GET['id_category'])){
+            $conditions['id_category'] = (int) $_GET['id_category'];
         }
         if(!empty($_GET['status'])){
             $conditions['status'] =  $_GET['status'];
@@ -143,6 +144,7 @@ function listbook($input)
         }elseif(@$_GET['mess']=='deleteError'){
             $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
         }
+        setVariable('listcategorybooks', $listcategorybooks);
         setVariable('listcategorypublishers', $listcategorypublishers);
         setVariable('mess', $mess);
         setVariable('page', $page);
@@ -193,7 +195,7 @@ function addbook($input) {
                 $data->author = $dataSend['author'];
                 $data->published_date = (new DateTime($dataSend['published_date']))->getTimestamp();
                 $data->image = $dataSend['image'];
-                $data->typebook = $dataSend['typebook'];
+                // $data->typebook = $dataSend['typebook'];
                 $data->description = $dataSend['description'];
                 $data->price = $dataSend['price'];
                 $data->book_code = $dataSend['book_code'];

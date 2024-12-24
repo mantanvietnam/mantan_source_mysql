@@ -120,6 +120,10 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `id_affsource` INT NULL DEFAULT 0 COMMENT 'id người giới thiệu' ,
   `status_phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'public',
   `blue_check` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock',
+  `image_face` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `image_card_before` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `image_card_after` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `link_news` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -631,6 +635,10 @@ $sqlUpdateDatabase['customers']['id_affsource'] = "ALTER TABLE `customers` ADD `
 $sqlUpdateDatabase['customers']['blue_check'] = "ALTER TABLE `customers` ADD `blue_check` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock';";
 $sqlUpdateDatabase['customers']['total_coin'] = "ALTER TABLE `customers` ADD `total_coin` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['customers']['status_phone'] = "ALTER TABLE `customers` ADD `status_phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'public';";
+$sqlUpdateDatabase['customers']['image_face'] = "ALTER TABLE `customers` ADD `image_face` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customers']['image_card_before'] = "ALTER TABLE `customers` ADD `image_card_before` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customers']['image_card_after'] = "ALTER TABLE `customers` ADD `image_card_after` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customers']['link_news'] = "ALTER TABLE `customers` ADD `link_news` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 // bảng customer_histories
 $sqlUpdateDatabase['customer_histories']['id_customer'] = "ALTER TABLE `customer_histories` ADD `id_customer` INT NOT NULL;";
 $sqlUpdateDatabase['customer_histories']['time_now'] = "ALTER TABLE `customer_histories` ADD `time_now` INT NOT NULL;";

@@ -9,6 +9,7 @@ function listCustomer($input)
 
     $user = checklogin('listCustomer');
     $modelCustomers = $controller->loadModel('Customers');
+    $modelOrders = $controller->loadModel('Orders');
     if (!empty($user)) {
         if (empty($user->grant_permission)) {
             return $controller->redirect('/');
@@ -79,6 +80,18 @@ function listCustomer($input)
                 ->order($order)
                 ->all()
                 ->toList();
+            
+                foreach ($listData as $customer) {
+                    $customerId = $customer->id;
+
+                    $customer->borrowedCount = $modelOrders->find()
+                        ->where(['customer_id' => $customerId, 'status' => 1])
+                        ->count();
+
+                    $customer->returnedCount = $modelOrders->find()
+                        ->where(['customer_id' => $customerId, 'status' => 2])
+                        ->count();
+            }
         }
 
         $totalData = $modelCustomers->find()->where($conditions)->count();

@@ -482,6 +482,7 @@ $sqlUpdateDatabase['historicalsites']['urlSlug'] = "ALTER TABLE `historicalsites
 $sqlUpdateDatabase['historicalsites']['created'] = "ALTER TABLE `historicalsites` ADD `created` INT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['historicalsites']['status'] = "ALTER TABLE `historicalsites` ADD `status` BOOLEAN NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['historicalsites']['like'] = "ALTER TABLE `historicalsites` ADD `like` INT NULL DEFAULT NULL; ";
+$sqlUpdateDatabase['historicalsites']['idward'] = "ALTER TABLE `historicalsites` ADD`idward` int(11) DEFAULT NULL; ";
 
 // Bang governanceagencys
 $sqlUpdateDatabase['governanceagencys']['name'] = "ALTER TABLE `governanceagencys` ADD `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL; ";
@@ -702,6 +703,7 @@ $sqlUpdateDatabase['events']['status'] = "ALTER TABLE `events` ADD `status` BOOL
 $sqlUpdateDatabase['events']['like'] = "ALTER TABLE `events` ADD `like` INT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['events']['headcommittee'] = "ALTER TABLE `events` ADD `headcommittee` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['events']['organizationlevel'] = "ALTER TABLE `events` ADD `organizationlevel` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL; ";
+$sqlUpdateDatabase['events']['address'] = "ALTER TABLE `events` ADD `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL; ";
 
 // Bang places
 $sqlUpdateDatabase['places']['name'] = "ALTER TABLE `places` ADD `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL; ";

@@ -210,8 +210,11 @@ function checklogin($permission=''){
 
     $modelMember = $controller->loadModel('Members');
      $user = '';
+
+
    if(!empty($session->read('infoUser'))){
         $user = $session->read('infoUser');
+
         if(empty($user->idbuilding)){
             return $controller->redirect('/managerSelectBuilding');
 
@@ -220,31 +223,42 @@ function checklogin($permission=''){
              $user->grant_permission = 1;
 
         }else{
+
+
             $info_member = $modelMember->find()->where(['id'=>$user->id])->first();
             if(!empty($info_member)){
                 $user->permission = $info_member->permission;
             }
+
             if(!empty($info_member->id_building)){
                 $id_building = json_decode($info_member->id_building, true);
-                if (!in_array($user->idbuilding, $id_building, true)) { // Sử dụng phủ định để kiểm tra giá trị không tồn tại
-                        return $controller->redirect('/managerSelectBuilding');
+
+                if (!in_array((int)$user->idbuilding, $id_building, true)) { // Sử dụng phủ định để kiểm tra giá trị không tồn tại
+                            $session->destroy();
+                            setcookie('id_member','',time()+365*24*60*60, "/");
+                            setcookie('id_building','',time()+365*24*60*60, "/");
+                            $user= '';
+
                 }
+
+
             }
 
-            if(!empty($permission)){
-                if(!empty($user->permission) && in_array($permission, json_decode($user->permission, true))){
-                        $user->grant_permission = 1;
+            if(!empty($user)){
+                if(!empty($permission)){
+                    if(!empty($user->permission) && in_array($permission, json_decode($user->permission, true))){
+                            $user->grant_permission = 1;
+                    }else{
+                        $user->grant_permission = 0;
+                    }
                 }else{
-                    $user->grant_permission = 0;
+                    $user->grant_permission = 1;
                 }
-            }else{
-                $user->grant_permission = 1;
             }
         }        
     }else{
        $user ='';  
-    }  
-      
+    } 
     return $user; 
 }
 

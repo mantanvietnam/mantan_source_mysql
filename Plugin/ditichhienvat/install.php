@@ -155,7 +155,7 @@ $sqlUpdateDatabase['historicalsites']['created'] = "ALTER TABLE `historicalsites
 $sqlUpdateDatabase['historicalsites']['status'] = "ALTER TABLE `historicalsites` ADD `status` BOOLEAN NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['historicalsites']['like'] = "ALTER TABLE `historicalsites` ADD `like` INT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['historicalsites']['rating'] = "ALTER TABLE `historicalsites` ADD `rating` INT NULL DEFAULT NULL; ";
-$sqlUpdateDatabase['historicalsites']['idward'] = "ALTER TABLE `historicalsites` ADD `idward` INT NULL DEFAULT NULL; ";
+$sqlUpdateDatabase['historicalsites']['idward'] = "ALTER TABLE `historicalsites` ADD`idward` int(11) DEFAULT NULL; ";
 
 // Bang wards
 $sqlUpdateDatabase['wards']['name'] = "ALTER TABLE `wards` ADD `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci  NULL DEFAULT NULL; ";

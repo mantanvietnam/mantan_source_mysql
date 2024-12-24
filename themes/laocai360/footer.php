@@ -1,4 +1,4 @@
-<?php
+ <?php
 global $urlThemeActive;
 
 $setting = setting();

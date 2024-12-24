@@ -1,6 +1,5 @@
 <?php
-// debug($listDataImage);
-// die;
+
 
 getHeader();
 global $urlThemeActive;
@@ -64,6 +63,23 @@ opacity:1;
     height: 40%;
     width: 100%;
 }
+.locations a{ 
+text-decoration:none !important;
+color: black;
+}
+.new-container a{
+  text-decoration:none !important;
+  color: black;
+}
+.best-new-container a{
+  text-decoration:none !important;
+  color: black;
+}
+.slider-header span {
+  width: auto;
+
+}
+
 
 
 </style>
@@ -114,18 +130,19 @@ opacity:1;
         <?php endif; ?>
           <div class='location-info'>
             <div class= "locations">
+            <a  href="/chi_tiet_di_tich_lich_su/<?php echo @$value->urlSlug ?>.html" >
             <h2><?php echo @$value->name ?></h2>
-            <img src="<?= $urlThemeActive ?>images/location.png" alt="address">
-            <span class='fw-bold'><?php echo @$value->address ?></span>
+            <img src="<?= $urlThemeActive ?>images/location.png" alt="address"> </a>
+            <span class='fw-bold'><?php echo @$value->address ?></span> </a>
 <br></br>
             <span><?php echo @$value->introductory ?></span>
 
             </div>
             <div class='btn-more mb-5 mt-2'>
               <a  href="/chi_tiet_di_tich_lich_su/<?php echo @$value->urlSlug ?>.html" >
-              <span>Xem chi tiết</span> </a>
+              <span>Xem chi tiết</span> 
               <div>
-                <img src="<?= $urlThemeActive ?>images/arr-red.png" alt="">
+                <img src="<?= $urlThemeActive ?>images/arr-red.png" alt=""> </a>
               </div>
             </div>
           </div>
@@ -155,11 +172,12 @@ opacity:1;
         <?php if (!empty($mostViewedPosts)): ?>
             <?php foreach ($mostViewedPosts as $post): ?>
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 new-container">
+        <a href="/<?php echo @$post->slug; ?>.html">
           <div class='new-img'>
-            <a href="/<?php echo @$post->slug; ?>.html">
-            <img src="<?php echo $post['image']; ?>" alt=""></a>
+           
+            <img src="<?php echo $post['image']; ?>" alt="">
           </div>
-          <h3><?php echo $post['title']; ?></h3>
+          <h3><?php echo $post['title']; ?></h3></a>
           <span><?php echo $post['description']; ?></span>
         </div>
         <?php endforeach; ?>
@@ -187,12 +205,13 @@ opacity:1;
         foreach ($listDataEvent as $keyEvent => $valueEvent) {
         ?>
       <div class="best-new-container mt-4">
+      <a style="width : 100%" href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">
         <div  class="best-new-img">
-          <a style="width : 100%" href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">
-          <img id="best-new-img" style="width : 100%" src="<?php echo @$valueEvent->image; ?>" alt="best"></a>
+          
+          <img id="best-new-img" style="width : 100%" src="<?php echo @$valueEvent->image; ?>" alt="best">
         </div>
         <h3 id="event-title" class="mt-3">
-        <?php echo @$valueEvent->name; ?>
+        <?php echo @$valueEvent->name; ?></a>
         </h3>
         <div class="bestnew-info d-flex">
           <div id="event-description" class="bestnew-des">
@@ -205,7 +224,7 @@ opacity:1;
             </div>
             <div class="bn-contact">
               <img src="<?= $urlThemeActive ?>images/location.png" alt="address">
-              <span id="event-address">Ủy ban nhân dân tỉnh Thanh Hóa</span>
+              <span id="event-address"> <?php echo @$valueEvent->address; ?></span>
             </div>
           </div>
         </div>
@@ -229,8 +248,8 @@ opacity:1;
     <span>Khám phá những điểm đến tuyệt vời không thể bỏ lỡ ở Việt Nam</span>
   </div>
   
-  <!-- Swiper lớn -->
-  <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+  <!-- Swiper -->
+<div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
   <div class="swiper-wrapper">
     <?php if (!empty($listDataImage)) { 
       foreach ($listDataImage as $key => $item) { ?>
@@ -251,46 +270,40 @@ opacity:1;
   <div class="swiper-pagination"></div>
 
   <!-- Các nút điều hướng -->
-  <div class="swiper-button-next"></div>
-  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next custom-next"></div>
+  <div class="swiper-button-prev custom-prev"></div>
+</div>
 </div>
 
-  
-  <!-- Swiper nhỏ (thumbnail) -->
-  <!-- <div thumbsSlider="" class="swiper mySwiper mt-4">
-    <div class="swiper-wrapper">
-      <?php if (!empty($listDataImage)) { 
-        foreach ($listDataImage as $key => $item) { ?>
-          <div class="swiper-slide">
-            <a href="<?php echo @$item->image360; ?>">
-              <img src="<?php echo @$item->image360; ?>" alt="Vietnam 360 Thumbnail <?php echo $key + 1; ?>" />
-            </a>
-          </div>
-      <?php } 
-      } else { ?>
-        <div class="swiper-slide">
-          <p>Không có hình ảnh thu nhỏ.</p>
-        </div>
-      <?php } ?>
-    </div>
-  </div> -->
-</div>
+<!-- Swiper -->
 
-
-    <!-- Swiper -->
-
-    <script type="text/javascript">
-
+<script type="text/javascript">
+// Khởi tạo Swiper
 var swiper = new Swiper('.mySwiper2', {
-  slidesPerView: 3, // Hiển thị 3 ảnh mỗi lần
-  spaceBetween: 5,
+  slidesPerView: 3, // Số slide hiển thị cùng lúc
+  spaceBetween: 10, // Khoảng cách giữa các slide
   navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev'
+    nextEl: '.custom-next', // Tùy chỉnh nút "Next"
+    prevEl: '.custom-prev'  // Tùy chỉnh nút "Prev"
   },
   pagination: {
     el: '.swiper-pagination',
-    clickable: true,
+    clickable: true, // Cho phép người dùng nhấp vào để chuyển slide
+  },
+  breakpoints: {
+    // Responsive tùy theo kích thước màn hình
+    640: {
+      slidesPerView: 1,
+      spaceBetween: 5,
+    },
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 10,
+    },
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 15,
+    }
   },
 });
 

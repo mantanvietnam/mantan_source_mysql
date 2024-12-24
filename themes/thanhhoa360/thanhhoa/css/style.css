@@ -620,7 +620,7 @@ body {
 /* footer */
 .footer-container {
   width: 100%;
-  background-color: #0C0C0C;
+  background-color: #644242 !important;
 }
 
 .footer-frist-container {
@@ -749,10 +749,22 @@ body {
 .bestnew-info{
   flex-direction: column !important;
 }
-.bestnewss-info{
-  display: flex;
+.bestnewss-info {
+  display: none !important;
   flex-direction: column !important;
 }
 
+.slider-header span {
+  width: auto;
 
+}
+.ft-row{
+  flex-direction: column !important;
+}
+.ft-row img{
+  min-width: 100px;
+}
+.al-cen{
+  align-items: center !important;
+}
 }

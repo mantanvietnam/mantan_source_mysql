@@ -262,6 +262,17 @@ function destination_ward(){
         );
     }
 
+    function modelHistoricalsite(){
+        global $controller; 
+        global $modelCategories;
+        global $modelOptions;
+        $modelHistoricalsite = $controller->loadModel('Historicalsites');
+
+        $listHistorie = $modelHistoricalsite->find()->page(1)->where()->all()->toList();
+        return $listHistorie;
+
+    }
+
  function getFindnear(){
 
       global $urlHomes;
