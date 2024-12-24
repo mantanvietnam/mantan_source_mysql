@@ -972,6 +972,7 @@ function managerSelectBuilding() {
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
 		$mess= '';
+		$infoUser = $modelMember->find()->where(['id'=>$infoUser->id])->first();
 
 		 $conditions = array();
         if($infoUser->type=='staff'){
@@ -1071,6 +1072,8 @@ function dashboard($input)
         $startOfDay = strtotime("today 00:00:00");
         // Thời gian cuối ngày
         $endOfDay = strtotime("tomorrow 00:00:00") - 1;
+
+       
                     
 
         $conditions = array('building_id'=>(int)$user->idbuilding,  'created_at >='=>$startOfDay,'created_at <='=>$endOfDay);
