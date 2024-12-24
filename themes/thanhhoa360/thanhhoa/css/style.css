@@ -749,6 +749,10 @@ body {
 .bestnew-info{
   flex-direction: column !important;
 }
+.bestnewss-info {
+  display: none !important;
+  flex-direction: column !important;
+}
 
 .slider-header span {
   width: auto;
@@ -761,6 +765,6 @@ body {
   min-width: 100px;
 }
 .al-cen{
-  align-items: center;
+  align-items: center !important;
 }
 }
