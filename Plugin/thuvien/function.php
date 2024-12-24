@@ -234,33 +234,31 @@ function checklogin($permission=''){
                 $id_building = json_decode($info_member->id_building, true);
 
                 if (!in_array((int)$user->idbuilding, $id_building, true)) { // Sử dụng phủ định để kiểm tra giá trị không tồn tại
-                 
-                        return $controller->redirect('/selectBuilding');
+                            $session->destroy();
+                            setcookie('id_member','',time()+365*24*60*60, "/");
+                            setcookie('id_building','',time()+365*24*60*60, "/");
+                            $user= '';
 
-                         
                 }
 
 
             }
 
-
-
-            if(!empty($permission)){
-                if(!empty($user->permission) && in_array($permission, json_decode($user->permission, true))){
-                        $user->grant_permission = 1;
+            if(!empty($user)){
+                if(!empty($permission)){
+                    if(!empty($user->permission) && in_array($permission, json_decode($user->permission, true))){
+                            $user->grant_permission = 1;
+                    }else{
+                        $user->grant_permission = 0;
+                    }
                 }else{
-                    $user->grant_permission = 0;
+                    $user->grant_permission = 1;
                 }
-            }else{
-                $user->grant_permission = 1;
             }
         }        
     }else{
        $user ='';  
-    }
-
-
-      
+    } 
     return $user; 
 }
 
