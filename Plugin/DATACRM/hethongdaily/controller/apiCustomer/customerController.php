@@ -510,6 +510,31 @@ function editInfoCustomerApi($input){
                     $user->avatar = $avatars['linkOnline'];
                 }
 
+                if(isset($_FILES['image_face']) && empty($_FILES['image_face']["error"])){
+                    $image_face = uploadImage($user->id, 'image_face', 'image_face_customer'.$user->id);
+
+                }
+                if(!empty($image_face['linkOnline'])){
+                    $user->image_face = $image_face['linkOnline'];
+                }
+
+                if(isset($_FILES['image_card_before']) && empty($_FILES['image_card_before']["error"])){
+                    $image_card_before = uploadImage($user->id, 'image_card_before', 'image_card_before'.$user->id);
+                }
+                if(!empty($image_card_before['linkOnline'])){
+                    $user->image_card_before = $image_card_before['linkOnline'];
+                }
+
+                if(isset($_FILES['image_card_after']) && empty($_FILES['image_card_after']["error"])){
+                    $image_card_after = uploadImage($user->id, 'image_card_after', 'image_card_after'.$user->id);
+                }
+                if(!empty($image_card_after['linkOnline'])){
+                    $user->image_card_after = $image_card_after['linkOnline'];
+                }
+                if(!empty($dataSend['link_news'])){
+                    $user->link_news = $dataSend['link_news'];
+                }
+
                 if(!empty($dataSend['birthday'])){
                     $birthday_date = 0;
                     $birthday_month = 0;
