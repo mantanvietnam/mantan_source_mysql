@@ -6,7 +6,7 @@ $setting = setting();
 
 <div class='mt-5 footer-container'>
       <div class='container-fluid pt-5 pb-5'>
-        <div class='row'>
+        <div class='row mx-5'>
           <div class="col-lg-6 col-12 footer-frist-container d-flex flex-column ">
             <div class='d-flex align-items-center gap-3 ft-row'>
               <div><img src="<?php echo $setting['image_logo'] ?>" alt="logo"></div>
@@ -45,7 +45,7 @@ $setting = setting();
                   <?php }
                   } ?>
             </div>
-            <div class="col-lg-3 col-6 d-flex flex-column text-white gap-3 footer-mid">
+            <div class="col-lg-3 col-6 d-flex flex-column text-white gap-3 footer-mid" style="width:40%">
               <h2>Truy cập hiện tại</h2>
               <span> <?php 
                               if(function_exists('showStatic')){

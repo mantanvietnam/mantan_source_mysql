@@ -803,6 +803,15 @@ table {
         display: block;
     }
 
+    .hero-overlay {
+        width: 100%;
+        left: 50%;
+    }
+
+    .box-event-home .slide-time-event {
+        right: 2% !important;
+    }
+
  }
 
 @media (max-width: 769px) { 
