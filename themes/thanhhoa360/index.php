@@ -1,6 +1,5 @@
 <?php
-// debug($listDataImage);
-// die;
+
 
 getHeader();
 global $urlThemeActive;
@@ -205,7 +204,7 @@ opacity:1;
             </div>
             <div class="bn-contact">
               <img src="<?= $urlThemeActive ?>images/location.png" alt="address">
-              <span id="event-address">Ủy ban nhân dân tỉnh Thanh Hóa</span>
+              <span id="event-address"> <?php echo @$valueEvent->address; ?></span>
             </div>
           </div>
         </div>

@@ -1,7 +1,32 @@
 <?php 
+
 $listdestination = destination_ward();
-// debug($listdestination);
-// die;
+$modelHistorical = modelHistoricalsite();
+
+
+$locations = [];
+$matchingLocations = [];
+
+foreach ($listdestination as $destination) {
+    foreach ($modelHistorical as $historical) {
+        if ($destination['id'] == $historical['idward']) {
+            $matchingLocations[] = [
+                'name' => $destination['name'],
+                'lat' => $historical['latitude'],
+                'lng' => $historical['longitude'],
+                'icon' => $destination['image'],
+                'type' => $destination['urlSlug'],
+                'content' => '<img src="' . $historical['image'] . '" style="width:200px;height:156px;" /><br/><a href="' . $historical['urlSlug'] . '">' . $historical['name'] . '</a>' .
+                             '<br/>Điện thoại: ' . @$historical['phone'] .
+                             '<br/>Địa chỉ: ' . $historical['address']
+            ];
+           
+        }
+    }
+}
+
+$locations = $matchingLocations;
+
 ?>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
@@ -31,12 +56,11 @@ $listdestination = destination_ward();
     <div class='map-container' id='map-page'>
         <div class='container map-container'>
             <h2>Bản đồ số Thanh Hóa 360</h2>
-            <span>Trải nghiệm tham quan ảo thông minh và tiện ích qua Bản đồ số</span>
+            <span>Trải nghiệm tham quan ảo thông minh và tiện ích qua Bản đồ số di tích</span>
             <div id="map">
             <div class="filter-container">
                 <h2>Danh sách điểm đến</h2>
                 <div class="filter-options">
-                    <!-- Duyệt qua danh sách điểm đến từ PHP -->
                     <?php foreach ($listdestination as $keydes => $des) { ?>
                         <label>
                             <input type="checkbox" id="check-all<?php echo $keydes ?>" value="<?php echo $des['urlSlug'] ?>" checked />
@@ -50,85 +74,51 @@ $listdestination = destination_ward();
     </div>
 
     <script>
-// Tạo bản đồ Leaflet
 const map = L.map('map').setView([19.806692, 105.776869], 10);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
 }).addTo(map);
 
-// Dữ liệu vị trí từ PHP (biến "locations")
-var locations = [
-    <?php
-    $findNear = getFindnear();
+var locations = <?php echo json_encode($locations); ?>;
 
-    if (!empty($findNear)) {
-        $listShowMap = array();
-
-        foreach ($findNear as $data) {
-            if (!empty($data['lat']) && !empty($data['long'])) {
-                $content = '<img src="' . $data['image'] . '" style="width:200px;height:156px;" /><br/><a href="' . $data['urlSlug'] . '">' . $data['name'] . '</a>';
-                $content .= '<br/>Điện thoại: ' . @$data['phone'];
-                $content .= '<br/>Địa chỉ: ' . $data['address'];
-
-                $listShowMap[] = json_encode([
-                    'content' => $content,
-                    'lat' => $data['lat'],
-                    'lng' => $data['long'],
-                    'icon' => $data['icon'],
-                    'type' => $data['type'],
-                    'idward' => $data['idward'],
-                ]);
-            }
-        }
-
-        echo implode(',', $listShowMap);
-    }
-    ?>
-];
-
-// Lớp chứa các marker
 const markersLayer = L.layerGroup().addTo(map);
 
-// Hàm thêm marker vào bản đồ
 function addMarkers(filteredLocations) {
-    // Xóa các marker cũ
     markersLayer.clearLayers();
 
-    // Thêm các marker mới
     filteredLocations.forEach((location) => {
         const marker = L.marker([location.lat, location.lng], {
             icon: L.icon({
                 iconUrl: location.icon,
-                iconSize: [30, 30], // Kích thước icon
+                iconSize: [30, 30],
             }),
-        }).bindPopup(location.content); // Popup hiển thị thông tin
+        }).bindPopup(location.content);
 
-        markersLayer.addLayer(marker); // Thêm marker vào layer
+        markersLayer.addLayer(marker);
     });
 }
 
-// Hàm lọc vị trí dựa trên checkbox được chọn
 function filterLocations() {
-    // Lấy danh sách các giá trị checkbox được chọn
     const checkedValues = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
         .map((checkbox) => checkbox.value);
 
-    // Lọc các vị trí dựa trên checkbox được chọn
+    if (checkedValues.length === 0) {
+        markersLayer.clearLayers();
+        return;
+    }
+
     const filteredLocations = locations.filter((location) =>
-        checkedValues.includes(location.idward)
+        checkedValues.includes(location.type.toString())
     );
 
-    // Thêm các marker đã lọc vào bản đồ
     addMarkers(filteredLocations);
 }
 
-// Gắn sự kiện thay đổi cho các checkbox
 document.querySelectorAll('.filter-options input[type="checkbox"]').forEach((checkbox) => {
-    checkbox.addEventListener('change', filterLocations); // Gọi hàm filterLocations khi checkbox thay đổi
+    checkbox.addEventListener('change', filterLocations);
 });
 
-// Thêm tất cả các vị trí vào bản đồ khi tải trang
 addMarkers(locations);
 
 </script>
