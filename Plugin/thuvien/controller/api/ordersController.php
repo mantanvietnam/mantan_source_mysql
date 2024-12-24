@@ -81,9 +81,8 @@ function updateOrderStatus() {
         if ($order) {
             $order->status = $newStatus;
             $order->updated_at = time();
-
             if ($modelOrders->save($order)) {
-                if ($newStatus == 2) {
+                if ($newStatus==2) {
                     $orderDetails = $modelOrderDetails->find()->where(['order_id' => $orderId])->all();
 
                     foreach ($orderDetails as $detail) {
