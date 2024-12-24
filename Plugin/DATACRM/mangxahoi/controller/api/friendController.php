@@ -721,8 +721,9 @@ function sendGreenCheckRequestAPI($input){
                 if(!empty($user->image_card_after) && !empty($user->image_card_before) && !empty($user->image_face) && !empty($user->link_news) && $total_friend>=1000 && $point>=2000){
                     $data = $modelCustomer->find()->where(['ìd'=>$user->id])->first();
                     $data->blue_check = 'request';
+                    $data->updated_at = time();
                     $modelCustomer->save($data);
-                    return array('code'=>3, 'messages'=>'Bạn gửi yêu cầu tích xanh thành công','data'=>$data);
+                    return array('code'=>3, 'messages'=>'Bạn gửi yêu cầu tích xanh thành công','infoUser'=>$data);
                 }
 
                 return array('code'=>4, 'messages'=>'Bạn chưa đủ điều khện lên tích xanh');
