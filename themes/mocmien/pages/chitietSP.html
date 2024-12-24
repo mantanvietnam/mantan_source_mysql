@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mocmien</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="../styles/globle.css" />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <link rel="stylesheet" href="../styles/danhmuc.css" />
+    <link rel="stylesheet" href="../styles/chitietSP.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="starability-minified/starability-all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+  </head>
+  <body>
+    <!-- contact -->
+    <div class="content-center text-white bg-green contact">
+      <span class="">Hotline Mộc Miên: 0123 456 789</span>
+    </div>
+    <!-- responsive search -->
+    <div class="container pt-4 d-sm-none d-flex input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Tìm kiếm..."
+        aria-label="Search input"
+        aria-describedby="button-search"
+      />
+      <button
+        class="btn btn-primary bg-green search-btn"
+        type="button"
+        id="button-search"
+      >
+        <i class="fas fa-search"></i>
+        <!-- Icon kính lúp -->
+      </button>
+    </div>
+
+    <!-- header -->
+    <div class="mx-4 md:mx-6 lg:mx-16 xl:mx-28 header-container">
+      <!-- logo -->
+      <div>
+        <img src="../assets/images/logo.png" alt="logo" />
+      </div>
+      <!-- Thanh tìm kiếm với icon kính lúp -->
+      <div class="d-sm-flex d-none input-group header-search-container">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Tìm kiếm..."
+          aria-label="Search input"
+          aria-describedby="button-search"
+        />
+        <button
+          class="btn btn-primary bg-green search-btn"
+          type="button"
+          id="button-search"
+        >
+          <i class="fas fa-search"></i>
+          <!-- Icon kính lúp -->
+        </button>
+      </div>
+      <!-- điều hướng -->
+      <div class="d-lg-flex d-none header-nav">
+        <a class="nav-item">
+          <img src="../assets/images/system-icon.png" alt="" />
+          <span>Hệ thống cửa hàng</span>
+        </a>
+        <a class="nav-item">
+          <img src="../assets/images/card-icon.png" alt="" />
+          <span>Giỏ hàng</span>
+        </a>
+        <div class="dropdown nav-item">
+          <button
+            class="btn btn-secondary drop-menu-2"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img src="../assets/images/user-icon.png" alt="" />
+            <span>Tài khoản</span>
+            <img src="../assets/images/a-down.png" alt="" />
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="#">
+                <span>Thông tin tài khoản</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                <span>Đăng xuất</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- dropdowwn -->
+      <div class="dropdown d-lg-none d-block">
+        <button
+          class="btn btn-secondary drop-menu"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img src="../assets/images/nav-menu.png" alt="" />
+          <span>Menu</span>
+        </button>
+        <ul class="dropdown-menu pr-[20px]">
+          <li>
+            <a class="dropdown-item nav-item" href="#">
+              <img src="../assets/images/system-icon.png" alt="" />
+              <span>Hệ thống cửa hàng</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item nav-item" href="#">
+              <img src="../assets/images/card-icon.png" alt="" />
+              <span>Giỏ hàng</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item nav-item" href="#">
+              <img src="../assets/images/user-icon.png" alt="" />
+              <span>Tài khoản</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- điều hướng -->
+    <div class="content-center bg-green navigation">
+      <div class="container nav-container">
+        <a class="sp-container-2">
+          <img src="../assets/images/nav-menu.png" alt="" />
+          <span>SẢN PHẨM</span>
+        </a>
+        <a>
+          <span>FLASHSALE</span>
+        </a>
+        <a>
+          <span>VỀ MỘC NHIÊN</span>
+        </a>
+        <a>
+          <span>CHUYÊN GIA TƯ VẤN</span>
+        </a>
+        <a>
+          <span>LÀM ĐẸP</span>
+        </a>
+        <a>
+          <span>TIN TỨC</span>
+        </a>
+        <a>
+          <span>CHĂM SÓC DA</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- địa chỉ trang -->
+    <div class="bg-gray-100">
+      <div
+        class="gap-3 py-4 mx-4 md:mx-6 lg:mx-16 xl:mx-28 d-flex align-items-center"
+      >
+        <div>
+          <img src="../assets/images/Stroke.png" alt="" />
+        </div>
+        <span>Trang chủ</span>
+        <span>/</span>
+        <span>Danh mục sản phẩm</span>
+        <span>/</span>
+        <span class="current-page">Sản phẩm</span>
+      </div>
+    </div>
+
+    <!-- thông tin sản phẩm -->
+    <div
+      class="flex flex-col mx-4 mt-4 mb-10 md:mx-6 lg:mx-16 lg:flex-row xl:mx-28"
+    >
+      <!-- Phần 1: 3 ảnh dọc -->
+      <div class="hidden xl:flex w-[15%]">
+        <div class="gap-2 d-grid h-100">
+          <div class="thumbnail">
+            <img
+              alt="Thumbnail 1"
+              class="img-fluid thumbnail-image rounded-xl"
+              src="../assets/images/trisacto.png"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              alt="Thumbnail 2"
+              class="img-fluid thumbnail-image rounded-xl"
+              src="../assets/images/trisacto.png"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              alt="Thumbnail 3"
+              class="img-fluid thumbnail-image rounded-xl"
+              src="../assets/images/trisacto.png"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- Phần 2: 1 ảnh lớn -->
+      <div class="w-full lg:w-[64%] xl:w-[49%]">
+        <div class="xl:ml-2">
+          <div class="thumbnail h-100">
+            <img
+              alt="Main Image"
+              class="img-fluid rounded-xl"
+              src="../assets/images/trisacto.png"
+            />
+          </div>
+        </div>
+        <div class="flex mt-4 space-x-4 xl:hidden">
+          <div class="thumbnail">
+            <img
+              alt="Thumbnail 1"
+              class="img-fluid thumbnail-image rounded-xl"
+              src="../assets/images/trisacto.png"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              alt="Thumbnail 2"
+              class="img-fluid thumbnail-image rounded-xl"
+              src="../assets/images/trisacto.png"
+            />
+          </div>
+          <div class="thumbnail">
+            <img
+              alt="Thumbnail 3"
+              class="img-fluid thumbnail-image rounded-xl"
+              src="../assets/images/trisacto.png"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Phần 3: Thông tin sản phẩm -->
+      <div class="mt-4 lg:ml-6 lg:mt-0">
+        <h5 class="font-bold text-success">Chăm Sóc Da</h5>
+        <h2 class="my-2 text-xl font-bold">
+          Bột mướp đắng/ Khổ qua MỘC MIÊN Trị mụn, Giảm thâm mờ sẹo, Dịu làn da,
+          Ngăn ngừa nấm, tàn nhang
+        </h2>
+        <div class="d-flex align-items-center">
+          <div class="me-2">
+            <i class="fas fa-star text-warning"> </i>
+            <i class="fas fa-star text-warning"> </i>
+            <i class="fas fa-star text-warning"> </i>
+            <i class="fas fa-star text-warning"> </i>
+            <i class="fas fa-star text-warning"> </i>
+          </div>
+          <span>| Xuất xứ: Mộc Miên - Việt Nam | Đã bán: 3700 lượt bán </span>
+        </div>
+        <p class="mt-2">Tình trạng: Còn hàng</p>
+        <p class="my-2 price d-flex justify-content-between">
+          <span>600.000 VND</span>
+          <span class="old-price"> 800.000 VND </span>
+        </p>
+
+        <div
+          class="flex flex-col my-4 text-white countdown sm:flex-row justify-content-between align-items-center"
+        >
+          <span class="">BLACK FRIDAY SIÊU SALE</span>
+          <div class="mt-2 sm:mt-0">
+            <span class="count-number">01</span>
+            <span class="count-number">23</span>
+            <span class="count-number">11</span>
+            <span class="count-number">02</span>
+          </div>
+        </div>
+        <div
+          class="mt-4 w-100 d-flex align-items-center justify-content-between"
+        >
+          <div class="quantity-control">
+            <button type="button" class="quantity-control-btn" id="decrease">
+              -
+            </button>
+            <span id="quantity">1</span>
+            <button type="button" class="quantity-control-btn" id="increase">
+              +
+            </button>
+          </div>
+          <button class="btn btn-buy-now w-50">MUA NGAY</button>
+          <div class="hidden sm:flex">
+            <div class="icon-button">
+              <img src="/assets/images/iconShopWhite.png" alt="" width="20" />
+            </div>
+            <div class="icon-button">
+              <img src="/assets/images/iconHeartWhite.png" alt="" width="20" />
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-center mt-4 sm:hidden">
+          <div class="icon-button">
+            <img src="/assets/images/iconShopWhite.png" alt="" width="20" />
+          </div>
+          <div class="icon-button">
+            <img src="/assets/images/iconHeartWhite.png" alt="" width="20" />
+          </div>
+        </div>
+        <div class="mt-3 row g-2">
+          <div class="col-sm-6 d-flex align-items-center">
+            <i class="fas fa-truck text-success me-2"></i>
+            <span><strong>MIỄN PHÍ GIAO HÀNG</strong> 24h</span>
+          </div>
+          <div class="col-sm-6 d-flex align-items-center">
+            <i class="fas fa-check-circle text-success me-2"></i>
+            <span>Cam kết <strong>HÀNG CHÍNH HÃNG</strong></span>
+          </div>
+          <div class="col-sm-6 d-flex align-items-center">
+            <i class="fas fa-undo text-success me-2"></i>
+            <span>Đổi/trả hàng trong <strong>7 NGÀY</strong></span>
+          </div>
+          <div class="col-sm-6 d-flex align-items-center">
+            <i class="fas fa-shield-alt text-success me-2"></i>
+            <span>Nguồn gốc xuất xứ <strong>ĐẢM BẢO UY TÍN</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- sản phẩm liên quan -->
+    <div class="flex items-center justify-center py-10 bg-gray-100">
+      <div
+        class="mx-4 md:mx-6 lg:mx-0 w-full lg:w-[80%] p-4 bg-white border-1 border-[#F2C538] rounded-lg"
+      >
+        <h2 class="mb-4 text-lg font-semibold">Sản phẩm liên quan</h2>
+        <div
+          class="flex flex-col items-center justify-between mb-4 sm:flex-row"
+        >
+          <div class="flex items-center">
+            <img
+              alt="Image of KEM mướp đắng/ Khổ qua MỘC MIÊN Trị mụn"
+              class="w-12 h-12 mr-4 rounded"
+              height="50"
+              src="https://storage.googleapis.com/a1aa/image/uROJna9lcx77Jle9s1gsP52pt4gi9yBbbB5HiuVOUbXCxveTA.jpg"
+              width="50"
+            />
+            <p class="text-sm lg:w-[70%] xl:w-full description">
+              KEM mướp đắng/ Khổ qua MỘC MIÊN Trị mụn, Giảm thâm mờ sẹo, Dịu làn
+              da, Ngăn ngừa nám, tàn nhang
+            </p>
+          </div>
+          <div class="flex items-center mt-2 sm:mt-0">
+            <div
+              class="flex items-center justify-center w-10 h-10 p-2 border border-gray-500 rounded-full"
+            >
+              <img
+                src="/assets/images/iconShopWhite.png"
+                alt=""
+                class="w-6 h-6"
+              />
+            </div>
+            <button
+              class="px-4 py-2 ml-4 text-sm font-semibold text-white bg-green-600 rounded-full whitespace-nowrap"
+            >
+              MUA NGAY
+            </button>
+          </div>
+        </div>
+        <div class="flex flex-col items-center justify-between sm:flex-row">
+          <div class="flex items-center">
+            <img
+              alt="Image of Sữa rửa mặt ngăn ngừa mụn"
+              class="w-12 h-12 mr-4 rounded"
+              height="50"
+              src="https://storage.googleapis.com/a1aa/image/Asx1HWWetpXfNEn2usAe3eusjLpS6pkjuqofNwrp4zWzQ8rfE.jpg"
+              width="50"
+            />
+            <p class="text-sm description">Sữa rửa mặt ngăn ngừa mụn</p>
+          </div>
+          <div class="flex items-center mt-2 sm:mt-0">
+            <div
+              class="flex items-center justify-center w-10 h-10 p-2 border border-gray-500 rounded-full"
+            >
+              <img
+                src="/assets/images/iconShopWhite.png"
+                alt=""
+                class="w-6 h-6"
+              />
+            </div>
+            <button
+              class="px-4 py-2 ml-4 text-sm font-semibold text-white bg-green-600 rounded-full whitespace-nowrap"
+            >
+              MUA NGAY
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Về sản phẩm -->
+    <div class="text-gray-800 bg-white">
+      <div class="py-4 mx-4 md:mx-6 lg:mx-16 xl:mx-28">
+        <h1 class="text-2xl font-bold">
+          Về <span class="text-green-600">sản phẩm</span>
+        </h1>
+        <div
+          class="flex mt-4 space-x-4 overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap"
+        >
+          <button
+            class="px-4 py-2 text-white bg-blue-900 rounded-full active"
+            id="btn-info"
+          >
+            Thông tin sản phẩm
+          </button>
+          <button class="px-4 py-2 text-gray-400" id="btn-specs">
+            Thông số sản phẩm
+          </button>
+          <button class="px-4 py-2 text-gray-400" id="btn-reviews">
+            Đánh giá & Nhận xét
+          </button>
+        </div>
+        <div class="mt-4 text-gray-400" id="content">
+          <!-- Content will be dynamically injected here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- sản phẩm bán chạy -->
+    <div class="mt-5 bestsell-container">
+      <div class="mx-4 md:mx-6 lg:mx-16 xl:mx-28 list-category-header">
+        <span>SẢN PHẨM <span class="color-green">MỚi</span></span>
+        <a class="more-btn">
+          <div class="">Xem thêm</div>
+          <img src="../assets/images/arr.png" alt="" />
+        </a>
+      </div>
+      <div class="row bestsell-list-container">
+        <!-- product cart -->
+        <div class="col bestsell-product-container">
+          <div class="bestsell-product-image">
+            <img src="../assets/images/product1.png" alt="" />
+          </div>
+          <div class="gap-2 d-flex">
+            <div class="tag-container combo-tag">
+              <span>COMBO</span>
+            </div>
+            <div class="tag-container new-tag">
+              <span>NEW</span>
+            </div>
+          </div>
+          <div class="bestsell-product-title">
+            <span
+              >COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa
+              rửa mặt mướp đắng</span
+            >
+          </div>
+          <div class="bestsell-product-price-container">
+            <div class="bestsell-product-current-price">329,000đ</div>
+            <div class="bestsell-product-old-price">579,000đ</div>
+          </div>
+          <div class="bestsell-product-selling">
+            <span>3,7k đã bán</span>
+            <div>
+              <img src="../assets/images/tym.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <!-- product cart -->
+        <div class="col bestsell-product-container">
+          <div class="bestsell-product-image">
+            <img src="../assets/images/product1.png" alt="" />
+          </div>
+          <div class="gap-2 d-flex">
+            <div class="tag-container combo-tag">
+              <span>COMBO</span>
+            </div>
+            <div class="tag-container new-tag">
+              <span>NEW</span>
+            </div>
+          </div>
+          <div class="bestsell-product-title">
+            <span
+              >COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa
+              rửa mặt mướp đắng</span
+            >
+          </div>
+          <div class="bestsell-product-price-container">
+            <div class="bestsell-product-current-price">329,000đ</div>
+            <div class="bestsell-product-old-price">579,000đ</div>
+          </div>
+          <div class="bestsell-product-selling">
+            <span>3,7k đã bán</span>
+            <div>
+              <img src="../assets/images/tym.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <!-- product cart -->
+        <div class="col bestsell-product-container">
+          <div class="bestsell-product-image">
+            <img src="../assets/images/product1.png" alt="" />
+          </div>
+          <div class="gap-2 d-flex">
+            <div class="tag-container combo-tag">
+              <span>COMBO</span>
+            </div>
+            <div class="tag-container new-tag">
+              <span>NEW</span>
+            </div>
+          </div>
+          <div class="bestsell-product-title">
+            <span
+              >COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa
+              rửa mặt mướp đắng</span
+            >
+          </div>
+          <div class="bestsell-product-price-container">
+            <div class="bestsell-product-current-price">329,000đ</div>
+            <div class="bestsell-product-old-price">579,000đ</div>
+          </div>
+          <div class="bestsell-product-selling">
+            <span>3,7k đã bán</span>
+            <div>
+              <img src="../assets/images/tym.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <!-- product cart -->
+        <div class="col bestsell-product-container">
+          <div class="bestsell-product-image">
+            <img src="../assets/images/product1.png" alt="" />
+          </div>
+          <div class="gap-2 d-flex">
+            <div class="tag-container combo-tag">
+              <span>COMBO</span>
+            </div>
+            <div class="tag-container new-tag">
+              <span>NEW</span>
+            </div>
+          </div>
+          <div class="bestsell-product-title">
+            <span
+              >COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa
+              rửa mặt mướp đắng</span
+            >
+          </div>
+          <div class="bestsell-product-price-container">
+            <div class="bestsell-product-current-price">329,000đ</div>
+            <div class="bestsell-product-old-price">579,000đ</div>
+          </div>
+          <div class="bestsell-product-selling">
+            <span>3,7k đã bán</span>
+            <div>
+              <img src="../assets/images/tym.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <!-- product cart -->
+        <div class="col bestsell-product-container">
+          <div class="bestsell-product-image">
+            <img src="../assets/images/product1.png" alt="" />
+          </div>
+          <div class="gap-2 d-flex">
+            <div class="tag-container combo-tag">
+              <span>COMBO</span>
+            </div>
+            <div class="tag-container new-tag">
+              <span>NEW</span>
+            </div>
+          </div>
+          <div class="bestsell-product-title">
+            <span
+              >COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa
+              rửa mặt mướp đắng</span
+            >
+          </div>
+          <div class="bestsell-product-price-container">
+            <div class="bestsell-product-current-price">329,000đ</div>
+            <div class="bestsell-product-old-price">579,000đ</div>
+          </div>
+          <div class="bestsell-product-selling">
+            <span>3,7k đã bán</span>
+            <div>
+              <img src="../assets/images/tym.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="mt-5 footer-container">
+      <div class="px-4 pt-5 pb-5 mx-4 md:mx-6 lg:mx-16 xl:mx-28">
+        <div class="row">
+          <div
+            class="col-lg-3 col-12 footer-frist-container d-flex flex-column"
+          >
+            <div class="gap-3 d-flex align-items-center">
+              <div><img src="../assets/images/logo.png" alt="logo" /></div>
+            </div>
+            <div class="mt-4 mb-3 bestnew-info">
+              <div class="gap-3 bn-contacts">
+                <div class="bn-contact">
+                  <span>123 Main Street, Hometown, USA</span>
+                </div>
+                <div class="bn-contact">
+                  <span>minhtuanvinhomes@gmail.com</span>
+                </div>
+                <div class="bn-contact">
+                  <span>084.936.8668</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="gap-3 text-white col-lg-3 col-6 d-flex flex-column footer-mid"
+          >
+            <h2>VỀ MỘC MIÊN</h2>
+            <span>Câu truyện thương hiệu</span>
+            <span>Về chúng tôi</span>
+            <span>Liên hệ</span>
+          </div>
+          <div
+            class="gap-3 text-white col-lg-3 col-6 d-flex flex-column footer-mid"
+          >
+            <h2>CHÍNH SÁCH</h2>
+            <span>Chính sách và quy định chung</span>
+            <span>Chính sách và giao nhận thanh toán</span>
+            <span>Chính sách đổi trả</span>
+            <span>Điều khoản sử dụng</span>
+          </div>
+          <div
+            class="gap-3 text-white col-lg-3 col-6 d-flex flex-column footer-mid"
+          >
+            <h2>TẠI MỘC MIÊN</h2>
+            <span>Quyền lợi thành viên</span>
+            <span>Thông tin thành viên</span>
+            <span>Theo dõi đơn hàng</span>
+            <span>Hướng dẫn mua hàng Online</span>
+            <div class="gap-2 d-flex">
+              <a href="" class="social-icon"
+                ><img src="../assets/images/insta.png" alt="insta"
+              /></a>
+              <a href="" class="social-icon"
+                ><img src="../assets/images/fb.png" alt="fb"
+              /></a>
+              <a href="" class="social-icon"
+                ><img src="../assets/images/linkedin.png" alt="linkedin"
+              /></a>
+              <a href="" class="social-icon"
+                ><img src="../assets/images/yt.png" alt="youtube"
+              /></a>
+            </div>
+          </div>
+        </div>
+        <h2 class="footer-slogant color-green">MỘC MIÊN - ĐẸP THUẦN NHIÊN!</h2>
+      </div>
+    </div>
+  </body>
+
+  <script src="/scripts/index.js" type="module"></script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"
+  ></script>
+</html>

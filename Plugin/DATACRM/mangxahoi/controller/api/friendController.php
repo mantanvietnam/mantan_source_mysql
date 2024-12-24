@@ -691,5 +691,52 @@ function cancelBlockFriendApi($input){
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 }
 
+function sendGreenCheckRequestAPI($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+    $modelMember = $controller->loadModel('Members');
+    $modelPointCustomer = $controller->loadModel('PointCustomers');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
+            if (!empty($user)) {
+                $conditions = ['status'=>"agree"];
+
+                $conditions['OR'] = [ 
+                    ['id_customer_request'=>$user->id],
+                    ['id_customer_confirm'=>$user->id],
+                ];
+                $total_friend = $modelMakeFriend->find()->where($conditions)->count();
+                $member = $modelMember->find()->where(['id_father'=>0])->first();
+                $point = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$user->id])->first()->point;
+                
+                if(!empty($user->image_card_after) && !empty($user->image_card_before) && !empty($user->image_face) && !empty($user->link_news) && $total_friend>=1000 && $point>=2000){
+                    $data = $modelCustomer->find()->where(['ìd'=>$user->id])->first();
+                    $data->blue_check = 'request';
+                    $modelCustomer->save($data);
+                    return array('code'=>3, 'messages'=>'Bạn gửi yêu cầu tích xanh thành công','data'=>$data);
+                }
+
+                return array('code'=>4, 'messages'=>'Bạn chưa đủ điều khện lên tích xanh');
+            }
+
+            return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+    
+}
+
 ?>
 

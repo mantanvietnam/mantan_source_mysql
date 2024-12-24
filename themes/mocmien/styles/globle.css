@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+body {
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  /* min-width: 100vw; */
+  overflow-x: hidden;
+}
+
+.bg-green {
+  background-color: #25982b;
+}
+
+.color-green {
+  color: #25982b;
+}
+
+.content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
