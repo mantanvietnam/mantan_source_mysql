@@ -21,7 +21,7 @@ $setting = setting();
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 ds-no">
               <div class="footer-info d-flex">
                 <div>
                   <h3>Về chúng tôi</h3>
@@ -36,7 +36,7 @@ $setting = setting();
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 ds-no">
               <div class="footer-info d-flex">
                 <div>
                   <h3>Truy cập hiện tại</h3>

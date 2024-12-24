@@ -805,13 +805,27 @@ table {
 
     .hero-overlay {
         width: 100%;
-        left: 50%;
+        left: 50% !important;
     }
 
     .box-event-home .slide-time-event {
         right: 2% !important;
     }
-
+    .news .news-text{
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .destinations {
+        margin: 0 !important;
+    }
+    .card-news {
+        width: 23rem !important;
+    }
+    .footer-info{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
  }
 
 @media (max-width: 769px) { 
