@@ -823,7 +823,7 @@
       <div class='container mt-5 new-section-container'>
         <div class='list-category-header'>
           <span><span class='color-green'>TIN TỨC</span> TỪ MỘC MIÊN</span>
-          <a class='more-btn'>
+          <a class='more-btn' href="/posts">
             <div class=''>Xem thêm</div>
             <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="">
           </a>
@@ -849,39 +849,22 @@
         </div>
         <!-- góc review -->
         <div class='gap-4 mt-5 news-container row gap-md-0' data-category="review">
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
+          <?php 
+                if(!empty($listDatatop)){
+                   foreach ($listDatatop as $key => $value) {
+                      $link = '/'.$value->slug.'.html';
+
+                      echo '  <div class="col-lg-4 col-12 col-md-6 news-items">
+                                  <div class="news-items-img">
+                                      <img src="'.$value->image.'" alt="">
+                                  </div>
+                                  <h3>'.$value->title.'</h3>
+                                  <span>'.$value->description.'</span>
+                              </div>
+                          ';
+                      }
+                  }
+              ?>
         </div>
          <!-- Sự kiện -->
          <div class='gap-4 mt-5 news-container row gap-md-0 d-none' data-category="su-kien">
