@@ -247,7 +247,7 @@
             </div>
           </div>
         </div>
-        <video class='d-lg-block d-none produce-video' controls width="291" height="160">
+        <video class='d-lg-block d-none produce-video' controls width="399" height="236">
           <!-- Nguồn video -->
           <source src="video.mp4" type="video/mp4">
           <source src="video.webm" type="video/webm">
