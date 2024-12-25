@@ -792,6 +792,9 @@ table {
 .event-details-flex{
     display: flex;
 }
+.slick-track{
+    width: auto !important;
+}
 @media (max-width: 577px) {
     .text-end{
         display: none;
@@ -825,8 +828,28 @@ table {
         justify-content: center;
     }
 
+
+    .footer-info li{
+        color: #000 !important;
+    }
+    #event-home {
+        background-color: #cfdeff;
+    }
+    .info-event-home{
+        background-color: white !important;
+    }
+    .info-event-home .name-event-home p{
+        color: #000;
+    }
     .ds-no{
         display: none;
+    }
+    #event-home{
+        height: 1000px;
+    }
+    .item-event-home{
+        z-index: 9999;
+    top: 254px;
     }
  }
 
