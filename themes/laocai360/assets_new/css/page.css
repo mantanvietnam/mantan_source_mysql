@@ -28,9 +28,7 @@ footer, header, hgroup, menu, nav, section {
 .box-event-home .slide-time-event {
     right: -56% !important;
 }
-.slick-track{
-    width: 100% !important;
-}
+
 .vietnam-360 .slide{
     min-width: 333px !important;
 }
@@ -809,7 +807,7 @@ table {
     }
 
     .box-event-home .slide-time-event {
-        right: 2% !important;
+        right: -2% !important;
     }
     .news .news-text{
         flex-wrap: wrap;
@@ -825,6 +823,10 @@ table {
     .footer-info{
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .ds-no{
+        display: none;
     }
  }
 
