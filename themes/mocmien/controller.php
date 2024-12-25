@@ -68,6 +68,16 @@ function indexTheme($input)
     global $modelPosts;
     global $controller;
     global $settingThemes;
+    global $modelOptions;
+
+    $limit = 8;
+    $conditions = array('key_word' => 'settingHomeThemeMocMien');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
 
     // SLIDE HOME
     $slide_home = [];
@@ -75,20 +85,12 @@ function indexTheme($input)
         $slide_home = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['id_slide']])->all()->toList();
     }
 
-    // TIN TỨC MỚI
-    $conditions = array('type'=>'post');
-    $limit = 6;
-    $page = 1;
-    $order = array('id'=>'desc');
+    $order = array('id' => 'asc');
 
-    $news = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    $listDatatop= $modelPosts->find()->limit(3)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
 
     setVariable('slide_home', $slide_home);
-    setVariable('news', $news);    
-}
-function settingtrainer($input)
-{
-	
+    setVariable('listDatatop', $listDatatop);    
 }
 
 function postTheme($input)
@@ -113,7 +115,7 @@ function categoryPostTheme($input)
     $conditions = array('type' => 'post');
     $category_post = $modelCategories->find()->where($conditions)->all()->toList();
 
-     setVariable('category_post', $category_post);   
+    setVariable('category_post', $category_post);   
 }
 function categoryAlbumTheme($input)
 {

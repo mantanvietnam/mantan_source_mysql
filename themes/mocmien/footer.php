@@ -9,7 +9,7 @@
           <div class='row'>
             <div class="col-lg-3 col-12 footer-frist-container d-flex flex-column">
               <div class='gap-3 d-flex align-items-center'>
-                <div><img src="<?php echo $settingThemes['image_logo']; ?>" alt="logo"></div>
+                <div><img src="<?php echo @$settingThemes['image_logo']; ?>" alt="logo"></div>
               </div>
               <div class='mt-4 mb-3 bestnew-info'>
                 <div class='gap-3 bn-contacts'>
