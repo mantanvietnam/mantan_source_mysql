@@ -795,6 +795,27 @@ table {
 .slick-track{
     width: auto !important;
 }
+.footer-info li{
+    color: #000 !important;
+}
+#event-home {
+    background-color: #cfdeff;
+}
+.info-event-home{
+    background-color: white !important;
+}
+.info-event-home .name-event-home p{
+    color: #000;
+}
+.info-event-home .description-event-home .title-des{
+    color: #000;
+}
+.info-event-home .description-event-home .text-des{
+    color: #000;
+}
+.local-event-home ul li{
+    color: #000 !important;
+}
 @media (max-width: 577px) {
     .text-end{
         display: none;
@@ -829,18 +850,7 @@ table {
     }
 
 
-    .footer-info li{
-        color: #000 !important;
-    }
-    #event-home {
-        background-color: #cfdeff;
-    }
-    .info-event-home{
-        background-color: white !important;
-    }
-    .info-event-home .name-event-home p{
-        color: #000;
-    }
+    
     .ds-no{
         display: none;
     }
