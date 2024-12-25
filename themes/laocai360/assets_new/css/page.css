@@ -801,6 +801,9 @@ table {
 .event-details-flex{
     display: flex;
 }
+.box-event-home .slick-track{
+    width: 2240px !important;
+}
 .slick-track{
     width: auto !important;
 }
