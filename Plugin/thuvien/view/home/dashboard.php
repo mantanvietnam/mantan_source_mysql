@@ -35,7 +35,7 @@
     <div class="col-lg-5 mb-4 order-0">
       <div class="card">
         <div class="card-body">
-          <p class="mb-4">Danh sách mượn sách hôm này </p>
+          <h5 class="mb-4">Danh sách mượn sách hôm nay </h5>
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -78,7 +78,7 @@
             </table>
           </div>
           <div class="card-body">
-          <p class="mb-4">Danh sách đến hạn trả sách</p>
+          <h5 class="mb-4">Danh sách khách quá hẹn trả sách</h5>
           <table class="table table-bordered">
             <thead>
               <tr>

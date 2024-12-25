@@ -1095,7 +1095,7 @@ function dashboard($input)
     	}
     	
 
-    	$conditions = array('building_id'=>(int)$user->idbuilding,  'return_deadline >='=>$startOfDay,'return_deadline <='=>$endOfDay);
+    	$conditions = array('building_id'=>(int)$user->idbuilding,'return_deadline <'=>time(),'status'=>1);
 
     	$dataDeadline = $modelOrders->find()->where($conditions)->all()->toList();
     	if(!empty($dataDeadline)){

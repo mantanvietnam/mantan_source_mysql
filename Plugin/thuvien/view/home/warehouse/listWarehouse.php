@@ -222,8 +222,9 @@
             }).done(function( msg ) {
                 var html = '<option value="" >Chọn tầng</option>';
                 for (let i = 0; i < msg.length; i++) {
-                    
-                  html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  if(msg[i].id>0){
+                    html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  }
                 }
                 $('#id_floor').html(html);
                 $('#id_shelf').html('<option value="" >Chọn kệ</option>');
@@ -249,8 +250,9 @@
             }).done(function( msg ) {
                 var html = '<option value="" >Chọn phòng</option>';
                 for (let i = 0; i < msg.length; i++) {
-                    
-                  html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  if(msg[i].id>0){
+                    html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  }
                 }
                 $('#id_room').html(html);
 
@@ -275,8 +277,9 @@
             }).done(function( msg ) {
                 var html = '<option value="" >Chọn kệ</option>';
                 for (let i = 0; i < msg.length; i++) {
-                    
-                  html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  if(msg[i].id>0){
+                    html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  }
                 }
                 $('#id_shelf').html(html);
                    

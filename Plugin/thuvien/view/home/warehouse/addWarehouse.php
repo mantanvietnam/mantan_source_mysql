@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-3 mb-4">
               <label class="form-label">Tên tầng</label>
-              <select class="form-select" name="id_floor" id="id_floor" onclick="getRoom()"  <?php echo $disabled ?>>
+              <select class="form-select" name="id_floor" required="" id="id_floor" onclick="getRoom()"  <?php echo $disabled ?>>
                 <option value="" >Chọn tầng</option>
                 <?php if(!empty($dataFloor)){
                   foreach ($dataFloor as $key => $item){
@@ -51,7 +51,7 @@
             </div>
             <div class="col-md-3 mb-4">
               <label class="form-label">Tên phòng</label>
-              <select class="form-select" name="id_room" id="id_room" onclick="getShelf()"  <?php echo $disabled ?>>
+              <select class="form-select" name="id_room" id="id_room" required=""  onclick="getShelf()"  <?php echo $disabled ?>>
                 <option value="" >Chọn phòng</option>
                 <?php if(!empty($dataRoom)){
                   foreach ($dataRoom as $key => $item){
@@ -67,7 +67,7 @@
             </div>
             <div class="col-md-3 mb-4">
               <label class="form-label">Tên kệ</label>
-              <select class="form-select" name="id_shelf" id="id_shelf"  <?php echo $disabled ?> >
+              <select class="form-select" name="id_shelf" id="id_shelf" required=""   <?php echo $disabled ?> >
                 <option value="" >Chọn kệ</option>
                 <?php if(!empty($dataShelf)){
                   foreach ($dataShelf as $key => $item){
@@ -84,8 +84,8 @@
 
             <div class="col-md-6 mb-4">
               <label class="form-label">tên sách</label>
-              <input type="text" class="form-control book-search" name="name_book" id="name_book" value="<?php if(!empty($data->book->name)) echo $data->book->name;?>"  <?php echo @$disabled ?>>
-              <input type="hidden" class="form-control" name="id_book" id="id_book" value="<?php if(!empty($data->id_book)) echo $data->id_book;?>">
+              <input type="text" class="form-control book-search" required="" name="name_book" id="name_book" value="<?php if(!empty($data->book->name)) echo $data->book->name;?>"  <?php echo @$disabled ?>>
+              <input type="hidden" class="form-control" name="id_book" required="" id="id_book" value="<?php if(!empty($data->id_book)) echo $data->id_book;?>">
                <div id="customer-search-results" class="search-results" 
                                 style=" z-index: 1000; width: 100%; background: white; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; display: none;">
                                 </div>
@@ -93,7 +93,7 @@
             <?php if(!empty($_GET['id'])){ ?>
             <div class="col-md-3 mb-4">
               <label class="form-label">Tổng số lượng</label>
-              <input type="number" class="form-control" name="" id="" value="<?php echo @$data->quantity;?>" disabled="">
+              <input type="number" class="form-control" name=""  id="" value="<?php echo @$data->quantity;?>" disabled="">
             </div>
             <div class="col-md-3 mb-4">
               <label class="form-label">Số lượng đang cho mượn</label>
@@ -106,7 +106,7 @@
           <?php } ?>
             <div class="col-md-3 mb-4">
               <label class="form-label">Số lượng <?php echo $type ?></label>
-              <input type="number" class="form-control" name="quantity" id="quantity" value="0" required="">
+              <input type="number" class="form-control" name="quantity" id="quantity" value="" required="">
             </div>
           </div>
 
@@ -132,8 +132,9 @@
             }).done(function( msg ) {
                 var html = '<option value="" >Chọn tầng</option>';
                 for (let i = 0; i < msg.length; i++) {
-                    
-                  html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  if(msg[i].id){ 
+                    html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  }
                 }
                 $('#id_floor').html(html);
                 $('#id_shelf').html('<option value="" >Chọn kệ</option>');
@@ -159,8 +160,9 @@
             }).done(function( msg ) {
                 var html = '<option value="" >Chọn phòng</option>';
                 for (let i = 0; i < msg.length; i++) {
-                    
-                  html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  if(msg[i].id){ 
+                    html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  }
                 }
                 $('#id_room').html(html);
 
@@ -185,8 +187,9 @@
             }).done(function( msg ) {
                 var html = '<option value="" >Chọn kệ</option>';
                 for (let i = 0; i < msg.length; i++) {
-                    
-                  html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  if(msg[i].id){ 
+                    html += '<option value="'+msg[i].id+'" >'+msg[i].name+'</option>';
+                  }
                 }
                 $('#id_shelf').html(html);
                    

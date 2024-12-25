@@ -235,7 +235,6 @@ function checklogin($permission=''){
 
                 if (!in_array((int)$user->idbuilding, $id_building, true)) { // Sử dụng phủ định để kiểm tra giá trị không tồn tại
                             $session->destroy();
-                            setcookie('id_member','',time()+365*24*60*60, "/");
                             setcookie('id_building','',time()+365*24*60*60, "/");
                             $user= '';
 

@@ -87,6 +87,18 @@ $sqlInstallDatabase .="CREATE TABLE `notifications` (
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `verify_accounts` ( 
+`id` INT NOT NULL AUTO_INCREMENT,
+`id_customer` INT NOT NULL,
+`image_face` VARCHAR(255) NULL DEFAULT NULL,
+`image_card_before` VARCHAR(255) NULL DEFAULT NULL,
+`image_card_after` VARCHAR(255) NULL DEFAULT NULL,
+`link_news` VARCHAR(255) NULL DEFAULT NULL,
+`created_at` INT NULL DEFAULT NULL,
+`updated_at` INT NULL DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= "DROP TABLE comments; ";
 $sqlDeleteDatabase .= "DROP TABLE likes; ";
 $sqlDeleteDatabase .= "DROP TABLE social_networks; ";
@@ -146,4 +158,12 @@ $sqlUpdateDatabase['notifications']['created_at'] = "ALTER TABLE `notifications`
 $sqlUpdateDatabase['notifications']['action'] = "ALTER TABLE `notifications` ADD `action` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL';";
 $sqlUpdateDatabase['notifications']['content'] = "ALTER TABLE `notifications` ADD `content` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL';";
 $sqlUpdateDatabase['notifications']['id_object'] = "ALTER TABLE `notifications` ADD `id_object` INT NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['verify_accounts']['id_customer'] = "ALTER TABLE `verify_accounts` ADD `id_customer` INT NOT NULL;";
+$sqlUpdateDatabase['verify_accounts']['image_face'] = "ALTER TABLE `verify_accounts` ADD `image_face` VARCHAR(255) NULL DEFAULT NULL;";
+$sqlUpdateDatabase['verify_accounts']['image_card_before'] = "ALTER TABLE `verify_accounts` ADD `image_card_before` VARCHAR(255) NULL DEFAULT NULL;";
+$sqlUpdateDatabase['verify_accounts']['image_card_after'] = "ALTER TABLE `verify_accounts` ADD `image_card_after` VARCHAR(255) NULL DEFAULT NULL;";
+$sqlUpdateDatabase['verify_accounts']['link_news'] = "ALTER TABLE `verify_accounts` ADD `link_news` VARCHAR(255) NULL DEFAULT NULL;";
+$sqlUpdateDatabase['verify_accounts']['created_at'] = "ALTER TABLE `verify_accounts` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['verify_accounts']['updated_at'] = "ALTER TABLE `verify_accounts` ADD `updated_at` INT NULL DEFAULT NULL;";
 ?>
