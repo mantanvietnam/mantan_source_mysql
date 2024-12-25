@@ -849,22 +849,17 @@
         </div>
         <!-- góc review -->
         <div class='gap-4 mt-5 news-container row gap-md-0' data-category="review">
-          <?php 
-                if(!empty($listDatatop)){
-                   foreach ($listDatatop as $key => $value) {
-                      $link = '/'.$value->slug.'.html';
-
-                      echo '  <div class="col-lg-4 col-12 col-md-6 news-items">
-                                  <div class="news-items-img">
-                                      <img src="'.$value->image.'" alt="">
-                                  </div>
-                                  <h3>'.$value->title.'</h3>
-                                  <span>'.$value->description.'</span>
-                              </div>
-                          ';
-                      }
-                  }
-              ?>
+            <?php foreach ($listDatatop as $key => $value) { ?>
+                <div class="col-lg-4 col-12 col-md-6 news-items">
+                    <div class="news-items-img">
+                        <img src="<?= $value->image ?>" alt="">
+                    </div>
+                    <a href="<?php echo $value->slug ?>.html">
+                        <h3><?= $value->title ?></h3>
+                    </a>
+                    <span><?= $value->description ?></span>
+                </div>
+            <?php } ?>
         </div>
          <!-- Sự kiện -->
          <div class='gap-4 mt-5 news-container row gap-md-0 d-none' data-category="su-kien">
