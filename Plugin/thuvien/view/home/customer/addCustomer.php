@@ -25,6 +25,10 @@
                   <input required type="text" class="form-control" name="name" id="name" value="<?php echo @$data->name; ?>" />
                 </div>
                 <div class="mb-3">
+                  <label class="form-label" for="customer-name">Số CMT/CCCD (*)</label>
+                  <input required type="text" class="form-control" name="identity" id="identity" value="<?php echo @$data->identity; ?>" />
+                </div>
+                <div class="mb-3">
                   <label class="form-label" for="customer-phone">Số Điện Thoại (*)</label>
                   <input required type="text" class="form-control" name="phone" id="phone" value="<?php echo @$data->phone; ?>" />
                 </div>

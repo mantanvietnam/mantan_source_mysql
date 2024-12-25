@@ -283,6 +283,9 @@ $sqlUpdateDatabase['customers']['name'] = "ALTER TABLE `customers` CHANGE `name`
 $sqlUpdateDatabase['customers']['address'] = "ALTER TABLE `customers` CHANGE `address` `address` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` CHANGE `email` `email` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customers']['birthday'] = "ALTER TABLE `customers` CHANGE `birthday` `birthday` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customers']['identity'] = "ALTER TABLE `customers` ADD `identity` INT NOT NULL AFTER `name`;";
+$sqlUpdateDatabase['customers']['identity'] = "ALTER TABLE `customers` CHANGE `identity` `identity` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+
 
 $sqlUpdateDatabase['orders']['shelf_id'] = "ALTER TABLE `orders` DROP COLUMN `shelf_id`;";
 $sqlUpdateDatabase['orders']['order_id'] = "ALTER TABLE `orders` DROP COLUMN `order_id`;";

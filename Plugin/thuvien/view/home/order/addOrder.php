@@ -77,14 +77,7 @@
                             value="<?php echo !empty($order->return_deadline) ? date('H:i d/m/Y', $order->return_deadline) : ''; ?>" 
                         />
                         </div>
-
-                        <div class="mb-3">
-                        <label class="form-label" for="status">Trạng Thái</label>
-                        <select class="form-select" name="status" id="status">
-                            <option value="1" <?php echo (!empty($order->status) && $order->status == 1) ? 'selected' : ''; ?>>Đang Mượn</option>
-                            <option value="2" <?php echo (!empty($order->status) && $order->status == 2) ? 'selected' : ''; ?>>Đã Trả</option>
-                        </select>
-                        </div>
+                        <input type="hidden" name="status" id="status" value="1">
                     </div>
                 </div>
 
@@ -192,6 +185,13 @@
 
                     <div class="col-md-6">
                         <div class="mb-3">
+                            <label class="form-label" for="identity">Số CMT/CCCD (*)</label>
+                            <input required type="text" class="form-control phone-mask" name="identity" id="identity" value="" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
                             <label class="form-label" for="basic-default-phone">Ngày sinh</label>
                             <input autocomplete="off" type="text" class="form-control datepicker" name="birthday" id="birthday" value="<?php echo isset($data->birthday) ? date('d/m/Y', @$data->birthday) : ''; ?>" placeholder="dd/mm/yyyy" />
                         </div>
@@ -211,7 +211,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label" for="address">Địa chỉ</label>
                                 <input type="text" class="form-control" name="address" id="address" value="" />
@@ -355,7 +355,7 @@
                                         data-quantity="${book.quantity}"
                                         data-quantity-borrow="${book.quantity_borrow}"
                                         id_shelf="${book.id_shelf}">
-                                        ${book.label}
+                                         ${book.name} - SL: ${book.quantity - book.quantity_borrow}
                                     </div>`;
                             });
                         } else {
@@ -496,13 +496,46 @@
 
     function addCustomer() {
     var full_name = $('#full_name').val();
+    var identity = $('#identity').val();
     var email = $('#email').val();
     var phone = $('#phone').val();
     var address = $('#address').val();
     var birthday = $('#birthday').val();
 
+    if (full_name === '') {
+        alert('Họ tên không được để trống!');
+        $('#full_name').focus();
+        return;
+    }
+
+    if (identity === '') {
+        alert('Số CCCD không được để trống!');
+        $('#identity').focus();
+        return;
+    }
+
+    if (phone === '') {
+        alert('Số điện thoại không được để trống!');
+        $('#phone').focus();
+        return;
+    }
+
+    if (!/^\d{9,12}$/.test(identity)) {
+        alert('Số CCCD phải là số từ 9 đến 12 chữ số!');
+        $('#identity').focus();
+        return;
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+        alert('Số điện thoại phải gồm 10 chữ số!');
+        $('#phone').focus();
+        return;
+    }
+
+
     var data = {
         full_name: full_name,
+        identity: identity,
         email: email,
         phone: phone,
         address: address,

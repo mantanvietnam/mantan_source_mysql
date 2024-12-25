@@ -33,6 +33,7 @@ function searchCustomerAPI()
                 'name' => $data->name,
                 'email' => $data->email,
                 'phone' => $data->phone,
+                'identity' => $data->identity,
                 'address' => $data->address,
                 'status' => $data->status,
             );
@@ -58,61 +59,64 @@ function saveCustomerAPI() {
     $return = array();
     $dataSend = $_REQUEST;
 
-        if (!empty($dataSend['full_name']) && isset($dataSend['phone'])) {
-            $fullName = trim($dataSend['full_name']);
-            $email = isset($dataSend['email']) ? trim($dataSend['email']) : '';
-            $phone = trim($dataSend['phone']);
-            $address = isset($dataSend['address']) ? trim($dataSend['address']) : '';
-            $birthday = isset($dataSend['birthday']) ? trim($dataSend['birthday']) : null;
-            $birthday = strtotime(str_replace("/", "-", $birthday));
-           
-            $existingCustomer = $modelCustomers->find()->where(['phone' => $phone])->first();
+    if (!empty($dataSend['full_name']) && isset($dataSend['phone'])) {
+        $fullName = trim($dataSend['full_name']);
+        $email = isset($dataSend['email']) ? trim($dataSend['email']) : '';
+        $phone = trim($dataSend['phone']);
+        $identity = trim($dataSend['identity']);
+        $address = isset($dataSend['address']) ? trim($dataSend['address']) : '';
+        $birthday = isset($dataSend['birthday']) ? trim($dataSend['birthday']) : null;
+        $birthday = strtotime(str_replace("/", "-", $birthday));
 
-            if ($existingCustomer) {
+        $existingCustomer = $modelCustomers->find()->where(['phone' => $phone, 'identity' => $identity])->first();
+
+        if ($existingCustomer) {
+            $return = array(
+                'success' => false,
+                'message' => 'Khách hàng đã tồn tại.'
+            );
+        } else {
+            $newCustomer = $modelCustomers->newEmptyEntity();
+            $newCustomer->name = $fullName;
+            $newCustomer->email = $email;
+            $newCustomer->phone = $phone;
+            $newCustomer->identity = $identity;
+            $newCustomer->address = $address;
+            $newCustomer->birthday = $birthday;
+            $newCustomer->status = "active";
+            $newCustomer->created_at = time();
+
+            if ($modelCustomers->save($newCustomer)) {
                 $return = array(
-                    'success' => false,
-                    'message' => 'Khách hàng đã tồn tại.'
-                );
-            } else {
-                $newCustomer = $modelCustomers->newEmptyEntity();
-                $newCustomer->name = $fullName;
-                $newCustomer->email = $email;
-                $newCustomer->phone = $phone;
-                $newCustomer->address = $address;
-                $newCustomer->birthday = $birthday;
-                $newCustomer->status = "active";
-                $newCustomer->created_at = time();
-               
-                if ($modelCustomers->save($newCustomer)) {
-                    $return = array(
-                        'success' => true,
-                        'message' => 'Thêm khách hàng mới thành công.',
-                        'customer' => array(
+                    'success' => true,
+                    'message' => 'Thêm khách hàng mới thành công.',
+                    'customer' => array(
                         'id' => $newCustomer->id,
                         'full_name' => $newCustomer->name,
                         'email' => $newCustomer->email,
                         'phone' => $newCustomer->phone,
+                        'identity' => $newCustomer->identity,
                         'address' => $newCustomer->address,
                         'birthday' => $birthday
                     )
-                    );
-                } else {
-                    $return = array(
-                        'success' => false,
-                        'message' => 'Không thể lưu thông tin khách hàng.'
-                    );
-                }
+                );
+            } else {
+                $return = array(
+                    'success' => false,
+                    'message' => 'Không thể lưu thông tin khách hàng.'
+                );
             }
-        } else {
-            $return = array(
-                'success' => false,
-                'message' => 'Dữ liệu không hợp lệ.'
-            );
         }
+    } else {
+        $return = array(
+            'success' => false,
+            'message' => 'Dữ liệu không hợp lệ.'
+        );
+    }
 
-   
-        return $return;
+    return $return;
 }
+
 
 
 ?>

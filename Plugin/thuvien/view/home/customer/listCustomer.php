@@ -59,12 +59,13 @@
         <tr>
           <th>ID</th>
           <th>Tên người mượn</th>
+          <th>Số CMT/CCCD</th>
           <th>Số điện thoại</th>
           <th>Địa chỉ</th>
           <th>Email</th>
           <th>Trạng thái</th>
           <th>Đang mượn</th>
-          <th>Đã mượn</th>
+          <th>Đã trả</th>
           <th>Sửa</th>
           <th>Xóa</th>
         </tr>
@@ -81,12 +82,21 @@
             echo '<tr>
             <td>'.$item->id.'</td>
             <td>'.$item->name.'</td>
+            <td>'.$item->identity.'</td>
             <td>'.$item->phone.'</td>
             <td>'.$item->address.'</td>
             <td>'.$item->email.'</td>
             <td>'.$status.'</td>
-            <td align="center">'.$item->borrowedCount.'</td>
-            <td align="center">'.$item->returnedCount.'</td>
+            <td align="center">
+              <a href="/listOrder/?customer_id=<?php echo $item->id; ?>&status=1" class="text-primary">
+                '.$item->borrowedCount.'
+              </a>
+            </td>
+            <td align="center">
+              <a href="/listOrder/?customer_id=<?php echo $item->id; ?>&status=2" class="text-success">
+                '.$item->returnedCount.'
+              </a>
+            </td>
             <td width="5%" align="center">
               <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
                 <i class="bx bx-edit-alt me-1"></i>

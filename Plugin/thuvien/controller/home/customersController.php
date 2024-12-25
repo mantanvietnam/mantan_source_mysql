@@ -160,17 +160,38 @@ function addCustomer($input)
             $dataSend = $input['request']->getData();
 
             if (!empty($dataSend['name'])) {
-                $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-                $data->phone = $dataSend['phone'];
-                $data->address = str_replace(array('"', "'"), '’', $dataSend['address']);
-                $data->email = $dataSend['email'];
-                $data->birthday = strtotime(str_replace("/", "-", $dataSend['birthday']));
-                $data->status = $dataSend['status'];
+                $phone = $dataSend['phone'];
+                $identity = $dataSend['identity'];
 
-                if ($modelCustomers->save($data)) {
-                    return $controller->redirect('/listCustomer?mess=saveSuccess');
+                // Kiểm tra trùng số điện thoại hoặc giấy tờ tùy thân
+                $existingCustomer = $modelCustomers->find()
+                    ->where(['OR' => [
+                        'phone' => $phone,
+                        'identity' => $identity
+                    ]])
+                    ->first();
+
+                if ($existingCustomer) {
+                    if ($existingCustomer->phone == $phone) {
+                        $mess = '<p class="text-danger">Số điện thoại đã tồn tại</p>';
+                    } elseif ($existingCustomer->identity == $identity) {
+                        $mess = '<p class="text-danger">Giấy tờ tùy thân đã tồn tại</p>';
+                    }
                 } else {
-                    $mess = '<p class="text-danger">Lưu dữ liệu không thành công</p>';
+                    // Lưu dữ liệu mới nếu không trùng lặp
+                    $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+                    $data->identity = $identity;
+                    $data->phone = $phone;
+                    $data->address = str_replace(array('"', "'"), '’', $dataSend['address']);
+                    $data->email = $dataSend['email'];
+                    $data->birthday = strtotime(str_replace("/", "-", $dataSend['birthday']));
+                    $data->status = $dataSend['status'];
+
+                    if ($modelCustomers->save($data)) {
+                        return $controller->redirect('/listCustomer?mess=saveSuccess');
+                    } else {
+                        $mess = '<p class="text-danger">Lưu dữ liệu không thành công</p>';
+                    }
                 }
             } else {
                 $mess = '<p class="text-danger">Tên người mượn là bắt buộc</p>';
