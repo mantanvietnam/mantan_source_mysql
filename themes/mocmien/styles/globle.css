@@ -20,3 +20,19 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Hiển thị tối đa 3 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5rem; /* Dòng cách nhau */
+}
+
+@media (max-width: 768px) {
+  .mx-mobile {
+    margin-right: 12px;
+    margin-left: 12px;
+  }
+}

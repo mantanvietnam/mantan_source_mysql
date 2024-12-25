@@ -105,31 +105,30 @@
     <!-- điều hướng -->
     <div class='content-center bg-green navigation'>
       <div class='container nav-container'>
-        <a class='sp-container-2'>
-          <img src="<?php echo @$urlThemeActive; ?>/assets/images/nav-menu.png" alt="">
-        </a>
-        <?php 
-          $menu = getMenusDefault();
-        ?>
-        <?php if(!empty($menu)): ?>
-          <?php foreach($menu as $key => $value): ?>
-            <?php if(!empty($value->sub)): ?>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <?php echo $value->name; ?>
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                    <?php foreach ($value->sub as $sub): ?>
-                    <li><a class="dropdown-item" href="<?php echo $sub->link; ?>"><?php echo $sub->name; ?></a></li>
-                    <?php endforeach; ?>
-                  </ul>
-              </li>
-              <?php else: ?>
-                <li class="nav-item">
-                  <a class="nav-link" href="<?php echo $value->link; ?>"><span><?php echo $value->name; ?></span></a>
-                </li>
-            <?php endif; ?>
-          <?php endforeach; ?>
-        <?php endif; ?>
+        <a>
+            <?php 
+                $menu = getMenusDefault();
+            ?>
+            <?php if(!empty($menu)): ?>
+              <?php foreach($menu as $key => $value): ?>
+                <?php if(!empty($value->sub)): ?>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php echo $value->name; ?>
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <?php foreach ($value->sub as $sub): ?>
+                        <li><a class="dropdown-item" href="<?php echo $sub->link; ?>"><?php echo $sub->name; ?></a></li>
+                        <?php endforeach; ?>
+                      </ul>
+                  </li>
+                  <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $value->link; ?>"><span><?php echo $value->name; ?></span></a>
+                    </li>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            <?php endif; ?>          
+          </a>
       </div>
     </div>

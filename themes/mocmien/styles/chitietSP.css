@@ -3,6 +3,15 @@
   height: auto;
 }
 
+.thumbnail-image {
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.thumbnail-image.active {
+  border-color: #3498db; /* Màu xanh để biểu thị ảnh được chọn */
+}
+
 .price {
   color: green;
   font-size: 24px;
@@ -101,11 +110,11 @@
   font-size: 18px;
 }
 
-.description {
+.text-truncate {
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Hiển thị tối đa 3 dòng */
+  -webkit-line-clamp: 2; /* Số dòng tối đa */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.5rem; /* Dòng cách nhau */
+  white-space: normal;
 }

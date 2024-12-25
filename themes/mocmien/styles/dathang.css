@@ -1,0 +1,13 @@
+.step .icon {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.step.completed .icon {
+  background-color: #002351; /* Màu xanh đậm */
+  color: white;
+}
+
+.step.active .icon {
+  background-color: #002351; /* Màu xanh đậm */
+  color: white;
+}

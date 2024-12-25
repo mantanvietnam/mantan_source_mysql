@@ -26,7 +26,7 @@
       </button>
     </div> -->
     <!-- Swiper -->
-    <div class="px-5 banner-slider"> 
+    <div class="banner-slider"> 
         <div class="swiper mySwiper"> 
             <div class="swiper-wrapper">
                 <?php 
@@ -157,25 +157,25 @@
           <span><span class='color-green'>DANH MỤC</span> SẢN PHẨM</span>
           <a class='more-btn'>
             <div class=''>Xem thêm</div>
-            <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="">
+            <img src="<?php echo $urlThemeActive; ?>/assets/images/arr.png" alt="">
           </a>
         </div>
         <div class='gap-1 row'>
           <div class="col category-item">
             <div class='category-item-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/trisacto.png" alt="tinhchatdinhduong">
+              <img src="<?php echo $urlThemeActive; ?>/assets/images/trisacto.png" alt="tinhchatdinhduong">
             </div>
             <span>Tinh chất dưỡng</span>
           </div>
           <div class="col category-item">
             <div class='category-item-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/ngannguamun.png" alt="tinhchatdinhduong">
+              <img src="<?php echo $urlThemeActive; ?>/assets/images/ngannguamun.png" alt="tinhchatdinhduong">
             </div>
             <span>Sửa rửa mặt</span>
           </div>
           <div class="col category-item">
             <div class='category-item-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/combo1.png" alt="tinhchatdinhduong">
+              <img src="<?php echo $urlThemeActive; ?>/assets/images/combo1.png" alt="tinhchatdinhduong">
             </div>
             <span>Mặt nạ</span>
           </div>
@@ -191,8 +191,13 @@
         <span><span class='color-green'>CÂU CHUYỆN</span> MỘC MIÊN</span>
         <div class='graph-containe'>
           <div class='text-style'>Hành trình đi tìm vẻ đẹp thuần nhiên và niềm tin yêu mãnh liệt với làn da không tuổi của Mộc Miên - ĐẸP THUẦN NHIÊN! </div>
-          <div class='text-style-2'>Có những ngày, cuộc sống dường như đặt ra cho bạn một thử thách mà nếu không vượt qua, bạn sẽ mãi mãi ở lại nơi vạch xuất phát. Với tôi – Đặng Hoa, chuyên gia da liễu thuần nhiên, hành trình ấy đã đi qua biết bao nước mắt, thử thách và cả những khoảnh khắc muốn từ bỏ. Nhưng chính từ đó, tôi tìm ra sứ mệnh thật sự của mình: giúp hàng ngàn làn da tổn thương tìm lại vẻ đẹp tự nhiên, bền vững, không xâm lấn, ko đổ lỗi do cơ địa!
-            Hơn ai hết, tôi hiểu rõ cảm giác mất tự tin khi đối diện với làn da đầy mụn, thâm hay nám. Những năm tháng đầu tiên 2019, khi còn là 1 giáo viên- tôi cũng từng là nạn nhân của 1 spa ở  Đà Nẵng cùng các sản phẩm kém chất lượng – những lời quảng cáo hão huyền khiến làn da tổn thương nặng nề, bị hoại tử.</div>
+          <div class='text-style-2'>Có những ngày, cuộc sống dường như đặt ra cho bạn một thử thách mà nếu không vượt qua, bạn sẽ mãi mãi ở lại nơi vạch xuất phát. Với tôi – Đặng Hoa, một chuyên gia da liễu thuần nhiên, hành trình ấy không chỉ là một câu chuyện về nỗ lực cá nhân, mà còn là một bài học sâu sắc về sự kiên trì, lòng tin và tình yêu với nghề. Trải qua biết bao nước mắt, thử thách và cả những khoảnh khắc muốn từ bỏ, tôi đã học cách đứng dậy, mạnh mẽ hơn sau mỗi thất bại. Và chính từ những lần vấp ngã đó, tôi nhận ra sứ mệnh thật sự của mình: giúp hàng ngàn làn da tổn thương tìm lại vẻ đẹp tự nhiên, bền vững, không xâm lấn và không đổ lỗi do cơ địa.
+
+            Hơn ai hết, tôi hiểu rõ cảm giác mất tự tin khi đối diện với làn da đầy mụn, thâm hay nám. Những cảm giác tủi thân, lo lắng, và thậm chí là xấu hổ khi nhìn thấy mình trong gương hay đứng trước người khác – tất cả đều là những trải nghiệm tôi đã từng trải qua. Những năm tháng đầu tiên vào năm 2019, khi tôi vẫn còn là một giáo viên, cuộc sống của tôi tưởng chừng như không thể tồi tệ hơn khi trở thành nạn nhân của một spa ở Đà Nẵng. Những sản phẩm kém chất lượng, đi kèm với những lời quảng cáo hão huyền đã khiến làn da tôi tổn thương nặng nề, dẫn đến hoại tử. Đó là thời điểm tôi nhận ra rằng việc làm đẹp không phải là một cuộc đua theo những lời hứa ngọt ngào, mà cần phải dựa trên kiến thức, sự an toàn và sự thấu hiểu làn da một cách khoa học.
+            
+            Từ những đau thương của chính mình, tôi quyết định thay đổi toàn bộ hướng đi của cuộc đời. Tôi dành thời gian tìm hiểu về da liễu, tham gia các khóa học chuyên sâu và không ngừng trau dồi kiến thức. Tôi không muốn bất kỳ ai phải chịu đựng những đau đớn như tôi từng trải qua. Hành trình ấy không dễ dàng, nhưng nó giúp tôi thấm thía rằng mỗi làn da đều có một câu chuyện riêng, và nhiệm vụ của tôi là giúp những câu chuyện đó được viết tiếp với những trang đẹp nhất.
+            
+          </div>
         </div>
         <div class='intro-btn'>
           <a href="" class=''>Tìm hiểu thêm</a>
