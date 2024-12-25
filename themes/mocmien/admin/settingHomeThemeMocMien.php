@@ -24,6 +24,7 @@
             </div>
           </div>
         </div>
+
         <!-- Slide -->
         <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <div class="card mb-4">
@@ -43,7 +44,8 @@
             </div>
           </div>
         </div>
-        <!-- Khối Giới thiệu -->
+
+        <!-- Khối Thông tin chung -->
         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
