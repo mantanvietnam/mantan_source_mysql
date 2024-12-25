@@ -91,7 +91,7 @@
 
                 <div class="mb-3">
                   <div class="form-check">
-                    <label class="form-check-label" for="remember-me">Cơ sở kinh doanh</label>
+                    <label class="form-check-label" for="remember-me">Tòa nhà</label>
                     <select class="form-select" name="id_building" id="id_building">
                         <?php 
                          

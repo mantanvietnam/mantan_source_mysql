@@ -384,7 +384,7 @@
                     id_parent: "'.$data->id_staff_now.'",
                     status: "'.$status.'",
                     statusnote: "'.$statusnote.'",
-                    note: "'.$data->note_now.'",
+                    note: "'.str_replace(["\n", "\r"], ' ',$data->note_now).'",
                     action_now: "'.$action_now.'",
                     action: "'.$data->action_now.'",
                     color: "'.$color.'",

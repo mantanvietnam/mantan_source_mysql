@@ -89,9 +89,14 @@
                     <input type="checkbox" name="crm_module[]" value="staff" <?php if(!empty($data_value) && in_array('staff', $data_value)) echo 'checked';?> > Nhân viên
                   </div>
                 </div>
-                 <div class="col-md-3">
+                <div class="col-md-3">
                   <div class="mb-3">
                     <input type="checkbox" name="crm_module[]" value="jobManagement" <?php if(!empty($data_value) && in_array('jobManagement', $data_value)) echo 'checked';?> > Quản lý công việc
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="mb-3">
+                    <input type="checkbox" name="crm_module[]" value="mangxahoi" <?php if(!empty($data_value) && in_array('mangxahoi', $data_value)) echo 'checked';?> > Mạng xã hội
                   </div>
                 </div>
               </div>

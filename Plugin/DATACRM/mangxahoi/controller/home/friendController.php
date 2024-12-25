@@ -18,9 +18,10 @@ function listCustomerGreenCheckRequest($input)
         $metaTitleMantan = 'Danh sách khách hàng';
 
         $modelCustomers = $controller->loadModel('Customers');
-          $modelMakeFriend = $controller->loadModel('MakeFriends');
-    $modelMember = $controller->loadModel('Members');
-    $modelPointCustomer = $controller->loadModel('PointCustomers');
+        $modelMakeFriend = $controller->loadModel('MakeFriends');
+        $modelMember = $controller->loadModel('Members');
+        $modelVerifyAccount = $controller->loadModel('VerifyAccounts');
+        $modelPointCustomer = $controller->loadModel('PointCustomers');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
         // danh sách nhóm khách hàng
@@ -114,6 +115,7 @@ function listCustomerGreenCheckRequest($input)
                 $listData[$key]->total_friend = $modelMakeFriend->find()->where($conditionFriend)->count();
                 $member = $modelMember->find()->where(['id_father'=>0])->first();
                 $listData[$key]->point = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$item->id])->first()->point;
+                $listData[$key]->verify = $modelVerifyAccount->find()->where(['id_customer'=>$item->id])->first();
         	}
         }
 
