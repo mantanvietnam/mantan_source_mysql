@@ -32,6 +32,12 @@ footer, header, hgroup, menu, nav, section {
 .vietnam-360 .slide{
     min-width: 333px !important;
 }
+
+
+
+.swiper-button-next, .swiper-button-prev{
+    top: var(--swiper-navigation-top-offset,43%) !important;
+}
 /*  */
 body {
 	line-height: 1;
@@ -191,6 +197,8 @@ table {
 }
 
 .destinations .img-desti{
+    height: 500px !important;
+    overflow: hidden;
     width: 750px;
 }
 
@@ -224,7 +232,7 @@ table {
 }
 
 .card-title {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
     color: white;
 }
@@ -726,6 +734,7 @@ table {
 
 .card-news{
     width: 26rem;
+    height: 250px;
 }
 
 /* Nút toggle */
