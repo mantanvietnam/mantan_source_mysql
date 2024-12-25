@@ -47,7 +47,7 @@ global $urlThemeActive;
                         foreach($listPlace as $key => $item){
                             if ($key % 2 == 0) {
                                 echo ' <div class="row align-items-center mb-4">
-                    <div class="col-md-7">
+                    <div class="col-md-7 my-4">
                         <img src="'.$item->image.'" class="img-fluid rounded img-desti" alt="'.$item->name.'">
                     </div>
                     <div class="col-md-5 text-end text-representative">
