@@ -931,6 +931,7 @@ function getCustomerByToken($token='')
     $modelCustomer = $controller->loadModel('customers');
     $modelPointCustomer = $controller->loadModel('PointCustomers');
     $modelMember = $controller->loadModel('Members');
+    $modelVerifyAccount = $controller->loadModel('VerifyAccounts');
     $checkData = [];
     $listPonint =  listPonint();
     if(!empty($token)){                
@@ -952,6 +953,7 @@ function getCustomerByToken($token='')
                         saveNotification($dataSendNotification, $checkData->id);
                     }
                 }
+            $checkData->verifyAccount = $modelVerifyAccount->find()->where(['id_customer'=>$checkData->id])->first();  
         }
     }
 

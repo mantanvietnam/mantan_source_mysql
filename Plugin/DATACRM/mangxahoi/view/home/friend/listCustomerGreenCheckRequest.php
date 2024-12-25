@@ -3,10 +3,9 @@
 
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listCustomerAgency">Khách hàng</a> /</span>
-    Danh sách khách hàng
+    Danh sách khách hàng yếu cấu lên tích xanh
   </h4>
 
-  <p><a href="/editCustomerAgency" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a>  <a href="/addDataCustomerAgency" class="btn btn-danger" ><i class='bx bx-plus'></i> Thêm mới bằng Excel</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -56,7 +55,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách khách hàng - <span class="text-danger"><?php echo number_format($totalData);?> khách hàng</span></h5>
+    <h5 class="card-header">Danh sách khách hàng yêu cầu lên tích - <span class="text-danger"><?php echo number_format($totalData);?> khách hàng</span></h5>
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -93,7 +92,7 @@
                 <td>'.$infoCustomer.'</td>
                 <td>'.$item->total_friend.'</td>
                 <td>'.$item->point.'</td>
-                <td> <a target="_blank" href="'.$item->link_news.'">'.$item->link_news.'</a></td>
+                <td> <a target="_blank" href="'.$item->verify->link_news.'">'.$item->verify->link_news.'</a></td>
                 <td width="5%" align="center">
                 <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
                 <i class="bx bx-edit-alt me-1"></i>
@@ -133,7 +132,7 @@
                 <p>'.$infoCustomer.'</p>
                 <p>'.$item->total_friend.'</p>
                 <p>'.$item->point.'</td>
-                <p> <a target="_blank" href="'.$item->link_news.'">'.$item->link_news.'</a></p>
+                <p> <a target="_blank" href="'.$item->verify->link_news.'">'.$item->verify->link_news.'</a></p>
                 <p width="5%" align="center">
                 <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
                 <i class="bx bx-edit-alt me-1"></i>
@@ -216,7 +215,7 @@
                                 <p><label>Email:</label> <?php echo @$item->email ?></p>
                                 <p><label>Điểm:</label> <?php echo @$item->point ?></p>
                                 <p><label>Bạn bè :</label> <?php echo @$item->total_friend ?></p>
-                                <p><label>Link bài báo: </label><a target="_blank" href="><?php echo $item->link_news ?>"><?php echo $item->link_news ?></a></p>
+                                <p><label>Link bài báo: </label><a target="_blank" href="><?php echo $item->verify->link_news ?>"><?php echo $item->verify->link_news ?></a></p>
                                 <div class="row">
                                   <div class="col-md-6 mb-4">
                                 <p><label>Ảnh đại diện:</label></p>
@@ -225,18 +224,21 @@
                                  <div class="col-md-6 mb-4">
 
                                 <p><label>Ảnh khuôn mặt:</label></p>
-                                  <img  src="<?php echo $item->image_face; ?>" width="150" height="150" />
+                                  <img  src="<?php echo $item->verify->image_face; ?>" width="150" height="150" />
                                 </div>
                                  <div class="col-md-6 mb-4">
                                   <p><label>Ảnh căn cước công dân mặt trước:</label></p>
-                                  <img  src="<?php echo $item->image_card_before; ?>" width="200" height="150" />
+                                  <img  src="<?php echo $item->verify->image_card_before; ?>" width="200" height="150" />
                                 </div>
                                  <div class="col-md-6 mb-4">
                                   <p><label>Ảnh căn cưới công dân mặt sau:</label></p>
-                                  <img  src="<?php echo $item->image_card_after; ?>" width="200" height="150" />
+                                  <img  src="<?php echo $item->verify->image_card_after; ?>" width="200" height="150" />
                                 </div>
                               </div>
+                              <?php if($item->blue_check=='request'){?>
                                 <a  href="/updateGreenCheckRequest?id=<?php echo $item->id ?>&blue_check=active" class="btn btn-primary" style="color: white;">Duyệt </a>
+                              <?php } ?>
+
                                 <a href="/updateGreenCheckRequest?id=<?php echo $item->id ?>&blue_check=lock"  class="btn btn-danger" style="color: white;">Hủy </a>
                               </div>
                              </form>

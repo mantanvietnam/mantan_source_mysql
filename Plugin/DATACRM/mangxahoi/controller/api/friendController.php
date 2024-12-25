@@ -699,7 +699,7 @@ function sendGreenCheckRequestAPI($input){
     $modelMakeFriend = $controller->loadModel('MakeFriends');
     $modelMember = $controller->loadModel('Members');
     $modelPointCustomer = $controller->loadModel('PointCustomers');
-
+    $modelVerifyAccount = $controller->loadModel('VerifyAccounts');
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -717,8 +717,8 @@ function sendGreenCheckRequestAPI($input){
                 $total_friend = $modelMakeFriend->find()->where($conditions)->count();
                 $member = $modelMember->find()->where(['id_father'=>0])->first();
                 $point = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$user->id])->first()->point;
-                
-                if(!empty($user->image_card_after) && !empty($user->image_card_before) && !empty($user->image_face) && !empty($user->link_news) && $total_friend>=1000 && $point>=2000){
+                 $checkVerify = $modelVerifyAccount->find()->where(['id_customer'=>$user->id])->first();
+                if(!empty($checkVerify->image_card_after) && !empty($checkVerify->image_card_before) && !empty($checkVerify->image_face) && !empty($checkVerify->link_news) && $total_friend>=1000 && $point>=2000){
                     $data = $modelCustomer->find()->where(['ìd'=>$user->id])->first();
                     $data->blue_check = 'request';
                     $data->updated_at = time();
@@ -736,8 +736,75 @@ function sendGreenCheckRequestAPI($input){
     }
 
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
-    
-}
+   
+} 
 
+
+function sendVerifyAccountAPI($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+    $modelMember = $controller->loadModel('Members');
+    $modelPointCustomer = $controller->loadModel('PointCustomers');
+    $modelVerifyAccount = $controller->loadModel('VerifyAccounts');
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
+            if (!empty($user)) {
+                $checkVerify = $modelVerifyAccount->find()->where(['id_customer'=>$user->id])->first();
+                if(empty($checkVerify)){
+                    $checkVerify =$modelVerifyAccount->newEmptyEntity();
+                    $checkVerify->created_at = time();
+                    $checkVerify->id_customer = $user->id;
+                }
+
+                if(isset($_FILES['image_face']) && empty($_FILES['image_face']["error"])){
+                    $image_face = uploadImage($user->id, 'image_face', 'image_face_customer'.$user->id);
+
+                }
+                if(!empty($image_face['linkOnline'])){
+                    $checkVerify->image_face = $image_face['linkOnline'];
+                }
+
+                if(isset($_FILES['image_card_before']) && empty($_FILES['image_card_before']["error"])){
+                    $image_card_before = uploadImage($user->id, 'image_card_before', 'image_card_before'.$user->id);
+                }
+                if(!empty($image_card_before['linkOnline'])){
+                    $checkVerify->image_card_before = $image_card_before['linkOnline'];
+                }
+
+                if(isset($_FILES['image_card_after']) && empty($_FILES['image_card_after']["error"])){
+                    $image_card_after = uploadImage($user->id, 'image_card_after', 'image_card_after'.$user->id);
+                }
+                if(!empty($image_card_after['linkOnline'])){
+                    $checkVerify->image_card_after = $image_card_after['linkOnline'];
+                }
+                if(!empty($dataSend['link_news'])){
+                    $checkVerify->link_news = $dataSend['link_news'];
+                }
+
+                $checkVerify->updated_at = time();
+                $modelVerifyAccount->save($checkVerify);
+
+                $user =  getCustomerByToken($dataSend['token']);
+
+                return array('code'=>1, 'messages'=>'Bạn Xác thực tài khoản của bạn thành công','infoUser'=>$user);
+            }
+
+            return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+   
+} 
 ?>
 

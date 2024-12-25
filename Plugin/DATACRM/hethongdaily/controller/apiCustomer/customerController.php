@@ -94,7 +94,7 @@ function saveRegisterCustomerAPI($input)
 
                 if(empty($checkCustomer)){
                     // tạo dữ liệu save
-                    $data->full_name = checkKeyword($dataSend['full_name']);
+                    $data->full_name = preg_replace('/[^A-Za-z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯàáâãèéêìíòóôõùúăđĩũơưỳỵỷỹỲỴỶỸẠẢẤẦẨẪẬẮẰẲẴẶẾỀỂỄỆỐỒỔỖỘỚỜỞỠỢỨỪỬỮỰăĂằẰắẮẳẲẵẴặẶâÂầẦấẤẩẨẫẪậẬêÊềỀếẾểỂễỄệỆôÔồỒốỐổỔỗỖộỘơƠờỜớỚởỞỡỠợỢưƯừỪứỨửỬữỮựỰ]/u', '',checkKeyword($dataSend['full_name']));
                     $data->phone = $dataSend['phone'];
                     $data->email = @$dataSend['email'];
                     $data->address = (!empty($dataSend['address']))?$dataSend['address']:'';
@@ -487,7 +487,7 @@ function editInfoCustomerApi($input){
             if (!empty($user)) {
                 $user = $modelCustomer->find()->where(['id'=>$user->id])->first();
                 if(!empty($dataSend['full_name'])){
-                    $user->full_name =  checkKeyword($dataSend['full_name']);
+                    $user->full_name =  preg_replace('/[^A-Za-z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯàáâãèéêìíòóôõùúăđĩũơưỳỵỷỹỲỴỶỸẠẢẤẦẨẪẬẮẰẲẴẶẾỀỂỄỆỐỒỔỖỘỚỜỞỠỢỨỪỬỮỰăĂằẰắẮẳẲẵẴặẶâÂầẦấẤẩẨẫẪậẬêÊềỀếẾểỂễỄệỆôÔồỒốỐổỔỗỖộỘơƠờỜớỚởỞỡỠợỢưƯừỪứỨửỬữỮựỰ]/u', '',checkKeyword($dataSend['full_name']));
                 }
 
                 if(!empty($dataSend['email'])){
@@ -510,31 +510,7 @@ function editInfoCustomerApi($input){
                     $user->avatar = $avatars['linkOnline'];
                 }
 
-                if(isset($_FILES['image_face']) && empty($_FILES['image_face']["error"])){
-                    $image_face = uploadImage($user->id, 'image_face', 'image_face_customer'.$user->id);
-
-                }
-                if(!empty($image_face['linkOnline'])){
-                    $user->image_face = $image_face['linkOnline'];
-                }
-
-                if(isset($_FILES['image_card_before']) && empty($_FILES['image_card_before']["error"])){
-                    $image_card_before = uploadImage($user->id, 'image_card_before', 'image_card_before'.$user->id);
-                }
-                if(!empty($image_card_before['linkOnline'])){
-                    $user->image_card_before = $image_card_before['linkOnline'];
-                }
-
-                if(isset($_FILES['image_card_after']) && empty($_FILES['image_card_after']["error"])){
-                    $image_card_after = uploadImage($user->id, 'image_card_after', 'image_card_after'.$user->id);
-                }
-                if(!empty($image_card_after['linkOnline'])){
-                    $user->image_card_after = $image_card_after['linkOnline'];
-                }
-                if(!empty($dataSend['link_news'])){
-                    $user->link_news = $dataSend['link_news'];
-                }
-
+                
                 if(!empty($dataSend['birthday'])){
                     $birthday_date = 0;
                     $birthday_month = 0;
