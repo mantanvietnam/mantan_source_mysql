@@ -40,9 +40,9 @@
             </div>
           </form>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="">
             <!-- Biểu đồ -->
-            <canvas id="growthChart" width="400" height="200"></canvas>
+            <canvas id="growthChart" width="400" height="200" ></canvas>
         </div>
     </div>
 </div>

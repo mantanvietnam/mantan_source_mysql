@@ -24,7 +24,7 @@
       </div>
       <div class="card mt-3">
           <div class="card-header text-center">
-              <h5>Số lượng sách mượn nhiều nhất</h5>
+              <h5>10 quyển sách mượn nhiều nhất</h5>
           </div>
           <div class="card-body">
               <!-- Biểu đồ -->
