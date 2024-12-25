@@ -207,8 +207,8 @@ global $urlThemeActive;
     </section>
       <section class="vietnam-360">
         <div class="container">
-            <h1><?php echo @$setting['title5'] ?></h1>
-            <h5><?php echo @$setting['text_5'] ?></h5>
+            <h2><?php echo @$setting['title5'] ?></h2>
+            <p><?php echo @$setting['text_5'] ?></p>
             <div class="slider" style="margin: 25px 0;">
                 <!-- Slide 1 -->
                 <?php 
