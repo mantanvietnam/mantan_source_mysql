@@ -825,6 +825,7 @@ table {
 .local-event-home ul li{
     color: #000 !important;
 }
+
 @media (max-width: 577px) {
     .text-end{
         display: none;
@@ -858,7 +859,9 @@ table {
         justify-content: center;
     }
 
-
+    .destinations .img-desti {
+        height: 200px !important;   
+    }
     
     .ds-no{
         display: none;
@@ -869,6 +872,9 @@ table {
     .item-event-home{
         z-index: 9999;
     top: 254px;
+    }
+    .ma4{
+        margin: 0 20px !important;
     }
  }
 
@@ -884,9 +890,6 @@ table {
     }
     .header-nav{
         font-size: 12px;
-    }
-    .card-news{
-    width: 19rem;
     }
     .card-title {
     font-size: 1rem;
@@ -950,9 +953,6 @@ table {
     .left-text {
         font-size: 9px;
         width: 280px;
-    }
-    .card-news {
-        width: 32rem !important;
     }
     .event-details-flex{
         display: block;
