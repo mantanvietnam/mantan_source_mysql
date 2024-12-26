@@ -40,12 +40,6 @@ $setting = setting();
                 <div class="col-lg-2 col-md-6 col-sm-12">
                     <div class="contact-icon">
                         <h4>Theo dõi tại:</h4>
-                        <div class="combo-icon">
-                            <a href="<?php echo @$setting['facebook']; ?>"><i class="fa-brands fa-facebook"></i></a>
-
-                            <a href="<?php echo @$setting['tiktok']; ?>"><i class="fa-brands fa-tiktok"></i></a>
-                            <a href="<?php echo @$setting['youtube']; ?>"><i class="fa-brands fa-youtube"></i></a>
-                        </div>
                        <div class="static"> <?php 
                             if(function_exists('showStatic')){
                                 showStatic();

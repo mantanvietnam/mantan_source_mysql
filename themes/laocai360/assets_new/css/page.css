@@ -856,6 +856,13 @@ table {
 #event-home .event-home-title p {
     padding-top: 40px !important;
 }
+#contact .contact-content .contact-detail h4{
+    color: #007bff !important;
+}
+#contact .contact-content .contact-detail li i{
+    background-color: #007bff !important;
+    color: black !important;
+}
 @media (max-width: 577px) {
     .text-end{
         display: none;
@@ -877,7 +884,7 @@ table {
         display: block;
     }
     .vietnam-360 .slide img {
-        width: 95% !important;
+        width: 93% !important;
     }
     .hero-overlay {
         width: 100%;
