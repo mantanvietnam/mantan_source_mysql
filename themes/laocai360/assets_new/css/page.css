@@ -857,6 +857,9 @@ table {
     padding-top: 40px !important;
 }
 @media (max-width: 577px) {
+    .box-event-home .slide-time-event{
+        top: 0 !important;
+    }
     .text-end{
         display: none;
     }
