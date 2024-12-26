@@ -41,7 +41,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
+	line-height: normal;
 }
 ol, ul {
 	list-style: none;
@@ -176,7 +176,7 @@ img{
 	margin: 0px;
     text-align: center;
     font-size: 14px;
-    line-height: 120%;
+    line-height: normal;
     --tw-text-opacity: 1;
     color: rgba(112, 112, 112, var(--tw-text-opacity));
 }
@@ -184,7 +184,7 @@ img{
 	text-align: center;
     font-family: Hotel Colline, sans-serif;
     font-size: 16px;
-    line-height: 120%;
+    line-height: normal;
     --tw-text-opacity: 1;
     color: rgba(0, 0, 0, var(--tw-text-opacity));
 }
@@ -229,7 +229,7 @@ img{
 .setting-button-click{
 	padding-top: 12px;
     padding-bottom: 12px;
-	line-height: 130%;
+	line-height: normal;
 	font-size: 14px;
 	transition: all 0.3;
 }
@@ -498,7 +498,7 @@ height: 30px;
 	padding: 0px 17px;
 }
 .setting-intro-du-an{
-	line-height: 1.5;
+	line-height: normal;
 }
 .block{
 	display: block;
@@ -520,7 +520,7 @@ height: 30px;
 .text-intro-du-an{
 	width: 70%;
     margin: auto;
-    line-height: 1.5;
+    line-height: normal;
 }
 .swiper {
 
@@ -840,7 +840,7 @@ height: 30px;
 #nav-tab-project .product-info .product-info-title a{
     color: #fff;
     font-size: 24px;
-    line-height: 120%;
+    line-height: normal;
     transition: all 0.3s linear;
 }
 
@@ -966,10 +966,10 @@ height: 30px;
 	margin-bottom: 6px;
 }
 .name-product{
-	line-height: 1.2;
+	line-height: normal;
 }
 .intro-product{
-	line-height: 1.5;
+	line-height: normal;
 	/* width: 307px; */
 }
 .thong-so-product-details .intro-product{
@@ -996,7 +996,7 @@ height: 30px;
 .intro-product-details .description{
 	display: flex;
 	gap: 60px;
-	line-height: 1.5;
+	line-height: normal;
 }
 .mg-bottom-20{
 	margin-bottom: 20px;
@@ -1150,7 +1150,7 @@ height: 30px;
 	color: #989898;
 }
 .intro-news-main{
-	line-height: 1.2;
+	line-height: normal;
 }
 .blog-news{
 	margin-bottom: 8px;
@@ -1208,7 +1208,7 @@ height: 30px;
 	display: block;
 }
 .library-item{
-	line-height: 1.2;
+	line-height: normal;
 }
 .list-library .library-item:hover .image-list-library img {
 	scale: 1.1;

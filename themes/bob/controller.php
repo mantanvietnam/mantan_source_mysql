@@ -107,6 +107,9 @@ function indexTheme($input)
     $listProductProjects = $modelProductProjects->find()->limit($limit)->page($page)->order($order)->all()->toList();
     $listKind = $modelCategories->find()->where($conditions2)->all()->toList();
 
+    $infoKind = [];
+    $infoProduct = [];
+
     if(!empty($listProductProjects)){
         foreach($listProductProjects as $key => $value){
             if(!empty($value->id_kind)){

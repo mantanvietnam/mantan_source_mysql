@@ -58,7 +58,7 @@ $sqlInstallDatabase .= "CREATE TABLE `orders` (
     `total_costsIncurred` INT NULL DEFAULT '0',
     `promotion` INT NOT NULL DEFAULT '0' COMMENT 'Phần trăm giảm giá',
     `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán' , 
-    `id_staff` INT NULL DEFAULT '0';
+    `id_staff` INT NULL DEFAULT '0',
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .= "CREATE TABLE `order_details` ( 

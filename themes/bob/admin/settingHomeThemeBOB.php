@@ -152,19 +152,18 @@
                             <label class="form-label" for="basic-default-fullname">Tiêu đề </label>
                             <input type="text" class="form-control" name="title_section3" value="<?php echo @$setting['title_section3'];?>" />
                         </div>
-                    </div>
 
-                    <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Tiêu đề phụ </label>
-                            <input type="text" class="form-control" name="titlesub_section3" value="<?php echo @$setting['titlesub_section3'];?>" />
+                            <label class="form-label" for="basic-default-fullname">Ảnh </label>
+                            <?php showUploadFile('image_section3','image_section3',  @$setting['image_section3'],0);?>
                         </div>
                     </div>
 
                     <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Ảnh </label>
-                            <?php showUploadFile('image_section3','image_section3',  @$setting['image_section3'],0);?></div>
+                            <label class="form-label" for="basic-default-fullname">Tiêu đề phụ </label>
+                            <textarea class="form-control" name="titlesub_section3" rows="5"><?php echo @$setting['titlesub_section3'];?></textarea>
+                        </div>
                     </div>
 
                     <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">

@@ -27,7 +27,7 @@
         <section id="section-home-introduce">
             <div class="container">
                 <div class="row row-home-introduce">
-                    <div class="col-lg-6 col-md-6 col-12">
+                    <div class="col-lg-12 col-md-12 col-12">
                         <div class="home-inrtroduce-box">
                             <div class="title-main-section">
                                 <h1><?php echo @$settingThemes['title_section1']; ?></h1>
@@ -150,11 +150,11 @@
                         </div>
 
                         <div class="sub-home-contact">
-                            <span><?php echo @$settingThemes['titlesub_section3']; ?></span>
+                            <span><?php echo nl2br(@$settingThemes['titlesub_section3']); ?></span>
                         </div>
 
                         <div class="button-home-contact">
-                            <a href="/contact">Đăng dự án miễn phí</a>
+                            <a href="/contact">Liên hệ tư vấn nội thất</a>
                         </div>
                     </div>
     

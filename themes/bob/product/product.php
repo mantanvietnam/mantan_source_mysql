@@ -9,17 +9,17 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-gray-400 list-duong-dan">
                       <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
-                      <li class="breadcrumb-item"><a href="/products">Sản Phẩm</a></li>
+                      <li class="breadcrumb-item"><a href="/allProduct">Sản Phẩm</a></li>
                       <li class="breadcrumb-item active font-semibold" aria-current="page"><?php echo $product->title;?></li>
                     </ol>
                   </nav>
             </div>
         </section>
 
-        <section class="intro-product-details">
+        <section class="">
             <div class="container">
                 <div class="row gap-48">
-                    <div class="col-4 relative img-product-details">
+                    <div class="col-6 relative img-product-details">
                         <div class="pd-img-zoom height-540 img-zoom-desktop">
                             <div class="img-zoom-container" onmouseleave="zoomOut();" >
                                 <img id="myimage" src="<?php echo $product->image;?>" onmouseenter="imageZoom('myimage', 'myresult');" 
@@ -69,7 +69,7 @@
                           </div>
 
                     </div>
-                    <div class="col-8 pd-left-48 thong-so-product-details">
+                    <div class="col-6 pd-left-48 thong-so-product-details">
                         <div class="thong-so-product mg-bottom-20">
                             <div class="name-product">
                                 <h1 class="text-gray-700 mg-bottom-4"><?php echo $product->title;?></h1>
@@ -93,13 +93,20 @@
                         </div>
 
                         <div class="description mg-bottom-24">
-                            <p class="text-gray-700">Mô tả sản phẩm</p>
-                            <p class="max-w-480"><?php echo $product->description;?></p>
+                            <p class=""><?php echo $product->description;?></p>
                         </div>
                         <div class="button-product-details">
                             <button class="button-gio" onclick="addProductToCart(<?php echo $product->id;?>)" href="javascript:void(0);" >Thêm vào giỏ hàng</button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="" class="mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12"><?php echo $product->info;?></div>
                 </div>
             </div>
         </section>
