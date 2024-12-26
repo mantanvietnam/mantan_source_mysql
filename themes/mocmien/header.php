@@ -105,7 +105,6 @@
     <!-- điều hướng -->
     <div class='content-center bg-green navigation'>
       <div class='container nav-container'>
-        <a>
             <?php 
                 $menu = getMenusDefault();
             ?>
@@ -129,6 +128,5 @@
                 <?php endif; ?>
               <?php endforeach; ?>
             <?php endif; ?>          
-          </a>
       </div>
     </div>
