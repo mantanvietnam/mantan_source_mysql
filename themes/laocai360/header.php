@@ -107,8 +107,9 @@ $setting = setting();
                 <div class="top-menu" id="fixedNav">
                     <nav class="navbar navbar-expand-lg bg-body-tertiary">
                         <div class="container-fluid">
-                            <a class="navbar-brand" href="/">
-                                <img src="<?php echo $setting['image_logo'] ?>" alt="">
+                            <a class="navbar-brand" href="/" style="display: flex;align-items: center;font-weight: 700;font-size: 22px;">
+                                <img src="<?php echo $setting['image_logo'] ?>" alt=""> Lào Cai 360
+                                
                             </a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>

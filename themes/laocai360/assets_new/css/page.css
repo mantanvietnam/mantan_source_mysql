@@ -26,6 +26,7 @@ footer, header, hgroup, menu, nav, section {
 }
 /* thêm css */
 .box-event-home .slide-time-event {
+    top: 95px !important;
     right: -56% !important;
 }
 
@@ -33,7 +34,13 @@ footer, header, hgroup, menu, nav, section {
     min-width: 333px !important;
 }
 
+.view_moreEvent{
+    background-color: #4d71c1 !important;
+}
 
+.box-menu-map{
+    background-color: #4d71c1 !important;
+}
 
 .swiper-button-next, .swiper-button-prev{
     top: var(--swiper-navigation-top-offset,43%) !important;
@@ -232,6 +239,7 @@ table {
 }
 
 .card-title {
+    line-height: 1.5;
     font-size: 1rem;
     font-weight: bold;
     color: white;
@@ -266,6 +274,11 @@ table {
 }
 
 .text-representative .text-muted{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 15;
     text-align: justify;
     line-height: 1.3;
     margin-bottom: 50px;
@@ -345,7 +358,7 @@ table {
 }
 
 .news .news-text .right-text {
-    font-size: 27px;
+    font-size: 33px;
     font-weight: 600;
 }
 
@@ -833,8 +846,8 @@ table {
 .infomation{
     margin-top: 15px;
 }
-.info-event-home .description-event-home .text-des{
-    width: 30px !important;
+#event-home .event-home-title p {
+    padding-top: 40px !important;
 }
 @media (max-width: 577px) {
     .text-end{
