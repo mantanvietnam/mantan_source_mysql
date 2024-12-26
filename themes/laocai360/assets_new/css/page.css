@@ -266,6 +266,7 @@ table {
 }
 
 .text-representative .text-muted{
+    text-align: justify;
     line-height: 1.3;
     margin-bottom: 50px;
 }
@@ -802,18 +803,19 @@ table {
     display: flex;
 }
 .box-event-home .slick-track{
-    width: 2240px !important;
+    width: 3920px !important;
 }
 .slick-track{
     width: auto !important;
 }
-.footer-info li{
+.footer-info li a{
     color: #000 !important;
 }
 #event-home {
     background-color: #cfdeff;
 }
 .info-event-home{
+    padding: 30px 180px 135px 145px;
     background-color: white !important;
 }
 .info-event-home .name-event-home p{
@@ -828,21 +830,38 @@ table {
 .local-event-home ul li{
     color: #000 !important;
 }
-
+.infomation{
+    margin-top: 15px;
+}
+.info-event-home .description-event-home .text-des{
+    width: 30px !important;
+}
 @media (max-width: 577px) {
     .text-end{
         display: none;
     }
-
+    .text-representative {
+        margin-bottom: 20px;
+    }
+    .info-event-home {
+        padding: 0 !important;
+    }
+    .info-event-home .description-event-home .text-des {
+        width: 100% !important;
+    }
     .text-ends{
         display: block;
     }
-
+    .vietnam-360 .slide img {
+        width: 95% !important;
+    }
     .hero-overlay {
         width: 100%;
         left: 50% !important;
     }
-
+    .hero-title {
+        display: none;
+    }
     .box-event-home .slide-time-event {
         right: -2% !important;
     }
@@ -876,9 +895,7 @@ table {
         z-index: 9999;
     top: 254px;
     }
-    .ma4{
-        margin: 0 20px !important;
-    }
+
  }
 
 @media (max-width: 769px) { 
