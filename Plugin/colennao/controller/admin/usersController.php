@@ -160,6 +160,8 @@ function viewUserDetailAdmin($input)
             $data->email = @$dataSend['email'] ?? null;
             $data->address = @$dataSend['address'] ?? null;
             $data->current_weight =  (int) @$dataSend['current_weight'];
+            $deadline = explode('/', $dataSend['deadline']);
+            $data->deadline = mktime(23,59,59,$deadline[1],$deadline[0],$deadline[2]);
             $data->target_weight =  (int) @$dataSend['target_weight'];
             $data->height =  (int) @$dataSend['height'];
             $modelUser->save($data);

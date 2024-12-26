@@ -99,6 +99,10 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ngày hết hạn</label>
+                            <input type="text" class="form-control datepicker" name="deadline" value="<?php if(!empty($data->deadline)) echo date('d/m/Y',$data->deadline);?>">
+                        </div>
                         
                     </div>
 
