@@ -104,6 +104,54 @@ $categories = listCategoryBytype('post');
                     ?>
                 </ul>
             </div>
+            <?php
+              $keywords = $modelPosts->find()
+                  ->select(['keyword'])
+                  ->group('keyword')
+                  ->all();
+
+              $keywordTitles = [];
+
+              foreach ($keywords as $keywordEntity) {
+                  $keyword = $keywordEntity->get('keyword');
+                  $titles = $modelPosts->find()
+                      ->select(['title'])
+                      ->where(['keyword' => $keyword])
+                      ->all();
+
+                  $keywordTitles[$keyword] = [];
+                  foreach ($titles as $titleEntity) {
+                      $keywordTitles[$keyword][] = $titleEntity->get('title');
+                  }
+              }
+              ?>
+
+            <div class="w-full p-6 mt-4 bg-white rounded-lg shadow lg:max-w-md lg:mt-0 xl:mt-4">
+              <h2 class="mb-4 text-lg font-semibold">
+                Từ khóa
+              </h2>
+
+              <div class="space-y-4">
+                <ul class="keyword-menu">
+                  <?php foreach ($keywordTitles as $keyword => $titles): ?>
+                    <li class="keyword-item">
+                      <span class="keyword-toggle"><?= htmlspecialchars($keyword) ?></span>
+
+                      <ul class="title-list hidden">
+                        <?php foreach ($titles as $title): ?>
+                          <li class="title-item">
+                            <a href="#" class="flex items-center space-x-4 transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:rounded-lg">
+                              <img alt="Image for <?= $title ?>" class="object-cover w-16 h-10 rounded-lg" src="https://storage.googleapis.com/a1aa/image/MJxVtbebl1xe6U9a2n6oXQsZwPlGlE6n2KVfLfZxg7w9DKgPB.jpg" />
+                              <span class="transition duration-300 hover:text-blue-800"><?= htmlspecialchars($title) ?></span>
+                            </a>
+                          </li>
+                        <?php endforeach; ?>
+                      </ul>
+                    </li>
+                  <?php endforeach; ?>
+                </ul>
+              </div>
+            </div>
         </div>
     </div>
 
@@ -118,7 +166,7 @@ $categories = listCategoryBytype('post');
           ->toList();
     ?> 
 
-    <!-- <div class="relative py-4 mx-4 lg:min-h-screen font-plus sm:mx-6 lg:mx-20 slide-top">
+    <div class="relative py-4 mx-4 lg:min-h-screen font-plus sm:mx-6 lg:mx-20 slide-top">
       <div class="mt-10">
         <div class="flex items-center justify-between mb-8">
           <div class="w-[60%] md:w-auto">
@@ -126,69 +174,68 @@ $categories = listCategoryBytype('post');
               Được quan tâm nhiều nhất
             </h1>
           </div>
-          <a
-            href="#"
-            class="flex items-center font-bold rounded-full text-[#142A72] hover:text-blue-500 transition duration-300"
-          >
-            <p class="underline">Xem thêm</p>
-            <i
-              class="ml-2 transition-transform duration-300 fas fa-chevron-right hover:translate-x-1"
-            ></i>
-          </a>
         </div>
 
         <div class="flex-col hidden lg:flex lg:flex-row">
-          <?php foreach ($mostViewedPosts as $index => $post): ?>
-            <?php if ($index == 0): ?>
-              <a href="/<?php echo $post->slug; ?>.html" class="mr-6 overflow-hidden">
-                <div class="relative overflow-hidden rounded-lg">
-                  <img
-                    alt="<?php echo $post->title; ?>"
-                    class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-96 hover:scale-105"
-                    src="<?php echo $post->image; ?>"
-                  />
-                </div>
-                <div class="pt-2">
-                  <h2 class="mb-2 text-2xl font-bold">
-                    <?php echo $post->title; ?>
-                  </h2>
-                  <p class="mb-4 text-gray-600">
-                    <?php echo $post->description; ?>
-                  </p>
-                  <div class="flex items-center">
-                    <div class="text-sm">
-                      <p class="text-gray-600"><?php echo $post->author; ?> - <?php echo date("d/m/Y", $post->time); ?></p>
+            <?php foreach ($mostViewedPosts as $index => $post): ?>
+                <?php if ($index == 0): ?>
+                    <!-- Bài viết nổi bật -->
+                    <a href="/<?php echo $post->slug; ?>.html" class="mr-6 overflow-hidden">
+                        <div class="relative overflow-hidden rounded-lg">
+                            <img
+                                alt="<?php echo $post->title; ?>"
+                                class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-96 hover:scale-105"
+                                src="<?php echo $post->image; ?>"
+                            />
+                        </div>
+                        <div class="pt-2">
+                            <h2 class="mb-2 text-2xl font-bold">
+                                <?php echo $post->title; ?>
+                            </h2>
+                            <p class="mb-4 text-gray-600">
+                                <?php echo $post->description; ?>
+                            </p>
+                            <div class="flex items-center">
+                                <div class="text-sm">
+                                    <p class="text-gray-600"><?php echo $post->author; ?> - <?php echo date("d/m/Y", $post->time); ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <?php else: ?>
+                    <!-- Danh sách các bài viết nhỏ hơn -->
+                    <?php if ($index == 1): ?>
+                        <div class="flex flex-col space-y-4">
+                    <?php endif; ?>
+                        <a href="/<?php echo $post->slug; ?>.html" class="flex overflow-hidden">
+                            <div class="relative w-full overflow-hidden rounded-lg">
+                                <img
+                                    alt="<?php echo $post->title; ?>"
+                                    class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-44 hover:scale-105"
+                                    src="<?php echo $post->image; ?>"
+                                />
+                            </div>
+                            <div class="pl-4 w-[90%]">
+                                <h3 class="mb-2 text-lg font-bold description-news">
+                                    <?php echo $post->title; ?>
+                                </h3>
+                                <div class="flex items-center">
+                                    <div class="text-sm">
+                                        <p class="text-gray-600"><?php echo $post->author; ?> - <?php echo date("d/m/Y", $post->time); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                <!-- Đóng div của danh sách bài viết nhỏ hơn -->
+                <?php if (count($mostViewedPosts) > 1): ?>
                     </div>
-                  </div>
-                </div>
-              </a>
-            <?php else: ?>
-              <div class="flex flex-col space-y-4">
-                <a href="/<?php echo $post->slug; ?>.html" class="flex overflow-hidden">
-                  <div class="relative w-full overflow-hidden rounded-lg">
-                    <img
-                      alt="<?php echo $post->title; ?>"
-                      class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-44 hover:scale-105"
-                      src="<?php echo $post->image; ?>"
-                    />
-                  </div>
-                  <div class="pl-4 w-[90%]">
-                    <h3 class="mb-2 text-lg font-bold description-news">
-                      <?php echo $post->title; ?>
-                    </h3>
-                    <div class="flex items-center">
-                      <div class="text-sm">
-                        <p class="text-gray-600"><?php echo $post->author; ?> - <?php echo date("d/m/Y", $post->time); ?></p>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            <?php endif; ?>
-          <?php endforeach; ?>
+                <?php endif; ?>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <!-- Liên hệ -->
     <div
@@ -353,5 +400,21 @@ document.addEventListener("DOMContentLoaded", () => {
     generateTabContent(firstTabContent, firstPostsData);
   }
 });
+
+
+document.querySelectorAll('.keyword-toggle').forEach(function (keywordToggle) {
+    keywordToggle.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      var titleList = this.nextElementSibling;
+      titleList.classList.toggle('hidden');
+
+      document.querySelectorAll('.title-list').forEach(function (otherTitleList) {
+        if (otherTitleList !== titleList) {
+          otherTitleList.classList.add('hidden');
+        }
+      });
+    });
+  });
 </script>
 <?php getFooter();?>
