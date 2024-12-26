@@ -58,26 +58,23 @@ $menus[1]['sub'][]= array(	'title'=>'Bài học',
 							'permission'=>'listLesson'
                     );
 $menus[2]['title'] = 'Lập kế hoạch';
-$menus[2]['sub'][]= array(	'title'=>'Câu hỏi khảo sát yoga',
+$menus[2]['sub'][]= array(	'title'=>'Bộ môn',
+							'url'=>'/plugins/admin/colennao-view-admin-questions-categorytypeexercise',
+							'classIcon'=>'bx bx-question-mark',
+							'permission'=>'categorytypeexercise'
+						);
+$menus[2]['sub'][]= array(	'title'=>'Câu hỏi khảo sát ',
 							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestion',
 							'classIcon'=>'bx bx-question-mark',
 							'permission'=>'listQuestion'
 						);
-$menus[2]['sub'][]= array(	'title'=>'Câu hỏi khảo sát karate',
-                            'url'=>'/plugins/admin/colennao-view-admin-questions-listquestionkarate',
-                            'classIcon'=>'bx bx-question-mark',
-                            'permission'=>'listquestionkarate'
-                    );
-$menus[2]['sub'][]= array( 'title'=>'Điều kiện yoga',
+
+$menus[2]['sub'][]= array( 'title'=>'Điều kiện ',
                             'url'=>'/plugins/admin/colennao-view-admin-condition-listcondition',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listcondition'
                             );
-$menus[2]['sub'][]= array( 'title'=>'Điều kiện karate ',
-                            'url'=>'/plugins/admin/colennao-view-admin-condition-listconditionkarate',
-                            'classIcon'=>'bx bx-extension',
-                            'permission'=>'listconditionkarate'
-                            );
+
 
 $menus[2]['sub'][]= array( 'title'=>'Kế hoạch luyện tập',
                             'url'=>'/plugins/admin/colennao-view-admin-listuserpeople-listuserpeople',
@@ -94,28 +91,28 @@ $menus[2]['sub'][]= array( 'title'=>'Bài luyện tập  ',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listContactAdmin'
                     );
-$menus[3]['title'] = 'Câu hỏi và điều kiện lập kế hoạch mới';
-                            // newnew
-$menus[3]['sub'][]= array(	'title'=>'Câu hỏi thay đổi sở thích yoga',
-							'url'=>'/plugins/admin/colennao-view-admin-newquetion-listnewquetionsyoga',
-							'classIcon'=>'bx bx-question-mark',
-							'permission'=>'listnewquetionsyoga'
-						);
-$menus[3]['sub'][]= array(	'title'=>'Câu hỏi thay đổi sở thích karate',
-                            'url'=>'/plugins/admin/colennao-view-admin-newquetion-listnewquestionkarate',
-                            'classIcon'=>'bx bx-question-mark',
-                            'permission'=>'listnewquestionkarate'
-                    );
-$menus[3]['sub'][]= array( 'title'=>'Điều kiện thay đổi sở thích yoga',
-                            'url'=>'/plugins/admin/colennao-view-admin-condition-listcondition',
-                            'classIcon'=>'bx bx-extension',
-                            'permission'=>'listcondition'
-                            );
-$menus[3]['sub'][]= array( 'title'=>'Điều kiện thay đổi sở thích karate',
-                            'url'=>'/plugins/admin/colennao-view-admin-condition-listconditionkarate',
-                            'classIcon'=>'bx bx-extension',
-                            'permission'=>'listconditionkarate'
-                            );
+// $menus[3]['title'] = 'Câu hỏi và điều kiện lập kế hoạch mới';
+//                             // newnew
+// $menus[3]['sub'][]= array(	'title'=>'Câu hỏi thay đổi sở thích yoga',
+// 							'url'=>'/plugins/admin/colennao-view-admin-newquetion-listnewquetionsyoga',
+// 							'classIcon'=>'bx bx-question-mark',
+// 							'permission'=>'listnewquetionsyoga'
+// 						);
+// $menus[3]['sub'][]= array(	'title'=>'Câu hỏi thay đổi sở thích karate',
+//                             'url'=>'/plugins/admin/colennao-view-admin-newquetion-listnewquestionkarate',
+//                             'classIcon'=>'bx bx-question-mark',
+//                             'permission'=>'listnewquestionkarate'
+//                     );
+// $menus[3]['sub'][]= array( 'title'=>'Điều kiện thay đổi sở thích yoga',
+//                             'url'=>'/plugins/admin/colennao-view-admin-condition-listcondition',
+//                             'classIcon'=>'bx bx-extension',
+//                             'permission'=>'listcondition'
+//                             );
+// $menus[3]['sub'][]= array( 'title'=>'Điều kiện thay đổi sở thích karate',
+//                             'url'=>'/plugins/admin/colennao-view-admin-condition-listconditionkarate',
+//                             'classIcon'=>'bx bx-extension',
+//                             'permission'=>'listconditionkarate'
+//                             );
                             // 
 $menus[4]['title'] = 'Đồ ăn';
 $menus[4]['sub'][]= array( 'title'=>'Cài đặt chế độ ăn',

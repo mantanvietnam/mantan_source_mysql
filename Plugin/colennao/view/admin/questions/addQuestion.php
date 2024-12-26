@@ -89,7 +89,23 @@
                                   </select>
                                 </div>
                               </div>
+                              <div class="mb-3">
+                                  <label class="form-label">Danh mục bài tập</label>
+                                  <div class="input-group input-group-merge">
+                                      <select class="form-select" name="type" id="type">
+                                          <?php foreach ($listcategoryexercise as $category): ?>
+                                              <option value="<?= $category->id ?>" 
+                                                  <?php if (!empty($data->type) && $data->type == $category->id) echo 'selected'; ?>>
+                                                  <?= $category->name ?>
+                                              </option>
+                                          <?php endforeach; ?>
+                                      </select>
+                                  </div>
+                              </div>
+
+
                             </div>
+
                           </div>
                         </div>
                         <div class="tab-pane fade show" id="navs-top-1" role="tabpanel">

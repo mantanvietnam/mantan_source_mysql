@@ -27,6 +27,24 @@
                       </ul>
                       <div class="tab-content">
                         <div class="tab-pane fade active show" id="navs-top-question" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                  <label class="form-label">Danh mục bài tập</label>
+                                  <div class="input-group input-group-merge">
+                                      <select class="form-select" name="type" id="type">
+                                              <option value="">-- Chọn danh mục bài tập --</option>
+                                          <?php foreach ($listcategoryexercise as $category): ?>
+                                              <option value="<?= $category->id ?>" 
+                                                  <?php if (!empty($data->type) && $data->type == $category->id) echo 'selected'; ?>>
+                                                  <?= $category->name ?>
+                                              </option>
+                                          <?php endforeach; ?>
+                                      </select>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
                           <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -47,7 +65,7 @@
                               <div class="col-md-6">
                                   <div class="mb-2">
                                       <label class="form-label">đây là bài tập mặc định</label>
-                                      <input type="hidden" name="type" value="yoga" />
+                                      
                                   </div>
                                   <select class="form-control" name="status" required>
                                       <option value="">Chọn trạng thái</option>
@@ -56,6 +74,7 @@
                                   </select>
                               </div>
                           </div>
+                  
                           <?php if (!empty($dataquestion) && is_array($dataquestion)): ?>
                             <?php foreach ($dataquestion as $questionData): ?>
                                 <div class="row mb-4">
@@ -79,7 +98,7 @@
                                             ?>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="answer[<?php echo $questionData['id']; ?>][]" value="<?php echo $valueMap[$i - 1]; ?>" id="<?php echo $answerKey . '-' . $questionData['id']; ?>">
-                                                    <!-- <label class="form-check-label" for="<?php echo $answerKey . '-' . $questionData['id']; ?>"><?php echo $questionData[$answerKey]; ?></label> -->
+                                                  
                                                     <label class="form-check-label" for="<?php echo $answerKey . '-' . $questionData['id']; ?>">
                                                         <?php 
                                                         $data = $questionData[$answerKey];
@@ -150,24 +169,28 @@
 
     </div>
 </div>
+
 <script>
-document.getElementById('addRowBtn').addEventListener('click', function() {
-    // Lấy bảng và tạo hàng mới
-    var table = document.getElementById('answerTable').getElementsByTagName('tbody')[0];
-    var newRow = table.insertRow();
-
-    // Tạo các ô và chèn vào hàng mới
-    var cell1 = newRow.insertCell(0);
-    var cell2 = newRow.insertCell(1);
-
-    // Tạo nội dung cho từng ô
-    cell1.innerHTML = '<input type="text" class="form-control" placeholder="" name="answername[]" />' +
-                      '<input type="hidden" class="form-control" placeholder="" name="namequestion" />';
-    cell2.innerHTML = '<button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>';
-});
-
-
-
-
+  <?php
+        // mảng chứa ten cau hoi
+        if(!empty($dataquestion)){
+            foreach ($dataquestion as $key=>$item){
+                echo '  question['.$item->id.'] = {};
+                        question['.$item->id.']["id"] = '.$item->id.';
+                        question['.$item->id.']["name"] = "'.$item->name.'";
+                        question['.$item->id.']["type"] = "'.$item->type.'";
+                    ';
+            }
+        }
+ 
+        // mảng chứa Tên bài học
+        if(!empty($listcategoryexercise)){
+            foreach ($listcategoryexercise as $key => $value) {
+                echo '  category['.$value->id.']["exercise"]['.$value->id.'] = {};
+                        category['.$value->id.']["exercise"]['.$value->id.']["id"] = '.$value->id.';
+                        category['.$value->id.']["exercise"]['.$value->id.']["name"] = "'.$value->name.'";
+                ';
+            }
+        }
+    ?>
 </script>
-

@@ -30,8 +30,6 @@ include('model/user_packages.php');
 include('model/areas.php');
 include('model/tbcondition.php');
 
-include('model/newsquestions.php');
-include('model/newstbcondition.php');
 
 include('model/tablepost.php');
 include('model/myplane.php');

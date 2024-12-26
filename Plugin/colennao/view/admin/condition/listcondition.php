@@ -29,7 +29,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách điều kiện bài tập yoga</h5>
+    <h5 class="card-header">Danh sách điều kiện bài tập </h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>

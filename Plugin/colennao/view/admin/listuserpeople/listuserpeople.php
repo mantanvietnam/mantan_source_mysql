@@ -44,8 +44,15 @@
           </tr>
         </thead>
         <tbody>
+        <?php
+        $categories = $modelCategories->find()->all()->toArray();
+        $categoryNames = array_column($categories, 'name', 'id');
+
+
+        ?>
             <?php foreach ($listData as $item): ?>
                 <tr>
+                  <?php   $categoryName = isset($categoryNames[$item->type]) ? $categoryNames[$item->type] : 'Chưa có tên';?>
                     <td><?php echo $item->id; ?></td>
                     <td><img src="<?=$item->image?>" alt="" style="width:100px"></td>
                     <td>
@@ -55,7 +62,7 @@
                           echo getnamemyplaneById($item->id_consume);
 
                     } ?></td>
-                    <td><?php echo $item->type?></td>
+                    <td><?php echo $categoryName?></td>
                     <td align="center">
                         <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-listuserpeople-adduserpeople/?id=<?php echo urlencode($item->id); ?>">
                             <i class="bx bx-edit-alt me-1"></i>

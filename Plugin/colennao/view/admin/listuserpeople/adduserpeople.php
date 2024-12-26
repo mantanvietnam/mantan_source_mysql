@@ -70,13 +70,20 @@ foreach ($dataExerciseWorkouts as $exercise) {
                               </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Dạng bài tập</label>
-                                    <select class="form-select" name="type" id="type">
-                                        <option value="karate" <?php echo (isset($data->type) && $data->type === 'karate') ? 'selected' : ''; ?>>Karate</option>
-                                        <option value="yoga" <?php echo (isset($data->type) && $data->type === 'yoga') ? 'selected' : ''; ?>>Yoga</option>
-                                    </select>
-                                </div>
+                              <div class="mb-3">
+                                  <label class="form-label">Danh mục bài tập</label>
+                                  <div class="input-group input-group-merge">
+                                      <select class="form-select" name="type" id="type">
+                                              <option value="">-- Chọn danh mục bài tập --</option>
+                                          <?php foreach ($listcategoryexercise as $category): ?>
+                                              <option value="<?= $category->id ?>" 
+                                                  <?php if (!empty($data->type) && $data->type == $category->id) echo 'selected'; ?>>
+                                                  <?= $category->name ?>
+                                              </option>
+                                          <?php endforeach; ?>
+                                      </select>
+                                  </div>
+                              </div>
                             </div>
                           </div>
                         </div>

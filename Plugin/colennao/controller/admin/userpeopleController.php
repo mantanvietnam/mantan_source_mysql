@@ -6,7 +6,7 @@ function listuserpeople($input){
     global $urlCurrent;
     global $metaTitleMantan;
     global $modelCategories;
-
+    $listcategoryexercise = $modelCategories->find()->where(['type'=>'category_exercise'])->all()->toList();
     $metaTitleMantan = 'Danh sách ';
     $modeluserpeople = $controller->loadModel('userpeople');
     $conditions = array();
@@ -54,6 +54,7 @@ function listuserpeople($input){
     } else {
         $urlPage = $urlPage . '?page=';
     }
+    setVariable('listcategoryexercise', $listcategoryexercise);
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -74,7 +75,7 @@ function adduserpeople($input) {
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
     $modelmyplane = $controller->loadModel('myplane');
     $mess = '';
-
+    $listcategoryexercise = $modelCategories->find()->where(['type'=>'category_exercise'])->all()->toList();
     $dataExerciseWorkouts = $modelExerciseWorkouts->find()->all();
     
     $dataWorkouts = $modelWorkouts->find()->all();
@@ -124,7 +125,7 @@ function adduserpeople($input) {
         }
     }
 
-
+    setVariable('listcategoryexercise', $listcategoryexercise);
     setVariable('dataExerciseWorkouts', $dataExerciseWorkouts);
     setVariable('dataWorkouts', $dataWorkouts);
     setVariable('datamyplane', $datamyplane);
