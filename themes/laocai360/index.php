@@ -209,7 +209,7 @@ global $urlThemeActive;
         <div class="container">
             <h2><?php echo @$setting['title5'] ?></h2>
             <p><?php echo @$setting['text_5'] ?></p>
-            <div class="slider" style="margin: 25px 0;">
+            <div class="slide" style="margin: 25px 0;">
                 <!-- Slide 1 -->
                 <?php 
                   if(!empty($listDataImage)){

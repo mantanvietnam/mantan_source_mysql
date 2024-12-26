@@ -24,7 +24,7 @@ $setting = setting();
               </div>
             </div>
             <div class="col-md-4 ds-no">
-              <div class="footer-info d-flex">
+              <div class="footer-info d-flex"style="line-height: 1.5;">
                 <div>
                   <h3>Về chúng tôi</h3>
                   <?php
@@ -39,7 +39,7 @@ $setting = setting();
               </div>
             </div>
             <div class="col-md-4 ds-no">
-              <div class="footer-info d-flex">
+              <div class="footer-info d-flex"style="line-height: 1.5;">
                 <div>
                   <h3>Truy cập hiện tại</h3>
                   <?php 
