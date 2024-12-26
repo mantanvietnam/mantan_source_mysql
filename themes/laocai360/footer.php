@@ -4,10 +4,62 @@ global $urlThemeActive;
 $setting = setting();
 ?>
 
+<section id="contact">
+        <div class="container">
+            <div class="contact-content row">
+                <div class="col-lg-1 col-md-12">
+                    <div class="contact-logo ">
+                    <img src="<?php echo $setting['image_logo'] ?>" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="contact-detail">
+                        <h4><?php echo @$setting['title_footer']; ?></h4>
+                        <p>Cơ quan chủ quản: <span><?php echo @$setting['agency']; ?>.</span></p>
+                        <p>Chịu trách nhiệm chính: <span><?php echo @$setting['responsibility']; ?></span></p>
+                        <ul>
+                            <li><i class="fa-solid fa-house"></i><?php echo @$setting['address']; ?></li>
+                            <li><i class="fa-solid fa-phone"></i><?php echo @$setting['phone']; ?></li>
+                            <li><i class="fa-regular fa-envelope"></i><?php echo @$setting['responsibilityemail']; ?></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="contact-text">
+                        <h4>Về chúng tôi</h4>
+                         <?php
+                                if (!empty(getListLinkWeb(@$setting['idlink']))) {
+                                    foreach (getListLinkWeb(@$setting['idlink']) as $key => $ListLink) { ?>
+                                        <li>
+                                            <a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a>
+                                        </li>
+                                <?php }
+                                } ?>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-12">
+                    <div class="contact-icon">
+                        <h4>Theo dõi tại:</h4>
+                        <div class="combo-icon">
+                            <a href="<?php echo @$setting['facebook']; ?>"><i class="fa-brands fa-facebook"></i></a>
+
+                            <a href="<?php echo @$setting['tiktok']; ?>"><i class="fa-brands fa-tiktok"></i></a>
+                            <a href="<?php echo @$setting['youtube']; ?>"><i class="fa-brands fa-youtube"></i></a>
+                        </div>
+                       <div class="static"> <?php 
+                            if(function_exists('showStatic')){
+                                showStatic();
+                            }
+                            ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 
-    <footer class="footer">
+    <!-- <footer class="footer">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-4">
@@ -57,7 +109,7 @@ $setting = setting();
             <p><?php echo @$setting['text_footer'] ?></p>
           </div>
         </div>
-      </footer>
+      </footer> -->
     
     
 
