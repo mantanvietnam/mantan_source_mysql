@@ -857,11 +857,12 @@ table {
     padding-top: 40px !important;
 }
 @media (max-width: 577px) {
-    .box-event-home .slide-time-event{
-        top: 0 !important;
-    }
     .text-end{
         display: none;
+    }
+    .view_moreEvent {
+        bottom: 6% !important;
+        left: 36% !important;
     }
     .text-representative {
         margin-bottom: 20px;
@@ -887,6 +888,7 @@ table {
     }
     .box-event-home .slide-time-event {
         right: -2% !important;
+        top: 0 !important;
     }
     .news .news-text{
         flex-wrap: wrap;
