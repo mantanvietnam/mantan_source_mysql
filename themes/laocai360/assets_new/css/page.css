@@ -863,6 +863,9 @@ table {
     background-color: #007bff !important;
     color: black !important;
 }
+.info-event-home .local-event-home{
+    display: none !important;
+}
 @media (max-width: 577px) {
     .hero-description {
         display: none;
