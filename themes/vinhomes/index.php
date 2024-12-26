@@ -378,21 +378,21 @@
           </div>
           <div class="flex flex-wrap gap-4 md:ml-12 w-fit lg:w-auto">
             <div class="bg-[#676DFF1A] px-6 py-2 rounded-full text-[#142A72]">
-              Vinhomes Ocean Park 2
+            <?php echo @$setting['care_about_1']; ?>
             </div>
             <div class="bg-[#676DFF1A] px-6 py-2 rounded-full text-[#142A72]">
-              Vinhomes Grand Park
+            <?php echo @$setting['care_about_2']; ?>
             </div>
             <div class="bg-[#676DFF1A] px-6 py-2 rounded-full text-[#142A72]">
-              Vinhomes Ocean Park
+            <?php echo @$setting['care_about_3']; ?>
             </div>
             <div class="bg-[#676DFF1A] px-6 py-2 rounded-full text-[#142A72]">
-              Vinhomes Royal Island
+            <?php echo @$setting['care_about_4']; ?>
             </div>
           </div>
-          <a href="/projects" class="hidden md:flex">
+          <!-- <a href="/projects" class="hidden md:flex">
             <img src="<?= $urlThemeActive ?>image/icons/iconAll.png" alt="icon" class="h-10" />
-          </a>
+          </a> -->
         </div>
       </div>
     </div>
@@ -467,10 +467,6 @@
             <h1 class="text-2xl font-bold md:text-4xl text-[#142A72]">
               Tin tức - Hoạt động
             </h1>
-            <p class="mt-2 text-gray-400">
-              Discover the newest additions to our exclusive real estate
-              portfolio.
-            </p>
           </div>
           <button
             class="flex items-center px-6 py-4 rounded-xl bg-[#E2E8F0] text-[#142A72] transition-all duration-300 ease-in-out hover:bg-[#6274bb] hover:text-white hover:scale-105 hover:shadow-lg"
@@ -481,46 +477,69 @@
         </div>
 
         <!-- Tabs -->
-        <div
-          class="flex mb-8 space-x-8 heroSection-news-select font-bold pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap"
-        >
-          <a class="tab active" href="#" data-tab="all">Tất cả bài viết</a>
-          <a class="tab" href="#" data-tab="project">Dự án triển khai</a>
-          <a class="tab" href="#" data-tab="market-analysis"
-            >Phân tích thị trường</a
-          >
-          <a class="tab" href="#" data-tab="financial-solutions"
-            >Giải pháp tài chính</a
-          >
-          <a class="tab" href="#" data-tab="real-estate">Bất động sản</a>
-        </div>
+        <?php
+          $order = array('view' => 'desc');
+          $mostViewedPosts = $modelPosts->find()
+              ->limit(4)
+              ->page(1)
+              ->order($order)
+              ->all()
+              ->toList();
+        ?> 
 
-        <!-- Tab content -->
-        <div class="tab-content">
-          <div id="all" class="tab-pane active">
-            <!-- Nội dung cho tab "Tất cả bài viết" -->
-            <div id="tab-all-content"></div>
-          </div>
-
-          <div id="project" class="hidden tab-pane">
-            <!-- Nội dung cho tab "Dự án triển khai" -->
-            <div id="tab-project-content"></div>
-          </div>
-
-          <div id="market-analysis" class="hidden tab-pane">
-            <!-- Nội dung cho tab "Phân tích thị trường" -->
-            <div id="tab-market-analysis-content"></div>
-          </div>
-
-          <div id="financial-solutions" class="hidden tab-pane">
-            <!-- Nội dung cho tab "Giải pháp tài chính" -->
-            <div id="tab-financial-solutions-content"></div>
-          </div>
-
-          <div id="real-estate" class="hidden tab-pane">
-            <!-- Nội dung cho tab "Bất động sản" -->
-            <div id="tab-real-estate-content"></div>
-          </div>
+        <div class="flex-col hidden lg:flex lg:flex-row">
+            <?php foreach ($mostViewedPosts as $index => $post): ?>
+                <?php if ($index == 0): ?>
+                    <a href="/<?php echo $post->slug; ?>.html" class="mr-6 overflow-hidden">
+                        <div class="relative overflow-hidden rounded-lg">
+                            <img
+                                alt="<?php echo $post->title; ?>"
+                                class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-96 hover:scale-105"
+                                src="<?php echo $post->image; ?>"
+                            />
+                        </div>
+                        <div class="pt-2">
+                            <h2 class="mb-2 text-2xl font-bold">
+                                <?php echo $post->title; ?>
+                            </h2>
+                            <p class="mb-4 text-gray-600">
+                                <?php echo $post->description; ?>
+                            </p>
+                            <div class="flex items-center">
+                                <div class="text-sm">
+                                    <p class="text-gray-600"><?php echo $post->author; ?> - <?php echo date("d/m/Y", $post->time); ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <?php else: ?>
+                    <?php if ($index == 1): ?>
+                        <div class="flex flex-col space-y-4">
+                    <?php endif; ?>
+                        <a href="/<?php echo $post->slug; ?>.html" class="flex overflow-hidden">
+                            <div class="relative w-full overflow-hidden rounded-lg">
+                                <img
+                                    alt="<?php echo $post->title; ?>"
+                                    class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-44 hover:scale-105"
+                                    src="<?php echo $post->image; ?>"
+                                />
+                            </div>
+                            <div class="pl-4 w-[90%]">
+                                <h3 class="mb-2 text-lg font-bold description-news">
+                                    <?php echo $post->title; ?>
+                                </h3>
+                                <div class="flex items-center">
+                                    <div class="text-sm">
+                                        <p class="text-gray-600"><?php echo $post->author; ?> - <?php echo date("d/m/Y", $post->time); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <?php if (count($mostViewedPosts) > 1): ?>
+                    </div>
+                <?php endif; ?>
         </div>
       </div>
     </div>

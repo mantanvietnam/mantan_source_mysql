@@ -46,9 +46,9 @@
 
 <!-- Thư viện ảnh -->
 <div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus slide-top">
-  <div class="relative hidden sm:block">
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-      <div class="col-span-1 row-span-2 md:col-span-2 max-h-[30rem]">
+  <div class="relative ">
+    <div class="">
+      <div class=" max-h-[50rem]">
         <img
           src="<?php echo $post->image; ?>"
           alt="Image 1"
@@ -59,20 +59,11 @@
   </div>
 </div>
 
-<!-- Thanh lựa chọn tin -->
-<div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus slide-top">
-  <div
-    class="flex space-x-8 heroSection-news-select font-bold pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap"
-  >
-    <a class="active" href="#overview">Tin tức</a>
-  </div>
-</div>
-
 <!-- Nội dung thông tin dự án -->
 <div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus">
   <div class="flex flex-col justify-between lg:flex-row">
     <!-- Left -->
-    <div class="w-full lg:w-[56%] xl:w-[66%] slide-right">
+    <div class="w-full  slide-right">
       <!-- Nội dung chính -->
       <div id="overview" class="mt-4 section">
         <div class="text-base leading-7 content">
@@ -85,53 +76,37 @@
 
 
     <!-- Các tin tức khác -->
+    <?php
+    $order = array('id' => 'desc');
+    $listDataPost = $modelPosts->find()
+        ->page(1)
+        ->order($order)
+        ->all()
+        ->toList();
+        if (empty($listDataPost)) {
+        echo "<p>Không có bài viết nào.</p>";
+    }
+    ?>    
+
     <div class="relative min-h-screen font-plus slide-top">
       <div class="px-4 py-10 mx-auto md:py-20 sm:px-6 md:container xl:px-20">
         <div class="flex items-center justify-between mb-8">
           <div class="w-[60%] md:w-auto">
             <h1 class="text-2xl font-bold md:text-4xl text-[#142A72]">
-              Dự án bất động sản khác
+              Tin tức khác
             </h1>
           </div>
         </div>
-        <div
-          class="flex mb-8 space-x-8 heroSection-news-select pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap"
-        >
-        <?php
-        $order = array('id' => 'desc');
-        $listDataPost = [];
-        foreach ($categories as $category) {
-            $listDataPost[$category->slug] = $modelPosts->find()
-                ->page(1)
-                ->where(['idCategory' => $category->id])
-                ->order($order)
-                ->all()
-                ->toList();
-        }
-         foreach ($categories as $category): ?>
-            <a 
-                class="tab-link <?php echo $category->id === $categories[0]->id ? 'active' : ''; ?>" 
-                href="#" 
-                data-tab="tab-<?php echo $category->id; ?>" 
-                data-id-category="<?php echo $category->id; ?>"
-                data-posts='<?php echo json_encode($listDataPost[$category->slug]); ?>'
-            >
-                <?php echo $category->name; ?>
-            </a>
-        <?php endforeach; ?>
-        </div>
 
         <div class="swiper mySwiper mySwiper-Projects">
-        <?php foreach ($categories as $key => $category): ?>
-          <div class="swiper-wrapper" id="tab-<?php echo $category->id; ?>">
-            <!-- Thẻ swiper sẽ được chèn ở đây -->
+          <div class="swiper-wrapper" id="all-posts">
           </div>
-          <?php endforeach; ?>
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
         </div>
       </div>
     </div>
+
 
     <!-- Liên hệ -->
     <div
@@ -192,114 +167,69 @@
       </div>
     </div>
 
-    <script>
+<script>
 document.addEventListener("DOMContentLoaded", () => {
-  const swiperWrappers = document.querySelectorAll(".swiper-wrapper");
-  const tabLinks = document.querySelectorAll(".tab-link");
-
-  function createSlides(data, container) {
-    container.innerHTML = "";
-    data.forEach((item) => {
-      const slide = document.createElement("div");
-      slide.classList.add("swiper-slide");
-      const formattedTime = new Date(item.time * 1000).toLocaleDateString("vi-VN");
-
-      slide.innerHTML = `
-        <a href="detailProject.html">
-          <div class="relative">
-              <img
-                alt="${item.title}"
-                class="object-cover w-full h-[440px] rounded-lg"
-                src="${item.image}"
-              />
-              <div
-                class="absolute text-white py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
-                style="background: ${
-                  item.active === false
-                    ? "#e04444"
-                    : "linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
-                };"
-              >
-               ${item.keyword}
-              </div>
-            </div>
-          <h2 class="mt-4 text-xl font-bold">${item.title}</h2>
-          <div class="flex items-center mt-2 font-bold">
-            <p class="mr-2">Tác giả:</p>
-            <p class="underline underline-offset-4 text-[#142A72]">
-              ${item.author}
-            </p>
-          </div>
-          <div class="flex items-center mt-2 font-bold">
-            <p class="mr-2">Thời gian:</p>
-            <p class="underline underline-offset-4 text-[#142A72]">${formattedTime}</p>
-          </div>
-          <p class="mt-2 text-gray-400 description">
-            ${item.description}
-          </p>
-        </a>
-      `;
-
-      container.appendChild(slide);
-    });
-  }
-
-  function initSwiper() {
-    return new Swiper(".mySwiper-Projects", {
-      slidesPerView: 1,
-      spaceBetween: 30,
-      loop: true,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 2,
-        },
-        1024: {
-          slidesPerView: 3,
-        },
-      },
-    });
-  }
-
-  let swiper = initSwiper();
-
-  document.querySelectorAll(".tab-link").forEach((tab) => {
-    tab.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      document
-        .querySelectorAll(".tab-link")
-        .forEach((t) => t.classList.remove("active"));
-
-      this.classList.add("active");
-
-      const tabId = this.getAttribute("data-tab");
-      const postsData = JSON.parse(this.getAttribute("data-posts"));
-
-      const container = document.getElementById(tabId);
-
-      createSlides(postsData, container);
-
-      swiper.destroy(true, true);
-      swiper = initSwiper();
-    });
+  let swiper = new Swiper(".mySwiper-Projects", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+      640: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+    },
   });
 
-  const firstTab = document.querySelector(".tab-link.active");
-  if (firstTab) {
-    const firstTabId = firstTab.getAttribute("data-tab");
-    const firstPostsData = JSON.parse(firstTab.getAttribute("data-posts"));
-    const firstContainer = document.getElementById(firstTabId);
-    createSlides(firstPostsData, firstContainer);
+  const postsData = <?php echo json_encode($listDataPost); ?>;
+  const swiperWrapper = document.getElementById("all-posts");
+
+  if (postsData && postsData.length > 0) {
+    postsData.forEach((article) => {
+      let articleHTML;
+      const formattedTime = new Date(article.time * 1000).toLocaleDateString("vi-VN");
+
+      articleHTML = `
+        <div class="swiper-slide">
+          <a href="/${article.slug}.html">
+            <div class="relative">
+              <img alt="${article.title}" class="object-cover w-full h-[440px] rounded-lg" src="${article.image}" />
+              <div class="absolute text-white py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+                   style="background: ${
+                     article.active === false
+                       ? "#e04444"
+                       : "linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
+                   };">
+                ${article.keyword}
+              </div>
+            </div>
+            <h2 class="mt-4 text-xl font-bold">${article.title}</h2>
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tác giả:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">${article.author}</p>
+            </div>
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Thời gian:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">${formattedTime}</p>
+            </div>
+            <p class="mt-2 text-gray-400 description">${article.description}</p>
+          </a>
+        </div>
+      `;
+      swiperWrapper.insertAdjacentHTML("beforeend", articleHTML);
+    });
+  } else {
+    swiperWrapper.innerHTML = `<p class="text-gray-500">Không có tin tức</p>`;
   }
 });
 
-    </script>
+</script>
+
+
     <?php getFooter();?>
