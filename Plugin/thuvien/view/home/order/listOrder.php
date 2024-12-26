@@ -213,16 +213,50 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="orderDetailsModalLabel">Chi tiết đơn hàng</h5>
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-                    <!-- <span aria-hidden="true">&times;</span> -->
-                <!-- </button> -->
+              <!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> 
+                    <span aria-hidden="true">&times;</span> 
+             </button>  -->
             </div>
             <div class="modal-body">
             </div>
-            <!-- <div class="modal-footer">
+            <!--  <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div> -->
         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="returnBook" tabindex="-1" role="dialog" aria-labelledby="returnBook" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="returnBook">Thông tin trả sách</h5>
+            </div>
+            <!-- <form action="paymentCollectionBill" method="GET"> -->
+                     <div class="modal-footer">
+                        <input type="hidden" value=""  name="id_orderDetail" id="id_orderDetail">
+                        <input type="hidden" value=""  name="id_order" id="id_order">
+                        <div class="card-body">
+
+
+                          <div class="col-md-12 mb-4">
+                              <label class="form-label">sách</label>
+                              <input type="text" value="" disabled="" class="form-control" placeholder="" name="name_book" id="name_book">
+                          </div>
+                          <div class="col-md-12 mb-4">
+                              <label class="form-label">Số lượng </label>
+                              <input type="number" value=""  class="form-control" placeholder="" name="quantity_return" id="quantity_return">
+                          </div>
+                           <button type="button" class="btn btn-primary" onclick="returnquantity()">Trả sách</button>
+                      
+                  </div>
+              </div>
+
+             
+         
+       <!-- / </form> -->
+        </div>
+
     </div>
 </div>
 
@@ -311,8 +345,7 @@ function updateOrderStatus(orderId, newStatus) {
 
 function deleteOrder(id) {
     var check = confirm('Bạn có chắc chắn muốn xóa đơn mượn này không?');
-
-    if (check) {
+   if(check == true){
         $.ajax({
             method: "GET",
             url: "/deleteOrder?id=" + id,
@@ -359,21 +392,33 @@ function fetchOrderDetails(orderId) {
                     <p><strong>Hạn trả:</strong> ${returnDeadline}</p>
                 `;
 
-                let detailsHtml = '<table class="table"><thead><tr><th>Sản phẩm</th><th>Số lượng</th></tr></thead><tbody>';
+                let detailsHtml = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>Số lượng</th><th>Số lượng đã trả </th><th>Số lượng chưa trả </th><th>Số lần trả </th><th>Trả sách</th></tr></thead><tbody>';
                 
                 orderDetails.forEach(detail => {
+                    let quantity = detail.quantity-detail.quantity_return
                     detailsHtml += `
                         <tr>
                             <td>${detail.book_name}</td>
                             <td>${detail.quantity}</td>
-                        </tr>
-                    `;
+                            <td>${detail.quantity_return}</td>
+                            <td>${detail.quantity-detail.quantity_return}</td>
+                            <td>${detail.total}</td>`;
+                        if(quantity>0){
+                             detailsHtml +=`<td><a class="dropdown-item" href="javascript:void(0);" onclick="returnBook('${detail.book_name}',${quantity},${detail.id},${orderInfo.order_id})">
+                            <i class='bx bxl-paypal'></i>
+                                </a></td>`;
+                        }else{
+                             detailsHtml +=`<td></td>`;
+                        }
+
+
+                        detailsHtml +=` </tr>`;
                 });
 
                 detailsHtml += '</tbody></table>';
 
                 if(status==1){
-                     detailsHtml += '<button type="submit" class="btn btn-primary " onclick="updateOrderStatus('+id_order+',2)">trả sách</button>';
+                     detailsHtml += '<button type="submit" class="btn btn-primary " onclick="updateOrderStatus('+id_order+',2)">trả hết</button>';
                 }
 
 
@@ -452,6 +497,53 @@ $('#orderDetailsModal').on('hidden.bs.modal', function () {
             }
         });
     });
+
+ function returnBook(name,quantity,id,id_order) {
+    if(quantity>0){
+        $('#id_orderDetail').val(id);
+        $('#id_order').val(id_order);        
+        $('#name_book').val(name);        
+        $('#quantity_return').val(quantity);                
+
+      $('#returnBook').modal('show');
+    }
+ }
+ function returnquantity(){
+    var id = $('#id_orderDetail').val();
+    var id_order = $('#id_order').val();
+    var quantity = $('#quantity_return').val();
+     var confirmation = confirm('Bạn có chắc chắn thao tác trả sách này không');
+        if(confirmation == true){
+            $.ajax({
+                method: "POST",
+                url: "/apis/updateOrderOuantity",
+                data: {
+                    id:id,
+                    quantity:quantity,
+                },
+                success: function(response) {
+                    try {
+                        response = typeof response === 'string' ? JSON.parse(response) : response;
+
+                        if (response.success === true) {
+                            alert(response.message);
+                            fetchOrderDetails(id_order);
+                            document.getElementById("returnBook").classList.remove("show");
+                        } else {
+                            alert(response.message || 'Cập nhật không thành công.');
+                        }
+                    } catch (error) {
+                        console.error('Lỗi khi xử lý phản hồi JSON:', error);
+                        alert('Phản hồi không hợp lệ từ server.');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Có lỗi xảy ra khi gửi yêu cầu AJAX:', textStatus, errorThrown);
+                    alert('Có lỗi xảy ra khi kết nối đến server. Vui lòng thử lại.');
+                }
+            });
+        }
+ }
 </script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

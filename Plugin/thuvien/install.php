@@ -176,6 +176,21 @@ PRIMARY KEY (`id`)
  ) ENGINE = InnoDB;";
 
 
+$sqlInstallDatabase .=" CREATE TABLE `order_historys` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`order_id` INT NULL DEFAULT NULL,
+`book_id` INT NULL DEFAULT NULL,
+`warehouse_id` INT NULL DEFAULT NULL,
+`order_detail_id` INT NULL DEFAULT NULL,
+`quantity` INT NOT NULL DEFAULT '0',
+`created_at` INT NOT NULL,
+`type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`id_building` INT NOT NULL,
+`id_member` INT NULL DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE permissions; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -190,6 +205,7 @@ $sqlDeleteDatabase .= "DROP TABLE orders; ";
 $sqlDeleteDatabase .= "DROP TABLE orderdetails; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouse; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouse_historys; ";
+$sqlDeleteDatabase .= "DROP TABLE order_historys; ";
 
 
 
@@ -304,4 +320,14 @@ $sqlUpdateDatabase['warehouse_historys']['type'] = "ALTER TABLE `warehouse_histo
 $sqlUpdateDatabase['warehouse_historys']['created_at'] = "ALTER TABLE `warehouse_historys` ADD `created_at` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['warehouse_historys']['note'] = "ALTER TABLE `warehouse_historys` ADD `note` VARCHAR(255) NULL DEFAULT NULL;";
 $sqlUpdateDatabase['warehouse_historys']['id_building'] = "ALTER TABLE `warehouse_historys` ADD `id_building` INT NULL DEFAULT '0';";
+
+$sqlUpdateDatabase['order_historys']['order_id'] = "ALTER TABLE `order_historys` ADD `order_id` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['order_historys']['book_id'] = "ALTER TABLE `order_historys` ADD `book_id` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['order_historys']['warehouse_id'] = "ALTER TABLE `order_historys` ADD `warehouse_id` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['order_historys']['order_detail_id'] = "ALTER TABLE `order_historys` ADD `order_detail_id` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['order_historys']['quantity'] = "ALTER TABLE `order_historys` ADD `quantity` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['order_historys']['created_at'] = "ALTER TABLE `order_historys` ADD `created_at` INT NOT NULL;";
+$sqlUpdateDatabase['order_historys']['type'] = "ALTER TABLE `order_historys` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['order_historys']['id_building'] = "ALTER TABLE `order_historys` ADD `id_building` INT NOT NULL;";
+$sqlUpdateDatabase['order_historys']['id_member'] = "ALTER TABLE `order_historys` ADD `id_member` INT NULL DEFAULT NULL;";
 ?>

@@ -187,6 +187,7 @@ function addOrder($input)
     $modelCustomers = $controller->loadModel('Customers');
     $modelBooks = $controller->loadModel('Books');
     $modelWarehouses = $controller->loadModel('Warehouses');
+    $modelOrderHistorys = $controller->loadModel('OrderHistorys');
 
     $customer = $modelCustomers->find()->all()->toList();
     $books = $modelBooks->find()->all()->toList();
@@ -227,8 +228,10 @@ function addOrder($input)
             $order->updated_at = time();
 
             if ($modelOrders->save($order)) {
+                    $id_book = array();
                     foreach ($dataSend['order_books'] as $detail) {
                         if (!empty($detail['book_id']) && !empty($detail['quantity']) && !empty($detail['warehouse_id'])) {
+                             $id_book[] = (int)$detail['book_id'];
                             $orderDetail = $modelOrderDetails->find()->where(['order_id' => $order->id, 'book_id' => $detail['book_id']])->first();
                             $oldQuantity = $orderDetail ? $orderDetail->quantity : 0;
 
@@ -262,8 +265,47 @@ function addOrder($input)
 
                                 $modelWarehouses->save($warehouse);
                             }
+                            $history = $modelOrderHistorys->find()->where(['order_id'=>$order->id, 'book_id'=>(int)$detail['book_id'], 'warehouse_id'=>@$warehouse->id, 'order_detail_id'=>$orderDetail->id, 'id_building'=>(int)$dataSend['building_id'], 'type'=>'plus'])->first();
+
+                            if(empty($history)){
+                                $history = $modelOrderHistorys->newEmptyEntity();
+                                $history->order_id = $order->id;
+                                $history->book_id = (int)$detail['book_id'];
+                                $history->warehouse_id = (int)$detail['warehouse_id'];
+                                $history->order_detail_id = $orderDetail->id;
+                                $history->id_building = (int)$dataSend['building_id'];
+                                $history->created_at = time();
+                                $history->type = 'plus';
+                            }
+
+                                $history->id_member = (int)$user->id;
+                                $history->quantity = (int)$detail['quantity'];
+                               
+
+                                $modelOrderHistorys->save($history);
+                            }
+
+                        }
+                    
+
+                    $checkOrderDetail = $modelOrderDetails->find()->where(['order_id' => $order->id, 'book_id NOT IN' => $id_book])->all()->toList();
+                    if(!empty($checkOrderDetail)){
+                        foreach($checkOrderDetail as $key => $item){
+                            $warehouse = $modelWarehouses->find()->where(['id' => $item->warehouse_id])->first();
+                            if (!empty($warehouse)){
+                                $warehouse->quantity_borrow -= $item->quantity;
+                            
+                                if ($warehouse->quantity_borrow < 0) {
+                                    $warehouse->quantity_borrow = 0;
+                                }
+                                $modelWarehouses->save($warehouse);
+                            }
+                            $modelOrderHistorys->deleteAll(['order_id'=>$order->id, 'book_id'=>$item->book_id, 'warehouse_id'=> $item->warehouse_id, 'order_detail_id'=>$item->id, 'id_building'=>(int)$dataSend['building_id']]);
+                             $modelOrderDetails->deleteAll(['order_id' => $order->id, 'book_id NOT IN' => $id_book]);
                         }
                     }
+
+
                     if(!empty($_GET['id'])){
                         $note = $user->name . ' sửa đơn mượn có ID là: ' . $order->id;
                     }else{

@@ -348,6 +348,7 @@
                         let resultHTML = "";
                         if (response && response.length > 0) {
                             response.forEach(function (book) {
+                                if(book.id>0){
                                 resultHTML += `
                                     <div class="search-item book-item" 
                                         data-id="${book.id}" 
@@ -357,6 +358,7 @@
                                         id_shelf="${book.id_shelf}">
                                          ${book.name} - SL: ${book.quantity - book.quantity_borrow}
                                     </div>`;
+                                }
                             });
                         } else {
                             resultHTML = '<div class="search-item disabled">Không tìm thấy sách</div>';

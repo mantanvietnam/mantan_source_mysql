@@ -832,8 +832,8 @@ function addMember($input)
                     $data->id_permission = (int) $dataSend['id_permission'];
                     $data->id_position = (int) $dataSend['id_position'];
 
-                    if(!empty($dataSend['permission'])){
-                        $data->permission = json_encode($permission);
+                    if(!empty($dataSend['check_list_permission'])){
+                        $data->permission = json_encode($dataSend['check_list_permission']);
                     }else{
                         if(!empty($data->id_permission)){ 
                             $data->permission = $modelPermission->find()->where(['id'=>$data->id_permission])->first()->permission;
@@ -869,6 +869,7 @@ function addMember($input)
                             $data->pass = md5($dataSend['password']);
                         }
                     }
+                  
                     $modelMember->save($data);
 
                     if(!empty($_GET['id'])){

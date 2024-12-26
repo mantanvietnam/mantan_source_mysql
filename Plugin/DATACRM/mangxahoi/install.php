@@ -149,7 +149,7 @@ $sqlUpdateDatabase['report_wall_posts']['id_customer'] = "ALTER TABLE `report_wa
 $sqlUpdateDatabase['report_wall_posts']['created_at'] = "ALTER TABLE `report_wall_posts` ADD `created_at` INT NOT NULL;";
 $sqlUpdateDatabase['report_wall_posts']['id_post'] = "ALTER TABLE `report_wall_posts` ADD `id_post` INT NOT NULL;";
 
-$sqlUpdateDatabase['keywords']['keyword'] = "ALTER TABLE `keywords` ADD `keyword` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;"
+$sqlUpdateDatabase['keywords']['keyword'] = "ALTER TABLE `keywords` ADD `keyword` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['keywords']['replacement'] = "ALTER TABLE `keywords` ADD `replacement` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 
 $sqlUpdateDatabase['notifications']['id_user'] = "ALTER TABLE `notifications` ADD `id_user` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL';";

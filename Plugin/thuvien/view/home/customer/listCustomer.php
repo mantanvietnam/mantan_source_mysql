@@ -88,12 +88,12 @@
             <td>'.$item->email.'</td>
             <td>'.$status.'</td>
             <td align="center">
-              <a href="/listOrder/?customer_id=<?php echo $item->id; ?>&status=1" class="text-primary">
+              <a href="/listOrder/?customer_id='.$item->id.'&status=1" class="text-primary">
                 '.$item->borrowedCount.'
               </a>
             </td>
             <td align="center">
-              <a href="/listOrder/?customer_id=<?php echo $item->id; ?>&status=2" class="text-success">
+              <a href="/listOrder/?customer_id='.$item->id.'&status=2" class="text-success">
                 '.$item->returnedCount.'
               </a>
             </td>

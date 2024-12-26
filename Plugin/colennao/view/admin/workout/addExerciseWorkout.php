@@ -53,7 +53,7 @@
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Mã Youtube(*)</label>
-                              <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" required />
+                              <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>"  />
                           </div>
                           <div class="mb-3">
                               <label class="form-label">Trạng thái</label>
@@ -66,16 +66,9 @@
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Thời gian tính thành phút</label>
-                              <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>" required placeholder="thời gian tính thành phút"/>
+                              <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>"  placeholder="thời gian tính thành phút"/>
                             </div>
-                            <div class="mb-3">
-                              <label class="form-label">Thời gian đếm ngược tính thành giây</label>
-                              <input type="number" class="form-control phone-mask" name="time_reverse" id="time_reverse" value="<?php echo @$data->time_reverse;?>" required placeholder="thời gian tính thành giây"/>
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Thời gian đếm ngược tính thành giây</label>
-                              <input type="number" class="form-control phone-mask" name="time_reverse" id="time_reverse" value="<?php echo @$data->time_reverse;?>" required placeholder="thời gian tính thành giây"/>
-                            </div>
+                            
                             <div class="mb-3">
                               <label class="form-label">Hình minh họa (*)</label>
                                <input type="file" class="form-control phone-mask" name="image" id="image" value=""/>

@@ -14,4 +14,5 @@ include('model/warehouses.php');
 include('model/orders.php');
 include('model/order_details.php');
 include('model/warehouse_historys.php');
+include('model/order_historys.php');
 ?>

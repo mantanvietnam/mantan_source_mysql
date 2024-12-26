@@ -53,7 +53,7 @@
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Mã Youtube(*)</label>
-                              <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" required />
+                              <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>"  />
                           </div>
                           <div class="mb-3">
                               <label class="form-label">Thời gian tính thành giây</label>
