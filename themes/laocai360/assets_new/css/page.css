@@ -859,7 +859,9 @@ table {
         width: 100%;
         left: 50% !important;
     }
-
+    .hero-title {
+        display: none;
+    }
     .box-event-home .slide-time-event {
         right: -2% !important;
     }
