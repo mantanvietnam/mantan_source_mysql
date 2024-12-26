@@ -1105,7 +1105,7 @@ table {
     
 }
 
-@media (max-width: 1500px) { 
+@media (max-width: 1700px) { 
     .swiper-button-prev,
     .swiper-button-next {
   width: 30px !important; /* Giảm chiều rộng */
