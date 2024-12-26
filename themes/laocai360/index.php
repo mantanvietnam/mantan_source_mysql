@@ -203,31 +203,28 @@ global $urlThemeActive;
                 </div>
         </div>
     </section>
-      <section class="vietnam-360">
-        <div class="container">
-            <h2><?php echo @$setting['title5'] ?></h2>
-            <p><?php echo @$setting['text_5'] ?></p>
-            <div class="slide" style="margin: 25px 0;">
-                <!-- Slide 1 -->
-                <?php 
-                  if(!empty($listDataImage)){
-                    foreach($listDataImage as $key => $item){
-                      echo '<div class="slide col-lg-3">
-                      <a href="'.$item->link.'" target="_bank">
-                    <img src="'.$item->image.'" alt="'.$item->name.'">
-                    <div class="arrow-overlay">
-                        <i class="fa-solid fa-arrow-right fa-rotate-by fa-xl" style="--fa-rotate-angle: 45deg;"></i>
-                    </div>
-                    </a>
-                </div>';
-                    }
-                  }
-                 ?>
-                
-                
-            </div>
+     
+    <section class="vietnam-360">
+      <div class="container">
+        <h2 class="py-3"><?php echo @$setting['title5'] ?></h2>
+        <p><?php echo @$setting['text_5'] ?></p>
+        <div class="slider" style="margin: 25px 0;">
+          
+          <?php 
+          if(!empty($listDataImage)){
+            foreach($listDataImage as $key => $item){?>
+              <div class="slide">
+                <img src="<?php echo $item->image ?>" alt="<?php echo $item->name ?>">
+                <div class="arrow-overlay">
+                  <i class="fa-solid fa-arrow-right fa-rotate-by fa-xl" style="--fa-rotate-angle: 45deg;"></i>
+                </div>
+              </div>
+            <?php   }} ?>
+          </div>
         </div>
-    </section>
+      </section> 
+
+
     
   </main>
 

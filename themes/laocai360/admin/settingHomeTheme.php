@@ -149,7 +149,7 @@
 
             <div class="card-header d-flex justify-content-between align-items-center">
 
-              <h5 class="mb-0">Khối Bào đồ</h5>
+              <h5 class="mb-0">Khối Bản đồ</h5>
 
             </div>
 
