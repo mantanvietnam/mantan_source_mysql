@@ -235,14 +235,14 @@
 
                 </div>
 
-              <!--   <div class="mb-3 ">
+              <div class="mb-3 ">
 
                   <label class="form-label" for="basic-default-fullname">Cơ quan chủ quản:</label>
 
                   <input type="text" class="form-control" name="agency" value="<?php echo @$setting['agency'];?>" />
 
                 </div>
- -->
+ 
                 <div class="mb-3 ">
 
                   <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
@@ -290,7 +290,7 @@
 
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
 
-                <!--   <div class="mb-3 ">
+                 <div class="mb-3 ">
 
                   
 
@@ -298,7 +298,7 @@
 
                     <input type="text" class="form-control" name="responsibility" value="<?php echo @$setting['responsibility'];?>" />
 
-                  </div> -->
+                  </div> 
 
                   <div class="mb-3 ">
 
