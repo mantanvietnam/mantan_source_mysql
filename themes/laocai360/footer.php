@@ -27,14 +27,14 @@ $setting = setting();
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="contact-text">
                         <h4>Về chúng tôi</h4>
-                         <?php
+                         <!-- <?php
                                 if (!empty(getListLinkWeb(@$setting['idlink']))) {
                                     foreach (getListLinkWeb(@$setting['idlink']) as $key => $ListLink) { ?>
                                         <li>
                                             <a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a>
                                         </li>
                                 <?php }
-                                } ?>
+                                } ?> -->
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6 col-sm-12">

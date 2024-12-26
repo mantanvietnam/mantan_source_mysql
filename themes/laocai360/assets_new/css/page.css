@@ -175,7 +175,7 @@ table {
 .hero-overlay {
     position: absolute;
     top: 65%;
-    left: 50%;
+    left: 50% !important;
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;
@@ -864,6 +864,13 @@ table {
     color: black !important;
 }
 @media (max-width: 577px) {
+    .hero-description {
+        display: none;
+    }
+    .left-text {
+        font-size: 12px;
+        width: 280px;
+    }
     .text-end{
         display: none;
     }
@@ -1133,9 +1140,6 @@ table {
 
     .text-ends{
         display: none;
-    }
-    .hero-overlay{
-        left: 30%;
     }
 
     .header-nav{
