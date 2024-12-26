@@ -26,7 +26,7 @@ global $urlThemeActive;
   
               <!-- Nội dung hero overlay -->
               <div class="hero-overlay" id="heroOverlay">
-                  <a href="<?php echo $setting['link_image360'] ?>" target="_blank" class="btn btn-primary" id="view360Btn">Xem toàn cảnh 360</a>
+                  <a href="<?php echo $setting['link_image360'] ?>"  class="btn btn-primary" id="view360Btn">Xem toàn cảnh 360</a>
               </div>
           </div>
       </div>
