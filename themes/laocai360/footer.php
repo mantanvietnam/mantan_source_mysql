@@ -15,8 +15,8 @@ $setting = setting();
                 <img src="<?php echo $setting['image_logo'] ?>" alt="Logo" class="me-3" width="90" height="90">
                 <div>
                   <h3><?php echo @$setting['title_footer']; ?></h3>
-                  <p><?php echo @$setting['agency']; ?></p>
-                  <p><?php echo @$setting['responsibility']; ?></p>
+                  <p style="font-weight: 800;font-size: 16px;color: black;">Cơ quan chủ quản:<?php echo @$setting['agency']; ?></p>
+                  <p style="font-weight: 800;font-size: 16px;color: black;">Chiu trách nhiệm chính:<?php echo @$setting['responsibility']; ?></p>
                   <p><i class="bi bi-geo-alt-fill"></i> <?php echo @$setting['address']; ?></p>
                   <p><i class="bi bi-telephone-fill"></i> <?php echo @$setting['phone']; ?></p>
                   <p><i class="bi bi-envelope-fill"></i> <?php echo @$setting['responsibilityemail']; ?></p>
