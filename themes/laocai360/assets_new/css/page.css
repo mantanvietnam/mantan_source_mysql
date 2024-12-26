@@ -45,6 +45,9 @@ footer, header, hgroup, menu, nav, section {
 .swiper-button-next, .swiper-button-prev{
     top: var(--swiper-navigation-top-offset,43%) !important;
 }
+#header .navbar .navbar-collapse .nav-item:first-child a{
+    color: #007bff !important;
+}
 /*  */
 body {
 	line-height: 1;
@@ -711,8 +714,12 @@ table {
 
   .footer {
     background-color: white;
-    padding: 50px 0;
+    padding: 30px 0;
     font-family: 'Roboto', sans-serif;
+  }
+
+  .footer-info{
+    line-height: 1.5;
   }
   
   .footer-info h3 {
