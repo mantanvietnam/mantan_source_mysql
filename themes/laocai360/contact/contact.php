@@ -120,7 +120,7 @@ getFileTheme('header_tayho.php');
                                                     <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-global.svg"
                                                          class="me-3" alt="">
                                                     <span>
-                                                        https://maichau360.vn/
+                                                        https://laocai360.vn/
                                                     </span>
                                                 </div>
                                             </div>

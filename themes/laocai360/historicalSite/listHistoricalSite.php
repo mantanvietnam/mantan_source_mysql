@@ -47,7 +47,7 @@ global $urlThemeActive;
         <section id="place-category">
             <div class="category-title">
                 <h1>DI TÍCH VĂN HÓA LỊCH SỬ</h1>
-                <p>Hãy khám phá những điểm đến di tích lịch sử ở Mai Châu</p>
+                <p>Hãy khám phá những điểm đến di tích lịch sử ở Lào Cai</p>
             </div>
 
             <div class="container">

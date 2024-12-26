@@ -64,116 +64,88 @@ $setting = setting();
    
     <!-- FILE INCLUDE JS END -->
     <?php mantan_header(); ?>
-    <!-- Meta Pixel Code -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '1428203714597073');
-            fbq('track', 'PageView');
-    </script>
-        <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
-            /></noscript>
-<!-- End Meta Pixel Code -->
 
 
 </head>
 <body>
+    <header class="header">
+      <div class="container-fluid">
+          <div class="row align-items-center">
+              <!-- Logo -->
+              <div class="col-md-3 col-6">
+                  <div class="header-logo d-flex align-items-center">
+                      <img src="<?php echo $setting['image_logo'] ?>" alt="Lào Cai 360" class="img-fluid" style="margin-right: 10px;">
+                      <p class="m-0 ml-3"> LÀO CAI 360°</p>
+                  </div>
+              </div>
+  
+              <!-- Toggle Button for Mobile -->
+              <div class="col-6 d-md-none text-end">
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
+              </div>
+  
+              <!-- Navigation Menu -->
+              <div class="col-md-7 d-none d-md-block">
+                  <nav class="header-nav">
+                      <ul class="nav justify-content-center">
+                        <?php
+                            $menu = getMenusDefault();
 
-<header>
-    <section id="header">
-        <div class="container">
+                            if(!empty($menu)){
+                                foreach($menu as $key => $value){
+                                    if(empty($value['sub'])){
+                                        echo '<li class="nav-item"><a class="nav-link" href="'.$value['link'].'">'.$value['name'].'</a></li>';
+                                    }else{ 
+                                        echo '   <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="'.$value['link'].'" id="destinationDropdown" data-bs-toggle="dropdown" aria-expanded="false"> '.$value['name'].'</a>
+                                                    <ul class="dropdown-menu" aria-labelledby="destinationDropdown">';
+                                                    foreach($value['sub'] as $keys => $values){  
+                                                        echo '<li><a class="dropdown-item my-2" href="'.$values['link'].'">'.$values['name'].'</a></li>';
+                                                    }
 
-            <!--  Phần Tìm Kiếm  -->
-            <div class="row">
-                <form class="search-input d-none d-md-block" action="/search" method="get">
-                <div class="search-area">
-                    <div class="search-input">
-                        <input type="text"  name="key" placeholder="Tìm kiếm tại đây...">
-                    </div>
-                    <div class="search-btn">
-                        <a href="/">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </a>
-                    </div>
-                </div>
-            </form>
-            </div>
-
-            <!--  Phần Menu  -->
-            <div class="row">
-                <div class="top-menu" id="fixedNav">
-                    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                        <div class="container-fluid">
-                            <a class="navbar-brand" href="/" style="display: flex;align-items: center;font-weight: 700;font-size: 22px;">
-                                <img src="<?php echo $setting['image_logo'] ?>" alt=""> Lào Cai 360
-                                
-                            </a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarNav">
-                             
-                             
-                                <ul class="navbar-nav">
-                                    <?php
-                                    $menu = getMenusDefault();
-                                    if(!empty($menu)){
-                                        foreach($menu as $key => $value){
-                                          if(empty($value['sub'])){
-                                           
-                                            echo '   <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="'.$value['link'].'">'.$value['name'].'</a>
-                                            </li>';
+                                                    echo'</ul>
+                                                </li>';
+                                    }
+                                }
+                            } 
+                        ?>
+                      </ul>
+                  </nav>
+              </div>
+  
+              <!-- Responsive Menu for Mobile -->
+              <div class="col-12 d-md-none">
+                  <div class="collapse" id="navbarContent">
+                      <nav class="header-nav">
+                          <ul class="nav flex-column text-center">
+                            <?php
+                                if(!empty($menu)){
+                                    foreach($menu as $key => $value){
+                                        if(empty($value['sub'])){
+                                            echo '<li class="nav-item"><a class="nav-link" href="'.$value['link'].'">'.$value['name'].'</a></li>';
                                         }else{ 
                                             echo '   <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="'.$value['link'].'" role="button" data-bs-toggle="dropdown" aria-expanded="false"> '.$value['name'].'
-                                            <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                            </a>
-                                            <ul class="dropdown-menu relics-drop">';
-                                            foreach($value['sub'] as $keys => $values){  
-                                                echo '<li><a class="dropdown-item" href="'.$values['link'].'">'.$values['name'].'</a></li>';
-                                            }
+                                                        <a class="nav-link dropdown-toggle" href="'.$value['link'].'" id="destinationDropdownMobile" data-bs-toggle="dropdown" aria-expanded="false"> '.$value['name'].'</a>
+                                                        <ul class="dropdown-menu" aria-labelledby="destinationDropdownMobile">';
+                                                        foreach($value['sub'] as $keys => $values){  
+                                                            echo '<li><a class="dropdown-item my-2" href="'.$values['link'].'">'.$values['name'].'</a></li>';
+                                                        }
 
-                                            echo'</ul>
-                                            </li>';
+                                                        echo'</ul>
+                                                    </li>';
                                         }
                                     }
-                                } ?>
-
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-
-                                        </a>
-                                        <ul class="dropdown-menu language-drop">
-                                            <li><a class="dropdown-item" href="#">Tiếng Việt</a></li>
-                                            <li><a class="dropdown-item" href="#">Tiếng Anh</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </section>
-
-</header>
-
-
-
-
-
-
+                                } 
+                            ?>
+                          </ul>
+                      </nav>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </header>
 
 
 

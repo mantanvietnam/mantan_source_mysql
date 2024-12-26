@@ -60,7 +60,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function () {
-    $('.slider').slick({
+    $('.slidera').slick({
         slidesToShow: 3,         // Mặc định hiển thị 3 slides
         slidesToScroll: 1,       // Di chuyển 1 slide mỗi lần
         arrows: true,            // Hiển thị nút điều hướng
@@ -101,4 +101,20 @@ function loadEvent(e) {
     });
      eventhome();
     
-    }
+}
+
+function removeIframe()
+{
+    $('#iframeCover').remove();
+    $('#heroOverlay').remove();
+}
+
+document.getElementById("view360Btn").addEventListener("click", function (e) {
+    e.preventDefault(); // Ngăn chặn hành động mặc định của nút nếu là liên kết
+    const iframeCover = document.getElementById("iframeCover");
+    const heroOverlay = document.getElementById("heroOverlay");
+
+    // Ẩn lớp phủ
+    iframeCover.style.display = "none";
+    heroOverlay.style.display = "none";
+});

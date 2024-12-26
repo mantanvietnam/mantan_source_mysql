@@ -26,7 +26,7 @@ global $urlThemeActive;
   
               <!-- Nội dung hero overlay -->
               <div class="hero-overlay" id="heroOverlay">
-                  <a href="<?php echo $setting['link_image360'] ?>"  class="btn btn-primary" id="view360Btn">Xem toàn cảnh 360</a>
+                  <a href="javascript:void(0);"  class="btn btn-primary" id="view360Btn">Xem toàn cảnh 360</a>
               </div>
           </div>
       </div>
@@ -66,7 +66,7 @@ global $urlThemeActive;
                         <h2 class="address">'.$item->address.'</h2>
                         <h3 class="text-muted">'.$item->introductory.'</h3>
                       </div>
-                        <a href="chi_tiet_danh_lam/'.$item->urlSlug.'.html" class=" btn-edit mb-4">Xem chi tiết<i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="chi_tiet_danh_lam/'.$item->urlSlug.'.html" class=" btn-edit mb-4">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                     <div class="col-md-7">
                         <img src="'.$item->image.'" class="img-fluid rounded img-desti" alt="'.$item->name.'">
@@ -142,8 +142,12 @@ global $urlThemeActive;
                 <p><?php echo $valueEvent['name']; ?> </p>
               </div>
               <div class="description-event-home">
-                <p class="title-des">Giới thiệu</p>
                 <p class="text-des"><?php echo $valueEvent->introductory; ?> </p>
+                <a href="/chi_tiet_su_kien/<?php echo $valueEvent->urlSlug; ?>.html">
+                  <button class="btn btn-primary">
+                    Xem thêm <i class="fa-solid fa-angles-right"></i>
+                  </button>
+                </a>
               </div>
               <div class="local-event-home">
                 <ul>
@@ -181,11 +185,7 @@ global $urlThemeActive;
       </div>
 
     </div>
-    <a href="/su_kien">
-      <button class="view_moreEvent">
-        Xem thêm <i class="fa-solid fa-angles-right"></i>
-      </button>
-    </a>
+    
   </section> 
 
    <section class="map">
