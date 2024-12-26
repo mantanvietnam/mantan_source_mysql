@@ -868,148 +868,59 @@
         </div>
          <!-- Sự kiện -->
          <div class='gap-4 mt-5 news-container row gap-md-0 d-none' data-category="su-kien">
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/botmuopdang.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/botmuopdang.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/botmuopdang.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
+          <?php foreach ($listDatatop as $key => $value) { ?>
+                <div class="col-lg-4 col-12 col-md-6 news-items">
+                    <div class="news-items-img">
+                        <img src="<?= $value->image ?>" alt="">
+                    </div>
+                    <a href="<?php echo $value->slug ?>.html">
+                        <h3><?= $value->title ?></h3>
+                    </a>
+                    <span><?= $value->description ?></span>
+                </div>
+            <?php } ?>
         </div>
          <!-- tin tức -->
          <div class='gap-4 mt-5 news-container row gap-md-0 d-none' data-category="tin-tuc">
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
+          <?php foreach ($listDatatop as $key => $value) { ?>
+                <div class="col-lg-4 col-12 col-md-6 news-items">
+                    <div class="news-items-img">
+                        <img src="<?= $value->image ?>" alt="">
+                    </div>
+                    <a href="<?php echo $value->slug ?>.html">
+                        <h3><?= $value->title ?></h3>
+                    </a>
+                    <span><?= $value->description ?></span>
+                </div>
+            <?php } ?>
         </div>
          <!-- Cách chăm sóc làn da -->
          <div class='gap-4 mt-5 news-container row gap-md-0 d-none' data-category="cham-soc-da">
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
+          <?php foreach ($listDatatop as $key => $value) { ?>
+                <div class="col-lg-4 col-12 col-md-6 news-items">
+                    <div class="news-items-img">
+                        <img src="<?= $value->image ?>" alt="">
+                    </div>
+                    <a href="<?php echo $value->slug ?>.html">
+                        <h3><?= $value->title ?></h3>
+                    </a>
+                    <span><?= $value->description ?></span>
+                </div>
+            <?php } ?>
         </div>
          <!-- Bí quyết làm đẹp -->
          <div class='gap-4 mt-5 news-container row gap-md-0 d-none' data-category="bi-quyet">
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-          <div class='col-lg-4 col-12 col-md-6 news-items'>
-            <div class='news-items-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/tt.png" alt="tin tức">
-            </div>
-            <h3>
-              REVIEW Nước Hoa Hồng Facial Toner - Fresh Hydranation của nhà MỘC MIÊN
-            </h3>
-            <span>
-              Lorem ipsum dolor sit amet. Ut officiis perferendis eos consequatur accusamus ut iure rerum et sequi sint qui saepe internos et eligendi autem aut obcaecati eveniet. Et sequi dolore vel suscipit praesentium sed molestias nobis qui error galisum et quia adipisci.
-            </span>
-          </div>
-        </div>
+          <?php foreach ($listDatatop as $key => $value) { ?>
+                <div class="col-lg-4 col-12 col-md-6 news-items">
+                    <div class="news-items-img">
+                        <img src="<?= $value->image ?>" alt="">
+                    </div>
+                    <a href="<?php echo $value->slug ?>.html">
+                        <h3><?= $value->title ?></h3>
+                    </a>
+                    <span><?= $value->description ?></span>
+                </div>
+          <?php } ?>
       </div>
 
 <?php getFooter(); ?>
