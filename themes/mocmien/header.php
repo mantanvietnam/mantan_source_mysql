@@ -43,7 +43,7 @@
       </button>
     </div>
      <!-- header -->
-    <div class="container header-container">
+    <div class="mx-mobile md:mx-6 lg:mx-16 xl:mx-28 header-container">
       <!-- logo -->
       <div>
         <img src="<?php echo @$settingThemes['image_logo']; ?>" alt="logo">
