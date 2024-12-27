@@ -28,6 +28,9 @@ $category[1]['title'] = 'Di tích';
 $category[1]['sub'] = array(array (	'url' => '/di_tich_lich_su',
                                     'name' => 'Di tích lịch sử'
                                     ),
+							array (	'url' => '/ban_do',
+                                    'name' => 'Bản đồ di tích'
+                                    ),
                         );
 
 

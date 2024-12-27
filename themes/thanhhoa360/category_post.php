@@ -37,7 +37,7 @@ global $urlThemeActive;
         <div class="background" style="background-image: url('<?= $urlThemeActive ?>assets/lou_img/su-kien-list-event.png')">
             <section class="section-heading mt-4">
                 <h3 class="text-uppercase text-center">TIN TỨC</h3>
-                <p class="text-center">Những tin tức ở Tây Hồ</p> 
+                <p class="text-center">Những tin tức ở Thanh Hóa</p> 
             </section>
             <div class="container">
                 <div class="row g-3">

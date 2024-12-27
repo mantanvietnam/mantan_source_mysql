@@ -6,12 +6,7 @@
 
 <?php getHeader();?>
     <main>
-        <section id="section-banner-page">
-            <div class="banner-page">
-                <img src="<?php echo $urlThemeActive; ?>/asset/img/banner-library.png" alt="">
-            </div>
-        </section>
-
+        
         <section id="section-info-contact">
             <div class="container">
                 <div class="row">

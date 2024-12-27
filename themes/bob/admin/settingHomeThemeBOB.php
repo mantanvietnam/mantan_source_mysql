@@ -174,6 +174,36 @@
           </div>
         </div>
 
+        <!-- Section 4 -->
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Khối 4</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Tiêu đề </label>
+                            <input type="text" class="form-control" name="title_section4" value="<?php echo @$setting['title_section4'];?>" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Tiêu đề phụ </label>
+                            <input type="text" class="form-control" name="titlesub_section4" value="<?php echo @$setting['titlesub_section4'];?>" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
          <!-- Chân trang -->
          <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <div class="card mb-4">

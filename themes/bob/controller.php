@@ -34,6 +34,9 @@ function settingHomeThemeBOB($input)
                         'title_section2' => $dataSend['title_section2'], 
                         'titlesub_section2' => $dataSend['titlesub_section2'], 
 
+                        'title_section4' => $dataSend['title_section4'], 
+                        'titlesub_section4' => $dataSend['titlesub_section4'], 
+
                         // Section 3
                         'title_section3' => $dataSend['title_section3'], 
                         'titlesub_section3' => $dataSend['titlesub_section3'], 
@@ -109,6 +112,7 @@ function indexTheme($input)
 
     $infoKind = [];
     $infoProduct = [];
+    $listProduct = [];
 
     if(!empty($listProductProjects)){
         foreach($listProductProjects as $key => $value){
@@ -132,7 +136,9 @@ function indexTheme($input)
             }   
            
         }
-    }    
+    } 
+
+    $listProduct = $modelProduct->find()->limit(8)->page(1)->all()->toList();
 
 
     setVariable('slide_home', $slide_home);
@@ -142,6 +148,7 @@ function indexTheme($input)
     setVariable('listKind', $listKind);
     setVariable('infoProduct', $infoProduct);
     setVariable('listProductProjects', $listProductProjects);
+    setVariable('listProduct', $listProduct);
 }
 
 function postTheme($input)

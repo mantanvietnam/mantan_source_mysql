@@ -17,13 +17,19 @@
             <div class="container">
                 <div class="footer-box">
                     <div class="row">
-                        <div class="col-lg-3 col-md-3 col-12 ">
+                        <div class="col-lg-2 col-md-2 col-12 ">
                             <div class="logo-footer">
-                                <a href=""><img src="<?php echo $urlThemeActive; ?>/asset/img/logo.png" alt=""></a>
+                                <a href="/">
+                                    <?php
+                                        if(!empty($infoSite['logo'])){
+                                            echo '<img src="'.$infoSite['logo'].'" alt="">';
+                                        }
+                                    ?>
+                                </a>
                             </div>
                         </div>
 
-                        <div class="col-lg-9 col-md-9 col-12 menu-footer">
+                        <div class="col-lg-10 col-md-10 col-12 menu-footer">
                             <div class="menu-footer-item">
                                 <div class="menu-footer-title">
                                     <p><?php echo $settingThemes['title1_footer']; ?></p>
@@ -124,7 +130,7 @@
 
         <section id="footer-bottom">
             <div class="container">
-                <p>© Copyright 2023 BOB. All Rights Reserved.</p>
+                <p>© Copyright 2024 by Phoenix Tech. All Rights Reserved.</p>
             </div>
         </section>
         
