@@ -79,5 +79,4 @@
     });
   </script>
   <script src="<?php echo @$urlThemeActive; ?>scripts/index.js"></script>
-  <script src="<?php echo @$urlThemeActive; ?>scripts/danhmuc.js"></script>
 </html>
