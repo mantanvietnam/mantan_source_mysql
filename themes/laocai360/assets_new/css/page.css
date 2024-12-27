@@ -48,6 +48,10 @@ footer, header, hgroup, menu, nav, section {
 #header .navbar .navbar-collapse .nav-item:first-child a{
     color: #007bff !important;
 }
+#event-home .article-space{
+    border-bottom: 0 !important;
+    margin: 0 !important;
+}
 /*  */
 body {
 	line-height: 1;
@@ -832,6 +836,7 @@ table {
     color: #000 !important;
 }
 #event-home {
+    height: 650px !important; 
     background-color: #cfdeff;
 }
 .info-event-home{
