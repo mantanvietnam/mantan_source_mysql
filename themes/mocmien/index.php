@@ -854,73 +854,93 @@
         </div>
         <!-- góc review -->
         <div class='gap-4 mt-5 news-container row gap-md-0' data-category="review">
-            <?php foreach ($listDatatop as $key => $value) { ?>
-                <div class="col-lg-4 col-12 col-md-6 news-items">
-                    <div class="news-items-img">
-                        <img src="<?= $value->image ?>" alt="">
-                    </div>
-                    <a href="<?php echo $value->slug ?>.html">
-                        <h3><?= $value->title ?></h3>
-                    </a>
-                    <span><?= $value->description ?></span>
-                </div>
-            <?php } ?>
+            <?php 
+                if(!empty($listDatatop)){
+                    foreach ($listDatatop as $key => $value) {
+                        $link = '/'.$value->slug.'.html';
+
+                        echo '<div class="col-lg-4 col-12 col-md-6 news-items">
+                                <div class="news-items-img">
+                                    <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
+                                </div>
+                                <a href="'.$link.'"><h3>'.$value->title.'</h3></a>
+                                <span>'.$value->description.'</span>
+                          </div>';
+                        }   
+                      }
+                ?>
         </div>
          <!-- Sự kiện -->
          <div class='gap-4 mt-5 news-container row gap-md-0 d-none' data-category="su-kien">
-          <?php foreach ($listDatatop as $key => $value) { ?>
-                <div class="col-lg-4 col-12 col-md-6 news-items">
-                    <div class="news-items-img">
-                        <img src="<?= $value->image ?>" alt="">
-                    </div>
-                    <a href="<?php echo $value->slug ?>.html">
-                        <h3><?= $value->title ?></h3>
-                    </a>
-                    <span><?= $value->description ?></span>
-                </div>
-            <?php } ?>
+            <?php 
+                if(!empty($listDatatop)){
+                    foreach ($listDatatop as $key => $value) {
+                        $link = '/'.$value->slug.'.html';
+
+                        echo '<div class="col-lg-4 col-12 col-md-6 news-items">
+                                <div class="news-items-img">
+                                    <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
+                                </div>
+                                <a href="'.$link.'"><h3>'.$value->title.'</h3></a>
+                                <span>'.$value->description.'</span>
+                          </div>';
+                        }   
+                      }
+                ?>
         </div>
          <!-- tin tức -->
          <div class='gap-4 mt-5 news-container row gap-md-0 d-none' data-category="tin-tuc">
-          <?php foreach ($listDatatop as $key => $value) { ?>
-                <div class="col-lg-4 col-12 col-md-6 news-items">
-                    <div class="news-items-img">
-                        <img src="<?= $value->image ?>" alt="">
-                    </div>
-                    <a href="<?php echo $value->slug ?>.html">
-                        <h3><?= $value->title ?></h3>
-                    </a>
-                    <span><?= $value->description ?></span>
-                </div>
-            <?php } ?>
+          <?php 
+                if(!empty($listDatatop)){
+                    foreach ($listDatatop as $key => $value) {
+                        $link = '/'.$value->slug.'.html';
+
+                        echo '<div class="col-lg-4 col-12 col-md-6 news-items">
+                                <div class="news-items-img">
+                                    <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
+                                </div>
+                                <a href="'.$link.'"><h3>'.$value->title.'</h3></a>
+                                <span>'.$value->description.'</span>
+                          </div>';
+                        }   
+                      }
+                ?>
         </div>
          <!-- Cách chăm sóc làn da -->
          <div class='gap-4 mt-5 news-container row gap-md-0 d-none' data-category="cham-soc-da">
-          <?php foreach ($listDatatop as $key => $value) { ?>
-                <div class="col-lg-4 col-12 col-md-6 news-items">
-                    <div class="news-items-img">
-                        <img src="<?= $value->image ?>" alt="">
-                    </div>
-                    <a href="<?php echo $value->slug ?>.html">
-                        <h3><?= $value->title ?></h3>
-                    </a>
-                    <span><?= $value->description ?></span>
-                </div>
-            <?php } ?>
+                <?php 
+                if(!empty($listDatatop)){
+                    foreach ($listDatatop as $key => $value) {
+                        $link = '/'.$value->slug.'.html';
+
+                        echo '<div class="col-lg-4 col-12 col-md-6 news-items">
+                                <div class="news-items-img">
+                                    <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
+                                </div>
+                                <a href="'.$link.'"><h3>'.$value->title.'</h3></a>
+                                <span>'.$value->description.'</span>
+                          </div>';
+                        }   
+                      }
+                ?>
         </div>
          <!-- Bí quyết làm đẹp -->
          <div class='gap-4 mt-5 news-container row gap-md-0 d-none' data-category="bi-quyet">
-          <?php foreach ($listDatatop as $key => $value) { ?>
-                <div class="col-lg-4 col-12 col-md-6 news-items">
-                    <div class="news-items-img">
-                        <img src="<?= $value->image ?>" alt="">
-                    </div>
-                    <a href="<?php echo $value->slug ?>.html">
-                        <h3><?= $value->title ?></h3>
-                    </a>
-                    <span><?= $value->description ?></span>
-                </div>
-          <?php } ?>
+          <?php 
+                if(!empty($listDatatop)){
+                    foreach ($listDatatop as $key => $value) {
+                        $link = '/'.$value->slug.'.html';
+
+                        echo '<div class="col-lg-4 col-12 col-md-6 news-items">
+                                <div class="news-items-img">
+                                    <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
+                                </div>
+                                <a href="'.$link.'"><h3>'.$value->title.'</h3></a>
+                                <span>'.$value->description.'</span>
+                          </div>';
+                        }   
+                      }
+                ?>
       </div>
 
 <?php getFooter(); ?>
