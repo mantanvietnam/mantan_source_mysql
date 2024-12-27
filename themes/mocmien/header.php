@@ -6,6 +6,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php 
+      mantan_header(); 
+
+      if(function_exists('showSeoHome')) showSeoHome();
+          global $settingThemes;
+  ?>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mộc Miên</title>
@@ -20,7 +27,6 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
   />
-  <?php mantan_header()?>
 </head>
 <body>
   <div>
