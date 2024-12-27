@@ -26,7 +26,7 @@ footer, header, hgroup, menu, nav, section {
 }
 /* thêm css */
 .box-event-home .slide-time-event {
-    top: 95px !important;
+    top: 20px !important;
     right: -56% !important;
 }
 
@@ -74,6 +74,7 @@ table {
 }
 
 .relative {
+    height: 0  ;
 	position: relative;
 }
 
@@ -859,6 +860,7 @@ table {
     margin-top: 15px;
 }
 #event-home .event-home-title p {
+    padding-bottom: 30px !important;
     padding-top: 40px !important;
 }
 #contact .contact-content .contact-detail h4{
@@ -872,6 +874,10 @@ table {
     display: none !important;
 }
 @media (max-width: 577px) {
+    .relative {
+        height: 80px !important;
+    }
+    
     .hero-description {
         display: none;
     }
