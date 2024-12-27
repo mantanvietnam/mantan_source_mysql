@@ -1061,6 +1061,43 @@ function reportWallPostAPI($input){
 
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 }
+
+function imagecreatefrom(){
+    global $controller;
+    global $isRequestPost;
+     $image = array();
+    if ($isRequestPost) {
+        if (isset($_FILES['image'])) {
+            // Thư mục lưu ảnh trên server
+            $uploadDir = 'uploads/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true); // Tạo thư mục nếu chưa tồn tại
+            }
+
+            // Thông tin file tải lên
+            $uploadedFile = $_FILES['image']['tmp_name'];
+            $originalName = $_FILES['image']['name'];
+            $outputPath = $uploadDir . 'compressed_' . $originalName;
+
+            // Chất lượng nén (từ 0 đến 100, càng thấp dung lượng càng nhỏ)
+            $compressionQuality = 75;
+            // debug($uploadedFile);
+            // Nén ảnh
+            $image = imagecreatefromjpeg($uploadedFile);
+             if ($image) {
+        imagejpeg($image, $outputPath, $compressionQuality);
+        imagedestroy($image);
+        echo "Ảnh đã được nén và lưu tại: $outputPath";
+    } else {
+        echo "Không thể xử lý file ảnh.";
+    }
+        }
+    }
+    die();
+    return $image;
+
+
+}
  ?>
 
  

@@ -105,11 +105,10 @@ function updateOrderStatus() {
                             $history->order_id = $order->id;
                             $history->book_id = (int)$detail->book_id;
                             $history->warehouse_id = (int)$detail->warehouse_id;
-                            $history->order_detail_id = $orderDetail->id;
-                            $history->id_building = (int)$dataSend['building_id'];
+                            $history->order_detail_id = $detail->id;
+                            $history->id_building = (int)$order->building_id;
                             $history->created_at = time();
                             $history->type = 'minus';
-                            $history->quantity = $quantity;
                             $history->id_member = (int)$user->id;
 
 
@@ -209,11 +208,8 @@ function updateOrderOuantity($input){
                                 $history->id_building = (int)$order->building_id;
                                 $history->created_at = time();
                                 $history->type = 'minus';
-                                $history->quantity = $quantity;
                                 $history->id_member = (int)$user->id;
-
-
-                                $history->quantity = (int)$quantity;
+                                $history->quantity = (int)$dataSend['quantity'];
                                    
                                 $modelOrderHistorys->save($history);
 
@@ -346,7 +342,7 @@ function getOrderDetailsByOrderIdAPI() {
 function getOrderDetailsByOrderDetailsIdAPI() {
     global $controller;
 
-    $return = array();
+    $return = array('code'=>1);
 
     $modelOrderDetails = $controller->loadModel('OrderDetails');
     $modelOrders = $controller->loadModel('Orders');
@@ -366,8 +362,8 @@ function getOrderDetailsByOrderDetailsIdAPI() {
             return $return;
         }
 
-        $history = $ $modelOrderHistorys->find()->where(['order_id'=>$orderId, 'book_id'=>(int)$detail->book_id, 'order_detail_id'=>$detail->id, 'type'=>'minus'])->all();
-        if (empty($order)) {
+        $history = $modelOrderHistorys->find()->where([ 'order_detail_id'=>$id_order_detail, 'type'=>'minus'])->all();
+        if (empty($history)) {
             $return[] = array(
                 'id' => 0,
                 'label' => 'Không tìm thấy đơn hàng.',
@@ -376,7 +372,7 @@ function getOrderDetailsByOrderDetailsIdAPI() {
             return $return;
         }
 
-        $customer = $modelCustomers->find()->where(['id' => $order->customer_id])->first();
+       // $customer = $modelCustomers->find()->where(['id' => $order->customer_id])->first();
 
         $historyData = [];
         foreach ($history as $detail) {
@@ -386,8 +382,8 @@ function getOrderDetailsByOrderDetailsIdAPI() {
                 'id' => $detail->id,
                 'name' => $member ? $member->name : 'N/A',
                 'quantity' => $detail->quantity,
-                'created_at' =>  date('d-m-Y H:i:s', date($order->created_at),
-                'type' =>  $detail->type,
+                'created_at' =>  date('d-m-Y H:i:s',$detail->created_at),
+                'type' =>  @$detail->type,
             );
         }
 

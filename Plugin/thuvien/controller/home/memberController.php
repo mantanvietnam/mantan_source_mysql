@@ -32,6 +32,7 @@ function login($input)
 	    		$conditions = array('phone'=>$dataSend['phone'], 'pass'=>md5($dataSend['password']));
 	    		$info_customer = $modelMembers->find()->where($conditions)->first();
 
+
 	    		if(!empty($info_customer)){
     				// nếu tài khoản không bị khóa
     				if($info_customer->status == 'active'){
@@ -45,6 +46,8 @@ function login($input)
     					$session->write('infoUser', $info_customer);
 		    			
 	    				setcookie('id_member',$info_customer->id,time()+365*24*60*60, "/");
+
+
 						
 						return $controller->redirect('/managerSelectBuilding/?statusLogin=loginAccount');
 					}else{
@@ -966,14 +969,17 @@ function managerSelectBuilding() {
 	global $isRequestPost;
 	global $urlHomes;
 	global $session;
+	global $metaTitleMantan;
 
 	$modelMember = $controller->loadModel('Members');
     $modelBuilding = $controller->loadModel('Buildings');
-
+    $metaTitleMantan = 'Chọn toà nhà';
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
 		$mess= '';
 		$infoUser = $modelMember->find()->where(['id'=>$infoUser->id])->first();
+
+
 
 		 $conditions = array();
         if($infoUser->type=='staff'){
@@ -991,6 +997,7 @@ function managerSelectBuilding() {
         }
        
         $dataList = $modelBuilding->find()->where($conditions)->all()->toList();
+       
 
 		if(!empty($dataList)){
 			$totalData = count($dataList);
