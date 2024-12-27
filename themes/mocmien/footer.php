@@ -5,7 +5,7 @@
 
 <!-- footer -->
       <div class='mt-5 footer-container'>
-        <div class='px-4 pt-5 pb-5 mx-mobile md:mx-6 lg:mx-16 xl:mx-28'>
+        <div class='container pt-5 pb-5'>
           <div class='row'>
             <div class="col-lg-3 col-12 footer-frist-container d-flex flex-column">
               <div class='gap-3 d-flex align-items-center'>
@@ -34,8 +34,7 @@
             <div class="gap-3 text-white col-lg-3 col-6 d-flex flex-column footer-mid">
               <h2>CHÍNH SÁCH</h2>
               <span>Chính sách và quy định chung</span>
-              <span>Chính sách và giao nhận
-                thanh toán</span>
+              <span>Chính sách và giao nhận thanh toán</span>
               <span>Chính sách đổi trả</span>
               <span>Điều khoản sử dụng</span>
             </div>
