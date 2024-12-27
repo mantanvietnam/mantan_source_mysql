@@ -32,7 +32,7 @@
                               <div class="mb-3">
                                   <label class="form-label">Danh mục bài tập</label>
                                   <div class="input-group input-group-merge">
-                                      <select class="form-select" name="type" id="type">
+                                        <select class="form-select" name="type" id="type" onclick="orderReturnquestion()" <?php echo $disabled ?>>
                                               <option value="">-- Chọn danh mục bài tập --</option>
                                           <?php foreach ($listcategoryexercise as $category): ?>
                                               <option value="<?= $category->id ?>" 
@@ -40,7 +40,7 @@
                                                   <?= $category->name ?>
                                               </option>
                                           <?php endforeach; ?>
-                                      </select>
+                                        </select>
                                   </div>
                               </div>
                             </div>
@@ -74,10 +74,13 @@
                                   </select>
                               </div>
                           </div>
-                          <div id="question-container">
-    <!-- Câu hỏi sẽ được hiển thị ở đây -->
-</div>
-                          <?php if (!empty($dataquestion) && is_array($dataquestion)): ?>
+                          <div id="orderReturnBook">
+                              <div class="modal-body">
+                                  <!-- Nội dung sẽ được gắn vào đây -->
+                              </div>
+                          </div>
+
+                          <!-- <?php if (!empty($dataquestion) && is_array($dataquestion)): ?>
                             <?php foreach ($dataquestion as $questionData): ?>
                                 <div class="row mb-4">
                                     <div class="col-md-12">
@@ -122,7 +125,7 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <p>Không có dữ liệu câu hỏi.</p>
-                        <?php endif; ?>
+                          <?php endif; ?> -->
                         </div>
                         <div class="tab-pane fade  show" id="navs-top-2" role="tabpanel">
                         
@@ -141,7 +144,89 @@
     </div>
 </div>
 
+<script>
 
+function orderReturnquestion() {
+    var type = document.getElementById('type').value;
+    if (type != '') {
+        $.ajax({
+            url: `/apis/listquestionexercise`,
+            method: 'POST',
+            data: { type: type },
+            beforeSend: function () {},
+            success: function (response) {
+                console.log(response);
+                if (response.listData.length > 0) {
+                    let dataquestion = response.listData;
+
+                    let detailsHtml = '';
+                    if (dataquestion && Array.isArray(dataquestion)) {
+                        dataquestion.forEach(questionData => {
+                            detailsHtml += `
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Câu hỏi: ${questionData.name}</label>
+                                        <input type="hidden" name="id_question[]" value="${questionData.id}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        ${(() => {
+                                            let hasAnswer = false;
+                                            let answerHtml = '';
+                                            const valueMap = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+                                            for (let i = 1; i <= 8; i++) {
+                                                const answerKey = `answer${i}`;
+                                                if (
+                                                    questionData[answerKey] !== null &&
+                                                    questionData[answerKey] !== ''
+                                                ) {
+                                                    hasAnswer = true;
+                                                    const data = questionData[answerKey];
+                                                    const decodedData = JSON.parse(data || '{}');
+                                                    const answerText = decodedData.vi || data;
+
+                                                    answerHtml += `
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" name="answer[${questionData.id}][]" value="${valueMap[i - 1]}" id="${answerKey}-${questionData.id}">
+                                                            <label class="form-check-label" for="${answerKey}-${questionData.id}">
+                                                                ${answerText}
+                                                            </label>
+                                                        </div>`;
+                                                }
+                                            }
+                                            return hasAnswer ? answerHtml : '<p>Không có câu trả lời.</p>';
+                                        })()}
+                                    </div>
+                                </div>
+                            </div>`;
+                        });
+                    } else {
+                        detailsHtml = '<p>Không có dữ liệu câu hỏi.</p>';
+                    }
+
+                    // Gắn HTML đã tạo vào modal-body
+                    $('#orderReturnBook .modal-body').html(detailsHtml);
+                } else {
+                    alert('Không tìm thấy dữ liệu câu hỏi.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX error occurred:', {
+                    status: status,
+                    error: error,
+                    responseText: xhr.responseText
+                });
+                alert('Đã xảy ra lỗi khi gọi API.');
+            },
+            complete: function () {}
+        });
+    }
+}
+
+
+</script>
 
 <script type="text/javascript">
   var question = {};
