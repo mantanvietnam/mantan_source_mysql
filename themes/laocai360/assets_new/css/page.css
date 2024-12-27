@@ -168,7 +168,7 @@ table {
     left: 0;
     width: 100%;
     height: calc(100vh - 80px);
-    background-color: rgba(0, 0, 0, 0.5); /* Màu nền nửa trong suốt */
+    background-color: rgba(0, 0, 0, 0.2); /* Màu nền nửa trong suốt */
     z-index: 2;
 }
 
