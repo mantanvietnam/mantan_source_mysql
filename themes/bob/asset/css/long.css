@@ -66,7 +66,7 @@ img{
 
 /* CSS */
 .maxheight-480{
-    max-height: 480px;
+    max-height: 300px;
 }
 .overflow-hiden{
     overflow: hidden;
@@ -1538,7 +1538,7 @@ height: 30px;
 		max-width: 1440px;
 		padding: 0 80px;
 }.title-banner-product {
-    padding-bottom: 175px;
+    padding-bottom: 120px;
 }
 .nav-list-product .accordion-body, .nav-list-product-two .accordion-body{
 	padding: 20px 10px;

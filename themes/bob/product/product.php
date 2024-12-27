@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/> -->
 
     <main>
-        <section class="duong-dan-product" style="padding-top: 128px;">
+        <section class="duong-dan-product" style="padding-top: 35px;">
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-gray-400 list-duong-dan">

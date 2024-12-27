@@ -138,7 +138,7 @@ h1, h2, h3, h4{
 }
 
 #header-menu .navbar-nav .nav-link{
-    color: #000;
+    color: #fff;
     transition: all 0.3s linear;
     font-weight: bold;
 }
@@ -555,7 +555,7 @@ h1, h2, h3, h4{
 
 /* Contact */
 #section-info-contact{
-    margin-top: 128px;
+    margin-top: 0px;
 }
 
 #section-banner-page{
@@ -727,7 +727,7 @@ h1, h2, h3, h4{
 
 /* footer */
 #section-footer{
-    background-color: #F5F5F6;
+    background-color: #000;
 }
 #section-footer .footer-box{
     padding: 56px 15px; 
@@ -763,10 +763,12 @@ h1, h2, h3, h4{
 #section-footer .menu-footer-title{
     margin-bottom: 16px;
     font-weight: bold;
+    color: #FFF;
+    font-size: 20px;
 }
 
 #section-footer .menu-footer-box li a{
-    color: #5a5a5a;
+    color: #FFF;
     line-height: normal;
     transition: all 0.3s linear;
 }
@@ -791,7 +793,7 @@ h1, h2, h3, h4{
 }
 /*  */
 #header-menu .navbar-expand-lg{
-    background-color: rgb(255 255 255 / 100%);
+    background-color: #000;
     box-shadow: 12px -4px 36px 9px #888888;
 }
 
@@ -1070,7 +1072,7 @@ h1, h2, h3, h4{
 }
 
 #section-news-content{
-    padding-top: 180px;
+    padding-top: 15px;
     margin-bottom: 64px;
 }
 
@@ -1396,7 +1398,7 @@ body {
 }
 
 .img-product{
-    height: 300px;
+    height: 150px;
 }
 
 .img-product img{

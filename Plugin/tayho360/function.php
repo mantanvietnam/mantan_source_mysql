@@ -192,8 +192,9 @@ function destination(){
 
 
 
-        return array(  /* '1'=>array('id'=>1,'name'=>'Di tích văn hóa lịch sử','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconditich.png','urlSlug'=>'di_tich_lich_su'),*/
-            '2'=>array('id'=>2,'name'=>'Di tích','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icondanhlam.png','urlSlug'=>'di_tich_danh_lam'),   
+        return array(  
+            '1'=>array('id'=>1,'name'=>'Di tích','class'=>'fa-print','image'=>'/themes/tayho360/assets/icon/ditich.png','urlSlug'=>'di_tich_lich_su'),
+            '2'=>array('id'=>2,'name'=>'Danh lam','class'=>'fa-print','image'=>'/themes/tayho360/assets/icon/lehoi.png','urlSlug'=>'di_tich_danh_lam'),   
             // '3'=>array('id'=>3,'name'=>'Lễ hội','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconlehoi.png','urlSlug'=>'le_hoi'),   
             // '4'=>array('id'=>4,'name'=>'Làng nghề','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconlangnghe.png','urlSlug'=>'lang_nghe'),  
             // '5'=>array('id'=>5,'name'=>'Cơ quan hành chính','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconcoquan.png','urlSlug'=>'co_quan_hanh_chinh'),   
@@ -327,7 +328,7 @@ function destination_ward(){
                                     'long'=> $listCraftvillage->longitude,
                                     'urlSlug'=> 'chi_tiet_lang_nghe/'.$listCraftvillage->urlSlug.'.html',
                                     'type'=> 'lang_nghe',
-                                     'icon'=> '/themes/tayho360/assets/icon/khachsan.png',
+                                    'icon'=> '/themes/tayho360/assets/icon/khachsan.png',
 
                 );
             }
