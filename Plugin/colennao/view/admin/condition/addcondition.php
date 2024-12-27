@@ -74,7 +74,9 @@
                                   </select>
                               </div>
                           </div>
-                  
+                          <div id="question-container">
+    <!-- Câu hỏi sẽ được hiển thị ở đây -->
+</div>
                           <?php if (!empty($dataquestion) && is_array($dataquestion)): ?>
                             <?php foreach ($dataquestion as $questionData): ?>
                                 <div class="row mb-4">
@@ -91,7 +93,7 @@
                                             $hasAnswer = false; 
                                             for ($i = 1; $i <= 8; $i++): 
                                                 $answerKey = 'answer' . $i; 
-                                                if (isset($questionData[$answerKey]) && $questionData[$answerKey] !== null && $questionData[$answerKey] !== ''): // Kiểm tra đáp án không phải là null và không rỗng
+                                                if (isset($questionData[$answerKey]) && $questionData[$answerKey] !== null && $questionData[$answerKey] !== ''): 
                                                     $hasAnswer = true; 
                                   
                                                     $valueMap = ['a', 'b', 'c', 'd','e','f','g','h']; 
@@ -121,37 +123,6 @@
                         <?php else: ?>
                             <p>Không có dữ liệu câu hỏi.</p>
                         <?php endif; ?>
-
-                          <!-- <div class="row">
-                            <div class="col-md-6">
-                              <div class="mb-3">
-                                <label class="form-label">id_question</label>
-                                <input  type="text" class="form-control phone-mask" name="id_question" id="id_question" value="<?php echo @$data->id_group;?>" required/>
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Lựa chọn:</label><br/>
-                                    
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="question_options[]" value="Lựa chọn 1" id="option1">
-                                        <label class="form-check-label" for="option1">đáp án a</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="question_options[]" value="Lựa chọn 2" id="option2">
-                                        <label class="form-check-label" for="option2">đáp án b </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="question_options[]" value="Lựa chọn 3" id="option3">
-                                        <label class="form-check-label" for="option3">đáp án c</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="question_options[]" value="Lựa chọn 4" id="option4">
-                                        <label class="form-check-label" for="option4">đáp án d</label>
-                                    </div>
-                                </div>
-                            </div>
-                          </div> -->
                         </div>
                         <div class="tab-pane fade  show" id="navs-top-2" role="tabpanel">
                         
@@ -170,27 +141,44 @@
     </div>
 </div>
 
-<script>
-  <?php
-        // mảng chứa ten cau hoi
-        if(!empty($dataquestion)){
-            foreach ($dataquestion as $key=>$item){
-                echo '  question['.$item->id.'] = {};
-                        question['.$item->id.']["id"] = '.$item->id.';
-                        question['.$item->id.']["name"] = "'.$item->name.'";
-                        question['.$item->id.']["type"] = "'.$item->type.'";
-                    ';
-            }
-        }
- 
-        // mảng chứa Tên bài học
-        if(!empty($listcategoryexercise)){
-            foreach ($listcategoryexercise as $key => $value) {
-                echo '  category['.$value->id.']["exercise"]['.$value->id.'] = {};
-                        category['.$value->id.']["exercise"]['.$value->id.']["id"] = '.$value->id.';
-                        category['.$value->id.']["exercise"]['.$value->id.']["name"] = "'.$value->name.'";
+
+
+<script type="text/javascript">
+  var question = {};
+  <?php 
+  // mang chua cau hoi
+       if(!empty($dataquestion)){
+        foreach ($dataquestion as $key=>$item){
+            echo '  question['.$item->id.'] = {};
+                    question['.$item->id.']["id"] = '.$item->id.';
+                    question['.$item->id.']["name"] = "'.$item->name.'";
+                    question['.$item->id.']["answer1"] = "'.$item->answer1.'";
+                    question['.$item->id.']["answer2"] = "'.$item->answer2.'";
+                    question['.$item->id.']["answer3"] = "'.$item->answer3.'";
+                    question['.$item->id.']["answer4"] = "'.$item->answer4.'";
+                    question['.$item->id.']["answer5"] = "'.$item->answer5.'";
+                    question['.$item->id.']["answer6"] = "'.$item->answer6.'";
+                    question['.$item->id.']["answer7"] = "'.$item->answer7.'";
+                    question['.$item->id.']["answer8"] = "'.$item->answer8.'";
+                    question['.$item->id.']["type"] = "'.$item->type.'";
                 ';
-            }
         }
-    ?>
+      // mang chua danh muc cau hoi
+        if(!empty($listcategoryexercise)){
+          foreach ($listcategoryexercise as $key => $value) {
+              echo '  question['.$value->id.']["exercise"]['.$value->id.'] = {};
+                      question['.$value->id.']["exercise"]['.$value->id.']["id"] = '.$value->id.';
+                      question['.$value->id.']["exercise"]['.$value->id.']["name"] = "'.$value->name.'";
+              ';
+          }
+        }}
+
+  ?>
+
+
+
 </script>
+
+
+
+

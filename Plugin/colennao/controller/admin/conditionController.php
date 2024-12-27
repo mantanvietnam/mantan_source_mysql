@@ -175,6 +175,7 @@ function addcondition($input){
     setVariable('data', $data);
     setVariable('mess', $mess);
 }
+
 function deletecondition($input) {
     global $controller;
 
