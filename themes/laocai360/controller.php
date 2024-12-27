@@ -28,6 +28,8 @@ function settingHomeTheme($input){
                         'text_4' => @$dataSend['text_4'],
                          'title5' => @$dataSend['title5'],
                         'text_5' => @$dataSend['text_5'],
+                         'title6' => @$dataSend['title6'],
+                        'image_6' => @$dataSend['image_6'],
                         'title_travel1' => @$dataSend['title_travel1'],
                         'image_travel1' => @$dataSend['image_travel1'],
                         'link_travel1' => @$dataSend['link_travel1'],
