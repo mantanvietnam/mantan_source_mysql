@@ -33,7 +33,7 @@ function listOrder($input)
             $conditions['Orders.id'] = (int)$_GET['id'];
         }
 
-         if(!empty($_GET['id_building'])){
+        if(!empty($_GET['id_building'])){
             $conditions['Orders.building_id'] = (int)$_GET['id_building'];
         }
 
@@ -91,53 +91,53 @@ function listOrder($input)
                 $orderDetails = $modelOrderDetails->find()->where(['order_id' => $value->id])->all()->toList();
 
                 $statusText = ($value->status == '1') ? 'Đang mượn' : 'Đã trả';
-                 $orderDetailsText = '';
-                 foreach ($orderDetails as $detail) {
-                     $orderDetailsText .= $detail->book_name . ' (Số lượng: ' . $detail->quantity . '); ';
-                 }
+                $orderDetailsText = '';
+                foreach ($orderDetails as $detail) {
+                   $orderDetailsText .= $detail->book_name . ' (Số lượng: ' . $detail->quantity . '); ';
+               }
 
-                $dataExcel[] = [
-                    $value->id,
-                    $value->order_id,
-                    $customer->name ?? 'N/A',
-                    $customer->phone ?? 'N/A',
-                    $building->name ?? 'N/A',
-                    $member->name ?? 'N/A',
-                    $statusText,
-                    date('d-m-Y H:i:s', strtotime($value->created_at)),
-                    $orderDetailsText
-                ];
-            }
-
-            export_excel($titleExcel, $dataExcel, 'danh_sach_đơn mượnmượn');
-        } else {
-            $listData = $modelOrders->find()->join($join)
-                ->limit($limit)
-                ->page($page)
-                ->where($conditions)
-                ->group(['Orders.id'])
-                ->order($order)
-                ->all()
-                ->toList();
-
-            foreach ($listData as $key => $order) {
-                $listData[$key]->customer = $modelCustomers->get($order->customer_id);
-                $listData[$key]->building = $modelBuildings->get($order->building_id);
-                $listData[$key]->member = $modelMembers->get($order->member_id);
-                $whereOrder = ['order_id'=>$order->id];
-                if(!empty($_GET['id_book'])){
-                    $whereOrder['book_id']=(int)$_GET['id_book'];
-                }
-                $OrderDetail = $modelOrderDetails->find()->where($whereOrder)->all()->toList();
-                if(!empty($OrderDetail)){
-                    foreach($OrderDetail as $k => $item){
-                        $OrderDetail[$k]->book = $modelBook->find()->where(['id'=>$item->book_id])->first();
-                    }
-                }
-                $listData[$key]->orderDetail = $OrderDetail;
-
-            }
+               $dataExcel[] = [
+                $value->id,
+                $value->order_id,
+                $customer->name ?? 'N/A',
+                $customer->phone ?? 'N/A',
+                $building->name ?? 'N/A',
+                $member->name ?? 'N/A',
+                $statusText,
+                date('d-m-Y H:i:s', strtotime($value->created_at)),
+                $orderDetailsText
+            ];
         }
+
+        export_excel($titleExcel, $dataExcel, 'danh_sach_đơn mượnmượn');
+    } else {
+        $listData = $modelOrders->find()->join($join)
+        ->limit($limit)
+        ->page($page)
+        ->where($conditions)
+        ->group(['Orders.id'])
+        ->order($order)
+        ->all()
+        ->toList();
+
+        foreach ($listData as $key => $order) {
+            $listData[$key]->customer = $modelCustomers->get($order->customer_id);
+            $listData[$key]->building = $modelBuildings->get($order->building_id);
+            $listData[$key]->member = $modelMembers->get($order->member_id);
+            $whereOrder = ['order_id'=>$order->id];
+            if(!empty($_GET['id_book'])){
+                $whereOrder['book_id']=(int)$_GET['id_book'];
+            }
+            $OrderDetail = $modelOrderDetails->find()->where($whereOrder)->all()->toList();
+            if(!empty($OrderDetail)){
+                foreach($OrderDetail as $k => $item){
+                    $OrderDetail[$k]->book = $modelBook->find()->where(['id'=>$item->book_id])->first();
+                }
+            }
+            $listData[$key]->orderDetail = $OrderDetail;
+
+        }
+    }
 
         $totalData = $modelOrders->find()->join($join)->where($conditions)->count();
         $totalPage = ceil($totalData / $limit);
@@ -193,49 +193,50 @@ function addOrder($input)
     $books = $modelBooks->find()->all()->toList();
 
     $user = checklogin('addOrder');
-    if (empty($user) || empty($user->grant_permission)) {
-        return $controller->redirect('/');
-    }
-    
-    $conditions = [];
-    $orderDetails = [];
-    $mess = '';
-    if(!empty($_GET['id']) ){
-        $order = $modelOrders->find()->where(['id' => (int)$_GET['id']])->first();
-    }else{
-        $order = $modelOrders->newEmptyEntity();
-    }
+    if(!empty($user)){
+        if (empty($user->grant_permission)) {
+            return $controller->redirect('/');
+        }
+        
+        $conditions = [];
+        $orderDetails = [];
+        $mess = '';
+        if(!empty($_GET['id']) ){
+            $order = $modelOrders->find()->where(['id' => (int)$_GET['id']])->first();
+        }else{
+            $order = $modelOrders->newEmptyEntity();
+        }
 
-    if (empty($order)){
-        return $controller->redirect('/listOrder');
-    }
+        if (empty($order)){
+            return $controller->redirect('/listOrder');
+        }
 
-    if (!empty($order->id)) {
-        $orderDetails = $modelOrderDetails->find()->where(['order_id' => $order->id])->all()->toList();
-    }
+        if (!empty($order->id)) {
+            $orderDetails = $modelOrderDetails->find()->where(['order_id' => $order->id])->all()->toList();
+        }
 
-    if ($isRequestPost) {
+        if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['customer_id']) && !empty($dataSend['building_id']) && !empty($dataSend['return_deadline'])  && !empty($dataSend['order_books'])  && is_array($dataSend['order_books'])){
+            if(!empty($dataSend['customer_id']) && !empty($dataSend['building_id']) && !empty($dataSend['return_deadline'])  && !empty($dataSend['order_books'])  && is_array($dataSend['order_books'])){
 
 
-            $order->member_id = (int)$user->id;
-            $order->customer_id = (int)$dataSend['customer_id'];
-            $order->building_id = (int)$dataSend['building_id'];
-            $order->status = (int)$dataSend['status'];
-            $order->created_at = !empty($order->id) ? $order->created_at : time();
-            $order->return_deadline = strtotime(str_replace('/', '-', $dataSend['return_deadline']));
-            $order->updated_at = time();
+                $order->member_id = (int)$user->id;
+                $order->customer_id = (int)$dataSend['customer_id'];
+                $order->building_id = (int)$dataSend['building_id'];
+                $order->status = (int)$dataSend['status'];
+                $order->created_at = !empty($order->id) ? $order->created_at : time();
+                $order->return_deadline = strtotime(str_replace('/', '-', $dataSend['return_deadline']));
+                $order->updated_at = time();
 
-            if ($modelOrders->save($order)) {
+                if ($modelOrders->save($order)) {
                     $id_book = array();
                     foreach ($dataSend['order_books'] as $detail) {
                         if (!empty($detail['book_id']) && !empty($detail['quantity']) && !empty($detail['warehouse_id'])) {
-                             $id_book[] = (int)$detail['book_id'];
-                            $orderDetail = $modelOrderDetails->find()->where(['order_id' => $order->id, 'book_id' => $detail['book_id']])->first();
-                            $oldQuantity = $orderDetail ? $orderDetail->quantity : 0;
+                           $id_book[] = (int)$detail['book_id'];
+                           $orderDetail = $modelOrderDetails->find()->where(['order_id' => $order->id, 'book_id' => $detail['book_id']])->first();
+                           $oldQuantity = $orderDetail ? $orderDetail->quantity : 0;
 
-                            if ($orderDetail) {
+                           if ($orderDetail) {
                                 $orderDetail->quantity = (int)$detail['quantity'];
                                 $orderDetail->warehouse_id = (int)$detail['warehouse_id'];
                                 $modelOrderDetails->save($orderDetail);
@@ -278,15 +279,15 @@ function addOrder($input)
                                 $history->type = 'plus';
                             }
 
-                                $history->id_member = (int)$user->id;
-                                $history->quantity = (int)$detail['quantity'];
-                               
+                            $history->id_member = (int)$user->id;
+                            $history->quantity = (int)$detail['quantity'];
 
-                                $modelOrderHistorys->save($history);
-                            }
 
+                            $modelOrderHistorys->save($history);
                         }
-                    
+
+                    }
+
 
                     $checkOrderDetail = $modelOrderDetails->find()->where(['order_id' => $order->id, 'book_id NOT IN' => $id_book])->all()->toList();
                     if(!empty($checkOrderDetail)){
@@ -294,14 +295,14 @@ function addOrder($input)
                             $warehouse = $modelWarehouses->find()->where(['id' => $item->warehouse_id])->first();
                             if (!empty($warehouse)){
                                 $warehouse->quantity_borrow -= $item->quantity;
-                            
+
                                 if ($warehouse->quantity_borrow < 0) {
                                     $warehouse->quantity_borrow = 0;
                                 }
                                 $modelWarehouses->save($warehouse);
                             }
                             $modelOrderHistorys->deleteAll(['order_id'=>$order->id, 'book_id'=>$item->book_id, 'warehouse_id'=> $item->warehouse_id, 'order_detail_id'=>$item->id, 'id_building'=>(int)$dataSend['building_id']]);
-                             $modelOrderDetails->deleteAll(['order_id' => $order->id, 'book_id NOT IN' => $id_book]);
+                            $modelOrderDetails->deleteAll(['order_id' => $order->id, 'book_id NOT IN' => $id_book]);
                         }
                     }
 
@@ -311,29 +312,32 @@ function addOrder($input)
                     }else{
                         $note = $user->name . ' tạo đơn mượn có ID là: ' . $order->id;
                     }
-                    
+
                     addActivityHistory($user, $note, 'addOrder', $order->id);
 
-                
 
-                $mess = '<p class="text-success">Tạo hoặc cập nhật đơn mượn thành công.</p>';
-                return $controller->redirect('/listOrder?mess=saveSuccess');
-            } else {
-                $mess = '<p class="text-danger">Lưu đơn mượn không thành công.</p>';
+
+                    $mess = '<p class="text-success">Tạo hoặc cập nhật đơn mượn thành công.</p>';
+                    return $controller->redirect('/listOrder?mess=saveSuccess');
+                }s else {
+                    $mess = '<p class="text-danger">Lưu đơn mượn không thành công.</p>';
+                }
+            }else{
+                $mess = '<p class="text-danger">Bạn thiếu dữ liệu.</p>';
             }
-        }else{
-            $mess = '<p class="text-danger">Bạn thiếu dữ liệu.</p>';
         }
-    }
-    
-    $buildings = $modelBuilding->find()->where(['id'=>$user->idbuilding])->all()->toList();
 
-    setVariable('mess', $mess);
-    setVariable('buildings', $buildings);
-    setVariable('customer', $customer);
-    setVariable('order', $order);
-    setVariable('books', $books);
-    setVariable('orderDetails', $orderDetails);
+        $buildings = $modelBuilding->find()->where(['id'=>$user->idbuilding])->all()->toList();
+
+        setVariable('mess', $mess);
+        setVariable('buildings', $buildings);
+        setVariable('customer', $customer);
+        setVariable('order', $order);
+        setVariable('books', $books);
+        setVariable('orderDetails', $orderDetails);
+    }else{
+         return $controller->redirect('/login');
+    }
 }
 
 function deleteOrder($input){  

@@ -103,7 +103,7 @@ function addMemberAdmin($input)
     }else{
         $data = $modelMembers->newEmptyEntity();
     }
-
+    
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 

@@ -78,7 +78,9 @@
                       <th colspan="4" class="text-center">Thông tin đơn hàng</th> 
                       <tr>
                         <th width="40%">sách</th>
-                        <th width="20%">Số lượng </th>
+                        <th width="20%">Tổng số</th>
+                        <th width="20%">SL đã trả</th>
+                        <th width="20%">SL chưa trả</th>
                       </tr>
                     </thead>
                   </table>
@@ -115,8 +117,10 @@
                 if(!empty($order->orderDetail)){ 
                   foreach($order->orderDetail as $k => $value){
                         echo '<tr> 
-                                <td  width="40%">'.$value->book->name.'</td>
-                                <td  width="20%" align="center">'.number_format($value->quantity).'</td>
+                                <td width="40%">'.$value->book->name.'</td>
+                                <td width="20%" align="center">'.number_format($value->quantity).'</td>
+                                <td width="20%">'.number_format($value->quantity_return).'</td>
+                                <td width="20%">'.number_format($value->quantity-$value->quantity_return).'</td>
                               </tr>';
                   }
                 } 
@@ -232,13 +236,10 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="returnBook">Thông tin trả sách</h5>
             </div>
-            <!-- <form action="paymentCollectionBill" method="GET"> -->
-                     <div class="modal-footer">
+                    <div class="modal-footer">
                         <input type="hidden" value=""  name="id_orderDetail" id="id_orderDetail">
                         <input type="hidden" value=""  name="id_order" id="id_order">
                         <div class="card-body">
-
-
                           <div class="col-md-12 mb-4">
                               <label class="form-label">sách</label>
                               <input type="text" value="" disabled="" class="form-control" placeholder="" name="name_book" id="name_book">
@@ -248,15 +249,28 @@
                               <input type="number" value=""  class="form-control" placeholder="" name="quantity_return" id="quantity_return">
                           </div>
                            <button type="button" class="btn btn-primary" onclick="returnquantity()">Trả sách</button>
-                      
                   </div>
               </div>
-
-             
-         
-       <!-- / </form> -->
         </div>
 
+    </div>
+</div>
+
+<div class="modal fade" id="orderReturnBook" tabindex="-1" role="dialog" aria-labelledby="orderReturnBook" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">Lịch sử trả sách</h5>
+              <!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> 
+                    <span aria-hidden="true">&times;</span> 
+             </button>  -->
+            </div>
+            <div class="modal-body">
+            </div>
+            <!--  <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div> -->
+        </div>
     </div>
 </div>
 
@@ -392,7 +406,7 @@ function fetchOrderDetails(orderId) {
                     <p><strong>Hạn trả:</strong> ${returnDeadline}</p>
                 `;
 
-                let detailsHtml = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>Số lượng</th><th>Số lượng đã trả </th><th>Số lượng chưa trả </th><th>Số lần trả </th><th>Trả sách</th></tr></thead><tbody>';
+                let detailsHtml = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>Tổng số</th><th>SL đã trả</th><th>SL chưa trả</th><th>Số lần trả </th><th>Trả sách</th></tr></thead><tbody>';
                 
                 orderDetails.forEach(detail => {
                     let quantity = detail.quantity-detail.quantity_return
@@ -402,7 +416,7 @@ function fetchOrderDetails(orderId) {
                             <td>${detail.quantity}</td>
                             <td>${detail.quantity_return}</td>
                             <td>${detail.quantity-detail.quantity_return}</td>
-                            <td>${detail.total}</td>`;
+                            <td><a onclick="orderReturnBook(${detail.id})">${detail.total}</a></td>`;
                         if(quantity>0){
                              detailsHtml +=`<td><a class="dropdown-item" href="javascript:void(0);" onclick="returnBook('${detail.book_name}',${quantity},${detail.id},${orderInfo.order_id})">
                             <i class='bx bxl-paypal'></i>
@@ -417,7 +431,7 @@ function fetchOrderDetails(orderId) {
 
                 detailsHtml += '</tbody></table>';
 
-                if(status==1){
+                if(status==1 || status==3){
                      detailsHtml += '<button type="submit" class="btn btn-primary " onclick="updateOrderStatus('+id_order+',2)">trả hết</button>';
                 }
 
@@ -544,6 +558,51 @@ $('#orderDetailsModal').on('hidden.bs.modal', function () {
             });
         }
  }
+
+ function orderReturnBook(orderId) {
+    $.ajax({
+        url: `/apis/getOrderDetailsByOrderDetailsIdAPI`,
+        method: 'POST',
+        data: { id_order_detail: orderId },
+        beforeSend: function() {
+        },
+        success: function(response) {
+               console.log(response);
+            if (response.historyData.length > 0) { 
+                let orderDetails = response.historyData;
+
+
+                let detailsHtml = '<table class="table table-bordered"><thead><tr><th>nhân viên nhận </th><th>Số lượng</th><th>Ngày trả</th></tr></thead><tbody>';
+                
+                orderDetails.forEach(detail => {
+                    detailsHtml += `
+                        <tr>
+                            <td>${detail.name}</td>
+                            <td>${detail.quantity}</td>
+                            <td>${detail.created_at}</td>
+                             </tr>`;
+                });
+
+                detailsHtml += '</tbody></table>';
+                $('#orderReturnBook .modal-body').html(detailsHtml);
+                $('#orderReturnBook').modal('show');
+            } else {
+                alert('Không tìm thấy chi tiết lịch sử.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error occurred:', {
+                status: status,
+                error: error,
+                responseText: xhr.responseText
+            });
+            alert('Đã xảy ra lỗi khi gọi API.');
+        },
+        complete: function() {
+        }
+    });
+}
+
 </script>
 
 <?php include(__DIR__.'/../footer.php'); ?>
