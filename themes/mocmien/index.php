@@ -851,5 +851,6 @@
                       }
                 ?>
         </div>
+      </div>
 
 <?php getFooter(); ?>
