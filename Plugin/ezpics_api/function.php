@@ -1045,6 +1045,8 @@ function getLayerProductForEdit($idProduct=0)
                     if(empty($layer->banner)){
                         $layer->banner = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/avatar-ezpics.png'; 
                     }
+                    $layer->banner = str_replace('//upload', '/upload', $layer->banner);
+                    $layer->banner = str_replace('//upload', '/upload', $layer->banner);
 
                     // link ảnh svg khung
                     if(empty($layer->image_svg)){
