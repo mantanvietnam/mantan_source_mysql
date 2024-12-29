@@ -745,7 +745,7 @@ function upViewVideoFacebook($input)
         if(empty($user->grant_permission)){
             return $controller->redirect('/statisticAgency');
         }
-        $metaTitleMantan = 'Tăng theo dõi fanpage Facebook';
+        $metaTitleMantan = 'Tăng lượng xem video Facebook';
         $mess ='';
 
         $modelMembers = $controller->loadModel('Members');
@@ -1366,7 +1366,7 @@ function upShareFacebook($input)
         if(empty($user->grant_permission)){
             return $controller->redirect('/statisticAgency');
         }
-        $metaTitleMantan = 'Tăng theo dõi fanpage Facebook';
+        $metaTitleMantan = 'Tăng lượt chia sẻ Facebook';
         $mess ='';
 
         $modelMembers = $controller->loadModel('Members');

@@ -9,7 +9,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Tăng lượt hia sẻ Facebook</h5>
+    <h5 class="card-header">Tăng lượt chia sẻ Facebook</h5>
     <?php echo $mess;?>
     <div class="table-responsive">
       <table class="table table-bordered">

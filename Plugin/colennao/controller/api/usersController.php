@@ -77,7 +77,7 @@ function registerUserApi($input): array
                 $user->current_weight =  (double) @$dataSend['current_weight'];
                 $user->target_weight =  (double) @$dataSend['target_weight'];
                 $user->height =  (int) @$dataSend['height'];
-                $user->id_group_user =  (double) @$dataSend['id_group_user'];
+                $user->id_group_user =  (int) @$dataSend['id_group_user'];
                 $modelUser->save($user);
 
                 $loginUser = $modelUser->find()->where([
@@ -782,19 +782,21 @@ function updateUserApi($input): array
             $currentUser->id_area = $dataSend['id_area'];
         }
         if (isset($dataSend['water'])) {
-            $currentUser->water = (int) $dataSend['water'];
+            $currentUser->water = (double) $dataSend['water'];
         }
 
          if (isset($dataSend['meal'])) {
-            $currentUser->meal = (int) $dataSend['meal'];
+            $currentUser->meal = (double) $dataSend['meal'];
         }
 
          if (isset($dataSend['workout'])) {
             $currentUser->workout = (int) $dataSend['workout'];
         }
 
-
-
+        if(isset($dataSend['id_group_user'])){
+            $currentUser->id_group_user =(int) @$dataSend['id_group_user'];
+        }
+        
         if (isset($dataSend['time_fast'])) {
             $time_now = explode(" ", $dataSend['time_fast']);
             $time = explode(":", $time_now[0]);

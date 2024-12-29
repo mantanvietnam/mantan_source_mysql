@@ -155,3 +155,32 @@ function checkRequestOngTrum($id_request_buff=0, $type_api='')
 
     return $return;
 }
+
+function litsUpOngTrum(){
+    return array( 
+                'facebook' =>array(
+                    'buff'=> array(
+                                array('type'=> 'live','name'=>'Tăng mắt live Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.live', 'type_prority'=>''),
+                                array('type'=> 'likepage','name'=>'Tăng like Fanpage Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.likepage', 'type_prority'=>''),
+                                array('type'=> 'subpage','name'=>'Tăng theo dõi fanpage Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.subpage', 'type_prority'=>''),
+                                array('type'=> 'view','name'=>'Tăng lượng xem video Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.view', 'type_prority'=>'reel'),
+                                array('type'=> 'friend','name'=>'Tăng bạn bè Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.friend', 'type_prority'=>''),
+                                array('type'=> 'viewstory','name'=>'Tăng  lượt xem story Facebook', 'type_id' =>'viewstory', 'full' =>'facebook.buff.viewstory', 'type_prority'=>''),
+                                array('type'=> 'share','name'=>'Tăng lượt chia sẻ Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.share', 'type_prority'=>''),
+
+                    ),
+                    'buff'=> array(
+                                array('type'=> 'live','name'=>'Tăng mắt live Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.live', 'type_prority'=>''),
+                                array('type'=> 'likepage','name'=>'Tăng like Fanpage Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.likepage', 'type_prority'=>''),
+                                array('type'=> 'subpage','name'=>'Tăng theo dõi fanpage Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.subpage', 'type_prority'=>''),
+                                array('type'=> 'view','name'=>'Tăng lượng xem video Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.view', 'type_prority'=>'reel'),
+                                array('type'=> 'friend','name'=>'Tăng bạn bè Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.friend', 'type_prority'=>''),
+                                array('type'=> 'viewstory','name'=>'Tăng  lượt xem story Facebook', 'type_id' =>'viewstory', 'full' =>'facebook.buff.viewstory', 'type_prority'=>''),
+                                array('type'=> 'share','name'=>'Tăng lượt chia sẻ Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.share', 'type_prority'=>''),
+            
+            ),
+        ),
+    );
+}
+
+?>
