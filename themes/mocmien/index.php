@@ -190,14 +190,8 @@
       <div class='story-content'>
         <span><span class='color-green'>CÂU CHUYỆN</span> MỘC MIÊN</span>
         <div class='graph-containe'>
-          <div class='text-style'>Hành trình đi tìm vẻ đẹp thuần nhiên và niềm tin yêu mãnh liệt với làn da không tuổi của Mộc Miên - ĐẸP THUẦN NHIÊN! </div>
-          <div class='text-style-2'>Có những ngày, cuộc sống dường như đặt ra cho bạn một thử thách mà nếu không vượt qua, bạn sẽ mãi mãi ở lại nơi vạch xuất phát. Với tôi – Đặng Hoa, một chuyên gia da liễu thuần nhiên, hành trình ấy không chỉ là một câu chuyện về nỗ lực cá nhân, mà còn là một bài học sâu sắc về sự kiên trì, lòng tin và tình yêu với nghề. Trải qua biết bao nước mắt, thử thách và cả những khoảnh khắc muốn từ bỏ, tôi đã học cách đứng dậy, mạnh mẽ hơn sau mỗi thất bại. Và chính từ những lần vấp ngã đó, tôi nhận ra sứ mệnh thật sự của mình: giúp hàng ngàn làn da tổn thương tìm lại vẻ đẹp tự nhiên, bền vững, không xâm lấn và không đổ lỗi do cơ địa.
-
-            Hơn ai hết, tôi hiểu rõ cảm giác mất tự tin khi đối diện với làn da đầy mụn, thâm hay nám. Những cảm giác tủi thân, lo lắng, và thậm chí là xấu hổ khi nhìn thấy mình trong gương hay đứng trước người khác – tất cả đều là những trải nghiệm tôi đã từng trải qua. Những năm tháng đầu tiên vào năm 2019, khi tôi vẫn còn là một giáo viên, cuộc sống của tôi tưởng chừng như không thể tồi tệ hơn khi trở thành nạn nhân của một spa ở Đà Nẵng. Những sản phẩm kém chất lượng, đi kèm với những lời quảng cáo hão huyền đã khiến làn da tôi tổn thương nặng nề, dẫn đến hoại tử. Đó là thời điểm tôi nhận ra rằng việc làm đẹp không phải là một cuộc đua theo những lời hứa ngọt ngào, mà cần phải dựa trên kiến thức, sự an toàn và sự thấu hiểu làn da một cách khoa học.
-            
-            Từ những đau thương của chính mình, tôi quyết định thay đổi toàn bộ hướng đi của cuộc đời. Tôi dành thời gian tìm hiểu về da liễu, tham gia các khóa học chuyên sâu và không ngừng trau dồi kiến thức. Tôi không muốn bất kỳ ai phải chịu đựng những đau đớn như tôi từng trải qua. Hành trình ấy không dễ dàng, nhưng nó giúp tôi thấm thía rằng mỗi làn da đều có một câu chuyện riêng, và nhiệm vụ của tôi là giúp những câu chuyện đó được viết tiếp với những trang đẹp nhất.
-            
-          </div>
+          <div class='text-style'><?php echo @$settingThemes['big_content']; ?></div>
+          <div class='text-style-2'><?php echo @$settingThemes['small_content']; ?></div>
         </div>
         <div class='intro-btn'>
           <a href="<?php echo @$settingThemes['link_story'] ?>" class=''>Tìm hiểu thêm</a>
@@ -219,31 +213,30 @@
           </div>
           <div class='legit-items'>
             <div class='legit-item'>
-              <img src="<?= $urlThemeActive?>/assets/images/tick.png" alt="">
-              <div class='legit-item-text'>Mụn hết 100%, ko hết mụn hoàn tiền, không đổ lỗi do cơ địa</div>
+              <img src="<?php echo @$settingThemes['legit_icon']; ?>" alt="">
+              <div class='legit-item-text'><?php echo @$settingThemes['legit_content_1']; ?></div>
             </div>
             <div class='legit-item'>
-              <img src="<?= $urlThemeActive?>/assets/images/tick.png" alt="">
+              <img src="<?php echo @$settingThemes['legit_icon']; ?>" alt="">
               <div>
-                <div class='legit-item-text'>Sắc tố( nám, chàm, bớt...) hết 70_90% tùy độ tuổi và nguyên nhân khởi phát.</div>
-                <div class='legit-item-text'>Không đẹp hoàn tiền, kích ứng đền gấp 3. Không đổ lỗi do cơ địa.</div>
+                <div class='legit-item-text'><?php echo @$settingThemes['legit_content_2']; ?></div>
               </div>
             </div>
             <div class='legit-item'>
-              <img src="<?= $urlThemeActive?>/assets/images/tick.png" alt="">
-              <div class='legit-item-text'>Căng bóng trẻ hóa, xóa nhăn: 80_95%, không đẹp hoàn tiền, không đổ lỗi do cơ địa</div>
+              <img src="<?php echo @$settingThemes['legit_icon']; ?>" alt="">
+              <div class='legit-item-text'><?php echo @$settingThemes['legit_content_3']; ?></div>
             </div>
             <div class='legit-item'>
-              <img src="<?= $urlThemeActive?>/assets/images/tick.png" alt="">
-              <div class='legit-item-text'>Khách hàng sử dụng đúng, đủ đều theo phác đồ, không tự ý mix bất kì sp, hoạt chất nào bên ngoài, kể cả nước cất tinh khiết</div>
+              <img src="<?php echo @$settingThemes['legit_icon']; ?>" alt="">
+              <div class='legit-item-text'><?php echo @$settingThemes['legit_content_4']; ?></div>
             </div>
             <div class='legit-item'>
-              <img src="<?= $urlThemeActive?>/assets/images/tick.png" alt="">
-              <div class='legit-item-text'>Không kinh doanh được, không ra đơn dc trong 30 ngày được đổi trả hàng, không mất chi phí gì thêm.</div>
+              <img src="<?php echo @$settingThemes['legit_icon']; ?>" alt="">
+              <div class='legit-item-text'><?php echo @$settingThemes['legit_content_5']; ?></div>
             </div>
             <div class='legit-item'>
-              <img src="<?= $urlThemeActive?>/assets/images/tick.png" alt="">
-              <div class='legit-item-text'>Được đào tạo chuyên sâu về da liễu, quy trình tư vấn, thăm khám, chốt đơn, ra đơn trong 24h _7 ngày</div>
+              <img src="<?php echo @$settingThemes['legit_icon']; ?>" alt="">
+              <div class='legit-item-text'><?php echo @$settingThemes['legit_content_6']; ?></div>
             </div>
           </div>
         </div>

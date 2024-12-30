@@ -166,8 +166,64 @@
                         <?php showUploadFile('image_story','image_story', @$setting['image_story'],1);?>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Nội dung lớn</label>
+                        <input type="text" class="form-control" name="big_content" value="<?php echo @$setting['big_content'];?>" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Nội dung nhỏ</label>
+                        <input type="text" class="form-control" name="small_content" value="<?php echo @$setting['small_content'];?>" />
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Đường Link</label>
                         <input type="text" class="form-control" name="link_story" value="<?php echo @$setting['link_story'];?>" />
+                    </div>
+                </div>
+                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Khối Uy tín -->
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Khối Uy Tín</h5>
+            </div>
+            <div class="card-body row">
+                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Ảnh</label>
+                        <?php showUploadFile('legit_icon','legit_icon', @$setting['legit_icon'],1);?>
+                    </div>
+                </div>
+                <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Nội dung 1</label>
+                        <input type="text" class="form-control" name="legit_content_1" value="<?php echo @$setting['legit_content_1'];?>" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Nội dung 2</label>
+                        <input type="text" class="form-control" name="legit_content_2" value="<?php echo @$setting['legit_content_2'];?>" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Nội dung 3</label>
+                        <input type="text" class="form-control" name="legit_content_3" value="<?php echo @$setting['legit_content_3'];?>" />
+                    </div>
+                </div>
+                <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Nội dung 4</label>
+                        <input type="text" class="form-control" name="legit_content_4" value="<?php echo @$setting['legit_content_4'];?>" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Nội dung 5</label>
+                        <input type="text" class="form-control" name="legit_content_5" value="<?php echo @$setting['legit_content_5'];?>" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Nội dung 6</label>
+                        <input type="text" class="form-control" name="legit_content_6" value="<?php echo @$setting['legit_content_6'];?>" />
                     </div>
                 </div>
                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">

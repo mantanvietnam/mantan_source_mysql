@@ -30,7 +30,18 @@ function settingHomeThemeMocMien($input)
                         'image_product_3' => $dataSend['image_product_3'],
 
                         'image_story' => $dataSend['image_story'],
+                        'big_content' => $dataSend['big_content'],
+                        'small_content' => $dataSend['small_content'],
                         'link_story' => $dataSend['link_story'],
+
+                        'legit_icon' => $dataSend['legit_icon'],
+
+                        'legit_content_1' => $dataSend['legit_content_1'],
+                        'legit_content_2' => $dataSend['legit_content_2'],
+                        'legit_content_3' => $dataSend['legit_content_3'],
+                        'legit_content_4' => $dataSend['legit_content_4'],
+                        'legit_content_5' => $dataSend['legit_content_5'],
+                        'legit_content_6' => $dataSend['legit_content_6'],
 
                         'title_main' => $dataSend['title_main'],
 
