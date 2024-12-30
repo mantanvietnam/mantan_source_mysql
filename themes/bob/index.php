@@ -191,7 +191,7 @@
         <section style="background-image: url(<?php echo $urlThemeActive; ?>/asset/img/image-laptop.jpg);" id="section-home-contact">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-5 col-md-5 col-12 home-contact-left">
+                    <div class="col-lg-7 col-md-5 col-12 home-contact-left">
                         <div class="title-home-contact">
                             <p><?php echo @$settingThemes['title_section3'];?></p>
                         </div>
@@ -205,7 +205,7 @@
                         </div>
                     </div>
     
-                    <div class="col-lg-7 col-md-7 col-12 home-contact-right">
+                    <div class="col-lg-5 col-md-7 col-12 home-contact-right">
                         <div class="home-contact-right-img">
                             <img src="<?php echo @$settingThemes['image_section3']; ?>" alt="">
                         </div>

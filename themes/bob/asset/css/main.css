@@ -512,7 +512,7 @@ h1, h2, h3, h4{
 
 /* Đăng dự án miễn phí */
 #section-home-contact{
-    /* max-height: 548px; */
+    height: 1000px;
     background-repeat: no-repeat;
     background-size: cover;
 }

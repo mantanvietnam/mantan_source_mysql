@@ -19,7 +19,7 @@
                             <div class="info-contact-item">
                                 <div class="info-contact-name">
                                     <div class="info-contact-text">
-                                        <p>Văn phòng Yên Lâm</p>
+                                        <p>Decor Đồ Châu Âu</p>
                                     </div>
                                 </div>
                 
