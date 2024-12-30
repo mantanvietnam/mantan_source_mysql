@@ -15,8 +15,7 @@
 
         <link rel="stylesheet" href="/plugins/hethongdaily/view/home/assets/css/print.css?time=<?php echo time(); ?>"/>   
   
-          
-          
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>          
         
         <style type="text/css">
             @media print {
@@ -38,7 +37,7 @@
         </style>
     </head>
     <body>
-        <div class="container">
+        <div class="container" id="download">
             <header class="text-center mt-3">
                 <h3><?php echo $system->name;?></h3>
                 <h5>Đ/c: <?php echo  $member_sell->address;?></h5>
@@ -187,12 +186,12 @@
                                         window.location= '<?php echo $url; ?>';
                                     },
                                     "Tải về máy": function() {
-                                        $( this ).dialog("close");
+                                       $( this ).dialog("close");
                                         var element = document.getElementById('download');
                                         var opt = {
                                             margin:       1,
                                             height:       'auto',
-                                            filename:     'OC<?php echo($order->id); ?>.pdf',
+                                            filename:     'myfile.pdf',
                                             image:        { type: 'jpeg', quality: 0.98 },
                                             html2canvas:  { scale: 2 },
                                             jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
@@ -200,6 +199,7 @@
 
                                         // Gọi hàm html2pdf để chuyển đổi và tải về PDF
                                         html2pdf().from(element).set(opt).save();
+                                        location.reload();
                                     },
                                     "Hủy bỏ": function() {
                                       //$( this ).dialog( "close" );

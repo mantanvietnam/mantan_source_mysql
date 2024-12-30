@@ -25,3 +25,8 @@ function getUidAPI($input)
 
     return $uid;
 }
+
+function litsUpOngTrumAPI(){
+    return litsUpOngTrum();
+}
+?>

@@ -203,6 +203,7 @@
 
                                     // Gọi hàm html2pdf để chuyển đổi và tải về PDF
                                     html2pdf().from(element).set(opt).save();
+                                    location.reload();
                                 },
                                 Cancel: function() {
                                       //$( this ).dialog( "close" );
