@@ -163,19 +163,19 @@
         <div class='gap-1 row'>
           <div class="col category-item">
             <div class='category-item-img'>
-              <img src="<?php echo $urlThemeActive; ?>/assets/images/trisacto.png" alt="tinhchatdinhduong">
+              <img src="<?php echo @$settingThemes['image_product_1'] ?>" alt="tinhchatdinhduong">
             </div>
             <span>Tinh chất dưỡng</span>
           </div>
           <div class="col category-item">
             <div class='category-item-img'>
-              <img src="<?php echo $urlThemeActive; ?>/assets/images/ngannguamun.png" alt="tinhchatdinhduong">
+              <img src="<?php echo @$settingThemes['image_product_2'] ?>" alt="tinhchatdinhduong">
             </div>
             <span>Sửa rửa mặt</span>
           </div>
           <div class="col category-item">
             <div class='category-item-img'>
-              <img src="<?php echo $urlThemeActive; ?>/assets/images/combo1.png" alt="tinhchatdinhduong">
+              <img src="<?php echo @$settingThemes['image_product_3'] ?>" alt="tinhchatdinhduong">
             </div>
             <span>Mặt nạ</span>
           </div>
@@ -185,7 +185,7 @@
       <!-- câu chuyện -->
       <div class='container gap-4 story-container flex-lg-row flex-column gap-lg-0 align-items-lg-start'>
       <div class='ceo-img'>
-        <img src="<?= $urlThemeActive?>/assets/images/ceo.png" alt="ceo">
+        <img src="<?php echo @$settingThemes['image_story'] ?>" alt="ceo">
       </div>
       <div class='story-content'>
         <span><span class='color-green'>CÂU CHUYỆN</span> MỘC MIÊN</span>
@@ -200,7 +200,7 @@
           </div>
         </div>
         <div class='intro-btn'>
-          <a href="" class=''>Tìm hiểu thêm</a>
+          <a href="<?php echo @$settingThemes['link_story'] ?>" class=''>Tìm hiểu thêm</a>
         </div>
       </div>
       </div>

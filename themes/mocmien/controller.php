@@ -25,6 +25,13 @@ function settingHomeThemeMocMien($input)
                         'images_2' => $dataSend['images_2'],
                         'images_3' => $dataSend['images_3'],
 
+                        'image_product_1' => $dataSend['image_product_1'],
+                        'image_product_2' => $dataSend['image_product_2'],
+                        'image_product_3' => $dataSend['image_product_3'],
+
+                        'image_story' => $dataSend['image_story'],
+                        'link_story' => $dataSend['link_story'],
+
                         'title_main' => $dataSend['title_main'],
 
                         'delivery_title_1' => $dataSend['delivery_title_1'],
