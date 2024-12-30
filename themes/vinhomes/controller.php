@@ -93,6 +93,11 @@ function indexTheme($input){
     $modelproject = $controller->loadModel('ProductProjects');
     $modelcategory = $controller->loadModel('categories');
     $listDatacategory = $modelcategory->find()->where(['type'=>'category_kind'])->all()->toList();
+    $searchCategory = $modelcategory->find()
+    ->where(['type' => 'category_kind'])
+    ->limit(5)
+    ->all()
+    ->toList();
 
 
   
@@ -132,6 +137,7 @@ function indexTheme($input){
     $numberOfProjects = count($listDataproject);
     setVariable('listDataprojectkeypoint', $listDataprojectkeypoint);
     setVariable('listDatacategory', $listDatacategory);
+    setVariable('searchCategory', $searchCategory);
     setVariable('numberOfProjects', $numberOfProjects);
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
@@ -207,4 +213,7 @@ function project($input){
     setVariable('urlPage', $urlPage);
     setVariable('listDataproject', $listDataproject);
 }
+
+
+
 ?>

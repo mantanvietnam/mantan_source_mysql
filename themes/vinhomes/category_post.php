@@ -16,6 +16,98 @@ $categories = listCategoryBytype('post');
           background-color: #182c77;
           
         }
+
+        .keyword-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .keyword-item {
+            margin-bottom: 1rem;
+        }
+
+        .keyword-toggle-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .keyword-toggle {
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .keyword-toggle:hover {
+            color: #0056b3;
+        }
+
+        .keyword-item .bg-blue-500 {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+        }
+
+        .title-list {
+            margin-top: 0.5rem;
+            padding-left: 1.5rem;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .title-list.active {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .keyword-toggle-container::after {
+            content: '>';
+            font-size: 1.2rem;
+            margin-left: auto;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .keyword-toggle-container.expanded::after {
+            transform: rotate(90deg);
+        }
+
+        .title-item a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .title-item a:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.02);
+        }
+
+        .title-item img {
+            margin-right: 0.5rem;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+        .title-item a span {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        .title-item {
+            max-width: 100%;
+        }
+
     </style>
 <div class="py-4 mx-4 my-10 sm:mx-6 lg:mx-20 font-plus fade-in">
       <h1 class="text-2xl font-bold md:text-4xl">
@@ -45,40 +137,39 @@ $categories = listCategoryBytype('post');
     }
     ?>
 
-<div class="w-auto xl:w-[60%] slide-right">
-    <!-- Tab Navigation -->
-    <div class="tab-navigation flex mb-8 space-x-8 heroSection-news-select font-bold pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap">
-        <?php foreach ($categories as $category): ?>
-            <a 
-                class="tab-link <?php echo $category->id === $categories[0]->id ? 'active' : ''; ?>" 
-                href="#" 
-                data-tab="tab-<?php echo $category->id; ?>" 
-                data-id-category="<?php echo $category->id; ?>"
-                data-posts='<?php echo json_encode($listDataPost[$category->slug]); ?>'
-            >
-                <?php echo $category->name; ?>
-            </a>
-        <?php endforeach; ?>
-    </div>
+      <div class="w-auto xl:w-[60%] slide-right">
+          <!-- Tab Navigation -->
+          <div class="tab-navigation flex mb-8 space-x-8 heroSection-news-select font-bold pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap">
+              <?php foreach ($categories as $category): ?>
+                  <a 
+                      class="tab-link <?php echo $category->id === $categories[0]->id ? 'active' : ''; ?>" 
+                      href="#" 
+                      data-tab="tab-<?php echo $category->id; ?>" 
+                      data-id-category="<?php echo $category->id; ?>"
+                      data-posts='<?php echo json_encode($listDataPost[$category->slug]); ?>'
+                  >
+                      <?php echo $category->name; ?>
+                  </a>
+              <?php endforeach; ?>
+          </div>
 
-    <!-- Tab Content Section -->
-    <div class="tab-content-container">
-        <?php foreach ($categories as $key => $category): ?>
-            <div 
-                id="tab-<?php echo $category->id; ?>" 
-                class="tab-content-news <?php echo $key === 0 ? 'active' : ''; ?>"
-            >
-                <!-- Nội dung bài viết sẽ được chèn ở đây -->
-            </div>
-        <?php endforeach; ?>
-    </div>
-</div>
+          <!-- Tab Content Section -->
+          <div class="tab-content-container">
+              <?php foreach ($categories as $key => $category): ?>
+                  <div 
+                      id="tab-<?php echo $category->id; ?>" 
+                      class="tab-content-news <?php echo $key === 0 ? 'active' : ''; ?>"
+                  >
+                      <!-- Nội dung bài viết sẽ được chèn ở đây -->
+                  </div>
+              <?php endforeach; ?>
+          </div>
+      </div>
 
 
         <!-- Right -->
         <div
-            class="w-auto flex justify-between xl:justify-start flex-col lg:flex-row xl:flex-col xl:w-[30%] mt-8 xl:mt-0 slide-left"
-        >
+            class="w-auto flex justify-between xl:justify-start flex-col lg:flex-row xl:flex-col xl:w-[30%] mt-8 xl:mt-0 slide-left">
             <div class="w-full p-6 bg-white rounded-lg shadow lg:max-w-md">
                 <h2 class="mb-4 text-lg font-medium">Bài viết được xem nhiều nhất</h2>
                 <ul class="space-y-4">
@@ -105,44 +196,61 @@ $categories = listCategoryBytype('post');
                 </ul>
             </div>
             <?php
-              $keywords = $modelPosts->find()
-                  ->select(['keyword'])
-                  ->group('keyword')
-                  ->all();
+            $keywords = $modelPosts->find()
+                ->select(['keyword'])
+                ->group('keyword')
+                ->all();
 
-              $keywordTitles = [];
+            $keywordTitles = [];
+            foreach ($keywords as $keywordEntity) {
+                $keyword = $keywordEntity->get('keyword');
+                $titles = $modelPosts->find()
+                    ->select(['title', 'image', 'slug'])
+                    ->where(['keyword' => $keyword])
+                    ->limit(7)
+                    ->all();
 
-              foreach ($keywords as $keywordEntity) {
-                  $keyword = $keywordEntity->get('keyword');
-                  $titles = $modelPosts->find()
-                      ->select(['title'])
-                      ->where(['keyword' => $keyword])
-                      ->all();
-
-                  $keywordTitles[$keyword] = [];
-                  foreach ($titles as $titleEntity) {
-                      $keywordTitles[$keyword][] = $titleEntity->get('title');
+                $keywordTitles[$keyword] = [];
+                foreach ($titles as $titleEntity) {
+                  $title = $titleEntity->get('title');
+                  $shortTitle = implode(' ', array_slice(explode(' ', $title), 0, 12));
+                  if (str_word_count($title) > 20) {
+                      $shortTitle .= '...';
                   }
-              }
-              ?>
+                    $keywordTitles[$keyword][] = [
+                        'title' => $shortTitle,
+                        'image' => $titleEntity->get('image'),
+                        'slug' => $titleEntity->get('slug')
+                    ];
+                }
+            }
+            ?>
 
             <div class="w-full p-6 mt-4 bg-white rounded-lg shadow lg:max-w-md lg:mt-0 xl:mt-4">
               <h2 class="mb-4 text-lg font-semibold">
                 Từ khóa
               </h2>
-
               <div class="space-y-4">
                 <ul class="keyword-menu">
-                  <?php foreach ($keywordTitles as $keyword => $titles): ?>
+                  <?php
+                    $index = 1;
+                    foreach ($keywordTitles as $keyword => $titles):
+                  ?>
                     <li class="keyword-item">
-                      <span class="keyword-toggle"><?= htmlspecialchars($keyword) ?></span>
-
+                      <div class="keyword-toggle-container flex items-center space-x-2">
+                        <div class="flex items-center justify-center flex-shrink-0 w-8 h-8 font-medium text-white rounded-full bg-blue-500">
+                          <?= $index++ ?>
+                        </div>
+                        <span class="keyword-toggle font-bold cursor-pointer text-blue-700">
+                          <?= htmlspecialchars($keyword) ?>
+                        </span>
+                      </div>
                       <ul class="title-list hidden">
                         <?php foreach ($titles as $title): ?>
                           <li class="title-item">
-                            <a href="#" class="flex items-center space-x-4 transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:rounded-lg">
-                              <img alt="Image for <?= $title ?>" class="object-cover w-16 h-10 rounded-lg" src="https://storage.googleapis.com/a1aa/image/MJxVtbebl1xe6U9a2n6oXQsZwPlGlE6n2KVfLfZxg7w9DKgPB.jpg" />
-                              <span class="transition duration-300 hover:text-blue-800"><?= htmlspecialchars($title) ?></span>
+                            <a href="/<?php echo htmlspecialchars($title['slug']); ?>.html" class="flex items-center space-x-4 transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:rounded-lg">
+                              <img alt="Image for <?= htmlspecialchars($title['title']) ?>" class="object-cover w-16 h-10 rounded-lg" src="<?= $title['image'] ?>" />
+                              <span class="transition duration-300 hover:text-blue-800"><?= htmlspecialchars($title['title']) ?></span>
                             </a>
                           </li>
                         <?php endforeach; ?>
@@ -179,7 +287,6 @@ $categories = listCategoryBytype('post');
         <div class="flex-col hidden lg:flex lg:flex-row">
             <?php foreach ($mostViewedPosts as $index => $post): ?>
                 <?php if ($index == 0): ?>
-                    <!-- Bài viết nổi bật -->
                     <a href="/<?php echo $post->slug; ?>.html" class="mr-6 overflow-hidden">
                         <div class="relative overflow-hidden rounded-lg">
                             <img
@@ -203,7 +310,6 @@ $categories = listCategoryBytype('post');
                         </div>
                     </a>
                 <?php else: ?>
-                    <!-- Danh sách các bài viết nhỏ hơn -->
                     <?php if ($index == 1): ?>
                         <div class="flex flex-col space-y-4">
                     <?php endif; ?>
@@ -229,7 +335,6 @@ $categories = listCategoryBytype('post');
                     <?php endif; ?>
                 <?php endforeach; ?>
 
-                <!-- Đóng div của danh sách bài viết nhỏ hơn -->
                 <?php if (count($mostViewedPosts) > 1): ?>
                     </div>
                 <?php endif; ?>
@@ -404,17 +509,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.querySelectorAll('.keyword-toggle').forEach(function (keywordToggle) {
     keywordToggle.addEventListener('click', function (event) {
-      event.preventDefault();
+        event.preventDefault();
 
-      var titleList = this.nextElementSibling;
-      titleList.classList.toggle('hidden');
+        // Tìm danh sách tiêu đề kế tiếp
+        var titleList = this.parentElement.nextElementSibling;
+        titleList.classList.toggle('hidden');
 
-      document.querySelectorAll('.title-list').forEach(function (otherTitleList) {
-        if (otherTitleList !== titleList) {
-          otherTitleList.classList.add('hidden');
-        }
-      });
+        // Ẩn các danh sách tiêu đề khác
+        document.querySelectorAll('.title-list').forEach(function (otherTitleList) {
+            if (otherTitleList !== titleList) {
+                otherTitleList.classList.add('hidden');
+            }
+        });
     });
-  });
+});
+
+document.querySelectorAll('.keyword-toggle-container').forEach(function (keywordToggleContainer) {
+    keywordToggleContainer.addEventListener('click', function () {
+        var titleList = this.nextElementSibling;
+
+        titleList.classList.toggle('active');
+
+        this.classList.toggle('expanded');
+
+        document.querySelectorAll('.title-list').forEach(function (otherTitleList) {
+            if (otherTitleList !== titleList) {
+                otherTitleList.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('.keyword-toggle-container').forEach(function (otherToggleContainer) {
+            if (otherToggleContainer !== keywordToggleContainer) {
+                otherToggleContainer.classList.remove('expanded');
+            }
+        });
+    });
+});
+
+
 </script>
 <?php getFooter();?>

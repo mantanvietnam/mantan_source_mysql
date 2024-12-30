@@ -6,125 +6,68 @@
 ?>
       <!-- Nội dung chính -->
       <div class="absolute bottom-[-22%] z-10 w-full">
-        <div
-          class="flex flex-col items-center justify-center px-4 py-20 text-center text-white"
-        >
-          <div class="w-full max-w-4xl">
-            <div class="flex font-plus">
+  <div class="flex flex-col items-center justify-center px-4 py-20 text-center text-white">
+    <div class="w-full max-w-4xl">
+      <form id="searchForm" action="/search" method="get">
+        <div class="flex font-plus">
+          <?php foreach ($searchCategory as $category): ?>
+            <?php if (!empty($category->name) && !empty($category->slug)): ?>
               <button
-                id="realEstateSaleButton"
-                class="py-2 mr-2 text-gray-600 transition-transform duration-300 ease-in-out bg-white rounded-t-lg active x-2 sm:px-8 property-button active:scale-95 hover:bg-gray-100 hover:shadow-md"
+                type="button"
+                class="py-2 mr-2 text-gray-600 transition-transform duration-300 ease-in-out bg-white rounded-t-lg sm:px-8 property-button hover:bg-gray-100 hover:shadow-md active:scale-95"
+                data-slug="<?= htmlspecialchars($category->slug) ?>"
               >
-                Nhà đất bán
+                <?= htmlspecialchars($category->name) ?>
               </button>
-              <button
-                id="realEstateRentButton"
-                class="px-2 py-2 mr-2 text-gray-600 transition-transform duration-300 ease-in-out bg-white rounded-t-lg sm:px-8 property-button hover:bg-gray-100 hover:shadow-md active:scale-95"
-              >
-                Nhà đất thuê
-              </button>
-              <button
-                id="projectsButton"
-                class="px-2 py-2 text-gray-600 transition-transform duration-300 ease-in-out bg-white rounded-t-lg sm:px-8 property-button hover:bg-gray-100 hover:shadow-md active:scale-95"
-              >
-                Dự án
-              </button>
+            <?php endif; ?>
+          <?php endforeach; ?>
+        </div>
+
+        <div class="w-full max-w-4xl p-2 bg-white rounded-lg rounded-tl-none shadow-lg sm:p-6">
+          <div class="flex flex-col items-center justify-between pb-4 border-b font-roboto md:flex-row">
+            <div class="flex md:w-[80%] mb-4 md:mb-0">
+              <div class="flex items-center md:w-[30%] p-2 text-gray-600">
+                <img alt="Logo" src="<?= $urlThemeActive ?>image/icons/iconHome.png" width="16" />
+                <select
+                  id="projectSelect"
+                  class="w-full ml-4 bg-transparent cursor-pointer focus:outline-none"
+                >
+                  <option value="" selected>Diện tích</option>
+                  <option value="under50">Dưới 50m²</option>
+                  <option value="50to100">50 - 100m²</option>
+                  <option value="above100">Trên 100m²</option>
+                </select>
+              </div>
+
+              <div class="w-[0.5px] h-10 bg-[#DFDFDF] mx-4 hidden md:block"></div>
+
+              <div class="flex items-center p-2 w-[60%] text-black">
+                <img alt="Logo" src="<?= $urlThemeActive ?>image/icons/iconSearch.png" width="16" class="mr-2" />
+                <input
+                  id="searchInput"
+                  name="key"
+                  class="w-full bg-transparent focus:outline-none"
+                  placeholder="Tìm kiếm dự án"
+                  type="text"
+                />
+              </div>
             </div>
 
-            <div
-              class="w-full max-w-4xl p-2 bg-white rounded-lg rounded-tl-none shadow-lg sm:p-6"
-            >
-              <div
-                class="flex flex-col items-center justify-between pb-4 border-b font-roboto md:flex-row"
-              >
-                <div class="flex md:w-[80%] mb-4 md:mb-0">
-                  <div class="flex items-center md:w-[30%] p-2 text-gray-600">
-                    <img
-                      alt="Logo"
-                      src="<?= $urlThemeActive ?>image/icons/iconHome.png"
-                      width="16"
-                    />
-                    <select
-                      id="projectSelect"
-                      class="w-full ml-4 bg-transparent cursor-pointer focus:outline-none"
-                    >
-                      <option value="default" selected>Dự án</option>
-                      <option value="nha-ban">Nhà bán</option>
-                      <option value="nha-thue">Nhà thuê</option>
-                      <option value="khac">Khác</option>
-                    </select>
-                  </div>
-                  <div class="w-[0.5px] h-10 bg-[#DFDFDF] mx-4"></div>
-                  <div class="flex items-center p-2 w-[60%] text-black">
-                    <img
-                      alt="Logo"
-                      src="<?= $urlThemeActive ?>image/icons/iconSearch.png"
-                      width="16"
-                      class="mr-2"
-                    />
-                    <input
-                      id="searchInput"
-                      class="w-full bg-transparent focus:outline-none"
-                      placeholder="Tìm kiếm dự án"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <button
-                  id="searchButton"
-                  class="px-12 py-2 text-white rounded-lg bg-gradient-to-r from-[#182c77] to-[#6274bb] hover:from-[#6274bb] hover:to-[#182c77] active:scale-95 focus:ring-4 focus:ring-[#6274bb]/50 transition-transform duration-300 ease-in-out"
-                >
-                  Tìm kiếm
-                </button>
-              </div>
-              <div
-                class="flex flex-col items-center justify-between mt-2 space-y-4 text-gray-600 font-roboto md:flex-row md:space-y-0 md:space-x-4"
-              >
-                <div class="flex items-center w-full p-2 md:w-auto">
-                  <span class="mr-2 text-gray-500"> Bộ lọc tìm kiếm </span>
-                </div>
-                <div
-                  class="flex pace-x-0 sm:space-x-2 md:space-x-6 md:w-[60%] justify-end"
-                >
-                  <div class="flex items-center w-full p-2 md:w-[24%]">
-                    <select
-                      id="typeSelect"
-                      class="w-full bg-transparent cursor-pointer focus:outline-none"
-                    >
-                      <option value="default" selected>Loại hình</option>
-                      <option value="nha-ban">Nhà bán</option>
-                      <option value="nha-thue">Nhà thuê</option>
-                      <option value="can-ho">Căn hộ</option>
-                    </select>
-                  </div>
-                  <div class="flex items-center w-full p-2 md:w-[24%]">
-                    <select
-                      id="priceSelect"
-                      class="bg-transparent cursor-pointer focus:outline-none"
-                    >
-                      <option value="default" selected>Khoảng giá</option>
-                      <option value="duoi-1-ty">Dưới 1 tỷ</option>
-                      <option value="1-2-ty">1 - 2 tỷ</option>
-                      <option value="tren-2-ty">Trên 2 tỷ</option>
-                    </select>
-                  </div>
-                  <div class="flex items-center w-full p-2 md:w-[24%]">
-                    <select
-                      id="sizeSelect"
-                      class="bg-transparent cursor-pointer focus:outline-none"
-                    >
-                      <option value="default" selected>Diện tích</option>
-                      <option value="duoi-50m2">Dưới 50m²</option>
-                      <option value="50-100m2">50 - 100m²</option>
-                      <option value="tren-100m2">Trên 100m²</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <button
+            type="button"
+            id="searchButton"
+            class="px-12 py-2 text-white rounded-lg bg-gradient-to-r from-[#182c77] to-[#6274bb] hover:from-[#6274bb] hover:to-[#182c77] active:scale-95 focus:ring-4 focus:ring-[#6274bb]/50 transition-transform duration-300 ease-in-out"
+          >
+            Tìm kiếm
+          </button>
         </div>
-      </div>
+        </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
     </div>
 
     <!-- Thông tin nhà bđs -->
@@ -486,7 +429,6 @@
               ->all()
               ->toList();
         ?> 
-
         <div class="flex-col hidden lg:flex lg:flex-row">
             <?php foreach ($mostViewedPosts as $index => $post): ?>
                 <?php if ($index == 0): ?>
@@ -602,4 +544,41 @@
         </form>
       </div>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+      const categoryButtons = document.querySelectorAll(".property-button");
+      const areaSelect = document.getElementById("projectSelect");
+      const searchInput = document.getElementById("searchInput");
+      const searchButton = document.getElementById("searchButton");
+      const searchForm = document.getElementById("searchForm");
+
+      let filters = {
+        category: "",
+        area: "",
+        key: ""
+      };
+
+      categoryButtons.forEach(button => {
+        button.addEventListener("click", function () {
+          filters.category = this.getAttribute("data-slug");
+          categoryButtons.forEach(btn => btn.classList.remove("bg-gray-200"));
+          this.classList.add("bg-gray-200");
+        });
+      });
+
+      areaSelect.addEventListener("change", function () {
+        filters.area = this.value;
+      });
+
+      searchButton.addEventListener("click", function () {
+        filters.key = searchInput.value.trim();
+
+        const urlParams = new URLSearchParams(filters);
+        const actionUrl = `${searchForm.action}?${urlParams.toString()}`;
+        window.location.href = actionUrl;
+      });
+    });
+
+    </script>
     <?php getFooter();?>
