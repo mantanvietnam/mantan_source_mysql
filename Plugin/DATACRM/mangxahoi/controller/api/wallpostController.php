@@ -108,6 +108,9 @@ function addWallPostApi($input){
                         }
                     }
                 }
+                 if(!empty($data->link_share)){
+                        $data->link_share = json_decode($data->link_share, true);
+                    }  
 
                 if(!empty($token_device)){
                     sendNotification($dataSendNotification, $token_device);
@@ -229,7 +232,9 @@ function  editWallPostApi($input){
                         }
                     }
                     $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
-               
+                     if(!empty($data->link_share)){
+                        $data->link_share = json_decode($data->link_share, true);
+                    }  
                 return array('code'=>1, 'messages'=>'Bạn sửa bài thành công ', 'data'=>$data);
                 }
 
@@ -264,9 +269,9 @@ function deleteWallPostApi($input){
             if (!empty($user)) {
                 $data = $modelWallPost->find()->where(['id'=>$dataSend['id'],'id_customer'=>$user->id])->first();
                 if(!empty($data)){
-                    if(!empty($data->link_share)){
+                   if(!empty($data->link_share)){
                         $data->link_share = json_decode($data->link_share, true);
-                    }                    
+                    }                     
                     $conditions = array('id_post'=>$data->id);
                     deletelikeIdObject([$data->id],'wall_post');
                     deleteCommentIdObject([$data->id],'wall_post');
