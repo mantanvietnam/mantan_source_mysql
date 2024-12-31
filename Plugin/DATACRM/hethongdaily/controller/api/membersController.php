@@ -1575,6 +1575,140 @@ function getInfoSystemAPI($input)
 	
 	return $return;
 }
+
+function payExtendMemberAPI($input){
+	global $controller;
+	global $isRequestPost;
+	global $displayInfo;
+	global $priceExtend;
+
+	$metaTitleMantan = 'Đổi thông tin tài khoản';
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelSetingThemeInfo = $controller->loadModel('SetingThemeInfos');
+	$modelLinkInfo = $controller->loadModel('LinkInfos');
+	if($isRequestPost){
+
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['year'])){
+            $infoMember = getMemberByToken($dataSend['token'],'extendMember');
+            if($dataSend['year']==1 OR $dataSend['year']==3 OR $dataSend['year']==5){
+            	$money = $priceExtend[$dataSend['year']];
+            }else{
+            	return array('code'=>5, 'mess'=>'Chưa có giá');
+            }
+            if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
+				$mess = '';
+				$boss = $modelMembers->find()->where(['id_father'=>0])->first();
+				$user = $modelMembers->find()->where(['id'=>(int) $infoMember->id])->first();
+				$description = $boss->phone.' '.$user->id.'Y'.$dataSend['year'];
+				if(empty($user->status_deadline)){
+					$user->status_deadline = 1;
+					$user->deadline = strtotime('+7 days', $user->deadline);
+					$modelMembers->save($user);
+				}
+		        
+		        $dataPost= array('amount'=>@$money,'description'=>$description);
+		        $listData= sendDataConnectMantan('https://icham.vn/apis/getinfobankAPI', $dataPost);
+		        $listData= str_replace('ï»¿', '', utf8_encode($listData));
+		        $return= json_decode($listData, true);
+		       
+
+		        if(!empty($return)){
+		            $data = array();
+		            $data['number_bank'] = $return['accountNumber'];
+		            $data['accountName'] = $return['accountName'];
+		            $data['code_bank'] = $return['bin'];
+		            $data['content'] = $return['description'];
+		            $data['amount'] = $return['amount'];
+		            $data['name_bank'] = $return['code_bank'];
+
+		            $data['linkQR'] = 'https://img.vietqr.io/image/'.$data['code_bank'].'-'.$data['number_bank'].'-compact2.png?amount='.(int) $data['amount'].'&addInfo='.$data['content'].'&accountName='.$data['accountName'];
+
+		            if(empty($user->status_deadline)){
+					$user->status_deadline = 1;
+					$user->deadline = strtotime('+7 days', $user->deadline);
+					$modelMembers->save($user);
+					 	return array('code'=>7, 'mess'=>'Gia hạn miên phí','data'=>$data);
+
+					}
+
+		            return array('code'=>1, 'mess'=>'Gia hạn thành công','data'=>$data);
+		        
+	    	}else{
+	    		  return  array('code'=>6, 'mess'=>'Lỗi hệ thống ');
+	    	}
+    	}else{
+                return array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+            $return = array('code'=>0, 'mess'=>'gửi sai kiểu POST');
+
+    }
+
+    return $return;
+}
+
+
+function payExtendMemberFreeAPI($input){
+	global $controller;
+	global $isRequestPost;
+	global $displayInfo;
+	global $priceExtend;
+
+	$metaTitleMantan = 'Đổi thông tin tài khoản';
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelSetingThemeInfo = $controller->loadModel('SetingThemeInfos');
+	$modelLinkInfo = $controller->loadModel('LinkInfos');
+	if($isRequestPost){
+
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token'],'extendMember');
+            if(empty($dataSend['day'])){
+            	$dataSend['day'] = 7;
+            }
+            if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
+				$mess = '';
+				$boss = $modelMembers->find()->where(['id_father'=>0])->first();
+				$user = $modelMembers->find()->where(['id'=>(int) $infoMember->id])->first();
+				if(empty($user->status_deadline)){
+					$user->status_deadline = 1;
+					$user->deadline = strtotime('+'.$dataSend['day'].' days', $user->deadline);
+					$modelMembers->save($user);
+		        	return array('code'=>1, 'mess'=>'Gia hạn thành công','data'=>$user);
+		        }else{
+		        	return array('code'=>1, 'mess'=>'Bạn đã Gia hạn rồi ','data'=>$user);
+		        }
+	    	
+    	}else{
+               return  array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+           return  array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+           return  array('code'=>0, 'mess'=>'gửi sai kiểu POST');
+
+    }
+
+    return $return;
+}
+
+function listpriceExtendAPI(){
+    global $priceExtend;
+    return $priceExtend;
+}
 ?>
 
 

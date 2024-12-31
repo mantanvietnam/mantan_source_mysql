@@ -3,15 +3,15 @@
 $menus = array();
 $menus[0]['title'] = 'Tăng tương tác';
 $menus[0]['sub'][0] = array('title' => 'Yêu cầu tăng tương tác',
-                            'url'=>'/plugins/admin/upLike-view-admin-listUplikeHistoriesAdmin',
-                            'classIcon' => 'menu-icon tf-icons bx bxs-data',
-                            'permission'=>'listUplikeHistoriesAdmin'
-                        );
+    'url'=>'/plugins/admin/upLike-view-admin-listUplikeHistoriesAdmin',
+    'classIcon' => 'menu-icon tf-icons bx bxs-data',
+    'permission'=>'listUplikeHistoriesAdmin'
+);
 $menus[0]['sub'][1] = array('title' => 'Cài đặt',
-                            'url'=>'/plugins/admin/upLike-view-admin-settingUpLikeAdmin',
-                            'classIcon' => 'menu-icon tf-icons bx bxs-data',
-                            'permission'=>'settingUpLikeAdmin'
-                        );
+    'url'=>'/plugins/admin/upLike-view-admin-settingUpLikeAdmin',
+    'classIcon' => 'menu-icon tf-icons bx bxs-data',
+    'permission'=>'settingUpLikeAdmin'
+);
 
 addMenuAdminMantan($menus);
 
@@ -77,7 +77,7 @@ function getUIDFacebook($linkFanpage='', $type='uid', $type_prority='reel')
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => 'POST',
           CURLOPT_POSTFIELDS => $dataSend,
-        ));
+      ));
 
         $uid = curl_exec($curl);
 
@@ -158,29 +158,33 @@ function checkRequestOngTrum($id_request_buff=0, $type_api='')
 
 function litsUpOngTrum(){
     return array( 
-                'facebook' =>array(
-                    'buff'=> array(
-                                array('type'=> 'live','name'=>'Tăng mắt live Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.live', 'type_prority'=>''),
-                                array('type'=> 'likepage','name'=>'Tăng like Fanpage Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.likepage', 'type_prority'=>''),
-                                array('type'=> 'subpage','name'=>'Tăng theo dõi fanpage Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.subpage', 'type_prority'=>''),
-                                array('type'=> 'view','name'=>'Tăng lượng xem video Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.view', 'type_prority'=>'reel'),
-                                array('type'=> 'friend','name'=>'Tăng bạn bè Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.friend', 'type_prority'=>''),
-                                array('type'=> 'viewstory','name'=>'Tăng  lượt xem story Facebook', 'type_id' =>'viewstory', 'full' =>'facebook.buff.viewstory', 'type_prority'=>''),
-                                array('type'=> 'share','name'=>'Tăng lượt chia sẻ Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.share', 'type_prority'=>''),
+        'facebook' =>array(
+            'buff'=> array(
+                'live'=>array('name'=>'Tăng mắt live Facebook', 'type' =>'post_id', 'full' =>'facebook.buff.live', 'type_prority'=>''),
+                'likepage'=>array('name'=>'Tăng like Fanpage Facebook', 'type' =>'post_id', 'full' =>'facebook.buff.likepage', 'type_prority'=>''),
+                'subpage'=>array('name'=>'Tăng theo dõi fanpage Facebook', 'type' =>'post_id', 'full' =>'facebook.buff.subpage', 'type_prority'=>''),
+                'view'=>array('name'=>'Tăng lượng xem video Facebook', 'type' =>'post_id', 'full' =>'facebook.buff.view', 'type_prority'=>'reel'),
+                'friend'=>array('name'=>'Tăng bạn bè Facebook', 'type' =>'post_id', 'full' =>'facebook.buff.friend', 'type_prority'=>''),
+                'viewstory'=>array('name'=>'Tăng  lượt xem story Facebook', 'type' =>'viewstory', 'full' =>'facebook.buff.viewstory', 'type_prority'=>''),
+                'share'=>array('name'=>'Tăng lượt chia sẻ Facebook', 'type' =>'post_id', 'full' =>'facebook.buff.share', 'type_prority'=>''),
 
-                    ),
-                    'buff'=> array(
-                                array('type'=> 'live','name'=>'Tăng mắt live Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.live', 'type_prority'=>''),
-                                array('type'=> 'likepage','name'=>'Tăng like Fanpage Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.likepage', 'type_prority'=>''),
-                                array('type'=> 'subpage','name'=>'Tăng theo dõi fanpage Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.subpage', 'type_prority'=>''),
-                                array('type'=> 'view','name'=>'Tăng lượng xem video Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.view', 'type_prority'=>'reel'),
-                                array('type'=> 'friend','name'=>'Tăng bạn bè Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.friend', 'type_prority'=>''),
-                                array('type'=> 'viewstory','name'=>'Tăng  lượt xem story Facebook', 'type_id' =>'viewstory', 'full' =>'facebook.buff.viewstory', 'type_prority'=>''),
-                                array('type'=> 'share','name'=>'Tăng lượt chia sẻ Facebook', 'type_id' =>'post_id', 'full' =>'facebook.buff.share', 'type_prority'=>''),
-            
+            ),
+            'ngoai'=> array(
+                'livengoai'=>array('name'=>'Tăng mắt live Facebook ngoại', 'type' =>'post_id', 'full' =>'facebook.buff.livengoai', 'type_prority'=>''),
+                'likepagengoai'=>array('name'=>'Tăng like Fanpage Facebook ngoại', 'type' =>'post_id', 'full' =>'facebook.buff.likepagengoai', 'type_prority'=>''),
+                'subpagengoai'=>array('name'=>'Tăng theo dõi fanpage Facebook ngoại', 'type' =>'post_id', 'full' =>'facebook.buff.subpagengoai', 'type_prority'=>''),
+                'viewngoai'=>array('name'=>'Tăng lượng xem video Facebook ngoại', 'type' =>'post_id', 'full' =>'facebook.buff.ngoai', 'type_prority'=>'reel'),
             ),
         ),
     );
 }
 
+function listServerSmm(){
+    $token = getTokenOngTrum();
+    $url = 'https://ongtrum.pro/api/v2/server-smm.aspx';
+    $dataSend['key'] = $token;
+    $dataSend['action'] = 'services';
+    $return = sendDataConnectMantan($url, $dataSend);
+    return json_decode($return, true);
+}
 ?>
