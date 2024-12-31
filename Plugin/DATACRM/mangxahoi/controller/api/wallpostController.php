@@ -18,6 +18,16 @@ function addWallPostApi($input){
             if (!empty($user)) {
             	$data = $modelWallPost->newEmptyEntity();
 
+                if(!empty($dataSend['share_link'])){
+                    $share_link = array(
+                            'share_link'=>$dataSend['share_link'],
+                            'share_image_thumbnail'=>@$dataSend['share_image_thumbnail'],
+                            'share_title'=>@$dataSend['share_title'],
+                            'share_description'=>@$dataSend['share_description'],
+                    );
+                    $data->link_share = json_encode($share_link);
+                }
+
             	$data->id_customer = $user->id;
             	$data->connent = checkKeyword($dataSend['connent']);
             	$data->created_at = time();
@@ -65,6 +75,8 @@ function addWallPostApi($input){
                 }
 
                 $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
+
+
 
                 $dataSendNotification= array('title'=>"$user->full_name đăng bài viết mới",
                     'time'=>date('H:i d/m/Y'),
@@ -142,6 +154,27 @@ function  editWallPostApi($input){
                 if(!empty($data)){
                     if(!empty($dataSend['connent'])){
                         $data->connent =checkKeyword($dataSend['connent']);
+                    }
+                    if($data->link_share){
+                        $share_link  = json_decode($data->link_share, true);
+                    }else{
+                        $share_link  = array();
+                    }
+                    
+                    if(!empty($dataSend['share_link'])){
+                        $share_link['share_link'] = $dataSend['share_link'];
+                    }
+                    if(!empty($dataSend['share_image_thumbnail'])){
+                        $share_link['share_image_thumbnail'] = $dataSend['share_image_thumbnail'];
+                    }
+                    if(!empty($dataSend['share_title'])){
+                        $share_link['share_title'] = $dataSend['share_title'];
+                    }
+                    if(!empty($dataSend['share_description'])){
+                        $share_link['share_description'] = $dataSend['share_description'];
+                    }
+                    if(!empty($share_link)){
+                        $data->link_share = json_encode($share_link);
                     }
                     $data->updated_at = time();
                     if(!empty($dataSend['public'])){
@@ -231,6 +264,9 @@ function deleteWallPostApi($input){
             if (!empty($user)) {
                 $data = $modelWallPost->find()->where(['id'=>$dataSend['id'],'id_customer'=>$user->id])->first();
                 if(!empty($data)){
+                    if(!empty($data->link_share)){
+                        $data->link_share = json_decode($data->link_share, true);
+                    }                    
                     $conditions = array('id_post'=>$data->id);
                     deletelikeIdObject([$data->id],'wall_post');
                     deleteCommentIdObject([$data->id],'wall_post');
@@ -357,7 +393,10 @@ function listWallPostApi($input){
                         $listData[$key]->dislike = count($dislike);
                         $listData[$key]->infoDislike = $dislike;
                         $listData[$key]->comment = count($comment);     
-                        $listData[$key]->infoComment = $listcomment;     
+                        $listData[$key]->infoComment = $listcomment;    
+                        if(!empty($item->link_share)){
+                            $listData[$key]->link_share = json_decode($item->link_share, true);
+                        }   
                         $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
                     }
                 }
@@ -462,6 +501,9 @@ function listWallPostFriendApi($input){
                             $listData[$key]->infoDislike =$dislike;
                             $listData[$key]->comment = count($comment);    
                             $listData[$key]->infoComment = $listcomment;
+                            if(!empty($item->link_share)){
+                                $listData[$key]->link_share = json_decode($item->link_share, true);
+                            } 
                             $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
                         }
                     }
@@ -560,6 +602,9 @@ function listWallPostMyApi($input){
                             $listData[$key]->infoDislike =$dislike;
                             $listData[$key]->comment = count($comment);    
                             $listData[$key]->infoComment = $listcomment;
+                            if(!empty($item->link_share)){
+                                $listData[$key]->link_share = json_decode($item->link_share, true);
+                            } 
                             $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
                         }
                     }
@@ -807,7 +852,10 @@ function listAlbumFriendApi($input){
                             $listData[$key]->dislike = count($dislike);
                             $listData[$key]->infoDislike =$dislike;
                             $listData[$key]->comment = count($comment);    
-                            $listData[$key]->infoComment = $listcomment;               
+                            $listData[$key]->infoComment = $listcomment;  
+                            if(!empty($item->link_share)){
+                                $listData[$key]->link_share = json_decode($item->link_share, true);
+                            }              
                         }
                     }
                     return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
@@ -901,7 +949,10 @@ function listAlbumMyApi($input){
                             $listData[$key]->dislike = count($dislike);
                             $listData[$key]->infoDislike =$dislike;
                             $listData[$key]->comment = count($comment);    
-                            $listData[$key]->infoComment = $listcomment;               
+                            $listData[$key]->infoComment = $listcomment; 
+                            if(!empty($item->link_share)){
+                                $listData[$key]->link_share = json_decode($item->link_share, true);
+                            }               
                         }
                     }
                     return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');

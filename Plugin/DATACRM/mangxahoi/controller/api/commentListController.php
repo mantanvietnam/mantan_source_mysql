@@ -254,6 +254,7 @@ function deleleCommentApi($input){
 
     $modelComment = $controller->loadModel('Comments');
     $modelCustomer = $controller->loadModel('Customers');
+    $modelWallPost = $controller->loadModel('WallPosts');
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -263,13 +264,114 @@ function deleleCommentApi($input){
             }
 
             if (!empty($user)) {
-                    $data = $modelComment->find()->where(['id'=>$dataSend['id'], 'id_customer'=>(int)$user->id])->first();
-                if(!empty($user)){    
-                    $modelComment->delete($data);
-                    return array('code'=>1,'messages'=>'bạn xóa bình luận thành công');
+                    $data = $modelComment->find()->where(['id'=>$dataSend['id']])->first();
+                if(!empty($data)){    
+                    if($data->id_customer==$user->id){
+                        $modelComment->delete($data);
+                        return array('code'=>1,'messages'=>'bạn xóa bình luận thành công');
+                    }elseif($data->keyword=='wall_post'){
+                        $checkWallPost = $modelWallPost->find()->where(['id'=>$data->id_object,'id_customer'=>$user->id])->first();
+                        if(!empty($checkWallPost)){
+                            $modelComment->delete($data);
+                            return array('code'=>1,'messages'=>'bạn xóa bình luận thành công');
+                        }
+                        return array('code'=>4,'messages'=>'bình luận không tồn tại');
+                    }
+                    return array('code'=>4,'messages'=>'bình luận không tồn tại');
                 }
                 
-                 return array('code'=>4,'messages'=>'bạn xóa like thành công');
+                 return array('code'=>4,'messages'=>'bình luận không tồn tại');
+            }
+
+            return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+        
+}
+
+
+
+function checkCommentApi($input){
+
+    global $isRequestPost;
+    global $modelUser;
+    global $urlHomes;
+    global $controller;
+
+    $modelComment = $controller->loadModel('Comments');
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelWallPost = $controller->loadModel('WallPosts');
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token']) && !empty($dataSend['id'])) {
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
+
+            if (!empty($user)) {
+                    $data = $modelComment->find()->where(['id'=>(int)$dataSend['id']])->first();
+                if(!empty($data)){    
+                    if($data->id_customer==$user->id){
+                        return array('code'=>1,'messages'=>'Bạn được phép xóa bình luận này');
+                    }elseif($data->keyword=='wall_post'){
+                        $checkWallPost = $modelWallPost->find()->where(['id'=>$data->id_object,'id_customer'=>$user->id])->first();
+                        if(!empty($checkWallPost)){
+                            return array('code'=>1,'messages'=>'Bạn được phép xóa bình luận này');
+                        }
+                        return array('code'=>4,'messages'=>'bình luận không tồn tại');
+                    }
+                    return array('code'=>4,'messages'=>'bình luận không tồn tại');
+                }
+                
+                 return array('code'=>4,'messages'=>'bình luận không tồn tại');
+            }
+
+            return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+        
+}
+
+function checkCommentFriendApi($input){
+
+    global $isRequestPost;
+    global $modelUser;
+    global $urlHomes;
+    global $controller;
+
+    $modelComment = $controller->loadModel('Comments');
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelWallPost = $controller->loadModel('WallPosts');
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token']) && !empty($dataSend['id'])) {
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
+
+            if (!empty($user)) {
+                    $data = $modelComment->find()->where(['id'=>$dataSend['id'],'keyword'=>'wall_post'])->first();
+                if(!empty($data)){    
+                    $checkWallPost = $modelWallPost->find()->where(['id'=>$data->id_object,'id_customer'=>$user->id])->first();
+                    if(!empty($checkWallPost)){
+                        
+                        return array('code'=>1,'messages'=>'bình luận này trên bài viết của bạn');
+                    }
+
+                    return array('code'=>4,'messages'=>'bình luận không tồn tại');
+                }
+                
+                 return array('code'=>4,'messages'=>'bình luận không tồn tại');
             }
 
             return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
