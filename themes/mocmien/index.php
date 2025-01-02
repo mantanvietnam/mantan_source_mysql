@@ -155,7 +155,20 @@
           </a>
         </div>
         <div class='gap-1 row'>
-          <div class="col category-item">
+          <?php if (!empty($category_product)): ?>
+            <?php foreach ($category_product as $category): ?>
+              <?php $link = '/category/' . htmlspecialchars($category->slug) . '.html'; ?>
+                <div class="col category-item">
+                  <div class='category-item-img'>
+                    <img src="<?php  echo htmlspecialchars($product->image);  ?>" alt="tinhchatdinhduong">
+                  </div>
+                  <span><?php  echo htmlspecialchars($product->name); ?></span>
+                </div>
+            <?php endforeach; ?>
+          <?php else: ?>
+              <p>Hiện tại không có danh mục nào.</p>
+          <?php endif; ?>
+          <!-- <div class="col category-item">
             <div class='category-item-img'>
               <img src="<?php echo @$settingThemes['image_product_1'] ?>" alt="tinhchatdinhduong">
             </div>
@@ -172,7 +185,7 @@
               <img src="<?php echo @$settingThemes['image_product_3'] ?>" alt="tinhchatdinhduong">
             </div>
             <span>Mặt nạ</span>
-          </div>
+          </div> -->
         </div>
       </div>
 
