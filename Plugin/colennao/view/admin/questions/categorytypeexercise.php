@@ -74,8 +74,13 @@
 
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Từ khóa</label>
-                  <input type="text" class="form-control" placeholder="" name="keyword" id="keyword" value="" />
+                  <select class="form-control" name="keyword" id="keyword">
+                    <option value="">Chọn bộ môn</option>
+                    <option value="new">Bộ môn thay đổi sở thích</option>
+                    <option value="old">Bộ môn bài tập luyện</option>
+                  </select>
                 </div>
+
 
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Mô tả</label>
