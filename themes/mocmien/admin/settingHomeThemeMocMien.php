@@ -121,38 +121,6 @@
           </div>
         </div>
 
-        <!-- Khối Sản Phẩm -->
-        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Khối Sản Phẩm</h5>
-            </div>
-            <div class="card-body row">
-                <div class="col-12 col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Ảnh 1</label>
-                        <?php showUploadFile('image_product_1','image_product_1', @$setting['image_product_1'],1);?>
-                    </div>
-                </div>
-                <div class="col-12 col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Ảnh 2</label>
-                        <?php showUploadFile('image_product_2','image_product_2', @$setting['image_product_2'],2);?>
-                    </div>
-                </div>
-                <div class="col-12 col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Ảnh 3</label>
-                        <?php showUploadFile('image_product_3','image_product_3', @$setting['image_product_3'],3);?>
-                    </div>
-                </div>
-                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <button type="submit" class="btn btn-primary">Lưu</button>
-                </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Khối Câu Chuyện -->
         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <div class="card mb-4">
