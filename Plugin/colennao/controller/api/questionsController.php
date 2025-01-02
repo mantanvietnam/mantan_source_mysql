@@ -50,6 +50,9 @@ function listcategoryexercise($input)
         if(!empty($dataSend['id'])){
             $conditions['id'] = (int) $dataSend['id'];
         }
+        if(!empty($dataSend['keyword'])){
+            $conditions['keyword'] = $dataSend['keyword'];
+        }
         $conditions['type'] = 'category_exercise';
         $listData = $modelCategories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         $totalData = $modelCategories->find()->where($conditions)->count(); 
