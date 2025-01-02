@@ -59,34 +59,25 @@
 
       <!-- sửa -->
       <div class='special-product'>
-        <div class='sp-title'>Các sản phẩm nổi bật</div>
-        <div class='sp-container'>
-          <div class='sp-first'>
-            <img src="<?= $urlThemeActive?>/assets/images/sp1.png" alt="btn">
-            <span>Sữa rửa mặt mướp đắng</span>
-          </div>
-          <div class='sp-first-btn'>
-            <img src="<?= $urlThemeActive?>/assets/images/btn-ar.png" alt="btn">
-          </div>
-        </div>
-        <div class='sp-container'>
-          <div class='sp-first'>
-            <img src="<?= $urlThemeActive?>/assets/images/sp2.png" alt="btn">
-            <span>Dầu tẩy trang</span>
-          </div>
-          <div class='sp-first-btn'>
-            <img src="<?= $urlThemeActive?>/assets/images/btn-ar.png" alt="btn">
-          </div>
-        </div>
-        <div class='mb-4 sp-container'>
-          <div class='sp-first'>
-            <img src="<?= $urlThemeActive?>/assets/images/sp3.png" alt="btn">
-            <span>Cao mướp đắng trị mụn</span>
-          </div>
-          <div class='sp-first-btn'>
-            <img src="<?= $urlThemeActive?>/assets/images/btn-ar.png" alt="btn">
-          </div>
-        </div>
+          <div class='sp-title'>Các sản phẩm nổi bật</div>
+          <?php if (!empty($hot_product)): ?>
+              <?php foreach ($hot_product as $product): ?>
+                  <?php $link = '/product/' . $product->slug . '.html'; ?>
+                  <div class='sp-container'>
+                      <a href="<?= htmlspecialchars($link); ?>" class="sp-first">
+                          <img src="<?= htmlspecialchars($urlThemeActive) ?>/assets/images/sp1.png" alt="Sản phẩm nổi bật">
+                          <span><?= htmlspecialchars($product->title); ?></span>
+                      </a>
+                      <div class='sp-first-btn'>
+                          <a href="<?= htmlspecialchars($link); ?>">
+                              <img src="<?= htmlspecialchars($urlThemeActive) ?>/assets/images/btn-ar.png" alt="Xem chi tiết">
+                          </a>
+                      </div>
+                  </div>
+              <?php endforeach; ?>
+          <?php else: ?>
+              <p>Hiện tại không có sản phẩm nổi bật nào.</p>
+          <?php endif; ?>
       </div>
     </div>
     <!-- Ảnh chính -->

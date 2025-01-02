@@ -2,9 +2,9 @@
 <?php 
 function settingHomeThemeMocMien($input)
 {
-	global $modelOptions;
-	global $metaTitleMantan;
-	global $isRequestPost;
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
 
     $metaTitleMantan = 'Cài đặt giao diện trang chủ';
     $mess= '';
@@ -16,9 +16,9 @@ function settingHomeThemeMocMien($input)
     }
 
     if($isRequestPost){
-    	$dataSend = $input['request']->getData();
+        $dataSend = $input['request']->getData();
 
-    	$value = array( 'id_slide' => $dataSend['id_slide'],
+        $value = array( 'id_slide' => $dataSend['id_slide'],
 
                         'image_logo' => $dataSend['image_logo'],
                         'images_1' => $dataSend['images_1'],
@@ -90,6 +90,8 @@ function indexTheme($input)
 
     $limit = 8;
     $conditions = array('key_word' => 'settingHomeThemeMocMien');
+    $modelProduct = $controller->loadModel('Products');
+
     $data = $modelOptions->find()->where($conditions)->first();
 
     $data_value = array();
@@ -107,7 +109,17 @@ function indexTheme($input)
 
     $listDatatop= $modelPosts->find()->limit(3)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
 
+    // SẢN PHẨM NỔI BẬT
+    $conditions = array('hot'=>1);
+    $limit = 3;
+    $page = 1;
+    $order = array('id'=>'desc');
+
+    $hot_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+
     setVariable('slide_home', $slide_home);
+    setVariable('hot_product', $hot_product);
     setVariable('listDatatop', $listDatatop);    
 }
 
