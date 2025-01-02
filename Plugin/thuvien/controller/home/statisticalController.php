@@ -179,6 +179,7 @@ function statisticalorderbookpay($input)
         $modelOrders = $controller->loadModel('Orders');
         $year = isset($_GET['year']) ? (int)$_GET['year'] : (int)date('Y');
         $month = isset($_GET['month']) ? (int)$_GET['month'] : (int)date('m');
+        $month = sprintf('%02d', $month);
         $limit = 10;
 
         $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
@@ -195,16 +196,17 @@ function statisticalorderbookpay($input)
             ->page($page)
             ->limit($limit)
             ->toArray();
-
+ 
         $orderIds = array_map(function ($order) {
             return $order->id;
         }, $orders);
-
+   
         if (!empty($orderIds)) {
            
             $orderDetails = $modelOrderDetails->find()
                 ->where(['OrderDetails.order_id IN' => $orderIds])
                 ->toArray();
+           
         } else {
             $orderDetails = [];
         }
@@ -213,24 +215,28 @@ function statisticalorderbookpay($input)
         foreach ($orders as $order) {
             $orderDateMap[$order->id] = $order->updated_at; 
         }
-
+    
     
         $listDataWithUpdatedAt = [];
         $dateCounts = [];
         $currentDate = $startDate;
-
-       
+      
         while (date('Y-m', $currentDate) == "$year-$month") {
             $date = date('Y-m-d', $currentDate);
+         
+           
             $dateCounts[$date] = 0;
             $currentDate = strtotime("+1 day", $currentDate);
         }
-
- 
+      
+   
+     
         foreach ($orderDetails as $detail) {
             $updatedAt = isset($orderDateMap[$detail->order_id])
                 ? date('Y-m-d', $orderDateMap[$detail->order_id])
                 : 'Không xác định';
+                
+                
             if (isset($dateCounts[$updatedAt])) {
                 $dateCounts[$updatedAt]++;
             }
@@ -239,7 +245,7 @@ function statisticalorderbookpay($input)
                 'updated_at' => $updatedAt,
             ];
         }
-
+   
 
         $totalData = $modelOrders->find()
             ->where(['Orders.updated_at >=' => $startDate, 'Orders.status' => 2])
@@ -250,8 +256,8 @@ function statisticalorderbookpay($input)
         $next = ($page < $totalPage) ? $page + 1 : $totalPage;
         $urlPage = preg_replace('/([&?])page=\d+/', '', $urlCurrent);
         $urlPage = strpos($urlPage, '?') !== false ? $urlPage . '&page=' : $urlPage . '?page=';
-
     
+ 
         setVariable('listDataWithUpdatedAt', $listDataWithUpdatedAt);
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
