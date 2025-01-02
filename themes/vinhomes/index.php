@@ -4,8 +4,25 @@
     $setting = setting();
     getHeader();
 ?>
+<style>
+  #set-showdisplay {
+    display: block;
+  }
+  #hidden-container {
+    display: none;
+  }
+
+  @media (max-width: 500px) {
+    #set-showdisplay {
+      display: none;
+    }
+    #hidden-container {
+      display: block; 
+    }
+  }
+</style>
       <!-- Nội dung chính -->
-      <div class="absolute bottom-[-18%] z-10 w-full">
+      <div class="absolute bottom-[-6%] z-10 w-full">
   <div class="flex flex-col items-center justify-center px-4 py-20 text-center text-white">
     <div class="w-full max-w-4xl">
       <form id="searchForm" action="/search" method="get">
@@ -71,52 +88,11 @@
     </div>
 
     <!-- Thông tin nhà bđs -->
-    <div
-      class="px-4 py-10 mx-auto mt-28 sm:mt-20 md:py-20 sm:px-6 md:container xl:px-20"
-    >
-      <div class="flex flex-col items-center lg:flex-row slide-right">
-        <div class="lg:w-1/2">
-          <h1 class="text-2xl font-bold text-blue-900"><?php echo @$setting['title_introduce_1']; ?></h1>
-          <h2 class="flex items-center text-2xl font-bold text-blue-900">
-          <?php echo @$setting['title_introduce_2']; ?>
-            <img
-              alt="Vinhomes logo"
-              class="ml-2"
-              height="40"
-              src="<?php echo @$setting['logo_introduce']; ?>"
-              width="100"
-            />
-          </h2>
-          <p class="mt-4 text-lg text-blue-900">
-          <?php echo @$setting['content1_introduce']; ?>
-          </p>
-          <p class="mt-4 text-gray-700">
-          <?php echo @$setting['content2_introduce']; ?>
-          </p>
-          <p class="mt-4 text-gray-700">
-          <?php echo @$setting['content3_introduce']; ?>
-          </p>
-          <button
-            class="px-6 py-2 mt-6 text-white transition duration-300 bg-blue-900 rounded-full shadow-lg hover:bg-blue-700"
-          >
-            <a href="/contact">Liên hệ tư vấn</a>
-          </button>
-        </div>
-        <div class="relative mt-6 lg:w-1/2 lg:mt-0 lg:ml-6 slide-left">
-          <div class="relative flex justify-center">
-            <img
-              alt="Person standing in front of a building"
-              class="w-[60%] md:w-auto"
-              src="<?php echo @$setting['image_introduce']; ?>"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+
 
     <!-- Các dự án bất động sản -->
-    <div
-      class="relative min-h-screen text-white bg-center bg-cover font-plus lg:bg-left lg:bg-left-top slide-top"
+    <div id="set-showdisplay"
+      class="relative min-h-screen text-white bg-center bg-cover font-plus lg:bg-left lg:bg-left-top slide-top sm:mt-20 "
       style="background-image: url('<?= $urlThemeActive ?>image/index/bgQuickSearch.png')"
     >
       <div class="px-4 py-10 mx-auto md:py-20 sm:px-6 md:container xl:px-20">
@@ -186,7 +162,7 @@
     </div>
 
     <!-- Các dự án trọng điểm -->
-    <div class="relative min-h-screen font-plus">
+    <div id="hidden-container" class="relative min-h-screen font-plus">
       <div
         class="px-4 py-10 mx-auto md:py-20 sm:px-6 md:container xl:px-20 fade-in"
       >
@@ -208,7 +184,7 @@
           </button>
         </div>
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <?php if (!empty($listDataprojectkeypoint[0])): ?>
+          <?php if (!empty($listDataprojectkeypoint[0])): ?>
           <a href="/project/<?=$listDataprojectkeypoint[0]->slug?>.html" class="rounded-lg">
             <div class="relative overflow-hidden rounded-lg">
               <img
@@ -238,8 +214,8 @@
               <?=$listDataprojectkeypoint[0]->description?>
             </p>
           </a>
-        <?php endif; ?>
-        <?php if (!empty($listDataprojectkeypoint[1])): ?>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[1])): ?>
           <a href="detailProject.html" class="rounded-lg">
             <div class="relative overflow-hidden rounded-lg">
               <img
@@ -301,10 +277,423 @@
             </p>
           </a>
           <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[3])): ?>
+          <a href="/project/<?=$listDataprojectkeypoint[3]->slug?>.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?=$listDataprojectkeypoint[3]->image?>"
+              />
+              <div
+                class="absolute text-sm text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[3]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"> <?=$listDataprojectkeypoint[3]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"> <?=$listDataprojectkeypoint[3]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[3]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[4])): ?>
+          <a href="detailProject.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?= $urlThemeActive ?>image/index/imageQS2.png"
+              />
+              <div
+                class="absolute text-sm text-white bg-[#E04444] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[4]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"><?=$listDataprojectkeypoint[4]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"><?=$listDataprojectkeypoint[4]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[4]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[5])): ?>
+          <a href="detailProject.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?= $urlThemeActive ?>image/index/imageQS3.png"
+              />
+              <div
+                class="absolute text-white text-sm bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[5]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"><?=$listDataprojectkeypoint[5]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"><?=$listDataprojectkeypoint[5]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[5]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[6])): ?>
+          <a href="/project/<?=$listDataprojectkeypoint[6]->slug?>.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?=$listDataprojectkeypoint[6]->image?>"
+              />
+              <div
+                class="absolute text-sm text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[6]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"> <?=$listDataprojectkeypoint[6]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"> <?=$listDataprojectkeypoint[6]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[6]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[7])): ?>
+          <a href="detailProject.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?= $urlThemeActive ?>image/index/imageQS2.png"
+              />
+              <div
+                class="absolute text-sm text-white bg-[#E04444] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[7]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"><?=$listDataprojectkeypoint[7]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"><?=$listDataprojectkeypoint[7]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[7]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[8])): ?>
+          <a href="detailProject.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?= $urlThemeActive ?>image/index/imageQS3.png"
+              />
+              <div
+                class="absolute text-white text-sm bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[8]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"><?=$listDataprojectkeypoint[8]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"><?=$listDataprojectkeypoint[8]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[8]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[9])): ?>
+          <a href="/project/<?=$listDataprojectkeypoint[9]->slug?>.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?=$listDataprojectkeypoint[9]->image?>"
+              />
+              <div
+                class="absolute text-sm text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[9]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"> <?=$listDataprojectkeypoint[9]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"> <?=$listDataprojectkeypoint[9]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[9]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[10])): ?>
+          <a href="detailProject.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?= $urlThemeActive ?>image/index/imageQS2.png"
+              />
+              <div
+                class="absolute text-sm text-white bg-[#E04444] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[10]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"><?=$listDataprojectkeypoint[10]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"><?=$listDataprojectkeypoint[10]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[10]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[11])): ?>
+          <a href="detailProject.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?= $urlThemeActive ?>image/index/imageQS3.png"
+              />
+              <div
+                class="absolute text-white text-sm bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[11]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"><?=$listDataprojectkeypoint[11]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"><?=$listDataprojectkeypoint[11]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[11]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[12])): ?>
+          <a href="/project/<?=$listDataprojectkeypoint[12]->slug?>.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?=$listDataprojectkeypoint[12]->image?>"
+              />
+              <div
+                class="absolute text-sm text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[12]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"> <?=$listDataprojectkeypoint[12]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"> <?=$listDataprojectkeypoint[12]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[12]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[13])): ?>
+          <a href="detailProject.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?= $urlThemeActive ?>image/index/imageQS2.png"
+              />
+              <div
+                class="absolute text-sm text-white bg-[#E04444] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[13]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"><?=$listDataprojectkeypoint[13]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"><?=$listDataprojectkeypoint[13]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[13]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[14])): ?>
+          <a href="detailProject.html" class="rounded-lg">
+            <div class="relative overflow-hidden rounded-lg">
+              <img
+                alt="Modern house with large windows and landscaped garden"
+                class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                src="<?= $urlThemeActive ?>image/index/imageQS3.png"
+              />
+              <div
+                class="absolute text-white text-sm bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+              >
+                <?=$listDataprojectkeypoint[14]->info?>
+              </div>
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold"><?=$listDataprojectkeypoint[14]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Phân khu:</p>
+              <p class="underline underline-offset-4 text-[#142A72]">
+                The Rainbow
+              </p>
+            </div> -->
+            <div class="flex items-center mt-2 font-bold">
+              <p class="mr-2">Tổng diện tích:</p>
+              <p class="underline underline-offset-4 text-[#142A72]"><?=$listDataprojectkeypoint[14]->acreage?></p>
+            </div>
+            <p class="mt-2 text-gray-400 description">
+              <?=$listDataprojectkeypoint[14]->description?>
+            </p>
+          </a>
+          <?php endif; ?>
         </div>
 
         <div class="h-[1px] bg-[#DADADA] my-10"></div>
-
+        <div
+      class="px-4 py-10 mx-auto mt-28 sm:mt-0 md:py-20 sm:px-6 md:container xl:px-20"
+    >
+      <div class="flex flex-col items-center lg:flex-row slide-right">
+        <div class="lg:w-1/2">
+          <h1 class="text-2xl font-bold text-blue-900"><?php echo @$setting['title_introduce_1']; ?></h1>
+          <h2 class="flex items-center text-2xl font-bold text-blue-900">
+          <?php echo @$setting['title_introduce_2']; ?>
+            <img
+              alt="Vinhomes logo"
+              class="ml-2"
+              height="40"
+              src="<?php echo @$setting['logo_introduce']; ?>"
+              width="100"
+            />
+          </h2>
+          <p class="mt-4 text-lg text-blue-900">
+          <?php echo @$setting['content1_introduce']; ?>
+          </p>
+          <p class="mt-4 text-gray-700">
+          <?php echo @$setting['content2_introduce']; ?>
+          </p>
+          <p class="mt-4 text-gray-700">
+          <?php echo @$setting['content3_introduce']; ?>
+          </p>
+          <button
+            class="px-6 py-2 mt-6 text-white transition duration-300 bg-blue-900 rounded-full shadow-lg hover:bg-blue-700"
+          >
+            <a href="/contact">Liên hệ tư vấn</a>
+          </button>
+        </div>
+        <div class="relative mt-6 lg:w-1/2 lg:mt-0 lg:ml-6 slide-left">
+          <div class="relative flex justify-center">
+            <img
+              alt="Person standing in front of a building"
+              class="w-[60%] md:w-auto"
+              src="<?php echo @$setting['image_introduce']; ?>"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
         <div
           class="flex flex-col md:flex-row md:items-center lg:justify-between"
         >

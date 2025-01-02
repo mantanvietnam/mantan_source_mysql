@@ -103,7 +103,7 @@ function indexTheme($input){
   
     $order = array('id' => 'desc');
     $listDataproject= $modelproject->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
-    $listDataprojectkeypoint = $modelproject->find()->where(['keypoint'=>1])->order($order)->all()->toList();
+    $listDataprojectkeypoint = $modelproject->find()->where()->order($order)->all()->toList();
 
     $totalData = $modelproject->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
