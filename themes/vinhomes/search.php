@@ -110,7 +110,7 @@
           
         }
     </style>
-<form action="" method="get">
+<form action="/projects" method="get">
   <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
   <div class="slide-top flex flex-col md:flex-row items-center p-4 mx-4 bg-[#E2E8F0] rounded-xl shadow-md sm:mx-6 lg:mx-20 font-plus justify-between">
     <div class="w-full md:w-[30%]">

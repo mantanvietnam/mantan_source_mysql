@@ -56,6 +56,8 @@
           <a href="" class=''>Khám phá sản phẩm</a>
         </div>
       </div>
+
+      <!-- sửa -->
       <div class='special-product'>
         <div class='sp-title'>Các sản phẩm nổi bật</div>
         <div class='sp-container'>
@@ -151,6 +153,7 @@
       </div>
      </div>
 
+      <!-- sửa -->
      <!-- danh mục sản phẩm -->
       <div class='container category-container'>
         <div class='list-category-header'>
@@ -250,6 +253,7 @@
       </video>
       </div>
 
+      <!-- sửa -->
       <!-- sản phẩm bán chạy -->
       <div class='container mt-5 bestsell-container'>
         <div class='list-category-header'>
