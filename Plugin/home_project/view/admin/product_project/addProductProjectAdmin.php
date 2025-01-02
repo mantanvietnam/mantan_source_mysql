@@ -76,13 +76,13 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="outstanding">Dự án nổi bật</label>
-                                <input type="checkbox" class="form-check-input" name="outstanding" id="outstanding" value="1" 
+                                <!-- <label class="form-label" for="outstanding">Dự án nổi bật</label> -->
+                                <input type="hidden" class="form-check-input" name="outstanding" id="outstanding" value="1" 
                                     <?= !empty($data->outstanding) ? 'checked' : '' ?>>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="keypoint">Dự án trọng điểm</label>
-                                <input type="checkbox" class="form-check-input" name="keypoint" id="keypoint" value="1" 
+                                <!-- <label class="form-label" for="keypoint">Dự án trọng điểm</label> -->
+                                <input type="hidden" class="form-check-input" name="keypoint" id="keypoint" value="1" 
                                     <?= !empty($data->keypoint) ? 'checked' : '' ?>>
                             </div>
 

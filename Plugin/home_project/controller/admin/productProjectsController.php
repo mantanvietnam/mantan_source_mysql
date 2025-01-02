@@ -15,7 +15,7 @@ function listProductProjectAdmin($input)
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
-    $order = array('id'=>'asc');
+    $order = array('id'=>'desc');
 
     if(!empty($_GET['id'])){
         $conditions['id'] = (int) $_GET['id'];
