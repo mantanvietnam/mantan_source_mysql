@@ -186,41 +186,41 @@
 
   <!-- Pagination -->
   <div class="pagination" style="margin:38px 0px">
-    <nav aria-label="Page navigation">
-      <?php
-      if ($totalPage > 0) {
-          if ($page > 5) {
-              $startPage = $page - 5;
-          } else {
-              $startPage = 1;
-          }
+          <nav aria-label="Page navigation" >
+            <?php
+            if ($totalPage > 0) {
+                if ($page > 5) {
+                    $startPage = $page - 5;
+                } else {
+                    $startPage = 1;
+                }
 
-          if ($totalPage > $page + 5) {
-              $endPage = $page + 5;
-          } else {
-              $endPage = $totalPage;
-          }
-      ?>
-        <ul class="pagination" style="display: flex; justify-content: center;">
-          <li class="page-item">
-            <a class="page-link flex items-center justify-center w-10 h-10 rounded-md cursor-pointer page-link" href="<?php echo $urlPage; ?>1" aria-label="Previous">
-              <span aria-hidden="true">«</span>
-            </a>
-          </li>
-          <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-            <li style="margin:0 8px 0 8px" class="page-item <?= ($page == $i) ? 'active' : ''; ?>">
-              <a class="flex items-center justify-center w-10 h-10 rounded-md cursor-pointer page-link" href="<?php echo $urlPage . $i; ?>"><?php echo $i; ?></a>
-            </li>
-          <?php endfor; ?>
-          <li class="page-item">
-            <a class="page-link flex items-center justify-center w-10 h-10 rounded-md cursor-pointer page-link" href="<?php echo $urlPage . $totalPage; ?>" aria-label="Next">
-              <span aria-hidden="true">»</span>
-            </a>
-          </li>
-        </ul>
-      <?php } ?>
-    </nav>
-  </div>
+                if ($totalPage > $page + 5) {
+                    $endPage = $page + 5;
+                } else {
+                    $endPage = $totalPage;
+                }
+            ?>
+                <ul class="pagination" style="display: flex;justify-content: center;">
+                    <li class="page-item" style="">
+                        <a class="page-link flex items-center justify-center w-10 h-10 rounded-md cursor-pointer buttonActive page-link" href="<?php echo $urlPage; ?>1" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                    <li style="margin:0 8px 0 8px" class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>"><a class="flex items-center justify-center w-10 h-10 rounded-md cursor-pointer buttonActive page-link" href="<?php echo $urlPage . $i; ?>"><?php echo $i; ?></a></li>
+                <?php endfor; ?>
+                    <li class="page-item" style="">
+                        <a class="page-link flex items-center justify-center w-10 h-10 rounded-md cursor-pointer buttonActive page-link" href="<?php echo $urlPage . $totalPage; ?>" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+            <?php
+            }
+            ?>
+          </nav>
+    </div>
 </div>
 
 <!-- Liên hệ -->

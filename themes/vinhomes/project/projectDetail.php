@@ -170,14 +170,19 @@
             </button>
             <div class="swiper mySwiper-image">
               <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <img
-                    src="<?= $urlThemeActive ?>image/project/imgProject1.png"
-                    alt="Image 1"
-                    class="rounded-lg"
-                  />
-                </div>
-                <div class="swiper-slide">
+              <?php foreach ($project['images'] as $image): ?>
+                  <?php if (!empty($image)): // Kiểm tra nếu không rỗng ?>
+                      <div class="swiper-slide">
+                        <img
+                          src="<?= htmlspecialchars($image, ENT_QUOTES, 'UTF-8') ?>"
+                          alt="Image"
+                          class="rounded-lg"
+                        />
+                      </div>
+                  <?php endif; ?>
+              <?php endforeach; ?>
+
+                <!-- <div class="swiper-slide">
                   <img
                     src="<?= $urlThemeActive ?>image/project/imgProject2.png"
                     alt="Image 1"
@@ -197,7 +202,7 @@
                     alt="Image 1"
                     class="rounded-lg"
                   />
-                </div>
+                </div> -->
               </div>
               <div class="swiper-pagination"></div>
               <div class="swiper-button-prev"></div>
@@ -495,13 +500,13 @@
                   </div>
                 </div>
                 <h2 class="mt-4 text-xl font-bold"><?= $item->name ?></h2>
-                <div class="flex items-center mt-2 font-bold">
+                <!-- <div class="flex items-center mt-2 font-bold">
                   <p class="mr-2">Phân khu:</p>
                   <p class="underline underline-offset-4 text-[#142A72]">The Rainbow</p>
-                </div>
+                </div> -->
                 <div class="flex items-center mt-2 font-bold">
                   <p class="mr-2">Tổng diện tích:</p>
-                  <p class="underline underline-offset-4 text-[#142A72]">acreage</p>
+                  <p class="underline underline-offset-4 text-[#142A72]"><?= $item->acreage ?></p>
                 </div>
                 <p class="mt-2 text-gray-400 description"><?= $item->description ?></p>
               </a>
