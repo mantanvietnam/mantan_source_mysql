@@ -1,4 +1,3 @@
-
 <?php 
 function settingHomeThemeMocMien($input)
 {
@@ -87,6 +86,7 @@ function indexTheme($input)
     $limit = 8;
     $conditions = array('key_word' => 'settingHomeThemeMocMien');
     $modelProduct = $controller->loadModel('Products');
+    $modelCategories = $controller->loadModel('Categories');
 
     $data = $modelOptions->find()->where($conditions)->first();
 
@@ -113,9 +113,26 @@ function indexTheme($input)
 
     $hot_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+    // DANH MỤC SẢN PHẨM 
+    $conditions = array('type' => 'category_product');
+    $limit = 3;
+    $page = 1;
+    $order = array('id'=>'desc');
+
+    $category_product = $modelCategories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    //Sản phẩm bán chạy
+    $conditions = array('hot'=>1);
+    $limit = 5;
+    $page = 1;
+    $order = ['RAND()'];
+    $best_selling_products = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
 
     setVariable('slide_home', $slide_home);
     setVariable('hot_product', $hot_product);
+    setVariable('category_product', $category_product);
+    setVariable('best_selling_products', $best_selling_products);
     setVariable('listDatatop', $listDatatop);    
 }
 
