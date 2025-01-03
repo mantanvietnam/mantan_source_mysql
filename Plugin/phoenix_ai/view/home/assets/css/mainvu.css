@@ -1127,3 +1127,45 @@ table {
     border-radius: 50%;
   }
   
+
+  @media screen and (max-width: 425px){
+    .set-distent-icon .link-text{
+        display: none !important;
+    }
+    .main-wrap .showcase .overlay .aiva-home .home-banner .text-home-banner{
+        width: 96%;
+    }
+    .main-wrap .showcase .overlay .aiva-home .home-banner .search-input{
+        width: 200px; /* Độ rộng tối đa của chữ */
+        white-space: nowrap; /* Không cho xuống dòng */
+        overflow: hidden; /* Ẩn nội dung vượt quá kích thước */
+        text-overflow: ellipsis; /* Hiển thị dấu ba chấm */
+    }
+    .main-wrap .showcase .overlay .aiva-home .home-banner .text-home-banner p{
+        font-size: 19px;
+    }
+    .aiva-document .right-document .creat-document{
+        margin: 20px 0;
+    }
+    .main-wrap .showcase .overlay .aiva-home .home-banner .search-icon{
+        left: 3.75rem;
+    }
+    .aiva-document .right-document{
+        flex-direction: column;
+    }
+    .search-container{
+        text-align: center  ;
+    }
+    .main-wrap .showcase .overlay .setting-home .left-setting{
+        margin-bottom: 20px;
+    }
+    .main-chat-phoenix{
+        padding: 15px 30px 20px 30px;
+    }
+    .main-wrap .showcase .overlay .card{
+        max-width: 300px;
+    }
+    .drgh{
+        display: none;
+    }
+  }

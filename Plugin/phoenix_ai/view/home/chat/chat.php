@@ -13,7 +13,7 @@ $info = $session->read('infoUser');
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
-                    <div class="container-fluid mt-3 ml-5"style=" margin-left: 45px;" >
+                    <div class="container-fluid mt-3 ml-5 drgh"style=" margin-left: 45px;" >
                         <div class="d-flex align-items-center gap-3 category-nav">
                             <a href="#" class="category-link category-text">Viết lách</a>
                             <a href="#" class="category-link category-text">Marketing</a>
