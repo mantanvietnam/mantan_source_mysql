@@ -39,7 +39,7 @@
                                         </form>
                                     </div>
                                 </div> -->
-                              <form action="" method="post">
+                              <form action="" method="get">
                                 <div class="name-input-search">
                                     <div class="detail-input-search">
                                         <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
