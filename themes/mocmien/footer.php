@@ -5,7 +5,7 @@
 
 <!-- footer -->
       <div class='mt-5 footer-container'>
-        <div class='container pt-5 pb-5'>
+        <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 pt-5 pb-5'>
           <div class='row'>
             <div class="col-lg-3 col-12 footer-frist-container d-flex flex-column">
               <div class='gap-3 d-flex align-items-center'>

@@ -301,6 +301,7 @@ $sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` CHANGE `emai
 $sqlUpdateDatabase['customers']['birthday'] = "ALTER TABLE `customers` CHANGE `birthday` `birthday` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customers']['identity'] = "ALTER TABLE `customers` ADD `identity` INT NOT NULL AFTER `name`;";
 $sqlUpdateDatabase['customers']['identity'] = "ALTER TABLE `customers` CHANGE `identity` `identity` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['buiding_id'] = "ALTER TABLE `customers` ADD `buiding_id` INT NOT NULL AFTER `status`;";
 
 
 $sqlUpdateDatabase['orders']['shelf_id'] = "ALTER TABLE `orders` DROP COLUMN `shelf_id`;";

@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="<?php echo @$urlThemeActive; ?>styles/index.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="starability-minified/starability-all.min.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
@@ -34,14 +35,14 @@
         <span class="">Hotline Mộc Miên: <?php echo @$settingThemes['title_main'];?></span>
      </div>
      <!-- responsive search -->
-    <div class="container pt-4 d-sm-none d-flex input-group">
+    <div class="mx-mobilemobile md:mx-6 lg:mx-16 xl:mx-20 pt-4 d-sm-none d-flex input-group">
       <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Search input" aria-describedby="button-search">
       <button class="btn btn-primary bg-green search-btn" type="button" id="button-search">
         <i class="fas fa-search"></i> <!-- Icon kính lúp -->
       </button>
     </div>
      <!-- header -->
-    <div class="container header-container">
+    <div class="mx-mobile md:mx-6 lg:mx-16 xl:mx-20 header-container">
       <!-- logo -->
       <div>
         <img src="<?php echo @$settingThemes['image_logo']; ?>" alt="logo">
@@ -111,7 +112,7 @@
 
     <!-- điều hướng -->
     <div class='content-center bg-green navigation'>
-      <div class='container nav-container'>
+      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 nav-container'>
             <?php 
                 $menu = getMenusDefault();
             ?>

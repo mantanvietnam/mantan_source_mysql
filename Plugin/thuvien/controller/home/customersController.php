@@ -73,6 +73,7 @@ function listCustomer($input)
 
             export_excel($titleExcel, $dataExcel, 'danh_sach_khach_hang');
         } else {
+            $conditions = ['Customers.buiding_id'=>$user->idbuilding];
             $listData = $modelCustomers->find()
                 ->limit($limit)
                 ->page($page)
@@ -155,7 +156,6 @@ function addCustomer($input)
             $data->created_at = time();
         }
         $mess = '';
-        // Xử lý khi có request POST
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
 
@@ -163,7 +163,6 @@ function addCustomer($input)
                 $phone = $dataSend['phone'];
                 $identity = $dataSend['identity'];
 
-                // Kiểm tra trùng số điện thoại hoặc giấy tờ tùy thân
                 $existingCustomer = $modelCustomers->find()
                     ->where(['OR' => [
                         'phone' => $phone,
@@ -178,14 +177,18 @@ function addCustomer($input)
                         $mess = '<p class="text-danger">Giấy tờ tùy thân đã tồn tại</p>';
                     }
                 } else {
-                    // Lưu dữ liệu mới nếu không trùng lặp
                     $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
                     $data->identity = $identity;
                     $data->phone = $phone;
                     $data->address = str_replace(array('"', "'"), '’', $dataSend['address']);
                     $data->email = $dataSend['email'];
-                    $data->birthday = strtotime(str_replace("/", "-", $dataSend['birthday']));
+                    if (!empty($dataSend['birthday'])) {
+                        $data->birthday = strtotime(str_replace("/", "-", $dataSend['birthday']));
+                    } else {
+                        $data->birthday = null;
+                    }   
                     $data->status = $dataSend['status'];
+                    $data->buiding_id = $user->idbuilding;
 
                     if ($modelCustomers->save($data)) {
                         return $controller->redirect('/listCustomer?mess=saveSuccess');

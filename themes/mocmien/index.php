@@ -4,7 +4,7 @@
 ?> 
 
     <!-- slider -->
-    <!-- <div id="carouselExampleInterval" class="container carousel slide banner-slider" data-bs-ride="carousel">
+    <!-- <div id="carouselExampleInterval" class="mx-mobile md:mx-6 lg:mx-16 xl:mx-20 carousel slide banner-slider" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="10000">
           <img src="<?= $urlThemeActive?>/assets/images/slide1.png" class="d-block w-100" alt="...">
@@ -45,7 +45,7 @@
     </div>
 
     <!-- Quảng cáo -->
-    <div class='container d-xxl-flex recommend-container d-none'>
+    <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 d-xxl-flex recommend-container d-none'>
     <!-- giới thiệu -->
     <div class='recommend-intro'>
       <div class='d-flex flex-column'>
@@ -62,15 +62,15 @@
           <div class='sp-title'>Các sản phẩm nổi bật</div>
           <?php if (!empty($hot_product)): ?>
               <?php foreach ($hot_product as $product): ?>
-                  <?php $link = '/product/' . $product->slug . '.html'; ?>
+                  <?php $link = '/product/' . htmlspecialchars($product->slug) . '.html'; ?>
                   <div class='sp-container'>
-                      <a href="<?= htmlspecialchars($link); ?>" class="sp-first">
-                          <img src="<?= htmlspecialchars($urlThemeActive) ?>/assets/images/sp1.png" alt="Sản phẩm nổi bật">
-                          <span><?= htmlspecialchars($product->title); ?></span>
+                      <a href="<?php echo $link; ?>" class="sp-first">
+                          <img src="<?php echo htmlspecialchars($product->image); ?>" alt="Sản phẩm nổi bật" class="w-12 h-12">
+                          <span><?php echo htmlspecialchars($product->title); ?></span>
                       </a>
                       <div class='sp-first-btn'>
-                          <a href="<?= htmlspecialchars($link); ?>">
-                              <img src="<?= htmlspecialchars($urlThemeActive) ?>/assets/images/btn-ar.png" alt="Xem chi tiết">
+                          <a href="<?php echo htmlspecialchars($link); ?>">
+                              <img src="<?php echo htmlspecialchars($urlThemeActive); ?>/assets/images/btn-ar.png" alt="Xem chi tiết">
                           </a>
                       </div>
                   </div>
@@ -113,7 +113,7 @@
 
     <!-- chính sách -->
      <div class='delivary-container'>
-      <div class='container delivary-container-2 justify-content-md-between'>
+      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 delivary-container-2 justify-content-md-between'>
         <div class='delivary'>
           <div>
             <img src="<?php echo @$settingThemes['images_1']; ?>" alt="logo">
@@ -146,7 +146,7 @@
 
       <!-- sửa -->
      <!-- danh mục sản phẩm -->
-      <div class='container category-container'>
+      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 category-container'>
         <div class='list-category-header'>
           <span><span class='color-green'>DANH MỤC</span> SẢN PHẨM</span>
           <a class='more-btn'>
@@ -172,7 +172,7 @@
       </div>
 
       <!-- câu chuyện -->
-      <div class='container gap-4 story-container flex-lg-row flex-column gap-lg-0 align-items-lg-start'>
+      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 gap-4 story-container flex-lg-row flex-column gap-lg-0 align-items-lg-start'>
       <div class='ceo-img'>
         <img src="<?php echo @$settingThemes['image_story'] ?>" alt="ceo">
       </div>
@@ -189,7 +189,7 @@
       </div>
 
       <!-- Uy tín -->
-      <div class='container legit-container'>
+      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 legit-container'>
         <div>
           <div class='legit-title'>
             <div class='gap-4 d-flex flex-column flex-md-row align-items-center'>
@@ -241,7 +241,7 @@
 
       <!-- sửa -->
       <!-- sản phẩm bán chạy -->
-      <div class='container mt-5 bestsell-container'>
+      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 bestsell-container'>
         <div class='list-category-header'>
           <span><span class='color-green'>SẢN PHẨM</span> BÁN CHẠY</span>
           <a class='more-btn'>
@@ -292,7 +292,7 @@
       </div>
 
       <!-- Hướng dẫn sử dụng -->
-      <div class='container gap-3 mt-5 instruction-container d-none d-xxl-flex justify-content-center align-items-center'>
+      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 gap-3 mt-5 instruction-container d-none d-xxl-flex justify-content-center align-items-center'>
         <div>
           <img src="<?= $urlThemeActive?>/assets/images/huongdan1.png" alt="huongdan1">
         </div>
@@ -307,7 +307,7 @@
       </div>
 
       <!-- sản phẩm theo combo -->
-      <div class='container mt-5 container-combo'>
+      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 container-combo'>
         <div class='list-category-header'>
           <span>SẢN PHẨM THEO <span class='color-green'>COMBO</span></span>
           <a class='more-btn'>
@@ -450,7 +450,7 @@
       </div>
 
       <!-- bộ sưu tập mơi -->
-       <div class='container mt-5 new-collection-container'>
+       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 new-collection-container'>
         <div class='mb-4 new-collection-title'>
           <div class='col-6 d-flex flex-column collection-title'>
             <span>BỘ SƯU TẬP MỚI:</span>
@@ -626,7 +626,7 @@
         </div>
        </div>
        <!-- Sự kiện sắp tới -->
-       <div class='container mt-5 event-container'>
+       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 event-container'>
         <div class='list-category-header'>
           <span><span class='color-green'>SỰ KIỆN</span> SẮP TỚI</span>
         </div>
@@ -711,7 +711,7 @@
        </div>
 
        <!-- Tin tức từ mộc miên -->
-      <div class='container mt-5 new-section-container'>
+      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 new-section-container'>
         <div class='list-category-header'>
           <span><span class='color-green'>TIN TỨC</span> TỪ MỘC MIÊN</span>
           <a class='more-btn' href="/posts">

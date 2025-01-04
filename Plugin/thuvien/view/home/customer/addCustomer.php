@@ -65,4 +65,24 @@
   </div>
 </div>
 
+<script>
+function validateForm() {
+    // Lấy giá trị các trường
+    const name = document.getElementById('name').value.trim();
+    const identity = document.getElementById('identity').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const birthday = document.getElementById('birthday').value.trim();
+
+    // Kiểm tra nếu trường nào rỗng
+    if (!name || !identity || !phone || !address || !birthday) {
+        alert("Vui lòng nhập đầy đủ tất cả các trường bắt buộc.");
+        return false;
+    }
+
+    return true; // Nếu tất cả các trường đã được nhập
+}
+</script>
+
+
 <?php include(__DIR__.'/../footer.php'); ?>
