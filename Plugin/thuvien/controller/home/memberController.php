@@ -624,10 +624,11 @@ function listMember($input)
         
         $order = array('id'=>'desc');
 
-        $conditions = array('type'=>'staff');
+        $conditions = array('type'=>'staff', 'status NOT IN'=>'delete');
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
+
         
         if(!empty($_GET['id'])){
             $conditions['id'] = (int) $_GET['id'];

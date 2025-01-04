@@ -59,7 +59,7 @@ function createOrderProductAPI($input)
                 $data->note_admin = '';
                 $data->status = 'new';
                 $data->create_at = time();
-                $data->id_agency = (int) @$dataSend['id_agency'];
+                $data->id_agency = (!empty(@$dataSend['id_agency']))?@$dataSend['id_agency']:$infoUser->id_agency;
                 $data->id_aff = (int) @$dataSend['id_aff'];
                 $data->money = (int) @$dataSend['money']; // tổng tiền ban đầu
                 $data->total = (int) @$dataSend['total']; // tổng tiền sau giảm giá

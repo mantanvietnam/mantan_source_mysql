@@ -431,17 +431,18 @@
 const aiThinking = document.getElementById('aiThinking');
 const showAiThinking = document.getElementById('showAiThinking');
 
-
+/*
 showAiThinking.addEventListener('click', () => {
   aiThinking.classList.remove('d-none'); 
   setTimeout(() => {
-    aiThinking.classList.add('d-none'); 
+   
   }, 15000); 
-});
+});*/
 </script>
 <script type="text/javascript">
 
     function sendquestion(){
+      aiThinking.classList.remove('d-none'); 
         var topic = $('#topic').val();
         console.log(topic);
         $.ajax({
@@ -449,13 +450,14 @@ showAiThinking.addEventListener('click', () => {
           url: "/apis/wirecontentimageAPI",
           data: {topic: topic, 
         }
-    }).done(function( msg ) {
-           console.log(msg);
+    }).done(function( msg ) { 
+      aiThinking.classList.add('d-none'); 
             if(msg.code==1){
 
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
                 document.getElementById("result").value = msg.data.result;
                 CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
+                saveContentimageBlog();
             }
         })
 
@@ -468,6 +470,7 @@ showAiThinking.addEventListener('click', () => {
 <script type="text/javascript">
 
     function sendquestionNet(i){
+        aiThinking.classList.remove('d-none'); 
         var conversation_id = $('#conversation_id').val();
         var result = $('#result').val();
       
@@ -482,6 +485,7 @@ showAiThinking.addEventListener('click', () => {
             number_question: i, 
           }
         }).done(function( msg ) {
+                 aiThinking.classList.add('d-none'); 
                 if(msg.code==1){
                   result += msg.data.result
                     document.getElementById("conversation_id").value = msg.data.conversation_id;

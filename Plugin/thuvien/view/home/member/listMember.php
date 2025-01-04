@@ -73,7 +73,7 @@
             <th>ID</th>
             <th>Hình đại diện</th>
             <th>tên nhân viên </th>
-            <th>số điện thoạt</th>
+            <th>số điện thoại</th>
             <th>đia chỉ</th>
             <th>Email</th>
             <th>Nhóm phân quyền</th>

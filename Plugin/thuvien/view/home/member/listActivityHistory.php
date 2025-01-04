@@ -3,8 +3,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listStaff">Người dung</a> /</span>
-    Danh sách lịch sử hàng động người dùng
+    <span class="text-muted fw-light"><a href="/listMember">Nhân viên</a> /</span>
+    Danh sách lịch sử hành động nhân viên
   </h4>
   <!-- Form Search -->
   <form method="get" action="">
@@ -18,7 +18,7 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên người dùng</label>
+            <label class="form-label">Tên nhân viên</label>
             <input type="text" class="form-control" name="name_member" id="name_member" value="<?php if(!empty($_GET['name_member'])) echo $_GET['name_member'];?>">
             <input type="hidden" class="form-control" name="id_member" id="id_member" value="<?php if(!empty($_GET['id_member'])) echo $_GET['id_member'];?>">
           </div>
@@ -47,7 +47,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách lịch sử hàng động người dùng </h5>
+    <h5 class="card-header">Danh sách lịch sử hành động nhân viên</h5>
     <?php echo @$mess;?>
     <div id="desktop_view">
       <div class="table-responsive">
@@ -56,7 +56,7 @@
             <tr class="">
               <th>ID</th>
               <th>thời gian </th>
-              <th>tên người dùng </th>
+              <th>tên nhân viên</th>
               <th>Nội dung</th>
               <th>Tài khoản</th>
             </tr>

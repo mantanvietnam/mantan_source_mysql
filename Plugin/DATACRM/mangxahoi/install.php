@@ -59,6 +59,9 @@ $sqlInstallDatabase .="CREATE TABLE `image_customers` (
 `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `public` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `link_local` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'image',
+`video` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`code_youtube` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `created_at` INT NULL DEFAULT NULL , 
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -146,6 +149,9 @@ $sqlUpdateDatabase['image_customers']['image'] = "ALTER TABLE `image_customers` 
 $sqlUpdateDatabase['image_customers']['public'] = "ALTER TABLE `image_customers` ADD `public` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['image_customers']['created_at'] = "ALTER TABLE `image_customers` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['image_customers']['link_local'] = "ALTER TABLE `image_customers` ADD `link_local` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_customers']['type'] = "ALTER TABLE `image_customers` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'image';";
+$sqlUpdateDatabase['image_customers']['video'] = "ALTER TABLE `image_customers` ADD `video` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_customers']['code_youtube'] = "ALTER TABLE `image_customers` ADD `code_youtube` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
 $sqlUpdateDatabase['report_wall_posts']['id_customer'] = "ALTER TABLE `report_wall_posts` ADD `id_customer` INT NOT NULL;";
 $sqlUpdateDatabase['report_wall_posts']['created_at'] = "ALTER TABLE `report_wall_posts` ADD `created_at` INT NOT NULL;";

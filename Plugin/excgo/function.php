@@ -1023,7 +1023,10 @@ function getTokenFirebaseV1()
 {
     require __DIR__.'/library/google-auth-library-php/vendor/autoload.php';
 
-    $linkFileJson = __DIR__.'/library/exc-go-firebase-adminsdk-7k0ab-7956b0d38a.json';
+
+
+    // $linkFileJson = __DIR__.'/library/exc-go-firebase-adminsdk-7k0ab-7956b0d38a.json';
+    $linkFileJson = __DIR__.'/library/exc-go-firebase-adminsdk-7k0ab-780b98f8c7.json';
 
     // Đường dẫn tới file JSON bạn đã tải về từ Firebase
     putenv('GOOGLE_APPLICATION_CREDENTIALS='.$linkFileJson);
@@ -1052,19 +1055,8 @@ function getTokenFirebaseV1()
     return $authToken['access_token'];
 }
 
-function sendNotification($data=[], $deviceTokens)
+function sendNotification($data=[], $deviceTokens=[])
 {
-    /*
-    $data = [
-                'title'=>'Bạn được cộng tiền hoa hồng giới thiệu',
-                'time'=>date('H:i d/m/Y'),
-                'content'=>'Trần Mạnh ơi. Bạn được cộng 100.000 VND do thành viên Kim Oanh đã nạp tiền. Bấm vào đây để kiểm tra ngay nhé.',
-                'action'=>'addMoneySuccess',
-                'image'=>'',
-            ];
-    */
-
-
     global $keyFirebase;
     global $projectId;
 
@@ -1077,7 +1069,7 @@ function sendNotification($data=[], $deviceTokens)
             $deviceTokens = [$deviceTokens];
         }
 
-        $chunks = splitArrayIntoChunks($deviceTokens, 1000);
+        $chunks = splitArrayIntoChunks($deviceTokens, 100);
         
 
         $headers = [
@@ -1120,12 +1112,13 @@ function sendNotification($data=[], $deviceTokens)
                 if ($result === FALSE) {
                     $number_error ++;
                 }else{
-                    //debug($result);
+                    //var_dump($result);
                 }
             }
 
             curl_close($ch);
         }
+
     }
 
     return $number_error;

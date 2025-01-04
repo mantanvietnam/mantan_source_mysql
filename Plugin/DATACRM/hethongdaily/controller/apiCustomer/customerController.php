@@ -557,7 +557,8 @@ function editPassCustomerApi($input){
 
             if (!empty($user)) {
                 $user = $modelCustomer->find()->where(['id'=>$user->id])->first();
-                if ($user->password != md5($dataSend['old_password'])){
+                
+                if ($user->pass != md5($dataSend['old_password'])){
                     return array('code'=>5,
                         'messages'=>'Mật khẩu cũ không chính xác');
                 }
@@ -568,7 +569,7 @@ function editPassCustomerApi($input){
                     );
                 }
 
-                $user->password = md5($dataSend['new_password']);
+                $user->pass = md5($dataSend['new_password']);
 
                 
                 $modelCustomer->save($user);

@@ -202,6 +202,9 @@ function createsampleadsAPI($input){
 
               $reply_ai = callAIphoenixtech($question,$conversation_id);
 
+                             $reply = '<h1>Tạo 5 mẫu quảng cáo sáng tạo dựa trên mẫu cho trước</h1>'.$reply_ai['result'];
+            $reply_ai['result'] = $reply;
+
 
               $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
 
@@ -319,7 +322,7 @@ function savesampleadsAPI($input){
                 $checkContent->created_at = time();
                 $checkContent->type = 'write_sampleads';
             }
-            $title = 'Tạo 5 mẫu quảng cáo sáng tạo dựa trên nội dung cho trước';
+            $title = 'Tạo 5 mẫu quảng cáo sáng tạo dựa trên nội dung cho trước chủ đề '.$chat['topic'];
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  

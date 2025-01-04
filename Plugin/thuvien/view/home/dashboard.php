@@ -40,7 +40,7 @@
             <thead>
               <tr>
                 <th>Tên khách hàng</th>
-                <th>sach</th>
+                <th>Sách</th>
                 <th>Trạng thái</th>
               </tr>
             </thead>

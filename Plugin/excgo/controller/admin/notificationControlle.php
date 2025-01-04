@@ -75,7 +75,7 @@ function addNotificationAdmin($input)
 							$modelNotification->save($notification);
 						}
 					}
-					$id_post = null;
+					$id_post = '0';
 					if(!empty($dataPost)){
 						$id_post = "$dataPost->id";
 					}
