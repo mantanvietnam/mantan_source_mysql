@@ -44,9 +44,9 @@
      <!-- header -->
     <div class="mx-mobile md:mx-6 lg:mx-16 xl:mx-20 header-container">
       <!-- logo -->
-      <div>
+      <a href="/">
         <img src="<?php echo @$settingThemes['image_logo']; ?>" alt="logo">
-      </div>
+      </a>
       <!-- Thanh tìm kiếm với icon kính lúp -->
       <div class="d-sm-flex d-none input-group header-search-container">
         <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Search input" aria-describedby="button-search">

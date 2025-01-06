@@ -149,7 +149,7 @@
       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 category-container'>
         <div class='list-category-header'>
           <span><span class='color-green'>DANH MỤC</span> SẢN PHẨM</span>
-          <a class='more-btn'>
+          <a href="/categories" class='more-btn'>
             <div class=''>Xem thêm</div>
             <img src="<?php echo $urlThemeActive; ?>/assets/images/arr.png" alt="">
           </a>
@@ -244,7 +244,7 @@
       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 bestsell-container'>
         <div class='list-category-header'>
           <span><span class='color-green'>SẢN PHẨM</span> BÁN CHẠY</span>
-          <a class='more-btn'>
+          <a href="/categories" class='more-btn'>
             <div class=''>Xem thêm</div>
             <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="">
           </a>
@@ -310,7 +310,7 @@
       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 container-combo'>
         <div class='list-category-header'>
           <span>SẢN PHẨM THEO <span class='color-green'>COMBO</span></span>
-          <a class='more-btn'>
+          <a href="/categories" class='more-btn'>
             <div class=''>Xem thêm</div>
             <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="">
           </a>
