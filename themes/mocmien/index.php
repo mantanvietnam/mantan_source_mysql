@@ -1,4 +1,4 @@
-<?php 
+<a?php 
     getHeader();
     global $settingThemes; 
 ?> 
@@ -254,7 +254,7 @@
             <?php foreach ($best_selling_products as $seller_product): ?>
               <?php $link = '/product/' . htmlspecialchars($seller_product->slug) . '.html'; ?>
               <!-- product cart -->
-              <div class="col bestsell-product-container">
+              <a href=<?= $link ?> class="col bestsell-product-container">
                 <div class='bestsell-product-image'>
                   <img src="<?php echo htmlspecialchars($seller_product->image); ?>" alt="">
                 </div>
@@ -283,7 +283,7 @@
                     <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="">
                   </div>
                 </div>
-              </div>
+              </a>
               <?php endforeach; ?>
           <?php else: ?>
               <p>Hiện tại không có danh mục nào.</p>
@@ -316,136 +316,39 @@
           </a>
         </div>
         <div class='row bestsell-list-container'>
-          <!-- product cart -->
-          <div class="col bestsell-product-container">
-            <div class='bestsell-product-image'>
-              <img src="<?= $urlThemeActive?>/assets/images/product1.png" alt="">
-            </div>
-            
-            <div class='bestsell-product-title'>
-              <span>COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa rửa mặt mướp đắng</span>
-            </div>
-            <div class='bestsell-product-price-container'>
-              <div class='bestsell-product-current-price'>329,000đ</div>
-              <div class='bestsell-product-old-price'>579,000đ</div>
-            </div>
-            <div class='bestsell-product-selling'>
-              <div class="star-rating">
-                <div class="star filled">★</div>
-                <div class="star filled">★</div>
-                <div class="star filled">★</div>
-                <div class="star half">★</div>
-                <div class="star">★</div>
-              </div>
-              <div class='product-tym'>
-                <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="tym">
-              </div>
-            </div>
-          </div>
-          <!-- product cart -->
-          <div class="col bestsell-product-container">
-            <div class='bestsell-product-image'>
-              <img src="<?= $urlThemeActive?>/assets/images/product1.png" alt="">
-            </div>
-            
-            <div class='bestsell-product-title'>
-              <span>COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa rửa mặt mướp đắng</span>
-            </div>
-            <div class='bestsell-product-price-container'>
-              <div class='bestsell-product-current-price'>329,000đ</div>
-              <div class='bestsell-product-old-price'>579,000đ</div>
-            </div>
-            <div class='bestsell-product-selling'>
-              <div class="star-rating">
-                <div class="star filled">★</div>
-                <div class="star filled">★</div>
-                <div class="star filled">★</div>
-                <div class="star half">★</div>
-                <div class="star">★</div>
-              </div>
-              <div class='product-tym'>
-                <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="">
-              </div>
-            </div>
-          </div>
-          <!-- product cart -->
-          <div class="col bestsell-product-container">
-            <div class='bestsell-product-image'>
-              <img src="<?= $urlThemeActive?>/assets/images/product1.png" alt="">
-            </div>
-            
-            <div class='bestsell-product-title'>
-              <span>COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa rửa mặt mướp đắng</span>
-            </div>
-            <div class='bestsell-product-price-container'>
-              <div class='bestsell-product-current-price'>329,000đ</div>
-              <div class='bestsell-product-old-price'>579,000đ</div>
-            </div>
-            <div class='bestsell-product-selling'>
-              <div class="star-rating">
-                <div class="star filled">★</div>
-                <div class="star filled">★</div>
-                <div class="star filled">★</div>
-                <div class="star half">★</div>
-                <div class="star">★</div>
-              </div>
-              <div class='product-tym'>
-                <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="">
-              </div>
-            </div>
-          </div>
-          <!-- product cart -->
-          <div class="col bestsell-product-container">
-            <div class='bestsell-product-image'>
-              <img src="<?= $urlThemeActive?>/assets/images/product1.png" alt="">
-            </div>
-            
-            <div class='bestsell-product-title'>
-              <span>COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa rửa mặt mướp đắng</span>
-            </div>
-            <div class='bestsell-product-price-container'>
-              <div class='bestsell-product-current-price'>329,000đ</div>
-              <div class='bestsell-product-old-price'>579,000đ</div>
-            </div>
-            <div class='bestsell-product-selling'>
-              <div class="star-rating">
-                <div class="star filled">★</div>
-                <div class="star filled">★</div>
-                <div class="star filled">★</div>
-                <div class="star half">★</div>
-                <div class="star">★</div>
-              </div>
-              <div class='product-tym'>
-                <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="">
-              </div>
-            </div>
-          </div>
-          <!-- product cart -->
-          <div class="col bestsell-product-container">
-            <div class='bestsell-product-image'>
-              <img src="<?= $urlThemeActive?>/assets/images/product1.png" alt="">
-            </div>
-            
-            <div class='bestsell-product-title'>
-              <span>COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa rửa mặt mướp đắng</span>
-            </div>
-            <div class='bestsell-product-price-container'>
-              <div class='bestsell-product-current-price'>329,000đ</div>
-              <div class='bestsell-product-old-price'>579,000đ</div>
-            </div>
-            <div class='bestsell-product-selling'>
-              <div class="star-rating">
-                <div class="star filled">★</div>
-                <div class="star filled">★</div>
-                <div class="star filled">★</div>
-                <div class="star half">★</div>
-                <div class="star">★</div>
-              </div>
-              <div class='product-tym'>
-                <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="">
-              </div>
-            </div>
-          </div>
+          <?php if (!empty($comboProducts)): ?>
+            <?php foreach ($comboProducts as $comboProduct): ?>
+              <?php $link = '/product/' . htmlspecialchars($comboProduct->slug) . '.html'; ?>
+              <!-- product cart -->
+              <a href=<?= $link ?> class="col bestsell-product-container">
+                <div class='bestsell-product-image'>
+                  <img src="<?php echo htmlspecialchars($comboProduct->image); ?>" alt="">
+                </div>
+                
+                <div class='bestsell-product-title'>
+                  <span><?php echo htmlspecialchars($comboProduct->title); ?></span>
+                </div>
+                <div class='bestsell-product-price-container'>
+                  <div class='bestsell-product-current-price'><?php echo number_format($comboProduct->price, 0, ',', '.') . ' VNĐ'; ?></div>
+                  <div class='bestsell-product-old-price'><?php echo number_format($comboProduct->price_old, 0, ',', '.') . ' VNĐ'; ?></div>
+                </div>
+                <div class='bestsell-product-selling'>
+                  <div class="star-rating">
+                    <div class="star filled">★</div>
+                    <div class="star filled">★</div>
+                    <div class="star filled">★</div>
+                    <div class="star half">★</div>
+                    <div class="star">★</div>
+                  </div>
+                  <div class='product-tym'>
+                    <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="tym">
+                  </div>
+                </div>
+              </a>
+              <?php endforeach; ?>
+          <?php else: ?>
+              <p>Hiện tại không có danh mục nào.</p>
+          <?php endif; ?>
         </div>
       </div>
 
