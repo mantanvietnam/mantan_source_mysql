@@ -114,12 +114,23 @@ function indexTheme($input)
     $hot_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     // DANH MỤC SẢN PHẨM 
-    $conditions = array('type' => 'category_product');
+    $conditions = array(
+        'type' => 'category_product',
+        'name !=' => 'COMBO'
+    );
+    
     $limit = 3;
     $page = 1;
-    $order = array('id'=>'desc');
-
-    $category_product = $modelCategories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    $order = array('id' => 'desc');
+    
+    $category_product = $modelCategories->find()
+        ->limit($limit)
+        ->page($page)
+        ->where($conditions)
+        ->order($order)
+        ->all()
+        ->toList();
+    
 
     //Sản phẩm bán chạy
     $conditions = array('hot'=>1);
@@ -128,11 +139,29 @@ function indexTheme($input)
     $order = ['RAND()'];
     $best_selling_products = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+    //Lấy sản phẩm theo combo
+    $comboCategory = $modelCategories->find()
+    ->where(['type' => 'category_product', 'name' => 'COMBO'])
+    ->first();
+
+    if ($comboCategory) {
+    $comboProducts = $modelProduct->find()
+        ->where(['id_category' => $comboCategory->id])
+        ->order(['RAND()'])
+        ->limit(5)
+        ->page(1)
+        ->all()
+        ->toList();
+    } else {
+    $comboProducts = [];
+    }
+
 
     setVariable('slide_home', $slide_home);
     setVariable('hot_product', $hot_product);
     setVariable('category_product', $category_product);
     setVariable('best_selling_products', $best_selling_products);
+    setVariable('comboProducts', $comboProducts);
     setVariable('listDatatop', $listDatatop);    
 }
 
