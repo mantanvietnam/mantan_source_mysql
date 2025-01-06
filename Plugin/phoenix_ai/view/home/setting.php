@@ -10,7 +10,7 @@
             <div class="row">
        
                 <!-- Sidebar bên trái -->
-                <div class="col-md-3 left-setting" style="height: fit-content;">
+                <div class="col-lg-3 left-setting" style="height: fit-content;">
                     <ul class="nav flex-column nav-pills my-3" id="componentTab" role="tablist">
                         <div class="user-info d-flex my-4">
                             <img src="/plugins/phoenix_ai/view/home/assets/img/avatar.jpg" alt="Avatar">
@@ -39,7 +39,7 @@
                 </div>
     
                 <!-- Nội dung bên phải -->
-                <div class="col-md-9">
+                <div class="col-lg-9">
                     <div class="tab-content" id="componentContent">
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="form-section container-fluid">

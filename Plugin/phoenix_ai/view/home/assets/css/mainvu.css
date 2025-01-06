@@ -1126,7 +1126,17 @@ table {
     height: auto;
     border-radius: 50%;
   }
-  
+  @media (min-width: 768px) and (max-width: 1024px){
+    .main-head .main-nav .navbar-nav .nav-list .nav-list-item span{
+        display: none !important;
+    }
+    .main-wrap .showcase .overlay .setting-home .left-setting{
+        margin-bottom: 20px;
+    }
+    .drgh{
+        display: none !important;
+    }
+  }
 
   @media screen and (max-width: 425px){
     .set-distent-icon .link-text{
@@ -1163,7 +1173,7 @@ table {
         padding: 15px 30px 20px 30px;
     }
     .main-wrap .showcase .overlay .card{
-        min-width: 300px !important;
+        min-width: 250px !important;
     }
     .main-head .main-nav .navbar-nav .nav-list .nav-list-item span{
         display: none !important;
