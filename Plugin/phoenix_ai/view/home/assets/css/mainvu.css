@@ -1163,7 +1163,7 @@ table {
         padding: 15px 30px 20px 30px;
     }
     .main-wrap .showcase .overlay .card{
-        max-width: 300px;
+        min-width: 300px !important;
     }
     .main-head .main-nav .navbar-nav .nav-list .nav-list-item span{
         display: none !important;
