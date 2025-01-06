@@ -272,7 +272,7 @@
             <button type="button" class="quantity-control-btn" id="decrease" onclick="minusQuantity();">
               -
             </button>
-            <span id="quantity">1</span>
+            <input id="quantity_buy" value="1" min="1" readonly>
             <button type="button" class="quantity-control-btn" id="increase" onclick="plusQuantity();">
               +
             </button>
@@ -513,6 +513,7 @@
     </div>
   </body>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript">
     function plusQuantity()
     {
