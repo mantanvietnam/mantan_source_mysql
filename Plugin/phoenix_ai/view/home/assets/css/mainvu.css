@@ -1165,7 +1165,10 @@ table {
     .main-wrap .showcase .overlay .card{
         max-width: 300px;
     }
+    .main-head .main-nav .navbar-nav .nav-list .nav-list-item span{
+        display: none !important;
+    }
     .drgh{
-        display: none;
+        display: none !important;
     }
   }
