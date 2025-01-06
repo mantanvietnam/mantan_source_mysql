@@ -116,7 +116,7 @@
                 <a class="dropdown-item" href="/listMember">Quản lý nhân viên</a>
                 <a class="dropdown-item" href="/listPermission">Quản lý phân quyền</a>
                 <a class="dropdown-item" href="/listCategory">Quản lý chức vụ</a>
-                <a class="dropdown-item" href="/listActivityHistory">Lịch sử hàng động</a>
+                <a class="dropdown-item" href="/listActivityHistory">Lịch sử hoạt động</a>
               </div>
             </li>
             <li class="nav-item dropdown">

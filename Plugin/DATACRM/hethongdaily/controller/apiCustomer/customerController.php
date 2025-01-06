@@ -91,6 +91,16 @@ function saveRegisterCustomerAPI($input)
                 $conditions['phone'] = $dataSend['phone'];
                 $checkCustomer = $modelCustomer->find()->where($conditions)->first();
 
+                if(!empty($dataSend['email'])){
+                    $checkEmail = $modelCustomer->find()->where(['email'=>$dataSend['email']])->first();
+                    if(!empty($checkEmail)){
+                        return array('code'=>3,
+                            'infoUser'=> null,
+                            'messages'=>'Email này đã được đăng ký',
+                        );
+                    }
+                }
+
 
                 if(empty($checkCustomer)){
                     // tạo dữ liệu save
@@ -142,7 +152,7 @@ function saveRegisterCustomerAPI($input)
                                 );
                 }else{
                     
-                    $checkCustomer->full_name = checkKeyword($dataSend['full_name']);
+                    /*$checkCustomer->full_name = checkKeyword($dataSend['full_name']);
                     $checkCustomer->email = (!empty($dataSend['email']))?$dataSend['email']:$checkCustomer->email;
                     $checkCustomer->address = (!empty($dataSend['address']))?$dataSend['address']:$checkCustomer->address;
                     $checkCustomer->pass = (!empty($dataSend['pass']))?md5($dataSend['pass']):$checkCustomer->pass;
@@ -170,14 +180,14 @@ function saveRegisterCustomerAPI($input)
                     $return = array('code'=>1,
                                     'infoUser'=> $checkCustomer,
                                     'messages'=>'Đăng ký thành công',
-                                );
+                                );*/
                     
-                    /*
+                    
                     $return = array('code'=>3,
                         'infoUser'=> null,
                         'messages'=>'Số điện thoại này đã được đăng ký',
                     );
-                    */
+                    
                 }
             }else{
                 $return = array('code'=>4,

@@ -4,7 +4,7 @@
 
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listMember">Nhân viên</a> /</span>
-    Danh sách lịch sử hành động nhân viên
+    Danh sách lịch sử hoạt động nhân viên
   </h4>
   <!-- Form Search -->
   <form method="get" action="">
@@ -47,7 +47,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách lịch sử hành động nhân viên</h5>
+    <h5 class="card-header">Danh sách lịch sử hoạt động nhân viên</h5>
     <?php echo @$mess;?>
     <div id="desktop_view">
       <div class="table-responsive">

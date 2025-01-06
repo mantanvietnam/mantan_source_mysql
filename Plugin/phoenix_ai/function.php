@@ -193,6 +193,7 @@ function listBostAi(){
            10 => array('id'=>10,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Viết 10 bài đăng Facebook truyền cảm hứng (5)', 'district'=>'Viết 10 bài đăng Facebook truyền cảm hứng (5)' , 'type'=>'content_inspirational' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendinspirationalFacebook'),
            11 => array('id'=>11,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Tạo landing page đỉnh cao', 'district'=>'Tạo ra mẫu landing page đỉnh cao khiến khách hàng không thể cưỡng lại và bấm nút mua hàng' , 'type'=>'content_landing' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendContenLanding'),
            12 => array('id'=>12,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Viết 10 bài đăng Facebook truyền cảm hứng', 'district'=>'Viết 10 bài viết truyền cảm hứng lôi cuốn cho Facebook' , 'type'=>'content_inspire' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendContentInspire'),
+           13 => array('id'=>13,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Tái chế nội dung kịch bản Video có sắn', 'district'=>'Biến 1 nội dung bất kỳ thành nội dung cho video Youtube, Tiktok và bài đăng Facebook, Instagram bạn muốn chỉ với 1 click' , 'type'=>'content_video_script' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendContentVideoScript'),
            
            
     );
