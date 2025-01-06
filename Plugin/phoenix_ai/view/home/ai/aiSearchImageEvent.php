@@ -8,7 +8,7 @@
         <div class="list-document-search row" style="width:100%; margin:0 13px;">
             <div class=" col-md-12 col-12">
                 <form method="get" action="">
-                    <div class="card mb-4" style="padding:0;border-radius:10px">
+                    <div class="card cdc mb-4" style="padding:0;border-radius:10px">
                         <h5 class="card-header" style="display: none;">Tìm kiếm dữ liệu</h5>
                         <div class="card-body">
                             <div class="row gx-3 gy-2 align-items-center">
