@@ -505,7 +505,7 @@ function listActivityHistory(){
         if(empty($user->grant_permission)){
             return $controller->redirect('/');
         }
-        $metaTitleMantan = 'Danh sách lịch sử hàng động nhân viên';
+        $metaTitleMantan = 'Danh sách lịch sử hoạt động nhân viên';
 
         $modelMembers = $controller->loadModel('Members');
         $modelActivityHistory = $controller->loadModel('ActivityHistorys');

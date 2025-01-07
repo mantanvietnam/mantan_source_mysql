@@ -190,9 +190,9 @@
         <div>
           <img src="<?php echo @$urlThemeActive; ?>/assets/images/Stroke.png" alt="" />
         </div>
-        <span>Trang chủ</span>
+        <a href="/">Trang chủ</a>
         <span>/</span>
-        <span>Danh mục sản phẩm</span>
+        <a href="/categories">Danh mục sản phẩm</a>
         <span>/</span>
         <span class="current-page fw-bolder text-[18px]"><?php echo $product->title;?></span>
       </div>

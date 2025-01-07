@@ -1114,12 +1114,15 @@ function sendNotification($data=[], $deviceTokens=[])
                 }else{
                     //var_dump($result);
                 }
+                 debug($result);
             }
 
             curl_close($ch);
         }
 
     }
+    debug($number_error);
+    die();
 
     return $number_error;
 }

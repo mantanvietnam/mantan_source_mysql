@@ -187,7 +187,7 @@ function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $addr
                 // debug($dataSend);
                 
                 if(!empty($linkFull)){
-                    if(substr($linkFull, 0, 8) === "https://"){
+                    if(substr($linkFull, 0, 8) === "https://" OR substr($linkFull, 0, 7) === "http://"){
                         // cập nhập lại số lượt xuất
                         $conditions = array('key_word' => 'settingMMTCAPI');
                         $data = $modelOptions->find()->where($conditions)->first();

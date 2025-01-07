@@ -78,9 +78,10 @@ function listOrder($input)
                 ['name' => 'Số điện thoại', 'type' => 'text', 'width' => 15],
                 ['name' => 'Tòa nhà', 'type' => 'text', 'width' => 20],
                 ['name' => 'Người phụ trách', 'type' => 'text', 'width' => 20],
+                ['name' => 'Chi tiết đơn hàng', 'type' => 'text', 'width' => 50],
                 ['name' => 'Trạng thái', 'type' => 'text', 'width' => 15],
                 ['name' => 'Ngày tạo', 'type' => 'text', 'width' => 20],
-                ['name' => 'Chi tiết đơn hàng', 'type' => 'text', 'width' => 50] 
+                ['name' => 'Ngày trả', 'type' => 'text', 'width' => 20],
             ];
 
             $dataExcel = [];
@@ -89,24 +90,26 @@ function listOrder($input)
                 $building = $modelBuildings->get($value->building_id);
                 $member = $modelMembers->get($value->member_id);
                 $orderDetails = $modelOrderDetails->find()->where(['order_id' => $value->id])->all()->toList();
+                if(!empty($orderDetails)){
+                    $statusText = ($value->status == '1') ? 'Đang mượn' : 'Đã trả';
+                    $orderDetailsText = '';
+                    foreach ($orderDetails as $detail) {
+                        $book = $modelBook->find()->where(['id'=>$detail->book_id])->first();
+                       $orderDetailsText .= $book->name . ' (Số lượng: ' . $detail->quantity . '); ';
+                   }
 
-                $statusText = ($value->status == '1') ? 'Đang mượn' : 'Đã trả';
-                $orderDetailsText = '';
-                foreach ($orderDetails as $detail) {
-                   $orderDetailsText .= $detail->book_name . ' (Số lượng: ' . $detail->quantity . '); ';
-               }
-
-               $dataExcel[] = [
-                $value->id,
-                $value->order_id,
-                $customer->name ?? 'N/A',
-                $customer->phone ?? 'N/A',
-                $building->name ?? 'N/A',
-                $member->name ?? 'N/A',
-                $statusText,
-                date('d-m-Y H:i:s', strtotime($value->created_at)),
-                $orderDetailsText
-            ];
+                   $dataExcel[] = [
+                        $value->id,
+                        $customer->name ?? 'N/A',
+                        $customer->phone ?? 'N/A',
+                        $building->name ?? 'N/A',
+                        $member->name ?? 'N/A',
+                        $orderDetailsText,
+                        $statusText,
+                        date('d-m-Y H:i:s', $value->created_at),
+                        date('d-m-Y H:i:s', $value->return_deadline),
+                    ];
+                }
         }
 
         export_excel($titleExcel, $dataExcel, 'danh_sach_đơn mượnmượn');
@@ -319,7 +322,7 @@ function addOrder($input)
 
                     $mess = '<p class="text-success">Tạo hoặc cập nhật đơn mượn thành công.</p>';
                     return $controller->redirect('/listOrder?mess=saveSuccess');
-                }s else {
+                }else {
                     $mess = '<p class="text-danger">Lưu đơn mượn không thành công.</p>';
                 }
             }else{

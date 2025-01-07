@@ -196,4 +196,119 @@ function saveContentVideoAPI($input){
     return array('code'=> 0, 'mess'=>'chưa đăng nhập');
 
 }
+
+// Tái chế nội dung kịch bản Video có sắn
+function sendContentVideoScriptAPI($input){
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+     if(!empty($session->read('infoUser'))){
+        $mess = '';
+        $conversation_id = '';
+        $member = $session->read('infoUser');
+        
+
+        $modelContentFacebookAis = $controller->loadModel('ContentFacebookAis');
+        $modelHistoryChatAis = $controller->loadModel('HistoryChatAis');
+
+        $reply_ai = array();
+        $dataSend = array();
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+       
+
+           $question ='Dựa vào nội dung kịch bản dưới đây, hãy giúp tôi viết lại kịch bản giới thiệu sản phẩm dịch vụ '.$dataSend['topic'].' với các yêu cầu sau đây,  Giữ nguyên cấu trúc của kịch bản mẫu, Sử dụng văn phong của kịch bản mẫu, Dưới đây là kịch bản mẫu: '.str_replace(["\n", "\r"], ' ',$dataSend['content_video']).', trình bài xuống đòng từng câu giọng điệu như nội dùng trên';
+
+           /* if(!empty($dataSend['topic'])){
+                $question .= 'chủ đề về '.$dataSend['topic'];
+            }
+            if(!empty($dataSend['customer_target'])){
+                $question .=  'người tiếp cận '.$dataSend['customer_target'];
+            }*/
+            if(!empty($conversation_id)){
+                if(!empty($dataSend['content_video_script'])){
+                    $question = $dataSend['content_video_script'];
+                }
+            }
+              $reply_ai = callAIphoenixtech($question,$conversation_id);
+        
+            $reply = '<h1>Tái chế nội dung kịch bản Video có sắn</h1>'.$reply_ai['result'];
+            $reply_ai['result'] = $reply;
+
+              $chat = array('result'=>$reply,'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic'], 'question'=>$question);
+
+
+                $session->write('content_video_script', $chat);
+
+             
+               return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai , 'question'=>$question);
+        }
+         return array('code'=> 0, 'mess'=>'lỗi hệ thống');
+       
+    }
+      return array('code'=> 0, 'mess'=>'chưa đăng nhập');
+}
+
+function saveContentVideoScriptAPI($input){
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    if(!empty($session->read('infoUser'))){
+        $mess = '';
+        $conversation_id = '';
+        $member = $session->read('infoUser');
+
+        $modelContentFacebookAi = $controller->loadModel('ContentFacebookAis');
+
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+             $chat = array();
+            if(!empty($session->read('content_video_script'))){
+                     $chat = $session->read('content_video_script');
+            }
+
+
+            if(empty($dataSend['conversation_id']) && empty($dataSend['result'])){
+                return array('code'=> 0, 'mess'=>'lỗi hệ thống');  
+            }
+
+            $checkContent = $modelContentFacebookAi->find()->where(['conversation_id'=>$dataSend['conversation_id'],'type'=>'content_video_script'])->first();
+
+            if(empty($checkContent)){
+                $checkContent = $modelContentFacebookAi->newEmptyEntity();
+                $checkContent->conversation_id = $dataSend['conversation_id'];
+                $checkContent->created_at = time();
+                $checkContent->type = 'content_video_script';
+            }
+            $title = 'Tái chế nội dung kịch bản Video có sắn cho nội dung '.$chat['topic'];
+
+            if(!empty($dataSend['title'])){
+                $title = $dataSend['title'];  
+            }
+            $checkContent->title = @$title;
+            $checkContent->topic = @$chat['topic'];
+            $checkContent->content_ai = @$dataSend['result'];
+            $checkContent->id_member = @$member->id;
+            $checkContent->updated_at = time();
+            $checkContent->customer_target = @$dataSend['target'];
+
+            $modelContentFacebookAi->save($checkContent);
+
+             return array('code'=> 1, 'mess'=>'Lưu thành công', 'data'=>$checkContent);
+
+        }
+        return array('code'=> 0, 'mess'=>'lỗi hệ thống');
+    }
+    return array('code'=> 0, 'mess'=>'chưa đăng nhập');
+
+}
+
 ?>

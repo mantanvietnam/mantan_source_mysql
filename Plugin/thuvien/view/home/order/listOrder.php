@@ -58,6 +58,7 @@ table, th, td {
         </div>
 
           <div class="col-md-1">
+          <label class="form-label">&nbsp;</label>
             <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
           </div>
       </div>
