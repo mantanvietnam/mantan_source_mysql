@@ -283,11 +283,7 @@
               <img src="<?php echo @$urlThemeActive; ?>/assets/images/iconShopWhite.png" alt="" width="20" />
             </div>
             <div class="icon-button hover:scale-105 cursor-pointer ease-in">
-              <img
-                src="<?php echo @$urlThemeActive; ?>/assets/images/iconHeartWhite.png"
-                alt=""
-                width="20"
-              />
+              <img src="<?php echo @$urlThemeActive; ?>/assets/images/iconHeartWhite.png" alt="" width="20" />
             </div>
           </div>
         </div>
