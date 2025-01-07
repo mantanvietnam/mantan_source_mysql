@@ -7,7 +7,7 @@
       <div>
         <img src="<?php echo @$urlThemeActive; ?>assets/images/Stroke.png" alt="">
       </div>
-      <span>Trang chủ</span>
+      <span><a href="/">Trang chủ</a></span>
       <span>/</span>
       <span class='current-page'><?php echo $category->name;?></span>
     </div>
