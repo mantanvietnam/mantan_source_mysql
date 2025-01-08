@@ -118,7 +118,7 @@
                 <img src="<?= $urlThemeActive?>asset/images/Artboard 3 2.png" alt="">
             </div>
             <div class="dtfs7-block-2-sub">
-                <p>Hãy đồng hành cùng chúng tôi qua những câu chuyện trên con đường bảo vệ và gìn giữ thế giới tự nhiên của Việt Nam, vì một tương lai nơi con người và muôn loài hoang dã cùng nhau phát triển.</p>
+                <p><?= $field['description']?></p>
             </div>
         </div>
     </div>

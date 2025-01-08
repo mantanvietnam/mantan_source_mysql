@@ -92,6 +92,7 @@ function addfield($input)
             $data->title1= $dataSend['title1'];
             $data->content1= $dataSend['content1'];
             $data->content2= $dataSend['content2'];
+            $data->description= $dataSend['description'];
             $data->image1 = $dataSend['image1'];
             $data->image2 = $dataSend['image2'];
             $data->image3 = $dataSend['image3'];

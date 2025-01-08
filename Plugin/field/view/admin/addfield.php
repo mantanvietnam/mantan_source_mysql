@@ -85,12 +85,16 @@
                                 <label class="form-label">image 4</label>
                                 <?php showUploadFile('image4','image4',@$data->image4,4);?>
                               </div>
-                                              
+                                          
                           </div>
                           <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">image 2</label>
                                 <?php showUploadFile('image2','image2',@$data->image2,2);?>
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">Mô tả ngắn</label>
+                                <textarea rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                               </div>
                           </div>
                         </div>
