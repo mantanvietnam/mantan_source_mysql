@@ -1139,11 +1139,20 @@ table {
   }
 
   @media screen and (max-width: 425px){
+    .out-like-blogpro .write-outline{
+        max-width: 80px; /* Chiều rộng tối đa */
+        white-space: nowrap; /* Không cho xuống dòng */
+        overflow: hidden; /* Ẩn nội dung vượt quá chiều rộng */
+        text-overflow: ellipsis; /* Hiển thị dấu ba chấm */
+    }
+    .main-wrap .showcase .overlay .chat-main .chat-header p {
+        font-size: 20px;
+    }
     .set-height-writecontent{
         margin-top: 10px;
     }
     .last-inputcontent{
-        margin-top: 170px;
+        margin-top: 170px !important;
     }
     .set-distent-icon .link-text{
         display: none !important;
