@@ -1145,9 +1145,15 @@ table {
         overflow: hidden; /* Ẩn nội dung vượt quá chiều rộng */
         text-overflow: ellipsis; /* Hiển thị dấu ba chấm */
     }
+    .main-wrap .showcase .overlay .search-btn{
+        right: 0 !important;
+    }
     .main-wrap .showcase .overlay .search-box{
         width: 90% !important;
         margin-right: 0px;
+    }
+    .main-wrap .showcase .overlay .info{
+        width: 160px !important;
     }
     .main-wrap .showcase .overlay .chat-main .chat-header p {
         font-size: 20px;
@@ -1156,7 +1162,7 @@ table {
         margin-top: 10px;
     }
     .last-inputcontent{
-        margin-top: 170px !important;
+        margin-top: 270px !important;
     }
     .set-distent-icon .link-text{
         display: none !important;
