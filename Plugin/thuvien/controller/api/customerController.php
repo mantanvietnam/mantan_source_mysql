@@ -63,10 +63,17 @@ function saveCustomerAPI() {
         $fullName = trim($dataSend['full_name']);
         $email = isset($dataSend['email']) ? trim($dataSend['email']) : '';
         $phone = trim($dataSend['phone']);
+        $buiding_id = trim($dataSend['buiding_id']);
         $identity = trim($dataSend['identity']);
         $address = isset($dataSend['address']) ? trim($dataSend['address']) : '';
         $birthday = isset($dataSend['birthday']) ? trim($dataSend['birthday']) : null;
-        $birthday = strtotime(str_replace("/", "-", $birthday));
+
+        // Chỉ xử lý nếu $birthday không phải null hoặc chuỗi rỗng
+        if (!empty($birthday)) {
+            $birthday = strtotime(str_replace("/", "-", $birthday));
+        } else {
+            $birthday = null;
+        }
 
         $existingCustomer = $modelCustomers->find()->where(['phone' => $phone, 'identity' => $identity])->first();
 
@@ -83,6 +90,7 @@ function saveCustomerAPI() {
             $newCustomer->identity = $identity;
             $newCustomer->address = $address;
             $newCustomer->birthday = $birthday;
+            $newCustomer->buiding_id = $buiding_id;
             $newCustomer->status = "active";
             $newCustomer->created_at = time();
 

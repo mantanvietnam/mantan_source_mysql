@@ -218,6 +218,7 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" id="building-id" value="">
 
                 </div>
 
@@ -522,18 +523,8 @@
         return;
     }
 
-    if (!/^\d{9,12}$/.test(identity)) {
-        alert('Số CCCD phải là số từ 9 đến 12 chữ số!');
-        $('#identity').focus();
-        return;
-    }
 
-    if (!/^\d{10}$/.test(phone)) {
-        alert('Số điện thoại phải gồm 10 chữ số!');
-        $('#phone').focus();
-        return;
-    }
-
+    let buiding_id = $("#building-id").val();
 
     var data = {
         full_name: full_name,
@@ -541,43 +532,47 @@
         email: email,
         phone: phone,
         address: address,
+        buiding_id: buiding_id,
         birthday: birthday
     };
 
-    console.log("Dữ liệu gửi đi:", data);
-
     $.ajax({
-        method: "POST",
-        url: "/apis/saveCustomerAPI",
-        data: data,
-        success: function(response) {
-            console.log("Phản hồi từ server:", response);
+    method: "POST",
+    url: "/apis/saveCustomerAPI",
+    data: data,
+    success: function(response) {
 
-            if (response.success === true) {
-                var customer = response.customer;
+        if (response.success === true) {
+            var customer = response.customer;
 
-                $('#customer-search').val(customer.full_name);
-                $('#customer-id').val(customer.id);
+            $('#customer-search').val(customer.full_name);
+            $('#customer-id').val(customer.id);
 
-                var resultHtml = `
-                    <div class="search-item" data-id="${customer.id}">
-                        <strong>${customer.full_name}</strong> - ${customer.phone}
-                    </div>
-                `;
-                $('#customer-search-results').html(resultHtml).show();
+            var resultHtml = `
+                <div class="search-item" data-id="${customer.id}">
+                    <strong>${customer.full_name}</strong> - ${customer.phone}
+                </div>
+            `;
+            $('#customer-search-results').html(resultHtml).show();
 
-                alert('Thông tin khách hàng đã được lưu thành công!');
-                $('#addCustomer').modal('hide');
-            } else {
-                alert('Lỗi: ' + response.message);
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error('Có lỗi xảy ra:', textStatus, errorThrown);
-
-            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+            alert('Thông tin khách hàng đã được lưu thành công!');
+            $('#addCustomer').modal('hide');
+        } else {
+            console.warn("Server responded with an error:", response.message);
+            alert('Lỗi: ' + response.message);
         }
-    });
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        console.error("AJAX Request Error:", {
+            textStatus: textStatus,
+            errorThrown: errorThrown,
+            responseText: jqXHR.responseText
+        });
+
+        alert('Có lỗi xảy ra. Vui lòng thử lại.');
+    }
+});
+
     
 }
 

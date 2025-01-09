@@ -44,7 +44,8 @@
       <div class="step-content p-2" data-step="1">
         <div class="max-w-4xl">
           <?php  
-          $price_total = 0; // Khởi tạo tổng giá trị của giỏ hàng
+          $price_total = 0;
+          $total = 0;
 
           if(!empty($list_product)) {
               foreach ($list_product as $key => $value) {
@@ -53,6 +54,7 @@
 
                   $price_buy = $value->price * $value->numberOrder;
                   $price_total += $price_buy;
+                  $total = $price_total;
 
                   echo '
                   <div class="flex items-center space-x-4">
@@ -105,6 +107,7 @@
                     <?php echo number_format($price_total); ?>₫
                 </p>
             </div>
+            <input type="hidden" name="total" value="<?php echo $total; ?>">
 
             <!-- Nút Đặt hàng -->
             <div class="flex justify-center mt-4">
@@ -171,13 +174,12 @@
         <!-- Ghi chú giao hàng -->
         <div class="col-span-2">
             <label class="block mb-2 text-gray-700" for="note">Ghi chú giao hàng</label>
-            <input
+            <textarea
                 class="w-full p-2 border border-gray-300 rounded"
-                type="text"
                 id="note"
                 name="note_user"
-                value=""
-            />
+                rows="5"
+            ></textarea>
         </div>
 
         <hr class="col-span-2" />
