@@ -1145,6 +1145,10 @@ table {
         overflow: hidden; /* Ẩn nội dung vượt quá chiều rộng */
         text-overflow: ellipsis; /* Hiển thị dấu ba chấm */
     }
+    .main-wrap .showcase .overlay .search-box{
+        width: 90% !important;
+        margin-right: 0px;
+    }
     .main-wrap .showcase .overlay .chat-main .chat-header p {
         font-size: 20px;
     }
