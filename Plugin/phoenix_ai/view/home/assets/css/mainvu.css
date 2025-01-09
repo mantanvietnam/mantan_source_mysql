@@ -1139,6 +1139,12 @@ table {
   }
 
   @media screen and (max-width: 425px){
+    .set-height-writecontent{
+        margin-top: 10px;
+    }
+    .last-inputcontent{
+        margin-top: 170px;
+    }
     .set-distent-icon .link-text{
         display: none !important;
     }
