@@ -86,9 +86,9 @@ function listOrder($input)
 
             $dataExcel = [];
             foreach ($listData as $value) {
-                $customer = $modelCustomers->get($value->customer_id);
-                $building = $modelBuildings->get($value->building_id);
-                $member = $modelMembers->get($value->member_id);
+                $customer = $modelCustomers->find()->where(['id'=>$value->customer_id])->first();
+                $building = $modelBuildings->find()->where(['id'=>$value->building_id])->first();
+                $member = $modelMembers->find()->where(['id'=>$value->member_id])->first();
                 $orderDetails = $modelOrderDetails->find()->where(['order_id' => $value->id])->all()->toList();
                 if(!empty($orderDetails)){
                     $statusText = ($value->status == '1') ? 'Đang mượn' : 'Đã trả';
@@ -124,9 +124,9 @@ function listOrder($input)
         ->toList();
 
         foreach ($listData as $key => $order) {
-            $listData[$key]->customer = $modelCustomers->get($order->customer_id);
-            $listData[$key]->building = $modelBuildings->get($order->building_id);
-            $listData[$key]->member = $modelMembers->get($order->member_id);
+            $listData[$key]->customer = $modelCustomers->find()->where(['id'=>$order->customer_id])->first();
+            $listData[$key]->building = $modelBuildings->find()->where(['id'=>$order->building_id])->first();
+            $listData[$key]->member = $modelMembers->find()->where(['id'=>$order->member_id])->first();
             $whereOrder = ['order_id'=>$order->id];
             if(!empty($_GET['id_book'])){
                 $whereOrder['book_id']=(int)$_GET['id_book'];

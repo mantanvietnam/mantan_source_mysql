@@ -22,7 +22,7 @@ function listCustomer($input)
         $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
         if ($page < 1) $page = 1;
 
-        $conditions = [];
+        $conditions = ['status NOT IN'=>'delete'];
 
         if (!empty($_GET['id'])) {
             $conditions['id'] = (int)$_GET['id'];
@@ -236,7 +236,8 @@ function deleteCustomer($input){
                 $note = $user->name . ' đã xóa thông tin người mượn ' . $customer->name . ' có ID là: ' . $customer->id;
                 addActivityHistory($user, $note, 'deleteCustomer', $customer->id);
 
-                $modelCustomers->delete($customer);
+                $customer->status = 'delete';
+                $listCustomer->save($customer);
 
                 return $controller->redirect('/listCustomer?error=requestDeleteSuccess');
             } else {

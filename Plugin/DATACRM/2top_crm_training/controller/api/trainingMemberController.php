@@ -292,7 +292,7 @@ function getTestMemberAPI($input)
     return $return;
 }
 
-function resultTestCustomerAPI($input){
+function resultTestMemberAPI($input){
 	global $controller;
 	global $isRequestPost;
 	global $modelOptions;
@@ -384,5 +384,66 @@ function resultTestCustomerAPI($input){
 	return $return;
 }
 
+function historyTestMemberAPI($input)
+{
+    global $controller;
+    global $isRequestPost;
+
+   $return = array('code'=>0);
+    if($isRequestPost){
+
+		$dataSend = $input['request']->getData();
+
+
+		if(!empty($dataSend['token'])){
+			  $infoMember = getMemberByToken($dataSend['token']);
+
+			if(!empty($infoMember)){
+
+		        $modelHistoryTests = $controller->loadModel('Historytests');
+		        $modelTests = $controller->loadModel('Tests');
+		        $conditions= array('id_customer'=> $infoMember->id, 'type'=>'member');
+
+		        $limit = 20;
+
+		        $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+
+		        if($page<1) $page = 1;
+
+		        $order = array('id'=>'desc');
+		     
+		        $listData = $modelHistoryTests->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+		        if(!empty($listData)){
+		            foreach ($listData as $key => $value) {
+		                if(!empty($value->id_test) && empty($category[$value->id_test])){
+
+		                    $category[$value->id_test] = $modelTests->find()->where(['id' => (int) $value->id_test])->first();
+
+		                }
+		                $listData[$key]->name_test = (!empty($category[$value->id_test]->title))?$category[$value->id_test]->title:'';
+
+		            }
+
+		        }
+		        
+		        // phân trang
+
+		        $totalData = $modelHistoryTests->find()->where($conditions)->all()->toList();
+
+		        $totalData = count($totalData);
+		        $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+		    }else{
+				$return = array('code'=>3, 'mess'=>'Sai mã token');
+			}
+		}else{
+			$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+		}
+	}else{
+		$return = array('code'=>0, 'mess'=>' gửi sai kiểu POST');
+	}
+
+	return $return;
+}
 
  ?>

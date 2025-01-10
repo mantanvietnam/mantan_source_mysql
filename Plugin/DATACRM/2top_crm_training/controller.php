@@ -9,5 +9,6 @@ include_once('controller/admin/history_testsController.php'); // lịch sử thi
 include_once('controller/admin/homesController.php'); // frontend
 
 include_once('controller/api/courseController.php'); // khóa học
+include_once('controller/api/trainingMemberController.php'); // khóa học
 
 ?>
