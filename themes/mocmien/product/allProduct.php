@@ -2,6 +2,74 @@
 	global $urlThemeActive; 
 	getHeader();
 ?>
+<style>
+    /* Container chính cho phân trang */
+    .pagination-container {
+        display: flex;
+        justify-content: center; /* Căn giữa */
+        margin-top: 20px;
+    }
+
+    /* Các phần tử trang */
+    .page-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px; /* Đặt kích thước cho mỗi nút */
+        height: 30px;
+        background-color: #f0f0f0;
+        border-radius: 50%; /* Tạo hình tròn */
+        text-align: center;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Hiệu ứng hover cho các nút phân trang */
+    .page-number:hover {
+        background-color: #4CAF50; /* Màu xanh khi hover */
+        color: white; /* Màu chữ trắng */
+        transform: scale(1.1); /* Phóng to nút khi hover */
+    }
+
+    /* Nút trang đang được chọn (active) */
+    .page-number.active {
+        background-color: #4CAF50; /* Màu nền xanh cho nút active */
+        color: white; /* Màu chữ trắng */
+        font-weight: bold;
+    }
+
+    /* Liên kết trong các nút trang */
+    .page-number a {
+        text-decoration: none;
+        color: inherit;
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    /* Điều chỉnh cho nút phân trang khi không được chọn */
+    .page-number:not(.active) a {
+        color: #333;
+    }
+
+    /* Thêm khoảng cách giữa các phần tử */
+    .page-number:not(:last-child) {
+        margin-right: 8px;
+    }
+
+    /* Thêm phần margin cho container để tránh chồng lấn */
+    .container.mt-4 {
+        margin-top: 40px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .page-number {
+            width: 25px; /* Điều chỉnh kích thước cho màn hình nhỏ */
+            height: 25px;
+        }
+    }
+</style>
 	<!-- địa chỉ trang -->
     <div class='container gap-3 d-flex align-items-center location-page'>
       <div>
@@ -10,16 +78,6 @@
       <a href="/">Trang chủ</a>
       <span>/</span>
       <span class='current-page'>Tất cả sản phẩm</span>
-    </div>
-	<!-- tiêu đề và tìm kiếm sản phẩm -->
-    <div class='container'>
-    <div class='title-section'>
-      <span class='color-green'>DANH MỤC</span>
-      <span>SẢN PHẨM</span>
-    </div>
-    <div class='d-flex flex-column gap-4 flex-xl-row mt-4 align-items-center justify-content-between'>
-  
-    </div>
     </div>
 
     <div class='container mt-4'>
@@ -67,13 +125,7 @@
                                   <div class="bestsell-product-old-price">'.$price_old.'</div>
                                 </div>
                                 <div class="bestsell-product-selling">
-                                  <div class="star-rating">
-                                    <div class="star filled">★</div>
-                                    <div class="star filled">★</div>
-                                    <div class="star filled">★</div>
-                                    <div class="star half">★</div>
-                                    <div class="star">★</div>
-                                  </div>
+                                    <div>' . $product->view . ' Lượt truy cập</div>
                                 </div>
                             </div>';
                 }
@@ -83,29 +135,29 @@
     </div>
 
     <!-- pagination -->
-    <div class='container mt-4 d-flex gap-2'>
+    <div class='pagination-container mt-4 d-flex gap-2'>
     <?php
-   if($totalPage>0){
-    if ($page > 5) {
-        $startPage = $page - 5;
-    } else {
-        $startPage = 1;
-    }
+        if($totalPage > 0){
+            if ($page > 5) {
+                $startPage = $page - 5;
+            } else {
+                $startPage = 1;
+            }
 
-    if ($totalPage > $page + 5) {
-        $endPage = $page + 5;
-    } else {
-        $endPage = $totalPage;
-    }
-        for ($i = $startPage; $i <= $endPage; $i++) {
-            $activeClass = ($page == $i) ? 'active' : '';
-            echo '<div class="d-flex align-items-center justify-content-center page-number ' . $activeClass . '">
-                    <a href="' . $urlPage . $i . '">' . $i . '</a>
-                  </div>';
+            if ($totalPage > $page + 5) {
+                $endPage = $page + 5;
+            } else {
+                $endPage = $totalPage;
+            }
+
+            for ($i = $startPage; $i <= $endPage; $i++) {
+                $activeClass = ($page == $i) ? 'active' : '';
+                echo '<div class="d-flex align-items-center justify-content-center page-number ' . $activeClass . '">
+                        <a href="' . $urlPage . $i . '">' . $i . '</a>
+                    </div>';
+            }
         }
-
-    }
-    ?>
-</div>
+        ?>
+    </div>
 
 <?php getFooter(); ?>
