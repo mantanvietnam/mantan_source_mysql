@@ -40,7 +40,9 @@
                 </div>
             </div>
         </section>
-
+            <section id="zalo">
+                <a href="https://zalo.me/0833363868" class="chat-zalo-btn" target="_blank">Chat Zalo</a>
+            </section>
         <section id="section-category-product">
             <div class="container">
                 <div class="row">

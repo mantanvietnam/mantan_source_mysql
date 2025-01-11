@@ -80,7 +80,29 @@ h1, h2, h3, h4{
     line-height: normal;
     font-size: 16px;
 }
+#zalo {
+    position: relative; /* Để dễ dàng chứa các phần tử với position */
+}
 
+.chat-zalo-btn {
+    position: fixed; /* Cố định vị trí trên màn hình */
+    bottom: 20px; /* Cách cạnh dưới màn hình 20px */
+    right: 20px; /* Cách cạnh phải màn hình 20px */
+    background-color: #0078FF; /* Màu xanh */
+    color: white;
+    text-decoration: none; /* Xóa gạch chân */
+    border-radius: 25px; /* Làm tròn góc */
+    padding: 10px 20px;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+    text-align: center;
+    cursor: pointer;
+    z-index: 100000;
+}
+
+.chat-zalo-btn:hover {
+    background-color: #005BBB; /* Đổi màu khi hover */
+}
 /* search */
 #section-search{
     background-color: #ebebeb;
