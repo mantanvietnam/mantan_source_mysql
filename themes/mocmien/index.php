@@ -275,11 +275,7 @@
                   </div>
                 </div>
                 <div class='bestsell-product-selling'>
-<<<<<<< HEAD
                 <span><?php echo $seller_product->view . ' Lượt xem'; ?></span>
-=======
-                <span><?php echo $seller_product->view . ' Lượt truy cập'; ?></span>
->>>>>>> 59318f8831ad034e7ef2a13df396ebf14f754f0b
                   <!-- <div>
                     <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="">
                   </div> -->
@@ -334,11 +330,7 @@
                   <div class='bestsell-product-old-price'><?php echo number_format($comboProduct->price_old, 0, ',', '.') . ' VNĐ'; ?></div>
                 </div>
                 <div class='bestsell-product-selling'>
-<<<<<<< HEAD
                 <span><?php echo $seller_product->view . ' Lượt xem'; ?></span>
-=======
-                <span><?php echo $seller_product->view . ' Lượt truy cập'; ?></span>
->>>>>>> 59318f8831ad034e7ef2a13df396ebf14f754f0b
                   <!-- <div class="star-rating">
                     <div class="star filled">★</div>
                     <div class="star filled">★</div>

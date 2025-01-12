@@ -125,7 +125,7 @@
                                   <div class="bestsell-product-old-price">'.$price_old.'</div>
                                 </div>
                                 <div class="bestsell-product-selling">
-                                    <div>' . $product->view . ' Lượt truy cập</div>
+                                    <div>' . $product->view . ' Lượt xem</div>
                                 </div>
                             </div>';
                 }
