@@ -73,7 +73,7 @@
           <!-- Register -->
           <div class="card">
             <div class="card-body">
-              <h4 class="mb-2">Phần mềm quản lý DATA SPA 👋</h4>
+              <h4 class="mb-2">Phần mềm quản lý dịch vụ 👋</h4>
               <p class="mb-4">Mời bạn nhập thông tin để lấy lại mật khẩu</p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">

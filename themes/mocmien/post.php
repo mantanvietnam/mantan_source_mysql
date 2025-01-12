@@ -156,26 +156,6 @@ p, .author {
             </div>
         </div>
     </section>
-    <section id="skct-lien-quan-bottom" class="mt-5">
-        <div class="container">
-            <h2 class="mb-4">Tin tức liên quan</h2>
-            <div class="row g-3 g-lg-4">
-                <?php foreach ($otherPosts as $relatedPost): ?>
-                    <div class="col-12 col-lg-4">
-                        <a href="/<?= $relatedPost->slug ?>.html" class="d-block text-decoration-none">
-                            <div class="card card-event">
-                                <img class="card-img-top" src="<?= $relatedPost->image ?>" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title mb-3"><?= $relatedPost->title ?></h5>
-                                    <p class="card-time"><?= date('d/m/Y', $relatedPost->time) ?></p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </section>
 </main>
 <?php
 getFooter();

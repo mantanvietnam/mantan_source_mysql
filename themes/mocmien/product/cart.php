@@ -2,42 +2,62 @@
 	global $urlThemeActive; 
 	getHeader();
 ?>
-<div id="checkout-container" class="flex justify-center mt-10">
-      <div class="w-full max-w-4xl p-4 rounded-xl bg-blue-50">
-        <div class="flex items-center justify-between">
-          <!-- Step Indicators -->
-          <div class="flex flex-col items-center step" data-step="1">
-            <div
-              class="flex items-center justify-center w-12 h-12 text-white bg-blue-900 rounded-xl icon"
-            >
-              <i class="fas fa-shopping-bag"></i>
+
+<style>
+.step-content {
+    padding: 16px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 960px;
+    box-sizing: border-box;
+}
+
+.step-content p, .step-content span {
+    margin-bottom: 10px;
+}
+
+.step-content input, .step-content select, .step-content textarea {
+    margin-bottom: 16px;
+    padding: 12px;
+}
+
+</style>
+    <div id="checkout-container" class="flex justify-center mt-10">
+          <div class="w-full max-w-4xl p-4 rounded-xl bg-blue-50">
+            <div class="flex items-center justify-between">
+              <!-- Step Indicators -->
+              <div class="flex flex-col items-center step" data-step="1">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-white bg-blue-900 rounded-xl icon"
+                >
+                  <i class="fas fa-shopping-bag"></i>
+                </div>
+                <span class="mt-2 text-black">Giỏ hàng</span>
+              </div>
+              <div
+                class="flex-grow mx-2 mb-4 border-t-2 border-gray-300 border-dotted"
+              ></div>
+              <div class="flex flex-col items-center step" data-step="2">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-gray-500 bg-gray-200 rounded-xl icon"
+                >
+                  <i class="fas fa-user-friends"></i>
+                </div>
+                <span class="mt-2 text-gray-500">Thông tin đặt hàng</span>
+              </div>
+              <div
+                class="flex-grow mx-2 mb-4 border-t-2 border-gray-300 border-dotted"
+              ></div>
+              <div class="flex flex-col items-center step" data-step="3">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-gray-500 bg-gray-200 rounded-xl icon"
+                >
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <span class="mt-2 text-gray-500">Hoàn tất</span>
+              </div>
             </div>
-            <span class="mt-2 text-black">Giỏ hàng</span>
           </div>
-          <div
-            class="flex-grow mx-2 mb-4 border-t-2 border-gray-300 border-dotted"
-          ></div>
-          <div class="flex flex-col items-center step" data-step="2">
-            <div
-              class="flex items-center justify-center w-12 h-12 text-gray-500 bg-gray-200 rounded-xl icon"
-            >
-              <i class="fas fa-user-friends"></i>
-            </div>
-            <span class="mt-2 text-gray-500">Thông tin đặt hàng</span>
-          </div>
-          <div
-            class="flex-grow mx-2 mb-4 border-t-2 border-gray-300 border-dotted"
-          ></div>
-          <div class="flex flex-col items-center step" data-step="3">
-            <div
-              class="flex items-center justify-center w-12 h-12 text-gray-500 bg-gray-200 rounded-xl icon"
-            >
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <span class="mt-2 text-gray-500">Hoàn tất</span>
-          </div>
-        </div>
-      </div>
     </div>
     <!-- Step Contents -->
     <div class="flex justify-center my-6">
@@ -122,90 +142,90 @@
       </div>
 
       <div class="hidden step-content" data-step="2">
-      <form action="/createOrder" method="post">
-    <!-- Hidden Inputs -->
-    <input type="hidden" name="id_user" value="<?php echo @$infoUser->id; ?>">
-    <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken; ?>">
+        <form action="/createOrder" method="post">
+          <!-- Hidden Inputs -->
+          <input type="hidden" name="id_user" value="<?php echo @$infoUser->id; ?>">
+          <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken; ?>">
 
-    <div class="grid max-w-4xl sm:grid-cols-2 gap-x-8 gap-y-4 p-2">
-        <h2 class="text-xl font-semibold sm:col-span-2">
-            Thông tin khách mua hàng
-        </h2>
+          <div class="grid max-w-4xl sm:grid-cols-2 gap-x-8 gap-y-4 p-2">
+              <h2 class="text-xl font-semibold sm:col-span-2">
+                  Thông tin khách mua hàng
+              </h2>
 
-        <!-- Họ và Tên -->
-        <div class="sm:col-span-1">
-            <label class="block mb-2 text-gray-700" for="name">Họ và tên</label>
-            <input
-                class="w-full p-2 border border-gray-300 rounded"
-                type="text"
-                id="name"
-                name="full_name"
-                value="<?php echo @$infoUser->full_name; ?>"
-                required
-            />
-        </div>
+              <!-- Họ và Tên -->
+              <div class="sm:col-span-1">
+                  <label class="block mb-2 text-gray-700" for="name">Họ và tên</label>
+                  <input
+                      class="w-full p-2 border border-gray-300 rounded"
+                      type="text"
+                      id="name"
+                      name="full_name"
+                      value="<?php echo @$infoUser->full_name; ?>"
+                      required
+                  />
+              </div>
 
-        <!-- Số Điện Thoại -->
-        <div class="sm:col-span-1">
-            <label class="block mb-2 text-gray-700" for="phone">Số điện thoại</label>
-            <input
-                class="w-full p-2 border border-gray-300 rounded"
-                type="text"
-                id="phone"
-                name="phone"
-                value="<?php echo @$infoUser->phone; ?>"
-                required
-            />
-        </div>
+              <!-- Số Điện Thoại -->
+              <div class="sm:col-span-1">
+                  <label class="block mb-2 text-gray-700" for="phone">Số điện thoại</label>
+                  <input
+                      class="w-full p-2 border border-gray-300 rounded"
+                      type="text"
+                      id="phone"
+                      name="phone"
+                      value="<?php echo @$infoUser->phone; ?>"
+                      required
+                  />
+              </div>
 
-        <!-- Địa chỉ giao hàng -->
-        <div class="col-span-2">
-            <label class="block mb-2 text-gray-700" for="address">Địa chỉ giao hàng</label>
-            <input
-                class="w-full p-2 border border-gray-300 rounded"
-                type="text"
-                id="address"
-                name="address"
-                value="<?php echo @$infoUser->address; ?>"
-                required
-            />
-        </div>
+              <!-- Địa chỉ giao hàng -->
+              <div class="col-span-2">
+                  <label class="block mb-2 text-gray-700" for="address">Địa chỉ giao hàng</label>
+                  <input
+                      class="w-full p-2 border border-gray-300 rounded"
+                      type="text"
+                      id="address"
+                      name="address"
+                      value="<?php echo @$infoUser->address; ?>"
+                      required
+                  />
+              </div>
 
-        <!-- Ghi chú giao hàng -->
-        <div class="col-span-2">
-            <label class="block mb-2 text-gray-700" for="note">Ghi chú giao hàng</label>
-            <textarea
-                class="w-full p-2 border border-gray-300 rounded"
-                id="note"
-                name="note_user"
-                rows="5"
-            ></textarea>
-        </div>
+              <!-- Ghi chú giao hàng -->
+              <div class="col-span-2">
+                  <label class="block mb-2 text-gray-700" for="note">Ghi chú giao hàng</label>
+                  <textarea
+                      class="w-full p-2 border border-gray-300 rounded"
+                      id="note"
+                      name="note_user"
+                      rows="5"
+                  ></textarea>
+              </div>
 
-        <hr class="col-span-2" />
+              <hr class="col-span-2" />
 
-        <!-- Tổng tiền -->
-        <div class="flex items-center justify-between col-span-2">
-            <span class="text-lg font-semibold">Tổng tiền</span>
-            <span class="text-lg font-semibold text-green-500">
-                <?php echo number_format($price_total, 0, '.', ','); ?>₫
-            </span>
-        </div>
+              <!-- Tổng tiền -->
+              <div class="flex items-center justify-between col-span-2">
+                  <span class="text-lg font-semibold">Tổng tiền</span>
+                  <span class="text-lg font-semibold text-green-500">
+                      <?php echo number_format($price_total, 0, '.', ','); ?>₫
+                  </span>
+              </div>
 
-        <!-- Nút Hoàn tất -->
-        <div class="flex justify-center col-span-2 mt-4">
-            <button
-                id="next-step"
-                class="px-4 py-2 text-white bg-green-500 rounded-full btn-submit-form hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
-                type="submit"
-            >
-                HOÀN TẤT ĐẶT HÀNG NGAY
-            </button>
-        </div>
-    </div>
-</form>
-
+              <!-- Nút Hoàn tất -->
+              <div class="flex justify-center col-span-2 mt-4">
+                  <button
+                      id="next-step"
+                      class="px-4 py-2 text-white bg-green-500 rounded-full btn-submit-form hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                      type="submit"
+                  >
+                      HOÀN TẤT ĐẶT HÀNG NGAY
+                  </button>
+              </div>
+          </div>
+        </form>
       </div>
+
       <div class="hidden step-content" data-step="3">
         <div class="max-w-4xl text-center">
           <img

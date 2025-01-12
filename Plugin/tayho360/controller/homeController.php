@@ -2075,6 +2075,69 @@ function ajax_event($input){
         return (array('text'=>$text,'code'=>$code, 'data'=> @$listData));
 }
 
+function ajax_event_th($input) {
+    global $urlNow;
+    global $controller;
+    global $urlCurrent;
+    global $urlThemeActive;
+    $modelEvent = $controller->loadModel('Events');
+    $year = getdate()['year'];
+ 
+    $conditions = array('status' => '1', 'year' => $year);
+ 
+    if (!empty($_GET['name'])) {
+       $key = createSlugMantan($_GET['name']);
+       $conditions['urlSlug'] = array('$regex' => $key);
+    }
+ 
+    if (!empty($_GET['month'])) {
+       $conditions['month'] = $_GET['month'];
+    }
+    $order = array('id' => 'desc');
+    $listData = $modelEvent->find()->limit(1)->page(1)->where($conditions)->order($order)->all()->toList();
+ 
+    $text = '';
+    if (!empty($listData)) {
+       foreach ($listData as $keyEvent => $valueEvent) {
+          $text .= '<div class="best-new-container mt-4">
+                     <a style="width : 100%" href="/chi_tiet_su_kien/'.$valueEvent->urlSlug.'.html">
+                       <div class="best-new-img">
+                         <img id="best-new-img" style="width : 100%" src="'.$valueEvent->image.'" alt="best">
+                       </div>
+                       <h3 id="event-title" class="mt-3">'.$valueEvent->name.'</h3>
+                     </a>
+                     <div class="bestnew-info d-flex">
+                       <div id="event-description" class="bestnew-des">
+                         '.$valueEvent->introductory.'
+                       </div>
+                       <div class="bn-contacts">
+                         <div class="bn-contact">
+                           <img src="'.$urlThemeActive.'images/date.png" alt="date">
+                           <span id="event-date">'.date("d/m/Y", $valueEvent->datestart).' - '.date("d/m/Y", $valueEvent->dateEnd).'</span>
+                         </div>
+                         <div class="bn-contact">
+                           <img src="'.$urlThemeActive.'images/location.png" alt="address">
+                           <span id="event-address">'.$valueEvent->address.'</span>
+                         </div>
+                       </div>
+                     </div>
+                   </div>';
+          $code = 1;
+       }
+    } else {
+       $text .= '<div class="best-new-container mt-4">
+                   <div class="best-new-img">
+                     <img id="best-new-img" style="width : 100%" src="'.$urlThemeActive.'/images/1fe55f76625bca05934a.jpg" alt="No events">
+                   </div>
+                   <h3 id="event-title" class="mt-3">Chưa có sự kiện nào đang diễn ra.</h3>
+                 </div>';
+       $code = 2;
+    }
+ 
+    return array('text' => $text, 'code' => $code, 'data' => @$listData);
+ }
+ 
+
 function bookingonline(){
      global $urlNow;
     global $controller;

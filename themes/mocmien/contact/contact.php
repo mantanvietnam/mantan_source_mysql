@@ -33,6 +33,11 @@
 .contact-info .contact-info-detail p {
     margin: 0;
 }
+.btn-primary {
+    background-color: #25982b !important;
+    border-color: #25982b !important;
+}
+
 
 </style>
 <main>

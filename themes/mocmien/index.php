@@ -243,7 +243,7 @@
       <!-- sản phẩm bán chạy -->
       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 bestsell-container'>
         <div class='list-category-header'>
-          <span><span class='color-green'>SẢN PHẨM</span> BÁN CHẠY</span>
+          <span><span class='color-green'>SẢN PHẨM</span> ĐƯỢC QUAN TÂM NHẤT</span>
           <a href="/categories" class='more-btn'>
             <div class=''>Xem thêm</div>
             <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="">
@@ -278,10 +278,10 @@
                   </div>
                 </div>
                 <div class='bestsell-product-selling'>
-                  <span><?php echo $seller_product->view ?> Đã bán</span>
-                  <div>
+                <span><?php echo $seller_product->view . ' Lượt truy cập'; ?></span>
+                  <!-- <div>
                     <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="">
-                  </div>
+                  </div> -->
                 </div>
               </a>
               <?php endforeach; ?>
@@ -333,7 +333,8 @@
                   <div class='bestsell-product-old-price'><?php echo number_format($comboProduct->price_old, 0, ',', '.') . ' VNĐ'; ?></div>
                 </div>
                 <div class='bestsell-product-selling'>
-                  <div class="star-rating">
+                <span><?php echo $seller_product->view . ' Lượt truy cập'; ?></span>
+                  <!-- <div class="star-rating">
                     <div class="star filled">★</div>
                     <div class="star filled">★</div>
                     <div class="star filled">★</div>
@@ -342,7 +343,7 @@
                   </div>
                   <div class='product-tym'>
                     <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="tym">
-                  </div>
+                  </div> -->
                 </div>
               </a>
               <?php endforeach; ?>

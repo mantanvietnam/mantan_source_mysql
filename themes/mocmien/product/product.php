@@ -35,6 +35,15 @@
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
   </head>
+  <style>
+    #quantity_buy {
+    width: 50px; 
+    height: 30px;
+    font-size: 14px;
+    padding: 5px;
+    text-align: center;
+}
+</style>
   <body>
     <!-- contact -->
     <div class="content-center text-white bg-green contact">
@@ -282,9 +291,6 @@
             <div class="icon-button hover:scale-105 ease-in">
               <img src="<?php echo @$urlThemeActive; ?>/assets/images/iconShopWhite.png" alt="" width="20" />
             </div>
-            <div class="icon-button hover:scale-105 cursor-pointer ease-in">
-              <img src="<?php echo @$urlThemeActive; ?>/assets/images/iconHeartWhite.png" alt="" width="20" />
-            </div>
           </div>
         </div>
         <div class="flex items-center justify-center mt-4 sm:hidden">
@@ -318,196 +324,86 @@
 
     <!-- sản phẩm liên quan -->
     <div class="flex items-center justify-center py-10 bg-gray-100">
-      <div class="mx-mobile md:mx-6 lg:mx-0 w-full lg:w-[80%] p-4 bg-white border-1 border-[#F2C538] rounded-lg">
+    <div class="mx-mobile md:mx-6 lg:mx-0 w-full lg:w-[80%] p-4 bg-white border-1 border-[#F2C538] rounded-lg">
         <h2 class="mb-4 text-[18px] leading-[24px] font-semibold">Sản phẩm liên quan</h2>
-            <?php
-                if(!empty($other_product)){
-                  foreach ($other_product as $key => $value) {
-                                                    
-                    if(!empty($product->price)){
-                        $price = number_format($product->price).'đ';
-                    }else{
-                        $price = 'Giá liên hệ';
-                    }
 
-                    echo '<div class="flex flex-col items-center justify-between mb-4 sm:flex-row">
-                            <div class="flex items-center">
-                                <img src="'.$value->image.'" alt="" class="w-12 h-12 mr-4 rounded" height="50" width="50">
-                                <p class="text-sm lg:w-[70%] xl:w-full description">'.$value->title.'</p>
-                            </div>
-                            <div class="flex items-center mt-2 sm:mt-0">
-                                <div class="flex items-center justify-center w-10 h-10 p-2 border border-gray-500 rounded-full hover:scale-105 cursor-pointer ease-in">
-                                  <img src="<?php echo @$urlThemeActive; ?>assets/images/iconShopWhite.png" alt="" class="w-6 h-6">
-                                </div>
-                                <button class="px-4 py-2 ml-4 text-sm font-semibold text-white bg-green-600 rounded-full whitespace-nowrap hover:opacity-85">
-                                    MUA NGAY
-                                </button>
-                            </div>
-                        </div>';
-                    }
+        <?php
+        if (!empty($other_product)) {
+            foreach ($other_product as $key => $value) {
+                // Kiểm tra giá sản phẩm
+                if (!empty($value->price)) {
+                    $price = number_format($value->price) . 'đ';
+                } else {
+                    $price = 'Giá liên hệ';
                 }
-            ?>
-        </div>
+                $link = '/product/' . htmlspecialchars($product->slug) . '.html';
+
+                // Hiển thị sản phẩm liên quan
+                echo '
+                    <div class="flex flex-col items-center justify-between mb-4 sm:flex-row">
+                        <div class="flex items-center">
+                            <img src="' . $value->image . '" alt="' . $value->title . '" class="w-12 h-12 mr-4 rounded" height="50" width="50">
+                            <p class="text-sm lg:w-[70%] xl:w-full description">' . $value->title . '</p>
+                        </div>
+                        <div class="flex items-center mt-2 sm:mt-0">
+                            <div class="flex items-center justify-center w-10 h-10 p-2 border border-gray-500 rounded-full hover:scale-105 cursor-pointer ease-in">
+                                <img src="' . $urlThemeActive . 'assets/images/iconShopWhite.png" alt="Shop Icon" class="w-6 h-6">
+                            </div>
+                            <a href="'.$link.'" class="px-4 py-2 ml-4 text-sm font-semibold text-white bg-green-600 rounded-full whitespace-nowrap hover:opacity-85">
+                                MUA NGAY
+                            </a>
+                        </div>
+                    </div>';
+            }
+        }
+        ?>
     </div>
+</div>
 
     <!-- Về sản phẩm -->
     <div class="text-gray-800 bg-white">
-      <div class="py-4 mx-mobile md:mx-6 lg:mx-16 xl:mx-28">
-        <h1 class="text-[28px] font-bold leading-[36px] mt-[30px] mb-[35px]">
-          Về <span class="text-green-600">sản phẩm</span>
-        </h1>
-        <div
-          class="flex mt-4 space-x-4 overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap"
-        >
-          <button
-            class="px-4 py-2 text-white bg-blue-900 rounded-full active"
-            id="btn-info"
-          >
-            Thông tin sản phẩm
-          </button>
-          <button class="px-4 py-2 text-gray-400" id="btn-specs">
-            Thông số sản phẩm
-          </button>
-          <button class="px-4 py-2 text-gray-400" id="btn-reviews">
-            Đánh giá & Nhận xét
-          </button>
+        <div class="py-4 mx-mobile md:mx-6 lg:mx-16 xl:mx-28">
+            <h1 class="text-[28px] font-bold leading-[36px] mt-[30px] mb-[35px]">
+                Về <span class="text-green-600">sản phẩm</span>
+            </h1>
+            <div class="flex mt-4 space-x-4 overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap">
+                <button
+                    class="px-4 py-2 text-white bg-blue-900 rounded-full active"
+                    id="btn-info"
+                    onclick="showTab('info')"
+                >
+                    Thông tin sản phẩm
+                </button>
+                <button 
+                    class="px-4 py-2 text-gray-400"
+                    id="btn-specs"
+                    onclick="showTab('specs')"
+                >
+                    Đặc điểm nổi bật
+                </button>
+                <button 
+                    class="px-4 py-2 text-gray-400"
+                    id="btn-reviews"
+                    onclick="showTab('reviews')"
+                >
+                    Đánh giá & Nhận xét
+                </button>
+            </div>
+
+            <div class="mt-4 text-gray-400 tab-content" id="info">
+                <?php echo $product->info; ?>
+            </div>
+            <div class="mt-4 text-gray-400 tab-content hidden" id="specs">
+                <?php echo $product->rule; ?>
+            </div>
+            <div class="mt-4 text-gray-400 tab-content hidden" id="reviews">
+            </div>
         </div>
-        <div class="mt-4 text-gray-400" id="btn-info">
-          <?php echo $product->info;?>
-        </div>
-      </div>
     </div>
 
-    <!-- sản phẩm bán chạy -->
-    <div class="mt-5 bestsell-container">
-      <div class="mx-mobile md:mx-6 lg:mx-16 xl:mx-28 list-category-header">
-        <span>SẢN PHẨM <span class="color-green">MỚI</span></span>
-        <a class="more-btn">
-          <div class="">Xem thêm</div>
-          <img src="<?php echo @$urlThemeActive; ?>/assets/images/arr.png" alt="" />
-        </a>
-      </div>
-      <div class="row bestsell-list-container">
-        <?php 
-            if(!empty($new_product)){
-                foreach ($new_product as $product) {
-                $link = '/product/'.$product->slug.'.html';
-
-                $giam = 0;
-                if(!empty($product->price_old) && !empty($product->price)){
-                    $giam = 100 - 100*$product->price/$product->price_old;
-                }
-
-                if($giam>0){
-                    $giam = '
-                        <div class="item-sale">
-                            <span><i class="fa-solid fa-bolt"></i> -'.round($giam).'%</span>
-                        </div>';
-                    }else{
-                      $giam = '';
-                    }
-
-                if(!empty($product->price)){
-                    $price = number_format($product->price).'đ';
-                }else{
-                    $price = 'Giá liên hệ';
-                }
-
-                if(!empty($product->price_old)){
-                    $price_old = number_format($product->price_old).'đ';
-                }else{
-                    $price_old = '';
-                }
-
-                echo '  <div class="col bestsell-product-container">
-                            <div class="bestsell-product-image">
-                                <a href="'.$link.'"><img src="'.$product->image.'" alt=""></a>
-                                '.$giam.' 
-                            </div>
-                            <div class="bestsell-product-title">
-                                <span>'.$product->title.'</span>
-                            </div>
-                            <div class="bestsell-product-price-container">
-                                <div class="bestsell-product-current-price">'.$price.'</div>
-                                <div class="bestsell-product-old-price">'.$price_old.'</div>
-                            </div>
-                            <div class="bestsell-product-selling">
-                                <div class="star-rating">
-                                    <div class="star filled">★</div>
-                                    <div class="star filled">★</div>
-                                    <div class="star filled">★</div>
-                                    <div class="star half">★</div>
-                                    <div class="star">★</div>
-                                </div>
-                            </div>
-                        </div>';
-                      }
-                  }
-            ?>
-    </div>
-  </div>
 
     <!-- footer -->
-    <div class="mt-5 footer-container">
-      <div class="px-4 pt-5 pb-5 mx-mobile md:mx-6 lg:mx-16 xl:mx-28">
-        <div class="row">
-          <div
-            class="col-lg-3 col-12 footer-frist-container d-flex flex-column"
-          >
-            <div class="gap-3 d-flex align-items-center">
-              <div><img src="<?php echo @$urlThemeActive; ?>/assets/images/logo.png" alt="logo" /></div>
-            </div>
-            <div class="mt-4 mb-3 bestnew-info">
-              <div class="gap-3 bn-contacts">
-                <div class='bn-contact'>
-                    <span><?php echo @$settingThemes['footer_address']; ?></span>
-                  </div>
-                  <div class='bn-contact'>
-                    <span><?php echo @$settingThemes['footer_email']; ?></span>
-                  </div>
-                  <div class='bn-contact'>
-                    <span><?php echo @$settingThemes['footer_phone_number']; ?></span>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="gap-3 text-white col-lg-3 col-6 d-flex flex-column footer-mid"
-          >
-            <h2>VỀ MỘC MIÊN</h2>
-            <span>Câu chuyện thương hiệu</span>
-            <span>Về chúng tôi</span>
-            <span>Liên hệ</span>
-          </div>
-          <div
-            class="gap-3 text-white col-lg-3 col-6 d-flex flex-column footer-mid"
-          >
-            <h2>CHÍNH SÁCH</h2>
-            <span>Chính sách và quy định chung</span>
-            <span>Chính sách và giao nhận thanh toán</span>
-            <span>Chính sách đổi trả</span>
-            <span>Điều khoản sử dụng</span>
-          </div>
-          <div
-            class="gap-3 text-white col-lg-3 col-6 d-flex flex-column footer-mid"
-          >
-            <h2>TẠI MỘC MIÊN</h2>
-            <span>Quyền lợi thành viên</span>
-            <span>Thông tin thành viên</span>
-            <span>Theo dõi đơn hàng</span>
-            <span>Hướng dẫn mua hàng Online</span>
-            <div class='gap-2 d-flex'>
-                <a href="<?php echo $settingThemes['instagram_link'] ?>" class='social-icon'><img src="<?= $urlThemeActive?>/assets/images/insta.png" alt="insta"></a>
-                <a href="<?php echo $settingThemes['facebook_link'] ?>" class='social-icon'><img src="<?= $urlThemeActive?>/assets/images/fb.png" alt="fb"></a>
-                <a href="<?php echo $settingThemes['linkedin_link'] ?>" class='social-icon'><img src="<?= $urlThemeActive?>/assets/images/linkedin.png" alt="linkedin"></a>
-                <a href="<?php echo $settingThemes['youtube_link'] ?>" class='social-icon'><img src="<?= $urlThemeActive?>/assets/images/yt.png" alt="youtube"></a>
-              </div>
-          </div>
-        </div>
-        <h2 class="footer-slogant color-green">MỘC MIÊN - ĐẸP THUẦN NHIÊN!</h2>
-      </div>
-    </div>
-  </body>
+    <?php getFooter(); ?>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript">
@@ -538,6 +434,31 @@
             window.location = '/cart';
         });
     }
+
+    function showTab(tabId) {
+    // Ẩn tất cả các tab
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.classList.add('hidden');
+    });
+
+    // Loại bỏ lớp 'active' khỏi tất cả các nút
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.classList.remove('active');
+        button.classList.add('text-gray-400');
+    });
+
+    // Hiển thị tab được chọn
+    const activeTab = document.getElementById(tabId);
+    activeTab.classList.remove('hidden');
+
+    // Thêm lớp 'active' cho nút đang được nhấn
+    const activeButton = document.querySelector(`#btn-${tabId}`);
+    activeButton.classList.add('active');
+    activeButton.classList.remove('text-gray-400');
+}
+
 </script>
 
   <script src="<?php echo @$urlThemeActive; ?>/scripts/index.js"></script>

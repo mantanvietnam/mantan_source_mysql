@@ -83,7 +83,7 @@
                 </a>
               </div> -->
               <!-- /Logo -->
-              <h4 class="mb-2">Phần mềm quản lý SPA! 👋</h4>
+              <h4 class="mb-2">Phần mềm quản lý dịch vụ! 👋</h4>
               <p class="mb-4">Mời bạn chọn cơ sở kinh doanh</p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">
