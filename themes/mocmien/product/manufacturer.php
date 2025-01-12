@@ -18,66 +18,6 @@
       <span>SẢN PHẨM</span>
     </div>
     <div class='d-flex flex-column gap-4 flex-xl-row mt-4 align-items-center justify-content-between'>
-      <!-- tìm kiếm -->
-      <div class="d-flex input-group header-search-container w-75">
-        <input type="text" class="form-control" placeholder="Tìm kiếm trong danh mục" aria-label="Search input" aria-describedby="button-search">
-        <button class="btn btn-primary bg-green search-btn" type="button" id="button-search">
-          <i class="fas fa-search"></i> <!-- Icon kính lúp -->
-        </button>
-      </div>
-      <!-- giá sản phẩm -->
-      <div class='d-flex gap-4 flex-column flex-md-row'>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle list-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <div class='d-flex align-items-center justify-content-between'>
-              <span class=''>Giá sản phẩm</span>
-              <div class='down-arr'>
-                <img src="../assets/images/down-arr.png" alt="">
-              </div>
-            </div>
-          </button>
-          <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </div>
-          <!-- giá sản phẩm -->
-          <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle list-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <div class='d-flex align-items-center justify-content-between'>
-              <span class=''>COMBO</span>
-              <div class='down-arr'>
-                <img src="../assets/images/down-arr.png" alt="">
-              </div>
-            </div>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </div>
-      </div>
-      
-    </div>
-    </div>
-
-    <!-- danh mục các sản phẩm -->
-    <div class='container category-nav-container mt-4'>
-      <div class='category-nav-item active'>
-        <span>Tất cả các sản phẩm</span>
-      </div>
-      <div class='category-nav-item'>
-        <span>Bộ sản phẩm trị sắc tố</span>
-      </div>
-      <div class='category-nav-item'>
-        <span>Bộ sản phẩm trị mụn, thâm</span>
-      </div>
-      <div class='category-nav-item'>
-        <span>Bộ sản phẩm trị giãn mao mạch, da mỏng yếu</span>
-      </div>
-    </div>
 
     <!-- sản phẩm theo combo -->
     <div class='container mt-4'>
@@ -126,13 +66,7 @@
                                                 	<div class="bestsell-product-old-price">'.$price_old.'</div>
                                                 </div>
                                                 <div class="bestsell-product-selling">
-                                                	<div class="star-rating">
-                                                		<div class="star filled">★</div>
-              											<div class="star filled">★</div>
-              											<div class="star filled">★</div>
-              											<div class="star half">★</div>
-              											<div class="star">★</div>
-                                                	</div>
+                                                    <div>' . $product->view . ' Lượt xem</div>
                                                 </div>
                                             </div>';
                                 }

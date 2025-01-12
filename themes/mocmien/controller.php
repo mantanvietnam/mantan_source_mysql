@@ -54,7 +54,9 @@ function settingHomeThemeMocMien($input)
                         'instagram_link' => $dataSend['instagram_link'],
                         'facebook_link' => $dataSend['facebook_link'],
                         'linkedin_link' => $dataSend['linkedin_link'],
-                        'youtube_link' => $dataSend['youtube_link']
+                        'youtube_link' => $dataSend['youtube_link'],
+                        'video_1' => $dataSend['video_1'],
+                        'video_2' => $dataSend['video_2'],
                     );
 
         $data->key_word = 'settingHomeThemeMocMien';

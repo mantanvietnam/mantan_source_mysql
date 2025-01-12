@@ -62,11 +62,15 @@
           <div class='sp-title'>Các sản phẩm nổi bật</div>
           <?php if (!empty($hot_product)): ?>
               <?php foreach ($hot_product as $product): ?>
-                  <?php $link = '/product/' . htmlspecialchars($product->slug) . '.html'; ?>
+                  <?php 
+                      $link = '/product/' . htmlspecialchars($product->slug) . '.html'; 
+                      $title = htmlspecialchars($product->title);
+                      $shortTitle = mb_strimwidth($title, 0, 40, "...");
+                  ?>
                   <div class='sp-container'>
                       <a href="<?php echo $link; ?>" class="sp-first">
                           <img src="<?php echo htmlspecialchars($product->image); ?>" alt="Sản phẩm nổi bật" class="w-12 h-12">
-                          <span><?php echo htmlspecialchars($product->title); ?></span>
+                          <span><?php echo $shortTitle; ?></span>
                       </a>
                       <div class='sp-first-btn'>
                           <a href="<?php echo htmlspecialchars($link); ?>">
@@ -99,14 +103,10 @@
       </div>
       <div class='video-container'>
         <div class='video-title'>Quy trình sản xuất</div>
-        <video class='produce-video' controls width="291" height="160">
-          <!-- Nguồn video -->
-          <source src="video.mp4" type="video/mp4">
-          <source src="video.webm" type="video/webm">
-          <!-- Thông báo khi trình duyệt không hỗ trợ -->
-          Trình duyệt của bạn không hỗ trợ thẻ video. 
-          Vui lòng nâng cấp hoặc sử dụng trình duyệt khác.
-      </video>
+            <div class="video-embed">
+                <!-- Nhúng video YouTube bằng iframe -->
+                <iframe width="291" height="160" src="<?php echo @$settingThemes['video_1']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
       </div>
     </div>
     </div>
@@ -229,21 +229,18 @@
             </div>
           </div>
         </div>
-        <video class='d-lg-block d-none produce-video' controls width="399" height="236">
-          <!-- Nguồn video -->
-          <source src="video.mp4" type="video/mp4">
-          <source src="video.webm" type="video/webm">
-          <!-- Thông báo khi trình duyệt không hỗ trợ -->
-          Trình duyệt của bạn không hỗ trợ thẻ video. 
-          Vui lòng nâng cấp hoặc sử dụng trình duyệt khác.
-      </video>
+        <iframe class="d-lg-block d-none produce-video" width="399" height="236" 
+                src="<?php echo @$settingThemes['video_2']; ?>" 
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+        </iframe>
       </div>
 
       <!-- sửa -->
       <!-- sản phẩm bán chạy -->
       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 bestsell-container'>
         <div class='list-category-header'>
-          <span><span class='color-green'>SẢN PHẨM</span> BÁN CHẠY</span>
+          <span><span class='color-green'>SẢN PHẨM</span> ĐƯỢC QUAN TÂM NHẤT</span>
           <a href="/categories" class='more-btn'>
             <div class=''>Xem thêm</div>
             <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="">
@@ -278,10 +275,14 @@
                   </div>
                 </div>
                 <div class='bestsell-product-selling'>
-                  <span><?php echo $seller_product->view ?> Đã bán</span>
-                  <div>
+<<<<<<< HEAD
+                <span><?php echo $seller_product->view . ' Lượt xem'; ?></span>
+=======
+                <span><?php echo $seller_product->view . ' Lượt truy cập'; ?></span>
+>>>>>>> 59318f8831ad034e7ef2a13df396ebf14f754f0b
+                  <!-- <div>
                     <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="">
-                  </div>
+                  </div> -->
                 </div>
               </a>
               <?php endforeach; ?>
@@ -333,7 +334,12 @@
                   <div class='bestsell-product-old-price'><?php echo number_format($comboProduct->price_old, 0, ',', '.') . ' VNĐ'; ?></div>
                 </div>
                 <div class='bestsell-product-selling'>
-                  <div class="star-rating">
+<<<<<<< HEAD
+                <span><?php echo $seller_product->view . ' Lượt xem'; ?></span>
+=======
+                <span><?php echo $seller_product->view . ' Lượt truy cập'; ?></span>
+>>>>>>> 59318f8831ad034e7ef2a13df396ebf14f754f0b
+                  <!-- <div class="star-rating">
                     <div class="star filled">★</div>
                     <div class="star filled">★</div>
                     <div class="star filled">★</div>
@@ -342,7 +348,7 @@
                   </div>
                   <div class='product-tym'>
                     <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="tym">
-                  </div>
+                  </div> -->
                 </div>
               </a>
               <?php endforeach; ?>
