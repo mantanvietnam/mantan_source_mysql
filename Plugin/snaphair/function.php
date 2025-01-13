@@ -79,7 +79,7 @@ function sendEmailCodeForgotPassword($email = '', $fullName = '', $code = '')
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
                             <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
-                            <span>Ứng dụng Co Len Nao </span>
+                            <span>Ứng dụng Snaphair</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
                             <li>Hỗ trợ: </li>
@@ -168,6 +168,37 @@ function createTokenCode($length=30)
 {
     $chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return substr(str_shuffle($chars), 0, $length).time();
+}
+
+function getUserByToken($accessToken, $checkActive = true)
+{
+    global $controller;
+
+    $modelUser = $controller->loadModel('Users');
+    $conditions = [
+        'access_token' => $accessToken
+    ];
+
+    if ($checkActive) {
+        $conditions['status'] = 'active';
+    }
+
+    $user = $modelUser->find()->where($conditions)->first();
+
+ 
+    return $user;
+}
+
+
+function apiResponse(int $code = 0, $messages = '', $data = [], $totalData = 1, array $meta = []): array
+{
+    return [
+        'data' => $data ?? [],
+        'code' => $code ?? '',
+        'messages' => $messages ?? '',
+        'meta' => $meta ?? [],
+        'totalData' => $totalData ?? 1
+    ];
 }
 
 ?>

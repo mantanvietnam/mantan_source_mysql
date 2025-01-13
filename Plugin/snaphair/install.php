@@ -8,10 +8,15 @@ $sqlInstallDatabase .= "CREATE TABLE `users` (
 	`password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
 	`coin` INT NOT NULL , 
 	`modified` INT NOT NULL , 
-	`created` INT NOT NULL , 
-	`lastLogin` INT NOT NULL , 
+	`created_at` INT NOT NULL , 
+	`id_affsource` INT NULL DEFAULT NULL , 
+	`last_login` INT NOT NULL , 
 	`avatar` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`otp` INT NOT NULL DEFAULT '0' , 
+	`otp` INT NOT NULL DEFAULT NULL, 
+	`access_token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	`address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	`device_token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	`status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock',
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -24,9 +29,12 @@ $sqlUpdateDatabase['users']['email'] = "ALTER TABLE `users` ADD `email` VARCHAR(
 $sqlUpdateDatabase['users']['password'] = "ALTER TABLE `users` ADD `password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['users']['coin'] = "ALTER TABLE `users` ADD `coin` INT NOT NULL;";
 $sqlUpdateDatabase['users']['modified'] = "ALTER TABLE `users` ADD `modified` INT NOT NULL;";
-$sqlUpdateDatabase['users']['created'] = "ALTER TABLE `users` ADD `created` INT NOT NULL;";
-$sqlUpdateDatabase['users']['lastLogin'] = "ALTER TABLE `users` ADD `lastLogin` INT NOT NULL;";
+$sqlUpdateDatabase['users']['id_affsource'] = "ALTER TABLE `users` ADD `id_affsource` NULL DEFAULT NULL;";
+$sqlUpdateDatabase['users']['created_at'] = "ALTER TABLE `users` ADD `created_at` INT NOT NULL;";
+$sqlUpdateDatabase['users']['last_login'] = "ALTER TABLE `users` ADD `last_login` INT NOT NULL;";
 $sqlUpdateDatabase['users']['avatar'] = "ALTER TABLE `users` ADD `avatar` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['users']['otp'] = "ALTER TABLE `users` ADD `otp` INT NOT NULL DEFAULT '0';";
-
- ?>
+$sqlUpdateDatabase['users']['otp'] = "ALTER TABLE `users` ADD `otp` INT NOT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['users']['access_token'] = "ALTER TABLE `users` ADD `access_token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['users']['address'] = "ALTER TABLE `users` ADD `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['users']['device_token'] = "ALTER TABLE `users` ADD `device_token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['users']['status'] = "ALTER TABLE `users` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock';";
