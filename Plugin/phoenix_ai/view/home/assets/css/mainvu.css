@@ -1139,6 +1139,24 @@ table {
   }
 
   @media screen and (max-width: 425px){
+    .main-wrap .showcase .overlay .card{
+        max-height: 300px !important; 
+        min-width: 300px !important;
+        flex-direction: column !important;
+        padding: 15px !important;
+    }
+    .main-wrap .showcase .overlay .info p{
+        margin-top: 10px !important; 
+    }
+    .main-wrap .showcase .overlay .card-content p{
+        display: none !important;
+    }
+    .main-wrap .showcase .overlay .buttons{
+        margin-top: 20px !important;
+    }
+    .main-wrap .showcase .overlay .info{
+        background-color: #fff !important;
+    }
     .set-distent-icon .link-text{
         display: none !important;
     }
