@@ -2,7 +2,19 @@
     getHeader();
     global $settingThemes; 
 ?> 
+<?php
+function convertToEmbedUrl($url) {
+    // Kiểm tra nếu URL chứa 'watch?v='
+    if (strpos($url, 'watch?v=') !== false) {
+        return str_replace('watch?v=', 'embed/', $url);
+    }
+    return $url;
+}
 
+// Ví dụ sử dụng
+$video_1 = convertToEmbedUrl(@$settingThemes['video_1']);
+$video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
+?>
     <!-- slider -->
     <!-- <div id="carouselExampleInterval" class="mx-mobile md:mx-6 lg:mx-16 xl:mx-20 carousel slide banner-slider" data-bs-ride="carousel">
       <div class="carousel-inner">
@@ -105,7 +117,7 @@
         <div class='video-title'>Quy trình sản xuất</div>
             <div class="video-embed">
                 <!-- Nhúng video YouTube bằng iframe -->
-                <iframe width="291" height="160" src="<?php echo @$settingThemes['video_1']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="291" height="160" src="<?php echo $video_1; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
       </div>
     </div>
@@ -230,7 +242,7 @@
           </div>
         </div>
         <iframe class="d-lg-block d-none produce-video" width="399" height="236" 
-                src="<?php echo @$settingThemes['video_2']; ?>" 
+                src="<?php echo $video_2; ?>" 
                 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen>
         </iframe>

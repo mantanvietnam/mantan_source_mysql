@@ -159,20 +159,14 @@ footer a:hover {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-    #skct-article .content {
-        font-size: 14px;
-        padding: 15px;
-    }
+        #skct-article .content {
+            font-size: 14px;
+        }
 
-    .card-event {
-        margin-bottom: 20px;
+        .card-event {
+            margin-bottom: 20px;
+        }
     }
-
-    .card-img-top {
-        height: 150px;
-    }
-}
-
 </style>
 <main class="background-pt"
       style="background-image: url('<?= htmlspecialchars($urlThemeActive) ?>assets/lou_img/su-kien-list-event.png')">
@@ -198,7 +192,7 @@ footer a:hover {
                         </div>
                         <div class="body">
                             <div class="content">
-                                <?= nl2br(htmlspecialchars_decode($post->content)) ?>
+                                <?= $post->content ?>
                             </div>
                         </div>
                     </article>
