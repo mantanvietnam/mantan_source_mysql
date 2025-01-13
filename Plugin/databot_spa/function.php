@@ -8,14 +8,14 @@ global $urlCreateImage;
 $urlCreateImage = 'http://14.225.238.137:3000/convert';
 
 $menus= array();
-$menus[0]['title']= 'Quản lý SPA';
+$menus[0]['title']= 'Quản lý dịch vụ';
 
-$menus[0]['sub'][0]= array('title'=>'Tài khoản quản trị SPA',
+$menus[0]['sub'][0]= array('title'=>'Tài khoản quản trị',
                             'url'=>'/plugins/admin/databot_spa-view-admin-member-listMemberAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listMemberAdmin',
                         );
-$menus[0]['sub'][1]= array('title'=>'Danh sách SPA',
+$menus[0]['sub'][1]= array('title'=>'Danh sách cơ sở kinh doanh',
                             'url'=>'/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listSpaAdmin',
@@ -64,7 +64,7 @@ function getListPermission()
         if(in_array('static', $infoUser->module)){
             $permission[] = array( 'name'=>'Thống kê',
                                     'sub'=>array(   array('name'=>'Thống kê hoa hồng nhân viên','permission'=>'listAgency'),
-                                                    array('name'=>'Thống kê doanh thu Spa','permission'=>'revenueStatistical'),
+                                                    array('name'=>'Thống kê doanh thu','permission'=>'revenueStatistical'),
                                             ),
                             );
         }
@@ -162,10 +162,10 @@ function getListPermission()
                                             ),
                             );
 
-            $permission[] = array( 'name'=>'Quản lý SPA',
-                                    'sub'=>array(   array('name'=>'Danh sách Spa ','permission'=>'listSpa'),
-                                                    array('name'=>'Thêm và sửa Spa ','permission'=>'addSpa'),
-                                                    array('name'=>'Xóa Spa ','permission'=>'deleteSpa'),
+            $permission[] = array( 'name'=>'Quản lý cửa hàng',
+                                    'sub'=>array(   array('name'=>'Danh sách cửa hàng ','permission'=>'listSpa'),
+                                                    array('name'=>'Thêm và sửa cửa hàng ','permission'=>'addSpa'),
+                                                    array('name'=>'Xóa cửa hàng ','permission'=>'deleteSpa'),
                                             ),
                             );
         }
@@ -305,7 +305,7 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
     
         $cc = array();
         $bcc = array();
-        $subject = '[SPA] ' . 'Mã xác thực cấp lại mật khẩu mới';
+        $subject = '[QLDV] ' . 'Mã xác thực cấp lại mật khẩu mới';
 
         $content='<!DOCTYPE html>
         <html lang="en">
@@ -357,13 +357,13 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">PHẦN MỀM QUẢN LÝ DATA SPA</span> <br>
-                            <span>Phần mềm quản lý SPA chuyên nghiệp</span>
+                            <span style="font-weight: bold;">PHẦN MỀM QUẢN LÝ DỊCH VỤ</span> <br>
+                            <span>Phần mềm quản lý dịch vụ chuyên nghiệp</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
                             <li>Hỗ trợ: Trần Ngọc Mạnh</li>
                             <li>Mobile: 081.656.0000</li>
-                            <li>Website: <a href="https://dataspa.vn">https://dataspa.vn</a></li>
+                            <li>Website: <a href="https://quanlydichvu.com">https://quanlydichvu.com</a></li>
                         </ul>
                     </div>
 
@@ -571,7 +571,7 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
     
         $cc = array();
         $bcc = array();
-        $subject = '[DATASPA] ' . 'Nạp thành công '.number_format($coin).'đ vào tài khoản';
+        $subject = '[QLDV] ' . 'Nạp thành công '.number_format($coin).'đ vào tài khoản';
 
         $content='<!DOCTYPE html>
         <html lang="en">
@@ -614,7 +614,7 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
                         <br/>
-                        Bạn đã nạp thành công '.number_format($coin).'đ vào tài khoản của bạn trên hệ thống Data SPA
+                        Bạn đã nạp thành công '.number_format($coin).'đ vào tài khoản của bạn trên hệ thống Quản lý dịch vụ
                         
                         <br><br>
                         
@@ -623,13 +623,13 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">PHẦN MỀM QUẢN LÝ DATA SPA</span> <br>
-                            <span>Phần mềm quản lý SPA chuyên nghiệp</span>
+                            <span style="font-weight: bold;">PHẦN MỀM QUẢN LÝ DỊCH VỤ</span> <br>
+                            <span>Phần mềm quản lý dịch vụ chuyên nghiệp</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
                             <li>Hỗ trợ: Trần Ngọc Mạnh</li>
                             <li>Mobile: 081.656.0000</li>
-                            <li>Website: <a href="https://dataspa.vn">https://dataspa.vn</a></li>
+                            <li>Website: <a href="https://quanlydichvu.com">https://quanlydichvu.com</a></li>
                         </ul>
                     </div>
 
@@ -651,14 +651,14 @@ function sendEmailRegAcc($email='', $fullName='', $user= '', $pass= '')
     
         $cc = array();
         $bcc = array();
-        $subject = '[DATASPA] ' . 'Tài khoản phần mềm quản lý SPA';
+        $subject = '[QLDV] ' . 'Tài khoản phần mềm quản lý dịch vụ';
 
         $content='<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Tài khoản phần mềm quản lý SPA</title>
+            <title>Tài khoản phần mềm quản lý dịch vụ</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <style>
@@ -696,7 +696,7 @@ function sendEmailRegAcc($email='', $fullName='', $user= '', $pass= '')
                         <br/>
                         Bạn đã đăng ký sử dụng phần mềm quản lý SPA thành công, thông tin tài khoản của bạn như sau:
                         <br/><br/>
-                        Link đăng nhập: <a href="https://admin.dataspa.vn">https://admin.dataspa.vn</a><br/>
+                        Link đăng nhập: <a href="https://quanlydichvu.com">https://quanlydichvu.com</a><br/>
                         Tài khoản: '.$user.'<br/>
                         Mật khẩu: '.$pass.'<br/>
                         <br><br>
@@ -706,13 +706,13 @@ function sendEmailRegAcc($email='', $fullName='', $user= '', $pass= '')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">PHẦN MỀM QUẢN LÝ DATA SPA</span> <br>
-                            <span>Phần mềm quản lý SPA chuyên nghiệp</span>
+                            <span style="font-weight: bold;">PHẦN MỀM QUẢN LÝ DỊCH VỤ</span> <br>
+                            <span>Phần mềm quản lý dịch vụ chuyên nghiệp</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
                             <li>Hỗ trợ: Trần Ngọc Mạnh</li>
                             <li>Mobile: 081.656.0000</li>
-                            <li>Website: <a href="https://dataspa.vn">https://dataspa.vn</a></li>
+                            <li>Website: <a href="https://quanlydichvu.com">https://quanlydichvu.com</a></li>
                         </ul>
                     </div>
 

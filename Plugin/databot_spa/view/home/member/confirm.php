@@ -73,7 +73,7 @@
           <!-- Register -->
           <div class="card">
             <div class="card-body">
-              <h4 class="mb-2">Phần mềm quản lý SPA! 👋</h4>
+              <h4 class="mb-2">Phần mềm quản lý dịch vụ! 👋</h4>
               <p class="mb-4">Bạn vui lòng kiểm tra mã xác thực trong Email mà bạn đã đăng ký, nếu không thấy mã bạn có thể kiểm tra trong thư mục spam<p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">

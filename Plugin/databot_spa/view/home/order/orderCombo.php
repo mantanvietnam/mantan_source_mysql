@@ -129,7 +129,7 @@
 		 		<div class="row">
 	               <div class="mb-3 col-md-10">
 	                   <label class="form-label" for="basic-default-phone">Khách hàng (*)</label>
-	                   <input required type="text" required="" placeholder="Nhập tên hoặc sđt khách hàng" class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$data->full_name;?>" />
+	                   <input required type="text" required="" placeholder="Nhập tên hoặc sđt khách hàng" class="form-control phone-mask" autocomplete="off" name="full_name" id="full_name" value="<?php echo @$data->full_name;?>" />
 	                    <input type="hidden" name="id_customer"  id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
 	               </div>
 	               <div class="mb-3 col-md-2">
@@ -169,7 +169,7 @@
                  if(!empty($listCombo)){ ?>
                     <div class="m-3 col-md-10">
                        
-                        <input type="text" placeholder="Tìm Combo"  class="form-control phone-mask" id="searchProduct">
+                        <input type="text" placeholder="Tìm Combo" autocomplete="off" class="form-control phone-mask" id="searchProduct">
                    </div>
 				<div >
 				  <div class="card card-body">

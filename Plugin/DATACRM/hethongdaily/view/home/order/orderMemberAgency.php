@@ -126,13 +126,16 @@
                   if($item->status=='new'){ 
                    $status= '<p style="color: #00aeee;">Đơn mới</p>';
                   
-                   $btnProcess= ' <br/><br/> <a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a> <br/><br/> <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                   $btnProcess= ' <br/><br/> <a class="btn btn-primary" style="color: #fff;" onclick="updateOrderMemberAgency('.$item->id.', \'browser\')" >Duyệt</a> 
+                   <br/><br/> <a class="btn btn-danger" style="color: #fff;" onclick="updateOrderMemberAgency('.$item->id.', \'cancel\')">Hủy</a>';
                  }elseif($item->status=='browser'){
+
                    $status= '<p style="color: #0333f6;">Đã duyệt</p>';
-                   $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a> <br/><br/> <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                   $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6; color: #fff;" onclick="updateOrderMemberAgency('.$item->id.', \'delivery\')">Giao hàng </a> <br/><br/> 
+                   <a class="btn btn-danger"  style="color: #fff;"  onclick="updateOrderMemberAgency('.$item->id.', \'cancel\')" \>Hủy</a>';
                  }elseif($item->status=='delivery'){
                    $status= '<p style="color: #7503f6;">Đang giao</p>';
-                   $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a> <br/><br/> <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                   $btnProcess= '<a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('.$item->id.', \'done\')">Hoàn thành</a> <br/><br/> <a class="btn btn-danger"  style="color: #fff;"  onclick="updateOrderMemberAgency('.$item->id.', \'cancel\')">Hủy</a>';
                  }elseif($item->status=='done'){
                    $status= '<p style="color: #00ee4b;">Đã xong</p>';
                  }else{
@@ -140,7 +143,7 @@
                  }
 
                 if($item->status=='new' && $item->status_pay=='wait'){ 
-                     $btnEdit = '<a class="dropdown-item" href="/editOrderMemberAgency/?id='.$item->id.'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/> <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderMemberAgency/?id='.$item->id.'">
+                     $btnEdit = '<a class="dropdown-item"  style="color: #fff;"  href="/editOrderMemberAgency/?id='.$item->id.'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderMemberAgency/?id='.$item->id.'&back='.urlencode($urlCurrent).'"">
                     <i class="bx bx-trash me-1"></i>
                   </a>';
                 }
@@ -228,9 +231,9 @@
 
                 <td>'.$item->discount.'%</td>
 
-                <td align="center">'.$status.$statusPay.'</td>
-                <td align="center">'.$btnProcess.' '.$btnPay.'</td>
-                <td align="center">'.$btnEdit.'</td>
+                <td align="center"> <span id="status'.@$item->id.'">'.$status.' </span> <span id="statusPay'.@$item->id.'">'.$statusPay.'</span></td>
+                <td align="center"> <span id="btnProcess'.@$item->id.'">'.$btnProcess.' </span> <span id="btnPay'.@$item->id.'">'.$btnPay.'</span></td>
+                <td align="center"> <span id="btnEdit'.@$item->id.'">'.$btnEdit.' </span></td>
                 </tr>';
               }
             }else{
@@ -257,13 +260,13 @@
 
                   if($item->status=='new'){ 
                    $status= '<p style="color: #00aeee;">Đơn mới</p>';
-                   $btnProcess= '<a class="btn btn-info" href="/editOrderMemberAgency/?id='.$item->id.'">sửa</a>  <a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a>  <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                   $btnProcess= '<a class="btn btn-info"  style="color: #fff;" href="/editOrderMemberAgency/?id='.$item->id.'">sửa</a>  <a class="btn btn-primary"  style="color: #fff;" onclick="updateOrderMemberAgency('.$item->id.', \'browser\')" >Duyệt</a>  <a class="btn btn-danger"  style="color: #fff;"  style="color: #fff;" onclick="updateOrderMemberAgency('.$item->id.', \'cancel\')" >Hủy</a>';
                  }elseif($item->status=='browser'){
                    $status= '<p style="color: #0333f6;">Đã duyệt</p>';
-                   $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a>  <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                   $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6; color: #fff;" onclick="updateOrderMemberAgency('.$item->id.', \'delivery\')">Giao hàng</a>  <a class="btn btn-danger" style="color: #fff;"  style="color: #fff;" onclick="updateOrderMemberAgency('.$item->id.', \'cancel\')">Hủy</a>';
                  }elseif($item->status=='delivery'){
                    $status= '<p style="color: #7503f6;">Đang giao</p>';
-                   $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a>  <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                   $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff;" onclick="updateOrderMemberAgency('.$item->id.', \'done\')" >Hoàn thành</a>  <a class="btn btn-danger"  style="color: #fff;" onclick="updateOrderMemberAgency('.$item->id.', \'cancel\')">Hủy</a>';
                  }elseif($item->status=='done'){
                    $status= '<p style="color: #00ee4b;">Đã xong</p>';
                  }else{
@@ -346,8 +349,8 @@
 
                           <p><strong>chiếu khấu: </strong>'.$item->discount.'%</p>
 
-                          <p><strong>Trạng thái: </strong>'.$status.$statusPay.'</p>
-                          <p align="center">'.$btnProcess.$btnPay.'</p> 
+                          <p><strong>Trạng thái: </strong><span id="mobile_status'.@$item->id.'">'.$status.'</spa><span id="mobile_statusPay'.@$item->id.'">'.$statusPay.'</span></p>
+                          <p align="center"><span id="mobile_btnProcess'.@$item->id.'">'.$btnProcess.'</spa><span id="mobile_btnPay'.@$item->id.'">'.$btnPay.'</span></p> 
 
                         </div>';
           }
@@ -457,11 +460,11 @@
                  <div class="" style="display: block;">
                   <div class="row gx-3 gy-2 align-items-center mb-3">
                     <div class="col-md-12">
-                      <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                      <input type="hidden" value="<?php echo $items->id; ?>"  name="id" id="id<?php echo $items->id; ?>">
                       <input type="hidden" value="done"  name="status_pay">
                       <!-- <input type="hidden" value="<?php echo urlencode($urlCurrent); ?>"  name="back"> -->
                       <label class="form-label">Chọn hình thức thanh toán</label>
-                      <select  name="type_collection_bill" id="type_collection_bill" required="" class="form-select color-dropdown">
+                      <select  name="type_collection_bill" id="type_collection_bill<?php echo $items->id; ?>" required="" class="form-select color-dropdown">
                         <option value="">Chọn hình thức thanh toán</option>
                         <option value="tien_mat">Tiền mặt</option>
                         <option value="chuyen_khoan">Chuyển khoản</option>
@@ -471,10 +474,10 @@
                         <option value="hinh_thuc_khac">Hình thức khác</option> 
                       </select>
                       <label class="form-label">Ghi chú</label>
-                      <textarea class="form-control phone-mask" rows="3" name="note"></textarea>
+                      <textarea class="form-control phone-mask" rows="3" id="note<?php echo $items->id; ?>" name="note"></textarea>
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-primary ">Thanh toán</button>
+                  <button type="button" class="btn btn-primary " onclick="updateOrderMemberWait(<?php echo $items->id; ?>)">Thanh toán</button>
                 </div>
               </form>
               </div>
@@ -532,28 +535,164 @@
         });
     });
 
-function actionSelect(select)
-{
-    var action= select.value;
+  function actionSelect(select)
+  {
+      var action= select.value;
 
-    console.log(action);
-    if(action==3){
-       var check= confirm('Bạn có chắc chắn muốn hủy sản phẩm này không?');
-      if(check == true){
+      console.log(action);
+      if(action==3){
+         var check= confirm('Bạn có chắc chắn muốn hủy sản phẩm này không?');
+        if(check == true){
+           var link= $(select).find('option:selected').attr('data-link');
+          window.location= link;
+        }
+      }else if(action==4){ 
+         var link= $(select).find('option:selected').attr('data-bs-target');
+          $(link).modal('show');
+      }else{
          var link= $(select).find('option:selected').attr('data-link');
-        window.location= link;
-      }
-    }else if(action==4){ 
-       var link= $(select).find('option:selected').attr('data-bs-target');
-        $(link).modal('show');
-    }else{
-       var link= $(select).find('option:selected').attr('data-link');
-        window.location= link;
+          window.location= link;
+      }  
+  }
+
+  function updateOrderMemberAgency(id, status){
+
+    if(status=='browser'){
+      confirmation = confirm('Bạn có chắc chắn phê duyệt đơn có ID '+id+' không?');
+    }else if(status=='delivery'){
+      confirmation = confirm('Bạn có chắc chắn xuất kho (đang giao hàng) đơn có ID '+id+' không?');
+    }else if(status=='done'){
+      confirmation = confirm('Bạn có chắc chắn hoàn thành đơn có ID '+id+' không?');
+    }else if(status=='cancel'){
+      confirmation = confirm('Bạn có chắc chắn hủy bỏ đơn có ID '+id+' không?');
     }
-    
-   
-    
-}
+    if(confirmation == true){
+      $.ajax({
+          method: "POST",
+          url: "/apis/updateStatusOrderMemberAPI",
+          data: { 
+            id: id,
+            status: status,
+          }
+        }).done(function( msg ) {
+            var htmlbtnProcess = '';
+            var htmlstatus = '';
+            var htmlstatusPay = '';
+            var htmlbtnEdit = '';
+            var htmlbtnPay = '';
+            if (msg.code === 0) {
+                 if(msg.status=='new'){ 
+                  htmlstatus = '<p style="color: #00aeee;">Đơn mới</p>';
+                    htmlbtnProcess= ' <br/><br/> <a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'browser \')" >Duyệt</a> \
+                     <br/><br/> <a class="btn btn-danger">Hủy</a>';
+                 }else if(msg.status=='browser'){
+                   htmlstatus = '<p style="color: #0333f6;">Đã duyệt</p>';
+                   htmlbtnProcess= '<a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+', \'delivery\')" >Giao hàng</a> <br/><br/> \
+                   <a class="btn btn-danger"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'cance \'")">Hủy</a>';
+                 }else if(msg.status=='delivery'){
+                   htmlstatus = '<p style="color: #7503f6;">Đang giao</p>';
+                   htmlbtnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff" onclick="updateOrderMemberAgency('+id+',  \'done \')">Hoàn thành</a> <br/><br/> <a class="btn btn-danger"  style="color: #fff;" onclick="updateOrderMemberAgency('+id+',  \'cancel \')">Hủy</a>';
+                 }else if(msg.status=='done'){
+                  htmlstatus = '<p style="color: #00ee4b;">Đã xong</p>';
+                 }else{
+                   htmlstatus = '<p style="color: red;">Đã hủy</p>';
+                 }
+                 if(msg.status_pay=='wait'){ 
+                   htmlstatusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
+                 }else if(msg.status_pay=='done'){
+                   htmlstatusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
+                 }
+
+                 if(msg.status=='new' && msg.status_pay=='wait'){ 
+                    htmlbtnEdit = '<a class="dropdown-item" href="/editOrderMemberAgency/?id='+id+'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/> <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderMemberAgency/?id='+id+'&back=<?php  echo urlencode($urlCurrent); ?>">\
+                    <i class="bx bx-trash me-1"></i></a>';
+                }
+
+                if(msg.status_pay=='wait' && msg.status!='cancel'){
+                    $htmlbtnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'+id+'">Thu tiền</a>';
+                  }
+                    $('#status'+id).html(htmlstatus);
+                    $('#statusPay'+id).html(htmlstatusPay);
+                    $('#btnProcess'+id).html(htmlbtnProcess);
+                    $('#btnPay'+id).html(htmlbtnPay);
+                    $('#btnEdit'+id).html(htmlbtnEdit);
+                    $('#mobile_status'+id).html(htmlstatus);
+                    $('#mobile_statusPay'+id).html(htmlstatusPay);
+                    $('#mobile_btnProcess'+id).html(htmlbtnProcess);
+                    $('#mobile_btnPay'+id).html(htmlbtnPay);
+            }
+        });
+      }
+
+  }
+
+
+  function updateOrderMemberWait(id){
+    var type_collection_bill = $('#type_collection_bill'+id).val();
+    var note = $('#note'+id).val();
+    confirmation = confirm('Bạn có chắc chắn thanh toán đơn có ID '+id+' không?');
+    if(confirmation == true){
+      $.ajax({
+          method: "POST",
+          url: "/apis/updateStatusOrderMemberAPI",
+          data: { 
+            id: id,
+            status_pay: 'done',
+            note: note,
+            type_collection_bill: type_collection_bill,
+          }
+        }).done(function( msg ) {
+            var htmlbtnProcess = '';
+            var htmlstatus = '';
+            var htmlstatusPay = '';
+            var htmlbtnEdit = '';
+            var htmlbtnPay = '';
+            if (msg.code === 0) {
+                 if(msg.status=='new'){ 
+                  htmlstatus = '<p style="color: #00aeee;">Đơn mới</p>';
+                    htmlbtnProcess= ' <br/><br/> <a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'browser \')" >Duyệt</a> \
+                     <br/><br/> <a class="btn btn-danger" style="color: #fff;"   onclick="updateOrderMemberAgency('+id+',  \'cancel \')"  >Hủy</a>';
+                 }else if(msg.status=='browser'){
+                   htmlstatus = '<p style="color: #0333f6;">Đã duyệt</p>';
+                   htmlbtnProcess= '<a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+', \'delivery\')" >Giao hàng</a> <br/><br/> \
+                   <a class="btn btn-danger"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'cance \'")">Hủy</a>';
+                 }else if(msg.status=='delivery'){
+                   htmlstatus = '<p style="color: #7503f6;">Đang giao</p>';
+                   htmlbtnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff" onclick="updateOrderMemberAgency('+id+',  \'done \')">Hoàn thành</a> <br/><br/> <a class="btn btn-danger"  style="color: #fff;" onclick="updateOrderMemberAgency('+id+',  \'cancel \')">Hủy</a>';
+                 }else if(msg.status=='done'){
+                  htmlstatus = '<p style="color: #00ee4b;">Đã xong</p>';
+                 }else{
+                   htmlstatus = '<p style="color: red;">Đã hủy</p>';
+                 }
+                 if(msg.status_pay=='wait'){ 
+                   htmlstatusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
+                 }else if(msg.status_pay=='done'){
+                   htmlstatusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
+                 }
+
+                 if(msg.status=='new' && msg.status_pay=='wait'){ 
+                    htmlbtnEdit = '<a class="dropdown-item" href="/editOrderMemberAgency/?id='+id+'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/> <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderMemberAgency/?id='+id+'&back=<?php  echo urlencode($urlCurrent); ?>">\
+                    <i class="bx bx-trash me-1"></i></a>';
+                }
+
+                if(msg.status_pay=='wait' && msg.status!='cancel'){
+                    $htmlbtnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'+id+'">Thu tiền</a>';
+                  }
+                    $('#status'+id).html(htmlstatus);
+                    $('#statusPay'+id).html(htmlstatusPay);
+                    $('#btnProcess'+id).html(htmlbtnProcess);
+                    $('#btnPay'+id).html(htmlbtnPay);
+                    $('#btnEdit'+id).html(htmlbtnEdit);
+                    $('#mobile_status'+id).html(htmlstatus);
+                    $('#mobile_statusPay'+id).html(htmlstatusPay);
+                    $('#mobile_btnProcess'+id).html(htmlbtnProcess);
+                    $('#mobile_btnPay'+id).html(htmlbtnPay);
+                    $('#basicModal'+id).modal('hide');
+            }
+        });
+    }
+  }
+
 </script>
 
 

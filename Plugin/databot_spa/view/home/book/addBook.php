@@ -24,7 +24,7 @@
                   <div class="row">
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="basic-default-phone">Tên khách hàng (*)</label>
-                      <input required type="text" placeholder="Vui lòng nhập tên hoặc sđt khách hàng" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" >
+                      <input required type="text" placeholder="Vui lòng nhập tên hoặc sđt khách hàng" autocomplete="off" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" >
                       <input type="hidden" name="id_customer" id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
                     </div>
                     <div class="mb-3 form-group col-md-6">
