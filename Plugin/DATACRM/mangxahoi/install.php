@@ -100,6 +100,9 @@ $sqlInstallDatabase .="CREATE TABLE `verify_accounts` (
 `link_news` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `created_at` INT NULL DEFAULT NULL,
 `updated_at` INT NULL DEFAULT NULL,
+`image_license_before` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`image_license_after` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -174,4 +177,7 @@ $sqlUpdateDatabase['verify_accounts']['image_card_after'] = "ALTER TABLE `verify
 $sqlUpdateDatabase['verify_accounts']['link_news'] = "ALTER TABLE `verify_accounts` ADD `link_news` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['verify_accounts']['created_at'] = "ALTER TABLE `verify_accounts` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['verify_accounts']['updated_at'] = "ALTER TABLE `verify_accounts` ADD `updated_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['verify_accounts']['image_license_before'] = "ALTER TABLE `verify_accounts` ADD `image_license_before` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['verify_accounts']['image_license_after'] = "ALTER TABLE `verify_accounts` ADD `image_license_after` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['verify_accounts']['status'] = "ALTER TABLE `verify_accounts` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new';";
 ?>

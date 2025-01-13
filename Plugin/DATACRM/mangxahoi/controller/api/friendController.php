@@ -718,12 +718,15 @@ function sendGreenCheckRequestAPI($input){
                 $member = $modelMember->find()->where(['id_father'=>0])->first();
                 $point = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$user->id])->first()->point;
                  $checkVerify = $modelVerifyAccount->find()->where(['id_customer'=>$user->id])->first();
-                if(!empty($checkVerify->image_card_after) && !empty($checkVerify->image_card_before) && !empty($checkVerify->image_face) && !empty($checkVerify->link_news) && $total_friend>=1000 && $point>=2000){
+                if(!empty($checkVerify->image_card_after) && !empty($checkVerify->image_card_before) && !empty($checkVerify->image_face) && !empty($checkVerify->link_news) && !empty($checkVerify->image_license_before) && !empty($checkVerify->image_license_after) && $total_friend>=1000 && $point>=5000){
                     $data = $modelCustomer->find()->where(['ìd'=>$user->id])->first();
                     $data->blue_check = 'request';
                     $data->updated_at = time();
                     $modelCustomer->save($data);
-                    return array('code'=>3, 'messages'=>'Bạn gửi yêu cầu tích xanh thành công','infoUser'=>$data);
+                    
+                    sendEmailCustomerRequestCheck($user->full_name,$user->phone);
+
+                    return array('code'=>3, 'messages'=>'Yêu cầu của bạn đã được gửi đi và đang được xử lý','infoUser'=>$data);
                 }
 
                 return array('code'=>4, 'messages'=>'Bạn chưa đủ điều khện lên tích xanh');
@@ -785,6 +788,21 @@ function sendVerifyAccountAPI($input){
                 if(!empty($image_card_after['linkOnline'])){
                     $checkVerify->image_card_after = $image_card_after['linkOnline'];
                 }
+
+                if(isset($_FILES['image_license_before']) && empty($_FILES['image_license_before']["error"])){
+                    $image_license_before = uploadImage($user->id, 'image_license_before', 'image_license_before'.$user->id);
+                }
+                if(!empty($image_license_before['linkOnline'])){
+                    $checkVerify->image_license_before = $image_license_before['linkOnline'];
+                }
+
+                if(isset($_FILES['image_license_after']) && empty($_FILES['image_license_after']["error"])){
+                    $image_license_after = uploadImage($user->id, 'image_license_after', 'image_license_after'.$user->id);
+                }
+                if(!empty($image_license_after['linkOnline'])){
+                    $checkVerify->image_license_after = $image_license_after['linkOnline'];
+                }
+
                 if(!empty($dataSend['link_news'])){
                     $checkVerify->link_news = $dataSend['link_news'];
                 }
@@ -805,6 +823,38 @@ function sendVerifyAccountAPI($input){
 
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
    
+} 
+
+function deleteCheckRequestAPI($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+    $modelMember = $controller->loadModel('Members');
+    $modelPointCustomer = $controller->loadModel('PointCustomers');
+    $modelVerifyAccount = $controller->loadModel('VerifyAccounts');
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
+            if (!empty($user)) {
+                    $data = $modelCustomer->find()->where(['ìd'=>$user->id])->first();
+                    $data->blue_check = 'lock';
+                    $data->updated_at = time();
+                    $modelCustomer->save($data);
+                    return array('code'=>3, 'messages'=>'bạn dã xóa yêu cầu tích xanh ','infoUser'=>$data);
+            }
+             
+            return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 } 
 ?>
 

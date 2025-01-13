@@ -226,13 +226,21 @@
                                 <p><label>Ảnh khuôn mặt:</label></p>
                                   <img  src="<?php echo $item->verify->image_face; ?>" width="150" height="150" />
                                 </div>
-                                 <div class="col-md-6 mb-4">
+                                <div class="col-md-6 mb-4">
                                   <p><label>Ảnh căn cước công dân mặt trước:</label></p>
                                   <img  src="<?php echo $item->verify->image_card_before; ?>" width="200" height="150" />
                                 </div>
                                  <div class="col-md-6 mb-4">
                                   <p><label>Ảnh căn cưới công dân mặt sau:</label></p>
                                   <img  src="<?php echo $item->verify->image_card_after; ?>" width="200" height="150" />
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                  <p><label>Ảnh căn giấy phét kinh doanh mặt trước:</label></p>
+                                  <img  src="<?php echo $item->verify->image_license_before; ?>" width="200" height="150" />
+                                </div>
+                                 <div class="col-md-6 mb-4">
+                                  <p><label>Ảnh căn giấy phét kinh doanh mặt sau:</label></p>
+                                  <img  src="<?php echo $item->verify->image_license_after; ?>" width="200" height="150" />
                                 </div>
                               </div>
                               <?php if($item->blue_check=='request'){?>

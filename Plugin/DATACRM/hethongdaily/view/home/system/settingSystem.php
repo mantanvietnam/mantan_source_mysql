@@ -88,6 +88,12 @@
                               <input  type="number" class="form-control phone-mask" name="price_export_mmtc" id="price_mmtc" value="<?php echo @$data->price_export_mmtc;?>"/>
                             </div>
                           </div> 
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Email nhận thông báo tích xanh</label>
+                              <input  type="text" class="form-control phone-mask" name="email_notification" id="email_notification" value="<?php echo @$data->email_notification;?>"/>
+                            </div>
+                          </div> 
                         </div>
                       </div>
                       <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
