@@ -1155,7 +1155,12 @@ table {
         margin-top: 20px !important;
     }
     .main-wrap .showcase .overlay .info{
+        width: 275px !important;
         background-color: #fff !important;
+    }
+    .banner-ui{
+        padding-left: 0px;
+        padding-right: 0px;
     }
     .set-distent-icon .link-text{
         display: none !important;
