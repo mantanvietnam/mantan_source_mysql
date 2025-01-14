@@ -65,7 +65,6 @@
         <div class="max-w-4xl">
           <?php  
           $price_total = 0;
-          $total = 0;
 
           if(!empty($list_product)) {
               foreach ($list_product as $key => $value) {
@@ -74,7 +73,6 @@
 
                   $price_buy = $value->price * $value->numberOrder;
                   $price_total += $price_buy;
-                  $total = $price_total;
 
                   echo '
                   <div class="flex items-center space-x-4">
@@ -87,7 +85,6 @@
                           <h2 class="text-lg font-bold product-name mb-2">
                               '.$value->title.'
                           </h2>
-                          <p class="text-gray-500 product-quantity-label">Số lượng: '.$value->numberOrder.'</p>
                           <p class="text-gray-500 product-quantity-label">Giá: '. number_format($value->price).' đ</p>
                           <button
                               class="flex items-center mt-4 text-red-500 delete-product"
@@ -96,20 +93,16 @@
                               <i class="mr-1 fas fa-trash-alt"></i> Xóa sản phẩm
                           </button>
                       </div>
-                      <div class="text-right product-price">
-                         <p class="text-lg font-semibold unit-price" data-unit-price="'.$value->price.'">
-                              '. number_format($price_buy).' ₫
+                      <div class="text-right product-price-container">
+                          <p class="text-lg font-semibold product-unit-price" data-unit-price="'.$value->price.'">
+                              '.number_format($price_buy).' ₫
                           </p>
-                          <div class="flex items-center mt-2 quantity-control">
-                              <button
-                                  class="flex items-center justify-center w-8 h-8 border rounded-full btn-decrement"
-                              >
+                          <div class="flex items-center mt-2 product-quantity-control">
+                              <button class="flex items-center justify-center w-8 h-8 border rounded-full product-btn-decrement">
                                   -
                               </button>
-                              <span class="mx-2 quantity-display">'.$value->numberOrder.'</span>
-                              <button
-                                  class="flex items-center justify-center w-8 h-8 border rounded-full btn-increment"
-                              >
+                              <span class="mx-2 product-quantity-display">'.$value->numberOrder.'</span>
+                              <button class="flex items-center justify-center w-8 h-8 border rounded-full product-btn-increment">
                                   +
                               </button>
                           </div>
@@ -130,7 +123,6 @@
                     <?php echo number_format($price_total); ?>₫
                 </p>
             </div>
-            <input type="hidden" name="total" value="<?php echo $total; ?>">
 
             <!-- Nút Đặt hàng -->
             <div class="flex justify-center mt-4">
@@ -210,7 +202,7 @@
               <!-- Tổng tiền -->
               <div class="flex items-center justify-between col-span-2">
                   <span class="text-lg font-semibold">Tổng tiền</span>
-                  <span class="text-lg font-semibold text-green-500">
+                  <span class="text-lg font-semibold text-green-500" id="step2-total-price">
                       <?php echo number_format($price_total, 0, '.', ','); ?>₫
                   </span>
               </div>
@@ -320,10 +312,11 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
     const totalLabel = document.querySelector(".total-label + .text-green-600");
-    const btnDecrementList = document.querySelectorAll(".btn-decrement");
-    const btnIncrementList = document.querySelectorAll(".btn-increment");
-    const quantityDisplayList = document.querySelectorAll(".quantity-display");
-    const unitPriceList = document.querySelectorAll(".unit-price");
+    const btnDecrementList = document.querySelectorAll(".product-btn-decrement");
+    const btnIncrementList = document.querySelectorAll(".product-btn-increment");
+    const quantityDisplayList = document.querySelectorAll(".product-quantity-display");
+    const unitPriceList = document.querySelectorAll(".product-unit-price");
+    const step2TotalPrice = document.getElementById("step2-total-price");
 
     let totalPrice = parseFloat(totalLabel.textContent.replace(/₫|,/g, ""));
 
@@ -342,6 +335,9 @@
         });
 
         totalLabel.textContent = totalPrice.toLocaleString() + "₫";
+        if (step2TotalPrice) {
+            step2TotalPrice.textContent = totalPrice.toLocaleString() + "₫"; // Đồng bộ Bước 2
+        }
     }
 
     btnDecrementList.forEach((btn, index) => {
@@ -368,5 +364,44 @@
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Lấy form và nút submit
+    const form = document.querySelector("form[action='/createOrder']");
+    const submitButton = document.getElementById("next-step");
+
+    // Kiểm tra nếu form và submitButton đều tồn tại
+    if (form && submitButton) {
+        // Lắng nghe sự kiện submit
+        form.addEventListener("submit", function (e) {
+            e.preventDefault(); // Ngừng hành động mặc định của form (tải lại trang)
+
+            // Lấy dữ liệu từ form
+            const formData = new FormData(form);
+
+            // Thêm giá trị tổng tiền vào formData nếu cần
+            const totalPrice = document.getElementById("step2-total-price").textContent.replace('₫', '').replace(',', '').trim();
+            formData.append("price_total", totalPrice);
+
+            // Log tất cả các dữ liệu trong formData
+            console.log("Dữ liệu sẽ được gửi đi:");
+            formData.forEach((value, key) => {
+                console.log(key + ": " + value);
+            });
+
+            // Nếu bạn muốn kiểm tra thêm dữ liệu khác như tổng tiền, bạn cũng có thể log thêm ở đây:
+            console.log("Tổng tiền: " + totalPrice);
+
+            // Ở đây bạn có thể xử lý dữ liệu theo ý muốn mà không cần gửi form
+        });
+
+        // (Tùy chọn) Nếu bạn muốn kiểm tra khi người dùng nhấn submit
+        submitButton.addEventListener("click", function (e) {
+            e.preventDefault(); // Ngừng hành động mặc định khi nhấn nút submit
+            form.dispatchEvent(new Event("submit")); // Gọi lại sự kiện submit
+        });
+    }
+});
+
 </script>
     <?php getFooter(); ?>

@@ -57,7 +57,7 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
     </div>
 
     <!-- Quảng cáo -->
-    <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 d-xxl-flex recommend-container d-none'>
+    <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 d-xxl-flex items-center recommend-container d-none'>
     <!-- giới thiệu -->
     <div class='recommend-intro'>
       <div class='d-flex flex-column'>
@@ -65,12 +65,12 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
         <div class='intro-text'>Hành trình</div>
         <div class='intro-text'>tái tạo làn da</div>
         <div class='intro-btn'>
-          <a href="" class=''>Khám phá sản phẩm</a>
+          <a href="/categories" class=''>Khám phá sản phẩm</a>
         </div>
       </div>
 
       <!-- sửa -->
-      <div class='special-product'>
+      <!-- <div class='special-product'>
           <div class='sp-title'>Các sản phẩm nổi bật</div>
           <?php if (!empty($hot_product)): ?>
               <?php foreach ($hot_product as $product): ?>
@@ -94,12 +94,19 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
           <?php else: ?>
               <p>Hiện tại không có sản phẩm nổi bật nào.</p>
           <?php endif; ?>
-      </div>
+      </div> -->
     </div>
     <!-- Ảnh chính -->
-    <div class='recommend-img-container'>
+    <!-- <div class='recommend-img-container'>
       <img src="<?= $urlThemeActive?>/assets/images/botmuopdang.png" alt="">
-    </div>
+    </div> -->
+    <div class='video-container' style = "width: 60%">
+        <!-- <div class='video-title ' style= "width: 100%;">Quy trình sản xuất</div> -->
+            <div class="video-embed" style= "width: 100%">
+                <!-- Nhúng video YouTube bằng iframe -->
+                <iframe width="100%" height="300" src="<?php echo $video_1; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+      </div>
     <!-- đánh giá -->
     <div class='review-container'>
       <div class='review-view'>
@@ -113,19 +120,13 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
         </div>
         <div class='review-text-2'>Rất hài lòng với kết quả!</div>
       </div>
-      <div class='video-container'>
-        <div class='video-title'>Quy trình sản xuất</div>
-            <div class="video-embed">
-                <!-- Nhúng video YouTube bằng iframe -->
-                <iframe width="291" height="160" src="<?php echo $video_1; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-      </div>
+     
     </div>
     </div>
 
     <!-- chính sách -->
      <div class='delivary-container'>
-      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 delivary-container-2 justify-content-md-between'>
+      <div class='mx-mobile md:mx-4 lg:mx-16 xl:mx-20 delivary-container-2 justify-content-md-between' style = "width: 100%;">
         <div class='delivary'>
           <div>
             <img src="<?php echo @$settingThemes['images_1']; ?>" alt="logo">
@@ -192,7 +193,7 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
         <span><span class='color-green'>CÂU CHUYỆN</span> MỘC MIÊN</span>
         <div class='graph-containe'>
           <div class='text-style'><?php echo @$settingThemes['big_content']; ?></div>
-          <div class='text-style-2'><?php echo @$settingThemes['small_content']; ?></div>
+          <div class='text-style-2'><?php echo nl2br(@$settingThemes['small_content']); ?></div>
         </div>
         <div class='intro-btn'>
           <a href="<?php echo @$settingThemes['link_story'] ?>" class=''>Tìm hiểu thêm</a>
@@ -362,184 +363,8 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
         </div>
       </div>
 
-      <!-- bộ sưu tập mơi -->
-       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 new-collection-container'>
-        <div class='mb-4 new-collection-title'>
-          <div class='col-6 d-flex flex-column collection-title'>
-            <span>BỘ SƯU TẬP MỚI:</span>
-            <span class='color-green'>SẢN PHẨM TỪ MƯỚP ĐẮNG</span>
-          </div>
-          <span class='col-6 new-collection-title-des'>Được chiết xuất từ mướp đắng tươi mát, sản phẩm không chỉ giúp làm sạch sâu, loại bỏ bã nhờn mà còn cung cấp dưỡng chất giúp làn da sáng khỏe và mịn màng. Mỗi món đồ trong bộ sưu tập đều được nghiên cứu và phát triển tỉ mỉ, kết hợp giữa truyền thống và khoa học hiện đại, mang lại hiệu quả rõ rệt và an toàn mọi loại da.</span>
-        </div>
-        <div class='gap-4 d-flex flex-column justify-content-between flex-md-row'>
-          <div class='collection-nav-container'>
-            <div class="collection-nav-item active" data-target="all">
-              <span>Tất cả</span>
-            </div>
-            <div class="collection-nav-item" data-target="tinh-chat">
-              <span>Tinh chất</span>
-            </div>
-            <div class="collection-nav-item" data-target="sua-rua-mat">
-              <span>Sữa rửa mặt</span>
-            </div>
-            <div class="collection-nav-item" data-target="san-pham-bot">
-              <span>Sản phẩm bột</span>
-            </div>
-          </div>
-          <a class='d-flex text-decoration-none align-items-center'>
-            <div class='color-green btn-more-collection'>Xem tất cả</div>
-            <div>
-              <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="xem thêm">
-            </div>
-          </a>
-        </div>
-        <!-- Collection Container - Tất cả -->
-        <div class='mt-5 collection-container row' data-category="all">
-          <div class='col-12 col-lg-6'>
-            <div class='collection-frist-container'>
-              <img src="<?= $urlThemeActive?>/assets/images/combo1.png" alt="">
-              <div class='collection-frist-des'>
-                <h5>COMBO x2 đặc trị mụn - Cao mướp đắng khổ qua, bột mướp đắng, sữa rửa mặt mướp đắng</h5>
-                <div class='d-flex align-items-center justify-content-between'>
-                  <div class='d-flex flex-column collection-frist-price'>
-                    <span>Giá sản phẩm</span>
-                    <span class='color-green'>600.000đ</span>
-                  </div>
-                  <div class='intro-btn'>
-                    <a href="" class=''>Mua ngay</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class='gap-4 mt-4 col-lg-3 col-6 d-flex flex-column justify-content-between mt-lg-0'>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-          </div>
-          <div class='gap-4 mt-4 col-lg-3 col-6 d-flex flex-column justify-content-between mt-lg-0'>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-          </div>
-        </div>
-         <!-- Collection Container - Tinh chất -->
-         <div class='mt-5 collection-container row d-none' data-category="tinh-chat">
-          <div class='col-6'>
-            <div class='collection-frist-container'>
-              <img src="<?= $urlThemeActive?>/assets/images/combo1.png" alt="">
-              <div class='collection-frist-des'>
-                <h5>Tinh chất mướp đắng đặc trị</h5>
-                <div class='d-flex align-items-center justify-content-between'>
-                  <div class='d-flex flex-column collection-frist-price'>
-                    <span>Giá sản phẩm</span>
-                    <span class='color-green'>600.000đ</span>
-                  </div>
-                  <div class='intro-btn'>
-                    <a href="" class=''>Mua ngay</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class='col-3 d-flex flex-column justify-content-between'>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-          </div>
-          <div class='col-3 d-flex flex-column justify-content-between'>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-          </div>
-        </div>
-        <!-- Collection Container - sữa rửa mặt -->
-        <div class='mt-5 collection-container row d-none' data-category="sua-rua-mat">
-          <div class='col-6'>
-            <div class='collection-frist-container'>
-              <img src="<?= $urlThemeActive?>/assets/images/combo1.png" alt="">
-              <div class='collection-frist-des'>
-                <h5>Tinh chất mướp đắng đặc trị</h5>
-                <div class='d-flex align-items-center justify-content-between'>
-                  <div class='d-flex flex-column collection-frist-price'>
-                    <span>Giá sản phẩm</span>
-                    <span class='color-green'>600.000đ</span>
-                  </div>
-                  <div class='intro-btn'>
-                    <a href="" class=''>Mua ngay</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class='col-3 d-flex flex-column justify-content-between'>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-          </div>
-          <div class='col-3 d-flex flex-column justify-content-between'>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-          </div>
-        </div>
-        <!-- Collection Container - Sản phẩm bột -->
-        <div class='mt-5 collection-container row d-none' data-category="san-pham-bot">
-          <div class='col-6'>
-            <div class='collection-frist-container'>
-              <img src="<?= $urlThemeActive?>/assets/images/combo1.png" alt="">
-              <div class='collection-frist-des'>
-                <h5>Tinh chất mướp đắng đặc trị</h5>
-                <div class='d-flex align-items-center justify-content-between'>
-                  <div class='d-flex flex-column collection-frist-price'>
-                    <span>Giá sản phẩm</span>
-                    <span class='color-green'>600.000đ</span>
-                  </div>
-                  <div class='intro-btn'>
-                    <a href="" class=''>Mua ngay</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class='col-3 d-flex flex-column justify-content-between'>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-          </div>
-          <div class='col-3 d-flex flex-column justify-content-between'>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-            <div class='collection-mid-img'>
-              <img src="<?= $urlThemeActive?>/assets/images/cbd1.png" alt="">
-            </div>
-          </div>
-        </div>
-       </div>
        <!-- Sự kiện sắp tới -->
-       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 event-container'>
+       <!-- <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 event-container'>
         <div class='list-category-header'>
           <span><span class='color-green'>SỰ KIỆN</span> SẮP TỚI</span>
         </div>
@@ -610,7 +435,7 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- Nút tùy chỉnh -->
           <div class="custom-controls">
             <button class="custom-prev" onclick="prevSlide()">

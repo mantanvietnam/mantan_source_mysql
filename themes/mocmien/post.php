@@ -15,6 +15,10 @@ body {
     line-height: 1.6;
 }
 
+a {
+    color : blue;
+}
+
 h1, h2, h3, h4, .card-title {
     font-weight: 700;
     color: #222;
@@ -192,7 +196,8 @@ footer a:hover {
                         </div>
                         <div class="body">
                             <div class="content">
-                                <?= $post->content ?>
+                            <?= htmlspecialchars_decode($post->content) ?>
+
                             </div>
                         </div>
                     </article>

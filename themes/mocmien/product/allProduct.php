@@ -69,6 +69,10 @@
             height: 25px;
         }
     }
+
+    .bestsell-product-container {
+    padding: 16px;
+}
 </style>
 	<!-- địa chỉ trang -->
     <div class='container gap-3 d-flex align-items-center location-page'>
@@ -81,7 +85,7 @@
     </div>
 
     <div class='container mt-4'>
-      	<div class='row bestsell-list-container'>
+      	<div class='row bestsell-list-container '>
       		<?php 
             if(!empty($list_product)){
                 foreach ($list_product as $product) {

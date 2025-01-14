@@ -138,8 +138,8 @@
                         <input type="text" class="form-control" name="big_content" value="<?php echo @$setting['big_content'];?>" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Nội dung nhỏ</label>
-                        <input type="text" class="form-control" name="small_content" value="<?php echo @$setting['small_content'];?>" />
+                        <label class="form-label" for="basic-default-small-content">Nội dung nhỏ</label>
+                        <textarea class="form-control" id="basic-default-small-content" name="small_content" rows="5"><?php echo @$setting['small_content'];?></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Đường Link</label>
@@ -251,6 +251,43 @@
             </div>
           </div>
         </div>
+
+        <!---- Khối sale---->
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Khối sale</h5>
+            </div>
+            <div class="card-body row">
+                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Nội dung sale</label>
+                        <input type="text" class="form-control" name="sale_title" value="<?php echo @$setting['sale_title'];?>" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Ngày </label>
+                        <input type="text" class="form-control" name="day" value="<?php echo @$setting['day'];?>" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Giờ</label>
+                        <input type="text" class="form-control" name="hours" value="<?php echo @$setting['hours'];?>" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Phút</label>
+                        <input type="text" class="form-control" name="minutes" value="<?php echo @$setting['minutes'];?>" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Giây</label>
+                        <input type="text" class="form-control" name="seconds" value="<?php echo @$setting['seconds'];?>" />
+                    </div>
+                </div>
+                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Khối liên kết -->
         <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <div class="card mb-4">

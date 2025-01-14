@@ -1,196 +1,29 @@
 <?php  
+getHeader();
     global $urlThemeActive;
     global $settingThemes;
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mộc Miên</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-
-    <link rel="stylesheet" href="<?php echo @$urlThemeActive; ?>/styles/globle.css" />
-    <link rel="stylesheet" href="<?php echo @$urlThemeActive; ?>/styles/index.css" />
-    <link rel="stylesheet" href="<?php echo @$urlThemeActive; ?>/styles/dathang.css" />
-    <link rel="stylesheet" href="<?php echo @$urlThemeActive; ?>/styles/chitietSP.css" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="starability-minified/starability-all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-  </head>
-  <style>
+<style>
     #quantity_buy {
     width: 50px; 
     height: 30px;
     font-size: 14px;
     padding: 5px;
     text-align: center;
-}
+    }
+
+    .count-sale {
+      display: inline-block;
+      background-color: white; /* Màu nền trắng */
+      padding: 10px 15px; /* Khoảng cách bên trong */
+      margin: 0 5px; /* Khoảng cách giữa các số */
+      border-radius: 12px; /* Bo tròn */
+      font-size: 1.5rem; /* Kích thước chữ */
+      font-weight: bold; /* Đậm chữ */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tạo bóng nhẹ */
+      color: black;
+    }
 </style>
-  <body>
-    <!-- contact -->
-    <div class="content-center text-white bg-green contact">
-      <span class="">Hotline Mộc Miên: <?php echo @$settingThemes['title_main'];?></span>
-    </div>
-    <!-- responsive search -->
-    <div class="container pt-4 d-sm-none d-flex input-group">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Tìm kiếm..."
-        aria-label="Search input"
-        aria-describedby="button-search"
-      />
-      <button
-        class="btn btn-primary bg-green search-btn"
-        type="button"
-        id="button-search"
-      >
-        <i class="fas fa-search"></i>
-        <!-- Icon kính lúp -->
-      </button>
-    </div>
-
-    <!-- header -->
-    <div class="mx-mobile md:mx-6 lg:mx-16 xl:mx-28 header-container">
-      <!-- logo -->
-      <div>
-        <img src="<?php echo @$urlThemeActive; ?>/assets/images/logo.png" alt="logo" />
-      </div>
-      <!-- Thanh tìm kiếm với icon kính lúp -->
-      <div class="d-sm-flex d-none input-group header-search-container">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Tìm kiếm..."
-          aria-label="Search input"
-          aria-describedby="button-search"
-        />
-        <button
-          class="btn btn-primary bg-green search-btn"
-          type="button"
-          id="button-search"
-        >
-          <i class="fas fa-search"></i>
-          <!-- Icon kính lúp -->
-        </button>
-      </div>
-      <!-- điều hướng -->
-      <div class="d-lg-flex d-none header-nav">
-        <a class="nav-item">
-          <img src="<?php echo @$urlThemeActive; ?>/assets/images/system-icon.png" alt="" />
-          <span>Hệ thống cửa hàng</span>
-        </a>
-        <a class="nav-item" href="/cart">
-          <img src="<?php echo @$urlThemeActive; ?>/assets/images/card-icon.png" alt="" />
-          <span>Giỏ hàng</span>
-        </a>
-        <div class="dropdown nav-item">
-          <button
-            class="btn btn-secondary drop-menu-2"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img src="<?php echo @$urlThemeActive; ?>/assets/images/user-icon.png" alt="" />
-            <span>Tài khoản</span>
-            <img src="<?php echo @$urlThemeActive; ?>/assets/images/a-down.png" alt="" />
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item" href="#">
-                <span>Thông tin tài khoản</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">
-                <span>Đăng xuất</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- dropdowwn -->
-      <div class="dropdown d-lg-none d-block">
-        <button
-          class="btn btn-secondary drop-menu"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <img src="<?php echo @$urlThemeActive; ?>/assets/images/nav-menu.png" alt="" />
-          <span>Menu</span>
-        </button>
-        <ul class="dropdown-menu pr-[20px]">
-          <li>
-            <a class="dropdown-item nav-item" href="#">
-              <img src="<?php echo @$urlThemeActive; ?>/assets/images/system-icon.png" alt="" />
-              <span>Hệ thống cửa hàng</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item nav-item" href="#">
-              <img src="<?php echo @$urlThemeActive; ?>/assets/images/card-icon.png" alt="" />
-              <span>Giỏ hàng</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item nav-item" href="#">
-              <img src="<?php echo @$urlThemeActive; ?>/assets/images/user-icon.png" alt="" />
-              <span>Tài khoản</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- điều hướng -->
-    <div class="content-center bg-green navigation">
-      <div class="container nav-container">
-        <?php 
-                $menu = getMenusDefault();
-            ?>
-            <?php if(!empty($menu)): ?>
-              <?php foreach($menu as $key => $value): ?>
-                <?php if(!empty($value->sub)): ?>
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              <span><?php echo $value->name; ?></span>
-                          </a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                              <?php foreach ($value->sub as $sub): ?>
-                              <li><a class="dropdown-item" href="<?php echo $sub->link; ?>"><?php echo $sub->name; ?></a></li>
-                              <?php endforeach; ?>
-                          </ul> 
-                      </li>
-                  <?php else: ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $value->link; ?>"><span><?php echo $value->name; ?></span></a>
-                    </li>
-                <?php endif; ?>
-              <?php endforeach; ?>
-            <?php endif; ?> 
-      </div>
-    </div>
-
     <!-- địa chỉ trang -->
     <div class="bg-gray-100">
       <div
@@ -265,12 +98,12 @@
         <div
           class="flex flex-col my-4 text-white countdown sm:flex-row justify-content-between align-items-center"
         >
-          <span class="">BLACK FRIDAY SIÊU SALE</span>
+          <span class=""><?php echo @$settingThemes['sale_title']; ?></span>
           <div class="mt-2 sm:mt-0">
-            <span class="count-number">01</span>
-            <span class="count-number">23</span>
-            <span class="count-number">11</span>
-            <span class="count-number">02</span>
+            <span class="count-sale" id="days"><?php echo @$settingThemes['day']; ?></span>
+            <span class="count-sale" id="hours"><?php echo @$settingThemes['hours']; ?></span>
+            <span class="count-sale" id="minutes"><?php echo @$settingThemes['minutes']; ?></span>
+            <span class="count-sale" id="seconds"><?php echo @$settingThemes['seconds']; ?></span>
           </div>
         </div>
 
@@ -459,6 +292,49 @@
     activeButton.classList.remove('text-gray-400');
 }
 
+ // Nhận giá trị ban đầu từ PHP
+ let days = parseInt(document.getElementById('days').textContent);
+  let hours = parseInt(document.getElementById('hours').textContent);
+  let minutes = parseInt(document.getElementById('minutes').textContent);
+  let seconds = parseInt(document.getElementById('seconds').textContent);
+
+  console.log(days)
+  console.log(hours)
+  console.log(minutes)
+  console.log(seconds)
+
+  // Hàm cập nhật hiển thị thời gian đếm ngược
+  function updateCountdown() {
+    if (seconds > 0) {
+      seconds--;
+    } else if (minutes > 0) {
+      minutes--;
+      seconds = 59;
+    } else if (hours > 0) {
+      hours--;
+      minutes = 59;
+      seconds = 59;
+    } else if (days > 0) {
+      days--;
+      hours = 23;
+      minutes = 59;
+      seconds = 59;
+    } else {
+      // Khi hết thời gian, dừng đếm ngược
+      clearInterval(countdownInterval);
+      alert('Countdown completed!');
+    }
+
+    // Cập nhật giá trị hiển thị trên giao diện
+    document.getElementById('days').textContent = days;
+    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+  }
+
+  // Gọi hàm updateCountdown mỗi giây
+  const countdownInterval = setInterval(updateCountdown, 1000);
+
 </script>
 
   <script src="<?php echo @$urlThemeActive; ?>/scripts/index.js"></script>
@@ -473,4 +349,3 @@
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"
   ></script>
-</html>
