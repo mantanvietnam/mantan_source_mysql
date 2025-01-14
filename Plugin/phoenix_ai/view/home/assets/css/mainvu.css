@@ -1145,6 +1145,21 @@ table {
         flex-direction: column !important;
         padding: 15px !important;
     }
+    .write-outline h3{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100px;
+    }
+    .last-inputcontent{
+        margin-top: 300px !important;
+    }
+    .write-outline p{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100px;
+    }
     .main-wrap .showcase .overlay .info p{
         margin-top: 10px !important; 
     }
@@ -1157,6 +1172,10 @@ table {
     .main-wrap .showcase .overlay .info{
         width: 275px !important;
         background-color: #fff !important;
+    }
+    .aiva-home .card-ai{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
     }
     .banner-ui{
         padding-left: 0px;
