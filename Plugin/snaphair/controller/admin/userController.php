@@ -19,8 +19,8 @@ function listUserAdmin($input){
         $conditions['id'] = (int) $_GET['id'];
     }
 
-    if(!empty($_GET['fullname'])){
-        $conditions['fullname LIKE'] = '%'.$_GET['fullname'].'%';
+    if(!empty($_GET['full_name'])){
+        $conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
     }
 
     if(!empty($_GET['phone'])){
@@ -64,15 +64,86 @@ function listUserAdmin($input){
     } else {
         $urlPage = $urlPage . '?page=';
     }
+    $mess = '';
+    if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='lock'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">khóa tài khoản thành công</p>';
+        }elseif(@$_GET['mess']=='active'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">khích hoạt thành công</p>';
+        }
 
 
     setVariable('page', $page);
+    setVariable('mess', $mess);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);    
     setVariable('listData', $listData);
 
+}
+
+function updateStatusUserAdmin($input)
+{
+    global $controller;
+
+    $modelUser = $controller->loadModel('Users');
+
+    if (!empty($_GET['id'])) {
+        $data = $modelUser->find()->where([
+            'id' => $_GET['id']
+        ])->first();
+
+        if ($data && isset($_GET['status'])) {
+            $data->status = $_GET['status'];
+            $modelUser->save($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/snaphair-view-admin-user-listUserAdmin?mess='.$_GET['status']);
+}
+
+function editUserAdmin($input)
+{
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $modelUser = $controller->loadModel('Users');
+    $metaTitleMantan = 'Thông tin người dùng';
+    $mess = '';
+
+    if (!empty($_GET['id'])) {
+        $data = $modelUser->find()
+            ->where([
+                'id' => (int)$_GET['id']
+            ])->first();
+    } else {
+        $data = $modelUser->newEmptyEntity();
+    }
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['full_name'])){
+            $data->full_name = $dataSend['full_name'];
+            $data->avatar = $dataSend['avatar'];
+            $data->email = $dataSend['email'] ?? null;
+            $data->address = $dataSend['address'] ?? null;
+            if (!empty($dataSend['birthday'])) {
+                $date = explode("/", $dataSend['birthday']);
+                $data->birthday =  mktime(0, 0, 0, $date[1], $date[0], $date[2]);
+            }   
+            $modelUser->save($data);
+             return $controller->redirect('/plugins/admin/snaphair-view-admin-user-listUserAdmin?mess=saveSuccess');
+            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+        } else {
+            $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+        }
+    }
+   
+    setVariable('data', $data);
+    setVariable('mess', $mess);
 }
 
 

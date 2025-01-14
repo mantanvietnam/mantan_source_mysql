@@ -49,6 +49,7 @@ function registerUserApi($input): array
                 $user->password = md5($dataSend['password']);
                 $user->email = $dataSend['email'] ?? null;
                 $user->address = $dataSend['address'] ?? null;
+                $user->sex = $dataSend['sex'] ?? 1;
                 $user->status = isset($dataSend['status']) ? (int)$dataSend['status'] : 'active';
                 $user->created_at = time();
                 $user->last_login = time();
@@ -179,11 +180,11 @@ function changePasswordApi($input): array
             && isset($dataSend['new_password'])
             && isset($dataSend['password_confirmation'])
         ) {
-            if (md5($dataSend['current_password']) !== $currentUser->password) {
+            if (md5($dataSend['current_password']) != $currentUser->password) {
                 return apiResponse(3, 'Mật khẩu không chính xác');
             }
 
-            if ($dataSend['new_password'] !== $dataSend['password_confirmation']) {
+            if ($dataSend['new_password'] != $dataSend['password_confirmation']) {
                 return apiResponse(4, 'Mật khẩu nhập lại không chính xác');
             }
 
@@ -223,11 +224,11 @@ function forgotPasswordApi($input): array
             }
 
             if ($user->status != 'active') {
-                return apiResponse(3, 'Tài khoản đang bị khóa');
+                return apiResponse(5, 'Tài khoản đang bị khóa');
             }
 
             if (!$user->email) {
-                return apiResponse(3, 'Tài khoản chưa có thông tin email');
+                return apiResponse(4, 'Tài khoản chưa có thông tin email');
             }
 
             $code = rand(100000, 999999);
@@ -312,7 +313,7 @@ function checkLoginFacebookApi($input): array
             $user = $userModel->find()->where(['facebook_id' => $dataSend['facebook_id']])->first();
 
             if ($user) {
-                $user->last_login = date('Y-m-d H:i:s');
+                $user->last_login =time();
                 $user->access_token = createTokenCode();
                 $user->avatar = $dataSend['avatar'] ?? $user->avatar;
                 $user->full_name = $dataSend['full_name'] ?? $user->full_name;
@@ -329,7 +330,7 @@ function checkLoginFacebookApi($input): array
                         $checkPhone->avatar = $dataSend['avatar'] ?? $checkPhone->avatar;
                         $checkPhone->full_name = $dataSend['full_name'] ?? $checkPhone->full_name;
                         $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
-                        $checkPhone->last_login = date('Y-m-d H:i:s');
+                        $checkPhone->last_login =time();
                         $checkPhone->access_token = createTokenCode();
                         $userModel->save($checkPhone);
 
@@ -346,7 +347,7 @@ function checkLoginFacebookApi($input): array
                         $checkEmail->avatar = $dataSend['avatar'] ?? $checkEmail->avatar;
                         $checkEmail->full_name = $dataSend['full_name'] ?? $checkEmail->full_name;
                         $checkEmail->phone = $dataSend['phone'] ?? $checkEmail->phone;
-                        $checkEmail->last_login = date('Y-m-d H:i:s');
+                        $checkEmail->last_login =time();
                         $checkEmail->access_token = createTokenCode();
                         $userModel->save($checkEmail);
 
@@ -365,9 +366,9 @@ function checkLoginFacebookApi($input): array
                     $newUser->email = $dataSend['email'] ?? null;
                     $newUser->address = $dataSend['address'] ?? null;
                     $newUser->status = isset($dataSend['status']) ? (int) $dataSend['status'] : 'active';
-                    $newUser->created_at = date('Y-m-d H:i:s');
-                    $newUser->updated_at = date('Y-m-d H:i:s');
-                    $newUser->last_login = date('Y-m-d H:i:s');
+                    $newUser->created_at =time();
+                    $newUser->updated_at =time();
+                    $newUser->last_login =time();
                     $newUser->access_token = createTokenCode();
                     $newUser->device_token = $dataSend['device_token'] ?? null;
                     $userModel->save($newUser);
@@ -400,7 +401,7 @@ function checkLoginGoogleApi($input): array
             $user = $userModel->find()->where(['google_id' => $dataSend['google_id']])->first();
 
             if ($user) {
-                $user->last_login = date('Y-m-d H:i:s');
+                $user->last_login =time();
                 $user->access_token = createTokenCode();
                 $user->avatar = $dataSend['avatar'] ?? $user->avatar;
                 $user->full_name = $dataSend['full_name'] ?? $user->full_name;
@@ -418,7 +419,7 @@ function checkLoginGoogleApi($input): array
                         $checkPhone->avatar = $dataSend['avatar'] ?? $checkPhone->avatar;
                         $checkPhone->full_name = $dataSend['full_name'] ?? $checkPhone->full_name;
                         $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
-                        $checkPhone->last_login = date('Y-m-d H:i:s');
+                        $checkPhone->last_login =time();
                         $checkPhone->access_token = createTokenCode();
                         $checkPhone->device_token = $dataSend['device_token'] ?? $checkPhone->device_token;
                         $userModel->save($checkPhone);
@@ -436,7 +437,7 @@ function checkLoginGoogleApi($input): array
                         $checkEmail->avatar = $dataSend['avatar'] ?? $checkEmail->avatar;
                         $checkEmail->full_name = $dataSend['full_name'] ?? $checkEmail->full_name;
                         $checkEmail->phone = $dataSend['phone'] ?? $checkEmail->phone;
-                        $checkEmail->last_login = date('Y-m-d H:i:s');
+                        $checkEmail->last_login =time();
                         $checkEmail->access_token = createTokenCode();
                         $checkEmail->device_token = $dataSend['device_token'] ?? $checkEmail->device_token;
                         $userModel->save($checkEmail);
@@ -455,9 +456,9 @@ function checkLoginGoogleApi($input): array
                     $newUser->email = $dataSend['email'] ?? null;
                     $newUser->address = $dataSend['address'] ?? null;
                     $newUser->status = isset($dataSend['status']) ? (int) $dataSend['status'] : 'active';
-                    $newUser->created_at = date('Y-m-d H:i:s');
-                    $newUser->updated_at = date('Y-m-d H:i:s');
-                    $newUser->last_login = date('Y-m-d H:i:s');
+                    $newUser->created_at =time();
+                    $newUser->updated_at =time();
+                    $newUser->last_login =time();
                     $newUser->access_token = createTokenCode();
                     $newUser->device_token = $dataSend['device_token'] ?? null;
                     $userModel->save($newUser);
@@ -500,7 +501,7 @@ function checkLoginAppleApi($input): array
             $user = $userModel->find()->where(['apple_id' => $dataSend['apple_id']])->first();
 
             if ($user) {
-                $user->last_login = date('Y-m-d H:i:s');
+                $user->last_login = time();
                 $user->access_token = createTokenCode();
                 $user->device_token = $dataSend['device_token'] ?? null;
                 $user->avatar = $dataSend['avatar'] ?? $user->avatar;
@@ -513,7 +514,7 @@ function checkLoginAppleApi($input): array
                 $user->apple_id = $dataSend['apple_id'];
                 $user->device_token = $dataSend['device_token'] ?? null;
                 $user->avatar = $dataSend['avatar'] ?? $defaultAvatar;
-                $user->last_login = date('Y-m-d H:i:s');
+                $user->last_login =time();
                 $user->access_token = createTokenCode();
                 $user->is_verified = 1;
                 $userModel->save($user);
@@ -587,6 +588,11 @@ function updateUserApi($input): array
             $currentUser->address = $dataSend['address'];
         }
 
+
+        if (!empty($dataSend['sex'])) {
+            $currentUser->sex = $dataSend['sex'];
+        }
+
         if (isset($dataSend['bank_account'])) {
             $currentUser->bank_account = $dataSend['bank_account'];
         }
@@ -645,7 +651,7 @@ function deleteUserApi($input): array
             }
         }
 
-        $currentUser->deleted_at = date('Y-m-d H:i:s');
+        $currentUser->deleted_at =time();
         $currentUser->access_token = null;
         $modelUser->save($currentUser);
 

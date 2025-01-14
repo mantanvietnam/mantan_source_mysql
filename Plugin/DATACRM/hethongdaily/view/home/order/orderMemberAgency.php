@@ -583,15 +583,15 @@
             if (msg.code === 0) {
                  if(msg.status=='new'){ 
                   htmlstatus = '<p style="color: #00aeee;">Đơn mới</p>';
-                    htmlbtnProcess= ' <br/><br/> <a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'browser \')" >Duyệt</a> \
+                    htmlbtnProcess= ' <br/><br/> <a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'browser\')" >Duyệt</a> \
                      <br/><br/> <a class="btn btn-danger">Hủy</a>';
                  }else if(msg.status=='browser'){
                    htmlstatus = '<p style="color: #0333f6;">Đã duyệt</p>';
                    htmlbtnProcess= '<a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+', \'delivery\')" >Giao hàng</a> <br/><br/> \
-                   <a class="btn btn-danger"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'cance \'")">Hủy</a>';
+                   <a class="btn btn-danger"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'cancel\'")">Hủy</a>';
                  }else if(msg.status=='delivery'){
                    htmlstatus = '<p style="color: #7503f6;">Đang giao</p>';
-                   htmlbtnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff" onclick="updateOrderMemberAgency('+id+',  \'done \')">Hoàn thành</a> <br/><br/> <a class="btn btn-danger"  style="color: #fff;" onclick="updateOrderMemberAgency('+id+',  \'cancel \')">Hủy</a>';
+                   htmlbtnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff" onclick="updateOrderMemberAgency('+id+',  \'done\')">Hoàn thành</a> <br/><br/> <a class="btn btn-danger"  style="color: #fff;" onclick="updateOrderMemberAgency('+id+',  \'cancel\')">Hủy</a>';
                  }else if(msg.status=='done'){
                   htmlstatus = '<p style="color: #00ee4b;">Đã xong</p>';
                  }else{
@@ -631,7 +631,7 @@
     var type_collection_bill = $('#type_collection_bill'+id).val();
     var note = $('#note'+id).val();
     confirmation = confirm('Bạn có chắc chắn thanh toán đơn có ID '+id+' không?');
-    if(confirmation == true){
+    if(confirmation == true && type_collection_bill !=''){
       $.ajax({
           method: "POST",
           url: "/apis/updateStatusOrderMemberAPI",
@@ -650,15 +650,15 @@
             if (msg.code === 0) {
                  if(msg.status=='new'){ 
                   htmlstatus = '<p style="color: #00aeee;">Đơn mới</p>';
-                    htmlbtnProcess= ' <br/><br/> <a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'browser \')" >Duyệt</a> \
-                     <br/><br/> <a class="btn btn-danger" style="color: #fff;"   onclick="updateOrderMemberAgency('+id+',  \'cancel \')"  >Hủy</a>';
+                    htmlbtnProcess= ' <br/><br/> <a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'browser\')" >Duyệt</a> \
+                     <br/><br/> <a class="btn btn-danger" style="color: #fff;"   onclick="updateOrderMemberAgency('+id+',  \'cancel\')"  >Hủy</a>';
                  }else if(msg.status=='browser'){
                    htmlstatus = '<p style="color: #0333f6;">Đã duyệt</p>';
                    htmlbtnProcess= '<a class="btn btn-primary"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+', \'delivery\')" >Giao hàng</a> <br/><br/> \
-                   <a class="btn btn-danger"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'cance \'")">Hủy</a>';
+                   <a class="btn btn-danger"  style="color: #fff;"  onclick="updateOrderMemberAgency('+id+',  \'cancel\'")">Hủy</a>';
                  }else if(msg.status=='delivery'){
                    htmlstatus = '<p style="color: #7503f6;">Đang giao</p>';
-                   htmlbtnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff" onclick="updateOrderMemberAgency('+id+',  \'done \')">Hoàn thành</a> <br/><br/> <a class="btn btn-danger"  style="color: #fff;" onclick="updateOrderMemberAgency('+id+',  \'cancel \')">Hủy</a>';
+                   htmlbtnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff" onclick="updateOrderMemberAgency('+id+',  \'done\')">Hoàn thành</a> <br/><br/> <a class="btn btn-danger"  style="color: #fff;" onclick="updateOrderMemberAgency('+id+',  \'cancel\')">Hủy</a>';
                  }else if(msg.status=='done'){
                   htmlstatus = '<p style="color: #00ee4b;">Đã xong</p>';
                  }else{

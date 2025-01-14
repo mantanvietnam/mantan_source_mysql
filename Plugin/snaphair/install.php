@@ -17,6 +17,7 @@ $sqlInstallDatabase .= "CREATE TABLE `users` (
 	`address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 	`device_token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 	`status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock',
+	`sex` INT NOT NULL DEFAULT 1,
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -38,3 +39,4 @@ $sqlUpdateDatabase['users']['access_token'] = "ALTER TABLE `users` ADD `access_t
 $sqlUpdateDatabase['users']['address'] = "ALTER TABLE `users` ADD `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['users']['device_token'] = "ALTER TABLE `users` ADD `device_token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['users']['status'] = "ALTER TABLE `users` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock';";
+$sqlUpdateDatabase['users']['sex'] = "ALTER TABLE `users` ADD `sex` INT NOT NULL DEFAULT '1';";
