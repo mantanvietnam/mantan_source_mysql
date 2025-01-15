@@ -108,16 +108,16 @@
             </li>
 
             <!-- Template -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Quản lý SPA</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Quản lý dịch vụ</span></li>
             <!-- Cards -->
 
             <li class="menu-item">
               <a href="/listRoomBed" class="menu-link <?php if(!in_array('room', $session->read('infoUser')->module)) echo 'btn disabled';?>" >
                 <i class="menu-icon tf-icons bx bx-sitemap"></i>
-                <div>Sơ đồ SPA</div>
+                <div>Sơ đồ cơ sở</div>
               </a>
             </li>   
-            <li class="menu-item">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listCustomer','addCustomer','listCategoryCustomer','listSourceCustomer','addDataCustomer','listMedicalHistories','addMedicalHistories'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('customer', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div>Khách hàng</div>

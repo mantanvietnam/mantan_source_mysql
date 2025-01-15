@@ -8,6 +8,7 @@ function listCustomer($input)
 	global $session;
 
 	$metaTitleMantan = 'Danh sách khách hàng';
+	setVariable('page_view', 'listCustomer');
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelMembers = $controller->loadModel('Members');
@@ -219,6 +220,7 @@ function addCustomer($input)
 	global $urlHomes;
 
 	$metaTitleMantan = 'Thông tin khách hàng';
+	setVariable('page_view', 'addCustomer');
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelService = $controller->loadModel('Services');
@@ -390,6 +392,7 @@ function listCategoryCustomer($input){
 	global $session;
 
 	$metaTitleMantan = 'Nhóm khách hàng';
+	setVariable('page_view', 'listCategoryCustomer');
 
 	if(!empty(checkLoginManager('listCategoryCustomer', 'customer'))){
 		$infoUser = $session->read('infoUser');
@@ -454,6 +457,8 @@ function listSourceCustomer($input){
 	global $urlHomes;
 
 	$metaTitleMantan = 'Nguồn khách hàng';
+	setVariable('page_view', 'listSourceCustomer');
+
 	if(!empty(checkLoginManager('listSourceCustomer', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
@@ -568,6 +573,7 @@ function addDataCustomer($input){
 	global $urlHomes;
 
 	$metaTitleMantan = 'Thêm khách hàng bằng Excel';
+	setVariable('page_view', 'addDataCustomer');
 
 	if(!empty(checkLoginManager('addDataCustomer', 'customer'))){
 		$infoUser = $session->read('infoUser');
@@ -655,6 +661,7 @@ function listMedicalHistories(){
 	global $session;
 
 	$metaTitleMantan = 'Hố sơ bệnh án khách hàng';
+	setVariable('page_view', 'listMedicalHistories');
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelMembers = $controller->loadModel('Members');
@@ -736,7 +743,8 @@ function addMedicalHistories($input){
 	global $session;
 	global $isRequestPost;
 
-	$metaTitleMantan = 'Thêm hố sơ bệnh án khách hàng';
+	$metaTitleMantan = 'Thêm hồ sơ bệnh án khách hàng';
+	setVariable('page_view', 'addMedicalHistories');
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelMembers = $controller->loadModel('Members');
