@@ -98,11 +98,11 @@
                               '.number_format($price_buy).' ₫
                           </p>
                           <div class="flex items-center mt-2 product-quantity-control">
-                              <button class="flex items-center justify-center w-8 h-8 border rounded-full product-btn-decrement">
+                              <button class="flex items-center justify-center w-8 h-8 border rounded-full product-btn-decrement" data-product-id="'.$value->id.'">
                                   -
                               </button>
                               <span class="mx-2 product-quantity-display">'.$value->numberOrder.'</span>
-                              <button class="flex items-center justify-center w-8 h-8 border rounded-full product-btn-increment">
+                              <button class="flex items-center justify-center w-8 h-8 border rounded-full product-btn-increment" data-product-id="'.$value->id.'">
                                   +
                               </button>
                           </div>
@@ -137,7 +137,7 @@
       </div>
 
       <div class="hidden step-content" data-step="2">
-        <form action="/createOrder" method="post">
+        <form id="order-form" action="/createOrder" method="post">
           <!-- Hidden Inputs -->
           <input type="hidden" name="id_user" value="<?php echo @$infoUser->id; ?>">
           <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken; ?>">
@@ -208,7 +208,14 @@
               </div>
 
               <!-- Nút Hoàn tất -->
-              <div class="flex justify-center col-span-2 mt-4">
+              <div class="flex justify-between col-span-2 mt-4">
+                  <button
+                      id="previous-step"
+                      class="px-4 py-2 text-white bg-gray-500 rounded-full hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                      type="button"
+                  >
+                      QUAY LẠI
+                  </button>
                   <button
                       id="next-step"
                       class="px-4 py-2 text-white bg-green-500 rounded-full btn-submit-form hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
@@ -309,99 +316,151 @@
                 ?>
       </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-    const totalLabel = document.querySelector(".total-label + .text-green-600");
-    const btnDecrementList = document.querySelectorAll(".product-btn-decrement");
-    const btnIncrementList = document.querySelectorAll(".product-btn-increment");
-    const quantityDisplayList = document.querySelectorAll(".product-quantity-display");
-    const unitPriceList = document.querySelectorAll(".product-unit-price");
-    const step2TotalPrice = document.getElementById("step2-total-price");
+    document.addEventListener("DOMContentLoaded", () => {
+        const totalLabel = document.querySelector(".total-label + .text-green-600");
+        const btnDecrementList = document.querySelectorAll(".product-btn-decrement");
+        const btnIncrementList = document.querySelectorAll(".product-btn-increment");
+        const quantityDisplayList = document.querySelectorAll(".product-quantity-display");
+        const unitPriceList = document.querySelectorAll(".product-unit-price");
+        const step2TotalPrice = document.getElementById("step2-total-price");
+        const steps = document.querySelectorAll(".step");
+        const stepContents = document.querySelectorAll(".step-content");
+        const btnPreviousStep = document.getElementById("previous-step");
+        const submitOrderBtn = document.getElementById("submit-order");
+        const orderForm = document.getElementById("order-form");
 
-    let totalPrice = parseFloat(totalLabel.textContent.replace(/₫|,/g, ""));
+        let totalPrice = parseFloat(totalLabel.textContent.replace(/₫|,/g, ""));
 
-    function updateTotalPrice() {
-        totalPrice = 0;
+        function updateTotalPrice() {
+            totalPrice = 0;
 
-        unitPriceList.forEach((unitPrice, index) => {
-            const quantity = parseInt(quantityDisplayList[index].textContent, 10);
-            const unitPriceValue = parseFloat(
-                unitPrice.dataset.unitPrice.replace(/₫|,/g, "")
-            );
-            const productTotal = quantity * unitPriceValue;
-
-            unitPrice.textContent = productTotal.toLocaleString() + "₫";
-            totalPrice += productTotal;
-        });
-
-        totalLabel.textContent = totalPrice.toLocaleString() + "₫";
-        if (step2TotalPrice) {
-            step2TotalPrice.textContent = totalPrice.toLocaleString() + "₫"; // Đồng bộ Bước 2
-        }
-    }
-
-    btnDecrementList.forEach((btn, index) => {
-        btn.addEventListener("click", () => {
-            const quantityDisplay = quantityDisplayList[index];
-            let quantity = parseInt(quantityDisplay.textContent, 10);
-
-            if (quantity > 1) {
-                quantity -= 1;
-                quantityDisplay.textContent = quantity;
-                updateTotalPrice();
-            }
-        });
-    });
-
-    btnIncrementList.forEach((btn, index) => {
-        btn.addEventListener("click", () => {
-            const quantityDisplay = quantityDisplayList[index];
-            let quantity = parseInt(quantityDisplay.textContent, 10);
-
-            quantity += 1;
-            quantityDisplay.textContent = quantity;
-            updateTotalPrice();
-        });
-    });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Lấy form và nút submit
-    const form = document.querySelector("form[action='/createOrder']");
-    const submitButton = document.getElementById("next-step");
-
-    // Kiểm tra nếu form và submitButton đều tồn tại
-    if (form && submitButton) {
-        // Lắng nghe sự kiện submit
-        form.addEventListener("submit", function (e) {
-            e.preventDefault(); // Ngừng hành động mặc định của form (tải lại trang)
-
-            // Lấy dữ liệu từ form
-            const formData = new FormData(form);
-
-            // Thêm giá trị tổng tiền vào formData nếu cần
-            const totalPrice = document.getElementById("step2-total-price").textContent.replace('₫', '').replace(',', '').trim();
-            formData.append("price_total", totalPrice);
-
-            // Log tất cả các dữ liệu trong formData
-            console.log("Dữ liệu sẽ được gửi đi:");
-            formData.forEach((value, key) => {
-                console.log(key + ": " + value);
+            unitPriceList.forEach((unitPrice, index) => {
+                const quantity = parseInt(quantityDisplayList[index].textContent, 10);
+                const unitPriceValue = parseFloat(unitPrice.dataset.unitPrice.replace(/₫|,/g, ""));
+                const productTotal = quantity * unitPriceValue;
+                unitPrice.textContent = productTotal.toLocaleString() + "₫";
+                totalPrice += productTotal;
             });
 
-            // Nếu bạn muốn kiểm tra thêm dữ liệu khác như tổng tiền, bạn cũng có thể log thêm ở đây:
-            console.log("Tổng tiền: " + totalPrice);
+            totalLabel.textContent = totalPrice.toLocaleString() + "₫";
+            if (step2TotalPrice) {
+                step2TotalPrice.textContent = totalPrice.toLocaleString() + "₫";
+            }
+        }
 
-            // Ở đây bạn có thể xử lý dữ liệu theo ý muốn mà không cần gửi form
+        function updateCartAPI(productId, newQuantity) {
+            $.ajax({
+                method: "GET",
+                url: `/updateProductToCart/?id_product=${productId}&quantity=${newQuantity}`,
+            })
+            .done(() => {
+                updateTotalPrice();
+            })
+            .fail(() => {
+                console.error("API call failed.");
+                alert("Cập nhật số lượng không thành công. Vui lòng thử lại.");
+            });
+        }
+
+        btnDecrementList.forEach((btn, index) => {
+            const productId = btn.getAttribute("data-product-id");
+
+            btn.addEventListener("click", () => {
+                const quantityDisplay = quantityDisplayList[index];
+                let quantity = parseInt(quantityDisplay.textContent, 10);
+
+                if (quantity > 1) {
+                    quantity -= 1;
+                    quantityDisplay.textContent = quantity;
+                    updateCartAPI(productId, quantity);
+                }
+            });
         });
 
-        // (Tùy chọn) Nếu bạn muốn kiểm tra khi người dùng nhấn submit
-        submitButton.addEventListener("click", function (e) {
-            e.preventDefault(); // Ngừng hành động mặc định khi nhấn nút submit
-            form.dispatchEvent(new Event("submit")); // Gọi lại sự kiện submit
-        });
-    }
-});
+        btnIncrementList.forEach((btn, index) => {
+            const productId = btn.getAttribute("data-product-id");
 
-</script>
+            btn.addEventListener("click", () => {
+                const quantityDisplay = quantityDisplayList[index];
+                let quantity = parseInt(quantityDisplay.textContent, 10);
+                quantity += 1;
+                quantityDisplay.textContent = quantity;
+                updateCartAPI(productId, quantity);
+            });
+        });
+
+        function showStep(stepNumber) {
+            stepContents.forEach((content) => {
+                content.classList.add("hidden");
+            });
+
+            const currentStepContent = document.querySelector(
+                `.step-content[data-step="${stepNumber}"]`
+            );
+            if (currentStepContent) {
+                currentStepContent.classList.remove("hidden");
+            }
+
+            steps.forEach((step, index) => {
+                const icon = step.querySelector(".icon");
+                const text = step.querySelector("span");
+
+                if (index + 1 <= stepNumber) {
+                    icon.classList.remove("bg-gray-200", "text-gray-500");
+                    icon.classList.add("bg-blue-900", "text-white");
+                    text.classList.remove("text-gray-500");
+                    text.classList.add("text-black");
+                } else {
+                    icon.classList.remove("bg-blue-900", "text-white");
+                    icon.classList.add("bg-gray-200", "text-gray-500");
+                    text.classList.remove("text-black");
+                    text.classList.add("text-gray-500");
+                }
+            });
+        }
+
+        steps.forEach((step, index) => {
+            step.addEventListener("click", () => {
+                const stepNumber = index + 1;
+                showStep(stepNumber);
+            });
+        });
+
+        showStep(1);
+
+        if (btnPreviousStep) {
+            btnPreviousStep.addEventListener("click", () => {
+                showStep(1);
+            });
+        }
+
+        if (submitOrderBtn) {
+            submitOrderBtn.addEventListener("click", () => {
+                const formData = new FormData(orderForm);
+
+                fetch(orderForm.action, {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            showStep(3);
+                        } else {
+                            alert("Đặt hàng không thành công. Vui lòng thử lại.");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+                    });
+            });
+        }
+
+        updateTotalPrice();
+    });
+
+    </script>
+
     <?php getFooter(); ?>

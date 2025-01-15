@@ -269,41 +269,30 @@ getHeader();
     }
 
     function showTab(tabId) {
-    // Ẩn tất cả các tab
     const tabs = document.querySelectorAll('.tab-content');
     tabs.forEach(tab => {
         tab.classList.add('hidden');
     });
 
-    // Loại bỏ lớp 'active' khỏi tất cả các nút
     const buttons = document.querySelectorAll('button');
     buttons.forEach(button => {
         button.classList.remove('active');
         button.classList.add('text-gray-400');
     });
 
-    // Hiển thị tab được chọn
     const activeTab = document.getElementById(tabId);
     activeTab.classList.remove('hidden');
 
-    // Thêm lớp 'active' cho nút đang được nhấn
     const activeButton = document.querySelector(`#btn-${tabId}`);
     activeButton.classList.add('active');
     activeButton.classList.remove('text-gray-400');
 }
 
- // Nhận giá trị ban đầu từ PHP
  let days = parseInt(document.getElementById('days').textContent);
   let hours = parseInt(document.getElementById('hours').textContent);
   let minutes = parseInt(document.getElementById('minutes').textContent);
   let seconds = parseInt(document.getElementById('seconds').textContent);
 
-  console.log(days)
-  console.log(hours)
-  console.log(minutes)
-  console.log(seconds)
-
-  // Hàm cập nhật hiển thị thời gian đếm ngược
   function updateCountdown() {
     if (seconds > 0) {
       seconds--;
@@ -320,19 +309,16 @@ getHeader();
       minutes = 59;
       seconds = 59;
     } else {
-      // Khi hết thời gian, dừng đếm ngược
       clearInterval(countdownInterval);
       alert('Countdown completed!');
     }
 
-    // Cập nhật giá trị hiển thị trên giao diện
     document.getElementById('days').textContent = days;
     document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
     document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
     document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
   }
 
-  // Gọi hàm updateCountdown mỗi giây
   const countdownInterval = setInterval(updateCountdown, 1000);
 
 </script>
