@@ -7,7 +7,7 @@ $info = $session->read('infoUser');
                     <div class="chat-header">
                         <p><img src="plugins/phoenix_ai/view/home/assets/img/96cb94e74cb6a1cf50d8c2aa74763389.svg" alt="">Welcome to <span>Phoenix</span></p>
                     </div>
-                    <div class="search-box d-flex align-items-center justify-content-center">
+                    <div class="search-box box-chat d-flex align-items-center justify-content-center">
                         <input type="text" class="form-control search-input search-chat" placeholder="Tìm kiếm trợ lý Phoenix">
                         <button class="btn search-btn">
                             <i class="fa-solid fa-magnifying-glass"></i>

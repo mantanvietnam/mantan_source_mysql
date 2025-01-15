@@ -1148,6 +1148,9 @@ table {
     .main-wrap .showcase .overlay .search-btn{
         right: -5px !important;
     }
+    .main-wrap .showcase .overlay .box-chat{
+        width: 90% !important;
+    }
     .main-wrap .showcase .overlay .card{
         max-height: 300px !important; 
         min-width: 300px !important;
