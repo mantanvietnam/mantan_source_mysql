@@ -1139,6 +1139,15 @@ table {
   }
 
   @media screen and (max-width: 425px){
+    .aiva-writecontent{
+        margin-top: 30px !important;
+    }
+    .set-height-writecontent{
+        margin-bottom: 30px !important;
+    }
+    .main-wrap .showcase .overlay .search-btn{
+        right: -5px !important;
+    }
     .main-wrap .showcase .overlay .card{
         max-height: 300px !important; 
         min-width: 300px !important;
