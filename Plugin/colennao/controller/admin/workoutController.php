@@ -560,6 +560,7 @@ function addChildExerciseWorkout($input){
                 $data->content = @$dataSend['content'];
                 $data->content_en = @$dataSend['content_en'];
                 $data->id_group =(int) @$dataSend['id_group'];
+                $data->sort_order =(int) @$dataSend['sort_order'];
                 $data->device = json_encode(@$dataSend['device']);
                 $data->time_reverse =(int)@$dataSend['time_reverse'];
                 $data->group_exercise = json_encode(@$group_exercise);

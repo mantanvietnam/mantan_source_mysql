@@ -62,11 +62,15 @@ function addWallPostApi($input){
                             if(!empty($image['linkOnline'])){
                                 $save = $modelImageCustomer->newEmptyEntity();
 
+                                if(file_exists($image['linkLocal'])){
+                                    zipImage($image['linkLocal']);
+                                }
+
                 				$save->id_customer = $user->id;
                 				$save->id_post = $data->id;
                 				$save->image = $image['linkOnline'].'?time='.time();
                 				$save->public = $dataSend['public'];
-                                $save->link_local = strstr($image['linkOnline'], 'upload');
+                                $save->link_local = $image['linkLocal'];
                 				$save->created_at = time();
                 				$modelImageCustomer->save($save);
                             }
@@ -220,11 +224,16 @@ function  editWallPostApi($input){
                                 if(!empty($image['linkOnline'])){
                                     $save = $modelImageCustomer->newEmptyEntity();
 
+                                   
+                                    if(file_exists($image['linkLocal'])){
+                                        zipImage($image['linkLocal']);
+                                    }   
+
                                     $save->id_customer = $user->id;
                                     $save->id_post = $data->id;
-                                    $save->image = $image['linkOnline'].'?time='.time();;
+                                    $save->image = $image['linkOnline'].'?time='.time();
                                     $save->public = $dataSend['public'];
-                                    $save->link_local = strstr($image['linkOnline'], 'upload');
+                                    $save->link_local = $image['linkLocal'];
                                     $save->created_at = time();
                                     $modelImageCustomer->save($save);
                                 }
@@ -1154,6 +1163,7 @@ function imagecreatefrom(){
 
 
 }
+
  ?>
 
  

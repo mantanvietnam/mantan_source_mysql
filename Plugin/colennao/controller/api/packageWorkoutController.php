@@ -722,7 +722,7 @@ function getUserExerciseWorkoutAPI($input){
                     if(!empty($data->group_exercise)){
                     	$group = json_decode($data->group_exercise, true);
                     	foreach($group as $key => $item){
-								$exercise = $modelChildExerciseWorkouts->find()->where(['id_exercise'=>$data->id, 'id_group'=>$item['id']])->all()->toList();
+								$exercise = $modelChildExerciseWorkouts->find()->where(['id_exercise'=>$data->id, 'id_group'=>$item['id']])->order(['sort_order'=>'ASC','id'=>'ASC'])->all()->toList();
 
 								if(!empty($exercise)){
 									foreach($exercise as $k => $value){

@@ -171,4 +171,24 @@ function sendEmailCustomerRequestCheck($userName = '',$phone='')
         sendEmail($to, $cc, $bcc, $subject, $content);
     }
 }
+
+function zipImage($urlLocalFile='')
+{
+    if(!empty($urlLocalFile)){
+        if(function_exists('getKey') && function_exists('getByIdCategoryKey')){
+            $getid =getByIdCategoryKey();
+            $keyTinipng = getKey($getid['id_tinypng']);
+        }else{
+            $keyTinipng = '';
+        }
+      
+        if(!empty($keyTinipng) && file_exists($urlLocalFile)){
+            require_once("library/tinify/vendor/autoload.php");
+            Tinify\setKey($keyTinipng);
+
+            Tinify\fromFile($urlLocalFile)->toFile($urlLocalFile);
+        }
+    }
+}
+
 ?>

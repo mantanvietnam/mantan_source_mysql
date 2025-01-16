@@ -92,6 +92,10 @@
                                 ?>
                               </select>
                             </div>
+                            <div class="mb-3">
+                              <label class="form-label">sắp xếp theo thứ tự</label>
+                              <input type="number" class="form-control phone-mask" name="sort_order" id="sort_order" value="<?php echo @$data->sort_order;?>"/>
+                            </div>
                              <div class="mb-3">
                               <label class="form-label">Mô tả ngắn tiếng Việt</label>
                               <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>

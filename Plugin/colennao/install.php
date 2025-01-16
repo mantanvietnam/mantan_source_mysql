@@ -317,6 +317,7 @@ $sqlInstallDatabase .="CREATE TABLE `child_exercise_workouts` (
 `id_exercise` INT NULL DEFAULT NULL,
 `id_group` INT NULL DEFAULT NULL,
 `youtube_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`sort_order` INT NULL DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -631,6 +632,7 @@ $sqlUpdateDatabase['child_exercise_workouts']['youtube_code'] = "ALTER TABLE `ch
 $sqlUpdateDatabase['child_exercise_workouts']['id_exercise'] = "ALTER TABLE `child_exercise_workouts` ADD `id_exercise` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['child_exercise_workouts']['id_group'] = "ALTER TABLE `child_exercise_workouts` ADD `id_group` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['child_exercise_workouts']['time_reverse'] = "ALTER TABLE `child_exercise_workouts` ADD `time_reverse` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['child_exercise_workouts']['sort_order'] = "ALTER TABLE `child_exercise_workouts` ADD `sort_order` INT NULL DEFAULT NULL;";
 
 $sqlUpdateDatabase['devices']['name'] = "ALTER TABLE `devices` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['devices']['name_en'] = "ALTER TABLE `devices` ADD `name_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
