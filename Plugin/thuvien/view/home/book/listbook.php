@@ -107,6 +107,7 @@
           <th>Tác giả</th>
           <th>Danh mục sách</th>
           <th>Nhà xuất bản</th>
+          <th>file pdf</th>
           <th>Trạng thái</th>
           <th>Sửa</th>
           <th>Xóa</th>
@@ -131,6 +132,10 @@
                   if ($item->status == 'active') { 
                       $status = '<span class="text-success">Kích hoạt</span>';
                   }
+                  $file = '';
+                  if(!empty($item->file_pdf)){
+                    $file = ' <a  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'"><i class="bx bxs-show"></i></a>';
+                  }
 
                   echo '<tr>
                       <td>'.$item->id.'</td>
@@ -138,6 +143,7 @@
                       <td>'.$item->author.'</td>
                       <td>'.$categoryName.'</td>
                       <td>'.$publisherName.'</td>
+                      <td align="center">'.$file.'</td>
                       <td>'.$status.'</td>
                       <td width="5%" align="center">
                           <a class="dropdown-item" href="/addbook/?id='.$item->id.'">
@@ -160,7 +166,24 @@
       </tbody>
     </table>
   </div>
+ <?php 
+          if (!empty($listData)) {
+              foreach ($listData as $item) {
+                 if(!empty($item->file_pdf)){
+                echo '<div class="modal fade" id="basicModal'.$item->id.'"  name="id">
+                                
+                          <div class="modal-dialog" role="document" style="margin: 36px 10%; max-width: 100%; ">
 
+                            <div class="modal-content" style="background-color: #fff0; box-shadow: none;">
+                                <embed src="'.$item->file_pdf.'"  style="width:100%; height: 800px;" type="application/pdf">
+                            </div>
+                          </div>
+                        </div>';
+                      }
+
+            }
+            }
+          ?>
 
 <!-- Phân trang -->
 <div class="demo-inline-spacing">

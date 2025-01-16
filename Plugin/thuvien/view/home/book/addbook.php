@@ -42,6 +42,7 @@
                               <label class="form-label" for="basic-default-fullname">Ảnh</label>
                               <?php showUploadFile('image','image',@$data->image,0);?>
                             </div>
+                            
                             <div class="mb-3">
                               <label class="form-label">Trạng thái</label>
                               <div class="input-group input-group-merge">
@@ -107,6 +108,10 @@
                                         <?php endif; ?>
                                     </select>
                                 </div>
+                                 <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">file pdf</label>
+                              <?php showUploadFile('file_pdf','file_pdf',@$data->file_pdf,1);?>
+                            </div>
 
                                 <!-- <div class="mb-3">
                                   <label class="form-label" for="basic-default-fullname">Loại sách</label>

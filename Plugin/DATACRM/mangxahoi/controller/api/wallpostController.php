@@ -63,7 +63,8 @@ function addWallPostApi($input){
                                 $save = $modelImageCustomer->newEmptyEntity();
 
                                 if(file_exists($image['linkLocal'])){
-                                    zipImage($image['linkLocal']);
+                                    $filenameImage =  __DIR__.'/../../../'.$image['linkLocal'];
+                                    zipImage( $filenameImage );
                                 }
 
                 				$save->id_customer = $user->id;
@@ -226,7 +227,8 @@ function  editWallPostApi($input){
 
                                    
                                     if(file_exists($image['linkLocal'])){
-                                        zipImage($image['linkLocal']);
+                                        $filenameImage =  __DIR__.'/../../../'.$image['linkLocal'];
+                                        zipImage( $filenameImage );
                                     }   
 
                                     $save->id_customer = $user->id;

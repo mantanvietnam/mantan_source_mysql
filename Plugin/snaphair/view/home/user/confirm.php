@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác Nhận Tài Khoản</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://via.placeholder.com/800x600');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .verify-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 350px;
+            text-align: center;
+        }
+
+        .verify-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2e2e2e;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff007f;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e60073;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="verify-container">
+        <h1>Xác Nhận Tài Khoản</h1>
+        <p>Nhập mã xác nhận đã gửi qua email của bạn</p>
+         <?php echo @$mess; ?>
+        <form  action="" method="post">
+            <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
+            <input type="text" class="input-field" placeholder="Mã xác nhận" name="code" required>
+            <button type="submit" class="btn">Xác Nhận</button>
+        </form>
+        <p><a href="reset.html" class="link">Đặt lại mật khẩu</a></p>
+    </div>
+</body>
+
+</html>

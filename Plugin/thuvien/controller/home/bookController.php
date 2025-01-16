@@ -202,6 +202,7 @@ function addbook($input) {
                 $data->id_category = $dataSend['id_category'];
                 $data->publishing_id = $dataSend['publishing_id'];
                 $data->quantity = $dataSend['quantity'];
+                $data->file_pdf = $dataSend['file_pdf'];
 
                 $slug = createSlugMantan($dataSend['name']);
                 $slugNew = $slug;
