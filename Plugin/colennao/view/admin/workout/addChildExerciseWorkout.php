@@ -77,7 +77,7 @@
                           <div class="col-md-6">
                             <div class="mb-3">
                               <label class="form-label">Nhóm tập(*)</label>
-                              <select class="form-select" name="id_group" id="id_group" >
+                              <select class="form-select" required name="id_group" id="id_group" >
                                 <option value="">Chọn khu vực</option>
                                 <?php 
                                 if(!empty($dataExercise->group_exercise)){

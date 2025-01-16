@@ -21,7 +21,21 @@ $sqlInstallDatabase .= "CREATE TABLE `users` (
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
+
+$sqlInstallDatabase .="CREATE TABLE `transaction_historys` ( 
+	`id` INT NOT NULL AUTO_INCREMENT , 
+	`id_user` INT NOT NULL , 
+	`total` INT NOT NULL ,
+	`coin_user` INT NULL DEFAULT NULL,
+	`type` VARCHAR(255)  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL, 
+	`note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL, 
+	`type_note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL ,  
+	`created` INT NOT NULL , 
+	PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= "DROP TABLE users; ";
+$sqlDeleteDatabase .= "DROP TABLE transaction_historys; ";
 
 // Bang users
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
@@ -40,3 +54,11 @@ $sqlUpdateDatabase['users']['address'] = "ALTER TABLE `users` ADD `address` VARC
 $sqlUpdateDatabase['users']['device_token'] = "ALTER TABLE `users` ADD `device_token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['users']['status'] = "ALTER TABLE `users` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock';";
 $sqlUpdateDatabase['users']['sex'] = "ALTER TABLE `users` ADD `sex` INT NOT NULL DEFAULT '1';";
+
+$sqlUpdateDatabase['transaction_historys']['id_user'] = "ALTER TABLE `transaction_historys` ADD `id_user` INT NOT NULL ;";
+$sqlUpdateDatabase['transaction_historys']['total'] = "ALTER TABLE `transaction_historys` ADD `total` INT NOT NULL ;";
+$sqlUpdateDatabase['transaction_historys']['type'] = "ALTER TABLE `transaction_historys` ADD `type` VARCHAR(255)  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_historys']['note'] = "ALTER TABLE `transaction_historys` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_historys']['type_note'] = "ALTER TABLE `transaction_historys` ADD `type_note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['transaction_historys']['created'] = "ALTER TABLE `transaction_historys` ADD `created` INT NOT NULL;";
+$sqlUpdateDatabase['coin_user']['created'] = "ALTER TABLE `transaction_historys` ADD `coin_user` INT NULL DEFAULT NULL;";

@@ -430,7 +430,7 @@ function listChildExerciseWorkout($input)
     if(!empty($_GET['id_workout'])) {
         //$conditions['id_workout'] =(int) $_GET['id_workout'];
 
-        $dataWorkout = $modelWorkout->find()->where(['id'=>$_GET['id_workout']])->first();
+        $dataWorkout = $modelWorkout->find()->where(['id'=>(int)$_GET['id_workout']])->first();
 
             if(empty($dataWorkout)){
                 return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listWorkout');
@@ -620,14 +620,12 @@ function deleteChildExerciseWorkout(){
 
 
     if(!empty($_GET['id'])){
-        $data = $modelExerciseWorkouts->find()->where(['id'=>(int) $_GET['id']])->first();
+        $data = $modelChildExerciseWorkouts->find()->where(['id'=>(int) $_GET['id']])->first();
         if($data){
-            $conditions = ['id_exercise'=>$data->id];
-            $modelChildExerciseWorkouts->deleteAll($conditions);
-            $modelExerciseWorkouts->delete($data);
+            $modelChildExerciseWorkouts->delete($data);
         }
     }
-    return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listExerciseWorkout?id_workout='.@$_GET['id_workout']);
+    return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise']);
 
 
 }

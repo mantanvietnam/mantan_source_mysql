@@ -13,6 +13,18 @@ $menus[0]['sub'][]= array('title'=>'Thành viên',
 							
 						);
 
+$menus[0]['sub'][]= array( 'title'=>'Lịch sử nạp tiền',
+                            'url'=>'/plugins/admin/snaphair-view-admin-history-listHistoryPlusAdmin',
+                            'classIcon'=>'bx bx-history',
+                            'permission'=>'listHistoryPlusAdmin'
+                        );
+
+$menus[0]['sub'][]= array( 'title'=>'Lịch sử trừ tiền',
+                            'url'=>'/plugins/admin/snaphair-view-admin-history-listHistoryMinusAdmin',
+                            'classIcon'=>'bx bx-history',
+                            'permission'=>'listHistoryMinusAdmin'
+                        );
+
 addMenuAdminMantan($menus);
 
 
@@ -199,6 +211,122 @@ function apiResponse(int $code = 0, $messages = '', $data = [], $totalData = 1, 
         'meta' => $meta ?? [],
         'totalData' => $totalData ?? 1
     ];
+}
+
+function processAddMoney($money = 0, $phone=''){
+    global $controller;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelTransactionHistory = $controller->loadModel('TransactionHistorys');
+
+    $infoUser = $modelUser->find()->where(['phone'=>$phone])->first();
+
+    if(!empty($infoUser)){
+                // cộng tiền tài khoản
+        $infoUser->coin += $money;
+        $modelUser->save($infoUser);
+
+                // lưu lịch sử giao dịch
+        $dataHistories = $modelTransactionHistory->newEmptyEntity();
+
+        $dataHistories->idManager = $infoUser->id;
+        $dataHistories->total = $money;
+        $dataHistories->coin_user = $infoUser->coin;
+        $dataHistories->type = 'plus';
+        $dataHistories->note = 'Nạp tiền tài khoản qua chuyển khoản';
+        $dataHistories->type_note = 'plus_banking';
+        $dataHistories->modified = time();
+
+        $modelTransactionHistory->save($dataHistories);
+
+        if(!empty($infoUser->email)){
+            sendEmailAddMoney($infoUser->email, $infoUser->fullname, $money);
+        }
+
+        $mess = 'Cộng thành công '.number_format($money).'đ cho tài khoản '.$phone;
+    }else{
+        $mess = 'Không tìm thấy tài khoản khách hàng';
+    }
+}
+
+function sendEmailAddMoney($email='', $fullName='', $coin= '')
+{
+    $to = array();
+
+    if(!empty($email)){
+        $to[]= trim($email);
+    
+        $cc = array();
+        $bcc = array();
+        $subject = '[Snaphair] ' . 'Nạp thành công '.number_format($coin).'đ vào tài khoản';
+
+        $content='<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Thông tin nạp tiền Zoom Cheap</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>NẠP TIỀN '.number_format($coin).'Đ</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
+                        <br/>
+                        Bạn đã nạp thành công '.number_format($coin).'đ vào tài khoản của bạn trên hệ thống
+                        
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    <div class="thong_tin">
+                        <div class="line"><div class="line1"></div></div>
+                        <div class="cty">
+                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span>Ứng dụng Snaphair</span>
+                        </div>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: Vũ Tuyên Hoàng</li>
+                            <li>Mobile: 0828266622</li>
+                            <li>Website: <a href="https://zoomcheap.com">https://zoomcheap.com</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        sendEmail($to, $cc, $bcc, $subject, $content);
+    }
 }
 
 ?>

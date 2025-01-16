@@ -155,15 +155,15 @@
                  $status = '<p style="color: #00aeee;">Đơn mới</p>';
                  $btnEdit = '<a class="dropdown-item" href="/editOrderCustomerAgency/?id='.$item->id.'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/>';
 
-                 $btnProcess= '<a class="btn btn-primary" style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'browser\')">Duyệt</a>  <br/><br/> <a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                 $btnProcess= '<a class="btn btn-primary" style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'browser\')">Duyệt</a>  <br/><br/> <a class="btn btn-danger" style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'cancel\')" >Hủy</a>';
                 }elseif($item->status=='browser'){
                  $status= '<p style="color: #0333f6;">Đã duyệt</p>';
 
-                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6; color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'delivery\')">Giao hàng</a>  <br/><br/> <a class="btn btn-danger style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'cancel\')">Hủy</a>';
+                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6; color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'delivery\')">Giao hàng</a>  <br/><br/> <a class="btn btn-danger" style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'cancel\')">Hủy</a>';
                 }elseif($item->status=='delivery'){
                  $status= '<p style="color: #7503f6;">Đang giao</p>';
 
-                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'done\')">Hoàn thành</a>  <br/><br/> <a class="btn btn-danger style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'cancel\')" >Hủy</a>';
+                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'done\')">Hoàn thành</a>  <br/><br/> <a class="btn btn-danger" style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'cancel\')" >Hủy</a>';
                 }elseif($item->status=='done'){
                  $status= '<p style="color: #00ee4b;">Đã xong</p>';
                 }else{
@@ -288,15 +288,15 @@
                  $status = '<p style="color: #00aeee;">Đơn mới</p>';
                  $btnEdit = '<a class="dropdown-item" href="/editOrderCustomerAgency/?id='.$item->id.'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/>';
 
-                 $btnProcess= '<a class="btn btn-primary" style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'browser\')">Duyệt</a>  <br/><br/> <a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                 $btnProcess= '<a class="btn btn-primary" style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'browser\')">Duyệt</a>  <br/><br/> <a class="btn btn-danger" style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'cancel\')">Hủy</a>';
                 }elseif($item->status=='browser'){
                  $status= '<p style="color: #0333f6;">Đã duyệt</p>';
 
-                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6; color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'delivery\')">Giao hàng</a>  <br/><br/> <a class="btn btn-danger style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'cancel\')">Hủy</a>';
+                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6; color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'delivery\')">Giao hàng</a>  <br/><br/> <a class="btn btn-danger" style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'cancel\')">Hủy</a>';
                 }elseif($item->status=='delivery'){
                  $status= '<p style="color: #7503f6;">Đang giao</p>';
 
-                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'done\')">Hoàn thành</a>  <br/><br/> <a class="btn btn-danger style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'cancel\')" >Hủy</a>';
+                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b; color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'done\')">Hoàn thành</a>  <br/><br/> <a class="btn btn-danger" style="color: #fff;" onclick="updateOrderCustomer('.$item->id.',  \'cancel\')" >Hủy</a>';
                 }elseif($item->status=='done'){
                  $status= '<p style="color: #00ee4b;">Đã xong</p>';
                 }else{
