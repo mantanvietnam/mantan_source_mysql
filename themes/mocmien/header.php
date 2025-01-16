@@ -40,6 +40,57 @@
     />
 
 </head>
+<style>
+  /* Container chính */
+  .header-search-container {
+    width: 100%; /* Chiều rộng full */
+    max-width: 500px; /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto; /* Căn giữa container */
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Input tìm kiếm */
+  .header-search-container input.form-control {
+    flex: 1; /* Input chiếm tối đa không gian */
+    height: 40px; /* Chiều cao input */
+    padding: 0 12px; /* Khoảng cách nội dung trong input */
+    border: 1px solid #ccc; /* Viền màu xám nhạt */
+    border-radius: 20px 0 0 20px; /* Bo góc bên trái */
+    outline: none;
+    font-size: 14px; /* Kích thước chữ */
+    transition: border-color 0.3s ease; /* Hiệu ứng khi hover */
+  }
+
+  .header-search-container input.form-control:focus {
+    border-color: #4CAF50; /* Màu viền khi focus */
+  }
+
+  /* Nút tìm kiếm */
+  .header-search-container button.search-btn {
+    height: 40px; /* Chiều cao khớp với input */
+    padding: 0 16px; /* Khoảng cách nội dung nút */
+    border: none; /* Xóa viền */
+    background-color: #4CAF50; /* Màu nền xanh lá */
+    color: #fff; /* Màu chữ */
+    border-radius: 0 20px 20px 0; /* Bo góc bên phải */
+    font-size: 16px; /* Kích thước chữ */
+    cursor: pointer; /* Thay đổi con trỏ khi hover */
+    transition: background-color 0.3s ease; /* Hiệu ứng màu khi hover */
+  }
+
+  .header-search-container button.search-btn:hover {
+    background-color: #45A049; /* Màu nền khi hover */
+  }
+
+  /* Icon kính lúp */
+  .header-search-container button.search-btn i {
+    margin: 0;
+    font-size: 18px; /* Kích thước icon */
+  }
+
+</style>
 <body>
   <div>
     <!-- contact -->
@@ -47,12 +98,23 @@
         <span class="">Hotline Mộc Miên: <?php echo @$settingThemes['title_main'];?></span>
      </div>
      <!-- responsive search -->
-    <div class="mx-mobilemobile md:mx-6 lg:mx-16 xl:mx-20 pt-4 d-sm-none d-flex input-group">
-      <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Search input" aria-describedby="button-search">
-      <button class="btn btn-primary bg-green search-btn" type="button" id="button-search">
-        <i class="fas fa-search"></i> <!-- Icon kính lúp -->
-      </button>
-    </div>
+     <div class="mx-mobilemobile md:mx-6 lg:mx-16 xl:mx-20 pt-4 d-sm-none d-flex input-group">
+        <form action="/search-product" method="get" class="d-flex w-100">
+          <input 
+            type="text" 
+            class="form-control" 
+            name="key" 
+            placeholder="Tìm kiếm..." 
+            aria-label="Search input" 
+            aria-describedby="button-search">
+          <button 
+            class="btn btn-primary bg-green search-btn" 
+            type="submit" 
+            id="button-search">
+            <i class="fas fa-search"></i> <!-- Icon kính lúp -->
+          </button>
+        </form>
+      </div>
      <!-- header -->
     <div class="mx-mobile md:mx-6 lg:mx-16 xl:mx-20 header-container">
       <!-- logo -->
@@ -61,10 +123,20 @@
       </a>
       <!-- Thanh tìm kiếm với icon kính lúp -->
       <div class="d-sm-flex d-none input-group header-search-container">
-        <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Search input" aria-describedby="button-search">
-        <button class="btn btn-primary bg-green search-btn" type="button" id="button-search">
-          <i class="fas fa-search"></i> <!-- Icon kính lúp -->
-        </button>
+        <form action="/search-product" method="get" style= "display:flex">
+          <input 
+            type="text" 
+            class="form-control" 
+            name="key"
+            value="<?php echo @$_GET['key']; ?>" 
+            placeholder="Tìm kiếm..." 
+            aria-label="Search input" 
+            aria-describedby="button-search">
+            
+          <button class="btn btn-primary bg-green search-btn" type="submit" id="button-search">
+            <i class="fas fa-search"></i> <!-- Icon kính lúp -->
+          </button>
+        </form>
       </div>
       <!-- điều hướng -->
       <div class='d-lg-flex d-none header-nav'>
@@ -92,16 +164,11 @@
             </a>
           </li>
           <li>
-            <a class="dropdown-item nav-item" href="#">
+            <a class="dropdown-item nav-item" href="/cart">
               <img src="<?= $urlThemeActive?>/assets/images/card-icon.png" alt="">
               <span>Giỏ hàng</span>
             </a>
           </li>
-          <li>
-            <a class="dropdown-item nav-item" href="#">
-              <img src="<?= $urlThemeActive?>/assets/images/user-icon.png" alt="">
-              <span>Tài khoản</span>
-            </a> 
       </div>
     </div>
 

@@ -64,9 +64,13 @@ function saveCustomerAPI() {
         $email = isset($dataSend['email']) ? trim($dataSend['email']) : '';
         $phone = trim($dataSend['phone']);
         $identity = trim($dataSend['identity']);
+        $buiding_id = trim($dataSend['buiding_id']);
         $address = isset($dataSend['address']) ? trim($dataSend['address']) : '';
-        $birthday = isset($dataSend['birthday']) ? trim($dataSend['birthday']) : null;
-        $birthday = strtotime(str_replace("/", "-", $birthday));
+        if (!empty($birthday)) {
+            $birthday = strtotime(str_replace("/", "-", $birthday));
+        } else {
+            $birthday = null;
+        }
 
         $existingCustomer = $modelCustomers->find()->where(['phone' => $phone, 'identity' => $identity])->first();
 
@@ -83,6 +87,7 @@ function saveCustomerAPI() {
             $newCustomer->identity = $identity;
             $newCustomer->address = $address;
             $newCustomer->birthday = $birthday;
+            $newCustomer->buiding_id = $buiding_id;
             $newCustomer->status = "active";
             $newCustomer->created_at = time();
 

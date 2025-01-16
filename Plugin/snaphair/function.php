@@ -25,6 +25,12 @@ $menus[0]['sub'][]= array( 'title'=>'Lịch sử trừ tiền',
                             'permission'=>'listHistoryMinusAdmin'
                         );
 
+$menus[0]['sub'][]= array( 'title'=>'Quản lý mẫu ảnh',
+                            'url'=>'/plugins/admin/snaphair-view-admin-history-listHistoryPlusAdmin',
+                            'classIcon'=>'bx bx-history',
+                            'permission'=>'listHistoryPlusAdmin'
+                        );
+
 addMenuAdminMantan($menus);
 
 

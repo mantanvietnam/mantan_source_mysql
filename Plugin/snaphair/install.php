@@ -34,6 +34,12 @@ $sqlInstallDatabase .="CREATE TABLE `transaction_historys` (
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `sample_category` (
+	`id` int(11) NOT NULL,
+	`name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+  
+
 $sqlDeleteDatabase .= "DROP TABLE users; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_historys; ";
 
