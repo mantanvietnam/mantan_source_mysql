@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-group mb-3 col-md-6">
-                    <label class="col-sm-12 form-label control-label">Số lần sử dụng</label>
+                    <label class="col-sm-12 form-label control-label">Số lượng gói</label>
                     <div class="col-sm-12">
                         <input value="<?php echo @$data->quantity;?>" type="text" name="quantity" id="quantity" class="form-control input_money"  placeholder=""/>
                     </div>
@@ -104,7 +104,7 @@
                                     echo '  <tr class="gradeX" id="tr-'.$i.'">
                                                 <td>
                                                     <select onchange="checkUnit('.$i.');" name="idHangHoa['.$i.']" id="idHangHoa-'.$i.'"  class="form-select color-dropdown">
-                                                        <option value="">Chọn hàng hóa</option>';
+                                                        <option value="">Chọn sản phẩm</option>';
                                                         foreach ($categoryProduct as $category) { 
                                                             echo '<optgroup label="'.$category->name.'">';
                                                             if(!empty($category->product)){
@@ -143,7 +143,7 @@
                            <thead>
                                 <tr>
                                     <th>Dịch vụ</th>
-                                    <th>Số lần</th>
+                                    <th>Số lần sử dụng</th>
                                     <th>Xóa</th>
                                 </tr>
                             </thead>
@@ -170,7 +170,7 @@
                                     echo '  <tr class="gradeX" id="trService-'.$i.'">
                                                 <td>
                                                     <select onchange="checkUnit('.$i.');" name="idService['.$i.']" id="idService-'.$i.'"  class="form-select color-dropdown">
-                                                        <option value="">Chọn hàng hóa</option>';
+                                                        <option value="">Chọn dịch vụ</option>';
                                                         foreach ($CategoryService as $cService) { 
                                                             echo '<optgroup label="'.$cService->name.'">';
                                                             if(!empty($cService->service)){

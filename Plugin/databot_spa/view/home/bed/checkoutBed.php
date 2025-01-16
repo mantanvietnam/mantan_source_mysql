@@ -28,7 +28,7 @@ if(@$data->order->promotion>101){
               <p><?php echo @$mess;?></p>
             
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                  <div class="row">
                     <div class="col-sm-12 row">
                         <h5 class="mb-0">Thông tin khách hàng</h5> 
@@ -79,9 +79,9 @@ if(@$data->order->promotion>101){
 
                 </div>
                
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                    <br> 
-                  <h5 class="mb-0">thông tin dịch vụ </h5>
+                  <h5 class="mb-0">Thông tin dịch vụ </h5>
                   <br>
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
@@ -107,9 +107,9 @@ if(@$data->order->promotion>101){
                
               </div>
                  <?php  if(@$data->order->status==0){ 
-                   echo '<a href="" data-bs-toggle="modal" data-bs-target="#thanhtoan"  class="btn btn-primary">Check out</a>';
+                   echo '<a href="" data-bs-toggle="modal" data-bs-target="#thanhtoan"  class="btn btn-primary">Check-out</a>';
                  }else{
-                    echo ' <a href="" data-bs-toggle="modal" data-bs-target="#Checkout"  class="btn btn-primary">Check out</a>';
+                    echo ' <a href="" data-bs-toggle="modal" data-bs-target="#Checkout"  class="btn btn-primary">Check-out</a>';
 
                 }?>
 
@@ -204,7 +204,7 @@ if(@$data->order->promotion>101){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel1"> thông tin  Check out</h5>
+        <h5 class="modal-title" id="exampleModalLabel1"> Thông tin  Check-out</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <?= $this->Form->create(); ?>

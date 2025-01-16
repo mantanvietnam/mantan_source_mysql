@@ -1110,51 +1110,59 @@ function listOrderCombo($input){
         
         $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-        $totalData = $modelOrder->find()->where($conditions)->all()->toList();
-        $totalData = count($totalData);
-
-
         if(!empty($listData)){
             foreach($listData as $key => $item){
+                // lấy thông tin khách hàng
                 if(!empty($item->id_customer)){
                     $listData[$key]->customer = $modelCustomer->find()->where(array('id'=>$item->id_customer))->first();
                 }
 
-                $product = $modelOrderDetails->find()->where(array('id_order'=>$item->id))->all()->toList();
-                if(!empty($product)){
+                // lấy thông tin chi tiết đơn hàng
+                $order_details = $modelOrderDetails->find()->where(array('id_order'=>$item->id))->all()->toList();
+                
+                if(!empty($order_details)){
+                    $product = [];
 
-                    foreach($product as $k => $value){
-                        $prod = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
-                        $prod->quantity = $value->quantity;
+                    foreach($order_details as $k => $value){
+                        // lấy thông tin combo trong đơn hàng
+                        $combo = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
+                        
                         $products = array();
                         $service = array();
-                        if(!empty($prod)){
-                            $combo_product = json_decode($prod->product);
-                            foreach($combo_product as $idProduct => $quantityPro){
-                                $pr =  $modelProduct->find()->where(array('id'=>$idProduct))->first();
-                                $pr->quantity_Combo =  $quantityPro;
+                        
+                        if(!empty($combo)){
+                            $combo->quantity = $value->quantity;
 
-                                $products[] = $pr;
+                            $combo_product = json_decode($combo->product);
+
+                            if(!empty($combo_product)){
+                                foreach($combo_product as $idProduct => $quantityPro){
+                                    $info_product =  $modelProduct->find()->where(array('id'=>$idProduct))->first();
+                                    $info_product->quantity_combo =  $quantityPro;
+
+                                    $products[] = $info_product;
+                                }
                             }
 
-                            $combo_service = json_decode($prod->service);
-                            foreach($combo_service as $idservice => $quantityPro){
-                                $pr =  $modelService->find()->where(array('id'=>$idservice))->first();
-                                $pr->quantity_Combo =  $quantityPro;
-                                $service[] = $pr;
+                            $combo_service = json_decode($combo->service);
+
+                            if(!empty($combo_service)){
+                                foreach($combo_service as $idservice => $quantityPro){
+                                    $info_service =  $modelService->find()->where(array('id'=>$idservice))->first();
+                                    $info_service->quantity_combo =  $quantityPro;
+                                    $service[] = $info_service;
+                                }
                             }
-                            
+
+                            $combo->combo_product = $products;
+                            $combo->combo_service = $service;
                         }
-                  
-                        $prod->combo_product = $products;
-                        $prod->combo_service = $service;
                       
-                        $product[$k] = $prod;
+                        $order_details[$k]->info_combo = $combo;
                     }
 
-
-                     
-                    $listData[$key]->product = $product;
+                    $listData[$key]->order_details = $order_details;
+                    
                     if(!empty($item->id_bed)){
                         $listData[$key]->bed = $modelBed->find()->where(array('id'=>$item->id_bed))->first();
                     }
@@ -1162,10 +1170,11 @@ function listOrderCombo($input){
             }
         }
 
+        $totalData = $modelOrder->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
         $balance = $totalData % $limit;
         $totalPage = ($totalData - $balance) / $limit;
-        if ($balance > 0)
-            $totalPage+=1;
+        if ($balance > 0) $totalPage+=1;
 
         $back = $page - 1;
         $next = $page + 1;
@@ -1197,7 +1206,7 @@ function listOrderCombo($input){
 
         $mess = '';
         if(@$_GET['mess']=='conkhach'){
-            $mess = '<p style="color: #00f83a;">Phòng vẫn có khách không check in được</p>';
+            $mess = '<p style="color: #00f83a;">Giường đã có khách không check-in được</p>';
         }
 
         $conditionsRoom = array( 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
@@ -1209,8 +1218,6 @@ function listOrderCombo($input){
                 $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'), 'status'=>1))->all()->toList();
             }
         }
- // debug($listData);
- // die;
 
 
         setVariable('page', $page);

@@ -729,6 +729,8 @@ function checkLoginManager($permission='', $module='') {
     global $session;
     global $controller;
 
+    $return = 0;
+
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
         
@@ -740,16 +742,22 @@ function checkLoginManager($permission='', $module='') {
                     $return = 1;
                 }else{
                     //$return = 0;
-                    return $controller->redirect('/error_permission');
+                    header('Location: /error_permission');
+                    die;
+                    //return $controller->redirect('/error_permission');
                 }
             }
         }else{
             //$return = 0;
-            return $controller->redirect('/error_permission');
+            header('Location: /error_permission');
+            die;
+            //return $controller->redirect('/error_permission');
         }
     }else{
         //$return = 0;
-        return $controller->redirect('/login');
+        header('Location: /login');
+        die;
+        //return $controller->redirect('/login');
     }
       
     return $return;
