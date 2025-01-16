@@ -25,7 +25,7 @@
                         <td>'.$item->name.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="ditichhienvat-admin-categoryartifact-addCategoryartifactAdmin/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/ditichhienvat-admin-categoryartifact-addCategoryartifactAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>

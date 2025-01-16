@@ -1,6 +1,14 @@
 <?php
 getHeader();
 global $urlThemeActive;
+global $controller; 
+global $modelCategories;
+global $modelOptions;
+
+$modelHistoricalSite = $controller->loadModel('HistoricalSites');
+
+$listHistorieAll = $modelHistoricalSite->find()->where()->all()->toList();
+$typeHistoricalSites = $modelCategories->find()->where(['type' => 'typeHistoricalSites'])->all()->toList();
 
 ?>
 

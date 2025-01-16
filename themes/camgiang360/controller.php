@@ -94,9 +94,12 @@ function indexTheme($input){
     $conditionsTour =array('status' => '1');
 
     $listHistorie = $modelHistoricalSite->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
+    $listHistorieAll = $modelHistoricalSite->find()->where()->order($order)->all()->toList();
     
     $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order(['id'=>'desc','pin'=>'desc', 'outstanding' =>'desc'])->all()->toList();
     $listDataImage = $modelImage->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
+    $typeHistoricalSites = $modelCategories->find()->where(['type' => 'typeHistoricalSites'])->all()->toList();
+
    /* $listDataPost= $modelPosts->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
     $listDataTour= $modelTour->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
     
@@ -106,5 +109,7 @@ function indexTheme($input){
     setVariable('listHistorie', $listHistorie);
     setVariable('listDataEvent', $listDataEvent);
     setVariable('listDataImage', $listDataImage);
+    setVariable('typeHistoricalSites', $typeHistoricalSites);
+    setVariable('listHistorieAll', $listHistorieAll);
 }
 ?>

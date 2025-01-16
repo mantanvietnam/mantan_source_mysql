@@ -117,7 +117,6 @@
                   $btnProcess= '';
                   $btnPay= '';
                   $btnEdit = '';
-                 
 
                   if($item->status_pay=='wait' && $item->status!='cancel'){
                     $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
@@ -143,12 +142,8 @@
                  }
 
                 if($item->status=='new' && $item->status_pay=='wait'){ 
-                     $btnEdit = '<a class="dropdown-item"  style="color: #fff;"  href="/editOrderMemberAgency/?id='.$item->id.'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderMemberAgency/?id='.$item->id.'&back='.urlencode($urlCurrent).'"">
-                    <i class="bx bx-trash me-1"></i>
-                  </a>';
+                     $btnEdit = '<a class="dropdown-item"   href="/editOrderMemberAgency/?id='.$item->id.'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderMemberAgency/?id='.$item->id.'&back='.urlencode($urlCurrent).'""><i class="bx bx-trash me-1"></i></a>';
                 }
-
-
 
                  $statusPay= '';
                  if($item->status_pay=='wait'){ 

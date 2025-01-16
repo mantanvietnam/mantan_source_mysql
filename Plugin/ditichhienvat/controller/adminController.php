@@ -10,6 +10,8 @@ function listHistoricalSitesAdmin($input)
     $metaTitleMantan = 'Danh sách điểm đến di tích lịch sử';
 
 	$modelHistoricalsite = $controller->loadModel('Historicalsites');
+
+    $typeHistoricalSites = $modelCategories->find()->where(['type' => 'typeHistoricalSites'])->all()->toList();
     
 	$conditions = array();
     if(!empty($_GET['name'])){
@@ -84,6 +86,7 @@ function listHistoricalSitesAdmin($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('typeHistoricalSites', $typeHistoricalSites);
 }
 
 
@@ -102,6 +105,7 @@ function addHistoricalSitesAdmin($input)
     $modelWard = $controller->loadModel('Wards');
     $conditions = array();
     $listWard = $modelWard->find()->where($conditions)->all()->toList();
+    $typeHistoricalSites = $modelCategories->find()->where(['type' => 'typeHistoricalSites'])->all()->toList();
 
 	$mess= '';
 
@@ -117,7 +121,7 @@ function addHistoricalSitesAdmin($input)
 
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-        $dataSend['id_ward'] = intval($dataSend['idward']);
+        $dataSend['id_ward'] = (int) $dataSend['idward'];
 
         if(!empty($dataSend['name'])){
 	        // tạo dữ liệu save
@@ -142,6 +146,7 @@ function addHistoricalSitesAdmin($input)
             $data->content = @$dataSend['content'];
             $data->status = @$dataSend['status'];
             $data->idward = @$dataSend['id_ward'];
+            $data->idTypeHistoricalSites = @$dataSend['idTypeHistoricalSites'];
             $data->rating = @$dataSend['rating'];
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
@@ -168,6 +173,7 @@ function addHistoricalSitesAdmin($input)
     setVariable('data', $data);
     setVariable('listWard', $listWard);
     setVariable('mess', $mess);
+    setVariable('typeHistoricalSites', $typeHistoricalSites);
 }
 
 function deleteHistoricalSitesAdmin($input){
@@ -943,6 +949,58 @@ function deleteCategoryartifactAdmin($input){
     }
 
     return $controller->redirect('/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin?status=3');
+}
+
+function listTypeHistoricalSites($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Loại hình di tích';
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        
+        // tính ID category
+        if(!empty($dataSend['idCategoryEdit'])){
+            $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+        }else{
+            $infoCategory = $modelCategories->newEmptyEntity();
+        }
+
+        // tạo dữ liệu save
+        $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+        $infoCategory->parent = 0;
+        $infoCategory->image = '';
+        $infoCategory->status = '';
+        $infoCategory->keyword = '';
+        $infoCategory->description = '';
+        $infoCategory->type = 'typeHistoricalSites';
+
+        // tạo slug
+        $slug = createSlugMantan($infoCategory->name);
+        $slugNew = $slug;
+        $number = 0;
+        do{
+            $conditions = array('slug'=>$slugNew,'type'=>'typeHistoricalSites');
+            $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+            if(!empty($listData)){
+                $number++;
+                $slugNew = $slug.'-'.$number;
+            }
+        }while (!empty($listData));
+
+        $infoCategory->slug = $slugNew;
+
+        $modelCategories->save($infoCategory);
+
+    }
+
+    $conditions = array('type' => 'typeHistoricalSites');
+    $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+    setVariable('listData', $listData);
 }
 
 

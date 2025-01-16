@@ -26,7 +26,7 @@ global $urlThemeActive;
         <div class="row">
             <div class="places-title">
                 <h2>Điểm đến Văn hóa - Du lịch tiêu biểu</h2>
-                <p>Khám phá Điểm đến Văn hóa - Du lịch tiêu biểu huyện Mai Châu</p>
+                <p>Khám phá Điểm đến Văn hóa - Du lịch tiêu biểu huyện Cẩm Giàng</p>
             </div>
         </div>
         <div class="row">
@@ -105,7 +105,7 @@ global $urlThemeActive;
                         <?php } }else { ?>
                         <div class="item-events-slide">
                             <div class="events-slide-img">
-                                <img src="<?= $urlThemeActive ?>/images/1fe55f76625bca05934a.jpg" alt="">
+                                <img src="https://camgiang360.vn/upload/admin/images/z6153160770777_15b7513f998d4950bef2740c27d0a281%20-%20Le%20Thao.jpg" alt="">
                             </div>
                             <div class="events-slide-content">
                                 <div class="row">

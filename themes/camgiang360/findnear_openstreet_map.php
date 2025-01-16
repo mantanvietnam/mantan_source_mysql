@@ -138,9 +138,9 @@
     <div class="col-md-12 set-pd-col clsFlex-wrap" style="overflow: hidden;">
       <div class="menu-map">
         <div class="box-menu-map">
-          <div class="check-box-menu-map">
+          <div class="check-box-menu-map" style="width: 305px;">
             <div class="title-menu-map">
-              <p>Danh sách điểm đến</p>
+              <p>Di tích lịch sử</p>
             </div>
             <div>
               <!-- <span class="cursor-pointer" onclick="btnMenu(this)"><i class="fa fa-bars" aria-hidden="true"></i></span>
@@ -153,11 +153,11 @@
                 </li>
               </ul>
             <ul id="box-check" class="collapse show">
-              <?php  $listdestination = destination(); 
-                foreach($listdestination as $keydes => $des){?>
+              <?php  
+                foreach($typeHistoricalSites as $des){?>
                   <li>
-                    <input id="check-all<?php echo $keydes ?>"  onclick="initMap();" name="all" type="checkbox" value="<?php echo $des['urlSlug'] ?>" checked>
-                    <label class="noselect" for="check-all<?php echo $keydes ?>"><?php echo $des['name'] ?></label>
+                    <input id="check-all<?php echo $des->id ?>"  onclick="initMap();" name="all" type="checkbox" value="<?php echo $des->id ?>" checked>
+                    <label class="noselect" for="check-all<?php echo $des->id ?>"><?php echo $des->name ?></label>
                   </li>
               <?php }?>     
             </ul>
@@ -202,18 +202,19 @@
   var keyMap = 'efe2301638f6af0bd594f5f607d6dc86ea53e3406d158d44';
 
   var locations = [<?php
-    $findNear = getFindnear();
 
-    if (!empty($findNear)) {
+    if (!empty($listHistorieAll)) {
         $listShowMap= array();
+        $icon = '/themes/camgiang360/assets/icon/ditich.png';
         
-        foreach ($findNear as $data) {
-          if(!empty($data['lat']) & !empty($data['long'])){
-              $content   = '<img src='.$data['image'].' style=width:200px;height:156px;  ><br/><a href='.$data['urlSlug'].'>' . $data['name']. '</a>';
-              $content.='<br/>Điện thoại: ' . @$data['phone'];
-              $content.='<br/>Địa chỉ: ' . $data['address'];
-
-              $listShowMap[]= '["' . $content . '", ' . $data['lat'] . ', ' . $data['long'] . ', "' . $data['icon'] . '","'.$data['type'].'"]';
+        foreach ($listHistorieAll as $data) {
+          if(!empty($data->latitude) & !empty($data->longitude)){
+              
+              $content   = '<img src='.$data->image.' style=width:200px;height:156px;  ><br/><a href=/chi_tiet_di_tich_lich_su/'.$data->urlSlug.'.html>' . $data->name. '</a>';
+              $content.='<br/>Điện thoại: ' . $data->phone;
+              $content.='<br/>Địa chỉ: ' . $data->address;
+              
+              $listShowMap[]= '["' . $content . '", ' . $data->latitude . ', ' . $data->longitude . ', "'.$icon.'","'.$data->idTypeHistoricalSites.'"]';
             }
         }
         
@@ -222,7 +223,7 @@
     ?>];
 
   const map = L.map('map_HS', {
-    center: [20.668785542548076, 105.00060413875005],
+    center: [20.957851727465343, 106.21850910018482],
     zoom: 13,
   });
 
@@ -240,7 +241,7 @@
 
     pointLayer.clearLayers();
 
-    for (y = 1; y < 10; y++) {
+    for (y = 1; y < 100; y++) {
       if($('#check-all'+y).is(":checked")){
 
         for (i = 0; i < locations.length; i++) {

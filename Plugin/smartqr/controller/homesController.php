@@ -5,6 +5,8 @@ function redirectSmartQR($input)
 
 	$code = @$input['request']->getAttribute('params')['pass'][1];
 
+	$link_redirect = '/';
+
 	if(!empty($code)){
 		$modelSmartqr = $controller->loadModel('Smartqrs');
 		$modelHistoryscanqr = $controller->loadModel('Historyscanqrs');
@@ -213,16 +215,20 @@ function redirectSmartQR($input)
 			$modelHistoryscanqr->save($history);
 
 			if($detect->isAndroidOS()){
-				return $controller->redirect($data->link_android);
+				//return $controller->redirect($data->link_android);
+				$link_redirect = $data->link_android;
 			}elseif($detect->isiOS() || $detect->isiPadOS()){
-				return $controller->redirect($data->link_ios);
+				//return $controller->redirect($data->link_ios);
+				$link_redirect = $data->link_ios;
 			}else{
-				return $controller->redirect($data->link_web);
+				//return $controller->redirect($data->link_web);
+				$link_redirect = $data->link_web;
 			}
 		}
 	}
 
-	return $controller->redirect('/');
+	setVariable('link_redirect', $link_redirect);
+	//return $controller->redirect('/');
 }
 
 function createQRCode($input)

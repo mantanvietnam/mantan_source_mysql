@@ -23,7 +23,7 @@ $sqlInstallDatabase .="CREATE TABLE `historicalsites` (
 	`image8` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
 	`image9` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
 	`image10` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
-	`introductory` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+	`introductory` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
 	`latitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL, 
 	`longitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
 	`image360` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
@@ -31,7 +31,10 @@ $sqlInstallDatabase .="CREATE TABLE `historicalsites` (
 	`urlSlug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
 	`created` INT NULL DEFAULT NULL ,
 	`status` BOOLEAN NULL DEFAULT NULL,
-	`like` INT NULL DEFAULT NULL  , 
+	`like` INT NULL DEFAULT NULL,
+	`rating` INT NULL DEFAULT NULL,
+	`idTypeHistoricalSites` INT NOT NULL DEFAULT '0',
+	`idward` INT NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -235,7 +238,7 @@ $sqlInstallDatabase .="CREATE TABLE `images` (
 ) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `events` ( 
-	`id` INT NOT NULL AUTO_INCREMENT ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci DEFAULT NULL,
   `image` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci DEFAULT NULL,
   `image2` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci DEFAULT NULL,

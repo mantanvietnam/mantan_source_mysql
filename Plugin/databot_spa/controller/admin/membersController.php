@@ -196,6 +196,7 @@ function addMemberAdmin($input)
 				$data->updated_at = date('Y-m-d H:i:s');
 				$data->dateline_at = @$dataSend['dateline_at'];
 				$data->number_spa = @$dataSend['number_spa'];
+				$data->phone = $dataSend['phone'];
 				
 				if($data->type == 1){
 					$data->module = json_encode($dataSend['module']);
@@ -205,9 +206,6 @@ function addMemberAdmin($input)
 				
 
 				if(empty($_GET['id'])){
-
-		        	$data->phone = $dataSend['phone'];
-
 					if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
 					$data->password = md5($dataSend['password']);
 

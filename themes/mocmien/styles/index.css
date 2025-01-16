@@ -136,7 +136,7 @@
 
 /* slider */
 .banner-slider {
-  margin-top: 40px;
+  margin-top: 5px;
 }
 
 .slider-img-container {
@@ -148,7 +148,7 @@
 }
 .slider-img-container img {
   width: 100%;
-  max-height: 600px;
+  
   object-fit: cover;
 }
 

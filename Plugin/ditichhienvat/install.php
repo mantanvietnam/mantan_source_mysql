@@ -33,7 +33,8 @@ $sqlInstallDatabase .= "CREATE TABLE `historicalsites` (
 	`status` BOOLEAN NULL DEFAULT NULL,
 	`like` INT NULL DEFAULT NULL,
 	`rating` INT NULL DEFAULT NULL,
-	`idward` INT NULL DEFAULT NULL, 
+	`idTypeHistoricalSites` INT NOT NULL DEFAULT '0',
+	`idward` INT NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 */

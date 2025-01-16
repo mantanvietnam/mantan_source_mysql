@@ -55,17 +55,35 @@
                         </div>
                         <div class="mb-3 form-group col-sm-6">
                             <i>Phường / xã:</i>
-                           <select id="idward" class="form-select" required="" name="idward" >
-                            <?php foreach(@$listWard as $item) { 
-                                if(@$data['idward']==@$item->id){
-                                ?>
-                                 <option selected="" value="<?php echo @$item->id; ?>"><?php echo @$item->name; ?></option>     
-                                 <?php }else{ ?>  
-
-                                 <option value="<?php echo @$item->id; ?>"><?php echo @$item->name; ?></option>     
-                                 <?php }}?>     
+                            <select id="idward" class="form-select" required="" name="idward" >
+                                <option value="">Chọn xã phường</option>
+                                <?php 
+                                    foreach(@$listWard as $item) { 
+                                        if(empty($data['idward']) || $data['idward']!=$item->id){
+                                            echo '<option value="'.$item->id.'">'.$item->name.'</option> ';
+                                        }else{
+                                            echo '<option selected value="'.$item->id.'">'.$item->name.'</option> ';
+                                        }
+                                    }
+                                ?>   
                             </select>
                         </div>
+
+                        <div class="mb-3 form-group col-sm-6">
+                            <i>Loại hình di tích:</i>
+                            <select id="idTypeHistoricalSites" class="form-select" name="idTypeHistoricalSites" >
+                                <option value="0">Chọn loại hình di tích</option>
+                                <?php foreach(@$typeHistoricalSites as $item) { 
+                                    if(@$data['idTypeHistoricalSites']==@$item->id){
+                                    ?>
+                                     <option selected="" value="<?php echo @$item->id; ?>"><?php echo @$item->name; ?></option>     
+                                     <?php }else{ ?>  
+
+                                     <option value="<?php echo @$item->id; ?>"><?php echo @$item->name; ?></option>     
+                                <?php }}?>     
+                            </select>
+                        </div>
+
                         <div class="mb-3 form-group col-sm-6">
                             <i>Địa chỉ:</i>
                             <input type="text" maxlength="100" name="address" id="address" value="<?php echo @$data['address'] ?>" class="form-control">
@@ -86,7 +104,7 @@
                         </div>
                         <div class="mb-3 form-group col-md-6">
                             <label for="">Xếp hạng:</label>
-                            <select class="form-select" id="rating" name="rating" onchange="getDistrict();">
+                            <select class="form-select" id="rating" name="rating">
                                 <option value="">Chọn xếp hạng</option>
                             <?php
                                 foreach (rating() as $category) {

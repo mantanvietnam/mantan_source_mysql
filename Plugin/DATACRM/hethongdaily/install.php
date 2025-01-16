@@ -523,7 +523,7 @@ $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `title` `title` VARCHAR(255) C
 //$sqlFixDatabase .= "UPDATE `options` SET `value` = '{\"userAPI\":\"admin\",\"passAPI\":\"Mmtc123!\",\"maxExport\":3,\"numberExport\":0,\"price\":0,\"note_pay\":\"\",\"number_bank\":\"\",\"account_bank\":\"\",\"key_bank\":\"\",\"idBot\":\"\",\"tokenBot\":\"\",\"idBlockConfirm\":\"\",\"idBlockDownload\":\"\"}' WHERE `options`.`key_word` = 'settingMMTCAPI'; ";
 */
 
-$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"document\",\"cashBook\",\"affiliater\",\"staff\",\"jobManagement\",\"webShop\"]' WHERE `options`.`key_word` = 'crm_module'; ";
+//$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"document\",\"cashBook\",\"affiliater\",\"staff\",\"jobManagement\",\"webShop\"]' WHERE `options`.`key_word` = 'crm_module'; ";
 
 //$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\"]' WHERE `options`.`key_word` = 'plugins_site'; ";
 
