@@ -1,4 +1,4 @@
-        <?php 
+<?php 
 function listBed($input){
     global $isRequestPost;
     global $modelCategories;
@@ -7,6 +7,8 @@ function listBed($input){
     global $controller;
 
     $metaTitleMantan = 'Danh sách giường';
+    
+    setVariable('page_view', 'listBed');
     
     if(!empty(checkLoginManager('listBed', 'room'))){
         $infoUser = $session->read('infoUser');
@@ -76,7 +78,7 @@ function deleteBed($input){
     global $controller;
 
     $metaTitleMantan = 'Xóa giường';
-    
+    setVariable('page_view', 'deleteBed');
    if(!empty(checkLoginManager('deleteBed', 'room'))){
         $infoUser = $session->read('infoUser');
         
@@ -105,6 +107,7 @@ function listRoomBed($input){
 
     $metaTitleMantan = 'Danh sách danh Phòng';
     
+    setVariable('page_view', 'listRoomBed');
    if(!empty(checkLoginManager('listRoomBed', 'room'))){
         $infoUser = $session->read('infoUser');
         $modelRoom = $controller->loadModel('Rooms');

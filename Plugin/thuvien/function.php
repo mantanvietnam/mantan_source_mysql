@@ -122,6 +122,7 @@ function getListPermission()
     
                     'sub'=>array(   array('name'=>'Danh sách','permission'=>'listbook'),
                                     array('name'=>'Thêm và sửa thông tin sách','permission'=>'addbook'),
+                                    array('name'=>'Thêm thông tin sách bằng Excel','permission'=>'addDatabook'),
                                     array('name'=>'Xóa sách','permission'=>'deletebook'),
                                     array('name'=>'Thêm danh mục sách','permission'=>'categorybook'),
                                  
