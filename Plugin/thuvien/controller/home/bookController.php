@@ -587,4 +587,91 @@ function addDatabook(){
         return $controller->redirect('/login');
     }
 }
+function documenteditor($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $controller;
+    $metaTitleMantan = 'Danh sách danh mục sách';
+
+    $user = checklogin('categorybook');  
+    if(!empty($user)){
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            
+            // tính ID category
+            if(!empty($dataSend['idCategoryEdit'])){
+                $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+            }else{
+                $infoCategory = $modelCategories->newEmptyEntity();
+            }
+    
+            // tạo dữ liệu save
+            $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $infoCategory->parent = 0;
+            $infoCategory->image = @$dataSend['image'];
+            $infoCategory->status = @$dataSend['status'];
+            $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+            $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+            $infoCategory->type = 'category_documenteditor';
+    
+            // tạo slug
+            $slug = createSlugMantan($infoCategory->name);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew,'type'=>'category_documenteditor');
+                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+    
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+    
+            $infoCategory->slug = $slugNew;
+    
+            $modelCategories->save($infoCategory);
+    
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+
+    $conditions = array('type' => 'category_documenteditor');
+    $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+    setVariable('listData', $listData);
+}
+
+function deletedocumenteditor($input){
+    global $controller;
+    global $session;
+
+    global $modelCategories;
+    $user = checklogin('categorybook');   
+    if(!empty($user)){
+        if(empty($user->permission)){
+            return $controller->redirect('/documenteditor?mess=noPermissiondelete');
+        }
+
+
+        if(!empty($_GET['id'])){
+            $data = $modelCategories->get($_GET['id']);
+            
+            if($data){
+                $modelCategories->delete($data);
+                $note = $user->type.' '. $user->name.' xóa thông tin nhóm sản phẩm '.$data->name.' có id là:'.$data->id;
+            
+            addActivityHistory($user,$note,'deletedocumenteditor',$data->id);
+                
+            }
+        }
+
+     return $controller->redirect('/documenteditor');
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

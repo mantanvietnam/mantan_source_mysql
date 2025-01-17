@@ -28,6 +28,7 @@
 
 
 	$routesPlugin['categorybook']= 'thuvien/view/home/book/categorybook.php';
+	$routesPlugin['documenteditor']= 'thuvien/view/home/book/documenteditor.php';
 	$routesPlugin['historybook']= 'thuvien/view/home/book/historybook.php';
 	$routesPlugin['addDatabook']= 'thuvien/view/home/book/addDatabook.php';
 	$routesPlugin['changequanlitybook']= 'thuvien/view/home/book/changequanlitybook.php';

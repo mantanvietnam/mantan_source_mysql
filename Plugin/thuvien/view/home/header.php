@@ -134,6 +134,7 @@
               <div class="dropdown-menu" aria-labelledby="member">
                 <a class="dropdown-item" href="/listbook">Quản lý sách</a>
                 <a class="dropdown-item" href="/categorybook">Danh mục sách</a>
+                <a class="dropdown-item" href="/documenteditor">Biên tập tài liệu</a>
                 <!-- <a class="dropdown-item" href="/changequanlitybook">Nhập sách</a>
                 <a class="dropdown-item" href="/historybook">Lịch sử nhập sách</a> -->
                 <a class="dropdown-item" href="/listPublisher">Quản lý nhà xuất bản</a>
