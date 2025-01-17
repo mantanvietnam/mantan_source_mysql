@@ -149,7 +149,7 @@
             </li>
 
             
-            <li class="menu-item">
+            <li class="menu-item  <?php if(!empty($page_view) && in_array($page_view, ['orderProduct','orderCombo','orderService','buyPrepayCard'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-shopping-bag"></i>
                 <div>Bán hàng</div>
@@ -182,7 +182,7 @@
               </ul>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listOrderProductlistOrderProduct','listOrderCombolistOrderCombo','listOrderServicelistOrderService','listCustomerPrepayCardlistCustomerPrepayCard'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-list-ul"></i>
                 <div>Đơn hàng</div>
@@ -214,7 +214,7 @@
               </ul>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listCollectionBill','listBill','addBill','addCollectionBilladdCollectionBill'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('bill', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
                 <div>Quản lý thu chi</div>
@@ -233,7 +233,7 @@
               </ul>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listCollectionDebt','listPayableDebt','addPayableDebt','addCollectionDebt'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('bill', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-book-content"></i>
                 <div>Quản lý công nợ</div>
@@ -252,7 +252,7 @@
               </ul>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['revenueStatistical','listAgency'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('static', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
                 <div>Thống kê</div>
@@ -348,7 +348,7 @@
               </a>
             </li>   
             
-            <li class="menu-item">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listProduct','listCategoryProduct','listTrademarkProduct','listPartner','listWarehouse','importHistorytWarehouse','addProduct','addProductWarehouse','addPartner'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div>Sản phẩm</div>
@@ -387,7 +387,7 @@
               </ul>
             </li>
             
-            <li class="menu-item">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listService','listCategoryService','addService'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-basket"></i>
                 <div>Dịch vụ</div>
@@ -406,14 +406,14 @@
               </ul>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item ">
               <a href="/listCombo" class="menu-link <?php if(!in_array('combo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class='menu-icon tf-icons bx bx-gift'></i>
                 <div>Combo liệu trình</div>
               </a>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listWarehouse','importHistorytWarehouse','addWarehouse'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-home"></i>
                 <div>Kho hàng</div>
@@ -433,7 +433,7 @@
               </ul>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listBed','listRoom'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('room', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-bed"></i>
                 <div>Phòng - Giường</div>
@@ -452,7 +452,7 @@
               </ul>
             </li>
             
-            <li class="menu-item">
+            <li class="menu-item  <?php if(!empty($page_view) && in_array($page_view, ['listStaff','listGroupStaff','addStaff','addGroupStaff'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('staff', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div>Đội ngũ</div>

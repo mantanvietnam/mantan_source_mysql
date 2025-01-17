@@ -497,4 +497,94 @@ function deletehistorybook($input){
 	return $controller->redirect('/historybook');
 
 }
+function addDatabook(){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Thêm sách bằng Excel';
+    $modelbooks = $controller->loadModel('books');
+    
+    $mess = '';
+
+    // Lấy data edit
+    if (!empty($_GET['id'])) {
+        $data = $modelbooks->get((int) $_GET['id']);
+    } else {
+        $data = $modelbooks->newEmptyEntity();
+    }
+
+    $user = checklogin('addDatabook');  
+
+    if (!empty($user)) {
+        if($isRequestPost){
+            $dataSeries = uploadAndReadExcelData('databook');
+
+            if($dataSeries){
+                unset($dataSeries[0]);
+
+                $double = [];
+
+                foreach ($dataSeries as $key => $value) {
+                    if(!empty($value[0]) && !empty($value[1])){
+                        $value[1] = trim(str_replace(array(' ','.','-'), '', $value[1]));
+                        $value[1] = str_replace('+84','0',$value[1]);
+
+                        $conditions = ['book_code'=>$value[0]];
+                        $checkPhone = $modelbooks->find()->where($conditions)->first();
+
+                        if(empty($checkPhone)){
+                            $data = $modelbooks->newEmptyEntity();
+                            
+                            $data->name = @$value[1];
+                            $data->author = @$value[4];
+                            $data->price = @$value[6];
+                            $data->book_code = @$value[0];
+                            $data->id_category = @$value[2];
+                            $data->publishing_id =@$value[3];
+                            $data->file_pdf = @$value[5];
+
+                            $slug = createSlugMantan(@$value[1]);
+                            $slugNew = $slug;
+                            $number = 0;
+
+                            if (empty($data->slug) || $data->slug != $slugNew) {
+                                do {
+                                    $conditions = ['slug' => $slugNew];
+                                    $listData = $modelbooks->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                                    if (!empty($listData)) {
+                                        $number++;
+                                        $slugNew = $slug . '-' . $number;
+                                    }
+                                } while (!empty($listData));
+                            }
+                            $data->slug = $slugNew;
+
+                            $modelbooks->save($data);
+                        }else{
+                            $double[] = $value[1];
+                        }
+
+                    }else{
+                        $mess= '<p class="text-danger">Bạn không được để trống tên và mã</p>';
+                    }
+                }
+
+                if(!empty($double)){
+                    $mess= '<p class="text-danger">Các khách hàng sau đã có tài khoản từ trước: '.implode(', ', $double).'</p>';
+                }
+
+                $mess .= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }
+        }
+
+        setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

@@ -61,45 +61,47 @@ function listWarehouse($input)
        
 
 
-       /* if(!empty($_GET['action']) && $_GET['action']=='Excel'){
-            $listData = $modelBuilding->find()->where($conditions)->order($order)->all()->toList();
+        if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+            $listData = $modelWarehouse->find()->where($conditions)->order($order)->all()->toList();
             
             $titleExcel =   [
-                ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
-                ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
-                ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
-                ['name'=>'Email', 'type'=>'text', 'width'=>25],
-                ['name'=>'Trạng thái', 'type'=>'text', 'width'=>25],
-                ['name'=>'Ngày sinh', 'type'=>'text', 'width'=>25], 
+                ['name'=>'Sách', 'type'=>'text', 'width'=>25],
+                ['name'=>'Toàn nhà', 'type'=>'text', 'width'=>25],
+                ['name'=>'Tầng', 'type'=>'text', 'width'=>25],
+                ['name'=>'Phòng', 'type'=>'text', 'width'=>25],
+                ['name'=>'Kệ sách', 'type'=>'text', 'width'=>25],
+                ['name'=>'Tổng SL', 'type'=>'text', 'width'=>25], 
+                ['name'=>'SL đang mượn', 'type'=>'text', 'width'=>25], 
+                ['name'=>'SL trong kho', 'type'=>'text', 'width'=>25], 
             ];
+               
 
             $dataExcel = [];
             if(!empty($listData)){
-                foreach ($listData as $key => $value) {
-                    $status= 'Khóa';
-                    if($value->status=='active'){ 
-                        $status= 'Kích hoạt';
-                    }
-
-                    $birthday = '';
-                    if(!empty($value->birthday)){
-                        $birthday = date('d/m/Y',$value->birthday);
-                    }
+                 foreach($listData as $key => $item){
+                $item->building = $modelBuilding->find()->where(['id'=>$item->id_building])->first();
+                $item->book = $modelBook->find()->where(['id'=>$item->id_book])->first();
+                $item->room = $modelRoom->find()->where(['id'=>$item->id_room])->first();
+                $item->floor = $modelFloor->find()->where(['id'=>$item->id_floor])->first();
+                $item->shelf = $modelShelf->find()->where(['id'=>$item->id_shelf])->first();
+                $item->quantity_warehous = $item->quantity - $item->quantity_borrow;
 
                     $dataExcel[] = [
-                        $value->full,   
-                        $value->phone,   
-                        $value->address,   
-                        $value->email,  
-                        $status,
-                        $birthday
+                        $item->book->name,   
+                        $item->building->name,   
+                        $item->floor->name,
+                        $item->room->name,  
+                        $item->shelf->name,
+                        $item->quantity,
+                        $item->quantity_borrow,
+                        $item->quantity_warehous,
                     ];
                 }
             }
-            export_excel($titleExcel,$dataExcel,'danh_sach_t');
-        }else{*/
+            export_excel($titleExcel,$dataExcel,'danh_sach_sach_trong_kho');
+        }else{
             $listData = $modelWarehouse->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-        //}
+        }
 
         if(!empty($listData)){
             foreach($listData as $key => $item){
@@ -575,5 +577,7 @@ function listWarehouseHistory($input)
         return $controller->redirect('/login');
     }
 }
+
+
 
  ?>

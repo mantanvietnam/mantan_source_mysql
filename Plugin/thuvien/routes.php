@@ -29,6 +29,7 @@
 
 	$routesPlugin['categorybook']= 'thuvien/view/home/book/categorybook.php';
 	$routesPlugin['historybook']= 'thuvien/view/home/book/historybook.php';
+	$routesPlugin['addDatabook']= 'thuvien/view/home/book/addDatabook.php';
 	$routesPlugin['changequanlitybook']= 'thuvien/view/home/book/changequanlitybook.php';
 	//quản lý chức vụ
 	$routesPlugin['listCategory']= 'thuvien/view/home/category/listCategory.php';

@@ -7,7 +7,7 @@
     Danh sách đầu sách
   </h4>
 
-  <p><a href="/addbook" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
+  <p><a href="/addbook" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a>  <a href="/addDatabook" class="btn btn-danger"><i class="bx bx-plus"></i> Thêm bằng Excel</a></p>
 
 </p>
 

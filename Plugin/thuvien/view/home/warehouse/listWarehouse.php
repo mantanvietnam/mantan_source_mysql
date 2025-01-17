@@ -97,9 +97,10 @@
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
 
-           <!--  <div class="col-md-1">
+             <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
               <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
-            </div> -->
+            </div>
           </div>
         </div>
     </div>
