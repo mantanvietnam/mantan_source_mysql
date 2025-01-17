@@ -8,7 +8,8 @@ function orderProduct($input){
     global $session;
 
     $metaTitleMantan = 'Tạo đơn hàng';
-
+    
+    setVariable('page_view', 'orderProduct');
     if(!empty(checkLoginManager('orderProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
@@ -316,6 +317,7 @@ function orderCombo($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
+    setVariable('page_view', 'orderCombo');
     if(!empty(checkLoginManager('orderCombo', 'combo'))){
         $infoUser = $session->read('infoUser');
 
@@ -643,6 +645,7 @@ function orderService($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
+    setVariable('page_view', 'orderService');
     if(!empty(checkLoginManager('orderService', 'product'))){
         $infoUser = $session->read('infoUser');
 
@@ -917,6 +920,7 @@ function listOrderProduct($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
+    setVariable('page_view', 'listOrderProduct');
     if(!empty(checkLoginManager('listOrderProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
@@ -1051,6 +1055,7 @@ function listOrderCombo($input){
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
+    setVariable('page_view', 'listOrderCombo');
     if(!empty(checkLoginManager('listOrderCombo', 'combo'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
@@ -1246,6 +1251,7 @@ function listOrderService($input){
     global $isRequestPost;
     global $session;
    
+    setVariable('page_view', 'listOrderService');
      if(!empty(checkLoginManager('listOrderService', 'product'))){
         $infoUser = $session->read('infoUser');
         $infoUser = $session->read('infoUser');
@@ -1496,6 +1502,7 @@ function addUserService($input){
 
 
 
+    setVariable('page_view', 'addUserService');
     $metaTitleMantan = 'Nhận khách làm dịch vụ';
 
     if(!empty(checkLoginManager('addUserService','product'))){

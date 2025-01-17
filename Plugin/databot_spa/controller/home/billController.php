@@ -7,6 +7,7 @@ function listCollectionBill($input){
 	global $modelCategories;
 	global $session;
 	global $type_collection_bill;
+	setVariable('page_view', 'listCollectionBill');
 
 	if(!empty(checkLoginManager('listCollectionBill', 'bill'))){
 	    $metaTitleMantan = 'Danh sách phiếu thu';
@@ -168,7 +169,8 @@ function detailCollectionBill($input){
     global $session;
 
     $metaTitleMantan = 'Tạo đơn hàng';
-
+    
+	setVariable('page_view', 'detailCollectionBill');
     if(!empty(checkLoginManager('detailCollectionBill', 'bill'))){
 		$user = $session->read('infoUser');
 
@@ -242,6 +244,7 @@ function addCollectionBill($input){
 
     $metaTitleMantan = 'Thông tin phiếu thu';
     
+	setVariable('page_view', 'addCollectionBill');
     if(!empty(checkLoginManager('addCollectionBill', 'bill'))){
         $modelMembers = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
@@ -313,6 +316,7 @@ function listBill($input){
 	global $session;
 	global $type_collection_bill;
 
+	setVariable('page_view', 'listBill');
 	if(!empty(checkLoginManager('listBill', 'bill'))){
 	    $metaTitleMantan = 'Danh sách phiếu thu';
 
@@ -474,6 +478,7 @@ function addBill($input){
 
     $metaTitleMantan = 'Thông tin phiếu chi';
     
+	setVariable('page_view', 'addBill');
     if(!empty(checkLoginManager('addBill', 'bill'))){
         $modelMembers = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');

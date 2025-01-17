@@ -6,7 +6,7 @@ function listCategoryService($input){
     global $session;
 
     $metaTitleMantan = 'Danh mục dịch vụ';
-    
+    setVariable('page_view', 'listCategoryService');
     if(!empty(checkLoginManager('listCategoryService', 'product'))){
         $mess= '';
         
@@ -72,7 +72,7 @@ function deleteCategoryService($input){
     global $controller;
 
     $metaTitleMantan = 'Xóa danh mục sản phẩm';
-    
+    setVariable('page_view', 'deleteCategoryService');
     if(!empty(checkLoginManager('deleteCategoryService', 'product'))){
         $infoUser = $session->read('infoUser');
         $modelService = $controller->loadModel('Services');
@@ -107,6 +107,7 @@ function listService($input){
     global $controller;
 
     $metaTitleMantan = 'Danh sách dịch vụ';
+    setVariable('page_view', 'listService');
     if(!empty(checkLoginManager('listService', 'product'))){
         $mess= '';
         
@@ -213,7 +214,7 @@ function addService($input){
     global $urlHomes;
 
     $metaTitleMantan = 'Thông tin dịch vụ';
-    
+    setVariable('page_view', 'addService');
     if(!empty(checkLoginManager('addService', 'product'))){
         $modelMembers = $controller->loadModel('Members');
         $modelService = $controller->loadModel('Services');

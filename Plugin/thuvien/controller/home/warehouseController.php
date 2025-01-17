@@ -71,7 +71,7 @@ function listWarehouse($input)
                 ['name'=>'Phòng', 'type'=>'text', 'width'=>25],
                 ['name'=>'Kệ sách', 'type'=>'text', 'width'=>25],
                 ['name'=>'Tổng SL', 'type'=>'text', 'width'=>25], 
-                ['name'=>'SL đang mượn', 'type'=>'text', 'width'=>25], 
+                ['name'=>'SL dang mượn', 'type'=>'text', 'width'=>25], 
                 ['name'=>'SL trong kho', 'type'=>'text', 'width'=>25], 
             ];
                
@@ -95,10 +95,11 @@ function listWarehouse($input)
                         $item->quantity,
                         $item->quantity_borrow,
                         $item->quantity_warehous,
+                       
                     ];
                 }
             }
-            export_excel($titleExcel,$dataExcel,'danh_sach_sach_trong_kho');
+            export_excel($titleExcel,$dataExcel,'danh_sach_t');
         }else{
             $listData = $modelWarehouse->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         }
@@ -577,7 +578,5 @@ function listWarehouseHistory($input)
         return $controller->redirect('/login');
     }
 }
-
-
 
  ?>

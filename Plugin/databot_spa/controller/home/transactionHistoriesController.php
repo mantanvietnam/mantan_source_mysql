@@ -6,7 +6,7 @@ function transactionHistories($input){
 	global $modelCategories;
 	global $session;
 	global $type_collection_bill;
-	
+	setVariable('page_view', 'transactionHistories');
 	if(!empty(checkLoginManager('transactionHistories', 'zalo'))){
 	    $metaTitleMantan = 'Lịch sử giao dịch';
 
@@ -128,6 +128,7 @@ function createRequestAddMoney($input)
 	global $session;
 	global $type_collection_bill;
 
+	setVariable('page_view', 'createRequestAddMoney');
 	if(!empty(checkLoginManager('createRequestAddMoney', 'zalo'))){
 	    $metaTitleMantan = 'Yêu cầu nạp tiền';
 

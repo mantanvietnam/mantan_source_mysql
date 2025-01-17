@@ -6,7 +6,7 @@ function listCategoryProduct($input){
     global $session;
 
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
-    
+    setVariable('page_view', 'listCategoryProduct');
     if(!empty(checkLoginManager('listCategoryProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
@@ -67,6 +67,7 @@ function deleteCategoryProduct($input){
     global $controller;
 
     $metaTitleMantan = 'Xóa danh mục sản phẩm';
+    setVariable('page_view', 'deleteCategoryProduct');
 
     if(!empty(checkLoginManager('deleteCategoryProduct', 'product'))){
         $infoUser = $session->read('infoUser');
@@ -105,6 +106,7 @@ function listTrademarkProduct($input){
 
     $metaTitleMantan = 'Nhãn hiệu sản phẩm';
 
+    setVariable('page_view', 'listTrademarkProduct');
     if(!empty(checkLoginManager('listTrademarkProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
@@ -167,6 +169,7 @@ function deleteTrademarkProduct($input){
     global $session;
     global $controller;
 
+    setVariable('page_view', 'deleteTrademarkProduct');
     $metaTitleMantan = 'Xóa nhãn hiệu sản phẩm';
     if(!empty(checkLoginManager('deleteTrademarkProduct', 'product'))){
         $infoUser = $session->read('infoUser');
@@ -205,11 +208,13 @@ function listProduct(){
     global $controller;
     global $urlCurrent;
 
+    setVariable('page_view', 'listProduct');
     $metaTitleMantan = 'Danh sách sản phẩm';
     
     if(!empty(checkLoginManager('listProduct', 'product'))){
 
         $mess= '';
+        $user = checkLoginManager('listProduct', 'product');
         
         if(!empty($_GET['error'])){
             switch ($_GET['error']) {
@@ -231,7 +236,8 @@ function listProduct(){
         
         $user = $session->read('infoUser');
 
-        $conditions = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
+        $conditions = array('id_member'=>(int)@$user->id_member, 'id_spa'=>$session->read('id_spa'));
+
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -325,6 +331,7 @@ function addProduct($input){
 
     $metaTitleMantan = 'Thông tin sản phẩm';
     
+    setVariable('page_view', 'addProduct');
     if(!empty(checkLoginManager('addProduct', 'product'))){
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
@@ -417,6 +424,7 @@ function deleteProduct($input){
     $modelWarehouseProducts = $controller->loadModel('WarehouseProductDetails');
     $modelCombo = $controller->loadModel('Combos');
     
+    setVariable('page_view', 'deleteProduct');
     if(!empty(checkLoginManager('deleteProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
@@ -468,6 +476,7 @@ function addProductWarehouse($input){
     global $session;
     global $controller;
 
+    setVariable('page_view', 'addProductWarehouse');
     $metaTitleMantan = 'Thông tin sản phẩm';
     
     if(!empty(checkLoginManager('addProductWarehouse', 'product'))){
@@ -607,6 +616,7 @@ function importHistorytWarehouse($input){
 
     $metaTitleMantan = 'Lịch sử nhập hàng vào kho';
     
+    setVariable('page_view', 'importHistorytWarehouse');
     if(!empty(checkLoginManager('importHistorytWarehouse', 'product'))){
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');

@@ -8,7 +8,7 @@ function listWarehouse($input){
     global $urlCurrent;
 
     $metaTitleMantan = 'Danh sách kho hàng';
-
+    setVariable('page_view', 'listWarehouse');
     if(!empty(checkLoginManager('listWarehouse', 'product'))){
     	$user = $session->read('infoUser');
 
@@ -113,6 +113,7 @@ function addWarehouse($input)
 
 	$metaTitleMantan = 'Thông tin kho';
 
+    setVariable('page_view', 'addWarehouse');
     if(!empty(checkLoginManager('addWarehouse', 'product'))){
 
 		$modelMembers = $controller->loadModel('Members');
@@ -161,6 +162,7 @@ function deleteWarehouse($input)
 	global $controller;
 	global $session;
 
+    setVariable('page_view', 'deleteWarehouse');
 	if(!empty(checkLoginManager('deleteWarehouse', 'product'))){
 		$modelWarehouses = $controller->loadModel('Warehouses');
 		$modelWarehouseProducts = $controller->loadModel('WarehouseProductDetails');

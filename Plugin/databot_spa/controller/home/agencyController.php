@@ -7,7 +7,7 @@ function listAgency($input){
 	global $modelCategories;
 	global $session;
 	global $type_collection_bill;
-
+	setVariable('page_view', 'listAgency');
 	if(!empty(checkLoginManager('listAgency', 'static'))){
 	    $metaTitleMantan = 'Hoa hồng cho nhân viên';
 

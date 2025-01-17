@@ -174,7 +174,7 @@ function infoRoomBed($input){
     global $controller;
 
     $metaTitleMantan = 'Thông tin giường';
-    
+     setVariable('page_view', 'infoRoomBed');
     if(!empty(checkLoginManager('infoRoomBed', 'room'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
@@ -230,7 +230,7 @@ function checkinbed($input){
     global $urlHomes;
 
     $metaTitleMantan = 'Danh sách đơn hàng';
-    
+     setVariable('page_view', 'checkinbed');
     if(!empty(checkLoginManager('checkinbed', 'room'))){
         $modelBed = $controller->loadModel('Beds');
         $modelOrder = $controller->loadModel('Orders');
@@ -271,7 +271,7 @@ function cancelBed($input){
     global $controller;
 
     $metaTitleMantan = 'Thông tin giường';
-    
+    setVariable('page_view', 'cancelBed');
     if(!empty(checkLoginManager('cancelBed', 'room'))){
         $modelBed = $controller->loadModel('Beds');
         $modelOrder = $controller->loadModel('Orders');
@@ -310,7 +310,7 @@ function checkoutBed($input){
     global $controller;
 
     $metaTitleMantan = 'Thông tin giường';
-    
+    setVariable('page_view', 'checkoutBed');
     if(!empty(checkLoginManager('checkoutBed', 'room'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelProduct = $controller->loadModel('Products');
