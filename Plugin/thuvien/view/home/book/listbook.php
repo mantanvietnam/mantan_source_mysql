@@ -107,6 +107,7 @@
           <th>Tác giả</th>
           <th>Danh mục sách</th>
           <th>Nhà xuất bản</th>
+          <th>số lượng đọc online</th>
           <th>file pdf</th>
           <th>Trạng thái</th>
           <th>Sửa</th>
@@ -143,6 +144,7 @@
                       <td>'.$item->author.'</td>
                       <td>'.$categoryName.'</td>
                       <td>'.$publisherName.'</td>
+                      <td align="center">'.$item->view.'</td>
                       <td align="center">'.$file.'</td>
                       <td>'.$status.'</td>
                       <td width="5%" align="center">

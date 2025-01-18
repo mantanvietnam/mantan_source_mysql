@@ -104,6 +104,7 @@ function listbook($input)
             $listData = $modelbooks->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         }
 
+
         // phân trang
         $totalData = $modelbooks->find()->where($conditions)->all()->toList();
         $totalData = count($totalData);
@@ -156,6 +157,7 @@ function listbook($input)
         
         setVariable('listData', $listData);
        // / setVariable('listGroup', $listGroup);
+
     }
 }
 function addbook($input) {
@@ -673,5 +675,163 @@ function deletedocumenteditor($input){
     }else{
         return $controller->redirect('/login');
     }
+}
+
+function serchBook($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Tra cứu sách';
+
+        $modelBuilding = $controller->loadModel('Buildings');
+        $modelFloor = $controller->loadModel('Floors');
+        $modelWarehouse = $controller->loadModel('Warehouses');
+        $modelBook = $controller->loadModel('Books');
+        $modelFloor = $controller->loadModel('Floors');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelShelf = $controller->loadModel('Shelfs');
+
+        $conditions = array('status'=>'active');
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+        
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+         if(!empty($_GET['name'])){
+            $conditions['OR'] = [ 
+                        ['name LIKE'=>'%'.$_GET['name'].'%'],
+                        ['book_code LIKE'=>'%'.$_GET['name'].'%'],
+                    ];
+        }else{
+            $conditions['id'] = 0;
+        }
+
+        $listData = $modelBook->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                $warehouse = $modelWarehouse->find()->where(['id_book'=>$item->id])->all()->toList();
+                if(!empty($warehouse)){
+                    foreach($warehouse as $k => $value){
+                        $warehouse[$k]->building = $modelBuilding->find()->where(['id'=>$value->id_building])->first();
+                        $warehouse[$k]->room = $modelRoom->find()->where(['id'=>$value->id_room])->first();
+                        $warehouse[$k]->floor = $modelFloor->find()->where(['id'=>$value->id_floor])->first();
+                        $warehouse[$k]->shelf = $modelShelf->find()->where(['id'=>$value->id_shelf])->first();
+                        $warehouse[$k]->quantity_warehous = $value->quantity - $value->quantity_borrow;
+                    }
+                }
+                $listData[$key]->warehouse = $warehouse;
+                if(!empty($item->id_category)){
+                    $listData[$key]->category_book = $modelCategories->find()->where(['type' => 'category_book','id'=>$item->id_category])->first();
+                }
+                if(!empty($item->publishing_id)){
+                    $listData[$key]->category_publisher = $modelCategories->find()->where(['type' => 'category_publisher','id'=>$item->publishing_id])->first();
+                }
+
+            }
+        }
+
+        // phân trang
+        $totalData = $modelBook->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('totalData', $totalData);
+        
+        setVariable('listData', $listData);
+}
+
+function detailBook($input) {
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Thêm sách';
+    $modelBuilding = $controller->loadModel('Buildings');
+    $modelFloor = $controller->loadModel('Floors');
+    $modelWarehouse = $controller->loadModel('Warehouses');
+    $modelBook = $controller->loadModel('Books');
+    $modelFloor = $controller->loadModel('Floors');
+    $modelRoom = $controller->loadModel('Rooms');
+    $modelShelf = $controller->loadModel('Shelfs');
+    $listcategory = $modelCategories->find()->where(['type' => 'category_book'])->all()->toList();
+    $listcategorypublishers = $modelCategories->find()->where(['type' => 'category_publisher'])->all()->toList();
+    $mess = '';
+
+    // Lấy data edit
+    if(!empty($input['request']->getAttribute('params')['pass'][1])){
+        $slug = explode('.html', $input['request']->getAttribute('params')['pass'][1]);
+        $slug = $slug[0];
+        $slug = explode('-', $slug);
+        $count = count($slug)-1;
+        $id = (int) $slug[$count];
+
+
+        $data = $modelBook->find()->where(['id'=> $id])->first();
+        if(!empty($data)){
+            $data->view +=1;
+            $modelBook->save($data);
+            $warehouse = $modelWarehouse->find()->where(['id_book'=>$data->id])->all()->toList();
+            if(!empty($warehouse)){
+                foreach($warehouse as $k => $value){
+                    $warehouse[$k]->building = $modelBuilding->find()->where(['id'=>$value->id_building])->first();
+                    $warehouse[$k]->room = $modelRoom->find()->where(['id'=>$value->id_room])->first();
+                    $warehouse[$k]->floor = $modelFloor->find()->where(['id'=>$value->id_floor])->first();
+                    $warehouse[$k]->shelf = $modelShelf->find()->where(['id'=>$value->id_shelf])->first();
+                    $warehouse[$k]->quantity_warehous = $value->quantity - $value->quantity_borrow;
+                }
+            }
+            $data->warehouse = $warehouse;
+            if(!empty($data->id_category)){
+                $data->category_book = $modelCategories->find()->where(['type' => 'category_book','id'=>$data->id_category])->first();
+            }
+            if(!empty($data->publishing_id)){
+                $data->category_publisher = $modelCategories->find()->where(['type' => 'category_publisher','id'=>$data->publishing_id])->first();
+            }
+        }else{
+            return $controller->redirect('/serchBook');
+        }
+    }   
+    
+    setVariable('data', $data);
+
 }
 ?>
