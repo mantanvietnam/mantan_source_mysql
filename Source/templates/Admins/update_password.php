@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng nhập</title>
+    <title>Quên mật khẩu</title>
 
     <meta name="description" content="" />
 
@@ -131,32 +131,29 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Đăng nhập</span>
+                  <span class="app-brand-text demo text-body fw-bolder">Quên mật khẩu</span>
                 </a>
               </div>
               <!-- /Logo -->
               <h4 class="mb-2">Chào bạn! 👋</h4>
-              <p class="mb-4">Hãy đăng nhập để sử dụng trang quản trị</p>
+              <p class="mb-4">Hãy cung cấp thông tin để tạo mật khẩu mới</p>
               <?php echo $mess;?>
               <!-- <form id="formAuthentication" class="mb-3" action="index.html" method="POST"> -->
                 <?= $this->Form->create(); ?>
                 <div class="mb-3">
-                  <label for="email" class="form-label">Tài khoản</label>
+                  <label for="code" class="form-label">Mã xác thực được gửi về email</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="email"
-                    name="username"
+                    id="code"
+                    name="code"
                     placeholder=""
                     autofocus
                   />
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Mật khẩu</label>
-                    <a href="/admins/forgotPassword">
-                      <small>Quên mật khẩu?</small>
-                    </a>
+                    <label class="form-label" for="password">Mật khẩu mới</label>
                   </div>
                   <div class="input-group input-group-merge">
                     <input
@@ -170,15 +167,30 @@
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
-                <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                    <label class="form-check-label" for="remember-me"> Lưu phiên đăng nhập </label>
+                <div class="mb-3 form-password-toggle">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label" for="passwordAgain">Nhập lại mật khẩu mới</label>
+                  </div>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="passwordAgain"
+                      class="form-control"
+                      name="passwordAgain"
+                      placeholder=""
+                      aria-describedby="password"
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Đăng nhập</button>
+                  <button class="btn btn-primary d-grid w-100" type="submit">Tạo mật khẩu mới</button>
                 </div>
+                <center>
+                  <a href="/admins/login">
+                    <small>Đăng nhập?</small>
+                  </a>
+                </center>
               <?= $this->Form->end() ?>
 
               

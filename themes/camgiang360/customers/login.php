@@ -3,20 +3,8 @@
 getHeader();
 ?>
     <main class="bg-pt py-4">
-        <?php if (isset($_SESSION['contactSubmit'])): ?>
-            <?php if ($_SESSION['contactSubmit'] == true): ?>
-                <div class="container">
-                    <div class="alert alert-success" role="alert">
-                        Cảm ơn bạn đã liên hệ, chúng tôi sẽ phản hồi trong thời gian sớm nhất 
-                    </div>
-                </div>
-                <?php
-                $_SESSION['contactSubmit'] = false;
-            endif;
-        endif;
-        ?>
         <section class="section-heading lien-he-heading">
-            <h3 class="text-uppercase text-center my-5">Liên hệ</h3>
+            <h3 class="text-uppercase text-center my-5">Đăng nhập</h3>
         </section>
         <section id="lien-he-contain">
             <div class="background">
@@ -24,54 +12,31 @@ getHeader();
                     <div class="row g-0">
                         <div class="col-12 col-lg-7 h-100">
                             <section class="lien-he-form h-100">
-                                <form id="formContact" onsubmit="" action="<?= $routesPlugin["contact"] ?>"
-                                      method="post"
-                                      class="form-custom-1 py-3">
+                                <form id="formContact" action="" method="post" class="form-custom-1 py-3">
                                     <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                                     <div class="card h-100">
                                         <div class="card-body p-lg-5">
-                                            <h3 CLASS="fs-2 mb-5">Thông tin liên hệ</h3>
+                                            <h3 CLASS="fs-2 mb-5">Thông tin đăng nhập</h3>
                                             <div class="row g-3">
+                                                <?php echo $mess;?>
                                                 <div class="col-12 col-md-6">
-                                                    <input name="fullname" type="text" class="form-control"
-                                                           placeholder="Tên"
-                                                           required>
+                                                    <label class="mb-2">Địa chỉ email</label>
+                                                    <input name="email" type="email" class="form-control" placeholder="" required>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <input name="email" type="email" class="form-control"
-                                                           placeholder="Email"
-                                                           required>
+                                                    <label class="mb-2">Mật khẩu</label>
+                                                    <input name="pass" type="password" class="form-control" placeholder="" required>
                                                 </div>
-                                                <div class="col-12">
-                                                    <input name="phone_number" type="tel" class="form-control"
-                                                           placeholder="Số điện thoại"
-                                                           required>
-                                                </div>
-                                                <div class="col-12">
-                                                    <input name="subject" type="text" class="form-control"
-                                                           placeholder="Chủ đề"
-                                                           required>
-                                                </div>
-                                                <div class="col-12">
-                                                        <textarea name="content" class="form-control" id="" rows="3"
-                                                                  style="height: 170px;"
-                                                                  placeholder="Nội dung"></textarea>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="d-flex align-items-center capcha">
-                                                        <span style="" class="">Nhập mã xác nhận:</span>
-                                                        <input type="text" id="input_capcha"
-                                                               class="form-control mx-3">
-                                                        <div class="capcha-range bg-black bg-opacity-25 p-2">
-                                                            <span style="user-select: none"
-                                                                  class="text-black">56h2dg62</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <button id="formBTNSubmit" class="btn button-submit-custom">
-                                                        Gửi
+                                                
+                                                <div class="col-12 col-md-6">
+                                                    <button id="formBTNSubmit" class="btn btn-primary mb-3" style="">
+                                                        Đăng nhập
                                                     </button>
+                                                    <p><a href="/forgotpassword">Quên mật khẩu?</a></p>
+                                                </div>
+
+                                                <div class="col-12 col-md-6">
+                                                    Bạn chưa có tài khoản? <a href="/register">Đăng ký</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,35 +100,6 @@ getHeader();
             </div>
         </section>
     </main>
-    <script>
-        window.onload = function () {
-            function generateCaptcha() {
-                let captchaChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                let capcha = "";
-                for (let i = 0; i < 8; i++) {
-                    capcha += captchaChars.charAt(Math.floor(Math.random() * captchaChars.length));
-                }
-                return capcha;
-            }
-
-            let capcha = generateCaptcha();
-
-
-            document.querySelector(".capcha-range span").innerHTML = capcha;
-
-
-            document.getElementById("formContact").onsubmit = function () {
-                let inputVal = document.getElementById("input_capcha").value;
-                console.log(inputVal);
-                if (inputVal == capcha) {
-                    document.getElementById("formContact").submit();
-                } else {
-                    alert("Hãy nhập đúng mã capcha!!!")
-                    return false;
-                }
-            }
-        }
-    </script>
 
 <?php
 getFooter();

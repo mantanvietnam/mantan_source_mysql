@@ -65,7 +65,7 @@ function listHistoricalSite($input){
             } else {
                 $urlPage = $urlPage . '?page=';
             }
-       global $metaTitleMantan;
+        global $metaTitleMantan;
         global $metaKeywordsMantan;
         global $metaDescriptionMantan;
 
@@ -238,4 +238,32 @@ function detailArtifact($input){
             return $controller->redirect('/');
         }         
 }
- ?>
+
+function listHistoricalSiteTopLike($input){
+    global $urlNow;
+    global $controller;
+    global $urlCurrent;
+    
+    $modelHistoricalSite = $controller->loadModel('HistoricalSites');
+    $modelLike = $controller->loadModel('Likes');
+
+    $listData = $modelHistoricalSite->find()->all()->toList();
+    $listTop = [];
+    $listTopValue = [];
+
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $likes = $modelLike->find()->where(['idobject'=>$value->id, 'type'=>'dich_tich_lich_su'])->all()->toList();
+            $listTop[$value->id] = count($likes);
+            $listTopValue[$value->id] = $value;
+        }
+    }
+
+    if(!empty($listTop)){
+        arsort($listTop);
+    }
+
+    setVariable('listTop',$listTop);
+    setVariable('listTopValue',$listTopValue);
+}
+?>

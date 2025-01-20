@@ -2809,7 +2809,7 @@ main {
 }
 
 .place-content .button-like {
-    display: none;
+    /*display: none;*/
 }
 
 @media (max-width: 768px) {

@@ -38,6 +38,9 @@ $category[1]['sub'] = array(array (	'url' => '/di_tich_lich_su',
 							array (	'url' => '/ban_do',
                                     'name' => 'Bản đồ di tích'
                                     ),
+                            array ( 'url' => '/di_tich_yeu_thich',
+                                    'name' => 'Điểm đến di tích'
+                                    ),
                         );
 
 

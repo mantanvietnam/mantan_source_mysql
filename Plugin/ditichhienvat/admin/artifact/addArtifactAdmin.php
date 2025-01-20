@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php">Hiện vật</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin">Hiện vật</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";
@@ -438,7 +438,10 @@
     </div>
   
 
-              <button style=" margin: 10px; width: 80px;" type="submit" class="btn btn-primary">Lưu</button>
+              <div class="col-md-12">
+            <button style=" margin: 10px; width: 80px;" type="submit" class="btn btn-primary">Lưu</button> 
+            <a class="btn btn-danger" href="/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin">Hủy</a> 
+        </div>
           </div>
             <?= $this->Form->end() ?>
           </div>

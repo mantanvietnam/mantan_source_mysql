@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin">Phường Xã</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-ward-listWardAdmin">Phường Xã</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";
@@ -83,7 +83,8 @@
         
   
 
-              <button style=" margin: 10px; " type="submit" class="btn btn-primary">Lưu</button>
+              <button style=" margin: 10px; " type="submit" class="btn btn-primary">Lưu</button> 
+              <a class="btn btn-danger" href="/plugins/admin/ditichhienvat-admin-ward-listWardAdmin">Hủy</a> 
             <?= $this->Form->end() ?>
           </div>
         </div>

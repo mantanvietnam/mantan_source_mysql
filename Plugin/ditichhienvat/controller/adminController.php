@@ -998,6 +998,12 @@ function listTypeHistoricalSites($input){
     }
 
     $conditions = array('type' => 'typeHistoricalSites');
+
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE']= '%'.$_GET['name'].'%';
+    }
+
+
     $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
     setVariable('listData', $listData);

@@ -35,7 +35,8 @@ CREATE TABLE `admins` (
   `fullName` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `permission` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `type` VARCHAR(255) NOT NULL DEFAULT 'staff'
+  `type` VARCHAR(255) NOT NULL DEFAULT 'staff',
+  `otp` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

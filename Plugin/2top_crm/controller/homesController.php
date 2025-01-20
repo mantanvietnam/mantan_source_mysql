@@ -92,7 +92,7 @@ function register($input)
 				        $data->status = 'active';
 				        $data->id_parent = (int) @$dataSend['id_parent'];
 				        $data->id_level = (int) @$dataSend['id_level'];
-				        $data->token = createToken();
+				        $data->token = createToken(10);
 				        $data->pass = md5($dataSend['pass']);
 
 				        if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
@@ -260,7 +260,7 @@ function editInfoUser($input){
             }
             $infoUser->full_name = $dataSend['full_name'];
             $infoUser->address = $dataSend['address'];
-            $infoUser->phone = $dataSend['phone'];
+            //$infoUser->phone = $dataSend['phone'];
             $modelCustomer->save($infoUser);
             $session->write('infoUser', $infoUser);
 			return $controller->redirect('/infoUser');
@@ -281,15 +281,17 @@ function forgotpassword($input){
 	global $session;
 
 	$modelCustomer = $controller->loadModel('Customers');
+	$mess = '';
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$conditions = array();
 		$conditions['email'] = $dataSend['email'];
 		$checkCustomer = $modelCustomer->find()->where($conditions)->first();
+
 		if(!empty($checkCustomer)){
 			@$pass = getdate()[0];
-			$checkCustomer->token = md5($pass);
+			$checkCustomer->token = $pass;
 			
 			$modelCustomer->save($checkCustomer);
 			sendEmailNewPass($checkCustomer->email, $checkCustomer->full_name, $pass);
@@ -300,9 +302,9 @@ function forgotpassword($input){
 		}else{
 			$mess= '<p class="text-danger">Email không đúng!</p>';
 		}
-		setVariable('mess', $mess);
+		
 	}
-
+	setVariable('mess', $mess);
 }
 
 function confirm($input){
@@ -313,15 +315,13 @@ function confirm($input){
 	global $session;
 	$email = $session->read('email');
 
-	
-
-
 	$modelCustomer = $controller->loadModel('Customers');
+	$mess = '';
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$conditions = array();
-		$conditions = array('email'=>@$email, 'token'=>md5($dataSend['code']));
+		$conditions = array('email'=>@$email, 'token'=>$dataSend['code']);
 	    		$data = $modelCustomer->find()->where($conditions)->first();
 	    		if(!empty($data)){
 	    				$session->destroy();
@@ -335,10 +335,10 @@ function confirm($input){
 	    		}else{
 	    			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
 	    		}
-	    setVariable('mess', $mess);
+	    
 	}
 
-
+	setVariable('mess', $mess);
 }
 
 function newpassword($input){
@@ -353,7 +353,7 @@ function newpassword($input){
 
 
 	$modelCustomer = $controller->loadModel('Customers');
-
+	$mess = '';
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$conditions = array();
@@ -374,8 +374,9 @@ function newpassword($input){
 	    		}else{
 	    			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
 	    		}
-	    setVariable('mess', $mess);
+	    
 	}
+	setVariable('mess', $mess);
 
 }
 

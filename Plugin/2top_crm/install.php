@@ -24,6 +24,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
 	`birthday_date` INT NOT NULL , 
 	`birthday_month` INT NOT NULL , 
 	`birthday_year` INT NOT NULL , 
+	`token` VARCHAR(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
 	PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 
@@ -45,4 +46,5 @@ $sqlUpdateDatabase['customers']['id_level'] = "ALTER TABLE `customers` ADD `id_l
 $sqlUpdateDatabase['customers']['birthday_date'] = "ALTER TABLE `customers` ADD `birthday_date` INT NOT NULL; ";
 $sqlUpdateDatabase['customers']['birthday_month'] = "ALTER TABLE `customers` ADD `birthday_month` INT NOT NULL; ";
 $sqlUpdateDatabase['customers']['birthday_year'] = "ALTER TABLE `customers` ADD `birthday_year` INT NOT NULL; ";
+$sqlUpdateDatabase['customers']['token'] = "ALTER TABLE `customers` ADD `token` VARCHAR(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL; ";
 ?>

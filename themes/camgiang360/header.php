@@ -1,7 +1,10 @@
 <?php
 global $urlThemeActive;
 global $isHome;
+global $session;
+
 $setting = setting();
+$infoUser = $session->read('infoUser');
 ?>
 
 <!doctype html>
@@ -158,26 +161,45 @@ $setting = setting();
                                     $menu = getMenusDefault();
                                     if(!empty($menu)){
                                         foreach($menu as $key => $value){
-                                          if(empty($value['sub'])){
-                                           
-                                            echo '   <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="'.$value['link'].'">'.$value['name'].'</a>
-                                            </li>';
-                                        }else{ 
-                                            echo '   <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="'.$value['link'].'" role="button" data-bs-toggle="dropdown" aria-expanded="false"> '.$value['name'].'
-                                            <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                            </a>
-                                            <ul class="dropdown-menu relics-drop">';
-                                            foreach($value['sub'] as $keys => $values){  
-                                                echo '<li><a class="dropdown-item" href="'.$values['link'].'">'.$values['name'].'</a></li>';
-                                            }
+                                            if(empty($value['sub'])){
+                                                echo '   <li class="nav-item">
+                                                <a class="nav-link active" aria-current="page" href="'.$value['link'].'">'.$value['name'].'</a>
+                                                </li>';
+                                            }else{ 
+                                                echo '   <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="'.$value['link'].'" role="button" data-bs-toggle="dropdown" aria-expanded="false"> '.$value['name'].'
+                                                <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                                                </a>
+                                                <ul class="dropdown-menu relics-drop">';
+                                                foreach($value['sub'] as $keys => $values){  
+                                                    echo '<li><a class="dropdown-item" href="'.$values['link'].'">'.$values['name'].'</a></li>';
+                                                }
 
-                                            echo'</ul>
-                                            </li>';
+                                                echo'</ul>
+                                                </li>';
+                                            }
                                         }
-                                    }
-                                } ?>
+                                    } 
+                                    ?>
+
+                                    <li class="nav-item dropdown user-login">
+                                        <?php if (!empty($infoUser)) { ?>
+                                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                                               data-bs-toggle="dropdown">
+                                                <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
+                                                     alt="">
+                                                <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="/diem_den_yeu_thich">Yêu thích</a></li>
+                                                <li><a class="dropdown-item" href="/editInfoUser">Tài khoản</a></li>
+                                                <li><a class="dropdown-item" href="/changepassword">Đổi mật khẩu</a></li>
+                                                <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
+                                            </ul>
+                                        <?php } else { ?>
+                                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="/login">Đăng nhập</a>
+                                        <?php } ?>
+                                    </li>
 
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

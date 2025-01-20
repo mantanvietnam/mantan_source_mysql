@@ -63,6 +63,8 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/admins', ['controller' => 'Admins', 'action' => 'index']);
         $builder->connect('/admins/login', ['controller' => 'Admins', 'action' => 'login']);
         $builder->connect('/admins/logout', ['controller' => 'Admins', 'action' => 'logout']);
+        $builder->connect('/admins/forgotPassword', ['controller' => 'Admins', 'action' => 'forgotPassword']);
+        $builder->connect('/admins/updatePassword', ['controller' => 'Admins', 'action' => 'updatePassword']);
         $builder->connect('/admins/changePass', ['controller' => 'Admins', 'action' => 'changePass']);
         $builder->connect('/admins/profile', ['controller' => 'Admins', 'action' => 'profile']);
         $builder->connect('/admins/listAdmin', ['controller' => 'Admins', 'action' => 'listAdmin']);

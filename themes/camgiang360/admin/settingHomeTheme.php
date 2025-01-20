@@ -58,7 +58,35 @@
 
         </div>
 
+        <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
 
+          <div class="card mb-4">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+              <h5 class="mb-0">Bản đồ</h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                  <label class="form-label" for="basic-default-fullname">Key Google Map</label>
+
+                  <input type="text" class="form-control" name="key_google_map" value="<?php echo @$setting['key_google_map'];?>" />
+
+                </div>
+
+
+
+                <button type="submit" class="btn btn-primary">Lưu</button>
+
+            </div>
+
+          </div>
+
+        </div>
 
         
 

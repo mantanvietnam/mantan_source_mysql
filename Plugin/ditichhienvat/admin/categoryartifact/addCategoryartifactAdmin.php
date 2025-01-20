@@ -83,7 +83,10 @@
         
   
 
-              <button style=" margin: 10px; " type="submit" class="btn btn-primary">Lưu</button>
+              <div class="col-md-12">
+            <button style=" margin: 10px; width: 80px;" type="submit" class="btn btn-primary">Lưu</button> 
+            <a class="btn btn-danger" href="/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin">Hủy</a> 
+        </div>
             <?= $this->Form->end() ?>
           </div>
         </div>

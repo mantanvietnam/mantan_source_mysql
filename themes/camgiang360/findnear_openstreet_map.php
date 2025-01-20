@@ -1,3 +1,4 @@
+<?php $setting = setting();?>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
@@ -199,7 +200,8 @@
 </div>
  
 <script type="text/javascript">
-  var keyMap = 'efe2301638f6af0bd594f5f607d6dc86ea53e3406d158d44';
+  //var keyMap = 'efe2301638f6af0bd594f5f607d6dc86ea53e3406d158d44';
+  var keyMap = '<?php echo $setting['key_google_map'] ?>';
 
   var locations = [<?php
 

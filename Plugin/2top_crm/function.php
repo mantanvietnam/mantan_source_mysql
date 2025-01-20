@@ -232,6 +232,8 @@ function getCustomer($id){
 
 function sendEmailNewPass($email='', $fullName='', $pass= '')
 {
+    global $urlHomes;
+
     $to = array();
 
     if(!empty($email)){
@@ -239,7 +241,7 @@ function sendEmailNewPass($email='', $fullName='', $pass= '')
     
         $cc = array();
         $bcc = array();
-        $subject = '[Tây Hồ 360] Mã xác thực ';
+        $subject = 'Mã xác thực ';
 
         $content='<!DOCTYPE html>
         <html lang="en">
@@ -281,7 +283,7 @@ function sendEmailNewPass($email='', $fullName='', $pass= '')
                         <br/>
                          Mã xác thực bạn là : '.@$pass.' <br>
                         <br/>
-                        <a href="https://tayho360.vn">https://tayho360.vn</a>
+                        <a href="'.$urlHomes.'">'.$urlHomes.'</a>
                         
                         <br><br>
                         
@@ -298,71 +300,72 @@ function sendEmailNewPass($email='', $fullName='', $pass= '')
     }
 }
 
-function sendNotification($data,$target)
-{
-    global $keyFirebase;
-    $url = 'https://fcm.googleapis.com/fcm/send';
+if(!function_exists('sendNotification')){
+    function sendNotification($data,$target)
+    {
+        global $keyFirebase;
+        $url = 'https://fcm.googleapis.com/fcm/send';
 
-    $fields = array();
-    
-    $fields['data'] = $data;
-    $fields['priority'] = 'high';
-    $fields['content_available'] = true;
-
-    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
-    
-    if(is_array($target)){
-        $number_send = count($target)-1;
-
-        if($number_send < 1000){
-            $fields['registration_ids'] = $target;
-        }else{
-            $start_count = 0;
-            $end_count = 990;
-
-            do{
-                $mini_target = [];
-
-                for($i = $start_count; $i <= $end_count; $i++){
-                    $mini_target[] = $target[$i];
-                }
-
-                sendNotification($data,$mini_target);
-
-                $start_count = $end_count+1;
-                $end_count = $start_count + 990;
-
-                if($start_count < $number_send && $end_count > $number_send){
-                    $end_count = $number_send;
-                }
-            }while ($end_count<=$number_send);
-        }
+        $fields = array();
         
-    }else{
-        $fields['to'] = $target;
+        $fields['data'] = $data;
+        $fields['priority'] = 'high';
+        $fields['content_available'] = true;
+
+        $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
+        
+        if(is_array($target)){
+            $number_send = count($target)-1;
+
+            if($number_send < 1000){
+                $fields['registration_ids'] = $target;
+            }else{
+                $start_count = 0;
+                $end_count = 990;
+
+                do{
+                    $mini_target = [];
+
+                    for($i = $start_count; $i <= $end_count; $i++){
+                        $mini_target[] = $target[$i];
+                    }
+
+                    sendNotification($data,$mini_target);
+
+                    $start_count = $end_count+1;
+                    $end_count = $start_count + 990;
+
+                    if($start_count < $number_send && $end_count > $number_send){
+                        $end_count = $number_send;
+                    }
+                }while ($end_count<=$number_send);
+            }
+            
+        }else{
+            $fields['to'] = $target;
+        }
+
+        $headers = array(
+            'Content-Type:application/json',
+            'Authorization:key='.$keyFirebase
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        if ($result === FALSE) {
+
+        }
+        curl_close($ch);
+        
+        return $result;
     }
-
-    $headers = array(
-        'Content-Type:application/json',
-        'Authorization:key='.$keyFirebase
-    );
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-    $result = curl_exec($ch);
-    if ($result === FALSE) {
-
-    }
-    curl_close($ch);
-    
-    return $result;
 }
-
 
 ?>

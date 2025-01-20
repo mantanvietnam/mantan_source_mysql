@@ -46,6 +46,7 @@ function settingHomeTheme($input){
                         'tiktok' => @$dataSend['tiktok'],
                         'zalo' => @$dataSend['zalo'],
                         'facebook' => @$dataSend['facebook'],
+                        'key_google_map' => @$dataSend['key_google_map'],
                         
                     );
 

@@ -7,4 +7,5 @@
    $routesPlugin['listHistoricalsiteAPI'] = '/ditichhienvat/view/listHistoricalsiteAPI.php';
    $routesPlugin['detailHistoricalsiteAPI'] = '/ditichhienvat/view/detailHistoricalsiteAPI.php';
    $routesPlugin['detailArtifactAPI'] = '/ditichhienvat/view/detailArtifactAPI.php';
+   $routesPlugin['di_tich_yeu_thich'] = '/ditichhienvat/view/listHistoricalSiteTopLike.php';
 ?>

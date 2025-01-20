@@ -12,7 +12,10 @@ class AdminsController extends AppController{
             $this->set('infoAdmin', $infoAdmin);
             $this->viewBuilder()->setLayout('admin');
         }else{
-            if (strlen(strstr($_SERVER['REQUEST_URI'], '/admins/login')) == 0) {
+            if (strlen(strstr($_SERVER['REQUEST_URI'], '/admins/login')) == 0 &&
+                strlen(strstr($_SERVER['REQUEST_URI'], '/admins/forgotPassword')) == 0 &&
+                strlen(strstr($_SERVER['REQUEST_URI'], '/admins/updatePassword')) == 0 
+            ) {
                 return $this->redirect('/admins/login');
             }
         }
@@ -20,6 +23,117 @@ class AdminsController extends AppController{
 
     public function index(){
 
+    }
+
+    public function forgotPassword(){
+        // Set the layout.
+        $this->viewBuilder()->setLayout('ajax');
+
+        $mess= '';
+        $modelAdmins = $this->Admins;
+        $session = $this->request->getSession();
+
+        $mess = '';
+
+        if(empty($session->read('infoAdmin'))){
+            if ($this->request->is('post')) {
+                $dataSend = $this->request->getData();
+
+                if(!empty($dataSend['username'])){
+                    $conditions = array('user' => $dataSend['username']);
+                    
+                    $infoAdmin = $modelAdmins->find()->where($conditions)->first();
+
+                    if($infoAdmin){
+                        if(!empty($infoAdmin->email)){
+                            $infoAdmin->otp = rand(1000,9999);
+                            $modelAdmins->save($infoAdmin);
+
+                            $session->write('idAdminForgotPassword', $infoAdmin->id);
+
+                            // gửi email
+                            $to[]= trim($infoAdmin->email);
+    
+                            $cc = array();
+                            $bcc = array();
+                            $subject = 'Mã xác thực quên mật khẩu';
+
+                            $content = '<em>Xin chào '.$infoAdmin->fullName.' !</em> <br>
+                                        <br/>
+                                        Mã xác thực bạn là : '.$infoAdmin->otp.' <br>
+                                        
+                                        <br><br>
+                                        
+                                        Trân trọng ./';
+
+                            sendEmail($to, $cc, $bcc, $subject, $content);
+                            
+                            return $this->redirect('/admins/updatePassword');
+                        }else{
+                            $mess= '<p class="text-danger">Tài khoản không có email nên không gửi được mã xác nhận.</p>';
+                        }
+                    }else{
+                        $mess= '<p class="text-danger">Sai tài khoản</p>';
+                    }
+                }else{
+                    $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+                }
+            }
+        }else{
+            return $this->redirect('/admins');
+        }
+
+        $this->set('mess', $mess);
+    }
+
+    public function updatePassword(){
+        // Set the layout.
+        $this->viewBuilder()->setLayout('ajax');
+
+        $mess= '';
+        $modelAdmins = $this->Admins;
+        $session = $this->request->getSession();
+
+        $mess = '';
+
+        if(empty($session->read('infoAdmin'))){
+            $idAdminForgotPassword = $session->read('idAdminForgotPassword');
+
+            if(!empty($idAdminForgotPassword)){
+                if ($this->request->is('post')) {
+                    $dataSend = $this->request->getData();
+
+                    if(!empty($dataSend['code']) && !empty($dataSend['password']) && !empty($dataSend['passwordAgain'])){
+                        $conditions = array('id' => $idAdminForgotPassword);
+                    
+                        $infoAdmin = $modelAdmins->find()->where($conditions)->first();
+
+                        if($infoAdmin->otp == $dataSend['code']){
+                            if($dataSend['password'] == $dataSend['passwordAgain']){
+                                $infoAdmin->password = md5($dataSend['password']);
+                                $infoAdmin->otp = null;
+
+                                $modelAdmins->save($infoAdmin);
+
+                                return $this->redirect('/admins/login/?status=updatePasswordDone');
+                            }else{
+                                $mess= '<p class="text-danger">Mật khẩu nhập lại chưa đúng</p>';
+                            }
+                        }else{
+                            $mess= '<p class="text-danger">Mã xác thực chưa đúng</p>';
+                        }
+                    }else{
+                        $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+                    }
+                }
+            }else{
+                return $this->redirect('/admins');
+            }
+        }else{
+            return $this->redirect('/admins');
+        }
+
+        $this->set('mess', $mess);
     }
 
     public function changePass(){
