@@ -733,6 +733,7 @@ function orderService($input){
             $order->time = time();
         }
 
+
         $modelOrder->save($order);
                 // tạo chi tiêt dơn hàng 
         $money = 0;
@@ -1547,7 +1548,7 @@ function addUserService($input){
                 $UserService->id_order = $OrderDetails->id_order;
                 $UserService->id_spa =$session->read('id_spa');
                 $UserService->id_services =$_GET['id_service'];
-                $UserService->created_at =date('Y-m-d H:i:s');
+                $UserService->created_at =time();
                 $UserService->note =@$_GET['note'];
                 $UserService->id_customer = $Order->id_customer;
                 $UserService->status = 0;
@@ -1569,7 +1570,7 @@ function addUserService($input){
                 }
                 $UserService->id_spa =$session->read('id_spa');
                 $UserService->id_services =$_GET['id_service'];
-                $UserService->created_at =date('Y-m-d H:i:s');
+                $UserService->created_at =time();
                 $UserService->note =@$_GET['note'];
                 $UserService->id_bed = $_GET['id_bed'];
                 $UserService->id_customer = $Order->id_customer;

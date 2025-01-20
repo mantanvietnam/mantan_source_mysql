@@ -202,6 +202,7 @@
                                         <li><span>Thành tiền</span><span id="totalMoney">0</span>
                                             <input type="hidden" name="total" id="total" value="">
                                         </li>                                        
+                                        <?php if(empty($_GET['idBed'])){ ?>
                                         <li><span>Giảm giá</span><span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="" autocomplete="off" /></span></li>
                                         <li><span>Hình thức thanh toán</span><span>
                                             <select name="type_collection_bill" id="type_collection_bill" class="form-select color-dropdown" required onchange="tinhtien();">
@@ -218,6 +219,7 @@
                                               ?>
                                             </select>
                                         </span></li> 
+                                   
                                         <li class="total-bh"><p><strong>Tổng thanh toán</strong></p><p><strong id="totalPay">0</strong></p>
                                             <input type="hidden" name="totalPays" id="totalPays" value="">
                                             <input type="hidden" name="moneyReturn" id="moneyReturn" value="">
@@ -229,11 +231,14 @@
                                             </span>
                                         </li>
                                         <li id="sotentralaikhach"><span>Số tiền trả lại</span><span id="moneyCustomerReturn">0</span></li> 
-
-                                        <?php if(!empty($_GET['idBed'])){ ?>
+                                         <?php }else{ ?>
                                         <li class="total-bh">
                                             <p>Giường & phòng</p>
-                                            <p>
+                                            <p> ><input  min="0" onchange="tinhtien();" type="hidden" name="promotion" id="promotion" placeholder="0" value="" autocomplete="off" />
+                                                <input type="hidden" name="total" id="total" value="">
+                                                <input type="hidden" name="totalPays" id="totalPays" value="">
+                                                <input type="hidden" name="moneyReturn" id="moneyReturn" value="">
+                                                <input type="hidden" class="money-khach input_money form-control" name="moneyCustomerPay" id="moneyCustomerPay" value="" placeholder="0" required="" min="0" onchange="tinhtien();" autocomplete="off">
                                                 <select  name="id_bed" id="id_bed"  class="form-select color-dropdown">
                                                         <option value="">Chọn giường</option>
                                                      <?php if(!empty($listRoom))
@@ -379,13 +384,15 @@ function addProduct(id, name, priceProduct,type){
         var idProduct;
 
          var typecollectionbill= $('#type_collection_bill').val();
-        if(typecollectionbill=='tien_mat'){
-            document.getElementById("sotenkhachdua").style.display = "flex";
-            document.getElementById("sotentralaikhach").style.display = "flex";
-        }else{
-            document.getElementById("sotenkhachdua").style.display = "none";
-            document.getElementById("sotentralaikhach").style.display = "none";
-        }
+         <?php if(empty($_GET['idBed'])){ ?>
+            if(typecollectionbill=='tien_mat'){
+                document.getElementById("sotenkhachdua").style.display = "flex";
+                document.getElementById("sotentralaikhach").style.display = "flex";
+            }else{
+                document.getElementById("sotenkhachdua").style.display = "none";
+                document.getElementById("sotentralaikhach").style.display = "none";
+            }
+        <?php } ?>
 
         if(row>0){
             for(i=1;i<=row;i++){
@@ -478,21 +485,25 @@ function addProduct(id, name, priceProduct,type){
         tinhtien();
         var moneyCustomerPay= $('#moneyCustomerPay').val();
         var congno= $('#typeCollectionBill').val();
+        var id_customer= $('#id_customer').val();
         var r= true;
   
         $('#luudonhang').show();
         $('#thanhtoan').remove();
         $('#nhankhach').remove();
-
-        if(numberProduct>0){
-            r = confirm("bạn lưu đơn này?");
-            if (r == true) {
-                if(checkProduct){
-                    $('#summary-form').submit();
+        if(id_customer>0){
+            if(numberProduct>0){
+                r = confirm("bạn lưu đơn này?");
+                if (r == true) {
+                    if(checkProduct){
+                        $('#summary-form').submit();
+                    }
                 }
+            }else{
+                alert('Bạn chưa chọn sản phẩm nào');
             }
-        }else{
-            alert('Bạn chưa chọn sản phẩm nào');
+            }else{
+            alert('Bạn chưa chọn khách hàng');
         }
 
     }
@@ -502,6 +513,7 @@ function addProduct(id, name, priceProduct,type){
         tinhtien();
         var moneyCustomerPay= $('#moneyCustomerPay').val();
         var congno= $('#typeCollectionBill').val();
+        var id_customer= $('#id_customer').val();
         var r= true;
   
         $('#luudonhang').remove();
@@ -509,21 +521,24 @@ function addProduct(id, name, priceProduct,type){
         $('#nhankhach').remove();
 
          var type_collection_bill = $('#type_collection_bill').val();
-
-        if(type_collection_bill==0){
-            alert('Bạn chưa chọn hình thức thanh toán');
-        }else{
-
-            if(numberProduct>0){
-                r = confirm("bạn thanh toán đơn này?");
-                if (r == true) {
-                    if(checkProduct){
-                        $('#summary-form').submit();
-                    }
-                }
+        if(id_customer>0){
+            if(type_collection_bill==0){
+                alert('Bạn chưa chọn hình thức thanh toán');
             }else{
-                alert('Bạn chưa chọn sản phẩm nào');
+
+                if(numberProduct>0){
+                    r = confirm("bạn thanh toán đơn này?");
+                    if (r == true) {
+                        if(checkProduct){
+                            $('#summary-form').submit();
+                        }
+                    }
+                }else{
+                    alert('Bạn chưa chọn sản phẩm nào');
+                }
             }
+        }else{
+            alert('Bạn chưa chọn khách hàng');
         }
 
     }
@@ -533,22 +548,27 @@ function addProduct(id, name, priceProduct,type){
         tinhtien();
         var moneyCustomerPay= $('#moneyCustomerPay').val();
         var congno= $('#typeCollectionBill').val();
+        var id_customer= $('#id_customer').val();
         var r= true;
   
         $('#luudonhang').remove();
         $('#luudonhang').remove();
         $('#nhankhach').show();
-
-        if(numberProduct>0){
-            r = confirm("bạn nhận khách này vào giường?");
-            if (r == true) {
-                if(checkProduct){
-                    $('#summary-form').submit();
+        if(id_customer>0){
+            if(numberProduct>0){
+                r = confirm("bạn nhận khách này vào giường?");
+                if (r == true) {
+                    if(checkProduct){
+                        $('#summary-form').submit();
+                    }
                 }
+            }else{
+                alert('Bạn chưa chọn sản phẩm nào');
             }
         }else{
-            alert('Bạn chưa chọn sản phẩm nào');
+            alert('Bạn chưa chọn khách hàng');
         }
+        
 
     }
     

@@ -1,7 +1,7 @@
 <?php 
 require_once __DIR__ . '/lib/google/vendor/autoload.php';
 require_once __DIR__ . '/lib/zalo/vendor/autoload.php';
-
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 global $urlCreateImage;
 
 

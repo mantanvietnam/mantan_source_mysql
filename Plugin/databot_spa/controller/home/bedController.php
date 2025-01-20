@@ -175,6 +175,9 @@ function infoRoomBed($input){
 
     $metaTitleMantan = 'Thông tin giường';
      setVariable('page_view', 'infoRoomBed');
+
+    debug(date('Y-m-d H:i:s'));
+    die;
     if(!empty(checkLoginManager('infoRoomBed', 'room'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
@@ -210,6 +213,7 @@ function infoRoomBed($input){
         if(@$_GET['mess']=='done'){
             $mess = '<p class="text-success">Cập nhập thành công</p>';
         }
+        
 
         setVariable('data', $data);
         setVariable('mess', @$mess);
