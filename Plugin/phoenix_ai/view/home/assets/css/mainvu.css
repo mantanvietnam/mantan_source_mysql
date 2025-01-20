@@ -1142,6 +1142,16 @@ table {
     .aiva-writecontent{
         margin-top: 30px !important;
     }
+    .form-label{
+        font-size: 13px !important;
+    }
+    .icon-left-title{
+        height: 40px !important;
+        min-width: 40px !important;
+    }
+    textarea.form-control{
+        font-size: 12px !important;
+    }
     .set-height-writecontent{
         padding: 0px !important;
         margin-bottom: 30px !important;
@@ -1165,7 +1175,7 @@ table {
         width: 100px;
     }
     .last-inputcontent{
-        margin-top: 300px !important;
+        margin-top: 240px !important;
     }
     .write-outline p{
         white-space: nowrap;
