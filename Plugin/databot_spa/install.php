@@ -147,7 +147,7 @@ $sqlInstallDatabase .="CREATE TABLE `customers` (
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
   `phone` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
@@ -155,7 +155,7 @@ $sqlInstallDatabase .="CREATE TABLE `customers` (
   `avatar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `birthday` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cmnd` varchar(255) DEFAULT NULL,
-  `link_facebook` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `link_facebook` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `referral_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'số điện thoại người giới thiệu',
   `id_staff` int(11) DEFAULT NULL,
   `source` int(11) DEFAULT 0 COMMENT 'Nguồn khách hàng',
@@ -640,7 +640,7 @@ $sqlUpdateDatabase['customers']['name'] = "ALTER TABLE `customers` ADD `name` te
 $sqlUpdateDatabase['customers']['id_member'] = "ALTER TABLE `customers` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['customers']['id_spa'] = "ALTER TABLE `customers` ADD `id_spa` int(11) NOT NULL; ";
 $sqlUpdateDatabase['customers']['phone'] = "ALTER TABLE `customers` ADD `phone` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` ADD `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` ADD `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['customers']['address'] = "ALTER TABLE `customers` ADD `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['customers']['created_at'] = "ALTER TABLE `customers` ADD `created_at` datetime NOT NULL; ";
 $sqlUpdateDatabase['customers']['updated_at'] = "ALTER TABLE `customers` ADD `updated_at` datetime NOT NULL; ";
@@ -648,7 +648,7 @@ $sqlUpdateDatabase['customers']['sex'] = "ALTER TABLE `customers` ADD `sex` tiny
 $sqlUpdateDatabase['customers']['avatar'] = "ALTER TABLE `customers` ADD `avatar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['customers']['birthday'] = "ALTER TABLE `customers` ADD `birthday` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['customers']['cmnd'] = "ALTER TABLE `customers` ADD `cmnd` varchar(255) DEFAULT NULL; ";
-$sqlUpdateDatabase['customers']['link_facebook'] = "ALTER TABLE `customers` ADD `link_facebook` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['customers']['link_facebook'] = "ALTER TABLE `customers` ADD `link_facebook` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['customers']['referral_code'] = "ALTER TABLE `customers` ADD `referral_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'số điện thoại người giới thiệu'; ";
 $sqlUpdateDatabase['customers']['id_staff'] = "ALTER TABLE `customers` ADD `id_staff` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['customers']['source'] = "ALTER TABLE `customers` ADD `source` int(11) DEFAULT 0 COMMENT 'Nguồn khách hàng'; ";

@@ -134,7 +134,7 @@
 	               </div>
 	               <div class="mb-3 col-md-2">
                         <label class="form-label" for="basic-default-phone">&nbsp;</label>
-	                    <a href="/addCustomer" class="btn btn-primary" target="_blank" title="Thêm khách hàng mới "><i class='bx bx-plus'></i> </a>
+                        <a href="javascript:void(0);" onclick="showAddCustom();" title="Thêm khách hàng mới" class="btn btn-primary"><i class="bx bx-plus"></i></a>
 	               </div>
 	           </div>
 		 	</div>
@@ -329,6 +329,59 @@
 
 
 </form>
+</div>
+
+<div id="addCustomer"  class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm thông tin khách hàng mới</h4>
+                
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>
+            <div class="data-content card-body">
+                <div id="messAddCustom"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Họ tên (*)</label>
+                        <input required type="text" class="form-control phone-mask" name="name" id="name" value="" />
+                        <input  type="hidden" class="form-control phone-mask" name="name" id="id_member" value="<?php echo $user->id_member; ?>" />
+                        <input  type="hidden" class="form-control phone-mask" name="name" id="id_spa" value="<?php echo $user->id_spa; ?>" />
+                        <input  type="hidden" class="form-control phone-mask" name="name" id="id_staff" value="<?php echo $user->id_staff; ?>" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
+                        <input type="text" class="form-control" placeholder="" name="phone" id="phone" value="" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Địa chỉ</label>
+                        <input type="text" class="form-control phone-mask" name="address" id="address" value="" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Giới tính</label>
+                        <select name="sex" id='sex' class="form-select color-dropdown">
+                          <option value="0">Nữ</option>
+                          <option value="1" >Nam</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="text-center col-sm-12" style="padding-bottom: 30px;">
+                        <button type="button" class="btn btn-primary" onclick="addCustomer();">Lưu thông tin</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -570,7 +623,54 @@ function addProduct(id, name, priceProduct,type){
         }
 
     }
+
+
+    function showAddCustom()
+    {
+        $('#addCustomer').modal('show');
+    }
+
+function addCustomer()
+{
+
+    var name = $('#name').val();
+    var id_member = $('#id_member').val();
+    var phone = $('#phone').val();
+    var id_spa = $('#id_spa').val();
+    var email = $('#email').val();
+    var address = $('#address').val();
+    var id_staff = $('#id_staff').val();
+    var sex = $('#sex').val();
     
+    $.ajax({
+          method: "POST",
+          url: "/apis/addCustomerApi",
+          data: { 
+            name: name,
+            id_member: id_member,
+            phone: phone,
+            id_spa: id_spa,
+            email: email,
+            address: address,
+            id_staff: id_staff,
+            sex:sex,
+        }
+    }).done(function( msg ) {
+            console.log(msg);
+
+            // var obj = jQuery.parseJSON(msg);
+             // console.log(obj);
+            if(msg.code==1){
+                $('#id_customer').val(msg.data.id);
+                $('#full_name').val(msg.data.name);
+                $('#addCustomer').modal('hide');
+            }else{
+                console.log(msg.mess);
+               $('#messAddCustom').html(msg.mess); 
+            }
+        }) 
+          
+}   
 
 </script>
 <script type="text/javascript">
@@ -617,8 +717,8 @@ function addProduct(id, name, priceProduct,type){
                 // add the selected item
                 terms.push( ui.item.label );
                
-                $('#full_name').val(ui.item.label);
-                $('#id_customer').val(ui.item.id);
+                $('#').val(ui.item.label);
+                $('#').val(ui.item.id);
           
                 return false;
 

@@ -59,17 +59,13 @@ function addCustomerCampainApi($input)
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['id_campain']) ){
+        if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['id_member']) ){
         	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
         	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-        	
-    		$infoCampain = $modelCampains->find()->where(['id'=>(int) $dataSend['id_campain']])->first();
-
-    		if(!empty($infoCampain)){
-    			$dataSend['id_member'] = $infoCampain->idMember;
-    		}
-        	
+        	if(!empty($dataSend['id_customer'])){
+    			$infoCampain = $modelCampains->find()->where(['id'=>(int) $dataSend['id_campain']])->first();
+        	}
 
         	if(!empty($dataSend['id_member'])){
         		$listSpa = $modelSpas->find()->where(['id_member'=>(int) $dataSend['id_member']])->all()->toList();
@@ -90,26 +86,13 @@ function addCustomerCampainApi($input)
 				        $data->id_member =(int) $dataSend['id_member'];
 				        $data->id_spa = (int) $dataSend['id_spa'];
 				        $data->phone = $dataSend['phone'];
+				        $data->sex = $dataSend['sex'];
 				        $data->email = @$dataSend['email'];
 				        $data->address = @$dataSend['address'];
 				        $data->updated_at = date('Y-m-d H:i:s');
-				        $data->sex = (int) @$dataSend['sex'];
 				        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
-				        $data->birthday = @$dataSend['birthday'];
-				        $data->cmnd = @$dataSend['cmnd'];
-				        $data->link_facebook = @$dataSend['link_facebook'];
-				        $data->id_staff = (int) $dataSend['id_member'];
-				        $data->source = (int) @$dataSend['source'];
-				        $data->id_group = (int) @$dataSend['id_group'];
-				        $data->id_service =(int) @$dataSend['id_service'];
-				        $data->medical_history = @$dataSend['medical_history'];
-				        $data->drug_allergy_history = @$dataSend['drug_allergy_history'];
-				        $data->request_current = @$dataSend['request_current'];
-				        $data->advisory = @$dataSend['advisory'];
-				        $data->advise_towards = @$dataSend['advise_towards'];
+				        $data->id_staff = (int) $dataSend['id_staff'];
 				        $data->note = '';
-				        $data->job = @$dataSend['job'];
-				        $data->id_product =(int) @$dataSend['id_product'];
 
 						
 						if(!empty($dataSend['referral_code'])){
@@ -130,10 +113,14 @@ function addCustomerCampainApi($input)
 				        $checkPhone = $data;
 				        
 				        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+				        $return['infoCustomer'] =  $checkPhone;
 				    }
 
 				    if(!empty($checkPhone)){
-				    	$checkCustomerReg = $modelCampainCustomers->find()->where(['id_campain'=>(int) $dataSend['id_campain'], 'id_customer'=> $checkPhone->id])->first();
+				    	if($dataSend['id_campain']){
+				    		$checkCustomerReg = $modelCampainCustomers->find()->where(['id_campain'=>(int) $dataSend['id_campain'], 'id_customer'=> $checkPhone->id])->first();
+				    	}
+				    	
 
 				    	if(empty($checkCustomerReg)){
 				    		$infoCampain->codeUser ++;
@@ -179,5 +166,93 @@ function addCustomerCampainApi($input)
 	    	$return['messages']= array(array('text'=>'Gửi thiếu name, phone hoặc id_campain'));
 	    }
     }
+    return $return;
+}
+
+
+function addCustomerApi($input)
+{
+	global $controller;
+	global $isRequestPost;
+    global $modelCategories;
+	global $metaTitleMantan;
+	global $session;
+	global $urlHomes;
+
+	$return = [];
+
+	$modelCampains = $controller->loadModel('Campains');
+	$modelCampainCustomers = $controller->loadModel('CampainCustomers');
+	$modelCustomer = $controller->loadModel('Customers');
+	$modelSpas = $controller->loadModel('Spas');
+
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['id_member']) ){
+        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+        	if(!empty($dataSend['id_customer'])){
+    			$infoCampain = $modelCampains->find()->where(['id'=>(int) $dataSend['id_campain']])->first();
+        	}
+
+        	if(!empty($dataSend['id_member'])){
+        		$listSpa = $modelSpas->find()->where(['id_member'=>(int) $dataSend['id_member']])->all()->toList();
+
+        		if(!empty($listSpa)){
+        			if(empty($dataSend['id_spa'])) $dataSend['id_spa'] = $listSpa[0]->id;
+
+		        	$conditions = ['phone'=>$dataSend['phone'],'id_member'=> (int) $dataSend['id_member']];
+		        	$checkPhone = $modelCustomer->find()->where($conditions)->first();
+
+		        	if(empty($checkPhone)){
+				        // tạo dữ liệu save
+				        $data = $modelCustomer->newEmptyEntity();
+						
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->point = 0;
+				        $data->name = $dataSend['name'];
+				        $data->id_member =(int) $dataSend['id_member'];
+				        $data->id_spa = (int) $dataSend['id_spa'];
+				        $data->phone = $dataSend['phone'];
+				        $data->sex = $dataSend['sex'];
+				        $data->email = @$dataSend['email'];
+				        $data->address = @$dataSend['address'];
+				        $data->updated_at = date('Y-m-d H:i:s');
+				        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
+				        $data->id_staff = (int) $dataSend['id_staff'];
+				        $data->note = '';
+
+						
+						if(!empty($dataSend['referral_code'])){
+							$dataSend['referral_code'] = trim(str_replace(array(' ','.','-'), '', $dataSend['referral_code']));
+	        				$dataSend['referral_code'] = str_replace('+84','0',$dataSend['referral_code']);
+
+							$checkAff = $modelCustomer->find()->where(['phone'=>$dataSend['referral_code'], 'id_member'=> (int) $dataSend['id_member']])->first();
+
+							if(!empty($checkAff)){
+								$data->referral_code = $checkAff->phone;
+								$data->id_customer_aff = $checkAff->id;
+							}
+						}
+						
+
+				        $modelCustomer->save($data);
+				        $return = array('code'=>1 ,'mess'=>'Số điện thoại đã tồn tại', 'data'=>$data);
+				    }else{
+						$return = array('code'=>0 ,'mess'=>'Số điện thoại đã tồn tại');
+				    }
+				}else{
+					$return = array('code'=>0 ,'mess'=>'Tài khoản này chưa có SPA');
+				}
+			}else{
+				$return = array('code'=>0 ,'mess'=>'Gửi sai id_campain');
+			}
+	    }else{
+	    	$return = array('code'=>0 ,'mess'=>'Gửi thiếu name, phone hoặc id_campain');
+	    }
+    }
+    return $return;
 }
 ?>

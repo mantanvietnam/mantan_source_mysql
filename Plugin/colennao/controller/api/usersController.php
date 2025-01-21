@@ -179,7 +179,7 @@ function confirmotpcodeApi($input): array
         if (isset($dataSend['phone']) && isset($dataSend['code'])  && isset($dataSend['device_token'])) {
             $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
             $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
-            $user = $modelUser->find()->where(['phone' => $dataSend['phone'],])->first();
+            $user = $modelUser->find()->where(['phone' => $dataSend['phone'], 'status !='=>'delete'])->first();
 
             if (empty($user)) {
                 return apiResponse(3, 'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
@@ -224,6 +224,7 @@ function loginUserApi($input): array
             $user = $modelUser->find()->where([
                 'phone' => $dataSend['phone'],
                 'password' => md5($dataSend['password']),
+                'status !='=>'delete'
             ])->first();
             $token = createToken();
             if (!empty($user)) {
@@ -234,6 +235,12 @@ function loginUserApi($input): array
                 
                 $user->last_login = time();
                 $modelUser->save($user);
+
+                if($user->deadline >time()){
+                    $user->status_pay_package =1;
+                }else{
+                     $user->status_pay_packag = 0;
+                }
 
                 if($user->status=='lock'){
                     return apiResponse(5, 'Bạn chưa xác nhận mã OTP', $user);
@@ -828,21 +835,21 @@ function deleteUserApi($input): array
     global $controller;
     global $isRequestPost;
 
-    $modelUser = $controller->loadModel('Users');
+   $modelUser = $controller->loadModel('Users');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (!isset($dataSend['access_token'])) {
+        if (!isset($dataSend['token'])) {
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         } else {
-            if(!empty($dataSend['pass'])){
-                $currentUser = getUserByToken($dataSend['access_token']);
+            if(!empty($dataSend['password'])){
+                $user = getUserByToken($dataSend['token']);
 
-                if (empty($currentUser)) {
+                if (empty($user)) {
                     return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
                 }else{
-                    if(md5($dataSend['pass']) != $currentUser->password){
+                    if(md5($dataSend['password']) != $user->password){
                         return apiResponse(4, 'Mật khẩu nhập chưa đúng');
                     }
                 }
@@ -850,9 +857,12 @@ function deleteUserApi($input): array
                 return apiResponse(2, 'Gửi thiếu mật khẩu');
             }
         }
+        $currentUser = $modelUser->find()->where(['id'=>$user->id])->first();
 
         $currentUser->deleted_at = date('Y-m-d H:i:s');
-        $currentUser->access_token = null;
+        $currentUser->token = null;
+        $currentUser->device_token = null;
+        $currentUser->status = 'delete';
         $modelUser->save($currentUser);
 
         return apiResponse(0, 'Xóa tài khoản thành công');

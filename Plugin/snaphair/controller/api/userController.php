@@ -546,10 +546,6 @@ function updateUserApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
 
-        if ($currentUser->type == 0) {
-            return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
-        }
-
         if (isset($dataSend['full_name'])) {
             $currentUser->full_name = $dataSend['full_name'];
         }
@@ -580,9 +576,7 @@ function updateUserApi($input): array
             $currentUser->phone = $dataSend['phone'];
         }
 
-        if (isset($dataSend['birthday'])) {
-            $currentUser->birthday = DateTime::createFromFormat('d/m/Y', $dataSend['birthday']);
-        }
+       
 
         if (isset($dataSend['address'])) {
             $currentUser->address = $dataSend['address'];
@@ -593,13 +587,7 @@ function updateUserApi($input): array
             $currentUser->sex = $dataSend['sex'];
         }
 
-        if (isset($dataSend['bank_account'])) {
-            $currentUser->bank_account = $dataSend['bank_account'];
-        }
-
-        if (isset($dataSend['account'])) {
-            $currentUser->account = $dataSend['account'];
-        }
+      
 
         if (!empty($dataSend['birthday'])) {
 		    $date = explode("/", $dataSend['birthday']);
@@ -617,7 +605,7 @@ function updateUserApi($input): array
 
       
 
-        return apiResponse(0, 'Cập nhật thông tin thành công');
+        return apiResponse(0, 'Cập nhật thông tin thành công',$currentUser);
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
@@ -653,6 +641,7 @@ function deleteUserApi($input): array
 
         $currentUser->deleted_at =time();
         $currentUser->access_token = null;
+        $currentUser->status = 'delete';
         $modelUser->save($currentUser);
 
         return apiResponse(0, 'Xóa tài khoản thành công');
