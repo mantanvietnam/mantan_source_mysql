@@ -434,6 +434,7 @@ function addProduct(id, name, priceProduct,type){
         var number;
         var price;
         var idProduct;
+        idcustomer = $('#id_customer').val();
 
          var typecollectionbill= $('#type_collection_bill').val();
          <?php if(empty($_GET['idBed'])){ ?>
@@ -500,7 +501,7 @@ function addProduct(id, name, priceProduct,type){
             $.ajax({
                 method: 'GET',
                 url: '/apis/listCustomerPrepayCardAPI',
-                data: { id_customer: id_customer , total: totalPay},
+                data: { id_customer: idcustomer , total: totalPay},
                 success:function(res){
                     if(res.code==1){
                         console.log('abc'+res.data.length); 
@@ -719,10 +720,10 @@ function addCustomer()
                
                 $('#full_name').val(ui.item.label);
                 $('#id_customer').val(ui.item.id);
-          
+                  tinhtien();
                 return false;
 
-                tinhtien();
+              
             }
         });
     });

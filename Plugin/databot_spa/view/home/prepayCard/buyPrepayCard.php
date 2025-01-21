@@ -119,7 +119,6 @@
 </style>
 
 <div class="container-xxl flex-grow-1 container-p-y">
-  
 <form id="summary-form" action="" method="post" class="form-horizontal">
     <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
  	<div class="row">
@@ -152,7 +151,7 @@
                                 <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $item->image ?>');" onclick="addProduct('<?php echo $item->id ?>','<?php echo $item->name ?>',<?php echo $item->price_sell ?>, <?php echo $item->price ?>);" id='service<?php echo $item->id ?>'>
                                     <div class="item_produc">
                                         <div class="customer-name"><span class="service_name"><?php echo $item->name ?></span></div>
-                                        <div class="customer-name"><span class="service_name"><?php echo $item->duration ?> phút</span></div>
+                                        <div class="customer-name"><span class="service_name"><?php echo $item->duration ?></span></div>
                                         <div class="customer-name"><span class="service_price"><?php echo number_format($item->price_sell) ?>đ</span></div>
                                     </div>
                                     
@@ -283,12 +282,11 @@
 </div>
 
 <div id="addCustomer"  class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+   <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Thêm thông tin khách hàng mới</h4>
                 
-                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div>
             <div class="data-content card-body">
                 <div id="messAddCustom"></div>
@@ -332,7 +330,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
 </div>
 
 <script type="text/javascript">

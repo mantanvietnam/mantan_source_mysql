@@ -95,7 +95,7 @@ function listCollectionBill($input){
 	    }
 
 	    if(!empty($listData)){
-			foreach($listData as $key =>$item){
+			foreach($listData as $key => $item){
 				$staff = $modelMember->find()->where(array('id'=>$item->id_staff))->first();
 				if(!empty($staff)){
 					$listData[$key]->staff = $staff;
@@ -104,6 +104,12 @@ function listCollectionBill($input){
 		}
 
 		$totalData = $modelBill->find()->where($conditions)->all()->toList();
+		$total = 0;
+		if(!empty($totalData)){
+			foreach($totalData as $key => $value){
+				$total += $value->total;
+			}
+		}
 	    $totalData = count($totalData);
 
 	    $balance = $totalData % $limit;
@@ -153,6 +159,7 @@ function listCollectionBill($input){
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
+	    setVariable('total', $total);
 	    setVariable('mess', $mess);
 	    setVariable('listStaffs', $listStaffs);
 	}else{
@@ -411,6 +418,12 @@ function listBill($input){
 		}
 
 		$totalData = $modelBill->find()->where($conditions)->all()->toList();
+		$total = 0;
+		if(!empty($totalData)){
+			foreach($totalData as $key => $value){
+				$total += $value->total;
+			}
+		}
 	    $totalData = count($totalData);
 
 	    $balance = $totalData % $limit;
@@ -453,6 +466,7 @@ function listBill($input){
 	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
 
 		setVariable('page', $page);
+		setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('back', $back);
 	    setVariable('next', $next);
@@ -460,6 +474,7 @@ function listBill($input){
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
+	    setVariable('total', $total);
 	    setVariable('mess', $mess);
 	    setVariable('listStaffs', $listStaffs);
 	}else{

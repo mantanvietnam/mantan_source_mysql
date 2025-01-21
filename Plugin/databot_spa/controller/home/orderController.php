@@ -1116,6 +1116,8 @@ function listOrderCombo($input){
         
         $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+
+
         if(!empty($listData)){
             foreach($listData as $key => $item){
                 // lấy thông tin khách hàng
@@ -1175,7 +1177,6 @@ function listOrderCombo($input){
                 }
             }
         }
-
         $totalData = $modelOrder->find()->where($conditions)->all()->toList();
         $totalData = count($totalData);
         $balance = $totalData % $limit;
@@ -1224,7 +1225,6 @@ function listOrderCombo($input){
                 $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'), 'status'=>1))->all()->toList();
             }
         }
-
 
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
@@ -1662,6 +1662,8 @@ function paymentOrders($input){
 
         if(!empty($_GET['id'])){
             $order = $modelOrder->get($_GET['id']); 
+
+
             $order->status = 1;
             $modelOrder->save($order);
 
@@ -1672,7 +1674,7 @@ function paymentOrders($input){
                 $debt->id_mmber = @$infoUser->id_membr;
                 $debt->id_spa = $session->read('id_spa');
                 $debt->id_staff = $infoUser->id;
-                $debt->total =  $order->total;
+                $debt->total =  $order->total_pay;
                 $debt->note =  'án hàng ID đơn hàng là '.$data->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
                $debt->type = 0; //0: Thu, 1: chi
                $debt->ceated_at = date('Y-m-d H:i:s');
@@ -1689,7 +1691,7 @@ function paymentOrders($input){
                 $bill->id_member = @$infoUser->id_member;
                 $bill->id_spa =  @$infoUser->id_spa;
                 $bill->id_staff = (int)@$infoUser->id;
-                $bill->total = $order->total;
+                $bill->total =(int) $order->total_pay;
                 $bill->note = 'Bán hàng IDđơn hàng là '.$order->id.', ngườibán là '.$infoUser->name.', thời gian '.date('Y-m-dH:i:s');
                 $bill->type = 0; //0: Thu, 1: hi
                 $bill->id_order = $order->id;
@@ -1710,7 +1712,7 @@ function paymentOrders($input){
                 $modelBill->save($bill);
 
                 if(!empty($_GET['card'])){
-                    $Prepaycards = $modelCustomerPrepaycards->get($_GET['card']);
+                    $Prepaycards = $modelCustomerPrepaycards->get((int)$_GET['card']);
                     $Prepaycards->total -= $bill->total;
                     $modelCustomerPrepaycards->save($Prepaycards);
                 }
@@ -1721,6 +1723,7 @@ function paymentOrders($input){
             $data = $modelUserserviceHistories->get($_GET['id_Userservice']);
             $data->note =@$_GET['note'];
             $data->status = 2;
+            $data->check_out = time();
             $modelUserserviceHistories->save($data);
            
             $datebed = $modelBed->get($_GET['id_bed']);
@@ -1731,6 +1734,139 @@ function paymentOrders($input){
         }else{
             return $controller->redirect('/printInfoOrder?id='.$_GET['id'].'&url='.@$_GET['url']);
         }
+        
+    }else{
+        return $controller->redirect('/');
+    }
+}
+
+
+function listUserserviceHistories(){
+    global $controller;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $session;
+
+
+
+    setVariable('page_view', 'listUserserviceHistories');
+    $metaTitleMantan = 'Nhận khách làm dịch vụ';
+
+    if(!empty(checkLoginManager('listUserserviceHistories','product'))){
+
+        $infoUser = $session->read('infoUser');
+
+        $modelCombo = $controller->loadModel('Combos');
+        $modelProduct = $controller->loadModel('Products');
+        $modelService = $controller->loadModel('Services');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelBill = $controller->loadModel('Bills');
+        $modelAgency = $controller->loadModel('Agencys');
+        $modelCustomer = $controller->loadModel('Customers');
+        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+        $conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
+
+        if(!empty($_GET['id_customer'])){
+           $conditions['id_customer']= $_GET['id_customer']; 
+        }
+
+        if(!empty($_GET['id_services'])){
+           $conditions['id_services']= $_GET['id_services']; 
+        }
+
+        if(!empty($_GET['status'])){
+           $conditions['status']= $_GET['status']; 
+        }
+
+        if(!empty($_GET['id_staff'])){
+           $conditions['id_staff']= $_GET['id_staff']; 
+        }
+
+        if(!empty($_GET['date_start'])){
+            $date_start = explode('/', $_GET['date_start']);
+            $conditions['created_at >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+        }
+
+        if(!empty($_GET['date_end'])){
+            $date_end = explode('/', $_GET['date_end']);
+            $conditions['created_at <='] = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+            
+        }
+
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+
+        $listData = $modelUserserviceHistories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+              $listData[$key]->customer = $modelCustomer->find()->where(['id'=>$item->id_customer])->first();
+              $listData[$key]->service = $modelService->find()->where(['id'=>$item->id_services])->first();
+              $listData[$key]->staff = $modelMembers->find()->where(['id'=>$item->id_staff])->first();
+            }
+        }
+
+        $totalData = $modelUserserviceHistories->find()->where($conditions)->all()->toList();
+       
+
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+         $conditionsStaff['OR'] = [ 
+             ['id'=>$infoUser->id_member],
+             ['id_member'=>$infoUser->id_member],
+         ];
+
+        $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
+        $conditionsService = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
+        $listService = $modelService->find()->where($conditionsService)->all()->toList();
+
+        
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('totalData', $totalData);
+
+        setVariable('listData', $listData);
+        setVariable('listStaffs', $listStaffs);
+        setVariable('listService', $listService);
+        setVariable('mess', @$mess);
         
     }else{
         return $controller->redirect('/');

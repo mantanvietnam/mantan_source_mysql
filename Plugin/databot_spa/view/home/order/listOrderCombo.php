@@ -193,8 +193,10 @@
                                 
                                 <tbody>
                                     <?php 
+                                 
                                         if(!empty($items->order_details)){ 
                                             foreach($items->order_details as $k => $detail){ 
+
                                                 $value = $detail->info_combo;
                                                 $number_row = count($value->combo_product)+count($value->combo_service);
                                                 ?>
@@ -215,9 +217,10 @@
                                                               <td></td>
                                                             </tr>';
                                                     } 
+
                                                     
                                                     foreach($value->combo_service as $key => $item){ 
-                                                        $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$value->id, 'id_services'=>$item->id))->all()->toList();
+                                                        $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$detail->id, 'id_services'=>$item->id))->all()->toList();
                                                         $quantity = count($quantity);
                                                         $quantityAll = $item->quantity_combo*$value->quantity;
 

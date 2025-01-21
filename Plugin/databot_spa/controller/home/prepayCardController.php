@@ -205,6 +205,7 @@ function buyPrepayCard($input){
 	
     if(!empty(checkLoginManager('buyPrepayCard', 'prepaid_cards'))){
 		$infoUser = $session->read('infoUser');
+       
 		$order = array('id'=>'desc');
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
 		$conditionsStaff['OR'] = [ 
@@ -269,7 +270,8 @@ function buyPrepayCard($input){
         }
 	    
 	    setVariable('listStaffs', $listStaffs);
-	    setVariable('listData', $listData);
+        setVariable('listData', $listData);
+	    setVariable('user', $infoUser);
 	}else{
 		return $controller->redirect('/');
 	}

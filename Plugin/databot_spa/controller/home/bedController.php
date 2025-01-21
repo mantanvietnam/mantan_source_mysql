@@ -359,8 +359,8 @@ function checkoutBed($input){
             if(!empty($data->id_customer)){
                 $customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
 
-                $conditioncard['id_customer'] = $data->id_customer;
-                    $conditioncard['total >='] = $data->order->total_pay;
+                $conditioncard = ['id_customer'=> $data->id_customer,
+                                    'total >='=> $data->order->total_pay] ;
                                  
                     $card = $modelCustomerPrepaycards->find()->where($conditioncard)->all()->toList();
                     if(!empty($card)){

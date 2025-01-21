@@ -175,6 +175,7 @@ function getListPermission()
                                     'sub'=>array(   array('name'=>'Danh sách thẻ trả trước ','permission'=>'listPrepayCard'),
                                                     array('name'=>'Thêm và sửa thẻ trả trước','permission'=>'addPrepayCard'),
                                                     array('name'=>'Xóa thẻ trả trước','permission'=>'deletePrepayCard'),
+                                                    array('name'=>'bán thẻ trả trước','permission'=>'buyPrepayCard'),
                                                     
                                                     array('name'=>'In phiếu thu thẻ trả trước','permission'=>'printInfoBillCard'),
                                                     array('name'=>'Danh sách khách hàng có thẻ trả trước','permission'=>'listCustomerPrepayCard'),

@@ -413,7 +413,8 @@ $sqlInstallDatabase .="CREATE TABLE `userservice_histories` (
   `id_spa` int(11) DEFAULT NULL,
   `id_services` int(11) NOT NULL,
   `id_staff` int(11) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` INT NULL DEFAULT NULL,
+  `check_out` INT NULL DEFAULT NULL,
   `note` text DEFAULT NULL,
   `id_bed` int(11) DEFAULT NULL,
   `id_customer` int(11) DEFAULT NULL,
@@ -864,11 +865,12 @@ $sqlUpdateDatabase['userservice_histories']['id_order'] = "ALTER TABLE `userserv
 $sqlUpdateDatabase['userservice_histories']['id_spa'] = "ALTER TABLE `userservice_histories` ADD `id_spa` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['userservice_histories']['id_services'] = "ALTER TABLE `userservice_histories` ADD `id_services` int(11) NOT NULL; ";
 $sqlUpdateDatabase['userservice_histories']['id_staff'] = "ALTER TABLE `userservice_histories` ADD `id_staff` int(11) DEFAULT NULL; ";
-$sqlUpdateDatabase['userservice_histories']['created_at'] = "ALTER TABLE `userservice_histories` ADD `created_at` timestamp NULL DEFAULT NULL; ";
+$sqlUpdateDatabase['userservice_histories']['created_at'] = "ALTER TABLE `userservice_histories` ADD `created_at` INT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['userservice_histories']['note'] = "ALTER TABLE `userservice_histories` ADD `note` text DEFAULT NULL; ";
 $sqlUpdateDatabase['userservice_histories']['id_bed'] = "ALTER TABLE `userservice_histories` ADD `id_bed` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['userservice_histories']['id_customer'] = "ALTER TABLE `userservice_histories` ADD `id_customer` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['userservice_histories']['status'] = "ALTER TABLE `userservice_histories` ADD `status` int(11) DEFAULT NULL; ";
+$sqlUpdateDatabase['userservice_histories']['check_out'] = "ALTER TABLE `userservice_histories` ADD `check_out` INT NULL DEFAULT NULL;";
 
 // Bang warehouses
 $sqlUpdateDatabase['warehouses']['name'] = "ALTER TABLE `warehouses` ADD `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";

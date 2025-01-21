@@ -387,7 +387,7 @@
               </ul>
             </li>
             
-            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listService','listCategoryService','addService'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listService','listCategoryService','addService','listUserserviceHistories'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-basket"></i>
                 <div>Dịch vụ</div>
@@ -401,6 +401,11 @@
                 <li class="menu-item">
                   <a href="/listCategoryService" class="menu-link">
                     <div>Nhóm dịch vụ</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listUserserviceHistories" class="menu-link">
+                    <div>lịch sủ sử dung dịch vụ</div> 
                   </a>
                 </li>
               </ul>

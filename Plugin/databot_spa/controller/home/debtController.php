@@ -6,6 +6,7 @@ function listCollectionDebt($input){
 	global $modelCategories;
 	global $session;
 	global $type_collection_bill;
+	setVariable('page_view', 'listCollectionDebt');
 
 	if(!empty(checkLoginManager('listCollectionDebt', 'bill'))){
 	    $metaTitleMantan = 'Danh sách công nợ phải thu';
@@ -105,6 +106,12 @@ function listCollectionDebt($input){
 		}
 
 		$totalData = $modelDebt->find()->where($conditions)->all()->toList();
+		$total = 0;
+		if(!empty($totalData)){
+			foreach($totalData as $key => $value){
+				$total += $value->total;
+			}
+		}
 	    $totalData = count($totalData);
 
 	    $balance = $totalData % $limit;
@@ -156,6 +163,7 @@ function listCollectionDebt($input){
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
+	    setVariable('total', $total);
 	    setVariable('mess', $mess);
 	    setVariable('listStaffs', $listStaffs);
 	}else{
@@ -171,6 +179,7 @@ function addCollectionDebt($input){
     global $controller;
     global $urlCurrent;
     global $urlHomes;
+	setVariable('page_view', 'addCollectionDebt');
 
     $metaTitleMantan = 'Thông tin công nợ phải thu';
     
@@ -248,6 +257,7 @@ function paymentCollectionBill($input){
     global $controller;
     global $urlCurrent;
     global $urlHomes;
+	setVariable('page_view', 'paymentCollectionBill');
 
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
@@ -302,6 +312,7 @@ function listPayableDebt($input){
 	global $modelCategories;
 	global $session;
 	global $type_collection_bill;
+	setVariable('page_view', 'listPayableDebt');
 
 	if(!empty(checkLoginManager('listPayableDebt', 'bill'))){
 	    $metaTitleMantan = 'Danh sách công nợ phải trả';
@@ -401,6 +412,12 @@ function listPayableDebt($input){
 		}
 
 		$totalData = $modelDebt->find()->where($conditions)->all()->toList();
+		$total = 0;
+		if(!empty($totalData)){
+			foreach($totalData as $key => $value){
+				$total += $value->total;
+			}
+		}
 	    $totalData = count($totalData);
 
 	    $balance = $totalData % $limit;
@@ -452,6 +469,7 @@ function listPayableDebt($input){
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
+	    setVariable('total', $total);
 	    setVariable('mess', $mess);
 	    setVariable('listStaffs', $listStaffs);
 	}else{
@@ -467,6 +485,7 @@ function addPayableDebt($input){
     global $controller;
     global $urlCurrent;
     global $urlHomes;
+	setVariable('page_view', 'addPayableDebt');
 
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
@@ -539,6 +558,7 @@ function paymentBill($input){
     global $controller;
     global $urlCurrent;
     global $urlHomes;
+	setVariable('page_view', 'paymentBill');
 
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     

@@ -104,8 +104,9 @@ function listCustomer($input)
 						$namesource = $source->name;
 					}
 
-					$group = $modelCategories->find()->where(['id'=>(int)$value->id_group])->first();
+					
 					$namegroup = '';
+					$group = $modelCategories->find()->where(['id'=>(int)@$value->id_group])->first();
 					if(!empty($group)){
 						$namegroup = $group->name;
 					}
@@ -164,7 +165,9 @@ function listCustomer($input)
 		if(!empty($listData)){
 			foreach($listData as $key => $item){
 				$listData[$key]->Prepaycard = count($modelCustomerPrepaycard->find()->where(array('id_customer'=>$item->id))->all()->toList());
-				$listData[$key]->category = $modelCategories->find()->where(array('id'=>$item->id_group))->first();
+				if(!empty($item->id_group)){
+					$listData[$key]->category = $modelCategories->find()->where(array('id'=>@$item->id_group))->first();
+				}
 			}
 		}
 

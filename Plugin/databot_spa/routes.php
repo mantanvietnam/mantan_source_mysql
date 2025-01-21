@@ -119,6 +119,7 @@
 	$routesPlugin['listOrderProduct']= 'databot_spa/view/home/order/listOrderProduct.php';
 	$routesPlugin['listOrderCombo']= 'databot_spa/view/home/order/listOrderCombo.php';
 	$routesPlugin['listOrderService']= 'databot_spa/view/home/order/listOrderService.php';
+	$routesPlugin['listUserserviceHistories']= 'databot_spa/view/home/order/listUserserviceHistories.php';
 
 	
 	

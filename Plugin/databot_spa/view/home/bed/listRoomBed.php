@@ -1,4 +1,4 @@
-<?php include(__DIR__.'/../header.php'); ?>
+x`<?php include(__DIR__.'/../header.php'); ?>
 
 <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic'
 rel='stylesheet' type='text/css'>
@@ -154,6 +154,7 @@ rel='stylesheet' type='text/css'>
         echo 'var urlPaid = "'.$urlHomes.'checkoutBed";';
         echo 'var urlAddroom = "'.$urlHomes.'listBed";';
         echo 'var urlEditFloor = "'.$urlHomes.'listRoom";';
+        echo 'var urllistOrderCombo = "'.$urlHomes.'listOrderCombo";';
     ?>
 
 
@@ -237,11 +238,15 @@ rel='stylesheet' type='text/css'>
                         url = listOrder + '?idBed=' + options.$trigger.attr("idBed")+'&status=0';
                         window.location = url;
                         break;
+                    case 'urllistOrderCombo':
+                        url = urllistOrderCombo;
+                        window.location = url;
+                        break;
                 }
             },
             items: {
                 "checkinBed": {name: "Nhận khách mới", icon: "add"},
-                //"listOrder": {name: "Danh sách khách chờ", icon: "paste"},
+                "urllistOrderCombo": {name: "Danh sách đơn liệu trình", icon: "add"},
                 "sep1": "---------",
                 "editBed": {name: "Sửa cài đặt giường", icon: "edit"},
                 "deleteBed": {name: "Xóa giường", icon: "delete"},
