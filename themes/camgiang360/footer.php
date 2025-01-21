@@ -58,7 +58,7 @@ $setting = setting();
     </section>
 
     <section id="footer">
-        <p>Copyright © 2023 Mai Chau District. All rights reserved</p>
+        <p>Copyright © 2023 Cam Giang District. All rights reserved</p>
     </section>
 
 

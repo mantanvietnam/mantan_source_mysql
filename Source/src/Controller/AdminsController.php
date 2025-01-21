@@ -327,13 +327,16 @@ class AdminsController extends AppController{
                 $infoAccAdmin->type = $dataSend['type'];
                 $infoAccAdmin->permission = json_encode($dataSend['permission']);
 
+                if(!empty($dataSend['password'])){
+                    $infoAccAdmin->password = md5($dataSend['password']);
+                }
+
                 if(empty($_GET['id'])){
                     if(!empty($dataSend['user']) && !empty($dataSend['password'])){
                         $checkAcc = $modelAdmins->find()->where(['user'=>$dataSend['user']])->first();
 
                         if(empty($checkAcc)){
                             $infoAccAdmin->user = $dataSend['user'];
-                            $infoAccAdmin->password = md5($dataSend['password']);
                         }else{
                             $check = false;
                             $mess= '<p class="text-danger">Tài khoản đã tồn tại</p>';

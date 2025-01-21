@@ -70,7 +70,7 @@
                         <td>'.$item->id.'</td>
                         <td><img src="'.$item->avatar.'" width="100" /></td>
                         <td>
-                          '.$item->full_name.'<br/>
+                          <a href="/plugins/admin/2top_crm-view-admin-customer-viewCustomerCRM/?id='.$item->id.'">'.$item->full_name.'</a><br/>
                           '.$item->phone.'<br/>
                           '.$item->email.'
                         </td>

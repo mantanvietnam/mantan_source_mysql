@@ -20,7 +20,7 @@
 
                 <div class="mb-3">
                   <label class="form-label">Mật khẩu *</label>
-                  <input type="text" class="form-control" name="password" value="" autocomplete="no" <?php if(!empty($infoAccAdmin->user)) echo 'disabled'; ?>  />
+                  <input type="text" class="form-control" name="password" value="" autocomplete="no" />
                 </div>
 
                 <div class="mb-3">
@@ -61,7 +61,12 @@
               ?>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                <a class="btn btn-danger" href="/admins/listAdmin">Hủy</a> 
+            </div>
+            
           <?= $this->Form->end() ?>
         </div>
       </div>

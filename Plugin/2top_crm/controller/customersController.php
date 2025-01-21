@@ -113,14 +113,14 @@ function addCustomerCRM($input)
 		        $data->address = $dataSend['address'];
 		        $data->sex = $dataSend['sex'];
 		        $data->id_city = $dataSend['id_city'];
-		        $data->id_messenger = $dataSend['id_messenger'];
+		        $data->id_messenger = @$dataSend['id_messenger'];
 		        $data->avatar = $dataSend['avatar'];
 		        $data->status = $dataSend['status'];
 		        $data->id_parent = (int) @$dataSend['id_parent'];
 		        $data->id_level = (int) @$dataSend['id_level'];
 
-		        if(empty($data->pass)){
-		        	$data->pass = md5($dataSend['phone']);
+		        if(!empty($data->pass)){
+		        	$data->pass = md5($dataSend['pass']);
 		        }
 
 		        if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
@@ -148,6 +148,28 @@ function addCustomerCRM($input)
 	    }else{
 	    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
 	    }
+    }
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+
+function viewCustomerCRM($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thông tin khách hàng';
+
+	$modelCustomer = $controller->loadModel('Customers');
+	$mess= '';
+
+	// lấy data edit
+    if(!empty($_GET['id'])){
+        $data = $modelCustomer->get( (int) $_GET['id']);
+    }else{
+        return $controller->redirect('/plugins/admin/2top_crm-view-admin-customer-listCustomerCRM');
     }
 
     setVariable('data', $data);
