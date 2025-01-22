@@ -1184,8 +1184,8 @@ table {
         font-size: 10px !important;
         /* white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
-        width: 100px; */
+        text-overflow: ellipsis; */
+        width: 100px;
     }
     .main-wrap .showcase .overlay .info p{
         margin-top: 10px !important; 
