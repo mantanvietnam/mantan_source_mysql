@@ -1169,19 +1169,23 @@ table {
         padding: 15px !important;
     }
     .write-outline h3{
-        white-space: nowrap;
+        font-weight: 700 !important;
+        font-size: 10px !important;
+        /* white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        width: 100px;
+        width: 100px; */
     }
     .last-inputcontent{
         margin-top: 240px !important;
     }
     .write-outline p{
-        white-space: nowrap;
+        display: none !important;
+        font-size: 10px !important;
+        /* white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        width: 100px;
+        width: 100px; */
     }
     .main-wrap .showcase .overlay .info p{
         margin-top: 10px !important; 
