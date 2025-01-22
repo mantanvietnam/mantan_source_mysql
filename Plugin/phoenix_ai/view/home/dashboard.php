@@ -58,7 +58,7 @@
                         <!-- <button class="btn btn-light rounded-pill view-all">Xem tất cả</button> -->
                     </div>
                     <div class="card-ai row justify-content-evenly">
-                    <div class="card-ai row justify-content-evenly" id='bost_ai'>
+                    <div class="card-ai row " id='bost_ai'>
                         <?php 
                             foreach(listBostAi() as $key => $item){
                                 echo ' <div class="col-lg-6 banner-ui">
