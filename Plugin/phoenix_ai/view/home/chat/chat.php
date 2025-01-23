@@ -90,7 +90,15 @@ $info = $session->read('infoUser');
                             <div class="input-group-text" style="padding: 20px 16px;background-color: #f2f1ff;">
                               <i class="fa-solid fa-microphone"></i>
                             </div>
-                            <button class="btn btn-primary" style="padding: 12px 16px;background-color: #f2f1ff;" onclick="sendquestion()">Gửi đi</button>
+                            <button 
+                                class="btn btn-primary" 
+                                style="padding: 12px 16px; background-color: #f2f1ff; color: #000; border: none; transition: color 0.3s ease;" 
+                                onmouseover="this.style.color='#714ef3';" 
+                                onmouseout="this.style.color='#000';" 
+                                onclick="sendquestion()">
+                                Gửi đi
+                            </button>
+
                         </div>
                     </div>
                 </div>

@@ -74,6 +74,62 @@ function listdocument($input){
 	}
 
 }
+function setting($input){
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $modelCategories;
+	global $urlHomes;
+	global $displayInfo;
+
+	$metaTitleMantan = 'Đổi thông tin tài khoản';
+
+	$modelMembers = $controller->loadModel('Members');
+
+	if(!empty($session->read('infoUser'))){
+		$mess = '';
+
+		$user = $modelMembers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
+
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
+
+			if(!empty($dataSend['name'])){
+				if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+					$avatar = uploadImage($user->id, 'avatar', 'avatar_'.$user->id);
+				}
+
+				if(!empty($avatar['linkOnline'])){
+					$user->avatar = $avatar['linkOnline'].'?time='.time();
+				}else{
+					if(empty($user->avatar)){
+						$user->avatar = $urlHomes.'/plugins/vemoi/view/home/assets/img/avatar-default-crm.png';
+					}
+				}
+
+				$user->name = $dataSend['name'];
+				$user->email = $dataSend['email'];
+				$user->address = $dataSend['address'];
+				// $user->facebook = $dataSend['facebook'];
+
+				$modelMembers->save($user);
+
+				$session->write('infoUser', $user);
+
+				$mess= '<p class="text-success">Đổi thông tin thành công</p>';
+			}else{
+				$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+			}
+		}
+
+		
+		setVariable('mess', $mess);
+		setVariable('user', $user);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
 function deletecontent($input){
 	global $controller;
 

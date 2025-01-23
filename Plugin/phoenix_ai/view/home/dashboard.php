@@ -9,7 +9,7 @@
                     <div class="search-wrapper">
                         <form id="searchForm" class="search-form">
                             <div class="input-wrapper">
-                                <input type="text" class="search-input" placeholder="Tìm kiếm trợ lý hoặc bấm / để chat với Phoenix"id="searchInput" onchange="getbos();" >
+                                <input type="text" class="search-input" placeholder="Bạn cần phoenix AI hỗ trợ vấn đề gì ?"id="searchInput" onchange="getbos();" >
                                 <div class="search-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <circle cx="11" cy="11" r="8"></circle>

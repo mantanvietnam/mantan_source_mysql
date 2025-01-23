@@ -52,11 +52,11 @@ table {
     border: none;
     padding: 10px 40px;
 }
-.aiva-home .card-ai {
+/* .aiva-home .card-ai {
     max-height: 400px;
     overflow-x: auto;
     overflow-y: auto;
-}
+} */
 .main-wrap .showcase .overlay .dropdown .btn-custom:hover{
     background-color: #5a4ae6;
 }

@@ -11,7 +11,7 @@
     ?>
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/all.min.css">
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/style.css?index=921">
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainvu.css?index=2711115">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainvu.css?index=2711116">
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainhoang.css?index=1221132">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -130,7 +130,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="/announcement" class="nav-link">
+                                <a href="/setting" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-brands fa-servicestack"></i></div>
                                         <div><span class="link-text">Cài đặt</span></div>
@@ -198,8 +198,8 @@
                                     <img src="<?php echo $info->avatar?>" alt="Avatar">
                                     <div class="contact-info mx-2">
                                         <div class="name"><?=$info->name?></div>
-                                        <div class="email"><?=$info->email?></div>
-                                        <div class="credit">0 <span>Credit</span></div>
+                                        <!-- <div class="email"><?=$info->email?></div> -->
+                                        <!-- <div class="credit">0 <span>Credit</span></div> -->
                                         <a href="/setting">Chỉnh sửa hồ sơ</a>
                                     </div>
                                 </div>

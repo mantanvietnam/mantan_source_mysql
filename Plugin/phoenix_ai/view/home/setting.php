@@ -5,27 +5,27 @@
                      
                     ?>
     <div class="setting-home container-fluid">
-        <p><img src="/plugins/phoenix_ai/view/home/assets/img/setting.svg" alt="">Cài Đặt</p>
+        <!-- <p><img src="/plugins/phoenix_ai/view/home/assets/img/setting.svg" alt="">Cài Đặt</p> -->
         <div class="container mt-4">
-            <div class="row">
+            <div class="row justify-content-center " style="margin-top:110px">
        
                 <!-- Sidebar bên trái -->
-                <div class="col-lg-3 left-setting" style="height: fit-content;">
+                <div class="col-lg-4 left-setting" style="height: fit-content;">
                     <ul class="nav flex-column nav-pills my-3" id="componentTab" role="tablist">
                         <div class="user-info d-flex my-4">
-                            <img src="/plugins/phoenix_ai/view/home/assets/img/avatar.jpg" alt="Avatar">
+                            <img src="<?=$info->avatar?>" alt="Avatar">
                             <div class="contact-info mx-2">
                                 <div class="name"><?=$info->name?></div>
                                 <div class="email"><?=$info->email?></div>
-                                <a class="my-4" href="#">Lưu</a>
+                                <!-- <a class="my-4" href="#">Lưu</a> -->
                             </div>
                         </div>
                         <li class="nav-item">
                             <button class="nav-link active" id="profile-tab" data-bs-toggle="pill" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">
-                                <img src="/plugins/phoenix_ai/view/home/assets/img/home.svg" alt=""> Chỉnh sửa hồ sơ
+                                <img class="m-0" src="/plugins/phoenix_ai/view/home/assets/img/home.svg" alt=""> Chỉnh sửa hồ sơ
                             </button>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <button class="nav-link" id="slide-tab" data-bs-toggle="pill" data-bs-target="#slide" type="button" role="tab" aria-controls="slide" aria-selected="false">
                                 <img src="/plugins/phoenix_ai/view/home/assets/img/lsmh.svg" alt=""> Lịch sử đơn hàng
                             </button>
@@ -34,41 +34,47 @@
                             <button class="nav-link" id="slide-tab" data-bs-toggle="pill" data-bs-target="#brand-voice" type="button" role="tab" aria-controls="slide" aria-selected="false">
                                 <img src="/plugins/phoenix_ai/view/home/assets/img/huychuong.svg" alt=""> Điểm thưởng
                             </button>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
     
                 <!-- Nội dung bên phải -->
-                <div class="col-lg-9">
+               
+                <div class="col-lg-6">
+                  
                     <div class="tab-content" id="componentContent">
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="form-section container-fluid">
-                                <h3 class="text-primary mb-4">Chỉnh sửa hồ sơ</h3>
-                                <form>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
+                                <h3 class="text-primary mb-4" style="padding-left:48px">Chỉnh sửa hồ sơ</h3>
+                                <form method="post">
+                                    <div class="row justify-content-center mb-3">
+                                        <div class="col-md-10">
+                                            <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                                             <label for="first-name" class="form-label">Tên*</label>
-                                            <input type="text" id="first-name" class="form-control" placeholder="Nhập Tên" readonly value="<?=$info->name?>">
+                                            <input type="text" id="first-name" name="name" class="form-control" placeholder="Nhập Tên"  value="<?=$info->name?>">
                                         </div>
-                                        <!-- <div class="col-md-6">
+                                        <!-- <div class="col-md-10">
                                             <label for="last-name" class="form-label">Họ*</label>
                                             <input type="text" id="last-name" class="form-control" placeholder="Nhập họ" readonly>
                                         </div> -->
                                     </div>
-                                    <div class="row mb-3">
-                                        <!-- <div class="col-md-6">
+                                    <div class="row justify-content-center mb-3">
+                                        <!-- <div class="col-md-10">
                                             <label for="user-id" class="form-label">Mã người dùng*</label>
                                             <input type="text" id="user-id" class="form-control" placeholder="Mã người dùng" readonly>
                                         </div> -->
-                                        <div class="col-md-6">
+                                        <div class="col-md-10">
                                             <label for="phone-number" class="form-label">Số điện thoại*</label>
-                                            <input type="tel" id="phone-number" class="form-control" placeholder="Nhập số điện thoại" value="<?=$info->phone?>" readonly>
+                                            <input type="tel" id="phone-number" name="phone" class="form-control" placeholder="Nhập số điện thoại" value="<?=$info->phone?>" readonly>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="mb-3 col-md-6">
+                                    <div class="row justify-content-center">
+                                        <div class="mb-3 col-md-10">
                                             <label for="email" class="form-label">Email*</label>
-                                            <input type="email" id="email" class="form-control" placeholder="Nhập email" value="<?=$info->email?>" readonly>
+                                            <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email" value="<?=$info->email?>" >
+                                            <input type="hidden" id="" name="address" class="form-control" placeholder="Nhập địa chỉ" value="<?=$info->address?>" >
+                                            <input type="hidden" id="" name="avatar" class="form-control" placeholder="" value="<?=$info->avatar?>" >
+                                            <input type="hidden" id="" name="facebook" class="form-control" placeholder="" value="<?=$info->facebook?>" >
                                         </div>
                                     </div>
                                     <!-- <h5 class="text-primary mt-4">GPT model</h5>
@@ -88,7 +94,7 @@
                                             </select>
                                         </div>
                                     </div> -->
-                                    <div class="d-flex justify-content-end py-3">
+                                    <div class="d-flex  py-3" style="padding-left:48px">
                                         <button type="button" class="btn btn-secondary me-2">Hủy</button>
                                         <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                                     </div>
@@ -114,7 +120,7 @@
                                     </table>
                                 </div>
                                 <div class="text-center mt-4">
-                                    <img src="/plugins/phoenix_ai/view/home/asset/img/robot.svg" alt="No Data" class="no-data-img">
+                                    <img  src="/plugins/phoenix_ai/view/home/asset/img/robot.svg" alt="No Data" class="no-data-img" >
                                     <p class="mt-3">Không có dữ liệu</p>
                                 </div>
                             </div>
