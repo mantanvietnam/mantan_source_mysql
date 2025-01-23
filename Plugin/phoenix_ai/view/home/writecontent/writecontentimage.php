@@ -13,7 +13,7 @@
               <img src="/plugins/phoenix_ai/view/home/assets/img/96cb94e74cb6a1cf50d8c2aa74763389.svg" alt="">
             </div>
             <div class="name-title-page-writecontent">
-              <a href="/dashboard">Danh sách trợ lý > <span>Trợ lý > </span> <span><a href="" class="name-lili"><?php echo @$bostAi['name']; ?></a></span></a>
+              <span><a href="" class="name-lili"><?php echo @$bostAi['name']; ?></a></span></a>
             </div>
           </div>
           <div class="div-detail-title d-flex">
@@ -72,6 +72,7 @@
                         <div class="mb-3">
                           <label for="text" class="form-label">Bạn hãy viết nội dung tạo bài blog</label>
                           <textarea type="text" placeholder="VD:con người...." class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
+                          <div id="mydata" style=" display: none; align-items: center;" ><div style="display: flex; flex-direction: column; justify-content: left;"><p class="MuiTypography-root MuiTypography-body1" style="font-size: 14px; color: red;">thiếu dũ liệu</p></div></div>
 
                         <input class="form-check-input"  type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
                         </div>
@@ -442,9 +443,10 @@ showAiThinking.addEventListener('click', () => {
 <script type="text/javascript">
 
     function sendquestion(){
-      aiThinking.classList.remove('d-none'); 
+      
         var topic = $('#topic').val();
-        console.log(topic);
+      if(topic!=''){
+         aiThinking.classList.remove('d-none');
         $.ajax({
           method: "POST",
           url: "/apis/wirecontentimageAPI",
@@ -460,6 +462,17 @@ showAiThinking.addEventListener('click', () => {
                 saveContentimageBlog();
             }
         })
+
+     }else{
+         document.getElementById("mydata").style.display = 'block';
+                var mydata = document.getElementById('mydata');
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    mydata.style.display = 'none';
+                }
+                // Đặt hẹn giờ để id="showAiThinking" Tạo nội dung thay đổi sau 10 giây
+                setTimeout(changeCSS, 5000);
+      }
 
     }
 

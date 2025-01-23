@@ -79,6 +79,7 @@
                           <label for="text" class="form-label">Nội dung video có sẵn </label>
                           <textarea type="text"  class="form-control" id="content_video" name="content_video" rows="6" cols="30"></textarea>
                         </div>
+                         <div id="mydata" style=" display: none; align-items: center;" ><div style="display: flex; flex-direction: column; justify-content: left;"><p class="MuiTypography-root MuiTypography-body1" style="font-size: 14px; color: red;">thiếu dũ liệu</p></div></div>
                       </div>
                       <button type="button" class="button-arcordian" onclick="sendquestion()" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -172,9 +173,11 @@ const showAiThinking = document.getElementById('showAiThinking');
 <script type="text/javascript">content_video
 
     function sendquestion(){
-      aiThinking.classList.remove('d-none'); 
+     
         var topic = $('#topic').val();
         var content_video = $('#content_video').val();
+          if(topic!='' && content_video!=''){
+         aiThinking.classList.remove('d-none'); 
         $.ajax({
           method: "POST",
           url: "/apis/sendContentVideoScriptAPI",
@@ -190,6 +193,17 @@ const showAiThinking = document.getElementById('showAiThinking');
               saveContentBlog();
             }
         })
+
+     }else{
+         document.getElementById("mydata").style.display = 'block';
+                var mydata = document.getElementById('mydata');
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    mydata.style.display = 'none';
+                }
+                // Đặt hẹn giờ để id="showAiThinking" Tạo nội dung thay đổi sau 10 giây
+                setTimeout(changeCSS, 5000);
+      }
 
     }
 

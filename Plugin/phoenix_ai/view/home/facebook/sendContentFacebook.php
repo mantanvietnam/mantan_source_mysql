@@ -77,6 +77,8 @@
                           <label for="text" class="form-label">Chủ đề bạn muốn viết</label>
                           <textarea type="text" placeholder="Nhập chủ đề bạn muốn lên kế hoạch nội dung" class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
 
+                          <div id="mydata" style=" display: none; align-items: center;" ><div style="display: flex; flex-direction: column; justify-content: left;"><p class="MuiTypography-root MuiTypography-body1" style="font-size: 14px; color: red;">thiếu dũ liệu</p></div></div>
+
                         <input class="form-check-input" type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
                         </div>
                       </div>
@@ -516,12 +518,12 @@ const aiThinking = document.getElementById('aiThinking');
 const showAiThinking = document.getElementById('showAiThinking');
 
 
-showAiThinking.addEventListener('click', () => {
+/*showAiThinking.addEventListener('click', () => {
   aiThinking.classList.remove('d-none'); 
   setTimeout(() => {
     aiThinking.classList.add('d-none'); 
   }, 15000); 
-});
+});*/
 </script>
 <script type="text/javascript">
 
@@ -529,7 +531,8 @@ showAiThinking.addEventListener('click', () => {
         var customer_target = $('#customer_target').val();
       
         var topic = $('#topic').val();
-      
+       if(topic!='' && customer_target!=''){
+          aiThinking.classList.remove('d-none'); 
         $.ajax({
           method: "POST",
           url: "/apis/sendcontentFacebookAPI",
@@ -537,8 +540,8 @@ showAiThinking.addEventListener('click', () => {
             topic: topic, 
         }
     }).done(function( msg ) {
+          aiThinking.classList.add('d-none'); 
             if(msg.code==1){
-
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
                 document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
                 CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
@@ -546,7 +549,17 @@ showAiThinking.addEventListener('click', () => {
             }
         })
 
-    }
+     }else{
+         document.getElementById("mydata").style.display = 'block';
+                var mydata = document.getElementById('mydata');
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    mydata.style.display = 'none';
+                }
+                // Đặt hẹn giờ để id="showAiThinking" Tạo nội dung thay đổi sau 10 giây
+                setTimeout(changeCSS, 5000);
+      }
+  }
 
  
 </script>

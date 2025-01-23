@@ -178,14 +178,11 @@
                     </button> -->
             
                     <!-- Biểu tượng thông báo -->
-                    <div class="notification-icon position-relative">
-                        <i class="fa-regular fa-bell"></i>
-                        <span class="badge position-absolute top-0 start-100 translate-middle bg-danger text-white">1</span>
-                    </div>
+                    
                     <?php 
                         global $session;
                         $info = $session->read('infoUser');
-                    
+                        if(!empty($info)){
                     ?>
      
                     <!-- Biểu tượng người dùng -->
@@ -204,8 +201,10 @@
                                     </div>
                                 </div>
                               <li><a class="dropdown-item contact-info-icon mt-3" href="/setting"><img src="/plugins/phoenix_ai/view/home/assets/img/5d520c28b01e078655600b2bf9d6c022.svg" alt=""> Cài đặt</a></li>
+                              <li><a class="dropdown-item contact-info-icon " href="/changePass"><img src="/plugins/phoenix_ai/view/home/assets/img/5d520c28b01e078655600b2bf9d6c022.svg" alt="">Đổi mật khẩu</a></li>
                               <li><a class="dropdown-item contact-info-icon" href="/logout"><img src="/plugins/phoenix_ai/view/home/assets/img/dangxuat.svg" alt=""> Đăng xuất</a></li>
                             </ul>
                           </div>
                     </div>
+                <?php } ?>
                 </div>
