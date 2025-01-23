@@ -13,7 +13,7 @@
               <img src="/plugins/phoenix_ai/view/home/assets/img/96cb94e74cb6a1cf50d8c2aa74763389.svg" alt="">
             </div>
             <div class="name-title-page-writecontent">
-              <a href="">Danh sách trợ lý > <span>Trợ lý > </span> <span><a href="" class="name-lili"><?php echo @$bostAi['name']; ?></a></span></a>
+              <a href="/dashboard">Danh sách trợ lý > <span>Trợ lý > </span> <span><a href="" class="name-lili"><?php echo @$bostAi['name']; ?></a></span></a>
             </div>
           </div>
           <div class="div-detail-title d-flex">
