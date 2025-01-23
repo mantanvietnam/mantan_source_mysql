@@ -739,6 +739,7 @@
 }
 .right-form-wirte-content .header-form{
     justify-content: space-between;
+    align-items: center;
 }
 .title-input-header-left input {
     min-height: 40px;
@@ -813,7 +814,7 @@
 .last-inputcontent .input-chat-aiva { 
  
     color: #424242;
-    width: 94%;
+    width: 89%;
     border: 1px solid #5242F3;
     resize: vertical;
     outline: none;
