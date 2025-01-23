@@ -201,6 +201,7 @@
                                     </div>
                                 </div>
                               <li><a class="dropdown-item contact-info-icon mt-3" href="/setting"><img src="/plugins/phoenix_ai/view/home/assets/img/5d520c28b01e078655600b2bf9d6c022.svg" alt=""> Cài đặt</a></li>
+                              <li><a class="dropdown-item contact-info-icon " href="/changePass"><img src="/plugins/phoenix_ai/view/home/assets/img/5d520c28b01e078655600b2bf9d6c022.svg" alt="">Đổi mật khẩu</a></li>
                               <li><a class="dropdown-item contact-info-icon" href="/logout"><img src="/plugins/phoenix_ai/view/home/assets/img/dangxuat.svg" alt=""> Đăng xuất</a></li>
                             </ul>
                           </div>
