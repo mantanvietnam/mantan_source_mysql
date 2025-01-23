@@ -66,7 +66,7 @@
 
   <body>
     <!-- Content -->
-<?php if(empty($listData)){ ?>
+<?php if(empty($_GET['name'])){ ?>
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
@@ -143,7 +143,10 @@
         </div>
          <div class="container-xxl mt-5">
             <div class="row">
-                <?php foreach($listData as $key => $item){
+
+                <?php
+                if($listData){
+                 foreach($listData as $key => $item){
                   $thuvien = '';
                   if(!empty($item->warehouse)){
                     foreach($item->warehouse as $k => $value){
@@ -172,7 +175,19 @@
                     </div>
                     </a>
                   </div>';
-                } ?>
+                }
+              }else{
+                echo '<div class="col-sm-12 mt-4">
+                    <a href="/">
+                    <div class="row">
+                      <div class="col-sm-10">
+                         <h5 style="color: #262626;text-align: center;font-size: 20px;">Không tìm thấy dữ liệu</h5>
+                      </div>
+                    </div>
+                    </a>
+                  </div>';
+              }
+                 ?>
             </div>
           </div>
 

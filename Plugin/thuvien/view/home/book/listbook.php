@@ -101,7 +101,7 @@
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
-        <tr class="">
+        <tr class="" align="center">
           <th>ID</th>
           <th>Tên sách</th>
           <th>Tác giả</th>

@@ -83,7 +83,7 @@ $info = $session->read('infoUser');
 
     document.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
-        sendquestion()
+        sendquestion();
     }
 });
     var row=<?php echo @$i; ?>;
@@ -96,7 +96,7 @@ $info = $session->read('infoUser');
               $('#listchat div:first').append('<div class="MuiBox-root " id="question'+row+'">\
                         <div class="d-flex right-question">\
                            <div class="">\
-                               <p class="question-answer MuiTypography-root jss1624 MuiTypography-body1">'+question+'</p>\
+                               <p class="question-answer MuiTypography-root jss1624 MuiTypography-body1">'+question+'       </p>\
                            </div>\
                        </div>\
                    </div>');
