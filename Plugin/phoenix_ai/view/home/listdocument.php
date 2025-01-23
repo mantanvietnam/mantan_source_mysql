@@ -16,7 +16,7 @@
     margin-right: 18px;
     border-radius: 10px;
     background-color: #5242F3;">
-                                        <i class="fa-regular fa-folder"></i>
+                                        <i class="fa-solid fa-plus"></i>
                                         <div class="name-button-document ms-1">
                                             Tạo tài liệu mới
                                         </div>
