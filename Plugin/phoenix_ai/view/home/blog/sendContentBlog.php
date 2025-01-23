@@ -58,7 +58,7 @@
                         <div class="mb-3">
                           <label for="text" class="form-label">Tiêu đề hoặc nội dung bạn muốn tạo blog</label>
                           <textarea type="text" placeholder="VD: con người...." class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
-                          <div id="mydata" style=" display: none; align-items: center;" ><div style="display: flex; flex-direction: column; justify-content: left;"><p class="MuiTypography-root MuiTypography-body1" style="font-size: 14px; color: red;">thiếu dũ liệu</p></div></div>
+                          <div id="mydata" style=" display: none; align-items: center;" ><div style="display: flex; flex-direction: column; justify-content: left;"><p class="MuiTypography-root MuiTypography-body1" style="font-size: 14px; color: red;">Thiếu dữ liệu</p></div></div>
 
                         <input class="form-check-input"  type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
                         </div>
