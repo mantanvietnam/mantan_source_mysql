@@ -117,9 +117,9 @@
                           '.$item->phone.'<br/>
                           '.$item->email.'<br/>
                         </td>
-                        <td>'.$item->created_at.'</td>
-                        <td>'.$item->last_login.'</td>
-                        <td>'.$item->dateline_at.'</td>
+                        <td>'.date('d-m-Y', $item->created_at).'</td>
+                        <td>'.date('d-m-Y', $item->last_login).'</td>
+                        <td>'.date('d-m-Y', $item->dateline_at).'</td>
                         <td>'.$type.'</td>
                        
                         

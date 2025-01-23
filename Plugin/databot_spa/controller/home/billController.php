@@ -264,7 +264,7 @@ function addCollectionBill($input){
             $data = $modelBill->get( (int) $_GET['id']);
         }else{
             $data = $modelBill->newEmptyEntity();
-            $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at =time();
             $data->time = time();
             $data->id_staff = $infoUser->id;
         }
@@ -286,7 +286,7 @@ function addCollectionBill($input){
             $data->total = (int)@$dataSend['total'];
             $data->note = @$dataSend['note'];
             $data->type = 0; //0: Thu, 1: chi
-            $data->updated_at = date('Y-m-d H:i:s');
+            $data->updated_at =time();
             $data->type_collection_bill = @$dataSend['type_collection_bill'];
             $data->id_customer = (int)@$dataSend['id_customer'];
             $data->full_name = @$dataSend['full_name'];
@@ -506,7 +506,7 @@ function addBill($input){
             $data = $modelBill->get( (int) $_GET['id']);
         }else{
             $data = $modelBill->newEmptyEntity();
-            $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at =time();
             $data->time = time();
             $data->id_staff = $infoUser->id;
         }
@@ -528,7 +528,7 @@ function addBill($input){
             $data->total = (int)@$dataSend['total'];
             $data->note = @$dataSend['note'];
             $data->type = 1; //0: Thu, 1: chi
-            $data->updated_at = date('Y-m-d H:i:s');
+            $data->updated_at =time();
             $data->type_collection_bill = @$dataSend['type_collection_bill'];
             $data->id_customer = (int)@$dataSend['id_customer'];
             $data->full_name = @$dataSend['full_name'];

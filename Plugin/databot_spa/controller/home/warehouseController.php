@@ -126,7 +126,7 @@ function addWarehouse($input)
 			$data = $modelWarehouses->get($_GET['id']);
 		}else{
 			$data = $modelWarehouses->newEmptyEntity();
-		    $data->created_at = date('Y-m-d H:i:s');
+		    $data->created_at = time();
 		}
 	    
 	    $infoUser = $session->read('infoUser');

@@ -89,7 +89,7 @@
                                                     foreach($listData as $key => $item){ ?>
                                                 <tr>
                                                   <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
-                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->created_at->format('Y-m-d H:i:s'); ?></td>
+                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo date('Y-m-d H:i:s', $item->created_at); ?></td>
                                                   <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->Warehouse->name ?></td>
                                                   <td rowspan='<?php echo count($item->product); ?>'><?php echo @$item->parent->name ?></td>
                                                  

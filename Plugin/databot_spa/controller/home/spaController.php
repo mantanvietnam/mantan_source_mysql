@@ -131,7 +131,7 @@ function addSpa($input){
 	    }else{
 	    	if ($infoUser->number_spa > $totalData){ 
 		        $data = $modelSpas->newEmptyEntity();
-		        $data->created_at = date('Y-m-d H:i:s');
+		        $data->created_at = time();
 	    	}else{
 	    		return $controller->redirect('/listSpa');
 	    	}
@@ -145,7 +145,7 @@ function addSpa($input){
 	    	$data->address = $dataSend['address'];
 	    	$data->email = $dataSend['email'];
 	    	$data->note = $dataSend['note'];
-	    	$data->updated_at =date('Y-m-d H:i:s');
+	    	$data->updated_at =time();
 	    	$data->slug = createSlugMantan($dataSend['name']).'-'.time();
 	    	$data->id_member = $infoUser->id_member;
 
@@ -166,7 +166,7 @@ function addSpa($input){
 				$dataWarehouse->credit = 1; // 1: cho bán âm, 0: không cho bán âm
 				$dataWarehouse->id_member = $infoUser->id_member;
 				$dataWarehouse->id_spa = $data->id;
-				$dataWarehouse->created_at = date('Y-m-d H:i:s');
+				$dataWarehouse->created_at = time();
 				$modelWarehouse->save($dataWarehouse);
 				
 	    		return $controller->redirect('/managerSelectSpa');

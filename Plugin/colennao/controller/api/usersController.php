@@ -239,7 +239,7 @@ function loginUserApi($input): array
                 if($user->deadline >time()){
                     $user->status_pay_package =1;
                 }else{
-                     $user->status_pay_packag = 0;
+                     $user->status_pay_package = 0;
                 }
 
                 if($user->status=='lock'){

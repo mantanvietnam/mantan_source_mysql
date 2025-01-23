@@ -228,7 +228,7 @@ function addService($input){
             $data = $modelService->get( (int) $_GET['id']);
         }else{
             $data = $modelService->newEmptyEntity();
-            $data->created = getdate()[0];
+            $data->created_at = time();
         }
 
         if ($isRequestPost) {
@@ -240,6 +240,7 @@ function addService($input){
 
                 // tạo dữ liệu save
                 $data->name = @$dataSend['name'];
+                $data->updated_ats = time();
                 $data->image = @$dataSend['image'];
                 $data->code = @$dataSend['code'];
                 $data->id_category =(int) @$dataSend['id_category'];

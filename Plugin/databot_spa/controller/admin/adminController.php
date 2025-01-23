@@ -118,7 +118,7 @@ function addSpaAdmin($input){
         $data->phone = $dataSend['phone'];
         $data->address = $dataSend['address'];
         $data->note = $dataSend['note'];
-        $data->updated_at =date('Y-m-d H:i:s');
+        $data->updated_at =time();
         $data->slug = createSlugMantan($dataSend['name']).'-'.time();
         $modelSpas->save($data);
         if(!empty($_GET['id'])){

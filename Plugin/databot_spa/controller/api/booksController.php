@@ -29,7 +29,7 @@ function addBookAPI($input){
 		        $save = $modelBook->get( (int) $dataSend['id']);
 		    }else{
 		        $save = $modelBook->newEmptyEntity();
-				$save->created_at = date('Y-m-d H:i:s');
+				$save->created_at = time();
 				$save->time_book = time();
 		    }
 	        

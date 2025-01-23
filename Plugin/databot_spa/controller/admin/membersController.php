@@ -48,13 +48,8 @@ function listMemberAdmin($input)
 		$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 	}
 
-	$conditiontoday['created_at >='] = date('Y-m-d').' 00:00:00';
-	$conditiontoday['created_at <='] = date('Y-m-d H:i:s');
-
 	
 
-	$totalDatatoday = $modelMembers->find()->where($conditiontoday)->all()->toList();
-    $totalDatatoday = count($totalDatatoday);
 
     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
     	$listData = $modelMembers->find()->where($conditions)->order($order)->all()->toList();
@@ -142,6 +137,14 @@ function listMemberAdmin($input)
         $mess= '<p class="text-success" style="padding-left: 1.5em;">Trừ tiền thành công</p>';
     }
 
+    $conditiontoday = array();
+    $conditiontoday['created_at >='] = strtotime("today");
+	$conditiontoday['created_at <='] =  time();
+
+
+	$totalDatatoday = $modelMembers->find()->where($conditiontoday)->count();
+
+
     setVariable('page', $page);
     setVariable('totalDatatoday', $totalDatatoday);
     setVariable('totalPage', $totalPage);
@@ -172,7 +175,7 @@ function addMemberAdmin($input)
         $data->module = json_decode($data->module, true);
     }else{
         $data = $modelMembers->newEmptyEntity();
-        $data->created_at = date('Y-m-d H:i:s');
+        $data->created_at = time();
         $data->module = [];
         $data->type == 1;
     }
@@ -193,8 +196,9 @@ function addMemberAdmin($input)
 		        $data->avatar = $dataSend['avatar'];
 				$data->email = $dataSend['email'];
 				$data->status = (int) $dataSend['status'];
-				$data->updated_at = date('Y-m-d H:i:s');
-				$data->dateline_at = @$dataSend['dateline_at'];
+				$data->updated_at = time();
+				$date_start = explode('/', $dataSend['dateline_at']);
+				$data->dateline_at = mktime(23,59,00,$date_start[1],$date_start[0],$date_start[2]);
 				$data->number_spa = @$dataSend['number_spa'];
 				$data->phone = $dataSend['phone'];
 				
@@ -282,7 +286,7 @@ function addMoneyManager($input){
                 $order->total = (int) $dataSend['coin'];
                 $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5 trừ tiền 
-                $order->created_at = date('Y-m-d H:i:s');
+                $order->created_at = time();
                 $order->payment_kind = $dataSend['payment_kind'];
                 $order->note = 'bạn được công tiền trong admin lý do công là:  '.@$dataSend['note'];
                 
@@ -302,7 +306,7 @@ function addMoneyManager($input){
                 $order->note = 'bạn bị trừ tiền trong admin';
                 $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 5; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5 trừ tiền 
-                $order->created_at = date('Y-m-d H:i:s');
+                $order->created_at = time();
                 $order->note = 'bạn bị trừ tiền trong admin lý do trừ là:  '.@$dataSend['note'];
                 
                 $modelOrder->save($order);

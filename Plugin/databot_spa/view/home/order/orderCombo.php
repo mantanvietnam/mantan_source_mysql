@@ -468,8 +468,7 @@ function addProduct(id, name, priceProduct,type){
         var idProduct;
 
         idcustomer = $('#id_customer').val();
-        console.log(idcustomer);
-
+        
          var typecollectionbill= $('#type_collection_bill').val();
         if(typecollectionbill=='tien_mat'){
             document.getElementById("sotenkhachdua").style.display = "flex";

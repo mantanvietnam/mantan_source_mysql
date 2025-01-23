@@ -903,4 +903,166 @@ $sqlUpdateDatabase['zalo_templates']['id_member'] = "ALTER TABLE `zalo_templates
 $sqlUpdateDatabase['zalo_templates']['id_zns'] = "ALTER TABLE `zalo_templates` ADD `id_zns` int(11) NOT NULL; ";
 $sqlUpdateDatabase['zalo_templates']['name'] = "ALTER TABLE `zalo_templates` ADD `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['zalo_templates']['content'] = "ALTER TABLE `zalo_templates` ADD `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`content`)); ";
+
+/*-- Bước 1: Thêm cột tạm kiểu INT
+ALTER TABLE userservice_histories ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE userservice_histories SET temp_int = UNIX_TIMESTAMP(created_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE userservice_histories DROP COLUMN created_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE userservice_histories CHANGE COLUMN temp_int created_at INT;
+
+ALTER TABLE orders ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE orders SET temp_int = UNIX_TIMESTAMP(updated_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE orders DROP COLUMN updated_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE orders CHANGE COLUMN temp_int updated_at INT;
+-----------------------
+
+ALTER TABLE bills ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE bills SET temp_int = UNIX_TIMESTAMP(updated_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE bills DROP COLUMN updated_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE bills CHANGE COLUMN temp_int updated_at INT
+
+------------
+ALTER TABLE debts ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE debts SET temp_int = UNIX_TIMESTAMP(created_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE debts DROP COLUMN created_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE debts CHANGE COLUMN temp_int created_at INT
+
+----------------------------
+
+ALTER TABLE debts ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE debts SET temp_int = UNIX_TIMESTAMP(updated_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE debts DROP COLUMN updated_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE debts CHANGE COLUMN temp_int updated_at INT
+
+--------------------
+ALTER TABLE books ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE books SET temp_int = UNIX_TIMESTAMP(created_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE books DROP COLUMN created_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE books CHANGE COLUMN temp_int created_at INT;
+
+-----------
+
+ALTER TABLE agencys ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE agencys SET temp_int = UNIX_TIMESTAMP(created_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE agencys DROP COLUMN created_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE agencys CHANGE COLUMN temp_int created_at INT
+//////////////////////
+
+
+ALTER TABLE combos ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE combos SET temp_int = UNIX_TIMESTAMP(updated_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE combos DROP COLUMN updated_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE combos CHANGE COLUMN temp_int updated_at INT;
+
+
+ALTER TABLE combos ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE combos SET temp_int = UNIX_TIMESTAMP(created_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE combos DROP COLUMN created_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE combos CHANGE COLUMN temp_int created_at INT;
+
+/////////////
+
+ALTER TABLE products ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE products SET temp_int = UNIX_TIMESTAMP(updated_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE products DROP COLUMN updated_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE products CHANGE COLUMN temp_int updated_at INT;
+
+
+ALTER TABLE products ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE products SET temp_int = UNIX_TIMESTAMP(created_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE products DROP COLUMN created_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE products CHANGE COLUMN temp_int created_at INT;
+
+////////////
+
+ALTER TABLE services ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE services SET temp_int = UNIX_TIMESTAMP(updated_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE services DROP COLUMN updated_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE services CHANGE COLUMN temp_int updated_at INT;
+
+
+ALTER TABLE services ADD COLUMN temp_int INT;
+
+-- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+UPDATE services SET temp_int = UNIX_TIMESTAMP(created_at);
+
+-- Bước 3: Xóa cột DATETIME cũ
+ALTER TABLE services DROP COLUMN created_at;
+
+-- Bước 4: Đổi tên cột tạm thành tên cột ban đầu
+ALTER TABLE services CHANGE COLUMN temp_int created_at INT;
+
+*/
 ?>

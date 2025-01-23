@@ -234,7 +234,7 @@
                                          <?php }else{ ?>
                                         <li class="total-bh">
                                             <p>Giường & phòng</p>
-                                            <p> ><input  min="0" onchange="tinhtien();" type="hidden" name="promotion" id="promotion" placeholder="0" value="" autocomplete="off" />
+                                            <p> <input  min="0" onchange="tinhtien();" type="hidden" name="promotion" id="promotion" placeholder="0" value="" autocomplete="off" />
                                                 <input type="hidden" name="total" id="total" value="">
                                                 <input type="hidden" name="totalPays" id="totalPays" value="">
                                                 <input type="hidden" name="moneyReturn" id="moneyReturn" value="">

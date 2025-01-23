@@ -59,7 +59,7 @@ function addPartnerAjax($input)
 	        $data = $modelPartner->get( (int) $_GET['id']);
 	    }else{
 	        $data = $modelPartner->newEmptyEntity();
-			$data->created_at = date('Y-m-d H:i:s');
+			$data->created_at = time();
 	    }
 
 		if ($isRequestPost) {
@@ -79,7 +79,7 @@ function addPartnerAjax($input)
 			        $data->address = $dataSend['address'];
 			        $data->email = $dataSend['email'];
 			        $data->id_member = $infoUser->id_member;
-			        $data->updated_at = date('Y-m-d H:i:s');
+			        $data->updated_at = time();
 
 			        $modelPartner->save($data);
 

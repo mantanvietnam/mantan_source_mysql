@@ -39,9 +39,8 @@ function revenueStatistical($input){
 
 	        if(!empty($listDataBill)){
 	            foreach ($listDataBill as $item) {
-	                $time= @$item->created_at->toDateTimeString();
-	                $time = strtotime($time);
-	                $todayTime= getdate($time);
+	                $time= @
+	                $todayTime= getdate($item->created_at);
 
 	                      // tính doanh thu theo ngày
 	               @$dayTotalBill[$todayTime['mday'].'-'.$todayTime['mon'].'-'.$todayTime['year']] += $item->total;

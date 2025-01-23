@@ -37,7 +37,7 @@ function listBed($input){
             $data->id_room = $dataSend['id_room'];
             $data->id_spa = $session->read('id_spa');
             $data->id_member = $infoUser->id_member;
-            $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at = time();
 
             $modelBed->save($data);
 
@@ -176,8 +176,6 @@ function infoRoomBed($input){
     $metaTitleMantan = 'Thông tin giường';
      setVariable('page_view', 'infoRoomBed');
 
-    debug(date('Y-m-d H:i:s'));
-    die;
     if(!empty(checkLoginManager('infoRoomBed', 'room'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
@@ -196,7 +194,7 @@ function infoRoomBed($input){
         $mess = '';
 
         if(!empty($_GET['idBed'])){
-            $data = $modelUserserviceHistories->find()->where(array('id_bed'=>$_GET['idBed'], 'status'=>1))->first();
+            $data = $modelUserserviceHistories->find()->where(array('id_bed'=>(int)$_GET['idBed'], 'status'=>1))->first();
 
             $data->bed = $modelBed->get($data->id_bed);
           

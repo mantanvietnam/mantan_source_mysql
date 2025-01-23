@@ -42,14 +42,14 @@ function listAgency($input){
 		if(!empty($_GET['date_start'])){
 	        $date_start = explode('/', $_GET['date_start']);
 	        $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
-	        $conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
+	        $conditions['created_at >='] = $date_start;
 
 	    }
 
 	    if(!empty($_GET['date_end'])){
 	        $date_end = explode('/', $_GET['date_end']);
 	        $date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
-	        $conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
+	        $conditions['created_at <='] = $date_end;
 
 	    }
 

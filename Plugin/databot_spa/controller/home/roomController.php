@@ -30,7 +30,7 @@ function listRoom($input){
                 $data = $modelRoom->get( (int) $dataSend['idEdit']);
             }else{
                 $data = $modelRoom->newEmptyEntity();
-                $data->created_at = date('Y-m-d H:i:s');
+                $data->created_at = time();
             }
 
             // tạo dữ liệu save

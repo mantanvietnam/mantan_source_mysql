@@ -89,7 +89,7 @@
                           <td>'.$item->id.'</td>
                         
                           <td>'.$item->staff->name.'</td>
-                          <td>'.date('H:i d/m/Y', strtotime(@$item->created_at)).'</td>
+                          <td>'.date('H:i d/m/Y', @$item->created_at).'</td>
                           <td>'.number_format($item->money).'đ</td>
                           <td>'.@$item->service.'</td>
                           <td>'.@$item->id_order.'</td>

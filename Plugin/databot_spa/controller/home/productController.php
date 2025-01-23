@@ -136,7 +136,7 @@ function listTrademarkProduct($input){
                 $data = $modelTrademarks->get( (int) $dataSend['idEdit']);
             }else{
                 $data = $modelTrademarks->newEmptyEntity();
-                $data->created_at =date('Y-m-d H:i:s');
+                $data->created_at =time();
             }
 
             // tạo dữ liệu save
@@ -346,7 +346,7 @@ function addProduct($input){
 
         }else{
             $data = $modelProducts->newEmptyEntity();
-            $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at = time();
             $data->quantity = 0;
         }
 
@@ -368,7 +368,7 @@ function addProduct($input){
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->price = (int)@$dataSend['price'];
                 $data->status = $dataSend['status'];
-                $data->updated_at = date('Y-m-d H:i:s');
+                $data->updated_at = time();
                 $data->commission_staff_fix = (int) @$dataSend['commission_staff_fix'];
                 $data->commission_staff_percent = (int) @$dataSend['commission_staff_percent'];
                 $data->commission_affiliate_fix = (int) @$dataSend['commission_affiliate_fix'];
@@ -503,7 +503,7 @@ function addProductWarehouse($input){
             $dataWP->id_spa = $user->id_spa;
             $dataWP->id_staff = $user->id;
             $dataWP->id_warehouse = $dataSend['idWarehouse'];
-            $dataWP->created_at =  date('Y-m-d H:i:s');
+            $dataWP->created_at =  time();
             $dataWP->id_partner = $dataSend['idPartner'];
 
             $modelWarehouseProducts->save($dataWP);
@@ -524,7 +524,7 @@ function addProductWarehouse($input){
                     $product->impor_price = (int) $dataSend['price'][$key];
                     $product->quantity = (int) $dataSend['soluong'][$key];
                     $product->inventory_quantity = (int) $dataSend['soluong'][$key];
-                    $product->created_at =  date('Y-m-d H:i:s');
+                    $product->created_at = time();
 
                     $modelWarehouseProductDetails->save($product);
 
@@ -538,7 +538,7 @@ function addProductWarehouse($input){
                 // lưu vào công nợ
                 $debt = $modelDebts->newEmptyEntity();
                 
-                $debt->created_at = date('Y-m-d H:i:s');
+                $debt->created_at = time();
                 $debt->status = 0;
                 $debt->time = time();
                 $debt->id_member = @$user->id_member;
@@ -547,7 +547,7 @@ function addProductWarehouse($input){
                 $debt->total = (int) $total;
                 $debt->note =  'nhập lô hàng có ID là '.$dataWP->id.' vào kho '.$warehouse->name.' ngày '. date('Y-m-d H:i:s');
                 $debt->type = 1; //0: Thu, 1: chi
-                $debt->updated_at = date('Y-m-d H:i:s');
+                $debt->updated_at = time();
                 $debt->id_customer = (int)@$dataSend['idPartner'];
                 $debt->full_name = @$dataSend['partner_name'];
                 $debt->id_warehouse_product = $dataWP->id;
@@ -557,7 +557,7 @@ function addProductWarehouse($input){
                 // lưu vào bill 
                 $bill = $modelBill->newEmptyEntity();
                 
-                $bill->created_at = date('Y-m-d H:i:s');
+                $bill->created_at = time();
                 $bill->time = time();
                 $bill->id_member = @$user->id_member;
                 $bill->id_spa = $session->read('id_spa');
@@ -565,7 +565,7 @@ function addProductWarehouse($input){
                 $bill->total = (int) $total;
                 $bill->note = 'nhập lô hàng có ID là '.$dataWP->id.' vào kho '.$warehouse->name.' ngày '. date('Y-m-d H:i:s');
                 $bill->type = 1; //0: Thu, 1: chi
-                $bill->updated_at = date('Y-m-d H:i:s');
+                $bill->updated_at = time();
                 $bill->type_collection_bill = $dataSend['typeBill'];
                 $bill->id_customer = (int)@$dataSend['idPartner'];
                 $bill->full_name = @$dataSend['partner_name'];

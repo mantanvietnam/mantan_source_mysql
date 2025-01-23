@@ -241,7 +241,7 @@ function addCustomer($input)
 			$data = $modelCustomer->get( (int) $_GET['id']);
 		}else{
 			$data = $modelCustomer->newEmptyEntity();
-			$data->created_at = date('Y-m-d H:i:s');
+			$data->created_at =  time();
 			$data->point = 0;
 		}
 
@@ -263,7 +263,7 @@ function addCustomer($input)
 					$data->phone = $dataSend['phone'];
 					$data->email = $dataSend['email'];
 					$data->address = $dataSend['address'];
-					$data->updated_at = date('Y-m-d H:i:s');
+					$data->updated_at =  time();
 					$data->sex = (int) $dataSend['sex'];
 					$data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 					$data->birthday = $dataSend['birthday'];
@@ -604,8 +604,8 @@ function addDataCustomer($input){
 						if(empty($checkPhone)){
 							$data = $modelCustomer->newEmptyEntity();
 							
-							$data->created_at = date('Y-m-d H:i:s');
-							$data->updated_at = date('Y-m-d H:i:s');
+							$data->created_at =  time();
+							$data->updated_at =  time();
 							$data->point = 0;
 							$data->medical_history = '';
 							$data->drug_allergy_history = '';
@@ -773,7 +773,7 @@ function addMedicalHistories($input){
 			$data = $modelMedicalHistories->get( (int) $_GET['id']);
 		}else{
 			$data = $modelMedicalHistories->newEmptyEntity();
-			$data->created_at = date('Y-m-d H:i:s');
+			$data->created_at =  time();
 			
 		}
 
@@ -782,7 +782,7 @@ function addMedicalHistories($input){
 			$data->id_customer = $dataCustomer->id;
 			$data->id_member = $infoUser->id_member;
 			$data->id_spa = $dataCustomer->id_spa;
-			$data->updated_at = date('Y-m-d H:i:s');
+			$data->updated_at =  time();
 			$data->image = $dataSend['image'];
 			$data->title = $dataSend['title'];
 			$data->note = $dataSend['note'];

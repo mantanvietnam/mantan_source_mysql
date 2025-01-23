@@ -148,7 +148,7 @@ function addCombo($input){
             $data = $modelCombo->get( (int) $_GET['id']);
         }else{
             $data = $modelCombo->newEmptyEntity();
-            $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at = time();
         }
 
         if ($isRequestPost) {
@@ -160,7 +160,7 @@ function addCombo($input){
                 $data->price = (int)@$dataSend['price'];
                 $data->description = @$dataSend['description'];
                 $data->status = @$dataSend['status'];
-                $data->updated_at = date('Y-m-d H:i:s');
+                $data->updated_at = time();
                 $data->quantity = (int) @$dataSend['quantity'];
                 $data->id_member = $infoUser->id_member;
                 $data->id_spa = (int) $session->read('id_spa');

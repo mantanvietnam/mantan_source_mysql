@@ -43,11 +43,11 @@ function login($input)
 					}
 
 	    			// còn hạn sử dụng
-					if($info_customer->dateline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
+					if($info_customer->dateline_at >= time()){
 
 	    				// nếu tài khoản không bị khóa
 						if($info_customer->status == 1){
-							$info_customer->last_login = date('Y-m-d H:i:s');
+							$info_customer->last_login = time();
 							
 							if(is_array($info_customer->module)){
 								$info_customer->module = json_encode($info_customer->module);
@@ -434,10 +434,10 @@ function changePass($input)
 						$data->status = 1; //1: kích hoạt, 0: khóa
 						$data->type = 1; // 0: nhân viên, 1: chủ spa
 						$data->id_member = 0;
-						$data->created_at = date('Y-m-d H:i:s');
-						$data->updated_at = date('Y-m-d H:i:s');
-						$data->last_login = date('Y-m-d H:i:s');
-						$data->dateline_at = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). '30 days'));
+						$data->created_at = time();
+						$data->updated_at = time();
+						$data->last_login = time();
+						$data->dateline_at = strtotime("+30 days", time());
 						$data->number_spa = 1;
 						$data->address = $dataSend['address'];
 						$data->code_otp = rand(100000, 999999);
@@ -454,8 +454,8 @@ function changePass($input)
 						$dataSpa->id_member = $data->id;
 						$dataSpa->address = @$dataSend['address'];
 						$dataSpa->slug = createSlugMantan($dataSpa->name).'-'.time();
-						$dataSpa->created_at = date('Y-m-d H:i:s');
-						$dataSpa->updated_at = date('Y-m-d H:i:s');
+						$dataSpa->created_at = time();
+						$dataSpa->updated_at = time();
 						$dataSpa->image = $urlHomes.'/plugins/databot_spa/view/home/assets/img/default-thumbnail.jpg';
 						$dataSpa->facebook = '';
 						$dataSpa->website = '';
@@ -470,7 +470,7 @@ function changePass($input)
 						$dataWarehouse->credit = 1;
 						$dataWarehouse->id_member = $data->id;
 						$dataWarehouse->id_spa = $dataSpa->id;
-						$dataWarehouse->created_at = date('Y-m-d H:i:s');
+						$dataWarehouse->created_at = time();
 						
 						$modelWarehouse->save($dataWarehouse);
 

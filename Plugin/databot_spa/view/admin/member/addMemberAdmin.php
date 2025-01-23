@@ -55,8 +55,8 @@
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ngày hết hạn</label>
-                    <input  type="datetime-local" class="form-control" placeholder="" name="dateline_at" id="dateline_at" value="<?php echo date('Y-m-d H:i:s', strtotime(@$data->dateline_at));?>" />
+                    <label class="form-label" for="basic-default-fullname">Ngày hết hạn</label> 
+                    <input type="text" class="form-control datepicker" name="dateline_at" value="<?php echo date('d/m/Y',@$data->dateline_at);  ?>">
                   </div> 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Trạng thái</label>

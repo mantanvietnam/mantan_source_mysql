@@ -80,7 +80,7 @@ function addCustomerCampainApi($input)
 				        // tạo dữ liệu save
 				        $data = $modelCustomer->newEmptyEntity();
 						
-						$data->created_at = date('Y-m-d H:i:s');
+						$data->created_at = time();
 						$data->point = 0;
 				        $data->name = $dataSend['name'];
 				        $data->id_member =(int) $dataSend['id_member'];
@@ -89,7 +89,7 @@ function addCustomerCampainApi($input)
 				        $data->sex = $dataSend['sex'];
 				        $data->email = @$dataSend['email'];
 				        $data->address = @$dataSend['address'];
-				        $data->updated_at = date('Y-m-d H:i:s');
+				        $data->updated_at = time();
 				        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 				        $data->id_staff = (int) $dataSend['id_staff'];
 				        $data->note = '';
@@ -210,7 +210,7 @@ function addCustomerApi($input)
 				        // tạo dữ liệu save
 				        $data = $modelCustomer->newEmptyEntity();
 						
-						$data->created_at = date('Y-m-d H:i:s');
+						$data->created_at = time();
 						$data->point = 0;
 				        $data->name = $dataSend['name'];
 				        $data->id_member =(int) $dataSend['id_member'];
@@ -219,7 +219,7 @@ function addCustomerApi($input)
 				        $data->sex = $dataSend['sex'];
 				        $data->email = @$dataSend['email'];
 				        $data->address = @$dataSend['address'];
-				        $data->updated_at = date('Y-m-d H:i:s');
+				        $data->updated_at = time();
 				        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 				        $data->id_staff = (int) $dataSend['id_staff'];
 				        $data->note = '';

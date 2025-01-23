@@ -304,7 +304,7 @@ function addBook($input){
 	        $save = $modelBook->get( (int) $_GET['id']);
 	    }else{
 	        $save = $modelBook->newEmptyEntity();
-			$save->created_at = date('Y-m-d H:i:s');
+			$save->created_at =time();
 			$save->time_book = time();
 	    }
 
@@ -477,8 +477,8 @@ function checkinbetBook($input){
 	        $order->full_name = @$customer->name;
 	        $order->id_bed =@$dataSend['id_bed'];
 	        $order->note =@$dataSend['note'];
-	        $order->created_at =date('Y-m-d H:i:s');
-	        $order->updated_at =date('Y-m-d H:i:s');
+	        $order->created_at =time();
+	        $order->updated_at =time();
 	   		$order->status =0;
 	       	//$order->promotion =@$dataSend['promotion'];
 	       	$order->total =@$service->price;

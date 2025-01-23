@@ -127,7 +127,7 @@ function addStaff($input){
 	        
 	    }else{
 	        $data = $modelMembers->newEmptyEntity();
-	        $data->created_at = date('Y-m-d H:i:s');
+	        $data->created_at = time();
 	    }
 
 	    $listPermissionMenu = getListPermission();
@@ -150,7 +150,7 @@ function addStaff($input){
 			        // tạo dữ liệu save
 			        if(empty($_GET['id'])){
 			        	$data->phone = $dataSend['phone'];
-			        	$data->created_at = date('Y-m-d H:i:s');
+			        	$data->created_at = time();
 			        	$data->id_member = $infoUser->id_member;
 			        	$data->type = 0; // 0: nhân viên, 1: chủ spa
 			        	$data->number_spa = 0;
@@ -167,7 +167,7 @@ function addStaff($input){
 					$data->address = $dataSend['address'];
 					$data->birthday = $dataSend['birthday'];
 					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
-					$data->updated_at = date('Y-m-d H:i:s');
+					$data->updated_at = time();
 					$data->code_otp = rand(100000, 999999);
 
 			        $modelMembers->save($data);
@@ -389,7 +389,7 @@ function addGroupStaff($input){
 	        $data = $modelCategories->get( (int) $_GET['id']);
 	    }else{
 	        $data = $modelCategories->newEmptyEntity();
-	        $data->created_at = date('Y-m-d H:i:s');
+	        $data->created_at = time();
 	    }
 
 	    $mess ='';

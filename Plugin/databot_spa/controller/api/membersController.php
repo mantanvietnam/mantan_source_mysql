@@ -36,10 +36,10 @@ function createMemberAPI($input)
 				$data->status = 1; //1: kích hoạt, 0: khóa
 				$data->type = 1; // 0: nhân viên, 1: chủ spa
 				$data->id_member = 0;
-				$data->created_at = date('Y-m-d H:i:s');
-				$data->updated_at = date('Y-m-d H:i:s');
-				$data->last_login = date('Y-m-d H:i:s');
-				$data->dateline_at = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). '30 days'));
+				$data->created_at = time();
+				$data->updated_at = time();
+				$data->last_login = time();
+				$data->dateline_at =  strtotime(date('Y-m-d H:i:s'). '30 days');
 				$data->number_spa = 1;
 				$data->address = $dataSend['address'];
 				$data->code_otp = rand(100000, 999999);
@@ -56,8 +56,8 @@ function createMemberAPI($input)
 				$dataSpa->id_member = $data->id;
 				$dataSpa->address = @$dataSend['address'];
 				$dataSpa->slug = createSlugMantan($dataSpa->name).'-'.time();
-				$dataSpa->created_at = date('Y-m-d H:i:s');
-				$dataSpa->updated_at = date('Y-m-d H:i:s');
+				$dataSpa->created_at = time();
+				$dataSpa->updated_at = time();
 				$dataSpa->image = $urlHomes.'/plugins/databot_spa/view/home/assets/img/default-thumbnail.jpg';
 				$dataSpa->facebook = '';
 				$dataSpa->website = '';
@@ -72,7 +72,7 @@ function createMemberAPI($input)
 				$dataWarehouse->credit = 1;
 				$dataWarehouse->id_member = $data->id;
 				$dataWarehouse->id_spa = $dataSpa->id;
-				$dataWarehouse->created_at = date('Y-m-d H:i:s');
+				$dataWarehouse->created_at = time();
 				
 				$modelWarehouse->save($dataWarehouse);
 

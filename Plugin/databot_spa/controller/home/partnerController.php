@@ -145,7 +145,7 @@ function addPartner($input)
 	        $data = $modelPartner->get( (int) $_GET['id']);
 	    }else{
 	        $data = $modelPartner->newEmptyEntity();
-			$data->created_at = date('Y-m-d H:i:s');
+			$data->created_at = time();
 	    }
 
 		if ($isRequestPost) {
@@ -166,7 +166,7 @@ function addPartner($input)
 			        $data->email = $dataSend['email'];
 			        $data->note = $dataSend['note'];
 			        $data->id_member = $infoUser->id_member;
-			        $data->updated_at = date('Y-m-d H:i:s');
+			        $data->updated_at = time();
 
 			        $modelPartner->save($data);
 

@@ -126,7 +126,7 @@ function addPrepayCard($input){
 
         }else{
             $data = $modelPrepayCard->newEmptyEntity();
-            $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at = time();
         }
 
         if ($isRequestPost) {
@@ -228,8 +228,8 @@ function buyPrepayCard($input){
             $bill->total = (int)@$dataSend['totalPays'];
             $bill->note = 'Bán hàng Mã thẻ trả trước, thời gian '.date('Y-m-d H:i:s');
             $bill->type = 0; //0: Thu, 1: chi
-            $bill->created_at = date('Y-m-d H:i:s');
-            $bill->updated_at = date('Y-m-d H:i:s');
+            $bill->created_at = time();
+            $bill->updated_at = time();
             $bill->type_collection_bill = @$dataSend['type_collection_bill'];
             $bill->id_customer = (int)@$dataSend['id_customer'];
             $bill->full_name = @$dataSend['full_name'];
@@ -258,8 +258,8 @@ function buyPrepayCard($input){
                 $card->price = (int) $dataSend['priceCard'][$key];
                 $card->total = (int) $dataSend['priceCard'][$key] *(int) $dataSend['soluong'][$key];
                 $card->quantity = (int) $dataSend['soluong'][$key];
-            	$card->created_at = date('Y-m-d H:i:s');
-            	$card->updated_at = date('Y-m-d H:i:s');
+            	$card->created_at = time();
+            	$card->updated_at = time();
             	$card->status = 'active';
 
                 $modelCustomerPrepaycard->save($card);
@@ -327,6 +327,7 @@ function printInfoBillCard($input){
 
 function listCustomerPrepayCard($input){
     global $controller;
+    global $urlCurrent;
     global $metaTitleMantan;
     global $session;
 
@@ -341,6 +342,10 @@ function listCustomerPrepayCard($input){
         $modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 
         $conditions = array('id_member'=>$user->id_member);
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
 
         if(!empty($_GET['id'])){
             $conditions['id'] = $_GET['id'];
@@ -363,7 +368,7 @@ function listCustomerPrepayCard($input){
         } 
 
            
-        $listData = $modelCustomerPrepaycard->find()->where($conditions)->all()->toList();
+        $listData = $modelCustomerPrepaycard->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
         if(!empty($listData)){
             foreach($listData as $key => $item){
@@ -374,6 +379,42 @@ function listCustomerPrepayCard($input){
                 
             }
         }
+        $totalData = $modelCustomerPrepaycard->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
 
             setVariable('user', $user);
             setVariable('listData', $listData);

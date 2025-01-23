@@ -89,8 +89,8 @@ function orderProduct($input){
     $order->full_name = @$dataSend['full_name'];
     $order->id_bed =@$dataSend['id_bed'];
     $order->note =@$dataSend['note'];
-    $order->created_at =date('Y-m-d H:i:s');
-    $order->updated_at =date('Y-m-d H:i:s');
+    $order->created_at =time();
+    $order->updated_at =time();
     if($dataSend['typeOrder']==1){
         $order->status =1;
     }else{
@@ -146,7 +146,7 @@ function orderProduct($input){
         $agency->id_staff = $infoUser->id;
         $agency->id_service = 0;
         $agency->money = $money;
-        $agency->created_at = date('Y-m-d H:i:s');
+        $agency->created_at = time();
         $agency->note = '';
         $agency->id_order_detail = 0;
         $agency->status = 0;
@@ -171,8 +171,8 @@ function orderProduct($input){
             $debt->total =  $order->total_pay;
             $debt->note =  'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
             $debt->type = 0; //0: Thu, 1: chi
-            $debt->created_at = date('Y-m-d H:i:s');
-            $debt->updated_at = date('Y-m-d H:i:s');
+            $debt->created_at = time();
+            $debt->updated_at = time();
             $debt->id_order = $order->id;
             $debt->id_customer = (int)@$dataSend['id_customer'];
             $debt->full_name = @$dataSend['full_name'];
@@ -189,8 +189,8 @@ function orderProduct($input){
                             $bill->note = 'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
                             $bill->type = 0; //0: Thu, 1: chi
                             $bill->id_order = $order->id;
-                            $bill->created_at = date('Y-m-d H:i:s');
-                            $bill->updated_at = date('Y-m-d H:i:s');
+                            $bill->created_at = time();
+                            $bill->updated_at = time();
                             $bill->id_customer = (int)@$dataSend['id_customer'];
                             $bill->full_name = @$dataSend['full_name'];
                             $bill->moneyReturn = @$dataSend['moneyReturn'];
@@ -417,8 +417,8 @@ function orderCombo($input){
             $order->full_name = @$dataSend['full_name'];
             $order->id_bed =@$dataSend['id_bed'];
             $order->note =@$dataSend['note'];
-            $order->created_at =date('Y-m-d H:i:s');
-            $order->updated_at =date('Y-m-d H:i:s');
+            $order->created_at =time();
+            $order->updated_at =time();
             if($dataSend['typeOrder']==1){
                $order->status =1;
            }else{
@@ -474,7 +474,7 @@ function orderCombo($input){
             $agency->id_staff = $infoUser->id;
             $agency->id_service = 0;
             $agency->money = $money;
-            $agency->created_at = date('Y-m-d H:i:s');
+            $agency->created_at = time();
             $agency->note = '';
             $agency->id_order_detail = 0;
             $agency->status = 0;
@@ -498,8 +498,8 @@ function orderCombo($input){
                 $debt->total =  $order->total_pay;
                 $debt->note =  'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
                     $debt->type = 0; //0: Thu, 1: chi
-                    $debt->created_at = date('Y-m-d H:i:s');
-                    $debt->updated_at = date('Y-m-d H:i:s');
+                    $debt->created_at = time();
+                    $debt->updated_at = time();
                     $debt->id_order = $order->id;
                     $debt->id_customer = (int)@$dataSend['id_customer'];
                     $debt->full_name = @$dataSend['full_name'];
@@ -516,8 +516,8 @@ function orderCombo($input){
                     $bill->note = 'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
                     $bill->type = 0; //0: Thu, 1: chi
                     $bill->id_order = $order->id;
-                    $bill->created_at = date('Y-m-d H:i:s');
-                    $bill->updated_at = date('Y-m-d H:i:s');
+                    $bill->created_at = time();
+                    $bill->updated_at = time();
                     $bill->id_customer = (int)@$dataSend['id_customer'];
                     $bill->full_name = @$dataSend['full_name'];
                     $bill->moneyReturn = @$dataSend['moneyReturn'];
@@ -710,8 +710,8 @@ function orderService($input){
         $order->full_name = @$dataSend['full_name'];
         $order->id_bed =@$dataSend['id_bed'];
         $order->note =@$dataSend['note'];
-        $order->created_at =date('Y-m-d H:i:s');
-        $order->updated_at =date('Y-m-d H:i:s');
+        $order->created_at =time();
+        $order->updated_at =time();
         if($dataSend['typeOrder']==1){
            $order->status =1;
        }else{
@@ -768,7 +768,7 @@ function orderService($input){
             $agency->id_staff = $infoUser->id;
             $agency->id_service = 0;
             $agency->money = $money;
-            $agency->created_at = date('Y-m-d H:i:s');
+            $agency->created_at =time();
             $agency->note = '';
             $agency->id_order_detail = 0;
             $agency->status = 0;
@@ -791,8 +791,8 @@ function orderService($input){
                 $debt->total =  $order->total_pay;
                 $debt->note =  'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
                 $debt->type = 0; //0: Thu, 1: chi
-                $debt->created_at = date('Y-m-d H:i:s');
-                $debt->updated_at = date('Y-m-d H:i:s');
+                $debt->created_at =time();
+                $debt->updated_at =time();
                 $debt->id_order = $order->id;
                 $debt->id_customer = (int)@$dataSend['id_customer'];
                 $debt->full_name = @$dataSend['full_name'];
@@ -809,8 +809,8 @@ function orderService($input){
                 $bill->note = 'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
                 $bill->type = 0; //0: Thu, 1: chi
                 $bill->id_order = $order->id;
-                $bill->created_at = date('Y-m-d H:i:s');
-                $bill->updated_at = date('Y-m-d H:i:s');
+                $bill->created_at =time();
+                $bill->updated_at =time();
                 $bill->id_customer = (int)@$dataSend['id_customer'];
                 $bill->full_name = @$dataSend['full_name'];
                 $bill->moneyReturn = @$dataSend['moneyReturn'];
@@ -1617,7 +1617,7 @@ function addUserService($input){
                 $agency->id_service = $_GET['id_service'];
                 $agency->id_user_service =  @$UserService->id;
                 $agency->money = $money;
-                $agency->created_at = date('Y-m-d H:i:s');
+                $agency->created_at =time();
                 $agency->note = 'lần thứ '.@$OrderDetails->number_uses;
                 $agency->id_order_detail = $_GET['id'];
                 $agency->status = 0;
@@ -1677,8 +1677,8 @@ function paymentOrders($input){
                 $debt->total =  $order->total_pay;
                 $debt->note =  'án hàng ID đơn hàng là '.$data->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
                $debt->type = 0; //0: Thu, 1: chi
-               $debt->ceated_at = date('Y-m-d H:i:s');
-               $debt->updated_a = date('Y-m-d H:i:s');
+               $debt->ceated_at =time();
+               $debt->updated_a =time();
                $debt->id_order = $order->id;
                $debt->id_customer = (int)$order->id_customer;
                $debt->full_name = @$_GET['full_name'];
@@ -1695,8 +1695,8 @@ function paymentOrders($input){
                 $bill->note = 'Bán hàng IDđơn hàng là '.$order->id.', ngườibán là '.$infoUser->name.', thời gian '.date('Y-m-dH:i:s');
                 $bill->type = 0; //0: Thu, 1: hi
                 $bill->id_order = $order->id;
-                $bill->created_at = date('Y-m-d H:i:s');
-                $bill->updated_at= date('Y-m-d H:i:s');
+                $bill->created_at =time();
+                $bill->updated_at=time();
                 $bill->id_customer = (int)$order->id_customer;
                 $bill->full_name = @$_GET['full_name'];
                 $bill->moneyReturn = @$_GET['moneyReturn'];

@@ -197,7 +197,7 @@ function addCollectionDebt($input){
             $data = $modelDebts->get( (int) $_GET['id']);
         }else{
             $data = $modelDebts->newEmptyEntity();
-            $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at =  time();
             $data->status = 0;
             $data->time = time();
             $data->id_staff = @$infoUser->id;
@@ -221,7 +221,7 @@ function addCollectionDebt($input){
             $data->total = (int)@$dataSend['total'];
             $data->note = @$dataSend['note'];
             $data->type = 0; //0: Thu, 1: chi
-            $data->updated_at = date('Y-m-d H:i:s');
+            $data->updated_at =  time();
             $data->id_customer = (int)@$dataSend['id_customer'];
             $data->full_name = @$dataSend['full_name'];
 
@@ -280,7 +280,7 @@ function paymentCollectionBill($input){
             $data->total = (int)@$_GET['total'];
             $data->note = @$_GET['note'];
             $data->type = 0; //0: Thu, 1: chi
-            $data->updated_at = date('Y-m-d H:i:s');
+            $data->updated_at =  time();
             $data->type_collection_bill = @$_GET['type_collection_bill'];
             $data->id_customer = (int)@$_GET['id_customer'];
             $data->full_name = @$_GET['full_name'];
@@ -501,7 +501,7 @@ function addPayableDebt($input){
             $data = $modelDebts->get( (int) $_GET['id']);
         }else{
             $data = $modelDebts->newEmptyEntity();
-            $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at =  time();
             $data->status = 0;
             $data->time = time();
 
@@ -524,7 +524,7 @@ function addPayableDebt($input){
             $data->total = (int)@$dataSend['total'];
             $data->note = @$dataSend['note'];
             $data->type = 1; //0: Thu, 1: chi
-            $data->updated_at = date('Y-m-d H:i:s');
+            $data->updated_at =  time();
             $data->id_customer = (int)@$dataSend['id_customer'];
             $data->full_name = @$dataSend['full_name'];
 
@@ -581,7 +581,7 @@ function paymentBill($input){
             $data->total = (int)@$_GET['total'];
             $data->note = @$_GET['note'];
             $data->type = 1; //0: Thu, 1: chi
-            $data->updated_at = date('Y-m-d H:i:s');
+            $data->updated_at =  time();
             $data->type_collection_bill = @$_GET['type_collection_bill'];
             $data->id_customer = (int)@$_GET['id_customer'];
             $data->full_name = @$_GET['full_name'];
