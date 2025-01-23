@@ -74,6 +74,11 @@ $info = $session->read('infoUser');
                                 onclick="sendquestion()">
                                 Gửi đi
                             </button>
+                            <!-- <label for="file-upload" style="cursor: pointer;">
+                                <i class="fa-solid fa-paperclip"></i>
+                            </label> -->
+                            
+                            <button class="btn btn-primary" style="padding: 12px 16px;background-color: #f2f1ff;" onclick="sendquestion()">Gửi đi</button>
                         </div>
                     </div>
                 </div>
@@ -96,7 +101,7 @@ $info = $session->read('infoUser');
               $('#listchat div:first').append('<div class="MuiBox-root " id="question'+row+'">\
                         <div class="d-flex right-question">\
                            <div class="">\
-                               <p class="question-answer MuiTypography-root jss1624 MuiTypography-body1">'+question+'       </p>\
+                               <p class="question-answer MuiTypography-root jss1624 MuiTypography-body1">'+question+'.</p>\
                            </div>\
                        </div>\
                    </div>');
