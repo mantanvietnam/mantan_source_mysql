@@ -178,14 +178,11 @@
                     </button> -->
             
                     <!-- Biểu tượng thông báo -->
-                    <div class="notification-icon position-relative">
-                        <i class="fa-regular fa-bell"></i>
-                        <span class="badge position-absolute top-0 start-100 translate-middle bg-danger text-white">1</span>
-                    </div>
+                    
                     <?php 
                         global $session;
                         $info = $session->read('infoUser');
-                    
+                        if(!empty($info)){
                     ?>
      
                     <!-- Biểu tượng người dùng -->
@@ -208,4 +205,5 @@
                             </ul>
                           </div>
                     </div>
+                <?php } ?>
                 </div>
