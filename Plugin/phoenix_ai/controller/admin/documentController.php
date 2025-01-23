@@ -110,7 +110,7 @@ function setting($input){
 
 				$user->name = $dataSend['name'];
 				$user->email = $dataSend['email'];
-				$user->address = $dataSend['address'];
+				// $user->address = $dataSend['address'];
 				// $user->facebook = $dataSend['facebook'];
 
 				$modelMembers->save($user);
