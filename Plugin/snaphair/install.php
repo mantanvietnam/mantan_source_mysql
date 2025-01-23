@@ -34,6 +34,20 @@ $sqlInstallDatabase .="CREATE TABLE `transaction_historys` (
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `image_users` ( 
+`id` INT NOT NULL AUTO_INCREMENT,
+`id_user` INT NOT NULL ,
+`image` VARCHAR(2255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`base` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`type` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`created_at` INT NULL DEFAULT NULL ,
+`status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+
 $sqlInstallDatabase .="CREATE TABLE `sample_category` (
 	`id` int(11) NOT NULL,
 	`name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
@@ -42,6 +56,7 @@ $sqlInstallDatabase .="CREATE TABLE `sample_category` (
 
 $sqlDeleteDatabase .= "DROP TABLE users; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_historys; ";
+$sqlDeleteDatabase .= "DROP TABLE image_users; ";
 
 // Bang users
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
@@ -67,4 +82,13 @@ $sqlUpdateDatabase['transaction_historys']['type'] = "ALTER TABLE `transaction_h
 $sqlUpdateDatabase['transaction_historys']['note'] = "ALTER TABLE `transaction_historys` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transaction_historys']['type_note'] = "ALTER TABLE `transaction_historys` ADD `type_note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['transaction_historys']['created'] = "ALTER TABLE `transaction_historys` ADD `created` INT NOT NULL;";
-$sqlUpdateDatabase['coin_user']['created'] = "ALTER TABLE `transaction_historys` ADD `coin_user` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_historys']['coin_user'] = "ALTER TABLE `transaction_historys` ADD `coin_user` INT NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['image_users']['id_user'] = "ALTER TABLE `image_users` ADD `id_user` INT NOT NULL;";
+$sqlUpdateDatabase['image_users']['image'] = "ALTER TABLE `image_users` ADD `image` VARCHAR(2255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_users']['base'] = "ALTER TABLE `image_users` ADD `base` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_users']['type'] = "ALTER TABLE `image_users` ADD `type` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_users']['created_at'] = "ALTER TABLE `image_users` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_users']['status'] = "ALTER TABLE `image_users` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_users']['name'] = "ALTER TABLE `image_users` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_users']['note'] = "ALTER TABLE `image_users` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

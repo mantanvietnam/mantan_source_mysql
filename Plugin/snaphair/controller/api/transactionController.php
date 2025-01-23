@@ -10,7 +10,7 @@ function addMoneyApplePayAPI($input)
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['access_token']) && !empty($dataSend['money'])){
-            if(function_exists('getCustomerByToken')){
+            if(function_exists('getUserByToken')){
                 $user =  getUserByToken($dataSend['access_token']);
             }
             
@@ -75,7 +75,7 @@ function listHistories($input)
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['access_token']) && !empty($dataSend['money'])){
-            if(function_exists('getCustomerByToken')){
+            if(function_exists('getUserByToken')){
                 $user =  getUserByToken($dataSend['access_token']);
             }
 	   		$modelTransactionHistory = $controller->loadModel('TransactionHistorys');
