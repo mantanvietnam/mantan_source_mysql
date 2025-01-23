@@ -50,13 +50,13 @@
                                     </a>
                                 </h3>
                             </div>
-                            <div class="head">
+                            <!-- <div class="head">
                                 <button class="toggler">
                                     <i class="fa-solid fa-bars-staggered"></i>
                                 </button> 
-                            </div>
+                            </div> -->
                         </div>
-                        <ul class="nav-list">
+                        <ul class="nav-list mt-4">
                             <li class="nav-list-item">
                                 <a href="/dashboard" class="nav-link">
                                     <div class="set-header-distance">
@@ -153,7 +153,7 @@
         </header>
         <section class="showcase ">
             <div class="overlay">
-                <div class="head container-fluid d-flex">
+                <div class="head container-fluid d-flex justify-content-end">
                     <!-- <div class="dropdown mx-4">
                         <button class="btn btn-custom dropdown-toggle " type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             Trợ lý
@@ -164,12 +164,12 @@
                         </ul>
                     </div> -->
                     <!-- Thanh tìm kiếm -->
-                    <div class="search-box d-flex align-items-center">
+                    <!-- <div class="search-box d-flex align-items-center">
                             <input type="text" class="form-control search-input" placeholder="Tìm kiếm trợ lý Phoenix">
                             <button class="btn search-btn">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
-                    </div>
+                    </div> -->
             
                     <!-- Nút nâng cấp -->
                     <!-- <button class="btn btn-upgrade d-flex align-items-center">
