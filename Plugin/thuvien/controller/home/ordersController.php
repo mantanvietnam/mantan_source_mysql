@@ -14,6 +14,7 @@ function listOrder($input)
     $modelCustomers = $controller->loadModel('Customers');
     $modelBuildings = $controller->loadModel('Buildings');
     $modelBook = $controller->loadModel('Books');
+    $currentTime = time();
 
     if (!empty($user)) {
         if (empty($user->grant_permission)) {
@@ -54,7 +55,16 @@ function listOrder($input)
         ];
 
         if (!empty($_GET['status'])) {
-            $conditions['Orders.status'] = $_GET['status'];
+            $status = $_GET['status'];
+            if ($status == '1') {
+                $conditions['Orders.status !='] = 2;
+                $conditions['Orders.return_deadline >'] = $currentTime;
+            } elseif ($status == '2') {
+                $conditions['Orders.status'] = 2;
+            } elseif ($status == '3') {
+                $conditions['Orders.status !='] = 2;
+                $conditions['Orders.return_deadline <='] = $currentTime;
+            }
         }
         if (!empty($_GET['start_date']) && !empty($_GET['end_date'])) {
             $startDate = $_GET['start_date'];
@@ -112,7 +122,7 @@ function listOrder($input)
                 }
         }
 
-        export_excel($titleExcel, $dataExcel, 'danh_sach_đơn mượnmượn');
+        export_excel($titleExcel, $dataExcel, 'danh_sach_đơn mượn');
     } else {
         $listData = $modelOrders->find()->join($join)
         ->limit($limit)

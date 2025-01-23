@@ -25,10 +25,18 @@ $menus[0]['sub'][]= array( 'title'=>'Lịch sử trừ tiền',
                             'permission'=>'listHistoryMinusAdmin'
                         );
 
-$menus[0]['sub'][]= array( 'title'=>'Quản lý mẫu ảnh',
-                            'url'=>'/plugins/admin/snaphair-view-admin-history-listHistoryPlusAdmin',
-                            'classIcon'=>'bx bx-history',
-                            'permission'=>'listHistoryPlusAdmin'
+
+$menus[1]['title']= 'SAMPLE';
+$menus[1]['sub'][]= array( 'title'=>'Quản lý danh mục mẫu ảnh',
+                            'url'=>'/plugins/admin/snaphair-view-admin-sample-listSampleCategoryAdmin',
+                            'classIcon'=>'bx bx-category',
+                            'permission'=>'listSampleCategoryAdmin'
+                        );
+
+$menus[1]['sub'][]= array( 'title'=>'Quản lý mẫu ảnh',
+                        'url'=>'/plugins/admin/snaphair-view-admin-sample-listSamplePhotoAdmin',
+                        'classIcon'=>'bx bx-image',
+                        'permission'=>'listSamplePhotoAdmin'
                         );
 
 addMenuAdminMantan($menus);

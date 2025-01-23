@@ -34,6 +34,7 @@ $sqlInstallDatabase .="CREATE TABLE `transaction_historys` (
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+
 $sqlInstallDatabase .="CREATE TABLE `image_users` ( 
 `id` INT NOT NULL AUTO_INCREMENT,
 `id_user` INT NOT NULL ,
@@ -48,15 +49,25 @@ PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
 
-$sqlInstallDatabase .="CREATE TABLE `sample_category` (
+$sqlInstallDatabase .="CREATE TABLE `sample_categories` (
 	`id` int(11) NOT NULL,
 	`name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-  
+
+$sqlInstallDatabase .="CREATE TABLE `sample_photos` (
+	`id` int(11) NOT NULL,
+	`id_sample_cate` int(11) NOT NULL,
+	`name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	`image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	`color` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	`sex` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 $sqlDeleteDatabase .= "DROP TABLE users; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_historys; ";
 $sqlDeleteDatabase .= "DROP TABLE image_users; ";
+$sqlDeleteDatabase .= "DROP TABLE sample_categories; ";
+$sqlDeleteDatabase .= "DROP TABLE sample_photos; ";
 
 // Bang users
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";

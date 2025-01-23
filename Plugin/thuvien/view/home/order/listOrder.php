@@ -34,12 +34,13 @@ table, th, td {
         </div>
 
         <div class="col-md-2">
-          <label class="form-label">Trạng thái</label>
-          <select name="status" class="form-select color-dropdown">
-            <option value="">Tất cả</option>
-            <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected'; ?>>Đang mượn</option>
-            <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected'; ?>>Đã trả</option>
-          </select>
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+                <option value="">Tất cả</option>
+                <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected'; ?>>Đang mượn</option>
+                <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected'; ?>>Đã trả</option>
+                <option value="3" <?php if(!empty($_GET['status']) && $_GET['status']=='3') echo 'selected'; ?>>Quá hạn</option>
+            </select>
         </div>
 
         <div class="col-md-2">
@@ -103,8 +104,19 @@ table, th, td {
     <?php 
     if (!empty($listData)) {
         foreach ($listData as $order) {
-            $disabled = ($order->status == 2) ? '<p class="text-success">Đã trả</p>' : '<p class="text-danger">Đang mượn</p>';
-            $statusId = $order->status;
+            $currentTime = time();
+            $disabled = '';
+            
+            if ($order->status == 2) {
+                $disabled = '<p class="text-success">Đã trả</p>';
+            } elseif (!empty($order->return_deadline) && $order->return_deadline > $currentTime) {
+                $disabled = '<p class="text-warning">Đang mượn</p>';
+            } elseif (!empty($order->return_deadline) && $order->return_deadline <= $currentTime) {
+                $disabled = '<p class="text-danger">Quá hạn</p>';
+            } else {
+                $disabled = '<p class="text-muted">Chưa xác định</p>';
+            }
+
 
             $customerName = !empty($order->customer) ? htmlspecialchars($order->customer->name, ENT_QUOTES) : 'N/A';
             $customerPhone = !empty($order->customer) ? htmlspecialchars($order->customer->phone, ENT_QUOTES) : 'N/A';

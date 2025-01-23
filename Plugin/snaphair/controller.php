@@ -2,6 +2,7 @@
    include('controller/admin/userController.php');
    include('controller/admin/transactionController.php');
    include('controller/admin/sampleCategoryController.php');
+   include('controller/admin/samplePhotoController.php');
 
    include('controller/home/userController.php');
 
