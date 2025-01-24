@@ -72,29 +72,34 @@
                     <div class="table-aiva-document" style="width: 97%;margin: auto; ">
                         <table class=" table-create-document">
                             <thead class="colum-header">
-                                <tr>
-                                    <th class="table-column" scope="col" style="width:32%">Tài liệu</th>
-                                    <!-- <th class="table-column" scope="col">Tag</th> -->
+                                <tr align="center">
                                     <th class="table-column" scope="col">Ngày tạo</th>
+                                    <th class="table-column" scope="col" style="width:40%">Tài liệu</th>
+                                    <!-- <th class="table-column" scope="col">Tag</th> -->
                                     
                                     <th class="table-column" scope="col">Số chữ</th>
-                                    <th class="table-column" scope="col">Chức năng</th>
+                                    <th class="table-column" colspan="2" scope="col">Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if(!empty($info)):?>
                                     <?php foreach ($listdatacontent as $data):?>
                                     <tr>
+
+                                        <td><?= date('d-m-Y', $data->created_at) ?></td>
                                         <td>
                                             <a href="<?=$data->link?>?id=<?php echo $data->id?>"><?=$data->title?></a>
                                             <div class="set-widthcontent"><?= htmlspecialchars($data->content_ai); ?></div>
                                         </td>
                                         <!-- <td>Jacob</td> -->
-                                        <td><?= date('d-m-Y', $data->created_at) ?></td>
 
                                         
                                         <td><i class='bx bx-signal-4'></i><?=str_word_count($data->content_ai)?></td>
                                         <td style="text-align: center;">
+                                            <!-- <a href=""><i class="fa-solid fa-cloud-arrow-down"></i></a> -->
+                                            <a href="<?=$data->link?>?id=<?php echo $data->id?>"><i class="bx bx-edit-alt me-1"></i></a>  
+                                        </td>
+                                         <td style="text-align: center;">
                                             <!-- <a href=""><i class="fa-solid fa-cloud-arrow-down"></i></a> -->
                                             <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="deletecontent/?id=<?php echo $data->id?>"><i class="fa-regular fa-trash-can"></i></a>  
                                         </td>

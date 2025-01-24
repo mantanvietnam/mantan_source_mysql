@@ -49,6 +49,13 @@
                         <a href="#" class="category-link">Học tập</a>
                         <a href="#" class="category-link">HR</a>
                         <a href="#" class="category-link">Giáo dục</a>
+
+                        <div class="buttons">
+                                            <div class="d-flex">
+                                                <div><i class="fa-solid fa-play playmasion" style="color: #5242f3;"></i>&nbsp;</div>
+                                                <div>&nbsp;Thực hiện</div>
+                                            </div>
+                                        </div>s
                     </div>
                 </div> -->
 
@@ -72,12 +79,7 @@
                                     <div class="card-content mx-2">
                                         <h3>'.$item['title'].'</h3>
                                         <p>'.$item['district'].'</p>
-                                        <div class="buttons">
-                                            <div class="d-flex">
-                                                <div><i class="fa-solid fa-play playmasion" style="color: #5242f3;"></i>&nbsp;</div>
-                                                <div>&nbsp;Thực hiện</div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </a>
