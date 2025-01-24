@@ -10,7 +10,8 @@ function listCombo($input){
 	$modelCombo = $controller->loadModel('Combos');
 	$modelProduct = $controller->loadModel('Products');
 	$modelService = $controller->loadModel('Services');
-
+	
+    setVariable('page_view', 'deleteRoom');
 	if(!empty(checkLoginManager('listCombo', 'combo'))){
 		$infoUser = $session->read('infoUser');
 		 $mess= '';
@@ -131,7 +132,8 @@ function addCombo($input){
     global $urlHomes;
 
     $metaTitleMantan = 'Thông tin combo dịch vụ';
-
+    
+    setVariable('page_view', 'deleteRoom');
     if(!empty(checkLoginManager('addCombo', 'combo'))){
         $modelMembers = $controller->loadModel('Members');
         $modelCombo = $controller->loadModel('Combos');
@@ -247,6 +249,7 @@ function deleteCombo($input){
     global $controller;
     global $session;
     
+    setVariable('page_view', 'deleteRoom');
     $modelCombo = $controller->loadModel('Combos');
     $modelOrderDetails = $controller->loadModel('OrderDetails');
     if(!empty(checkLoginManager('deleteCombo', 'combo'))){

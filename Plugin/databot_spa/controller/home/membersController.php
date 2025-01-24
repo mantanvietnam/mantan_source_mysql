@@ -10,6 +10,7 @@ function login($input)
 
 	$modelMembers = $controller->loadModel('Members');
 
+    setVariable('page_view', 'login');
 	if(empty($session->read('infoUser'))){
 		$mess = '';
 
@@ -116,6 +117,7 @@ function dashboard($input)
 
 	$metaTitleMantan = 'Thống kê tài khoản';
 	
+    setVariable('page_view', 'dashboard');
 	if(!empty($session->read('infoUser'))){
 		$user = $session->read('infoUser');
 		$conditBill['type'] = 0;
@@ -230,6 +232,7 @@ function changePass($input)
 
 	$metaTitleMantan = 'Đổi mật khẩu';
 
+    setVariable('page_view', 'changePass');
 	$modelMembers = $controller->loadModel('Members');
 
 	if(!empty($session->read('infoUser'))){
@@ -273,8 +276,8 @@ function changePass($input)
 	}
 }
 
-	function account($input)
-	{
+function account($input)
+{
 		global $session;
 		global $controller;
 		global $metaTitleMantan;
@@ -282,6 +285,7 @@ function changePass($input)
 
 		$metaTitleMantan = 'Đổi thông tin tài khoản';
 
+    setVariable('page_view', 'account');
 		$modelMembers = $controller->loadModel('Members');
 
 		if(!empty($session->read('infoUser'))){
@@ -332,6 +336,7 @@ function changePass($input)
 
 		$modelMembers = $controller->loadModel('Members');
 
+    setVariable('page_view', 'forgotPass');
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
 			$conditions = array();
@@ -366,6 +371,7 @@ function changePass($input)
 
 		$phone = $session->read('phone');
 
+    setVariable('page_view', 'confirm');
 		$modelMembers = $controller->loadModel('Members');
 
 		if($isRequestPost){
@@ -410,6 +416,7 @@ function changePass($input)
 		$modelSpas = $controller->loadModel('Spas');
 		$modelWarehouse = $controller->loadModel('Warehouses');
 		$mess = '';
+    setVariable('page_view', 'register');
 
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();

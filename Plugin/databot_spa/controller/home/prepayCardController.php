@@ -9,7 +9,7 @@ function listPrepayCard($input)
     $metaTitleMantan = 'Thẻ dịch vụ';
 
 	$modelPrepayCard = $controller->loadModel('PrepayCards');
-	
+	setVariable('page_view', 'listPrepayCard');
 	if(!empty(checkLoginManager('listPrepayCard', 'prepaid_cards'))){
 		$infoUser = $session->read('infoUser');
 
@@ -110,7 +110,7 @@ function addPrepayCard($input){
     global $urlCurrent;
 
     $metaTitleMantan = 'Thông tin thẻ dịch vụ';
-    
+    setVariable('page_view', 'addPrepayCard');
     if(!empty(checkLoginManager('addPrepayCard', 'prepaid_cards'))){
         $modelMembers = $controller->loadModel('Members');
 		$modelPrepayCard = $controller->loadModel('PrepayCards');
@@ -170,7 +170,7 @@ function deletePrepayCard($input){
     global $session;
 
     $modelPrepayCard = $controller->loadModel('PrepayCards');
-    
+    setVariable('page_view', 'deletePrepayCard');
     if(!empty(checkLoginManager('deletePrepayCard', 'prepaid_cards'))){
     	$infoUser = $session->read('infoUser');
 
@@ -197,7 +197,7 @@ function buyPrepayCard($input){
     $metaTitleMantan = 'Bán Thẻ trả trước';
 
     $mess = "";
-
+    setVariable('page_view', 'buyPrepayCard');
 	$modelPrepayCard = $controller->loadModel('PrepayCards');
 	$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 	$modelBill = $controller->loadModel('Bills');
@@ -285,7 +285,7 @@ function printInfoBillCard($input){
     global $session;
 
     $metaTitleMantan = 'in đơn hàng';
-
+    setVariable('page_view', 'printInfoBillCard');
     if(!empty(checkLoginManager('printInfoBillCard', 'prepaid_cards'))){
         $user = $session->read('infoUser');
 
@@ -332,7 +332,7 @@ function listCustomerPrepayCard($input){
     global $session;
 
     $metaTitleMantan = 'Danh sách khách mua thẻ trước';
-
+    setVariable('page_view', 'listCustomerPrepayCard');
     if(!empty(checkLoginManager('listCustomerPrepayCard', 'prepaid_cards'))){
         $user = $session->read('infoUser');
 
@@ -434,7 +434,6 @@ function listCustomerPrepayCardAPI($input){
 
     $metaTitleMantan = 'Danh sách thẻ trước';
     $return = array('code'=>0);
-
     if(!empty($session->read('infoUser'))){
         $user = $session->read('infoUser');
 

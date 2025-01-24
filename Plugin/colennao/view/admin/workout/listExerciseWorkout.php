@@ -49,6 +49,7 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách bài luyện tập  </h5>
+    <?php echo @$mess; ?>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>

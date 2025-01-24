@@ -12,6 +12,7 @@ function listBook($input){
 	$modelMembers = $controller->loadModel('Members');
 
 	
+    setVariable('page_view', 'listBook');
 	if(!empty(checkLoginManager('listBook', 'calendar'))){
 		$infoUser = $session->read('infoUser');
 
@@ -146,6 +147,7 @@ function listBookCalendar($input){
 	$modelBed = $controller->loadModel('Beds');
 
 	
+    setVariable('page_view', 'listBookCalendar');
 	if(!empty(checkLoginManager('listBook', 'calendar'))){
 		$infoUser = $session->read('infoUser');
 
@@ -286,6 +288,7 @@ function addBook($input){
 
     $metaTitleMantan = 'Thông tin lịch hẹn';
 
+    setVariable('page_view', 'addBook');
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelBook = $controller->loadModel('Books');
 	$modelService = $controller->loadModel('Services');
@@ -443,6 +446,7 @@ function checkinbetBook($input){
 
     $metaTitleMantan = 'Thông tin lịch hẹn';
 
+    setVariable('page_view', 'checkinbetBook');
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelBook = $controller->loadModel('Books');
 	$modelService = $controller->loadModel('Services');

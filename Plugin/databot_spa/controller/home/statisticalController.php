@@ -6,7 +6,7 @@ function revenueStatistical($input){
     global $session;
 
     
-
+    setVariable('page_view', 'revenueStatistical');
     if(!empty(checkLoginManager('revenueStatistical', 'static'))){
 
     	$metaTitleMantan = 'Thống kê doanh thu';

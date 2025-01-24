@@ -7,7 +7,7 @@ function listRoom($input){
     global $controller;
 
     $metaTitleMantan = 'Danh sách Phòng';
-    
+    setVariable('page_view', 'listRoom');
     if(!empty(checkLoginManager('listRoom', 'room'))){
         $mess = '';
         if(!empty($_GET['error'])){
@@ -63,6 +63,7 @@ function deleteRoom($input){
 
     $metaTitleMantan = 'Xóa phòng';
     
+    setVariable('page_view', 'deleteRoom');
     if(!empty(checkLoginManager('deleteRoom', 'room'))){
         $infoUser = $session->read('infoUser');
         

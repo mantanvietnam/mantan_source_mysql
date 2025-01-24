@@ -8,6 +8,8 @@ function listCampain(){
     global $urlCurrent;
 
     $metaTitleMantan = 'Danh sách chiến dịch';
+
+    setVariable('page_view', 'listCampain');
     
     if(!empty(checkLoginManager('listCampain', 'campain'))){
 
@@ -103,6 +105,8 @@ function addCampain($input){
     global $urlHomes;
 
     $metaTitleMantan = 'Thông tin chiến dịch';
+    
+    setVariable('page_view', 'addCampain');
     
     if(!empty(checkLoginManager('addCampain', 'campain'))){
         $modelMembers = $controller->loadModel('Members');

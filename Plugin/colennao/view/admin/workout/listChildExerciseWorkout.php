@@ -50,6 +50,7 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách động tác tập  </h5>
+     <?php echo @$mess; ?>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -57,6 +58,7 @@
               <th>Hình Ảnh</th>
               <th>tiêu đề động tác tập</th>
               <th>nhóm tập</th>
+              <th>thứ tự</th>
               <th>video</th>
               <th>Hàng động</th> 
         </tr>
@@ -86,6 +88,7 @@
                   <td>'.$item->title . '  </td>
                  
                  <td>'.$group.'</td>
+                 <td>'.$item->sort_order.'</td>
                  <td align="center"><iframe width="200" height="120" src="https://www.youtube.com/embed/'.$item->youtube_code.'?si=emQRmJrVSmDkqipZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                  </td>
                  <td> 

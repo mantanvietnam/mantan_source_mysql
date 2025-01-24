@@ -108,3 +108,8 @@
     width: 100%; 
     text-align: center;
 }
+
+.menu-active{
+  color: #696cff !important;
+  background-color: #eaf8f6 !important;
+}

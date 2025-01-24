@@ -9,7 +9,8 @@ function listStaff($input)
     global $urlCurrent;
      
     $metaTitleMantan = 'Danh sách nhân viên';
-
+    
+    setVariable('page_view', 'listStaff');
     $modelMember = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
 	
@@ -115,6 +116,7 @@ function addStaff($input){
 
     $metaTitleMantan = 'Thông tin nhân viên';
 
+    setVariable('page_view', 'addStaff');
     $modelMembers = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
 	
@@ -242,6 +244,7 @@ function changePassStaff($input){
      
     $metaTitleMantan = 'Danh sách nhóm nhân viên';
 
+    setVariable('page_view', 'changePassStaff');
     $modelMember = $controller->loadModel('Members');
 	
 	$mess = '';
@@ -277,7 +280,8 @@ function listGroupStaff(){
     global $urlCurrent;
      
     $metaTitleMantan = 'Danh sách nhóm nhân viên';
-
+    
+    setVariable('page_view', 'listGroupStaff');
     $modelMember = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
 	$modelMemberGroup = $controller->loadModel('MemberGroups');
@@ -377,6 +381,7 @@ function addGroupStaff($input){
 
     $metaTitleMantan = 'Thông tin Nhóm nhân viên';
 
+    setVariable('page_view', 'addGroupStaff');
     $modelMembers = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
 	$modelMemberGroup = $controller->loadModel('MemberGroups');

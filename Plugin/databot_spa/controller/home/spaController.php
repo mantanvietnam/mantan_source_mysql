@@ -12,6 +12,7 @@ function listSpa($input){
 	
 	$metaTitleMantan = 'Danh sách cơ sở kinh doanh';
 
+    setVariable('page_view', 'listSpa');
 	if(!empty(checkLoginManager('listSpa', 'customer'))){
 
 		$infoUser = $session->read('infoUser');
@@ -112,6 +113,7 @@ function addSpa($input){
 
     $metaTitleMantan = 'Thông tin cơ sở kinh doanh';
 
+    setVariable('page_view', 'addSpa');
 	$modelSpas = $controller->loadModel('Spas');
 	$modelWarehouse = $controller->loadModel('Warehouses');
 

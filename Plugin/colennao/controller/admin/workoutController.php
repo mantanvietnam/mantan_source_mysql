@@ -31,7 +31,15 @@ function listWorkout($input)
     
     $totalUser = $modelWorkout->find()->where($conditions)->all()->toList();
     $paginationMeta = createPaginationMetaData(count($totalUser),$limit,$page); 
-
+    $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+        setVariable('mess', $mess);
     
 
     setVariable('page', $page);
@@ -112,7 +120,7 @@ function addWorkout($input){
                 
 
                 $modelWorkout->save($data);
-                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listWorkout?mess=saveSuccess');
 
                 }else{
                     $mess = '<p class="text-danger">Bạn thiếu dữ liệu</p>';
@@ -165,9 +173,10 @@ function deleteWorkout(){
             $modelExerciseWorkouts->deleteAll($conditions);
             $modelIntermePackageWorkout->deleteAll($conditions);
             $modelWorkout->delete($data);
+            return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listWorkout?mess=deleteSuccess');
         }
     }
-    return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listWorkout');
+    return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listWorkout?mess=deleteError');
 
 
 }
@@ -218,7 +227,15 @@ function listExerciseWorkout($input)
     
     $totalUser = $modelExerciseWorkouts->find()->where($conditions)->all()->toList();
     $paginationMeta = createPaginationMetaData(count($totalUser),$limit,$page); 
-
+    $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+        setVariable('mess', $mess);
     
 
     setVariable('page', $page);
@@ -344,8 +361,7 @@ function addExerciseWorkout($input){
 
                 $modelExerciseWorkouts->save($data);
 
-                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-
+                return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listExerciseWorkout?id_workout='.@$_GET['id_workout'].'&mess=saveSuccess');
             }else{
                     $mess = '<p class="text-danger">Bạn thiếu dữ liệu</p>';
             }
@@ -401,9 +417,12 @@ function deleteExerciseWorkout(){
             $conditions = ['id_exercise'=>$data->id];
             $modelChildExerciseWorkouts->deleteAll($conditions);
             $modelExerciseWorkouts->delete($data);
+
+            return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listExerciseWorkout?id_workout='.@$_GET['id_workout'].'&mess=deleteSuccess');
         }
     }
-    return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listExerciseWorkout?id_workout='.@$_GET['id_workout']);
+    return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listExerciseWorkout?id_workout='.@$_GET['id_workout'].'&mess=deleteError');
+        
 
 
 }
@@ -464,8 +483,16 @@ function listChildExerciseWorkout($input)
     $paginationMeta = createPaginationMetaData(count($totalUser),$limit,$page); 
     if(!empty($dataExercise->group_exercise)){
             $dataExercise->group_exercise = json_decode($dataExercise->group_exercise, true);
-        } 
-
+    } 
+    $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+        setVariable('mess', $mess);
     
 
     setVariable('page', $page);
@@ -569,7 +596,8 @@ function addChildExerciseWorkout($input){
            
 
                 $modelChildExerciseWorkouts->save($data);
-                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                 return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&mess=saveSuccess');
+
 
             }else{
                 $mess= '<p class="text-danger">bạn thiếu dữ liệu</p>';
@@ -624,12 +652,11 @@ function deleteChildExerciseWorkout(){
         $data = $modelChildExerciseWorkouts->find()->where(['id'=>(int) $_GET['id']])->first();
         if($data){
             $modelChildExerciseWorkouts->delete($data);
+            return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&mess=deleteSuccess');
         }
     }
-    return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise']);
+    return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&mess=deleteError');
 
 
 }
-
-
 ?>
