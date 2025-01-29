@@ -36,15 +36,15 @@ CREATE TABLE `admins` (
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `permission` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `type` VARCHAR(255) NOT NULL DEFAULT 'staff',
-  `otp` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `otp` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`, `permission`, `type`) VALUES
-(1, 'admin', '0192023a7bbd73250516f069df18b500', 'Trần Mạnh', 'tranmanhbk179@gmail.com', '[]', 'boss');
+INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`, `permission`, `type`, `otp`) VALUES
+(1, 'admin', '0192023a7bbd73250516f069df18b500', 'Trần Mạnh', 'tranmanhbk179@gmail.com', '[]', 'boss', NULL);
 
 -- --------------------------------------------------------
 

@@ -100,6 +100,7 @@ function getInfoSchoolAPI($input)
             $listPositionTeacherShow[$value->id] = $value->name;
         }
     }
+    $data_value['listPositionTeacher'] = $listPositionTeacherShow;
 
     $data_value['listYear'] = [];
     if(!empty($listYear)){
