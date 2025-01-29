@@ -186,7 +186,7 @@ function createsampleadsAPI($input){
 
        
 
-           $question ='Please respond to the content in Vietnamese.Lets create 5 ads with the content '.@$dataSend['topic'].' Write professional, impressive advertising content';
+           $question ='Please respond to the content in Vietnamese.Lets create '.@$dataSend['quantity'].'  ads with the content '.@$dataSend['topic'].' Write professional, impressive advertising content';
 
            /* if(!empty($dataSend['topic'])){
                 $question .= 'chủ đề về '.$dataSend['topic'];
@@ -202,7 +202,7 @@ function createsampleadsAPI($input){
 
               $reply_ai = callAIphoenixtech($question,$conversation_id);
 
-                             $reply = '<h1>Tạo 5 mẫu quảng cáo sáng tạo dựa trên mẫu cho trước</h1>'.$reply_ai['result'];
+                             $reply = '<h1>Tạo '.@$dataSend['quantity'].' mẫu quảng cáo sáng tạo dựa trên mẫu cho trước</h1>'.$reply_ai['result'];
             $reply_ai['result'] = $reply;
 
 

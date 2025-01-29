@@ -91,12 +91,12 @@
         <table class="table table-bordered">
           <thead>
             <tr class="">
-              <th>ID</th>
+               <th>check in</th>
+              <th>check out</th>
               <th>Khách hàng</th>
               <th>Dịch vụ</th>
               <th>nhân viên</th>
-              <th>check in</th>
-              <th>check out</th>
+              <th>hinh thức</th>
               <th>Trạng thái</th>
             </tr>
           </thead>
@@ -108,11 +108,11 @@
                   
 
                  if($item->status==1){
-                    $status= 'Đang sử dụng';
+                    $status= '<span class="text-success">Đang sử dụng </span>';
                   }elseif($item->status==2){
-                    $status= 'Đã xong';
+                    $status= '<span class="text-info">Đã xong </span>';
                   }elseif($item->status==3){
-                    $status= 'Đã hủy';
+                    $status= '<span class="text-danger">Đã hủy </span>';
                   }
                   $created_at ='';
                   if(!empty($item->created_at)){
@@ -123,13 +123,24 @@
                     $check_out = date("d/m/Y H:i", $item->check_out);
                   }
 
+                  $type = "";
+                  if($item->order->type=="combo"){
+                     $type = '<span class="text-success">combo liệu trình</span>';
+                  }elseif($item->order->type=="service"){
+                    if($item->bill->type_card==1){
+                      $type = '<span class="text-info">Dùng thẻ</span>';
+                    }else{
+                      $type = '<span class="text-danger">trả tiền thật</span>';
+                    }
+                  }
+
                   echo '<tr>
-                          <td>'.$item->id.'</td>
+                          <td>'.$created_at.'</td>
+                          <td>'.$check_out.'</td>
                           <td>'.$item->customer->name.'</td>
                           <td>'.$item->service->name.'</td>
                           <td>'.$item->staff->name.'</td>
-                          <td>'.$created_at.'</td>
-                          <td>'.$check_out.'</td>
+                          <td>'.$type.'</td>
                           <td>'.$status.'</td>
                         </tr>';
                 }

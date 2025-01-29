@@ -25,6 +25,7 @@ $sqlInstallDatabase .= "CREATE TABLE `request_datacrms` (
     `user_db` VARCHAR(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
     `pass_db` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
     `password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+    `status_boos` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
     PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ";
 

@@ -1404,4 +1404,8 @@ function transactioncMoneyAPI($input){
     }
      return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function configAPI(){
+    return apiResponse(1, 'Lấy dữ liệu thành công', getBankAccount());
+}
 ?>

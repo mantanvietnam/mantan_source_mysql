@@ -529,25 +529,44 @@ function lockMemberAPI($input)
 			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
-				if($checkPhone->type=='member'){
+				if(!empty($checkPhone->id_father)){
+					if($checkPhone->type=='member'){
+						$checkUser = $modelMember->find()->where(['id'=>$checkPhone->id])->first();
+						if(!empty($checkUser)){
+							$checkUser->token = '';
+							$checkUser->status = 'lock';
+							$checkUser->token_device = null;
+							$modelMember->save($checkUser);
+						}
+					}elseif($checkPhone->type=='staff'){
+						$checkUser = $modelStaff->find()->where(['id'=>$checkPhone->id_staff])->first();
+						if(!empty($checkUser)){
+							$checkUser->token = '';
+							$checkUser->status = 'lock';
+							$checkUser->token_device = null;
+							$modelStaff->save($checkUser);
+						}
+					}
+					
+					$return = array('code'=>0,
+									'mess'=> 'Tài khoản xóa thành công'
+				);
+				}else{
 					$checkUser = $modelMember->find()->where(['id'=>$checkPhone->id])->first();
-					if(!empty($checkUser)){
-						$checkUser->token = '';
-						$checkUser->status = 'lock';
-						$checkUser->token_device = null;
-						$modelMember->save($checkUser);
-					}
-				}elseif($checkPhone->type=='staff'){
-					$checkUser = $modelStaff->find()->where(['id'=>$checkPhone->id_staff])->first();
-					if(!empty($checkUser)){
-						$checkUser->token = '';
-						$checkUser->status = 'lock';
-						$checkUser->token_device = null;
-						$modelStaff->save($checkUser);
-					}
+						if(!empty($checkUser)){
+							$checkUser->token = '';
+							$checkUser->status = 'lock';
+							$checkUser->token_device = null;
+							$modelMember->save($checkUser);
+
+
+							$dataPost= array('phone'=>@$checkUser->phone);
+	        				$listData= sendDataConnectMantan('https://icham.vn/apis/lockMemberAPI', $dataPost);
+	        				$listData= str_replace('ï»¿', '', utf8_encode($listData));
+	        				return json_decode($listData, true);
+							
+						}
 				}
-				
-				$return = array('code'=>0);
 			}else{
 				$return = array('code'=>3,
 								'mess'=> 'Tài khoản không tồn tại hoặc sai token'

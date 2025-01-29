@@ -1767,6 +1767,7 @@ function listUserserviceHistories(){
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
+        $modelDebt = $controller->loadModel('Debts');
         $modelAgency = $controller->loadModel('Agencys');
         $modelCustomer = $controller->loadModel('Customers');
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
@@ -1809,9 +1810,8 @@ function listUserserviceHistories(){
             foreach($listData as $key => $item){
               $listData[$key]->customer = $modelCustomer->find()->where(['id'=>$item->id_customer])->first();
               $listData[$key]->service = $modelService->find()->where(['id'=>$item->id_services])->first();
-              $listData[$key]->$order = $modelOrder->find()->where(['id'=>$item->id_order])->first();
-              $listData[$key]->$bill = $modelOrder->find()->where(['id_order'=>$item->id_order])->first();
-              $listData[$key]->$debt = $modelOrder->find()->where(['id_order'=>$item->id_order])->first();
+              $listData[$key]->order = $modelOrder->find()->where(['id'=>$item->id_order])->first();
+              $listData[$key]->bill = $modelBill->find()->where(['id_order'=>$item->id_order])->first();
               $listData[$key]->staff = $modelMembers->find()->where(['id'=>$item->id_staff])->first();
             }
         }

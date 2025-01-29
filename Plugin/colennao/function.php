@@ -21,7 +21,7 @@ $menus[0]['sub'][0] = array(
                             'classIcon' => 'bx bx-cog',
                             'permission' => 'listUserAdmin',
                     );
-$menus[0]['sub'][]= array( 'title'=>'Cài đặt hoa hồng',
+$menus[0]['sub'][]= array( 'title'=>'Cài đặt thông số',
                             'url'=>'/plugins/admin/colennao-view-admin-seting-setingBankAccount',
                             'classIcon'=>'bx bxs-bank',
                             'permission'=>'setingBankAccount'

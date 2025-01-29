@@ -70,18 +70,19 @@
                   
                         <div>
                           <div class="mb-3">
-                            <label for="text" class="form-label">Chủ đề bạn muốn tạo 5 mẫu quảng cáo </label>
+                            <label for="text" class="form-label">Chủ đề bạn muốn tạo  mẫu quảng cáo </label>
                             <textarea type="text" placeholder="VD: Giáo viên..." class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
-
+                         
                           <input class="form-check-input"  type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
                           </div>
                         </div>
-                        <!-- <div>
+                        <div>
                           <div class="mb-3">
-                            <label for="text" class="form-label">hướng dẫn</label>
-                            <textarea type="text" placeholder="nhập mẫu quảng cáo bạn muốn sao chép" class="form-control" id="customer_target" name="customer_target" rows="2" cols="30"></textarea>
+                            <label for="text" class="form-label">số lượng</label>
+                            <input type="text" placeholder="nhập số lượng bài viết" class="form-control" id="quantity" name="quantity" >
+                             <div id="mydata" style=" display: none; align-items: center;" ><div style="display: flex; flex-direction: column; justify-content: left;"><p class="MuiTypography-root MuiTypography-body1" style="font-size: 14px; color: red;">Thiếu dữ liệu</p></div></div>
                           </div>
-                        </div> -->
+                        </div>
                       <button type="button" class="button-arcordian" onclick="sendquestion()" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
@@ -233,13 +234,17 @@ showAiThinking.addEventListener('click', () => {
 <script type="text/javascript">
 
     function sendquestion(){
-       aiThinking.classList.remove('d-none'); 
         var topic = $('#topic').val();
+        var quantity = $('#quantity').val();
+
+         if(topic!='' && quantity!=''){
+       aiThinking.classList.remove('d-none'); 
         console.log(topic);
         $.ajax({
           method: "POST",
           url: "/apis/createsampleadsAPI",
-          data: {topic: topic, 
+          data: {topic: topic,
+                quantity:quantity, 
         }
     }).done(function( msg ) {
            aiThinking.classList.add('d-none'); 
@@ -247,9 +252,19 @@ showAiThinking.addEventListener('click', () => {
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
                 document.getElementById("result").value = msg.data.result;
                 CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
-                saveContentimageBlog()
+                saveContentimageBlog();
             }
         })
+      }else{
+         document.getElementById("mydata").style.display = 'block';
+                var mydata = document.getElementById('mydata');
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    mydata.style.display = 'none';
+                }
+                // Đặt hẹn giờ để id="showAiThinking" Tạo nội dung thay đổi sau 10 giây
+                setTimeout(changeCSS, 5000);
+      }
 
     }
 

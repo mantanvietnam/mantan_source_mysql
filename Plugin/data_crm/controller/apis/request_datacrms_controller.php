@@ -231,4 +231,42 @@ function updatePHPVersionAPI($input)
 
     return $return;
 }
+
+function lockMemberAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelRequestDatacrms = $controller->loadModel('RequestDatacrms');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['phone'])){
+			$checkPhone = $modelRequestDatacrms->find()->where(['boss_phone'=>$dataSend['phone']])->first();
+
+			if(!empty($checkPhone)){
+				$checkPhone->status_boos = 'lock';
+
+				$modelRequestDatacrms->save($checkPhone);
+				$return = array('code'=>0,
+								'mess'=> 'Tài khoản khóa thành công'
+			);
+			}else{
+				$return = array('code'=>3,
+								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
+							);
+			}
+		}else{
+			$return = array('code'=>2,
+							'mess'=> 'Gửi thiếu dữ liệu'
+						);
+		}
+	}
+
+	return $return;
+}
 ?>
