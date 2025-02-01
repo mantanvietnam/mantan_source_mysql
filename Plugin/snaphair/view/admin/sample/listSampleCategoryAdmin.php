@@ -29,7 +29,7 @@
                                             <td>' . $item->id . '</td>
                                             <td>' . $item->name . '</td>
                                             <td align="center">
-                                                <a class="dropdown-item" href="javascript:void(0);" onclick="editData(' . $item->id . ', ' . $item->name . ');">
+                                                <a class="dropdown-item" href="javascript:void(0);" onclick="editData(' . $item->id . ', \'' . addslashes($item->name) . '\');">
                                                     <i class="bx bx-edit-alt me-1"></i>
                                                 </a>
                                             </td>
@@ -73,6 +73,7 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     function editData(id, name) {
         $('#idCategoryEdit').val(id);

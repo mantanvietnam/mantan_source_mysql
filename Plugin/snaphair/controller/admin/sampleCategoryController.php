@@ -1,7 +1,7 @@
 <?php 
 
 function listSampleCategoryAdmin($input) {
-    global $modelCategory;
+    global $modelCategories;
     global $metaTitleMantan;
     global $controller;
     global $session;
@@ -10,55 +10,54 @@ function listSampleCategoryAdmin($input) {
     $metaTitleMantan = 'Quản lý danh mục';
     $mess = '';
 
-    $modelCategory = $controller->loadModel('SampleCategory');
-    // Không cần kiểm tra quyền ở đây
-    // $user = checklogin('listSampleCategory');
-
-    // Xử lý thêm hoặc sửa danh mục
     if ($isRequestPost) {
-        // $checkuser = checklogin('editSampleCategory'); 
-        // if (!empty($checkuser->grant_permission)) {
-        $dataSend = $input['request']->getData(); // Lấy dữ liệu từ request
+        $dataSend = $input['request']->getData();
 
-        if (!empty($dataSend['idCategoryEdit'])) {
-            $infoCategory = $modelCategory->get((int)$dataSend['idCategoryEdit']);
-        } else {
-            $infoCategory = $modelCategory->newEmptyEntity();
-        }
+            if (!empty($dataSend['idCategoryEdit'])) {
+                $infoCategory = $modelCategories->get((int)$dataSend['idCategoryEdit']);
+            } else {
+                $infoCategory = $modelCategories->newEmptyEntity();
+            }
 
-        $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $infoCategory->parent = 0;
+            $infoCategory->image = NULL;
+            $infoCategory->status = NULL;
+            $infoCategory->keyword = NULL;
+            $infoCategory->description =  NULL;
+            $infoCategory->type = 'sample_category';
+            
+            // tạo slug
+            $slug = createSlugMantan($infoCategory->name);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew,'type'=>'sample_category');
+                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-        $modelCategory->save($infoCategory);
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
 
-        // Ghi chú và lịch sử bị tắt
-        // if (!empty($dataSend['idCategoryEdit'])) {
-        //     $note = $user->name . ' sửa danh mục ' . $infoCategory->name . ' (ID: ' . $infoCategory->id . ')';
-        // } else {
-        //     $note = $user->name . ' thêm mới danh mục ' . $infoCategory->name . ' (ID: ' . $infoCategory->id . ')';
-        // }
-
-        // addActivityHistory($user, $note, 'listCategory', $infoCategory->id);
-        $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
-        // } else {
-        //     $mess = '<p class="text-danger">Bạn không có quyền thêm hoặc sửa</p>';
-        // }
+            $infoCategory->slug = $slugNew;
+            $modelCategories->save($infoCategory);
+            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
     }
 
-    // Lấy danh sách danh mục
-    $listData = $modelCategory->find()->all()->toList();
+        $conditions = ['type' => 'sample_category'];
+        $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
-    setVariable('listData', $listData);
-    setVariable('mess', $mess);
-    // Không cần kiểm tra đăng nhập ở đây
-    // } else {
-    //     return $controller->redirect('/login');
-    // }
+        setVariable('listData', $listData);
+        setVariable('mess', $mess);
 }
 
 function deleteCategory($input) {  
     global $isRequestPost;
     global $metaTitleMantan;
     global $controller;
+    global $modelCategories;
 
     $metaTitleMantan = 'Xóa danh mục';
     
@@ -69,19 +68,18 @@ function deleteCategory($input) {
     //         return $controller->redirect('/');
     //     }
 
-    $modelCategory = $controller->loadModel('SampleCategory');
 
     if (!empty($_GET['id'])) {
         $conditions = array('id' => $_GET['id']);
         
-        $category = $modelCategory->find()->where($conditions)->first();
+        $category = $modelCategories->find()->where($conditions)->first();
 
         if (!empty($category)) {
             // Ghi chú và lịch sử bị tắt
             // $note = $user->name . ' xóa danh mục ' . $category->name . ' (ID: ' . $category->id . ')';
             // addActivityHistory($user, $note, 'deleteCategory', $category->id);
 
-            $modelCategory->delete($category);
+            $modelCategories->delete($category);
 
             return $controller->redirect('/plugins/admin/snaphair-view-admin-sample-listSampleCategoryAdmin?error=requestDeleteSuccess');
         }

@@ -9,6 +9,7 @@
 
    include('controller/api/userController.php');
    include('controller/api/transactionController.php');
+   include('controller/api/samplePhotoController.php');
 
    
  ?>

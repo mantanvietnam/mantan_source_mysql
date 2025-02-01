@@ -4,12 +4,13 @@ function listSamplePhotoAdmin($input){
     global $controller;
     global $urlCurrent;
     global $metaTitleMantan;
+    global $modelCategories;
 
     $metaTitleMantan = 'Danh sách ảnh mẫu';
 
     $modelSamplePhoto = $controller->loadModel('SamplePhoto');
-    $modelSampleCategory = $controller->loadModel('SampleCategory');
-    $sampleCategories = $modelSampleCategory->find()->all()->toList();
+    $conditions = ['type' => 'sample_category'];
+    $sampleCategories = $modelCategories->find()->where($conditions)->all()->toList();
 
     $conditions = array();
     $limit = 20;
@@ -95,20 +96,20 @@ function listSamplePhotoAdmin($input){
     setVariable('sampleCategories', $sampleCategories);
 }
 
-
 function editSamplePhotoAdmin($input)
 {
     global $controller;
     global $metaTitleMantan;
     global $isRequestPost;
+    global $modelCategories;
 
     $modelSamplePhoto = $controller->loadModel('SamplePhoto');
-    $modelSampleCategory = $controller->loadModel('SampleCategory');
 
     $metaTitleMantan = 'Thông tin ảnh mẫu';
     $mess = '';
 
-    $sampleCategories = $modelSampleCategory->find()->all()->toList();
+    $conditions = ['type' => 'sample_category'];
+    $sampleCategories = $modelCategories->find()->where($conditions)->all()->toList();
 
     if (!empty($_GET['id'])) {
         $data = $modelSamplePhoto->find()
@@ -127,6 +128,21 @@ function editSamplePhotoAdmin($input)
             $data->sex = $dataSend['sex'] ?? 1;
             $data->color = $dataSend['color'] ?? null;
             $data->image = $dataSend['image'];
+            // tạo slug
+            $slug = createSlugMantan($data->name);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew,'type'=>'sample_category');
+                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+
+            $data->slug = $slugNew;
 
             if ($modelSamplePhoto->save($data)) {
                 return $controller->redirect('/plugins/admin/snaphair-view-admin-sample-listSamplePhotoAdmin?mess=saveSuccess');
