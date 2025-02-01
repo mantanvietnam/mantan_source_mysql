@@ -8,7 +8,7 @@ function setttingZaloOA($input)
     global $session;
     global $urlHomes;
 
-     $user = checklogin('setttingZaloOA');   
+    $user = checklogin('setttingZaloOA');   
     if(!empty($user)){
         if(empty($user->grant_permission) && !empty($user->id_father)){
             return $controller->redirect('/');
@@ -36,7 +36,7 @@ function setttingZaloOA($input)
 		        $data->secret_key = trim($dataSend['secret_key']);
 		        $data->template_otp = (int) $dataSend['template_otp'];
 		        $data->template_order = (int) $dataSend['template_order'];
-		        $data->id_system = $infoUser->id_system;
+		        $data->id_system = $user->id_system;
 
 		        $modelZalos->save($data);
 
@@ -91,7 +91,7 @@ function sendMessZaloFollow($input)
     $modelTransactionHistories = $controller->loadModel('TransactionHistories');
     $modelMembers = $controller->loadModel('Members');
 
-     $user = checklogin('sendMessZaloFollow');   
+    $user = checklogin('sendMessZaloFollow');   
     if(!empty($user)){
         if(empty($user->grant_permission) && !empty($user->id_father)){
             return $controller->redirect('/');
