@@ -123,4 +123,226 @@ function saveSampleCategoryApi($input)
     return apiResponse(0, 'Yêu cầu không hợp lệ. Vui lòng sử dụng phương thức POST.');
 }
 
+function deleteSampleCategoryApi($input)
+{
+    global $modelCategories;
+    global $isRequestPost;
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['access_token']) && !empty($dataSend['id'])) {
+            if (function_exists('getUserByToken')) {
+                $user = getUserByToken($dataSend['access_token']);
+            }
+
+            if (!empty($user)) {
+                $category = $modelCategories->find()->where(['id' => (int)$dataSend['id']])->first();
+
+                if ($category) {
+                    if ($modelCategories->delete($category)) {
+                        return apiResponse(1, 'Xóa danh mục thành công', ['id' => $dataSend['id']]);
+                    } else {
+                        return apiResponse(4, 'Lỗi khi xóa danh mục');
+                    }
+                } else {
+                    return apiResponse(3, 'Không tìm thấy danh mục với ID đã cung cấp');
+                }
+            }
+            return apiResponse(5, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+        return apiResponse(6, 'Thiếu dữ liệu bắt buộc: access_token hoặc id');
+    }
+    return apiResponse(0, 'Yêu cầu không hợp lệ. Vui lòng sử dụng phương thức POST.');
+}
+
+function listSamplePhotoApi($input)
+{
+    global $controller;
+    global $modelCategories;
+    global $isRequestPost;
+
+    $modelSamplePhoto = $controller->loadModel('SamplePhoto');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['access_token'])) {
+            if (function_exists('getUserByToken')) {
+                $user = getUserByToken($dataSend['access_token']);
+            }
+
+            if (!empty($user)) {
+                $conditions = [];
+                $limit = !empty($dataSend['limit']) ? (int)$dataSend['limit'] : 20;
+                $page = !empty($dataSend['page']) ? (int)$dataSend['page'] : 1;
+                $page = max(1, $page);
+                $order = ['id' => 'desc'];
+
+                if (!empty($dataSend['id'])) {
+                    $conditions['id'] = (int)$dataSend['id'];
+                }
+                if (!empty($dataSend['name_cate'])) {
+                    $category = $modelCategories->find()
+                        ->where(['name LIKE' => '%' . $dataSend['name_cate'] . '%'])
+                        ->first();
+
+                    if ($category) {
+                        $conditions['id_sample_cate'] = $category->id;
+                    } else {
+                        return apiResponse(4, 'Không tìm thấy danh mục với tên đã cung cấp');
+                    }
+                }
+                if (!empty($dataSend['name'])) {
+                    $conditions['name LIKE'] = '%' . $dataSend['name'] . '%';
+                }
+                if (!empty($dataSend['color'])) {
+                    $conditions['color LIKE'] = '%' . $dataSend['color'] . '%';
+                }
+                if (isset($dataSend['sex'])) {
+                    $conditions['sex'] = $dataSend['sex'];
+                }
+
+                $listData = $modelSamplePhoto->find()
+                    ->limit($limit)
+                    ->page($page)
+                    ->where($conditions)
+                    ->order($order)
+                    ->all()
+                    ->toList();
+
+                foreach ($listData as &$item) {
+                    if (!empty($item['id_sample_cate'])) {
+                        $category = $modelCategories->find()
+                            ->where(['id' => $item['id_sample_cate']])
+                            ->first();
+                        $item['name_cate'] = $category ? $category->name : null;
+                    } else {
+                        $item['name_cate'] = null;
+                    }
+                }
+
+                $totalData = $modelSamplePhoto->find()->where($conditions)->count();
+                $totalPage = ceil($totalData / $limit);
+
+                return apiResponse(1, 'Lấy danh sách ảnh mẫu thành công', [
+                    'data' => $listData,
+                    'pagination' => [
+                        'current_page' => $page,
+                        'total_pages' => $totalPage,
+                        'total_items' => $totalData,
+                        'limit' => $limit
+                    ]
+                ]);
+            }
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+        return apiResponse(2, 'Thiếu access_token');
+    }
+    return apiResponse(0, 'Yêu cầu không hợp lệ. Vui lòng sử dụng phương thức POST.');
+}
+
+function saveSamplePhotoApi($input)
+{
+    global $controller;
+    global $modelCategories;
+    global $isRequestPost;
+
+    $modelSamplePhoto = $controller->loadModel('SamplePhoto');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['access_token'])) {
+            if (function_exists('getUserByToken')) {
+                $user = getUserByToken($dataSend['access_token']);
+            }
+
+            if (!empty($user)) {
+                if (!empty($dataSend['name']) && !empty($dataSend['image'])) {
+                    $data = [];
+
+                    if (!empty($dataSend['id'])) {
+                        $data = $modelSamplePhoto->get((int)$dataSend['id']);
+                        if (empty($data)) {
+                            return apiResponse(4, 'Không tìm thấy ảnh mẫu cần sửa');
+                        }
+                    } else {
+                        $data = $modelSamplePhoto->newEmptyEntity();
+                    }
+
+                    $data->name = $dataSend['name'];
+                    $data->image = $dataSend['image'];
+                    $data->color = !empty($dataSend['color']) ? $dataSend['color'] : null;
+                    $data->sex = isset($dataSend['sex']) ? $dataSend['sex'] : null;
+                    $data->id_sample_cate = $dataSend['id_sample_cate'] ?? 0;
+                    $slug = createSlugMantan($data->name);
+                    $slugNew = $slug;
+                    $number = 0;
+                    do{
+                        $conditions = array('slug'=>$slugNew);
+                        $listData = $modelSamplePhoto->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+        
+                        if(!empty($listData)){
+                            $number++;
+                            $slugNew = $slug.'-'.$number;
+                        }
+                    }while (!empty($listData));
+        
+                    $data->slug = $slugNew;
+                   
+                    if ($modelSamplePhoto->save($data)) {
+                        $message = !empty($dataSend['id']) ? 'Cập nhật ảnh mẫu thành công' : 'Thêm ảnh mẫu mới thành công';
+                        return apiResponse(1, $message, ['id' => $data->id]);
+                    } else {
+                        return apiResponse(6, 'Lưu dữ liệu không thành công. Vui lòng thử lại.');
+                    }
+                } else {
+                    return apiResponse(3, 'Thiếu dữ liệu bắt buộc (name hoặc image_url)');
+                }
+            }
+            return apiResponse(2, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+        return apiResponse(0, 'Thiếu access_token');
+    }
+    return apiResponse(-1, 'Yêu cầu không hợp lệ. Vui lòng sử dụng phương thức POST.');
+}
+
+function deleteSamplePhotoApi($input)
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelSamplePhoto = $controller->loadModel('SamplePhoto');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['access_token'])) {
+            if (function_exists('getUserByToken')) {
+                $user = getUserByToken($dataSend['access_token']);
+            }
+
+            if (!empty($user)) {
+                if (!empty($dataSend['id'])) {
+                    $photo = $modelSamplePhoto->find()->where(['id' => (int)$dataSend['id']])->first();
+
+                    if ($photo) {
+                        if ($modelSamplePhoto->delete($photo)) {
+                            return apiResponse(1, 'Xóa ảnh mẫu thành công', ['id' => $dataSend['id']]);
+                        } else {
+                            return apiResponse(4, 'Lỗi khi xóa ảnh mẫu');
+                        }
+                    } else {
+                        return apiResponse(3, 'Không tìm thấy ảnh mẫu với ID đã cung cấp');
+                    }
+                } else {
+                    return apiResponse(6, 'Thiếu ID của ảnh mẫu cần xóa');
+                }
+            }
+            return apiResponse(2, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+        return apiResponse(0, 'Thiếu access_token');
+    }
+    return apiResponse(-1, 'Yêu cầu không hợp lệ. Vui lòng sử dụng phương thức POST.');
+}
 

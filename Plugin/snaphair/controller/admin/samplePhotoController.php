@@ -133,7 +133,7 @@ function editSamplePhotoAdmin($input)
             $slugNew = $slug;
             $number = 0;
             do{
-                $conditions = array('slug'=>$slugNew,'type'=>'sample_category');
+                $conditions = array('slug'=>$slugNew);
                 $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
                 if(!empty($listData)){
