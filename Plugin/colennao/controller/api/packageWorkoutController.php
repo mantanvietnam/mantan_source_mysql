@@ -701,6 +701,7 @@ function getUserExerciseWorkoutAPI($input){
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
     $modelAreas = $controller->loadModel('Areas');
     $modelDevices = $controller->loadModel('Devices');
+    $modelCategoryConnect = $controller->loadModel('CategoryConnects');
 
     if($isRequestPost){
     	$dataSend = $input['request']->getData();	
@@ -722,10 +723,13 @@ function getUserExerciseWorkoutAPI($input){
                     if(!empty($data->group_exercise)){
                     	$group = json_decode($data->group_exercise, true);
                     	foreach($group as $key => $item){
-								$exercise = $modelChildExerciseWorkouts->find()->where(['id_exercise'=>$data->id, 'id_group'=>$item['id']])->order(['sort_order'=>'ASC','id'=>'ASC'])->all()->toList();
+                    			$checkContent = $modelCategoryConnect->find()->where(['keyword'=>'child_exercise', 'id_category'=>@$data->id, 'id_group'=>$item['id']])->order(['sort_order'=>'ASC','id'=>'ASC'])->all()->toList();
+								$exercise = [];
+								// = $modelChildExerciseWorkouts->find()->where(['id_exercise'=>$data->id, 'id_group'=>$item['id']])->order(['sort_order'=>'ASC','id'=>'ASC'])->all()->toList();
 
-								if(!empty($exercise)){
-									foreach($exercise as $k => $value){
+								if(!empty($checkContent)){
+									foreach($checkContent as $k => $child){
+										 $value = $modelChildExerciseWorkouts->find()->where(['id'=>$child->id_parent])->first();
 										if(!empty($value->device)){
                                         $value->device = json_decode($value->device, true);
 											if(!empty($value->device)){
@@ -853,4 +857,56 @@ function getUserChildExerciseWorkoutAPI($input){
 	 return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 
 }
+
+function searchChildExerciseWorkoutAPI() {
+    global $isRequestPost;
+    global $controller;
+    global $modelCategories;
+
+    $return = array();
+    
+    $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
+
+    $dataSend = $_REQUEST;
+
+    $conditions = [];
+
+    if (!empty($dataSend['term'])) {
+        $conditions['OR'] = [
+            'title LIKE' => '%' . $dataSend['term'] . '%', 
+            'code LIKE' => '%' . $dataSend['term'] . '%'
+        ];
+    }
+
+   
+
+    $listData = $modelChildExerciseWorkouts->find()->where($conditions)->all()->toList();
+
+    if ($listData) {
+        foreach ($listData as $data) {
+           	
+            $return[] = array(
+                'label' => $data->title . ' (' . $data->code . ')',
+                'id' => $data->id,
+                'value' => $data->id,
+                'title' => $data->title,
+                'code' => $data->code,
+                'title_en' => $data->title_en,
+                'image' => $data->image,
+                'youtube_code' => $data->youtube_code,
+                'image' => $data->image,
+            );
+        }
+    } else {
+        $return = array(array(
+            'id' => 0, 
+            'label' => 'Không tìm thấy dữ liệu', 
+            'value' => '', 
+        ));
+    }
+
+    return $return;
+}
 ?>
+
+

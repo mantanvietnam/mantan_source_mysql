@@ -52,6 +52,10 @@
                               <input required type="text" class="form-control phone-mask" placeholder="Tiêu đề tiếng Anh" name="title_en" id="title_en" value="<?php echo @$data->title_en;?>" />
                             </div>
                             <div class="mb-3">
+                              <label class="form-label">Mã ID(*)</label>
+                              <input type="text" class="form-control phone-mask" name="code" id="code" value="<?php echo @$data->code;?>"  />
+                          </div>
+                          <div class="mb-3">
                               <label class="form-label">Mã Youtube(*)</label>
                               <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>"  />
                           </div>

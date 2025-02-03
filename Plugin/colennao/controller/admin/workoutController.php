@@ -185,11 +185,13 @@ function deleteWorkout(){
 function listExerciseWorkout($input)
 {
     global $controller;
+    global $controller;
     global $metaTitleMantan;
 
     $metaTitleMantan = 'Danh sách bài luyện tập';
     $modelWorkout = $controller->loadModel('Workouts');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
+    $modelCategoryConnect = $controller->loadModel('CategoryConnects');
     $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
 
     $conditions = array();
@@ -221,7 +223,7 @@ function listExerciseWorkout($input)
     $listData = $modelExerciseWorkouts->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
     if(!empty($listData)){
         foreach($listData as $key => $item){
-            $listData[$key]->total_child = count($modelChildExerciseWorkouts->find()->where(['id_exercise'=>$item->id])->all()->toList());
+            $listData[$key]->total_child = $modelCategoryConnect->find()->where(['id_category'=>$item->id, 'keyword'=>'child_exercise'])->count();
         }
     }
     
@@ -436,8 +438,9 @@ function listChildExerciseWorkout($input)
     $modelWorkout = $controller->loadModel('Workouts');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
     $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
+    $modelCategoryConnect = $controller->loadModel('CategoryConnects');
 
-    $conditions = array();
+    $conditions = array('cc.keyword'=>'child_exercise');
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
     if ($page < 1) $page = 1;
@@ -459,8 +462,9 @@ function listChildExerciseWorkout($input)
     }
 
 
+
     if(!empty($_GET['id_exercise'])) {
-        $conditions['id_exercise'] =(int) $_GET['id_exercise'];
+        $conditions['cc.id_category'] =(int) $_GET['id_exercise'];
 
         $dataExercise = $modelExerciseWorkouts->find()->where(['id'=>$_GET['id_exercise']])->first();
 
@@ -472,14 +476,39 @@ function listChildExerciseWorkout($input)
     }
 
     if (!empty($_GET['title'])) {
-        $conditions['title LIKE'] = '%' . $_GET['title'] . '%';
+        $conditions['ChildExerciseWorkouts.title LIKE'] = '%' . $_GET['title'] . '%';
     }
 
-    
-    $listData = $modelChildExerciseWorkouts->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
-    
-    
-    $totalUser = $modelChildExerciseWorkouts->find()->where($conditions)->all()->toList();
+    $join =[
+        'table' => 'category_connects',
+            'alias' => 'cc',
+            'type' => 'INNER',
+            'conditions' => 'cc.id_parent = ChildExerciseWorkouts.id',
+
+    ];
+
+    $select = ['ChildExerciseWorkouts.id',
+        'ChildExerciseWorkouts.title',
+        'ChildExerciseWorkouts.image',
+        'ChildExerciseWorkouts.time',
+        'ChildExerciseWorkouts.device',
+        'ChildExerciseWorkouts.description',
+        'ChildExerciseWorkouts.content', 
+        'ChildExerciseWorkouts.youtube_code',
+        'ChildExerciseWorkouts.id_exercise',
+        'cc.id_group',
+        'ChildExerciseWorkouts.title_en',
+        'ChildExerciseWorkouts.description_en',
+        'ChildExerciseWorkouts.content_en',
+        'ChildExerciseWorkouts.time_reverse',
+        'cc.sort_order',    
+            ];
+
+    $listData = $modelChildExerciseWorkouts->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->order(['cc.sort_order'=>'ASC'])->all()->toList();
+
+  
+
+    $totalUser = $modelChildExerciseWorkouts->find()->join($join)->where($conditions)->all()->toList();
     $paginationMeta = createPaginationMetaData(count($totalUser),$limit,$page); 
     if(!empty($dataExercise->group_exercise)){
             $dataExercise->group_exercise = json_decode($dataExercise->group_exercise, true);
@@ -520,6 +549,7 @@ function addChildExerciseWorkout($input){
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
     $modelDevices = $controller->loadModel('Devices');
     $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
+    $modelCategoryConnect = $controller->loadModel('CategoryConnects');
 
 
     if(!empty($_GET['id_workout'])) {
@@ -549,11 +579,15 @@ function addChildExerciseWorkout($input){
         // lấy data edit
         if(!empty($_GET['id'])){
             $data = $modelChildExerciseWorkouts->get( (int) $_GET['id']);
-
+            $checkContent = $modelCategoryConnect->find()->where(['keyword'=>'child_exercise', 'id_parent'=>(int) $_GET['id'], 'id_category'=>$dataExercise->id])->first();
+        
         }else{
+        
             $data = $modelChildExerciseWorkouts->newEmptyEntity();
             $data->created_at = time();
         }
+
+
 
 
         if ($isRequestPost) {
@@ -582,21 +616,33 @@ function addChildExerciseWorkout($input){
                 $data->title_en = @$dataSend['title_en'];
                 $data->time =(int) @$dataSend['time'];
                 $data->description = @$dataSend['description'];
+                $data->code = @$dataSend['code'];
                 $data->description_en = @$dataSend['description_en'];
                 $data->youtube_code = @$dataSend['youtube_code'];
                 $data->content = @$dataSend['content'];
                 $data->content_en = @$dataSend['content_en'];
-                $data->id_group =(int) @$dataSend['id_group'];
-                $data->sort_order =(int) @$dataSend['sort_order'];
+                //$data->id_group =(int) @$dataSend['id_group'];
+                //$data->sort_order =(int) @$dataSend['sort_order'];
                 $data->device = json_encode(@$dataSend['device']);
                 $data->time_reverse =(int)@$dataSend['time_reverse'];
                 $data->group_exercise = json_encode(@$group_exercise);
-                $data->id_exercise = @$dataExercise->id;  
-
-           
+               // $data->id_exercise = @$dataExercise->id;  
 
                 $modelChildExerciseWorkouts->save($data);
-                 return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&mess=saveSuccess');
+
+                if(empty($checkContent)){
+                    $checkContent = $modelCategoryConnect->newEmptyEntity();
+                    $checkContent->keyword = 'child_exercise';
+                    $checkContent->id_category = $dataExercise->id;
+                    $checkContent->id_parent = $data->id;
+                }
+                $checkContent->id_group = (int) @$dataSend['id_group'];
+                $checkContent->sort_order = (int) @$dataSend['sort_order'];
+
+                $modelCategoryConnect->save($checkContent);
+
+
+                return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&mess=saveSuccess');
 
 
             }else{
@@ -610,21 +656,21 @@ function addChildExerciseWorkout($input){
             $data->device = json_decode($data->device, true);
         }
 
+        if(!empty($checkContent)){
+            $data->id_group =$checkContent->id_group;
+            $data->sort_order =$checkContent->sort_order;
+        }
+
         if(!empty($dataExercise->device)){
             $dataExercise->device = json_decode($dataExercise->device, true);
         }
 
         if(!empty($dataExercise->group_exercise)){
             $dataExercise->group_exercise = json_decode($dataExercise->group_exercise, true);
-        } 
+        }
 
-
-
-         $conditions = array();
+        $conditions = array();
         $listdevice = $modelDevices->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
-        
-        // debug($data);
-        // die();
 
         setVariable('mess', $mess);
         setVariable('data', $data);         
@@ -646,12 +692,13 @@ function deleteChildExerciseWorkout(){
     
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
     $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
+    $modelCategoryConnect = $controller->loadModel('CategoryConnects');
 
 
     if(!empty($_GET['id'])){
-        $data = $modelChildExerciseWorkouts->find()->where(['id'=>(int) $_GET['id']])->first();
-        if($data){
-            $modelChildExerciseWorkouts->delete($data);
+          $checkContent = $modelCategoryConnect->find()->where(['keyword'=>'child_exercise', 'id_parent'=>(int) $_GET['id'], 'id_category'=>(int) $_GET['id_exercise']])->first();
+        if(!empty($checkContent)){
+            $modelCategoryConnect->delete($checkContent);
             return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&mess=deleteSuccess');
         }
     }
@@ -659,4 +706,95 @@ function deleteChildExerciseWorkout(){
 
 
 }
+
+
+function copyChildExerciseWorkout($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+
+    $metaTitleMantan = 'Thông tin bài luyện tập';
+
+    $modelWorkout = $controller->loadModel('Workouts');
+    $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
+    $modelDevices = $controller->loadModel('Devices');
+    $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
+    $modelCategoryConnect = $controller->loadModel('CategoryConnects');
+
+
+    if(!empty($_GET['id_workout'])) {
+
+        $dataWorkout = $modelWorkout->find()->where(['id'=>(int)$_GET['id_workout']])->first();
+
+            if(empty($dataWorkout)){
+                return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listWorkout');
+            }
+    }else{
+         return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listWorkout');
+    }
+    $mess= '';
+
+    if(!empty($_GET['id_exercise'])) {
+
+        $dataExercise = $modelExerciseWorkouts->find()->where(['id'=>(int)$_GET['id_exercise']])->first();
+
+            if(empty($dataExercise)){
+                return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listExerciseWorkout?id_workout='.$_GET['id_workout']);
+            }
+    }else{
+         return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listExerciseWorkout?id_workout='.$_GET['id_workout']);
+    }
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            if(!empty($dataSend['id_child']) && !empty($dataSend['id_group'])){
+                $checkContent = $modelCategoryConnect->newEmptyEntity();
+                $checkContent->keyword = 'child_exercise';
+                $checkContent->id_category = $dataExercise->id;
+                $checkContent->id_parent = (int) $dataSend['id_child'];
+                $checkContent->id_group = (int) @$dataSend['id_group'];
+                $checkContent->sort_order = (int) @$dataSend['sort_order'];
+
+                $modelCategoryConnect->save($checkContent);
+
+                return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&mess=saveSuccess');
+            }else{
+                $mess= '<p class="text-danger">bạn thiếu dữ liệu</p>';
+            }   
+
+        }          
+        
+        if(!empty($data->device)){
+            $data->device = json_decode($data->device, true);
+        }
+
+        if(!empty($checkContent)){
+            $data->id_group =$checkContent->id_group;
+            $data->sort_order =$checkContent->sort_order;
+        }
+
+        if(!empty($dataExercise->device)){
+            $dataExercise->device = json_decode($dataExercise->device, true);
+        }
+
+        if(!empty($dataExercise->group_exercise)){
+            $dataExercise->group_exercise = json_decode($dataExercise->group_exercise, true);
+        } 
+
+
+
+         $conditions = array();
+        $listdevice = $modelDevices->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
+       
+        setVariable('mess', $mess);
+       // setVariable('data', $data);         
+        setVariable('dataWorkout', $dataWorkout);
+        setVariable('dataExercise', $dataExercise);          
+        setVariable('listdevice', $listdevice);    
+}
+
 ?>

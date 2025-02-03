@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Chử đề luyện tập </a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Chủ đề luyện tập </a> /</span>
     Thông tin chủ đề luyện tập
   </h4>
 

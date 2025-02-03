@@ -17,7 +17,8 @@ function setingBankAccount($input){
         $dataSend = $input['request']->getData();
 
         $value = array('rose_ambassador' => @$dataSend['rose_ambassador'], 
-                        'nutritional_function' => @$dataSend['nutritional_function']
+                        'nutritional_function' => @$dataSend['nutritional_function'],
+                        'payment' => @$dataSend['payment']
                        
                     );
         $data->key_word = 'setingBankAccount';

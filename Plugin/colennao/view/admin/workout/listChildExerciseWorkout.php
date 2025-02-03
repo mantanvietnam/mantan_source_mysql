@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4"> <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Bài luyện tập </a> /<a href="/plugins/admin/colennao-view-admin-workout-listExerciseWorkout/?id_workout=<?php echo @$_GET['id_workout'] ?>"> <?php echo @$dataWorkout->title; ?></a> / <?php echo @$dataExercise->title; ?> / động tác tập </h4>
  
-  <p><a href="/plugins/admin/colennao-view-admin-workout-addChildExerciseWorkout?id_workout=<?php echo @$_GET['id_workout'];?>&id_exercise=<?php echo @$_GET['id_exercise'];?>" class="btn btn-primary"><i class='bx bx-plus'></i>Thêm mới</a></p> 
+  <p><a href="/plugins/admin/colennao-view-admin-workout-addChildExerciseWorkout?id_workout=<?php echo @$_GET['id_workout'];?>&id_exercise=<?php echo @$_GET['id_exercise'];?>" class="btn btn-primary"><i class='bx bx-plus'></i>Thêm mới</a> <a href="/plugins/admin/colennao-view-admin-workout-copyChildExerciseWorkout?id_workout=<?php echo @$_GET['id_workout'];?>&id_exercise=<?php echo @$_GET['id_exercise'];?>" class="btn btn-danger"><i class='bx bx-plus'></i>Thêm động tác đã có sẵn</a></p> 
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -73,7 +73,7 @@
                 $group = '';
                 if(!empty($dataExercise->group_exercise)){
                     foreach ($dataExercise->group_exercise as $key => $value) {
-                        if(empty($item->id_group) || $item->id_group==$value['id']){
+                        if(empty($item->cc['id_group']) || $item->cc['id_group']==$value['id']){
                             $group = $value['name'];
                         }
                     }
@@ -88,7 +88,7 @@
                   <td>'.$item->title . '  </td>
                  
                  <td>'.$group.'</td>
-                 <td>'.$item->sort_order.'</td>
+                 <td>'.$item->cc['sort_order'].'</td>
                  <td align="center"><iframe width="200" height="120" src="https://www.youtube.com/embed/'.$item->youtube_code.'?si=emQRmJrVSmDkqipZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                  </td>
                  <td> 
