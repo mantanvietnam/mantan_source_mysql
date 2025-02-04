@@ -1,13 +1,13 @@
 <?php 
-function setingPaymentAdmin($input){
-    global $modelOptions;
+function parameterSettingAdmin($input){
+	global $modelOptions;
     global $metaTitleMantan;
     global $isRequestPost;
 
     $metaTitleMantan = 'Cài đặt';
     $mess= '';
 
-    $conditions = array('key_word' => 'setingPaymentAdmin');
+    $conditions = array('key_word' => 'parameterSetting');
     $data = $modelOptions->find()->where($conditions)->first();
     if(empty($data)){
         $data = $modelOptions->newEmptyEntity();
@@ -16,11 +16,9 @@ function setingPaymentAdmin($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
 
-        $value = array('payment' => @$dataSend['payment'],
-                        'system' => @$dataSend['system'],
-                        'domain' => @$dataSend['domain']
-                    );
-        $data->key_word = 'setingPaymentAdmin';
+        $value = array('transaction_fee' => @$dataSend['transaction_fee']
+         );
+        $data->key_word = 'parameterSetting';
         $data->value = json_encode($value);
 
         $modelOptions->save($data);
@@ -36,4 +34,5 @@ function setingPaymentAdmin($input){
     setVariable('setting', $data_value);
     setVariable('mess', $mess);
 }
- ?>
+
+?>

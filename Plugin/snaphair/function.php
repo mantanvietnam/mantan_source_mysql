@@ -25,15 +25,19 @@ $menus[0]['sub'][]= array( 'title'=>'Lịch sử trừ tiền',
                             'permission'=>'listHistoryMinusAdmin'
                         );
 
+$menus[0]['sub'][]= array( 'title'=>'Cài đặt thông số',
+                            'url'=>'/plugins/admin/snaphair-view-admin-setting-parameterSettingAdmin',
+                            'classIcon'=>'bx bx-history',
+                            'permission'=>'parameterSettingAdmin'
+                        );
 
-$menus[1]['title']= 'SAMPLE';
-$menus[1]['sub'][]= array( 'title'=>'Quản lý danh mục mẫu ảnh',
+$menus[0]['sub'][]= array( 'title'=>'Quản lý danh mục mẫu ảnh',
                             'url'=>'/plugins/admin/snaphair-view-admin-sample-listSampleCategoryAdmin',
                             'classIcon'=>'bx bx-category',
                             'permission'=>'listSampleCategoryAdmin'
                         );
 
-$menus[1]['sub'][]= array( 'title'=>'Quản lý mẫu ảnh',
+$menus[0]['sub'][]= array( 'title'=>'Quản lý mẫu ảnh',
                         'url'=>'/plugins/admin/snaphair-view-admin-sample-listSamplePhotoAdmin',
                         'classIcon'=>'bx bx-image',
                         'permission'=>'listSamplePhotoAdmin'
@@ -210,7 +214,6 @@ function getUserByToken($accessToken, $checkActive = true)
     }
 
     $user = $modelUser->find()->where($conditions)->first();
-
  
     return $user;
 }
@@ -340,6 +343,37 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
         </html>';
 
         sendEmail($to, $cc, $bcc, $subject, $content);
+    }
+}
+
+function covertbaseimage($base,$phone){
+
+// Tách phần định dạng và phần dữ liệu base64
+list($type, $data) = explode(';', $base);
+list(, $data)      = explode(',', $data);
+$data = base64_decode($data);
+
+// Xác định phần mở rộng của tệp
+$ext = '';
+if (strpos($type, 'image/png') !== false) {
+    $ext = 'png';
+} elseif (strpos($type, 'image/jpeg') !== false) {
+    $ext = 'jpg';
+} elseif (strpos($type, 'image/gif') !== false) {
+    $ext = 'gif';
+} else {
+    return array('code'=>0 , 'link'=>'');
+}
+
+// Lưu hình ảnh vào tệp
+$file_name = 'output_image.'.time().rand(0,1000000). $ext;
+file_put_contents($file_name, $data);
+$image = uploadImage($phone,$data, $file_name);
+    if(!empty($image['linkLocal'])){
+        return array('code'=>1, 'link'=>$image['linkLocal']);
+
+    }else{
+        return array('code'=>0 , 'link'=>'');
     }
 }
 
