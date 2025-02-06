@@ -44,20 +44,7 @@
   <?php echo $post->author . ' - ' . date("d/m/Y", $post->time); ?>
 </p>
 
-<!-- Thư viện ảnh -->
-<div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus slide-top">
-  <div class="relative ">
-    <div class="">
-      <div class=" max-h-[50rem]">
-        <img
-          src="<?php echo $post->image; ?>"
-          alt="Image 1"
-          class="object-cover w-full h-full rounded-lg"
-        />
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <!-- Nội dung thông tin dự án -->
 <div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus">
