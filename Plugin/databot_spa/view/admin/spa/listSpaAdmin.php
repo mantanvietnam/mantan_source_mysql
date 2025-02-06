@@ -43,9 +43,9 @@
               <tr class="">
                 <th>ID</th>
                 <th>Tên cơ sở</th>
-                <th>member</th> 
+                <th>Chủ cơ sở</th> 
                 <th>Ngày tạo</th> 
-                <!-- <th>Khóa</th> -->
+                <th>Xoá dữ liệu</th>
                 <th>sửa</th>
               </tr>
             </thead>
@@ -64,7 +64,8 @@
                               '.$item->member->email.'
                               
                             </td>
-                            <td>'.$item->created_at.'</td>
+                            <td>'.date('d/m/Y', $item->created_at).'</td>
+                            <td><a onclick="return confirm(\'Bạn có chắc chắn muốn xoá dữ liệu của cơ sở này không? Các dữ liệu cài đặt vẫn sẽ được giữ lại.\');" class="btn btn-danger" href="/plugins/admin/databot_spa-view-admin-spa-clearDataSpaAdmin/?id='.$item->id.'">Xoá</a></td>
                             <td align="center">
                               <a class="dropdown-item"  href="/plugins/admin/databot_spa-view-admin-spa-addSpaAdmin/?id='.$item->id.'">
                                 <i class="bx bx-edit-alt me-1"></i>
