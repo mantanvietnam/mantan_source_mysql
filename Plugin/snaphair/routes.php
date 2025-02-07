@@ -5,5 +5,6 @@
    $routesPlugin['forgotpassword'] = 'snaphair/view/home/user/forgotpassword.php';
    $routesPlugin['confirm'] = 'snaphair/view/home/user/confirm.php';
    $routesPlugin['newpassword'] = 'snaphair/view/home/user/newpassword.php';
+   $routesPlugin['account'] = 'snaphair/view/home/user/account.php';
    
 ?>

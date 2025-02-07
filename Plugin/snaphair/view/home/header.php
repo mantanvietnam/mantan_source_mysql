@@ -9,9 +9,11 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/homepage.css">
+    <link rel="stylesheet" href="/plugins/snaphair/view/home/assets/css/homepage.css">
+    <!-- Thêm jQuery từ CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>s
 </head>
-
+<?php $user = getInfoUser(); ?>
 <body>
     <div class="d-flex">
         <!-- Sidebar -->

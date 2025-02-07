@@ -348,27 +348,27 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
 
 function covertbaseimage($base,$phone){
 
-// Tách phần định dạng và phần dữ liệu base64
-list($type, $data) = explode(';', $base);
-list(, $data)      = explode(',', $data);
-$data = base64_decode($data);
+    // Tách phần định dạng và phần dữ liệu base64
+    list($type, $data) = explode(';', $base);
+    list(, $data)      = explode(',', $data);
+    $data = base64_decode($data);
 
-// Xác định phần mở rộng của tệp
-$ext = '';
-if (strpos($type, 'image/png') !== false) {
-    $ext = 'png';
-} elseif (strpos($type, 'image/jpeg') !== false) {
-    $ext = 'jpg';
-} elseif (strpos($type, 'image/gif') !== false) {
-    $ext = 'gif';
-} else {
-    return array('code'=>0 , 'link'=>'');
-}
+    // Xác định phần mở rộng của tệp
+    $ext = '';
+    if (strpos($type, 'image/png') !== false) {
+        $ext = 'png';
+    } elseif (strpos($type, 'image/jpeg') !== false) {
+        $ext = 'jpg';
+    } elseif (strpos($type, 'image/gif') !== false) {
+        $ext = 'gif';
+    } else {
+        return array('code'=>0 , 'link'=>'');
+    }
 
-// Lưu hình ảnh vào tệp
-$file_name = 'output_image.'.time().rand(0,1000000). $ext;
-file_put_contents($file_name, $data);
-$image = uploadImage($phone,$data, $file_name);
+    // Lưu hình ảnh vào tệp
+    $file_name = 'output_image.'.time().rand(0,1000000). $ext;
+    file_put_contents($file_name, $data);
+    $image = uploadImage($phone,$data, $file_name);
     if(!empty($image['linkLocal'])){
         return array('code'=>1, 'link'=>$image['linkLocal']);
 
@@ -377,4 +377,18 @@ $image = uploadImage($phone,$data, $file_name);
     }
 }
 
+
+function getInfoUser(){
+    global $session;
+    global $controller;
+    $modelUser = $controller->loadModel('Users');
+    $infoUser  = $session->read('infoUser');
+
+    if(empty($infoUser)){
+        return array();
+    }
+     $infoUser = $modelUser->find()->where(['id'=>$infoUser->id])->first();
+
+    return $infoUser;
+}
 ?>

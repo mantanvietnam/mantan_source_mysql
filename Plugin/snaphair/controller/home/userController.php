@@ -144,12 +144,11 @@ function logout($input)
 function infoUser(){
 	global $session;
 	global $controller;
-	 $modelCustomer = $controller->loadModel('Customers');
+	$modelUser = $controller->loadModel('Users');
     $infoUser  = $session->read('infoUser');
+    $infoUser = $modelUser->find()->where(['id'=>$infoUser->id])->first();
 
-    if(empty($infoUser)){
-    	return $controller->redirect('/');
-    }
+    setVariable('infoUser', $infoUser);
 }
 
 function changepassword($input){
@@ -198,67 +197,52 @@ function changepassword($input){
 
 }
 
-function editInfoUser($input){
+function account($input){
 
 	global $metaTitleMantan;
-	global $isRequestPost;
+	global $metaTitleMantan;
+	global $urlHomes;
 	global $controller;
 	global $session;
+	global $isRequestPost;
 
     $metaTitleMantan = 'sửa tài khoản';
 
-    $modelCustomer = $controller->loadModel('Customers');
+    $modelUser = $controller->loadModel('Users');
     $infoUser  = $session->read('infoUser');
 
     if(!empty($infoUser)){
     	$mess = '';
-
+    	 $infoUser = $modelUser->find()->where(['id'=>$infoUser->id])->first();
 	    if($isRequestPost){
 	    	$dataSend = $input['request']->getData();
-
-	    	
-	    	
+	    
 	    	if(!empty($_FILES["avatar"]["name"])){
                 $avatar = '';
                 $today= getdate();
-
-                
-
-                  if(isset($_FILES["avatar"]) && empty($_FILES["avatar"]["error"])){
-                $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-                $filename = $_FILES["avatar"]["name"];
-                $filetype = $_FILES["avatar"]["type"];
-                $filesize = $_FILES["avatar"]["size"];
-                
-                // Verify file extension
-                $ext = pathinfo($filename, PATHINFO_EXTENSION);
-                if(!array_key_exists($ext, $allowed)) $mess= '<h3 class="color_red">File upload không đúng định dạng ảnh</h3>';
-                
-                // Verify file size - 1MB maximum
-                $maxsize = 1024 * 1024;
-                if($filesize > $maxsize) $mess= '<h3 class="color_red">File ảnh vượt quá giới hạn cho phép 1Mb</h3>';
-                
-                // Verify MYME type of the file
-                if(in_array($filetype, $allowed)){
-                    // Check whether file exists before uploading it
-                    move_uploaded_file($_FILES["avatar"]["tmp_name"], __DIR__.'/../../../webroot/upload/regcustomer/' . $today[0].'_avatar.jpg');
-                    $avatar= 'https://tayho360.vn/webroot/upload/regcustomer/'.$today[0].'_avatar.jpg';
-                    
-                } else{
-                    $mess= '<h3 class="color_red">Upload dữ liệu bị lỗi</h3>';
-                }
-            }
+                if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                $avatars = uploadImage($infoUser->phone, 'avatar', 'avatar_'.$infoUser->phone);
+	            }
+	            if(!empty($avatars['linkOnline'])){
+	                $avatar = $avatars['linkOnline'];
+	            }else{
+	                $avatar = $urlHomes."/plugins/snaphair/view/image/default-avatar.png";
+	            }
                 $infoUser->avatar = $avatar;
+
             }
             $infoUser->full_name = $dataSend['full_name'];
             $infoUser->address = $dataSend['address'];
-            $infoUser->phone = $dataSend['phone'];
-            $modelCustomer->save($infoUser);
+            $infoUser->sex = $dataSend['sex'];
+            $infoUser->email = $dataSend['email'];
+            //$infoUser->phone = $dataSend['phone'];
+            $modelUser->save($infoUser);
             $session->write('infoUser', $infoUser);
-			return $controller->redirect('/infoUser');
+			// return $controller->redirect('/infoUser');
            
 	    }
 
+	    setVariable('infoUser', $infoUser);
 	    setVariable('mess', $mess);
 	}else{
 		return $controller->redirect('/');
@@ -427,4 +411,5 @@ function newpasswordAPI($input){
 	
 
 }
+
  ?>

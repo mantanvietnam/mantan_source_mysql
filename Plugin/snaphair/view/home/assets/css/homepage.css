@@ -1,0 +1,277 @@
+:root {
+    --sidebar-width: 80px;
+    --primary-color: #9333EA;
+    --dark-bg: #1A1B1E;
+    --card-bg: #27282B;
+    --border-color: #3A3B3E;
+    --text-muted: #9CA3AF;
+    --danger-color: #DC2626;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: white;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--dark-bg);
+    min-height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+}
+
+.sidebar-brand {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.menu-icon {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.nav-link i {
+    font-size: 1.2rem;
+}
+
+.nav-link span {
+    font-size: 0.75rem;
+}
+
+.nav-item.active .nav-link,
+.nav-link:hover {
+    color: white;
+}
+
+.bottom-nav {
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 2rem;
+    width: calc(100% - var(--sidebar-width));
+}
+
+/* Header Styles */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.content-header h1 {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.btn-create {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-create:hover {
+    background-color: #7928d1;
+    color: white;
+}
+
+.point-info {
+    color: var(--text-muted);
+}
+
+.point-info span {
+    color: #FBB224;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.user-email {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.user-action {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+/* Settings Card Styles */
+.settings-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.card-header {
+    margin-bottom: 2rem;
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-header p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Profile Photo Section */
+.profile-photo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.photo-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Form Styles */
+.settings-form label {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control {
+    background-color: var(--dark-bg);
+    border: 1px solid var(--border-color);
+    color: white;
+    padding: 0.75rem 1rem;
+}
+
+.form-control:focus {
+    background-color: var(--dark-bg);
+    border-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 0 0 0.25rem rgba(147, 51, 234, 0.25);
+}
+
+.btn-outline {
+    border: 1px solid var(--border-color);
+    color: white;
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background-color: var(--border-color);
+    color: white;
+}
+
+/* Delete Account Section */
+.delete-account {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+    margin-top: 2rem;
+}
+
+.delete-account h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.delete-account p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+    }
+
+    .main-content {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+        padding: 1rem;
+    }
+
+    .header-right {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .profile-photo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .photo-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+}
