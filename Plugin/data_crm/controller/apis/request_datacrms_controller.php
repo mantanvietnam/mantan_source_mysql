@@ -5,7 +5,7 @@ function saveRequestCreateDataCRMAPI($input)
 	global $controller ;
 
 	$modelRequestDatacrms = $controller->loadModel('RequestDatacrms');
-
+	$getPayment = getPayment();
 	$return['messages']= array(array('text'=>'Gửi sai kiểu POST'));
 
 	if($isRequestPost){
@@ -41,35 +41,55 @@ function saveRequestCreateDataCRMAPI($input)
 				
 			}
 
-			$data = $modelRequestDatacrms->newEmptyEntity();
+			if($getPayment['system']=='on'){
 
-			$data->status = 'new';
-			$data->system_name = trim($dataSend['system_name']);
-			$data->system_slug = $system_slug;
-			$data->password = $password;
-			$data->system_logo = 'https://crm.phoenixcamp.vn/upload/admin/files/Logo.png';
-			$data->boss_name = $dataSend['boss_name'];
-			$data->boss_phone = $dataSend['boss_phone'];
-			$data->boss_email = $dataSend['boss_email'];
-			$data->boss_id_messenger = @$dataSend['boss_id_messenger'];
-			$data->boss_avatar = (!empty($dataSend['boss_avatar']))?$dataSend['boss_avatar']:'https://crm.phoenixcamp.vn/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
-			$data->domain = $system_slug.'.icham.vn';
-			$data->create_at = time();
-			$data->deadline = $data->create_at + 30*24*60*60;
-			$data->user_db = 'datacrm_'.$data->system_slug;
-			$data->pass_db = createPass(15);
+				$data = $modelRequestDatacrms->newEmptyEntity();
+
+				$data->status = 'new';
+				$data->system_name = trim($dataSend['system_name']);
+				$data->system_slug = $system_slug;
+				$data->password = $password;
+				$data->system_logo = 'https://crm.phoenixcamp.vn/upload/admin/files/Logo.png';
+				$data->boss_name = $dataSend['boss_name'];
+				$data->boss_phone = $dataSend['boss_phone'];
+				$data->boss_email = $dataSend['boss_email'];
+				$data->boss_id_messenger = @$dataSend['boss_id_messenger'];
+				$data->boss_avatar = (!empty($dataSend['boss_avatar']))?$dataSend['boss_avatar']:'https://crm.phoenixcamp.vn/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+				$data->domain = $system_slug.'.icham.vn';
+				$data->create_at = time();
+				$data->deadline = $data->create_at + 30*24*60*60;
+				$data->user_db = 'datacrm_'.$data->system_slug;
+				$data->pass_db = createPass(15);
+				
+
+				$modelRequestDatacrms->save($data);
+
+				// đưa yêu cầu tạo tài khoản lên rabbitmq
+				$rabbitMQClient = new RabbitMQClient();
+
+	            $requestMessage = json_encode([ 'id_request' => $data->id ]);
+	            
+	            $rabbitMQClient->sendMessage('create_account_icham', $requestMessage);
+	            $return['messages']= array(array('text'=>'Hệ thống đang tạo tài khoản cho bạn, vui lòng đợi ít phút'));
+	        }else{
+	        	if(!empty($dataSend['password'])){
+	        	 	$password = $dataSend['password'];
+	        	}else{
+	        		$password = 123456;
+	        	}
+	        	
+            	$dataPost= array('name'=> $dataSend['boss_name'],
+            		'phone'=> $dataSend['boss_phone'],
+            		'email'=> $dataSend['boss_email'],
+            		'password'=> $password
+            	);
+            	$listData= sendDataConnectMantan('https://demo.datacrm.asia/apis/saveRequestMemberAPI', $dataPost);
+            	$listData= str_replace('ï»¿', '', utf8_encode($listData));
+            	$data= json_decode($listData, true);
+            	$return['messages']= array(array('text'=>$data['mess']));
+	        }
+
 			
-
-			$modelRequestDatacrms->save($data);
-
-			// đưa yêu cầu tạo tài khoản lên rabbitmq
-			$rabbitMQClient = new RabbitMQClient();
-
-            $requestMessage = json_encode([ 'id_request' => $data->id ]);
-            
-            $rabbitMQClient->sendMessage('create_account_icham', $requestMessage);
-
-			$return['messages']= array(array('text'=>'Hệ thống đang tạo tài khoản cho bạn, vui lòng đợi ít phút'));
 		}else{
 			$return['messages']= array(array('text'=>'Gửi thiếu dữ liệu'));
 		}

@@ -55,6 +55,7 @@
               <th>Tên thẻ</th>
               <th>Thông tin khách hàng</th>
               <th>Số tiền khách được tiêu</th>
+              <th>Xem lịch sử chi tiêu</th>
               
             </tr>
           </thead>
@@ -83,7 +84,12 @@
                           <td> '.$item->infoCustomer->name.'<br/>
                             '.$item->infoCustomer->phone.'<br/>
                             '.$item->infoCustomer->email.'</td>
-                          <td>'.number_format($item->total).'</td>
+                          <td>'.number_format($item->total).'đ/'.number_format($item->price).'đ</td>
+                           <td align="center">
+                            <a class="dropdown-item" href="/listCollectionBill/?id_card='.$item->id.'">
+                              <i class="bx bxs-show me-1"></i>
+                            </a>
+                          </td>
                          
                         </tr>';
                 }

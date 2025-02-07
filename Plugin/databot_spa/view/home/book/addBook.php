@@ -97,6 +97,7 @@
                                             echo '<optgroup label="'.$room->name.'">';
                                             if(!empty($room->bed)){
                                                 foreach($room->bed as $bed){
+                                                    $selected = '';
                                                    if(!empty($data->id_bed) && $data->id_bed==$bed->id){
                                                         $selected = 'selected';
                                                    }

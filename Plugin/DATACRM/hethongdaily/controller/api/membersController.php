@@ -1728,6 +1728,54 @@ function listpriceExtendAPI(){
     global $priceExtend;
     return $priceExtend;
 }
+
+function saveRequestMemberAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $urlHomes;
+	global $session;
+	global $modelCategories;
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelZalos = $controller->loadModel('Zalos');
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['phone'])){
+			$infoMember = $modelMembers->find()->where(['id_father'=>0])->first();
+			if(!empty($infoMember)){
+				$data = $modelMembers->newEmptyEntity();
+				$data->created_at = time();
+				
+		        $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+		       	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+		        $conditions = ['phone'=>$dataSend['phone']];
+		       	$checkPhone = $modelMembers->find()->where($conditions)->first();
+		        if(empty($checkPhone)){
+					$data->avatar = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+		       		$data->name = $dataSend['name'];
+			        $data->phone = $dataSend['phone'];
+					$data->id_system = (int) $infoMember->id_system;
+					$data->id_father = (int) $infoMember->id;
+					$data->email = $dataSend['email'];	   
+				    $data->status= 'active';
+				    $data->deadline = strtotime("+30 days", time());
+					$data->password = md5($dataSend['password']);
+				    $modelMembers->save($data);
+				    $return = array('code'=>0, 'mess'=>'Bạn đăng ký thành công', 'data'=>$data);
+				}else{
+			    	$return = array('code'=>4, 'mess'=>'Số điện thoại đã tồn tại');
+			    }	
+			}else{
+				 $return = array('code'=>3, 'mess'=>'Sai mã token');
+			}
+		}else{
+			 $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+		}
+	}
+	return $return;
+}
 ?>
 
 

@@ -9,6 +9,8 @@ function listPartner($input)
 
     $metaTitleMantan = 'Danh sách đối tác';
 
+	setVariable('page_view', 'listPartner');
+
 	$modelPartner = $controller->loadModel('Partners');
 	
 	if(!empty(checkLoginManager('listPartner', 'product'))){
@@ -136,6 +138,7 @@ function addPartner($input)
 	$modelMembers = $controller->loadModel('Members');
 	
 	$mess= '';
+	setVariable('page_view', 'addPartner');
 	
 	if(!empty(checkLoginManager('addPartner', 'product'))){
 		$infoUser = $session->read('infoUser');

@@ -35,8 +35,9 @@
       </div>
       
       <div class="mb-3 col-md-12">
+        <?php if(!empty($setting['linkwebhok'])){ ?>
          <p onclick="copyToClipboard('contentPay','mess')">link webhook: <b id="contentPay"><?php echo $setting['linkwebhok'] ?></b> <i class='bx bx-copy' ></i><span id="mess" style="color: red;"></span></p>
-          
+          <?php } ?>
       </div>
     <div class="mb-3 col-md-12">
       <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>

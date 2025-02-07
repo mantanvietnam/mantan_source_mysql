@@ -47,9 +47,23 @@ function addlikeApi($input){
                             'id_post'=>"$checkWallPost->id",
                             'action'=>'addlikeApi');
 
+                            $note = 'Bạn được công 1 điểm cho người, bạn dã like bài viết';
+                            accumulatePoint($user->id,$listPonint['point_like'],$note);
+                            $userdataSendNotification= array('title'=>"Cộng điểm",
+                            'time'=>date('H:i d/m/Y'),
+                            'content'=>substr($note, 0, 160),
+                            'id_post'=>"$checkWallPost->id",
+                            'action'=>'addlikeApi');
+
+
                             if(!empty($customer->token_device)){
                                  sendNotification($dataSendNotification, $customer->token_device);
                                  saveNotification($dataSendNotification, $customer->id, $data->id_object);
+                            }
+
+                            if(!empty($user->token_device)){
+                                 sendNotification($userdataSendNotification, $user->token_device);
+                                 saveNotification($userdataSendNotification, $user->id, $data->id_object);
                             }
                         }
                         return array('code'=>1,'messages'=>'bạn đã like  thành công ');
@@ -57,7 +71,7 @@ function addlikeApi($input){
                          
                     }elseif($data->type=='dislike'){
                          if(!empty($checkWallPost)  && $check ==1 && $checkWallPost->id_customer!=$user->id && function_exists('minuAccumulatePointlike')){
-                              $note = 'Bạn bị trừ 2 điểm cho người dislike bài viết của bạn ';
+                              $note = 'Bạn bị trừ '.$listPonint['point_dislike'].' điểm có người dislike bài viết của bạn ';
                             minuAccumulatePointlike($checkWallPost->id_customer,$listPonint['point_dislike'],$note);
                             $customer = $modelCustomer->find()->where(['id'=>$checkWallPost->id_customer])->first();
                             $dataSendNotification= array('title'=>"$user->full_name dislike bài viết của bạn",
@@ -66,9 +80,25 @@ function addlikeApi($input){
                                 'id_post'=>"$checkWallPost->id",
                                 'action'=>'addlikeApi');
 
+                           
+
                             if(!empty($customer->token_device)){
                                  sendNotification($dataSendNotification, $customer->token_device);
                                  saveNotification($dataSendNotification, $customer->id, $data->id_object);
+                            }
+
+                            $note = 'Bạn bị trừ '.$listPonint['point_dislike'].' điểm bạn bó dislike bài viết';
+                            minuAccumulatePointlike($user->id,$listPonint['point_like'],$note);
+
+                             $userdataSendNotification= array('title'=>"trừ điểm",
+                            'time'=>date('H:i d/m/Y'),
+                            'content'=>substr($note, 0, 160),
+                            'id_post'=>"$checkWallPost->id",
+                            'action'=>'addlikeApi');
+
+                            if(!empty($user->token_device)){
+                                 sendNotification($userdataSendNotification, $user->token_device);
+                                 saveNotification($userdataSendNotification, $user->id, $data->id_object);
                             }
                          }
                         return array('code'=>4,'messages'=>'bạn đã dislike  thành công ');
@@ -117,13 +147,19 @@ function delelelikeApi($input){
                     }
                     if($data->type=='like'){
                         if(!empty($checkWallPost) && function_exists('minuAccumulatePointlike')){
-                            $note = 'Bạn được công 1 điểm cho người like bài viết của bạn ';
+                            $note = 'Bạn bị trừ '.$listPonint['point_like'].' điểm cho người like bài viết của bạn ';
                             minuAccumulatePointlike($checkWallPost->id_customer,$listPonint['point_like'],$note);
+
+                            $note = 'Bạn bị trừ '.$listPonint['point_like'].' điểm, bạn like 1 bài viết';
+                            minuAccumulatePointlike($user->id,$listPonint['point_like'],$note);
                         }
                     }elseif($data->type=='dislike'){
                          if(!empty($checkWallPost) && function_exists('accumulatePoint')){
-                              $note = 'Bạn bị trừ 2 điểm cho người dislike bài viết của bạn ';
+                              $note = 'Bạn được cộng '.$listPonint['point_dislike'].' điểm cho người dislike bài viết của bạn ';
                             accumulatePoint($checkWallPost->id_customer,$listPonint['point_dislike'],$note);
+
+                              $note = 'Bạn được cộng '.$listPonint['point_dislike'].' điểm, bạn dislike 1 bài viết';
+                            accumulatePoint($user->ids,$listPonint['point_dislike'],$note);
                          }
                     }
             		$modelLike->delete($data);
@@ -195,6 +231,7 @@ function addCommentApi($input){
     $modelComment = $controller->loadModel('Comments');
     $modelCustomer = $controller->loadModel('Customers');
     $modelWallPost = $controller->loadModel('WallPosts');
+    $listPonint = listPonint();
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -227,10 +264,31 @@ function addCommentApi($input){
                             'id_post'=>"$checkWallPost->id",
                             'action'=>'addCommentApi');
 
+
+
                         if(!empty($customer->token_device)){
                            sendNotification($dataSendNotification, $customer->token_device);
                            saveNotification($dataSendNotification, $customer->id, $data->id_object);
                        }
+
+                        if($checkWallPost->id_customer!=$user->id && function_exists('accumulatePoint')){
+                            $note = 'Bạn được công '.$listPonint['point_comment'].' điểm cho người bình luận bài viết của bạn';
+                            accumulatePoint($checkWallPost->id_customer,$listPonint['point_comment'],$note);
+                           
+                            $note = 'Bạn được công '.$listPonint['point_comment'].' điểm bạn bình luận 1 bài viết';
+                            accumulatePoint($user->id,$listPonint['point_comment'],$note);
+                            $userdataSendNotification= array('title'=>"Cộng điểm",
+                            'time'=>date('H:i d/m/Y'),
+                            'content'=>substr($note, 0, 160),
+                            'id_post'=>"$checkWallPost->id",
+                            'action'=>'addlikeApi');
+
+
+                            if(!empty($user->token_device)){
+                                 sendNotification($userdataSendNotification, $user->token_device);
+                                 saveNotification($userdataSendNotification, $user->id, $data->id_object);
+                            }
+                        }
                    }
                 }
                 return array('code'=>1,'messages'=>'bạn thêm bình luận thành công');
@@ -273,6 +331,35 @@ function deleleCommentApi($input){
                         $checkWallPost = $modelWallPost->find()->where(['id'=>$data->id_object,'id_customer'=>$user->id])->first();
                         if(!empty($checkWallPost)){
                             $modelComment->delete($data);
+                            $customer = $modelCustomer->find()->where(['id'=>$data->id_customer])->first();
+                            if($checkWallPost->id_customer!=$user->id && function_exists('minuAccumulatePointlike')){
+                            $note = 'Bạn bị trừ '.$listPonint['point_comment_delete'].' điểm có người xóa bình luận bài viết của bạn';
+                            minuAccumulatePointlike($checkWallPost->id_customer,$listPonint['point_comment_delete'],$note);
+                            $dataSendNotification= array('title'=>"Trừ điểm",
+                            'time'=>date('H:i d/m/Y'),
+                            'content'=>substr($note, 0, 160),
+                            'id_post'=>"$checkWallPost->id",
+                            'action'=>'addlikeApi');
+                             if(!empty($customer->token_device)){
+                                 sendNotification($dataSendNotification, $customer->token_device);
+                                 saveNotification($dataSendNotification, $customer->id, $data->id_object);
+                            }
+
+                           
+                            $note = 'Bạn bị trừ '.$listPonint['point_comment_delete'].' điểm bạn xóa bình luận 1 bài viết';
+                            minuAccumulatePointlike($user->id,$listPonint['point_comment_delete'],$note);
+                            $userdataSendNotification= array('title'=>"Trừ điểm",
+                            'time'=>date('H:i d/m/Y'),
+                            'content'=>substr($note, 0, 160),
+                            'id_post'=>"$checkWallPost->id",
+                            'action'=>'addlikeApi');
+
+
+                            if(!empty($user->token_device)){
+                                 sendNotification($userdataSendNotification, $user->token_device);
+                                 saveNotification($userdataSendNotification, $user->id, $data->id_object);
+                            }
+                        }
                             return array('code'=>1,'messages'=>'bạn xóa bình luận thành công');
                         }
                         return array('code'=>4,'messages'=>'bình luận không tồn tại');

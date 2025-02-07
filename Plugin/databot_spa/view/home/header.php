@@ -78,7 +78,24 @@
 
     <script src="/plugins/databot_spa/view/home/assets/js/datetimepicker.full.js"></script>
   </head>
+    <style type="text/css">
+      .closemenu{
+            display: none;
+      }
+      .logoutpage{
+         padding: 0px !important;
+      }
 
+      .showmenu{
+            display: block;
+            width: 1px;
+      }
+
+      .showmenufix{
+        display: none;
+      }
+
+    </style>
   <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
@@ -91,7 +108,7 @@
               <span class="app-brand-text demo menu-text fw-bolder ms-2">DATA SPA</span>
             </a>
 
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block">
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block" onclick="closemenu()">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
             </a>
           </div>
@@ -182,7 +199,7 @@
               </ul>
             </li>
 
-            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listOrderProductlistOrderProduct','listOrderCombo','listOrderServicelistOrderService','listCustomerPrepayCard'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listOrderProductlistOrderProduct','listOrderCombo','listOrderServicelistOrderService','listCustomerPrepayCard','listUserserviceHistories'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-list-ul"></i>
                 <div>Đơn hàng</div>
@@ -209,6 +226,11 @@
                 <li class="menu-item">
                   <a href="/listCustomerPrepayCard" class="menu-link <?php if(!in_array('prepaid_cards', $session->read('infoUser')->module)) echo 'btn disabled';?> <?php if($page_view =='listCustomerPrepayCard') echo 'menu-active';?>">
                     <div>Đơn thẻ trả trước</div> 
+                  </a>
+                </li>
+                 <li class="menu-item">
+                  <a href="/listUserserviceHistories" class="menu-link <?php if($page_view =='listUserserviceHistories') echo 'menu-active';?>">
+                    <div>Lịch sủ sử dung dịch vụ</div> 
                   </a>
                 </li>
               </ul>
@@ -348,7 +370,7 @@
               </a>
             </li>   
             
-            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listProduct','listCategoryProduct','listTrademarkProduct','listPartner','listWarehouse','importHistorytWarehouse','addProduct','addProductWarehouse','addPartner'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listProduct','listCategoryProduct','listTrademarkProduct','listPartner','addProduct','addProductWarehouse','addPartner'])) echo 'open';?>">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div>Sản phẩm</div>
@@ -374,40 +396,26 @@
                     <div>Đối tác</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="/listWarehouse" class="menu-link <?php if($page_view =='listWarehouse') echo 'menu-active';?>">
-                    <div>Kho hàng</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="/importHistorytWarehouse" class="menu-link <?php if($page_view =='importHistorytWarehouse') echo 'menu-active';?>">
-                    <div>Lịch sử nhập hàng vào kho</div>
-                  </a>
-                </li>
               </ul>
             </li>
             
-            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listService','listCategoryService','addService','listUserserviceHistories'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty($page_view) && in_array($page_view, ['listService','listCategoryService','addService'])) echo 'open';?>" id="listService">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-basket"></i>
                 <div>Dịch vụ</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/listService" class="menu-link <?php if($page_view =='listService') echo 'menu-active';?>">
+                  <a href="/listService/#listService" class="menu-link <?php if($page_view =='listService') echo 'menu-active';?>">
                     <div>Dịch vụ</div> 
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listCategoryService" class="menu-link <?php if($page_view =='listCategoryService') echo 'menu-active';?>">
+                  <a href="/listCategoryService/#listService" class="menu-link <?php if($page_view =='listCategoryService') echo 'menu-active';?>">
                     <div>Nhóm dịch vụ</div> 
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="/listUserserviceHistories" class="menu-link <?php if($page_view =='listUserserviceHistories') echo 'menu-active';?>">
-                    <div>lịch sủ sử dung dịch vụ</div> 
-                  </a>
-                </li>
+               
               </ul>
             </li>
 
@@ -485,10 +493,20 @@
             </li>
           </ul>
         </aside>
+
+        <aside id="layout-menu-close" class="layout-menu menu-vertical menu bg-menu-theme showmenufix">
+          <div class="app-brand demo">
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block" onclick="showemenu()" style="left: 10px;">
+              <i class="bx bx-chevron-right bx-sm align-middle"></i>
+            </a>
+          </div>
+
+          
+        </aside>
         <!-- / Menu -->
 
         <!-- Layout container -->
-        <div class="layout-page">
+        <div class="layout-page" id="logoutpage">
           <!-- Navbar -->
 
           <nav

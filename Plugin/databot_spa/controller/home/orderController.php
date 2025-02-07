@@ -251,6 +251,83 @@ function orderProduct($input){
 
                                     $WarehouseProductDetail->inventory_quantity -= $quantityPro*$dataSend['soluong'][$key];
 
+                    //sử lý phần thanh toán 
+    if($dataSend['typeOrder']==1){
+
+        if($dataSend['type_collection_bill']=='cong_no'){
+            $debt =$modelDebts->newEmptyEntity();
+
+                            // tạo dữ liệu save
+            $debt->id_member = @$infoUser->id_member;
+            $debt->id_spa = $session->read('id_spa');
+            $debt->id_staff = (int)@$dataSend['id_staff'];
+            $debt->total =  $order->total_pay;
+            $debt->note =  'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
+            $debt->type = 0; //0: Thu, 1: chi
+            $debt->created_at = time();
+            $debt->updated_at = time();
+            $debt->id_order = $order->id;
+            $debt->id_customer = (int)@$dataSend['id_customer'];
+            $debt->full_name = @$dataSend['full_name'];
+            $debt->time = time();
+                            
+                            $modelDebts->save($debt);
+                        }else{
+                            // lưu bill
+                            $bill = $modelBill->newEmptyEntity();
+                            $bill->id_member = @$infoUser->id_member;
+                            $bill->id_spa = $session->read('id_spa');
+                            $bill->id_staff = (int)@$dataSend['id_staff'];
+                            $bill->total = (int)@$dataSend['totalPays'];
+                            $bill->note = 'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
+                            $bill->type = 0; //0: Thu, 1: chi
+                            $bill->id_order = $order->id;
+                            $bill->created_at = time();
+                            $bill->updated_at = time();
+                            $bill->id_customer = (int)@$dataSend['id_customer'];
+                            $bill->full_name = @$dataSend['full_name'];
+                            $bill->moneyReturn = @$dataSend['moneyReturn'];
+                            if(empty($dataSend['card'])){
+                                $bill->type_card = 0;
+                                $bill->type_collection_bill = @$dataSend['type_collection_bill'];
+                            }else{
+                                $bill->type_card = 1;
+                                $bill->type_collection_bill = 'the_tra_truoc';
+                                $bill->id_card = (int)$dataSend['card'];
+                            }
+                            
+                            $bill->moneyCustomerPay = @$dataSend['moneyCustomerPay'];
+
+                            if(!empty($dataSend['time'])){
+                                $time = explode(' ', $dataSend['time']);
+                                $date = explode('/', $time[0]);
+                                $hour = explode(':', $time[1]);
+                                $bill->time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+                            }else{
+                                $bill->time = time();
+                            }
+                            
+                            $modelBill->save($bill);
+
+                            if(!empty($dataSend['card'])){
+                                $Prepaycards = $modelCustomerPrepaycards->get($dataSend['card']);
+                                $Prepaycards->total -= $bill->total;
+                                $modelCustomerPrepaycards->save($Prepaycards);
+                            }
+
+                        }
+                        
+
+                        // trừ số lượng trong kho 
+                        if(!empty($dataSend['id_warehouse'])){
+                            foreach($dataSend['idHangHoa'] as $key => $value){
+                                // sản phẩm 
+                                if($dataSend['type'][$key] == 'product'){
+
+                                    $WarehouseProductDetail =   $modelWarehouseProductDetails->find()->where(array('id_product'=>$value, 'inventory_quantity >='=>$dataSend['soluong'][$key],'id_warehouse'=>$dataSend['id_warehouse'] ))->first();
+
+                                    $WarehouseProductDetail->inventory_quantity -= $dataSend['soluong'][$key];
+
                                     $modelWarehouseProductDetails->save($WarehouseProductDetail);
 
                                     $product = $modelProduct->get($idProduct);
@@ -526,6 +603,7 @@ function orderCombo($input){
                     }else{
                         $bill->type_card = 1;
                         $bill->type_collection_bill = 'the_tra_truoc';
+                        $bill->id_card = (int)$dataSend['card'];
                     }
                     
                     $bill->moneyCustomerPay = @$dataSend['moneyCustomerPay'];
@@ -818,6 +896,7 @@ function orderService($input){
                 }else{
                     $bill->type_card = 1;
                     $bill->type_collection_bill = 'the_tra_truoc';
+                    $bill->id_card = (int)$dataSend['card'];
                 }
                         
                 $bill->moneyCustomerPay = @$dataSend['moneyCustomerPay'];
@@ -1224,13 +1303,20 @@ function listOrderCombo($input){
             }
         }
 
+         $conditionsStaff['OR'] = [ 
+             ['id'=>$user->id_member],
+             ['id_member'=>$user->id_member],
+         ];
+
+        $listStaff = $modelMembers->find()->where($conditionsStaff)->all()->toList();
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
         setVariable('next', $next);
         setVariable('urlPage', $urlPage);
         setVariable('totalData', $totalData);
-        
+        setVariable('listStaff', $listStaff);
         setVariable('listData', $listData);
         setVariable('modelUserserviceHistories', $modelUserserviceHistories);
         setVariable('listWarehouse', $listWarehouse);
@@ -1650,7 +1736,7 @@ function paymentOrders($input){
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
-        $modelDebts = $controller->loadModel('Debts');
+        $modelDebt = $controller->loadModel('Debts');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
         $modelBed = $controller->loadModel('Beds');
@@ -1704,6 +1790,7 @@ function paymentOrders($input){
                 }else{
                     $bill->type_card = 1;
                     $bill->type_collection_bill = 'the_tra_truoc';
+                    $bill->id_card = (int)$_GET['card'];
                 }
                 $bill->moneyCustomerPay = @$_GET['moneyCustomerPay'];
                 $bill->time = time();
@@ -1814,6 +1901,10 @@ function listUserserviceHistories(){
         }
 
         $totalData = $modelUserserviceHistories->find()->where($conditions)->all()->toList();
+        
+        $conditions['created_at >='] = strtotime("today 00:00:00");
+        $conditions['created_at <='] = time();
+        $totaltoday = $modelUserserviceHistories->find()->where($conditions)->count();
        
 
         $totalData = count($totalData);
@@ -1862,6 +1953,7 @@ function listUserserviceHistories(){
         setVariable('next', $next);
         setVariable('urlPage', $urlPage);
         setVariable('totalData', $totalData);
+        setVariable('totaltoday', $totaltoday);
 
         setVariable('listData', $listData);
         setVariable('listStaffs', $listStaffs);

@@ -126,13 +126,21 @@
                             <label class="form-label">Đăng nhập app hàng ngày</label>
                             <input type="text" class="form-control phone-mask" name="point_login" id="point_login" value="<?php echo @$data->point_login;?>"/>
                           </div>
-                           <div class="mb-3 col-md-6">
+                          <div class="mb-3 col-md-6">
                             <label class="form-label">like bài viết</label>
                             <input type="text" class="form-control phone-mask" name="point_like" id="point_like" value="<?php echo @$data->point_like;?>"/>
                           </div>
-                           <div class="mb-3 col-md-6">
+                          <div class="mb-3 col-md-6">
                             <label class="form-label">bỏ like</label>
                             <input type="text" class="form-control phone-mask" name="point_dislike" id="point_dislike" value="<?php echo @$data->point_dislike;?>"/>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label">bình luận bài viết</label>
+                            <input type="text" class="form-control phone-mask" name="point_comment" id="point_comment" value="<?php echo @$data->point_comment;?>"/>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label">xóa bình luận</label>
+                            <input type="text" class="form-control phone-mask" name="point_comment_delete" id="point_comment_delete" value="<?php echo @$data->point_comment_delete;?>"/>
                           </div>
                         </div>
                       </div>

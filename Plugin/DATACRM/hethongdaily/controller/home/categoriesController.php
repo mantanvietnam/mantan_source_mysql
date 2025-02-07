@@ -113,6 +113,8 @@ function settingSystem($input){
                                     'point_login'=>(int) @$dataSend['point_login'],
                                     'point_like'=>(int) @$dataSend['point_like'],
                                     'point_dislike'=>(int) @$dataSend['point_dislike'],
+                                    'point_comment'=>(int) @$dataSend['point_comment'],
+                                    'point_comment_delete'=>(int) @$dataSend['point_comment_delete'],
                                     'email_notification'=> @$dataSend['email_notification'],
                                     );
                 $data->description = json_encode($description);
@@ -145,6 +147,8 @@ function settingSystem($input){
         $data->point_login =(int) @$description['point_login'];
         $data->point_like =(int) @$description['point_like'];
         $data->point_dislike =(int) @$description['point_dislike'];
+        $data->point_comment =(int) @$description['point_comment'];
+        $data->point_comment_delete =(int) @$description['point_comment_delete'];
         $data->email_notification = @$description['email_notification'];
         }
        

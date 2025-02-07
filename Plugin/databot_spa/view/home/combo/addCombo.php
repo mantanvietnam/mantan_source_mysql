@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-group mb-3 col-md-6">
-                    <label class="col-sm-12 form-label control-label">Số lượng gói</label>
+                    <label class="col-sm-12 form-label control-label">Số lượng Combo phát hành</label>
                     <div class="col-sm-12">
                         <input value="<?php echo @$data->quantity;?>" type="text" name="quantity" id="quantity" class="form-control input_money"  placeholder=""/>
                     </div>

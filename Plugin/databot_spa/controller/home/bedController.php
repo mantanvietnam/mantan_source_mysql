@@ -386,6 +386,7 @@ function checkoutBed($input){
 
             $data->note =@$dataSend['note'];
             $data->status = 2;
+            $data->check_out = time();
 
             $modelUserserviceHistories->save($data);
            

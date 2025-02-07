@@ -66,7 +66,7 @@
               <?= $this->Form->create(); ?>
                 <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Tên chủ đề</label>
+                  <label class="form-label" for="basic-default-phone">Tên Danh mục</label>
                   <input
                     type="text"
                     class="form-control phone-mask"

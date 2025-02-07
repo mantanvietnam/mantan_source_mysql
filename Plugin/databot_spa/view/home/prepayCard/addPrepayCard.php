@@ -26,13 +26,14 @@
                     </div>
 
                     <div class="mb-3">
-                      <label class="form-label" for="basic-default-fullname">Mệnh giá (*)</label>
-                      <input type="number" required class="form-control" placeholder="" name="price" id="price" value="<?php echo @$data->price;?>" />
+                      <label class="form-label" for="basic-default-fullname">Mệnh giá sử dụng(*)</label>
+                     <input type="number" required class="form-control" placeholder="Nhập giá" name="price_sell" id="price_sell" value="<?php echo @$data->price_sell;?>" />
                     </div>
 
                     <div class="mb-3">
                       <label class="form-label" for="basic-default-fullname">Giá bán (*)</label>
-                      <input type="number" required class="form-control" placeholder="Nhập giá" name="price_sell" id="price_sell" value="<?php echo @$data->price_sell;?>" />
+                      
+                       <input type="number" required class="form-control" placeholder="" name="price" id="price" value="<?php echo @$data->price;?>" />
                     </div>
                     
                     <div class="mb-3">

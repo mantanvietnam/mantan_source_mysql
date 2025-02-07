@@ -208,7 +208,7 @@
                 chart: {
                   title: 'Tổng doanh thu',
                 },
-                width: '100%',
+              //  width: '100%',
                 height: 500,  
             };
 

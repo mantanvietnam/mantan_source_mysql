@@ -260,7 +260,8 @@
                                                     } 
                                                     
                                                     foreach($value->combo_service as $key => $item){ 
-                                                        $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$value->id, 'id_services'=>$item->id))->all()->toList();
+                                                        $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$detail->id, 'id_services'=>$item->id))->all()->toList();
+
                                                         $quantity = count($quantity);
                                                         $quantityAll = $item->quantity_combo*$value->quantity;
 
@@ -313,7 +314,7 @@
                                                         <input type="hidden" value="<?php echo $item->id ?>"  name="id_service">
 
                                                         <label class="form-label">Chọn giường </label>
-                                                        <select  name="id_bed" id="id_bed"  class="form-select color-dropdown">
+                                                        <select  name="id_bed" id="id_bed" required class="form-select color-dropdown">
                                                             <option value="">Chọn giường</option>
                                                             <?php 
                                                             if(!empty($listRoom)){
@@ -332,6 +333,21 @@
                                                                 }
                                                             }
                                                             ?>
+                                                        </select>
+
+                                                        <label class="form-label">Chọn nhân viên phụ trách </label>
+                                                        <select  name="id_staff" required id="id_staff"  class="form-select color-dropdown">
+                                                            <option value="">Chọn nhân viên</option>
+                                                             <?php if(!empty($listStaff)){
+                                                                foreach ($listStaff as $Staff) {
+                                                                            $selected = '';
+                                                                            if(@$user->id==$Staff->id){
+                                                                                $selected = 'selected';
+                                                                            }
+                                                                            echo '<option data-unit="'.@$Staff->id.'" '.@$selected.'  value="'.$Staff->id.'">'.$Staff->name.'</option>';
+                                                                    }
+                                                                   
+                                                                }?>
                                                         </select>
                                                     </div>
                                                 </div>

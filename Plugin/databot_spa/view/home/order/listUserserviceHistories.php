@@ -84,7 +84,14 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Lịch sử sử dụng dịch vụ - <b class="text-danger"><?php echo number_format($totalData);?></b></h5>
+    <div class="row">
+      <div class="col-md-6">
+        <h5 class="card-header">Lịch sử sử dụng dịch vụ - <b class="text-danger"><?php echo number_format($totalData);?></b></h5>
+      </div>
+      <div class="col-md-6">
+        <h5 class="card-header" style="float: right;">Lịch sử sử dụng dịch vụ ngày hôm nay - <b class="text-danger"><?php echo number_format($totaltoday);?></b></h5>
+      </div>
+    </div>
     
     <div class="card-body row">
       <div class="table-responsive">
@@ -127,7 +134,7 @@
                   if($item->order->type=="combo"){
                      $type = '<span class="text-success">combo liệu trình</span>';
                   }elseif($item->order->type=="service"){
-                    if($item->bill->type_card==1){
+                    if(@$item->bill->type_card==1){
                       $type = '<span class="text-info">Dùng thẻ</span>';
                     }else{
                       $type = '<span class="text-danger">trả tiền thật</span>';

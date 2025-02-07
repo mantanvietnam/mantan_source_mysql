@@ -136,6 +136,7 @@ function listBookCalendar($input){
 	global $controller;
 	global $urlCurrent;
 	global $metaTitleMantan;
+	global $modelCategories;
     global $session;
 
     $metaTitleMantan = 'Lịch hẹn';
@@ -220,6 +221,7 @@ function listBookCalendar($input){
 			            'Members.name',
 			            'Members.id',
 			            'Beds.name',
+			            'Beds.id',
 			        ])
 	    			->join([
 				            [
@@ -255,10 +257,7 @@ function listBookCalendar($input){
 									['id_member'=>$infoUser->id_member],
 								];
 	    $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
-
-	    // danh sách dịch vụ
-	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
-	    $listService = $modelService->find()->where($service)->order(['name' => 'ASC'])->all()->toList();
+	    $order = array('name'=>'asc');
 	    
 	    // danh sách giường
 	    $conditionsRoom = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
@@ -270,10 +269,20 @@ function listBookCalendar($input){
             }
         }
 
+        $conditionsCategorieService = array('type' => 'category_service', 'id_member'=>$infoUser->id_member);
+        $CategoryService = $modelCategories->find()->where($conditionsCategorieService)->order($order)->all()->toList();
+
+        if(!empty($CategoryService)){
+	    	foreach ($CategoryService as $key => $Service) {
+	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id, 'id_spa'=>(int) $session->read('id_spa')))->order($order)->all()->toList();
+	    	}
+	    }
+
 	    setVariable('listData', $listData);
 	    setVariable('listStaffs', $listStaffs);
-	    setVariable('listService', $listService);
+	    setVariable('CategoryService', $CategoryService);
 	    setVariable('listRoom', $listRoom);
+	    setVariable('user', $infoUser);
 	}else{
 		return $controller->redirect('/');
 	}

@@ -15,8 +15,9 @@
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
-                      <tr>
+                      <tr align="center">
                         <th>Tên phòng</th>
+                        <th>Số Giường</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
                       </tr>
@@ -27,6 +28,7 @@
                           foreach ($listData as $item) {
                             echo '<tr>
                                     <td id="name'.$item->id.'">'.$item->name.'</td>
+                                    <td id="beb'.$item->id.'" align="center">'.$item->bed.'</td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>

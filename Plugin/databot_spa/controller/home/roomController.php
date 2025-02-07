@@ -21,6 +21,7 @@ function listRoom($input){
         $infoUser = $session->read('infoUser');
         
         $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -46,6 +47,12 @@ function listRoom($input){
 
         $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
         $listData = $modelRoom->find()->where($conditions)->all()->toList();
+
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                $listData[$key]->bed = $modelBed->find()->where(['id_room'=>$item->id])->count();
+            }
+        }
 
         setVariable('listData', $listData);
         setVariable('mess', $mess);

@@ -21,6 +21,13 @@
           </select>
       </div>
       <div class="col-md-6 mb-3">
+          <label class="form-label">bật tắt chức năng gia hạn </label>
+          <select name="extend" class="form-select"  id="extend">
+            <option value="on" <?php if(@$setting['extend']=='on') echo 'selected';?> >bật</option>
+            <option value="off" <?php if(@$setting['extend']=='off') echo 'selected';?> >tắt</option>
+          </select>
+      </div>
+      <div class="col-md-6 mb-3">
           <label class="form-label">domain mặc định </label>
           <input required type="text" class="form-control phone-mask" name="domain" id="domain" value="<?php echo @$setting['domain'];?>" />
       </div>

@@ -20,11 +20,12 @@ function revenueStatistical($input){
 
 	    $conditBill = array();
 
-	    if (!empty($_GET['timeView'])) {
-	        $conditBill['created_at LIKE'] = '%'.$_GET['timeView'].'%';
+	   /* if (!empty($_GET['timeView'])) {
+	        $date_start = explode('/', $_GET['timeView']);
+			$conditions['created_at >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
 	    }else{
-	        $conditOrder['created_at LIKE'] = "%".date('Y-m')."%";
-	    }
+	        $conditOrder['created_at <='] = time();
+	    }*/
 
 	    $conditBill['type'] = 0;
 	    $conditBill['id_member'] = $user->id_member;

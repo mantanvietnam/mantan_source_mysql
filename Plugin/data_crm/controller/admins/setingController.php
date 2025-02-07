@@ -18,7 +18,8 @@ function setingPaymentAdmin($input){
 
         $value = array('payment' => @$dataSend['payment'],
                         'system' => @$dataSend['system'],
-                        'domain' => @$dataSend['domain']
+                        'domain' => @$dataSend['domain'],
+                        'extend' => @$dataSend['extend'],
                     );
         $data->key_word = 'setingPaymentAdmin';
         $data->value = json_encode($value);

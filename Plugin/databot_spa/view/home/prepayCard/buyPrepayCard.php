@@ -133,6 +133,7 @@
 	               </div>
 
 	               <div class="mb-3 col-md-2">
+                        <label class="form-label" for="basic-default-phone">&nbsp;</label>
 	                   <p><a href="javascript:void(0);" onclick="showAddCustom();" title="Thêm khách hàng mới" class="btn btn-primary"><i class="bx bx-plus"></i></a></p>
 	               </div>
 	           </div>

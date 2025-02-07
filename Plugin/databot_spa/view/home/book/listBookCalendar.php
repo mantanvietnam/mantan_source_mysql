@@ -143,7 +143,7 @@
         </div>
         <div class="mb-3 col-md-1">
             <label class="form-label" for="basic-default-phone">&nbsp;</label>
-            <a href="/addCustomer" class="btn btn-primary" target="_blank" title="Thêm khách hàng mới "><i class='bx bx-plus'></i></a>
+            <a href="javascript:void(0);" onclick="showAddCustom();" title="Thêm khách hàng mới" class="btn btn-primary"><i class='bx bx-plus'></i></a>
         </div>
         <div class="col-md-6 mb-3">
           <label class="form-label">Ngày đặt (*)</label>
@@ -167,9 +167,21 @@
           <select class="form-select" name="id_service" id="id_service" required>
             <option value="">Chọn dịch vụ</option>
             <?php 
-            if(!empty($listService)){
-              foreach ($listService as $service) {
-                echo "<option value='".$service->id."'>".$service->name."</option>";
+            if(!empty($CategoryService)){
+               foreach ($CategoryService as $cService) { 
+                echo '<optgroup label="'.$cService->name.'">';
+                if(!empty($cService->service)){
+                  foreach($cService->service as $service){
+                  /*  if($idService==$service->id){
+                      $select= 'selected';
+                                                                        //$unit= $product['unit'];
+                    }else{
+                      $select= '';
+                    }*/
+                    echo '<option data-unit="'.@$service->id.'" '.$select.' value="'.$service->id.'">'.$service->name.'</option>';
+                  }
+                }
+                echo '</optgroup>';
               }
             }
             ?>
@@ -296,7 +308,7 @@
         </div>
         <div class="col-md-6 mb-3">
           <label class="form-label">Giường & phòng</label>
-          <select name="id_bed" id="id_bed" required="" class="form-select">
+          <select name="id_bed" id="idbed" required="" class="form-select">
             <option value="">Chọn giường</option>
             <?php 
             if(!empty($listRoom)){
@@ -327,8 +339,63 @@
  </div>
 </div>
 
+
+
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.5/dist/locale-all.min.js'></script>
+
+
+<div id="addCustomer"  class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm thông tin khách hàng mới</h4>
+                
+            </div>
+            <div class="data-content card-body">
+                <div id="messAddCustom"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Họ tên (*)</label>
+                        <input required type="text" class="form-control phone-mask" name="name" id="name" value="" />
+                        <input  type="hidden" class="form-control phone-mask" name="name" id="id_member" value="<?php echo $user->id_member; ?>" />
+                        <input  type="hidden" class="form-control phone-mask" name="name" id="id_spa" value="<?php echo $user->id_spa; ?>" />
+                        <input  type="hidden" class="form-control phone-mask" name="name" id="id_staff" value="<?php echo $user->id_staff; ?>" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
+                        <input type="text" class="form-control" placeholder="" name="phone" id="phone" value="" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Địa chỉ</label>
+                        <input type="text" class="form-control phone-mask" name="address" id="address" value="" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Giới tính</label>
+                        <select name="sex" id='sex' class="form-select color-dropdown">
+                          <option value="0">Nữ</option>
+                          <option value="1" >Nam</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="text-center col-sm-12" style="padding-bottom: 30px;">
+                        <button type="button" class="btn btn-primary" onclick="addCustomer();">Lưu thông tin</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
 
 <script>
     var staticStatus0 = 0;
@@ -425,6 +492,7 @@
                     staff: "'.$data->Members['name'].'",
                     id_staff: "'.$data->Members['id'].'",
                     bed: "'.$data->Beds['name'].'",
+                    id_bed: "'.$data->Beds['id'].'",
                     status: "'.$status.'",
                     statusnote: "'.$statusnote.'",
                     type: "'.implode(', ', $type).'",
@@ -518,7 +586,7 @@
            </div>\
            <div class="modal-footer">';
            if(info.event.extendedProps.statusnote=="1"|| info.event.extendedProps.statusnote=='0'){
-             modal += '<button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+info.event.extendedProps.id_staff+');"><i class="bx bxs-edit"></i> Check in</button>\
+             modal += '<button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+info.event.extendedProps.id_staff+','+info.event.extendedProps.id_staff+');"><i class="bx bxs-edit"></i> Check in</button>\
             <a href="/addBook/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary"><i class="bx bxs-edit"></i> Sửa hẹn</a>\
             <button type="button" class="btn btn-danger" data-action="delete"><i class="bx bxs-trash"></i> Xóa hẹn</button>';
            }
@@ -596,6 +664,34 @@
     var id_bed = $('#id_bed').val();
     var apt_step = $('#apt_step').val();
     var apt_times = $('#apt_times').val();
+
+    var statustext;
+    var statusnote;
+    var color;
+
+    if(status=='0'){
+      statustext = 'Chưa xác nhận';
+      statusnote = 0;
+      color = 'Gold';
+    }else if(status=='1'){
+      statustext = 'Xác nhận';
+      statusnote = 1;
+      color = 'Blue';
+    }else if(status=='2'){
+      statustext = 'Không đến';
+      statusnote = 2;
+      color = 'Red';
+    }else if(status=='3'){
+      statustext = 'Đã đến';
+      statusnote = 3;
+      color = 'Green';
+    }else if(status=='4'){
+      statustext = 'Hủy';
+      statusnote = 4;
+      color = 'Black';
+    }
+
+          console.log(statustext);
     
     var type1 = 0;
     var type2 = 0;
@@ -629,7 +725,6 @@
           let service = $( "#id_service option:selected" ).text();
           let staff = $( "#id_staff option:selected" ).text();
           let bed = $( "#id_bed option:selected" ).text();
-          let statusText = $( "#status option:selected" ).text();
           let typeBook = [];
 
           if(type1==1) typeBook.push('Lịch tư vấn');
@@ -650,9 +745,12 @@
             service: service,
             staff: staff,
             bed: bed,
-            status: statusText,
+            status: statustext,
             type: typeBook.join(', '),
             note: note,
+            id_bed:id_bed,
+            statusnote:statusnote,
+            color:color
           });
 
           $('#createBookModal').modal('hide');
@@ -665,10 +763,11 @@
     }
   }
 
-  function checkin(id, id_staff){
+  function checkin(id, id_staff, idbed){
 
      $('#idStaff').val(id_staff);
      $('#id_book').val(id);
+     $('#idbed').val(idbed);
 
     //document.getElementById("createBookModal").style.display = 'none';
     $('#modalinfo').remove();
@@ -732,6 +831,53 @@
             }
         });
     });
+
+     function showAddCustom()
+    {
+        $('#addCustomer').modal('show');
+    }
+
+function addCustomer()
+{
+
+    var name = $('#name').val();
+    var id_member = $('#id_member').val();
+    var phone = $('#phone').val();
+    var id_spa = $('#id_spa').val();
+    var email = $('#email').val();
+    var address = $('#address').val();
+    var id_staff = $('#id_staff').val();
+    var sex = $('#sex').val();
+    
+    $.ajax({
+          method: "POST",
+          url: "/apis/addCustomerApi",
+          data: { 
+            name: name,
+            id_member: id_member,
+            phone: phone,
+            id_spa: id_spa,
+            email: email,
+            address: address,
+            id_staff: id_staff,
+            sex:sex,
+        }
+    }).done(function( msg ) {
+            console.log(msg);
+
+            // var obj = jQuery.parseJSON(msg);
+             // console.log(obj);
+            if(msg.code==1){
+                $('#id_customer').val(msg.data.id);
+                $('#full_name').val(msg.data.name);
+                $('#addCustomer').modal('hide');
+            }else{
+                console.log(msg.mess);
+               $('#messAddCustom').html(msg.mess); 
+            }
+        }) 
+          
+}
 </script>
 
 <script type="text/javascript">

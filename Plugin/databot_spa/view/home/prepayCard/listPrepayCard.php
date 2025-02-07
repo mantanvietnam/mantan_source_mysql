@@ -59,7 +59,7 @@
             <tr class="">
               <th>ID</th>
               <th>Tên thẻ</th>
-              <th>Mệnh giá</th>
+              <th>Mệnh giá sd</th>
               <th>Giá bán</th>
               <th>Hoa hồng</th>
               <th>Thời gian SD</th>
@@ -88,8 +88,8 @@
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.$item->name.'</td>
-                          <td>'.number_format($item->price).'</td>
                           <td>'.number_format($item->price_sell).'</td>
+                          <td>'.number_format($item->price).'</td>
                           <td>'.$staff.'</td>
                           <td>'.$item->use_time.' ngày</td>
                           <td>'.$status.'</td>

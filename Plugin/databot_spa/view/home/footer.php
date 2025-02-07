@@ -75,5 +75,22 @@
         });
       });
     </script>
+
+    <script type="text/javascript">
+      function closemenu(){
+        document.getElementById("layout-menu").classList.add("closemenu");
+        document.getElementById("layout-menu-close").classList.add("showmenu");
+        document.getElementById("layout-menu-close").classList.remove("showmenufix");
+        document.getElementById("logoutpage").classList.add("logoutpage");
+
+      }
+      function showemenu(){
+        document.getElementById("layout-menu").classList.remove("closemenu");
+        document.getElementById("layout-menu-close").classList.remove("showmenu");
+        document.getElementById("layout-menu-close").classList.add("showmenufix");
+        document.getElementById("logoutpage").classList.remove("logoutpage");
+
+      }
+    </script>
   </body>
 </html>
