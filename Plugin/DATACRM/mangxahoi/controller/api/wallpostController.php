@@ -2,6 +2,8 @@
 function addWallPostApi($input){
 	global $controller;
     global $isRequestPost;
+    global $projectId;
+    global $keyFirebase;
     
     $modelCustomer = $controller->loadModel('Customers');
     $modelWallPost = $controller->loadModel('WallPosts');
@@ -118,8 +120,19 @@ function addWallPostApi($input){
                     }  
 
                 if(!empty($token_device)){
-                    sendNotification($dataSendNotification, $token_device);
+                    // sendNotification($dataSendNotification, $token_device);
                     saveNotification($dataSendNotification, $id_user, $data->id);
+
+                    // chuyển yêu cầu render sang rabbitmq
+               $rabbitMQClient = new RabbitMQClient();
+
+                $requestMessage = json_encode([ 'dataSendNotification' => $dataSendNotification, 
+                                                'listToken' => $token_device,
+                                                'keyFirebase' => $keyFirebase,
+                                                'projectId' => $projectId
+                                            ]);
+                
+                $rabbitMQClient->sendMessage('send_notification_phoenixcamp', $requestMessage);
                 }
 
                

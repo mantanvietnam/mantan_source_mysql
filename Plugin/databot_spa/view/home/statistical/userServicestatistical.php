@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thống kê doanh thu</h4>
+  <h4 class="fw-bold py-3 mb-4">Thống kê lượng dịch vụ sử dụng</h4>
     <form method="get" action="">
         <div class="card mb-4">
             <h5 class="card-header">Tìm kiếm dữ liệu</h5>
@@ -82,7 +82,7 @@
 
         function drawChartOrder() {
             var data = google.visualization.arrayToDataTable([
-              ['Ngày', 'Số tiền doanh thu'],
+              ['Ngày', 'Số lượng'],
               <?php 
               // for($i=1;$i<32;$i++){
                     if(!empty(@$dayDataBill) ){
@@ -110,7 +110,7 @@
 
              var options = {
                 chart: {
-                  title: 'Tổng doanh thu',
+                  title: 'Thống kê lượng dịch vụ sử dụng',
                  // subtitle: 'in millions of dollars (USD)'
                 },
                 width: 900,

@@ -201,6 +201,5 @@
     });
 </script>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
 <?php include(__DIR__.'/../footer.php'); ?>

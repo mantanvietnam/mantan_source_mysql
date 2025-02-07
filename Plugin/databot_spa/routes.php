@@ -136,6 +136,7 @@
 
 	// thống kê 
 	$routesPlugin['revenueStatistical']= 'databot_spa/view/home/statistical/revenueStatistical.php';
+	$routesPlugin['userServicestatistical']= 'databot_spa/view/home/statistical/userServicestatistical.php';
 
 	// giao dịch
 	$routesPlugin['transactionHistories']= 'databot_spa/view/home/transaction/transactionHistories.php';

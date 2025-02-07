@@ -38,7 +38,7 @@
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Tạo từ ngày</label>
+            <label class="form-label">Từ ngày</label>
             <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
           </div>
 
