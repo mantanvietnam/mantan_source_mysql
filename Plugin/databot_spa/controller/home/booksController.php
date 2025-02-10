@@ -392,16 +392,8 @@ function addBook($input){
 								];
 	    $dataMember = $modelMembers->find()->where($conditionsStaff)->all()->toList();
 
-	    $service = array('id_member'=>$infoUser->id_member);
-	    $dataService = $modelService->find()->where($service)->order(['id' => 'DESC'])->all()->toList();
 
-	    /*
-	   	if(empty($dataService)){
-	   		// nếu chưa cài đặt dịch vụ
-	   		return $controller->redirect('/listService/?error=requestService');
-	   	}
-	   	*/
-
+	   	$order = array('name'=>'asc');
 	   	$conditionsRoom = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
 	   	$listRoom = $modelRoom->find()->where($conditionsRoom)->all()->toList();
         
@@ -411,8 +403,17 @@ function addBook($input){
             }
         }
 
+        $conditionsCategorieService = array('type' => 'category_service', 'id_member'=>$infoUser->id_member);
+        $CategoryService = $modelCategories->find()->where($conditionsCategorieService)->order($order)->all()->toList();
+
+        if(!empty($CategoryService)){
+	    	foreach ($CategoryService as $key => $Service) {
+	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id, 'id_spa'=>(int) $session->read('id_spa')))->order($order)->all()->toList();
+	    	}
+	    }
+
 	    setVariable('data', $save);
-	    setVariable('dataService', $dataService);
+	    setVariable('CategoryService', $CategoryService);
 	    setVariable('dataMember', $dataMember);
 	    setVariable('mess', $mess);
 	    setVariable('infoUser', $infoUser);

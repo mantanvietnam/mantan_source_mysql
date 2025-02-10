@@ -70,6 +70,7 @@
 	$routesPlugin['infoRoomBed']= 'databot_spa/view/home/bed/infoRoomBed.php';
 	$routesPlugin['cancelBed']= 'databot_spa/view/home/bed/cancelBed.php';
 	$routesPlugin['checkoutBed']= 'databot_spa/view/home/bed/checkoutBed.php';
+	$routesPlugin['editBebOrder']= 'databot_spa/view/home/bed/editBebOrder.php';
 
 	$routesPlugin['listCombo']= 'databot_spa/view/home/combo/listCombo.php';
 	$routesPlugin['addCombo']= 'databot_spa/view/home/combo/addCombo.php';

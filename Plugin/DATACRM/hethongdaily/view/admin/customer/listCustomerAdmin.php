@@ -105,13 +105,13 @@
               }
 
                $blue_check = '<span style="color: red;">chưa có tích xanh</span> <br/>
-                   <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn cho tích xem cho người dùng không?\');" href="/blueCheckCustomerAdmin?id='.$item->id.'&status=active">
-                              <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                   <a class="dropdown-item"  title="tích xanh" onclick="return confirm(\'Bạn có chắc chắn muốn cho tích xem cho người dùng không?\');" href="/blueCheckCustomerAdmin?id='.$item->id.'&status=active">
+                             <i class="bx bxs-check-shield me-1" style="font-size: 22px;"></i>
                             </a>';
                   if($item->blue_check=='active'){
                     $blue_check = '<span style="color: #60bc2f;">đã có tích xanh</span> <br/>
-                   <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn bỏ tích xanh người dùng không?\');" href="/blueCheckCustomerAdmin?id='.$item->id.'&status=lock">
-                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                   <a class="dropdown-item"  title="bỏ tích xanh" onclick="return confirm(\'Bạn có chắc chắn muốn bỏ tích xanh người dùng không?\');" href="/blueCheckCustomerAdmin?id='.$item->id.'&status=lock">
+                              <i class="bx bx-check-shield me-1" style="font-size: 22px;"></i>
                             </a>';
                   }
               

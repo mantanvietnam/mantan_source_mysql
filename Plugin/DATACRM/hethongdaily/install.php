@@ -120,7 +120,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `id_affsource` INT NULL DEFAULT 0 COMMENT 'id người giới thiệu' ,
   `status_phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'public',
   `blue_check` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock',
-  
+  `last_login` INT NULL DEFAULT NULL,
   `updated_at` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
@@ -634,6 +634,7 @@ $sqlUpdateDatabase['customers']['blue_check'] = "ALTER TABLE `customers` ADD `bl
 $sqlUpdateDatabase['customers']['total_coin'] = "ALTER TABLE `customers` ADD `total_coin` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['customers']['status_phone'] = "ALTER TABLE `customers` ADD `status_phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'public';";
 $sqlUpdateDatabase['customers']['updated_at'] = "ALTER TABLE `customers` ADD `updated_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customers']['last_login'] = "ALTER TABLE `customers` ADD `last_login` INT NULL DEFAULT NULL;";
 // bảng customer_histories
 $sqlUpdateDatabase['customer_histories']['id_customer'] = "ALTER TABLE `customer_histories` ADD `id_customer` INT NOT NULL;";
 $sqlUpdateDatabase['customer_histories']['time_now'] = "ALTER TABLE `customer_histories` ADD `time_now` INT NOT NULL;";

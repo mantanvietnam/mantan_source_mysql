@@ -409,4 +409,67 @@ function checkoutBed($input){
     }
 }
 
+function editBebOrder($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Thông tin giường';
+     setVariable('page_view', 'editBebOrder');
+
+    if(!empty(checkLoginManager('editBebOrder', 'room'))){
+        $modelCombo = $controller->loadModel('Combos');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+        $modelProduct = $controller->loadModel('Products');
+        $modelCustomer = $controller->loadModel('Customers');
+        $modelService = $controller->loadModel('Services');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+
+        $user = $session->read('infoUser');
+
+        $mess = '';
+
+        if(!empty($_GET['idBed'])){
+            // $data = $modelUserserviceHistories->find()->where(array('id_bed'=>(int)$_GET['idBed'], 'status'=>1))->all()->toList();
+
+            $data = $modelBed->get($_GET['idBed']);
+          
+            
+            /*$data->service = $modelService->find()->where(array('id'=>$data->id_services))->first();
+              
+
+            if(!empty($data->id_customer)){
+                $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
+            }*/
+
+        }
+
+        if(@$_GET['mess']=='done'){
+            $mess = '<p class="text-success">Cập nhập thành công</p>';
+        }
+        $conditionsStaff['OR'] = [ 
+                                    ['id'=>$user->id_member],
+                                    ['id_member'=>$user->id_member],
+                                ];
+        $dataMember = $modelMembers->find()->where($conditionsStaff)->all()->toList();
+
+        debug($data);    
+        die;
+        setVariable('data', $data);
+        setVariable('mess', @$mess);
+        setVariable('dataMember',$dataMember);
+        setVariable('modelUserserviceHistories', @$modelUserserviceHistories);
+
+    }else{
+        return $controller->redirect('/');
+    }
+}
+
 ?>

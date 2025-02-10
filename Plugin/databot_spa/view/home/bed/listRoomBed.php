@@ -155,6 +155,7 @@ rel='stylesheet' type='text/css'>
         echo 'var urlAddroom = "'.$urlHomes.'listBed";';
         echo 'var urlEditFloor = "'.$urlHomes.'listRoom";';
         echo 'var urllistOrderCombo = "'.$urlHomes.'listOrderCombo";';
+        echo 'var urlEditBebOrder = "'.$urlHomes.'editBebOrder";';
     ?>
 
 
@@ -186,6 +187,10 @@ rel='stylesheet' type='text/css'>
                     url = listOrder + '?idBed=' + options.$trigger.attr("idBed")+'&status=0';
                     window.location = url;
                     break;
+                    case 'editBebOrder':
+                    url = urlEditBebOrder + '?idBed=' + options.$trigger.attr("idBed")+'&status=0';
+                    window.location = url;
+                    break;
                     case 'edit':
                     url = urlEdit + '?idBed=' + options.$trigger.attr("idBed");
                     window.location = url;
@@ -205,6 +210,7 @@ rel='stylesheet' type='text/css'>
             items: {
                 "paid": {name: "Check-out", icon: "quit"},
                 "view": {name: "Xem thông tin giường", icon: "paste"},
+                "editBebOrder": {name: "Sửa thông tin giường", icon: "edit"},
                 "cancel": {name: "Hủy check-in", icon: "delete"},
                 "sep1": "---------",
                 //"listwaiting": {name: "Danh sách khách chờ", icon: "paste"},

@@ -32,7 +32,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png" />
+    <link rel="icon" type="image/x-icon" href="/plugins/databot_spa/view/home/assets/img/avatar-default.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -128,20 +128,20 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Quản lý dịch vụ</span></li>
             <!-- Cards -->
 
-            <li class="menu-item">
-              <a href="/listRoomBed" class="menu-link <?php if(!in_array('room', $session->read('infoUser')->module)) echo 'btn disabled';?>" >
+            <li class="menu-item"  id="listRoomBed">
+              <a href="/listRoomBed/#listRoomBed" class="menu-link <?php if(!in_array('room', $session->read('infoUser')->module)) echo 'btn disabled';?>" >
                 <i class="menu-icon tf-icons bx bx-sitemap"></i>
                 <div>Sơ đồ cơ sở</div>
               </a>
             </li>   
-            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listCustomer','addCustomer','listCategoryCustomer','listSourceCustomer','addDataCustomer','listMedicalHistories','addMedicalHistories'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listCustomer','addCustomer','listCategoryCustomer','listSourceCustomer','addDataCustomer','listMedicalHistories','addMedicalHistories'])) echo 'open';?>"  id="listCustomer">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('customer', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div>Khách hàng</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item ">
-                  <a href="/listCustomer" class="menu-link <?php if(@$page_view =='listCustomer') echo 'menu-active';?>">
+                  <a href="/listCustomer/#listCustomer" class="menu-link <?php if(@$page_view =='listCustomer') echo 'menu-active';?>">
                     <div>Khách hàng</div> 
                   </a>
                 </li>
@@ -158,40 +158,40 @@
               </ul>
             </li>  
 
-            <li class="menu-item">
-              <a href="/listBookCalendar" class="menu-link <?php if(!in_array('calendar', $session->read('infoUser')->module)) echo 'btn disabled';?> <?php if(@$page_view =='listBookCalendar') echo 'menu-active';?>">
+            <li class="menu-item"  id="listBookCalendar">
+              <a href="/listBookCalendar/#listBookCalendar" class="menu-link <?php if(!in_array('calendar', $session->read('infoUser')->module)) echo 'btn disabled';?> <?php if(@$page_view =='listBookCalendar') echo 'menu-active';?>">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div>Đặt hẹn</div>
               </a>
             </li>
 
             
-            <li class="menu-item  <?php if(!empty(@$page_view) && in_array(@$page_view, ['orderProduct','orderCombo','orderService','buyPrepayCard'])) echo 'open';?>">
+            <li class="menu-item  <?php if(!empty(@$page_view) && in_array(@$page_view, ['orderProduct','orderCombo','orderService','buyPrepayCard'])) echo 'open';?>"  id="orderProduct">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-shopping-bag"></i>
                 <div>Bán hàng</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/orderProduct" class="menu-link <?php if(@$page_view =='orderProduct') echo 'menu-active';?>">
+                  <a href="/orderProduct/#orderProduct" class="menu-link <?php if(@$page_view =='orderProduct') echo 'menu-active';?>">
                     <div>Bán sản phẩm </div> 
                   </a>
                 </li>
                 
                 <li class="menu-item">
-                  <a href="/orderCombo" class="menu-link <?php if(@$page_view =='orderCombo') echo 'menu-active';  if(!in_array('combo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
+                  <a href="/orderCombo/#orderProduct" class="menu-link <?php if(@$page_view =='orderCombo') echo 'menu-active';  if(!in_array('combo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                     <div>Bán combo liệu trình </div> 
                   </a>
                 </li>
                 
                 <li class="menu-item">
-                  <a href="/orderService" class="menu-link <?php if(@$page_view =='orderService') echo 'menu-active';?>">
+                  <a href="/orderService/#orderProduct" class="menu-link <?php if(@$page_view =='orderService') echo 'menu-active';?>">
                     <div>Bán dịch vụ  </div> 
                   </a>
                 </li>
                 
                 <li class="menu-item">
-                  <a href="/buyPrepayCard" class="menu-link <?php if(!in_array('prepaid_cards', $session->read('infoUser')->module)) echo 'btn disabled';?>  <?php if(@$page_view =='buyPrepayCard') echo 'menu-active';?>">
+                  <a href="/buyPrepayCard/#orderProduct" class="menu-link <?php if(!in_array('prepaid_cards', $session->read('infoUser')->module)) echo 'btn disabled';?>  <?php if(@$page_view =='buyPrepayCard') echo 'menu-active';?>">
                     <div>Bán thẻ trả trước</div> 
                   </a>
                 </li>
@@ -199,100 +199,100 @@
               </ul>
             </li>
 
-            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listOrderProduct','listOrderCombo','listOrderService','listCustomerPrepayCard','listUserserviceHistories'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listOrderProduct','listOrderCombo','listOrderService','listCustomerPrepayCard','listUserserviceHistories'])) echo 'open';?>"  id="listOrderProduct">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-list-ul"></i>
                 <div>Đơn hàng</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/listOrderProduct" class="menu-link <?php if(@$page_view =='listOrderProduct') echo 'menu-active';?>">
+                  <a href="/listOrderProduct/#listOrderProduct" class="menu-link <?php if(@$page_view =='listOrderProduct') echo 'menu-active';?>">
                     <div>Đơn sản phẩm </div> 
                   </a>
                 </li>
                 
                 <li class="menu-item">
-                  <a href="/listOrderCombo" class="menu-link <?php if(!in_array('combo', $session->read('infoUser')->module)) echo 'btn disabled';?> <?php if(@$page_view =='listOrderCombo') echo 'menu-active';?>">
+                  <a href="/listOrderCombo/#listOrderProduct" class="menu-link <?php if(!in_array('combo', $session->read('infoUser')->module)) echo 'btn disabled';?> <?php if(@$page_view =='listOrderCombo') echo 'menu-active';?>">
                     <div>Đơn combo liệu trình</div> 
                   </a>
                 </li>
                 
                 <li class="menu-item">
-                  <a href="/listOrderService" class="menu-link <?php if(@$page_view =='listOrderService') echo 'menu-active';?>">
+                  <a href="/listOrderService/#listOrderProduct" class="menu-link <?php if(@$page_view =='listOrderService') echo 'menu-active';?>">
                     <div>Đơn dịch vụ</div> 
                   </a>
                 </li>
                 
                 <li class="menu-item">
-                  <a href="/listCustomerPrepayCard" class="menu-link <?php if(!in_array('prepaid_cards', $session->read('infoUser')->module)) echo 'btn disabled';?> <?php if(@$page_view =='listCustomerPrepayCard') echo 'menu-active';?>">
+                  <a href="/listCustomerPrepayCard/#listOrderProduct" class="menu-link <?php if(!in_array('prepaid_cards', $session->read('infoUser')->module)) echo 'btn disabled';?> <?php if(@$page_view =='listCustomerPrepayCard') echo 'menu-active';?>">
                     <div>Đơn thẻ trả trước</div> 
                   </a>
                 </li>
                  <li class="menu-item">
-                  <a href="/listUserserviceHistories" class="menu-link <?php if(@$page_view =='listUserserviceHistories') echo 'menu-active';?>">
+                  <a href="/listUserserviceHistories/#listOrderProduct" class="menu-link <?php if(@$page_view =='listUserserviceHistories') echo 'menu-active';?>">
                     <div>Lịch sử sử dụng dịch vụ</div> 
                   </a>
                 </li>
               </ul>
             </li>
 
-            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listCollectionBill','listBill','addBill','addCollectionBilladdCollectionBill'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listCollectionBill','listBill','addBill','addCollectionBilladdCollectionBill'])) echo 'open';?>"  id="listCollectionBill">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('bill', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
                 <div>Quản lý thu chi</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/listCollectionBill" class="menu-link <?php if(@$page_view =='listCollectionBill') echo 'menu-active';?>">
+                  <a href="/listCollectionBill/#listCollectionBill" class="menu-link <?php if(@$page_view =='listCollectionBill') echo 'menu-active';?>">
                     <div>Phiếu thu</div> 
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listBill" class="menu-link <?php if(@$page_view =='listBill') echo 'menu-active';?>">
+                  <a href="/listBill/#listCollectionBill" class="menu-link <?php if(@$page_view =='listBill') echo 'menu-active';?>">
                     <div>Phiếu chi</div> 
                   </a>
                 </li>
               </ul>
             </li>
 
-            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listCollectionDebt','listPayableDebt','addPayableDebt','addCollectionDebt'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listCollectionDebt','listPayableDebt','addPayableDebt','addCollectionDebt'])) echo 'open';?>"  id="listCollectionDebt">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('bill', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-book-content"></i>
                 <div>Quản lý công nợ</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/listCollectionDebt" class="menu-link <?php if(@$page_view =='listCollectionDebt') echo 'menu-active';?>">
+                  <a href="/listCollectionDebt/#listCollectionDebt" class="menu-link <?php if(@$page_view =='listCollectionDebt') echo 'menu-active';?>">
                     <div>Công nợ phải thu</div> 
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listPayableDebt" class="menu-link <?php if(@$page_view =='listPayableDebt') echo 'menu-active';?>">
+                  <a href="/listPayableDebt/#listCollectionDebt" class="menu-link <?php if(@$page_view =='listPayableDebt') echo 'menu-active';?>">
                     <div>Công nợ phải trả</div> 
                   </a>
                 </li>
               </ul>
             </li>
 
-            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['revenueStatistical','listAgency','userServicestatistical'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['revenueStatistical','listAgency','userServicestatistical'])) echo 'open';?>"  id="revenueStatistical">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('static', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
                 <div>Thống kê</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/revenueStatistical" class="menu-link <?php if(@$page_view =='revenueStatistical') echo 'menu-active';?>">
+                  <a href="/revenueStatistical/#revenueStatistical" class="menu-link <?php if(@$page_view =='revenueStatistical') echo 'menu-active';?>">
                     <div>Thống kê doanh thu</div> 
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/userServicestatistical" class="menu-link <?php if(@$page_view =='userServicestatistical') echo 'menu-active';?>">
+                  <a href="/userServicestatistical/#revenueStatistical" class="menu-link <?php if(@$page_view =='userServicestatistical') echo 'menu-active';?>">
                     <div>Thống kê sử dụng dịch vụ </div> 
                   </a>
                 </li>
 
                 <li class="menu-item">
-                  <a href="/listAgency" class="menu-link <?php if(@$page_view =='listAgency') echo 'menu-active';?>">
+                  <a href="/listAgency/#revenueStatistical" class="menu-link <?php if(@$page_view =='listAgency') echo 'menu-active';?>">
                     <div>Hoa hồng nhân viên</div>
                   </a>
                 </li>
@@ -301,103 +301,103 @@
 
             <!--
             
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Marketing Automation</span></li>
-            
+                <li class="menu-header small text-uppercase"><span class="menu-header-text">Marketing Automation</span></li>
+                
 
-            <li class="menu-item">
-              <a href="/listCampain" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-line-chart"></i>
-                <div>Chiến dịch</div>
-              </a>
-            </li> 
-
-            <li class="menu-item">
-              <a href="/listSMSMarketing" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-mail-send"></i>
-                <div>Gửi SMS</div>
-              </a>
-            </li>  
-
-            <li class="menu-item">
-              <a href="/listEmailMarketing" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-mail-send"></i>
-                <div>Gửi Email</div>
-              </a>
-            </li> 
-
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle ">
-                <i class="menu-icon tf-icons bx bx-alarm-snooze"></i>
-                <div>Zalo</div>
-              </a>
-              <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/sendMessZaloOA" class="menu-link ">
-                    <div>Gửi tin nhắn Zalo</div> 
+                  <a href="/listCampain" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-line-chart"></i>
+                    <div>Chiến dịch</div>
+                  </a>
+                </li> 
+
+                <li class="menu-item">
+                  <a href="/listSMSMarketing" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-mail-send"></i>
+                    <div>Gửi SMS</div>
+                  </a>
+                </li>  
+
+                <li class="menu-item">
+                  <a href="/listEmailMarketing" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-mail-send"></i>
+                    <div>Gửi Email</div>
+                  </a>
+                </li> 
+
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle ">
+                    <i class="menu-icon tf-icons bx bx-alarm-snooze"></i>
+                    <div>Zalo</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="/sendMessZaloOA" class="menu-link ">
+                        <div>Gửi tin nhắn Zalo</div> 
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="/listTemplateZNSZalo" class="menu-link">
+                        <div>Mẫu tin nhắn Zalo ZNS</div> 
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="/settingZaloMarketing" class="menu-link">
+                        <div>Cài đặt Zalo</div> 
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="menu-item">
+                  <a href="/transactionHistories" class="menu-link ">
+                    <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                    <div>Nạp tiền</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="/listTemplateZNSZalo" class="menu-link">
-                    <div>Mẫu tin nhắn Zalo ZNS</div> 
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="/settingZaloMarketing" class="menu-link">
-                    <div>Cài đặt Zalo</div> 
-                  </a>
-                </li>
-              </ul>
-            </li>
 
-            <li class="menu-item">
-              <a href="/transactionHistories" class="menu-link ">
-                <i class="menu-icon tf-icons bx bx-credit-card"></i>
-                <div>Nạp tiền</div>
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="/guideAddCustomerCampainApi" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-support"></i>
-                <div>Tích hợp Chatbot</div>
-              </a>
-            </li>   
+                <li class="menu-item">
+                  <a href="/guideAddCustomerCampainApi" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-support"></i>
+                    <div>Tích hợp Chatbot</div>
+                  </a>
+                </li>   
             -->
 
             <!-- Template -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Cài đặt hệ thống</span></li>
             <!-- Cards -->
 
-            <li class="menu-item">
-              <a href="/listPrepayCard" class="menu-link <?php if(!in_array('prepaid_cards', $session->read('infoUser')->module)) echo 'btn disabled';?>">
+            <li class="menu-item" id="listPrepayCard">
+              <a href="/listPrepayCard/#listPrepayCard" class="menu-link <?php if(!in_array('prepaid_cards', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-credit-card"></i>
                 <div>Loại thẻ trả trước</div>
               </a>
             </li>   
             
-            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listProduct','listCategoryProduct','listTrademarkProduct','listPartner','addProduct','addProductWarehouse','addPartner'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listProduct','listCategoryProduct','listTrademarkProduct','listPartner','addProduct','addProductWarehouse','addPartner'])) echo 'open';?>" id="listProduct">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div>Sản phẩm</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/listProduct" class="menu-link <?php if(@$page_view =='listProduct') echo 'menu-active';?>">
+                  <a href="/listProduct/#listProduct" class="menu-link <?php if(@$page_view =='listProduct') echo 'menu-active';?>">
                     <div>Sản phẩm</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listCategoryProduct" class="menu-link <?php if(@$page_view =='listCategoryProduct') echo 'menu-active';?>">
+                  <a href="/listCategoryProduct/#listProduct" class="menu-link <?php if(@$page_view =='listCategoryProduct') echo 'menu-active';?>">
                     <div>Danh mục sản phẩm</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listTrademarkProduct" class="menu-link <?php if(@$page_view =='listTrademarkProduct') echo 'menu-active';?>">
+                  <a href="/listTrademarkProduct/#listProduct" class="menu-link <?php if(@$page_view =='listTrademarkProduct') echo 'menu-active';?>">
                     <div>Nhãn hiệu</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listPartner" class="menu-link <?php if(@$page_view =='listPartner') echo 'menu-active';?>">
+                  <a href="/listPartner/#listProduct" class="menu-link <?php if(@$page_view =='listPartner') echo 'menu-active';?>">
                     <div>Đối tác</div>
                   </a>
                 </li>
@@ -424,14 +424,14 @@
               </ul>
             </li>
 
-            <li class="menu-item ">
-              <a href="/listCombo" class="menu-link <?php if(!in_array('combo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
+            <li class="menu-item " id="listCombo">
+              <a href="/listCombo/#listCombo" class="menu-link <?php if(!in_array('combo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class='menu-icon tf-icons bx bx-gift'></i>
                 <div>Combo liệu trình</div>
               </a>
             </li>
 
-            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listWarehouse','importHistorytWarehouse','addWarehouse'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listWarehouse','importHistorytWarehouse','addWarehouse'])) echo 'open';?>" id="listWarehouse">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-home"></i>
                 <div>Kho hàng</div>
@@ -439,50 +439,50 @@
               <ul class="menu-sub">
                 
                 <li class="menu-item">
-                  <a href="/listWarehouse" class="menu-link <?php if(@$page_view =='listWarehouse') echo 'menu-active';?>">
+                  <a href="/listWarehouse/#listWarehouse" class="menu-link <?php if(@$page_view =='listWarehouse') echo 'menu-active';?>">
                     <div>Danh sách kho</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/importHistorytWarehouse" class="menu-link <?php if(@$page_view =='importHistorytWarehouse') echo 'menu-active';?>">
+                  <a href="/importHistorytWarehouse/#listWarehouse" class="menu-link <?php if(@$page_view =='importHistorytWarehouse') echo 'menu-active';?>">
                     <div>Lịch sử nhập kho</div>
                   </a>
                 </li>
               </ul>
             </li>
 
-            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listBed','listRoom'])) echo 'open';?>">
+            <li class="menu-item <?php if(!empty(@$page_view) && in_array(@$page_view, ['listBed','listRoom'])) echo 'open';?>" id="listBed">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('room', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-bed"></i>
                 <div>Phòng - Giường</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/listBed" class="menu-link <?php if(@$page_view =='listBed') echo 'menu-active';?>">
+                  <a href="/listBed/#listBed" class="menu-link <?php if(@$page_view =='listBed') echo 'menu-active';?>">
                     <div>Giường</div> 
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listRoom" class="menu-link <?php if(@$page_view =='listRoom') echo 'menu-active';?>">
+                  <a href="/listRoom/#listBed" class="menu-link <?php if(@$page_view =='listRoom') echo 'menu-active';?>">
                     <div>Phòng</div> 
                   </a>
                 </li>
               </ul>
             </li>
             
-            <li class="menu-item  <?php if(!empty(@$page_view) && in_array(@$page_view, ['listStaff','listGroupStaff','addStaff','addGroupStaff'])) echo 'open';?>">
+            <li class="menu-item  <?php if(!empty(@$page_view) && in_array(@$page_view, ['listStaff','listGroupStaff','addStaff','addGroupStaff'])) echo 'open';?>" id="listStaff">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('staff', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div>Đội ngũ</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/listStaff" class="menu-link <?php if(@$page_view =='listStaff') echo 'menu-active';?>">
+                  <a href="/listStaff/#listStaff" class="menu-link <?php if(@$page_view =='listStaff') echo 'menu-active';?>">
                     <div>Nhân viên</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listGroupStaff" class="menu-link <?php if(@$page_view =='listGroupStaff') echo 'menu-active';?>">
+                  <a href="/listGroupStaff/#listStaff" class="menu-link <?php if(@$page_view =='listGroupStaff') echo 'menu-active';?>">
                     <div>Nhóm nhân viên</div>
                   </a>
                 </li>
@@ -490,8 +490,8 @@
             </li>
             
 
-            <li class="menu-item">
-              <a href="/listSpa" class="menu-link <?php if(@$page_view =='listSpa') echo 'menu-active';?>">
+            <li class="menu-item" id="listSpa">
+              <a href="/listSpa/#listSpa" class="menu-link <?php if(@$page_view =='listSpa') echo 'menu-active';?>">
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div>Cơ sở Spa</div>
               </a>

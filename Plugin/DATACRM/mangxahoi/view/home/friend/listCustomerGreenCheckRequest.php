@@ -92,7 +92,7 @@
                 <td>'.$infoCustomer.'</td>
                 <td>'.$item->total_friend.'</td>
                 <td>'.$item->point.'</td>
-                <td> <a target="_blank" href="'.$item->verify->link_news.'">'.$item->verify->link_news.'</a></td>
+                <td> <a target="_blank" href="'.@$item->verify->link_news.'">'.@$item->verify->link_news.'</a></td>
                 <td width="5%" align="center">
                 <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
                 <i class="bx bx-edit-alt me-1"></i>
@@ -199,7 +199,7 @@
 
     <?php  if(!empty($listData)){
               foreach ($listData as $item) { ?>
-                        <div class="modal fade" id="basicModal<?php echo $item->id; ?>"  name="id">
+                        <div class="modal fade" id="basicModal<?php echo @$item->id; ?>"  name="id">
                                 
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -215,39 +215,39 @@
                                 <p><label>Email:</label> <?php echo @$item->email ?></p>
                                 <p><label>Điểm:</label> <?php echo @$item->point ?></p>
                                 <p><label>Bạn bè :</label> <?php echo @$item->total_friend ?></p>
-                                <p><label>Link bài báo: </label><a target="_blank" href="><?php echo $item->verify->link_news ?>"><?php echo $item->verify->link_news ?></a></p>
+                                <p><label>Link bài báo: </label><a target="_blank" href="><?php echo @$item->verify->link_news ?>"><?php echo @$item->verify->link_news ?></a></p>
                                 <div class="row">
                                   <div class="col-md-6 mb-4">
                                 <p><label>Ảnh đại diện:</label></p>
-                                  <img  src="<?php echo $item->avatar; ?>" width="150" height="150" />
+                                  <img  src="<?php echo @$item->avatar; ?>" width="150" height="150" />
                                 </div>
                                  <div class="col-md-6 mb-4">
 
                                 <p><label>Ảnh khuôn mặt:</label></p>
-                                  <img  src="<?php echo $item->verify->image_face; ?>" width="150" height="150" />
+                                  <img  src="<?php echo @$item->verify->image_face; ?>" width="150" height="150" />
                                 </div>
                                 <div class="col-md-6 mb-4">
                                   <p><label>Ảnh căn cước công dân mặt trước:</label></p>
-                                  <img  src="<?php echo $item->verify->image_card_before; ?>" width="200" height="150" />
+                                  <img  src="<?php echo @$item->verify->image_card_before; ?>" width="200" height="150" />
                                 </div>
                                  <div class="col-md-6 mb-4">
                                   <p><label>Ảnh căn cưới công dân mặt sau:</label></p>
-                                  <img  src="<?php echo $item->verify->image_card_after; ?>" width="200" height="150" />
+                                  <img  src="<?php echo @$item->verify->image_card_after; ?>" width="200" height="150" />
                                 </div>
                                 <div class="col-md-6 mb-4">
                                   <p><label>Ảnh căn giấy phét kinh doanh mặt trước:</label></p>
-                                  <img  src="<?php echo $item->verify->image_license_before; ?>" width="200" height="150" />
+                                  <img  src="<?php echo @$item->verify->image_license_before; ?>" width="200" height="150" />
                                 </div>
                                  <div class="col-md-6 mb-4">
                                   <p><label>Ảnh căn giấy phét kinh doanh mặt sau:</label></p>
-                                  <img  src="<?php echo $item->verify->image_license_after; ?>" width="200" height="150" />
+                                  <img  src="<?php echo @$item->verify->image_license_after; ?>" width="200" height="150" />
                                 </div>
                               </div>
                               <?php if($item->blue_check=='request'){?>
-                                <a  href="/updateGreenCheckRequest?id=<?php echo $item->id ?>&blue_check=active" class="btn btn-primary" style="color: white;">Duyệt </a>
+                                <a  href="/updateGreenCheckRequest?id=<?php echo @$item->id ?>&blue_check=active" class="btn btn-primary" style="color: white;">Duyệt </a>
                               <?php } ?>
 
-                                <a href="/updateGreenCheckRequest?id=<?php echo $item->id ?>&blue_check=lock"  class="btn btn-danger" style="color: white;">Hủy </a>
+                                <a href="/updateGreenCheckRequest?id=<?php echo @$item->id ?>&blue_check=lock"  class="btn btn-danger" style="color: white;">Hủy </a>
                               </div>
                              </form>
                               

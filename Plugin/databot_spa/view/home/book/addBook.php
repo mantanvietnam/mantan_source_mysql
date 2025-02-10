@@ -55,9 +55,24 @@
                       <label class="form-label" for="basic-default-fullname">Dịch vụ (*)</label>
                       <select class="form-select" name="id_service" id="id_service" required>
                         <option value="">Chọn dịch vụ</option>
-                        <?php foreach($dataService as $key => $item){ ?>
-                          <option value="<?php echo $item->id ?>" <?php if(isset($data->id_service) && $data->id_service== $item->id) echo 'selected'; ?> ><?php echo $item->name ?></option>
-                        <?php } ?>
+                        <?php 
+                            if(!empty($CategoryService)){
+                               foreach ($CategoryService as $cService) { 
+                                echo '<optgroup label="'.$cService->name.'">';
+                                if(!empty($cService->service)){
+                                  foreach($cService->service as $service){
+                                    if($data->id_service==$service->id){
+                                      $select= 'selected';
+                                    }else{
+                                      $select= '';
+                                    }
+                                    echo '<option data-unit="'.@$service->id.'" '.$select.' value="'.$service->id.'">'.$service->name.'</option>';
+                                  }
+                                }
+                                echo '</optgroup>';
+                              }
+                            }
+                            ?>
                       </select>
                     </div>
 

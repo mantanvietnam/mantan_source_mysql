@@ -84,10 +84,10 @@ function addWallPostApi($input){
                 $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
 
 
-
+                $connent = strip_tags($data->connent);
                 $dataSendNotification= array('title'=>"$user->full_name đăng bài viết mới",
                     'time'=>date('H:i d/m/Y'),
-                    'content'=>substr($data->connent, 0, 160),
+                    'content'=>substr($connent, 0, 160),
                     'id_post'=>"$data->id",
                     'action'=>'addWallPostApi');
 
@@ -1179,6 +1179,49 @@ function imagecreatefrom(){
 
 }
 
- ?>
+
+function statisticalAPI($input){
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelWallPost = $controller->loadModel('WallPosts');
+    $modelCustomerHistorieMmtt = $controller->loadModel('CustomerHistorieMmtts');
+
+    $return = array('code'=>0);
+
+    // Thời gian đầu ngày
+    $startOfDay = strtotime("today 00:00:00");
+    // Thời gian cuối ngày
+    $endOfDay = time();
+
+    $conditiontoday['created_at >='] = $startOfDay;
+    $conditiontoday['created_at <='] = $endOfDay;
+
+    $conditionlastlogin['last_login >='] = $startOfDay;
+    $conditionlastlogin['last_login <='] = $endOfDay;
+
+
+    $totalCustomerNewtoday = $modelCustomer->find()->where($conditiontoday)->count();
+    $totalCustomerlastlogin = $modelCustomer->find()->where($conditionlastlogin)->count();
+    $totalCustomer = $modelCustomer->find()->where()->count();
+
+    $totalWallPost = $modelWallPost->find()->where($conditiontoday)->count();
+    $totalCustomerHistorieMmtt = $modelCustomerHistorieMmtt->find()->where($conditiontoday)->count();
+
+
+    $return = [ 'static_code'=>1,
+                'static_luong_nguoi_dung' => (int) @$totalCustomer,
+                'static_luong_dang_ky' => (int) @$totalCustomerNewtoday,
+                'static_luong_dang_nhap' => (int) @$totalCustomerlastlogin,
+                'static_luong_bai_moi' => (int) @$totalWallPost,
+                'static_luog_than_so_hoc' => (int) @$totalCustomerHistorieMmtt,
+                'static_today' => date('H:i d/m/Y'),
+            ];
+
+    return $return;
+}
+?>
 
  

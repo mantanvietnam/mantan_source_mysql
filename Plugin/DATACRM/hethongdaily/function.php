@@ -938,6 +938,8 @@ function getCustomerByToken($token='')
         $conditions = ['token'=>$token, 'status'=>'active'];
         $checkData = $modelCustomer->find()->where($conditions)->first();
         if(!empty($checkData)){
+            $checkData->last_login= time();
+            $modelCustomer->save($checkData);
             $member = $modelMember->find()->where(['id_father'=>0])->first();
             $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$checkData->id,'updated_at >'=>strtotime('today 00:00:00')])->first();
                 if(empty($checkPointCustomer)){
