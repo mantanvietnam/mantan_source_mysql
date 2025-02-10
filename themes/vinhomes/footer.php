@@ -10,7 +10,7 @@ $setting = setting();
           <div class="mb-8 md:mb-0">
             <h2 class="flex items-center mb-4 text-lg font-bold">
             <img src="<?php echo $setting['image_logo'] ?>" alt="icon" class="h-8 mr-4" />
-              MinhTuanVinhomes
+            <?php echo $setting['text_logo'] ?>
             </h2>
             <div class="flex mb-4 space-x-4">
               <a href="<?php echo @$setting['instagram']; ?>" target="_blank"
@@ -45,7 +45,7 @@ $setting = setting();
                     <a href="#" class="hover:underline">Trang chủ</a>
                   </li>
                   <li>
-                    <a href="/posts" class="hover:underline">Về MinhTuanVinhomes</a>
+                    <a href="/posts" class="hover:underline">Về <?php echo $setting['text_logo'] ?></a>
                   </li>
                   <li>
                     <a href="/projects" class="hover:underline">Danh sách dự án</a>

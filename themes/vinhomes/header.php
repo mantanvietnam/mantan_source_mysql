@@ -64,30 +64,67 @@ $setting = setting();
             <div
               class="items-center hidden space-x-2 lg:flex md:property-button lg:space-x-6 xl:space-x-16"
             >
-              <nav
-                class="flex space-x-2 text-white nav-sectionpage lg:space-x-6 xl:space-x-16 setcolor">
+            <nav class="flex space-x-2 text-white nav-sectionpage lg:space-x-6 xl:space-x-16 setcolor">
                 <?php  
-                      $menus = getMenusDefault();  
-               
-                      if (!empty($menus)):  
-                          foreach ($menus as $categoryMenu):       
-                      ?>
-                                  <a href="<?php echo $categoryMenu['link']; ?>" class="active"><?php echo $categoryMenu['name']; ?></a>
-                                  <!-- <a href="#">Giới thiệu</a>
-                                  <a href="list-project.html">Danh sách dự án</a>
-                                  <a href="news.html">Vinhomes</a> -->
-                      <?php  
-                          endforeach;  
-                      endif;  
-                      ?>
-
-              </nav>
-              <a
-                href="/contact"
-                class="set-backgroundcontact px-4 py-2 text-white transition-all duration-300 ease-in-out bg-transparent border border-white shadow-md rounded-xl hover:bg-white hover:text-blue-700 hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              >
-                Liên hệ tư vấn
-              </a>
+                $menus = getMenusDefault();  
+                if (!empty($menus)):  
+                    foreach ($menus as $categoryMenu): 
+                ?>
+                    <div class="relative group">
+                        <?php if (empty($categoryMenu['sub'])): ?> 
+                            <a href="<?php echo $categoryMenu['link']; ?>" class="flex items-center">
+                                <?php echo $categoryMenu['name']; ?>
+                            </a>
+                        <?php else: ?>
+                            <a href="#" class="flex items-center">
+                                <?php echo $categoryMenu['name']; ?>
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </a>
+                            <div class="absolute left-0 hidden pt-2 group-hover:block">
+                                <div class="w-[220px] px-2 py-2 bg-white rounded-lg shadow-lg">
+                                    <?php foreach ($categoryMenu['sub'] as $subMenu): ?>
+                                        <div class="relative group/sub">
+                                            <?php if (!empty($subMenu['sub'])): ?>
+                                                <a href="#" class="block px-4 py-2 text-sm !text-gray-700 hover:bg-gray-100 flex items-center justify-between">
+                                                    <?php echo $subMenu['name']; ?>
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                                    </svg>
+                                                </a>
+                                                <div class="absolute top-0 left-full hidden pt-0 pl-2 group-hover/sub:block">
+                                                    <div class="w-[200px] px-2 py-2 bg-white rounded-lg shadow-lg">
+                                                        <?php foreach ($subMenu['sub'] as $subSubMenu): ?>
+                                                            <a href="<?php echo $subSubMenu['link']; ?>" 
+                                                              class="block px-4 py-2 text-sm !text-gray-700 hover:bg-gray-100">
+                                                                <?php echo $subSubMenu['name']; ?>
+                                                            </a>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                </div>
+                                            <?php else: ?>
+                                                <a href="<?php echo $subMenu['link']; ?>" class="block px-4 py-2 text-sm !text-gray-700 hover:bg-gray-100">
+                                                    <?php echo $subMenu['name']; ?>
+                                                </a>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php 
+                    endforeach;  
+                endif;  
+                ?>
+            </nav>
+            <a
+              href="/contact"
+              class="set-backgroundcontact px-4 py-2 text-white transition-all duration-300 ease-in-out bg-transparent border border-white shadow-md rounded-xl hover:bg-white hover:text-blue-700 hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            >
+              Liên hệ tư vấn
+            </a>
             </div>
             <!-- Nút Dashboard để hiển thị thanh Nav -->
             <div class="flex lg:hidden">

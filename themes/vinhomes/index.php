@@ -812,6 +812,7 @@
         <?php
           $order = array('view' => 'desc');
           $mostViewedPosts = $modelPosts->find()
+              ->where(['type' => 'post']) 
               ->limit(4)
               ->page(1)
               ->order($order)

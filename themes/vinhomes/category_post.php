@@ -206,7 +206,7 @@ $categories = listCategoryBytype('post');
                 $keyword = $keywordEntity->get('keyword');
                 $titles = $modelPosts->find()
                     ->select(['title', 'image', 'slug'])
-                    ->where(['keyword' => $keyword])
+                    ->where(['keyword' => $keyword,  'type' => 'post'])
                     ->limit(7)
                     ->all();
 
@@ -235,6 +235,8 @@ $categories = listCategoryBytype('post');
                   <?php
                     $index = 1;
                     foreach ($keywordTitles as $keyword => $titles):
+                      // debug($keywordTitles);
+                      // die;
                   ?>
                     <li class="keyword-item">
                       <div class="keyword-toggle-container flex items-center space-x-2">
@@ -267,6 +269,7 @@ $categories = listCategoryBytype('post');
     <?php
       $order = array('view' => 'desc');
       $mostViewedPosts = $modelPosts->find()
+          ->where(['type' => 'post']) 
           ->limit(4)
           ->page(1)
           ->order($order)

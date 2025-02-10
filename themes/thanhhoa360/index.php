@@ -198,45 +198,41 @@ color: black;
             <button id="btn-back"><img src="<?= $urlThemeActive ?>images/back-btn.png" alt="back"></button>
             <button id="btn-next"><img src="<?= $urlThemeActive ?>images/next-btn.png" alt="next"></button>
           </div>
-          <span id="current-month">Tháng 12</span>
+          <!-- Các tháng -->
+          <?php include('mon.php') ?>
         </div>
       </div>
-      <?php if(!empty($listDataEvent)) {
-        foreach ($listDataEvent as $keyEvent => $valueEvent) {
-        ?>
-      <div class="best-new-container mt-4">
-      <a style="width : 100%" href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">
-        <div  class="best-new-img">
-          
-          <img id="best-new-img" style="width : 100%" src="<?php echo @$valueEvent->image; ?>" alt="best">
-        </div>
-        <h3 id="event-title" class="mt-3">
-        <?php echo @$valueEvent->name; ?></a>
-        </h3>
-        <div class="bestnew-info d-flex">
-          <div id="event-description" class="bestnew-des">
-          <?php echo @$valueEvent->introductory; ?>
+      <div id="events-container">
+        <?php if (!empty($listDataEvent)) {
+          foreach ($listDataEvent as $keyEvent => $valueEvent) { ?>
+            <div class="best-new-container mt-4">
+              <a style="width : 100%" href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">
+                <div class="best-new-img">
+                  <img id="best-new-img" style="width : 100%" src="<?php echo @$valueEvent->image; ?>" alt="best">
+                </div>
+                <h3 id="event-title" class="mt-3"><?php echo @$valueEvent->name; ?></h3>
+              </a>
+              <div class="bestnew-info d-flex">
+                <div id="event-description" class="bestnew-des">
+                  <?php echo @$valueEvent->introductory; ?>
+                </div>
+                <div class="bn-contacts">
+                  <div class="bn-contact">
+                    <img src="<?= $urlThemeActive ?>images/date.png" alt="date">
+                    <span id="event-date"><?php echo date("d/m/Y", @$valueEvent->datestart); ?> - <?php echo date("d/m/Y", @$valueEvent->dateEnd); ?></span>
+                  </div>
+                  <div class="bn-contact">
+                    <img src="<?= $urlThemeActive ?>images/location.png" alt="address">
+                    <span id="event-address"><?php echo @$valueEvent->address; ?></span>
+                  </div>
+                </div>
+              </div>
+        <?php }
+        } else { ?>
+          <div class="no-events-container text-center mt-5">
           </div>
-          <div class="bn-contacts">
-            <div class="bn-contact">
-              <img  src="<?= $urlThemeActive ?>images/date.png" alt="date">
-              <span id="event-date"><?php echo date("d/m/Y",@$valueEvent->datestart); ?> - <?php echo date("d/m/Y",@$valueEvent->dateEnd); ?></span>
-            </div>
-            <div class="bn-contact">
-              <img src="<?= $urlThemeActive ?>images/location.png" alt="address">
-              <span id="event-address"> <?php echo @$valueEvent->address; ?></span>
-            </div>
-          </div>
-        </div>
+        <?php } ?>
       </div>
-      <?php } }else { ?>
-        <div class="no-events-container text-center mt-5">
-            <img src="<?php echo $setting['image_logo'] ?>" alt="No Events" style="max-width: 300px; margin: 0 auto;">
-            <h3 class="mt-3">Chưa có sự kiện nào xảy ra trong thời gian này!</h3>
-            <p>Hãy quay lại sau để xem thêm thông tin sự kiện.</p>
-        </div>
-    <?php } ?>
-    </div>
     
     <!-- Bản đồ thanh hóa -->
     <?php include("findnear_openstreet_map.php"); ?>
@@ -277,6 +273,7 @@ color: black;
 
 <!-- Swiper -->
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 // Khởi tạo Swiper
 var swiper = new Swiper('.mySwiper2', {
@@ -359,8 +356,66 @@ function stop360View() {
     console.error('Không tìm thấy .header-back-container');
   }
 
-  console.log('Đã dừng xem toàn cảnh 360');
 }
+
+$(document).ready(function () {
+  var currentMonth = parseInt($('.current-month').data('month'));
+  function displayMonth(month) {
+    if (isNaN(month) || month < 1 || month > 12) {
+      console.error("Tháng không hợp lệ:", month);
+      return;
+    }
+    $('.setmoth span').hide();
+
+    $('.setmoth span[data-month="' + month + '"]').show();
+
+    $('.setmoth span').removeClass('current-month');
+    $('.setmoth span[data-month="' + month + '"]').addClass('current-month');
+
+    loadEvent(month);
+  }
+
+  function loadEvent(month) {
+
+    $.ajax({
+      type: "GET",
+      url: '/apis/ajax_event_th',
+      data: { month: month },
+      success: function (response) {
+
+        $('#events-container').html(response.text);
+      },
+      error: function (error) {
+        console.error("Có lỗi khi tải sự kiện:", error);
+      }
+    });
+  }
+
+  function changeMonth(direction) {
+    var newMonth;
+
+    if (direction === 'next') {
+      newMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+    } else if (direction === 'back') {
+      newMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+    }
+
+    if (newMonth >= 1 && newMonth <= 12) {
+      currentMonth = newMonth;
+      displayMonth(newMonth);
+    }
+  }
+
+  $('#btn-next').click(function () {
+    changeMonth('next');
+  });
+
+  $('#btn-back').click(function () {
+    changeMonth('back');
+  });
+
+  displayMonth(currentMonth);
+});
 
 </script>
 
