@@ -468,7 +468,7 @@ $sqlInstallDatabase .="CREATE TABLE `historie_point_customers`(
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
-$sqlInstallDatabase .="CREATE TABLE `datacrm_phoenixcamp`.`transaction_customers` ( 
+$sqlInstallDatabase .="CREATE TABLE `transaction_customers` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
 `id__customer` INT NULL DEFAULT NULL ,
 `coin` INT NULL DEFAULT NULL ,
@@ -476,6 +476,19 @@ $sqlInstallDatabase .="CREATE TABLE `datacrm_phoenixcamp`.`transaction_customers
 `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `create_at` INT NULL DEFAULT NULL ,
 `id_system` INT NULL DEFAULT NULL , 
+`meta_payment` VARCHAR(255) NULL DEFAULT NULL,
+`payment_type` VARCHAR(255) NOT NULL DEFAULT 'payQrcode',
+`id_package` INT NULL DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `packages` (
+`id` INT NOT NULL AUTO_INCREMENT , 
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`price` INT NOT NULL ,
+`status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'active' ,
+`point` INT NOT NULL ,
+`numerology` INT NOT NULL ,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -892,5 +905,14 @@ $sqlUpdateDatabase['transaction_customers']['type'] = "ALTER TABLE `transaction_
 $sqlUpdateDatabase['transaction_customers']['note'] = "ALTER TABLE `transaction_customers` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['transaction_customers']['create_at'] = "ALTER TABLE `transaction_customers` ADD `create_at` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['transaction_customers']['id_system'] = "ALTER TABLE `transaction_customers` ADD `id_system` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_customers']['meta_payment'] = "ALTER TABLE `transaction_customers` ADD `meta_payment` VARCHAR(255) NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_customers']['payment_type'] = "ALTER TABLE `transaction_customers` ADD `payment_type` VARCHAR(255) NOT NULL DEFAULT 'payQrcode';";
+$sqlUpdateDatabase['transaction_customers']['id_package'] = "ALTER TABLE `transaction_customers` ADD `id_package` INT NULL DEFAULT NULL;";
 
+//gói dịch vụ 
+$sqlUpdateDatabase['packages']['name'] = "ALTER TABLE `packages` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['packages']['price'] = "ALTER TABLE `packages` ADD `price` INT NOT NULL;";
+$sqlUpdateDatabase['packages']['status'] = "ALTER TABLE `packages` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'active';";
+$sqlUpdateDatabase['packages']['point'] = "ALTER TABLE `packages` ADD `point` INT NOT NULL;";
+$sqlUpdateDatabase['packages']['numerology'] = "ALTER TABLE `packages` ADD `numerology` INT NOT NULL;";
 ?>

@@ -25,10 +25,11 @@ include_once('controller/home/partnerController.php'); // đào tạo
 
 include_once('controller/admin/membersController.php'); // đại lý hệ thống
 include_once('controller/admin/categoriesController.php'); // hệ thống
-include_once('controller/admin/customersController.php'); // khách hàng
+include_once('controller/admin/customersController.php'); // khách hàng 
 include_once('controller/admin/ordersController.php'); // đơn hàng
 include_once('controller/admin/warehousesController.php'); // kho hàng
 include_once('controller/admin/optionsController.php'); // cài đặt module
+include_once('controller/admin/packageControler.php'); // cài đặt module
 
 include_once('controller/api/membersController.php'); // đại lý
 include_once('controller/api/documentController.php'); // thống kê
@@ -64,5 +65,6 @@ include_once('controller/apiCustomer/orderController.php'); // tài khoản củ
 include_once('controller/apiCustomer/documentController.php'); // tài khoản của khách hàng
 include_once('controller/apiCustomer/mmtcController.php'); // tài khoản của khách hàng
 include_once('controller/apiCustomer/historiePointController.php'); // tài khoản của khách hàng
+include_once('controller/apiCustomer/packageControler.php'); // tài khoản của khách hàng
 
 ?>

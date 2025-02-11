@@ -31,4 +31,5 @@ include('model/customer_historie_mmtt.php'); // cài đặt theme info
 include('model/partners.php'); // cài đặt theme info
 include('model/historie_point_customer.php'); // cài đặt theme info
 include('model/transaction_customers.php'); // cài đặt theme info
-?>	
+include('model/packages.php'); // cài đặt theme info
+?>

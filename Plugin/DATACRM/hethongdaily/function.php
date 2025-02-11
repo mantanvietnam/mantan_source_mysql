@@ -44,6 +44,11 @@ $menus[0]['sub'][]= array(  'title'=>'Danh sách trang info',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listThemeInfoAdmin'
                         );
+$menus[0]['sub'][]= array(  'title'=>'Cài đặt gói ',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-package-listPackageAdmin',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listPackageAdmin'
+                        );
 $menus[1]['title']= "Đơn hàng hệ thống";
 $menus[1]['sub'] = [];
 
@@ -1680,7 +1685,12 @@ function processAddMoney($money = 0, $phone='', $type=''){
     
     $modelCustomer = $controller->loadModel('Customers');
     $modelBill = $controller->loadModel('Bills');
+    $modelMember = $controller->loadModel('Members');
     $modelTransactionCustomers = $controller->loadModel('TransactionCustomers');
+    $modelPackage = $controller->loadModel('Packages');
+    $modelPointCustomer = $controller->loadModel('PointCustomers');
+    $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
+    $member = $modelMember->find()->where(['id_father'=>0])->first();
 
     $infoUser = $modelCustomer->find()->where(['phone'=>$phone])->first();
 
@@ -1718,7 +1728,7 @@ function processAddMoney($money = 0, $phone='', $type=''){
             sendNotification($dataSendNotification, $infoUser->token_device);
         }
 
-        }elseif($type=='MMTC'){
+        }elseif($type=='NAPTIEN'){
             $data = getMemberById($infoUser->id_parent);
             $quantity = $money/$data->infosystem->price_export_mmtc;
 
@@ -1741,7 +1751,57 @@ function processAddMoney($money = 0, $phone='', $type=''){
 
 
                 return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này nạp tiền thành công</p>', 'data'=> $user];
-        }   
+        }else{
+
+            $data = getMemberById($infoUser->id_parent);
+            $firstChar = $type[0];
+            $id = substr($type, 1);
+            if($firstChar='P'){
+                $checkPackage = $modelPackage->find()->where(['id'=>(int)$id])->first();
+                if(!empty($checkPackage)){
+                    $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$infoUser->id])->first();
+                    if(!empty($checkPointCustomer)){
+                        $checkPointCustomer->point += $checkPackage->point;
+                        $checkPointCustomer->updated_at = time();
+                        $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
+                        if(!empty($rating)){
+                            $checkPointCustomer->id_rating = $rating->id;
+                        }
+                        $modelPointCustomer->save($checkPointCustomer);
+                    }
+
+                    $infoUser->max_export_mmtc +=(int) $checkPackage->numerology;
+                    $modelCustomer->save($infoUser);
+
+                    $histories = $modelTransactionCustomers->newEmptyEntity();
+
+                    $histories->id_customer = $infoUser->id;
+                    $histories->id_system = $data->id_system;
+                    $histories->id_package = $checkPackage->id;
+                    $histories->coin = (int) $money;
+                    $histories->type = 'plus';
+                    $histories->note = 'Mua gói '.$checkPackage->name;
+                    $histories->create_at = time();
+
+                    $modelTransactionCustomers->save($histories);
+
+                    $dataSendNotification= array('title'=>'Bạn thanh toán thành công',
+                                'time'=>date('H:i d/m/Y'),
+                                'content'=>"Bạn đã thanh toán mua gói $checkPackage->name thành công",
+                                'action'=>'buyPackage');
+                    if(!empty($infoUser->token_device)){
+                        sendNotification($dataSendNotification, $infoUser->token_device);
+                        saveNotification($dataSendNotification, $infoUser->id);
+                    }
+
+
+
+                return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này nạp tiền thành công</p>', 'data'=> $infoUser];
+
+                }
+
+            }
+        }
         
         return array('code'=>1,'mess'=>'ok');
     }else{

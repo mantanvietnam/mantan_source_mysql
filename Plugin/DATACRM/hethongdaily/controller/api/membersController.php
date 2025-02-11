@@ -1799,8 +1799,13 @@ function addMoneyApplePayAPI($input)
 
 			if(!empty($infoUser)){
 				$user = $modelMember->find()->where(['id'=>$infoUser->id])->first();
-				$deadline = $user->deadline + ($year * 365 * 24 * 60 * 60);
-				$user->deadline =  $deadline;
+				
+				if(!empty($user->deadline)){
+					$user->deadline  += ($year * 365 * 24 * 60 * 60);
+				}else{
+					$user->deadline  = time() + ($year * 365 * 24 * 60 * 60);
+				}
+				
 				$modelMember->save($user);
 
 				// tạo lịch sử giao dịch
