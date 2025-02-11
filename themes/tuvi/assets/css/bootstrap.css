@@ -1,0 +1,114 @@
+@charset "UTF-8"; 
+
+    /* Form container */
+    .form-container {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    /* Form groups */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    /* Labels */
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Text inputs */
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    input[type="text"]:focus {
+        border-color: #927011;
+        outline: none;
+        box-shadow: 0 0 5px rgba(146, 112, 17, 0.2);
+    }
+
+    /* Selects */
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: white;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    /* Date group (for date selects) */
+    .date-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .date-group select {
+        flex: 1;
+    }
+
+    /* Radio groups */
+    .radio-group {
+        margin: 10px 0;
+    }
+
+    .radio-group label {
+        display: inline;
+        margin-right: 20px;
+        font-weight: normal;
+    }
+
+    input[type="radio"] {
+        margin-right: 5px;
+    }
+
+    /* Submit button */
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #927011;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background-color: #785d0e;
+    }
+
+    /* Readonly input */
+    input[readonly] {
+        background-color: #f5f5f5;
+        cursor: not-allowed;
+    }
+
+    /* Responsive design */
+    @media (max-width: 480px) {
+        .form-container {
+            margin: 10px;
+            padding: 15px;
+        }
+
+        .date-group {
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+

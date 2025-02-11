@@ -27,7 +27,6 @@ function listCollaboratorAdmin($input){
     // Lọc theo số điện thoại
     if (!empty($_GET['phone'])) {
         $conditions['phone LIKE'] = '%' . $_GET['phone'] . '%';
-    }
 
     // Lọc theo email
     if (!empty($_GET['email'])) {

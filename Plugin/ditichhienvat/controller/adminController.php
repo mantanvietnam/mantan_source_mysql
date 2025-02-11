@@ -541,7 +541,7 @@ function addArtifactAdmin($input)
             $data->source = @$dataSend['source'];
             $data->file = @$dataSend['file'];
             $data->image = @$dataSend['image'];
-            $data->image2 = @$dataSend['image2'];
+            $data->image2 = @$dataSend['image2']; 
             $data->image3 = @$dataSend['image3'];
             $data->image4 = @$dataSend['image4'];
             $data->image5 = @$dataSend['image5'];
