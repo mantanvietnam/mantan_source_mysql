@@ -1776,6 +1776,66 @@ function saveRequestMemberAPI($input){
 	}
 	return $return;
 }
+
+function addMoneyApplePayAPI($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $priceExtend;
+
+	$modelOrder = $controller->loadModel('Orders');
+	$modelMember = $controller->loadModel('Members');
+	$modelTransactionHistories = $controller->loadModel('TransactionHistories');
+
+	$return= array('code'=>0);
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['productId']) && !empty($dataSend['purchaseDate'])){
+
+			$year = $check_id = explode("Y", $dataSend['productId']);
+			
+			$year = (int)$year[0];
+			$infoUser = getMemberByToken($dataSend['token'],'extendMember');;
+
+			if(!empty($infoUser)){
+				$user = $modelMember->find()->where(['id'=>$infoUser->id])->first();
+				$deadline = $user->deadline + ($year * 365 * 24 * 60 * 60);
+				$user->deadline =  $deadline;
+				$modelMember->save($user);
+
+				// tạo lịch sử giao dịch
+					$histories = $modelTransactionHistories->newEmptyEntity();
+
+					$histories->id_member = $user->id;
+					$histories->id_system = $user->id_system;
+					$histories->coin = (int) $priceExtend[$year];
+					$histories->type = 'plus';
+					$histories->meta_payment = 'Giá hạn qua tài khoản Apple. Mã giao dịch '.$dataSend['purchaseID']; // id giao dịch của Apple
+	            	$histories->payment_type = 'payApple';
+	            	$histories->note = 'Thời gian giao dịch gia hạn với Apple: '.date('H:i d-m-Y' ,time());
+					$histories->create_at = time();
+
+					$modelTransactionHistories->save($histories);
+	            $return = array('code'=>1,
+									'messages'=>'Gia hạn thành công'
+								);
+			}else{
+				$return = array('code'=>3,
+								'messages'=>'Tài khoản không tồn tại hoặc sai mã token'
+								);
+			}
+		}else{
+			$return = array('code'=>2,
+							'messages'=>'Gửi thiếu dữ liệu'
+							);
+		}
+	}else{
+		$return = array('code'=>0,
+								'messages'=>'Gửi dữ liệu kiểu POST'
+							);
+	}
+	return 	$return;
+}
 ?>
 
 

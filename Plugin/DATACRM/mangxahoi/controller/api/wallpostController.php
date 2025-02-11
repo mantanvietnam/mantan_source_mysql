@@ -84,7 +84,7 @@ function addWallPostApi($input){
                 $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
 
 
-                $connent = strip_tags($data->connent);
+                $connent = str_replace("&nbsp;", "&", strip_tags($data->connent));
                 $dataSendNotification= array('title'=>"$user->full_name đăng bài viết mới",
                     'time'=>date('H:i d/m/Y'),
                     'content'=>substr($connent, 0, 160),

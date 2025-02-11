@@ -67,6 +67,7 @@
                                         <?php
                                         if(!empty($listData)){
                                             foreach($listData as $key => $item){ 
+                                                
                                                   $type = '<span style="color: red">Chưa thanh toán</span>';
                                                 if($item->status==1){
                                                     $type = 'Đã thanh toán';
@@ -85,16 +86,20 @@
                                               }else{
                                                  $promotion = $item->promotion.'%';
                                              }
+                                             $count = 0;
+                                             if(!empty($item->product)){
+                                                $count = count(@$item->product);
+                                             }
                                              ?>
-                                             <tr> 
-                                                <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
-                                                <td rowspan='<?php echo count($item->product); ?>'><?php echo date('Y-m-d H:i:s', $item->time); ?></td>
-                                                <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->full_name ?></td>
-                                                <td rowspan='<?php echo count($item->product); ?>' style="text-align: left;">Chưa giảm giá <?php echo number_format(@$item->total) ?>đ<br/>
+                                            <tr> 
+                                                <td rowspan='<?php echo $count; ?>'><?php echo $item->id ?></td>
+                                                <td rowspan='<?php echo $count; ?>'><?php echo date('H:i d/m/Y', $item->time); ?></td>
+                                                <td rowspan='<?php echo $count; ?>'><?php echo $item->full_name ?></td>
+                                                <td rowspan='<?php echo $count; ?>' style="text-align: left;">Chưa giảm giá <?php echo number_format(@$item->total) ?>đ<br/>
                                                     Giảm giá: <?php echo $promotion ?><br/>
                                                     Tổng cộng: <?php echo number_format(@$item->total_pay) ?>đ<br/>
                                                     Trạng thái: <?php echo $type ?></td>
-                                                    <td rowspan='<?php echo count($item->product); ?>'><a class="btn rounded-pill btn-icon btn-outline-secondary" title="Từ chối" data-bs-toggle="modal"
+                                                    <td rowspan='<?php echo $count; ?>'><a class="btn rounded-pill btn-icon btn-outline-secondary" title="Từ chối" data-bs-toggle="modal"
                                                        data-bs-target="#basicModal<?php echo $item->id; ?>" ><i class="bx  bx bxs-show"></i></a>
                                                    </td>
                                                    <?php  if(!empty($item->product)){ 

@@ -104,7 +104,7 @@
 
                   echo '<tr>
                           <td>'.$id.'</td>
-                          <td>'.date('d/m/Y H:i', $item->time).'</td>
+                          <td>'.date('H:i d/m/Y', $item->time).'</td>
                           <td>'.@$item->full_name.'</td>
                           <td>'.@$item->staff->name.'</td>
                           <td>'.number_format($item->total).'đ<br/>'.$type.'</td>

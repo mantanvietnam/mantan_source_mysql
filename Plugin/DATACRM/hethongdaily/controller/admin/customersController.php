@@ -214,6 +214,17 @@ function blueCheckCustomerAdmin($input){
           
             $modelCustomers->save($data);
         }
+        if($_GET['status']=='active'){
+                $dataSendNotification= array('title'=>'Lên tích xanh thành công',
+                            'time'=>date('H:i d/m/Y'),
+                            'content'=>"chúc mừng bạn đã lên tích xanh",
+                            'action'=>'sendGreenCheckRequest');
+
+                if(!empty($data->token_device)){
+                    sendNotification($dataSendNotification, $data->token_device);
+                    saveNotification($dataSendNotification, $data->id,0);
+                }
+        }
     }
     return $controller->redirect('/plugins/admin/hethongdaily-view-admin-customer-listCustomerAdmin');
 }

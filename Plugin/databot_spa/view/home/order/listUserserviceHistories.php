@@ -123,17 +123,17 @@
                   }
                   $created_at ='';
                   if(!empty($item->created_at)){
-                    $created_at = date("d/m/Y H:i", $item->created_at);
+                    $created_at = date("H:i d/m/Y", $item->created_at);
                   }
                   $check_out ='';
                   if(!empty($item->check_out)){
-                    $check_out = date("d/m/Y H:i", $item->check_out);
+                    $check_out = date("H:i d/m/Y", $item->check_out);
                   }
 
                   $type = "";
-                  if($item->order->type=="combo"){
+                  if(@$item->order->type=="combo"){
                      $type = '<span class="text-success">combo liệu trình</span>';
-                  }elseif($item->order->type=="service"){
+                  }elseif(@$item->order->type=="service"){
                     if(@$item->bill->type_card==1){
                       $type = '<span class="text-info">Dùng thẻ</span>';
                     }else{

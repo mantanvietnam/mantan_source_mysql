@@ -707,9 +707,10 @@ function serchBook($input){
                         ['name LIKE'=>'%'.$_GET['name'].'%'],
                         ['book_code LIKE'=>'%'.$_GET['name'].'%'],
                     ];
-        }else{
-            $conditions['id'] = 0;
         }
+        /*else{
+            $conditions['id'] = 0;
+        }*/
 
         $listData = $modelBook->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 

@@ -22,7 +22,7 @@ if(@$data->order->promotion>101){
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0"> Thông tin giường <?php echo @$data->bed->name ?></h5>
+            <h5 class="mb-0"> Thông tin giường <?php echo @$data->name ?></h5>
           </div>
           <div class="card-body">
               <p><?php echo @$mess;?></p>
@@ -93,12 +93,18 @@ if(@$data->order->promotion>101){
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyservice">
-                                    <?php $quantity = 0;
-                                        $quantity = count($modelUserserviceHistories->find()->where(array('id_order_details'=>$data->id_order_details, 'id_services'=>$data->service->id))->all()->toList()); ?>
-                                    <tr>
-                                        <td><?php echo $data->service->name ?></td>
-                                        <td><?php echo number_format($quantity); ?></td>
-                                    </tr>
+                                    <?php
+                                    if(!empty($data->userservice)){
+                                        foreach($data->userservice as $key => $item){
+                                            $quantity = 0;
+                                            $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$item->id_order_details, 'id_services'=>$item->id_services))->count(); 
+                                       echo "<tr>
+                                            <td>".$item->service->name."</td>
+                                            <td>".number_format($quantity)."</td>
+                                        </tr>";
+                                    }
+                                }
+                                ?>
                                         </tbody>
                                     </table>
                                </div>

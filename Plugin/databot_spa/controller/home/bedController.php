@@ -133,17 +133,19 @@ function listRoomBed($input){
             foreach($listData as $key => $item){
                 $databed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa')))->all()->toList();
                 foreach($databed as $k => $value){
-                    $Userservice = $modelUserserviceHistories->find()->where(array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id_bed'=>$value->id,'status'=>1))->first();
-                    if(!empty($Userservice)){
-                    $Userservice->customer = $modelCustomer->find()->where(array('id'=>$Userservice->id_customer))->first();
-                        }
-                    $databed[$k]->Userservice = $Userservice;
+                    if(!empty($value->id_order)){
+                        $order = $modelOrder->find()->where(array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id'=>$value->id_order))->first();
+                        if(!empty($order)){
+                        $order->customer = $modelCustomer->find()->where(array('id'=>$order->id_customer))->first();
+                            }
+                        $databed[$k]->order = $order;
 
-                    $conditionsOrder = array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id_bed'=>$value->id,'status'=>0);
-                    $conditionsOrder['time >='] = $startOfDayTimestamp;
-                    $conditionsOrder['time <='] = $endOfDayTimestamp;
+                        $conditionsOrder = array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id_bed'=>$value->id,'status'=>0);
+                        $conditionsOrder['time >='] = $startOfDayTimestamp;
+                        $conditionsOrder['time <='] = $endOfDayTimestamp;
+                    }
 
-                    $order = $modelOrder->find()->where($conditionsOrder)->all()->toList();
+                    //$order = $modelOrder->find()->where($conditionsOrder)->all()->toList();
 
                     // if(!empty(@$order)){
 
@@ -194,13 +196,26 @@ function infoRoomBed($input){
         $mess = '';
 
         if(!empty($_GET['idBed'])){
-            $data = $modelUserserviceHistories->find()->where(array('id_bed'=>(int)$_GET['idBed'], 'status'=>1))->first();
+            $data = $modelBed->find()->where(['id'=>(int)$_GET['idBed'],'status'=>2])->first();
 
-            $data->bed = $modelBed->get($data->id_bed);
-          
-            
-            $data->service = $modelService->find()->where(array('id'=>$data->id_services))->first();
-              
+            if(!empty($data)){
+                if(!empty($data->id_userservice)){
+                    $id_user_service =  explode(",", $data->id_userservice);
+                    $userservice = array();
+                    foreach($id_user_service as $id_userservice){
+                        if(!empty($id_userservice)){
+                            $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>$id_userservice, 'status'=>1))->first();
+
+                            $user_service->service = $modelService->find()->where(array('id'=>$user_service->id_services))->first();
+
+                            $userservice[] =  $user_service;
+                        }
+                    }
+                    $data->userservice = $userservice;
+                }
+            }else{
+                return $controller->redirect('/listRoomBed');
+            }
 
             if(!empty($data->id_customer)){
                 $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
@@ -211,6 +226,7 @@ function infoRoomBed($input){
         if(@$_GET['mess']=='done'){
             $mess = '<p class="text-success">Cập nhập thành công</p>';
         }
+        
         
 
         setVariable('data', $data);
@@ -285,14 +301,22 @@ function cancelBed($input){
        if($isRequestPost){
             $dataSend = $input['request']->getData();
 
-            $data = $modelUserserviceHistories->find()->where(array('id_bed'=>$dataSend['idBed'], 'status'=>1))->first();
-            
-            $data->status = 3;
-            // /$data->note = @$data->note.', Nội dung hủy là: '.@$dataSend['note'];
-            $modelUserserviceHistories->save($data);
+            $listData = $modelUserserviceHistories->find()->where(array('id_bed'=>$dataSend['idBed'], 'status'=>1))->all()->toList();
 
+            if(!empty($listData)){
+                foreach($listData as $key => $item){
+                    $item->status = 3;
+                    $item->check_out = time();
+                    $item->note = @$item->note.', Nội dung hủy là: '.@$dataSend['note'];
+                    $modelUserserviceHistories->save($item);
+                }
+            }
             $datebed = $modelBed->get($dataSend['idBed']);
             $datebed->status = 1;
+            $datebed->id_order = NULL;
+            $datebed->id_staff = NULL;
+            $datebed->id_customer = NULL;
+            $datebed->id_id_userservice = NULL;
             $modelBed->save($datebed);
 
             $return = array('code'=>1);
@@ -337,43 +361,31 @@ function checkoutBed($input){
         $mess = '';
 
         if(!empty($_GET['idBed'])){
-            $data = $modelUserserviceHistories->find()->where(array('id_bed'=>$_GET['idBed'], 'status'=>1))->first();
-          /*  debug($data);
-        die();*/
-            if(!empty($data->id_bed)){
-                $data->bed = $modelBed->get($data->id_bed);
+          $data = $modelBed->find()->where(['id'=>(int)$_GET['idBed'],'status'=>2])->first();
+
+            if(!empty($data)){
+                if(!empty($data->id_userservice)){
+                    $id_user_service =  explode(",", $data->id_userservice);
+                    $userservice = array();
+                    foreach($id_user_service as $id_userservice){
+                        if(!empty($id_userservice)){
+                            $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>$id_userservice, 'status'=>1))->first();
+
+                            $user_service->service = $modelService->find()->where(array('id'=>$user_service->id_services))->first();
+
+                            $userservice[] =  $user_service;
+                        }
+                    }
+                    $data->userservice = $userservice;
+                }
             }else{
                 return $controller->redirect('/listRoomBed');
             }
-          
-            
-            $data->service = $modelService->find()->where(array('id'=>$data->id_services))->first();
 
-            if(empty($data->id_order)){
-                $data->id_order = $modelOrderDetails->find()->where(['id'=>$data->id_order_details])->first()->id_order;    
-            }
-              
-            $data->order = $modelOrder->find()->where(array('id'=>$data->id_order))->first();
             if(!empty($data->id_customer)){
-                $customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
-
-                $conditioncard = ['id_customer'=> $data->id_customer,
-                                    'total >='=> $data->order->total_pay] ;
-                                 
-                    $card = $modelCustomerPrepaycards->find()->where($conditioncard)->all()->toList();
-                    if(!empty($card)){
-                        foreach($card as $k => $value){
-
-                            $value->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$value->id_prepaycard))->first();
-                            $card[$k] = $value;
-                            
-                        }
-
-                       $customer->card = $card;
-                    }
-
-                    $data->customer = $customer;
+                $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
             }
+            
 
         }
 

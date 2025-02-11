@@ -1,4 +1,15 @@
-<?php include(__DIR__.'/../header.php'); ?>
+<?php include(__DIR__.'/../header.php');
+
+if(@$data->order->promotion>101){
+            $promotion = number_format(@$data->order->promotion).'đ';
+        }else{
+            $promotion = @$data->order->promotion.'%';
+        } 
+        $type = '<span style="color: red">Chưa thanh toán';
+        if(@$data->order->status==1){
+            $type = 'Đã thanh toán';
+        }
+?>
 
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -13,7 +24,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0"> Thông tin giường <?php echo @$data->bed->name ?></h5>
+            <h5 class="mb-0"> Thông tin giường <?php echo @$data->name ?></h5>
           </div>
           <div class="card-body">
               <p><?php echo @$mess;?></p>
@@ -45,10 +56,14 @@
                         <label class="col-sm-4 control-label"><strong>Ngày sinh:</strong></label>
                         <div class="col-sm-8"><?php echo @$data->customer->birthday; ?></div>
                     </div>
-                            <div class="form-group col-sm-12 row">
-                                <label class="col-sm-4 control-label"><strong>Ghi chú checkin:</strong></label>
-                                <div class="col-sm-8"><?php echo @$data->note; ?></div>
-                            </div>
+                    <div class="form-group col-sm-12 row">
+                        <label class="col-sm-4 control-label"><strong>Ghi chú checkin:</strong></label>
+                        <div class="col-sm-8"><?php echo @$data->note; ?></div>
+                    </div>
+                    <div class="form-group col-sm-12 row">
+                        <label class="col-sm-4 control-label"><strong>Trạng thái:</strong></label>
+                        <div class="col-sm-8"><?php echo $type ?></div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -65,12 +80,18 @@
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyservice">
-                                    <?php $quantity = 0;
-                                        $quantity = count($modelUserserviceHistories->find()->where(array('id_order_details'=>$data->id_order_details, 'id_services'=>$data->service->id))->all()->toList()); ?>
-                                    <tr>
-                                        <td><?php echo $data->service->name ?></td>
-                                        <td><?php echo number_format($quantity); ?></td>
-                                    </tr>
+                                    <?php
+                                    if(!empty($data->userservice)){
+                                        foreach($data->userservice as $key => $item){
+                                            $quantity = 0;
+                                            $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$item->id_order_details, 'id_services'=>$item->id_services))->count(); 
+                                       echo "<tr>
+                                            <td>".$item->service->name."</td>
+                                            <td>".number_format($quantity)."</td>
+                                        </tr>";
+                                    }
+                                }
+                                ?>
                                         </tbody>
                                     </table>
                                </div>

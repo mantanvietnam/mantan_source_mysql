@@ -85,6 +85,8 @@ $sqlInstallDatabase .= "CREATE TABLE `transaction_histories` (
   `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `create_at` INT NOT NULL , 
   `id_system` INT NOT NULL, 
+  `meta_payment` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `payment_type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'payQrcode',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -601,7 +603,8 @@ $sqlUpdateDatabase['transaction_histories']['type'] = "ALTER TABLE `transaction_
 $sqlUpdateDatabase['transaction_histories']['note'] = "ALTER TABLE `transaction_histories` ADD `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['transaction_histories']['create_at'] = "ALTER TABLE `transaction_histories` ADD `create_at` INT NOT NULL;";
 $sqlUpdateDatabase['transaction_histories']['id_system'] = "ALTER TABLE `transaction_histories` ADD `id_system` INT NOT NULL;";
-
+$sqlUpdateDatabase['transaction_histories']['meta_payment'] = "ALTER TABLE `transaction_histories` ADD `meta_payment` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_histories']['payment_type'] = "ALTER TABLE `transaction_histories` ADD `payment_type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'payQrcode';";
 // bảng customers
 $sqlUpdateDatabase['customers']['full_name'] = "ALTER TABLE `customers` ADD `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['customers']['phone'] = "ALTER TABLE `customers` ADD `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";

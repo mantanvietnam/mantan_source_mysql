@@ -62,11 +62,21 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/plugins/thuvien/view/home/assets/js/config.js"></script>
+    <style type="text/css">
+      .border-book{
+      padding: 20px 10px;
+      border: 1px solid #c5c9c9;
+      height: 450px;
+    }
+    .border-book img{
+      height: 250px;
+    }
+    </style>
   </head>
 
   <body>
     <!-- Content -->
-<?php if(empty($_GET['name'])){ ?>
+<?php if(empty($listData)){ ?>
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
@@ -113,14 +123,14 @@
           <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
            
 
-            <div style="width: 80%;">
+            <div style="width: 100%;">
               <!-- Search -->
               <div >
                 <div >
                   
                   <form id="" class="" action="" method="GET">
                     <div class="row">
-                      <div class="col-md-2">
+                      <div class="col-md-1">
                           <img src="/plugins/thuvien/view/home/assets/img/logo-phoenix.png" width="50">
                       </div>
                       <div class="col-md-8 mt-1">
@@ -129,7 +139,12 @@
                       <div class="col-md-2 mt-1">
                         <button class="btn btn-primary d-grid w-100" type="submit">Tìm kiếm</button>
 
-                      </div>  
+                      </div>
+                       <div class="col-md-1 mt-3">
+                          <a href="/login">
+                        <span>Đăng nhập</span>
+                         </a>
+                       </div>
                     </div>
                   </form>
                 </div>
@@ -139,41 +154,42 @@
 
 
             </div>
+            
           </nav>
         </div>
          <div class="container-xxl mt-5">
             <div class="row">
 
                 <?php
-                if($listData){
+                if(!empty($listData)){
                  foreach($listData as $key => $item){
-                  $thuvien = '';
+                  $thuvien = '<div style="color: #000;">';
                   if(!empty($item->warehouse)){
                     foreach($item->warehouse as $k => $value){
-                      $thuvien .= '<div style="color: #000;"><p>Thư viên: '.@$value->building->name.', địa chỉ: '.@$value->building->address.'<p>
-                                  <p>Số lượng: '.@$value->quantity_warehous.'<p>             
-                                  </div>
-                      ';
+                      if($k==0){
+                        $thuvien .= '<span>Thư viên: '.@$value->building->name.'<br/> Địa chỉ: '.@$value->building->address.'<br/>
+                                  Số lượng: '.@$value->quantity_warehous.'</span> <br/>
+                                 
+                        ';
+                      }
                     }
                     
                   }
-                  $thuvien .=' <p style="color: #000;">Số lượng xem online: '.@$item->view.'<p>';
+                  $thuvien .=' <span style="color: #000;">Số lượng xem online: '.@$item->view.'<span> </div>';
                   $image= '/plugins/thuvien/view/image/default-image.jpg';
                   if(!empty($item->image)){
                     $image = $item->image;
                   }
-                  echo '<div class="col-sm-12 mt-4">
-                    <a href="/detailBook/'.@$item->slug.'-'.$item->id.'.html">
-                    <div class="row">
-                      <div class="col-sm-2">
+                  echo '<div class="col-sm-3 mt-4 ">
+                    <div class="border-book">
+                    <a  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
+                    <div class="row ">
+                        <h5 style="color: #5f93e5;">'.@$item->name.'</h5>
                         <img src="'.$image.'" style="width: 100%  ">
-                      </div>
-                      <div class="col-sm-10">
-                         <h5 style="color: #5f93e5;">'.@$item->name.'</h5>
                           <p>'.$thuvien.'</p>
-                      </div>
                     </div>
                     </a>
+                    </div>
                   </div>';
                 }
               }else{
@@ -232,8 +248,49 @@
               </ul>
             </nav>
           </div>
-<?php } ?>
+<?php } 
+  if(!empty($listData)){
+              foreach ($listData as $item) {
+                 $thuvien = '<div style="color: #768798;">';
+                  if(!empty($item->warehouse)){
+                    foreach($item->warehouse as $k => $value){
+                        $thuvien .= '<span><label class="form-label">Thư viên:</label> '.@$value->building->name.'<br/> <label class="form-label">Địa chỉ:</label> '.@$value->building->address.'<br/>
+                                  <label class="form-label">Số lượng:</label> '.@$value->quantity_warehous.'</span> <br/>';
+                    }
+                    
+                  }
+                  $thuvien .='  <label class="form-label">Số lượng xem online:</label> '.@$item->view.'<span> </div>';
+                  $image= '/plugins/thuvien/view/image/default-image.jpg';
+                  if(!empty($item->image)){
+                    $image = $item->image;
+                  }
 
+                  $link= '<span style="color: red">Không có bản online</span>';
+                  if(!empty($item->file_pdf)){
+                    $link =  '<a href="/detailBook/'.@$item->slug.'-'.$item->id.'.html" class="btn btn-primary">Đọc bản online</a>';
+                  }
+               ?>
+               Số điện thoại:</label>
+                        <div class="modal fade" id="basicModal<?php echo $item->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header form-label border-bottom">
+                                <h5 class="modal-title " id="exampleModalLabel1">Thông tin sách</h5>
+                                <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="card-body">
+                              <div class="row ">
+                                  <h5 style="color: #5f93e5;" class="form-label"><?php echo @$item->name ?></h5>
+                                  <img src="<?php echo $image ?>" style="width: 100%  ">
+                                    <p><?php echo $thuvien ?></p>
+                                    <p style="text-align: center;"><?php echo $link ?></p>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <?php }} ?>
 
     <!-- / Content -->
 

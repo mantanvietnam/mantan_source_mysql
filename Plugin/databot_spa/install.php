@@ -32,6 +32,10 @@ $sqlInstallDatabase .= "CREATE TABLE `beds` (
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
   `id_room` int(11) NOT NULL,
+  `id_order` INT NULL DEFAULT NULL,
+  `id_staff` INT NULL DEFAULT NULL,
+  `id_customer` INT NULL DEFAULT NULL,
+  `id_userservice` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -544,6 +548,10 @@ $sqlUpdateDatabase['beds']['status'] = "ALTER TABLE `beds` ADD `status` int(11) 
 $sqlUpdateDatabase['beds']['id_member'] = "ALTER TABLE `beds` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['beds']['id_spa'] = "ALTER TABLE `beds` ADD `id_spa` int(11) NOT NULL; ";
 $sqlUpdateDatabase['beds']['id_room'] = "ALTER TABLE `beds` ADD `id_room` int(11) NOT NULL; ";
+$sqlUpdateDatabase['beds']['id_order'] = "ALTER TABLE `beds` ADD `id_order` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['beds']['id_staff'] = "ALTER TABLE `beds` ADD `id_staff` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['beds']['id_customer'] = "ALTER TABLE `beds` ADD `id_customer` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['beds']['id_userservice'] = "ALTER TABLE `beds` ADD `id_userservice` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
 // Bang bills
 $sqlUpdateDatabase['bills']['id_member'] = "ALTER TABLE `bills` ADD `id_member` int(11) NOT NULL COMMENT 'ID chủ spa'; ";
