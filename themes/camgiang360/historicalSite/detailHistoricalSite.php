@@ -191,7 +191,7 @@ global $urlThemeActive;
                                     <div id="map_HS"></div>
 
                             <?php }else{ ?>
-                               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126550.56754330949!2d104.92489967144137!3d20.679955282517525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3133f645315ccf35%3A0x5197e8a870126f79!2zTWFpIENow6J1LCBIw7JhIELDrG5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1703474584380!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59616.723239828716!2d106.21040359999999!3d20.9506998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135992036dca65f%3A0x234d50103c0d0512!2zQ-G6qW0gR2nDoG5nLCBI4bqjaSBExrDGoW5n!5e0!3m2!1svi!2s!4v1739333550135!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             <?php } ?>
                 </div>
             </div>
@@ -263,7 +263,7 @@ global $urlThemeActive;
                                     <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
                                 </svg>
                             </div>
-                            <p class="button-text-comment">Viết đánh giá</p>
+                            <p class="button-text-comment">Viết đánh giá</p>
                         </button>
                     </div>
 
@@ -356,7 +356,7 @@ global $urlThemeActive;
               $content.='<br/>Điện thoạt: ' . $data->phone;
               $content.='<br/>Địa chỉ: ' . $data->address;
 
-              $listShowMap[]= '["' . $content . '", ' . $data->latitude . ', ' . $data->longitude . ', "/themes/maichau360/tayho/assets/icon/lehoi.png","su_kien"]';
+              $listShowMap[]= '["' . $content . '", ' . $data->latitude . ', ' . $data->longitude . ', "/themes/camgiang360/assets/icon/ditich.png","'.$data->idTypeHistoricalSites.'"]';
             }
         
         //  $listShowMap[]= '[]';
@@ -364,8 +364,19 @@ global $urlThemeActive;
     }
     ?>];
 
-     const map = L.map('map_HS', {
-       center: [20.668785542548076, 105.00060413875005],
+    var latitudeDefault = '<?php echo @$data->latitude;?>';
+    var longitudeDefault = '<?php echo @$data->longitude;?>';
+
+    if(latitudeDefault == ''){
+        latitudeDefault = '20.951113764456373';
+    }
+
+    if(longitudeDefault == ''){
+        longitudeDefault = '106.22435151082209';
+    }
+
+    const map = L.map('map_HS', {
+       center: [latitudeDefault, longitudeDefault],
       zoom: 14,
     });
 

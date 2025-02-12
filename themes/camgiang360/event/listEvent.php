@@ -59,7 +59,7 @@ global $urlThemeActive;
         <!-- <div class="background" style="background-image: url('<?= $urlThemeActive ?>/assets/lou_img/su-kien-list-event.png')"> -->
             <section class="section-heading section-heading-event">
                 <h3 class="text-uppercase text-center" >Tin tức và sự kiện</h3>
-                <p class="text-center" style="margin-top: 10px">Những Tin tức - Sự kiện Văn hoá, Du lịch tỉnh Mai Châu</p>
+                <p class="text-center" style="margin-top: 10px">Những Tin tức - Sự kiện Văn hoá, Du lịch huyện Cẩm Giàng</p>
             </section>
             <div class="container">
                 <div class="row g-3">

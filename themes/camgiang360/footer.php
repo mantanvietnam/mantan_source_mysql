@@ -58,7 +58,7 @@ $setting = setting();
     </section>
 
     <section id="footer">
-        <p>Copyright © 2023 Cam Giang District. All rights reserved</p>
+        <p>Copyright © 2024 Cam Giang District. All rights reserved</p>
     </section>
 
 
