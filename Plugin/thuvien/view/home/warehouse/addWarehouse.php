@@ -19,7 +19,7 @@
             <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
             <div class="row">
               <div class="col-md-3 mb-4">
-              <label class="form-label">Tên tòa nhà</label>
+              <label class="form-label">Tên huyện</label>
               <select class="form-select" name="id_building" id="id_building" onclick="getfloor()" <?php echo $disabled ?>>
                 <?php if(!empty($dataBuilding)){
                   foreach ($dataBuilding as $key => $item){

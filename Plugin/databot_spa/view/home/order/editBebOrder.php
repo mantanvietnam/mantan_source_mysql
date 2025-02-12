@@ -88,7 +88,7 @@ if(@$data->order->promotion>101){
                                     if(!empty($data->userservice)){
                                         foreach($data->userservice as $key => $item){
                                             $quantity = 0;
-                                            $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$item->id_order_details, 'id_services'=>$item->id_services))->count(); 
+                                            $quantity = $modelUserserviceHistories->find()->where(array('id_order'=>$item->id_order, 'id_services'=>$item->id_services))->count(); 
                                        echo "<tr>
                                             <td>".$item->service->name."</td>
                                             <td>".number_format($quantity)."</td>

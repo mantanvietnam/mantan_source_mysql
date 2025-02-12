@@ -154,7 +154,7 @@
                   Quản lý kho
               </a>
               <div class="dropdown-menu" aria-labelledby="member">
-                <a class="dropdown-item" href="/listBuilding">Tòa nhà</a>
+                <a class="dropdown-item" href="/listBuilding">Huyện</a>
                 <a class="dropdown-item" href="/listFloor">Quản lý tầng</a>
                 <a class="dropdown-item" href="/listWarehouse">Quản lý kho sách</a>               
                 <a class="dropdown-item" href="/listWarehouseHistory">Lịch sử nhập và hủy kho</a>
@@ -178,7 +178,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                 <a class="dropdown-item" href="/changePass">Đổi mật khẩu</a>
                 <a class="dropdown-item" href="/account">Đổi thông tin</a>
-                <a class="dropdown-item" href="/selectBuilding">Đổi tòa nhà</a>
+                <a class="dropdown-item" href="/selectBuilding">Đổi Huyện</a>
                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
               </div>
             </li>

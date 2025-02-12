@@ -84,14 +84,14 @@
               </div> -->
               <!-- /Logo -->
               <h4 class="mb-2">Phần mềm quản lý thư viện </h4>
-              <p class="mb-4">Mời bạn chọn tòa nhà</p>
+              <p class="mb-4">Mời bạn chọn huyện</p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
 
                 <div class="mb-3">
                   <div class="form-check">
-                    <label class="form-check-label" for="remember-me">Tòa nhà</label>
+                    <!-- <label class="form-check-label" for="remember-me">huyện</label> -->
                     <select class="form-select" name="id_building" id="id_building">
                         <?php 
                          

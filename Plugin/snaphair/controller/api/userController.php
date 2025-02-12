@@ -76,7 +76,7 @@ function registerUserApi($input): array
                     'status' => 'active'
                 ])->first();
 
-                return apiResponse(0, 'Lưu thông tin thành công', $loginUser);
+                return apiResponse(1, 'Lưu thông tin thành công', $loginUser);
             }
 
             return apiResponse(3, 'Số điện thoại đã tồn tại');
@@ -85,7 +85,7 @@ function registerUserApi($input): array
         return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
 function loginUserApi($input): array
@@ -114,7 +114,7 @@ function loginUserApi($input): array
                 $user->device_token = $dataSend['device_token'];
                 $modelUser->save($user);
 
-                return apiResponse(0, 'Đăng nhập thành công', $user);
+                return apiResponse(1, 'Đăng nhập thành công', $user);
             }
 
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mật khẩu');
@@ -123,7 +123,7 @@ function loginUserApi($input): array
         return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
 function logoutUserApi($input): array
@@ -144,7 +144,7 @@ function logoutUserApi($input): array
                 $user->device_token = null;
                 $modelUser->save($user);
 
-                return apiResponse(0, 'Đăng xuất thành công');
+                return apiResponse(1, 'Đăng xuất thành công');
             }
 
             return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
@@ -153,7 +153,7 @@ function logoutUserApi($input): array
         return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
 function changePasswordApi($input): array
@@ -236,13 +236,13 @@ function forgotPasswordApi($input): array
             $modelUser->save($user);
             sendEmailCodeForgotPassword($user->email, $user->full_name, $code);
 
-            return apiResponse(0, 'Tạo mã cấp lại mật khẩu thành công');
+            return apiResponse(1, 'Tạo mã cấp lại mật khẩu thành công');
         }
 
         return apiResponse(2, 'Chưa nhập số điện thoại');
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
 function resetPasswordApi($input): array
@@ -288,13 +288,13 @@ function resetPasswordApi($input): array
             $user->device_token = @$dataSend['device_token'];
             $modelUser->save($user);
 
-            return apiResponse(0, 'Đổi mật khẩu thành công', $user);
+            return apiResponse(1, 'Đổi mật khẩu thành công', $user);
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
 
@@ -373,7 +373,7 @@ function checkLoginFacebookApi($input): array
                     $newUser->device_token = $dataSend['device_token'] ?? null;
                     $userModel->save($newUser);
 
-                    return apiResponse(0, 'Đăng nhập thành công', $newUser);
+                    return apiResponse(1, 'Đăng nhập thành công', $newUser);
                 }
 
                 return apiResponse(2, 'Gửi thiếu dữ liệu');
@@ -383,7 +383,7 @@ function checkLoginFacebookApi($input): array
         return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
 function checkLoginGoogleApi($input): array
@@ -474,7 +474,7 @@ function checkLoginGoogleApi($input): array
                         $imageModel->save($newImage);
                     }
 
-                    return apiResponse(0, 'Đăng nhập thành công', $newUser);
+                    return apiResponse(1, 'Đăng nhập thành công', $newUser);
                 }
 
                 return apiResponse(2, 'Gửi thiếu dữ liệu');
@@ -484,7 +484,7 @@ function checkLoginGoogleApi($input): array
         return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
 function checkLoginAppleApi($input): array

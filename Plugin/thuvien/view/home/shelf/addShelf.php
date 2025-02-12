@@ -3,7 +3,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listBuilding">Tòa nhà <?php echo @$checkRoom->building->name; ?> </a> / <a href="/listFloor?id_building=<?php echo $checkRoom->id_building; ?>">Tầng <?php echo @$checkRoom->floor->name; ?></a>  / <a href="/listRoom?id_floor=<?php echo $checkRoom->id; ?>">Phòng <?php echo @$checkRoom->name; ?></a></a> / </span>
+    <span class="text-muted fw-light"><a href="/listBuilding">Huyện <?php echo @$checkRoom->building->name; ?> </a> / <a href="/listFloor?id_building=<?php echo $checkRoom->id_building; ?>">Tầng <?php echo @$checkRoom->floor->name; ?></a>  / <a href="/listRoom?id_floor=<?php echo $checkRoom->id; ?>">Phòng <?php echo @$checkRoom->name; ?></a></a> / </span>
     Thông tin kệ sách
   </h4>
   <!-- Basic Layout -->
@@ -30,7 +30,7 @@
                           </div>
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-phone">Giới thiệu kệ sách</label>
+                              <label class="form-label" for="basic-default-phone">Giới thiệu</label>
                               <textarea class="form-control" name="description"><?php echo @$data->description ?></textarea>
                             </div>
                           </div>

@@ -76,7 +76,10 @@ if(@$data->order->promotion>101){
                         <label class="col-sm-4 control-label"><strong>Trạng thái:</strong></label>
                         <div class="col-sm-8"><?php echo $type ?></div>
                     </div>
-
+                    <div class="form-group col-sm-12 row">
+                        <label class="col-sm-4 control-label"><strong>Nhân viên:</strong></label>
+                        <div class="col-sm-8"><?php echo $data->staff->name; ?> </div>
+                    </div>
                 </div>
                
                 <div class="col-md-6 mb-3">

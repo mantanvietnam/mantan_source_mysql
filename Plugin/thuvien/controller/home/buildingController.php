@@ -13,7 +13,7 @@ function listBuilding($input)
         if(empty($user->grant_permission)){
             return $controller->redirect('/');
         }
-        $metaTitleMantan = 'Danh sách tòa nhà';
+        $metaTitleMantan = 'Danh sách huyện';
 
         $modelBuilding = $controller->loadModel('Buildings');
         $modelWarehouse = $controller->loadModel('Warehouses');
@@ -172,7 +172,7 @@ function addBuilding($input)
         }
         $mess = '';
 
-        $metaTitleMantan = 'Thông tin tòa nhà';
+        $metaTitleMantan = 'Thông tin huyện';
         $modelBuilding = $controller->loadModel('Buildings');
 
         $mess= '';

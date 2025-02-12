@@ -36,4 +36,32 @@ function searchServicesApi($input)
 
 	return $return;
 }
+
+function getbyServicesApi($input)
+{
+	global $controller;
+	global $session;
+	
+
+	$return = ['code'=>0];
+
+	if(!empty($session->read('infoUser'))){
+		$modelServices = $controller->loadModel('Services');
+
+		if(!empty($_GET['id'])){
+            $conditions = array('id_member'=>$session->read('infoUser')->id_member, 'id_spa'=>$session->read('id_spa'));
+            $conditions['id'] =$_GET['id'];
+          
+            $order = array('name' => 'asc');
+
+            $data = $modelServices->find()->where($conditions)->first();
+            
+            if(!empty($data)){
+               $return = array('code'=>1,'data'=>$data);
+            }
+        }
+	}
+
+	return $return;
+}
 ?>

@@ -1,4 +1,4 @@
-<?php include(__DIR__.'/../header.php'); ?>
+f<?php include(__DIR__.'/../header.php'); ?>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <style>
 table, th, td {

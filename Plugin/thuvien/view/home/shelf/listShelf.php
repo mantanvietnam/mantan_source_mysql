@@ -3,7 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listBuilding">Tòa nhà <?php echo @$data->building->name; ?> </a> / <a href="/listFloor?id_building=<?php echo $data->id_building; ?>">Tầng <?php echo @$data->floor->name; ?></a> / <a href="/listRoom?id_floor=<?php echo $data->id_floor; ?>">Phòng <?php echo @$data->floor->name; ?></a> / <a href="/listShelf?id_room=<?php echo $data->id; ?>">Kệ sách</a> / </span>
+    <span class="text-muted fw-light"><a href="/listBuilding">Huyện <?php echo @$data->building->name; ?> </a> / <a href="/listFloor?id_building=<?php echo $data->id_building; ?>">Tầng <?php echo @$data->floor->name; ?></a> / <a href="/listRoom?id_floor=<?php echo $data->id_floor; ?>">Phòng <?php echo @$data->floor->name; ?></a> / <a href="/listShelf?id_room=<?php echo $data->id; ?>">Kệ sách</a> / </span>
     Danh sách kệ sách
   </h4>
 

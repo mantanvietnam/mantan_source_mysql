@@ -186,7 +186,7 @@ function infoRoomBed($input){
         $modelService = $controller->loadModel('Services');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
-        $modelMembers = $controller->loadModel('Members');
+        $modelMember = $controller->loadModel('Members');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
@@ -204,9 +204,10 @@ function infoRoomBed($input){
                     $userservice = array();
                     foreach($id_user_service as $id_userservice){
                         if(!empty($id_userservice)){
-                            $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>$id_userservice, 'status'=>1))->first();
-
-                            $user_service->service = $modelService->find()->where(array('id'=>$user_service->id_services))->first();
+                            $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>(int)$id_userservice, 'status'=>1))->first();
+                            debug($user_services);
+                            die;
+                            $user_service->service = $modelService->find()->where(array('id'=>$user_service->id_service))->first();
 
                             $userservice[] =  $user_service;
                         }
@@ -221,6 +222,13 @@ function infoRoomBed($input){
                 $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
             }
 
+            if(!empty($data->id_order)){
+                $data->order = $modelOrder->find()->where(array('id'=>$data->id_order))->first();
+            }
+
+            if(!empty($data->id_staff)){
+                $data->staff = $modelMember->find()->where(array('id'=>$data->id_staff))->first();
+            }
         }
 
         if(@$_GET['mess']=='done'){
@@ -347,7 +355,7 @@ function checkoutBed($input){
         $modelService = $controller->loadModel('Services');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
-        $modelMembers = $controller->loadModel('Members');
+        $modelMember = $controller->loadModel('Members');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelDebts = $controller->loadModel('Debts');
@@ -371,7 +379,7 @@ function checkoutBed($input){
                         if(!empty($id_userservice)){
                             $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>$id_userservice, 'status'=>1))->first();
 
-                            $user_service->service = $modelService->find()->where(array('id'=>$user_service->id_services))->first();
+                            $user_service->service = $modelService->find()->where(array('id'=>$id_userservice))->first();
 
                             $userservice[] =  $user_service;
                         }
@@ -385,7 +393,13 @@ function checkoutBed($input){
             if(!empty($data->id_customer)){
                 $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
             }
-            
+            if(!empty($data->id_order)){
+                $data->order = $modelOrder->find()->where(array('id'=>$data->id_order))->first();
+            }
+
+            if(!empty($data->id_staff)){
+                $data->staff = $modelMember->find()->where(array('id'=>$data->id_staff))->first();
+            }
 
         }
 
@@ -439,7 +453,7 @@ function editBebOrder($input){
         $modelService = $controller->loadModel('Services');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
-        $modelMembers = $controller->loadModel('Members');
+        $modelMember = $controller->loadModel('Members');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
@@ -449,18 +463,95 @@ function editBebOrder($input){
         $mess = '';
 
         if(!empty($_GET['idBed'])){
-            // $data = $modelUserserviceHistories->find()->where(array('id_bed'=>(int)$_GET['idBed'], 'status'=>1))->all()->toList();
+            $data = $modelBed->find()->where(['id'=>(int)$_GET['idBed'],'status'=>2])->first();
 
-            $data = $modelBed->get($_GET['idBed']);
-          
-            
-            /*$data->service = $modelService->find()->where(array('id'=>$data->id_services))->first();
-              
+            if(!empty($data)){
+                if(!empty($data->id_userservice)){
+                    $id_user_service =  explode(",", $data->id_userservice);
+                    $userservice = array();
+                    foreach($id_user_service as $id_userservice){
+                        if(!empty($id_userservice)){
+                            $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>$id_userservice, 'status'=>1))->first();
+                            $user_service->orderDetail = $modelOrderDetails->find()->where(['id'=>$user_service->id_order_details,'id_order'=>$user_service->id_order])->first();
+                            $user_service->service = $modelService->find()->where(array('id'=>$id_userservice))->first();
+
+                            $userservice[] =  $user_service;
+                        }
+                    }
+                    $data->userservice = $userservice;
+                }
+            }else{
+                return $controller->redirect('/listRoomBed');
+            }
 
             if(!empty($data->id_customer)){
                 $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
-            }*/
+            }
+            if(!empty($data->id_order)){
+                $data->order = $modelOrder->find()->where(array('id'=>$data->id_order))->first();
+            }
 
+            if(!empty($data->id_staff)){
+                $data->staff = $modelMember->find()->where(array('id'=>$data->id_staff))->first();
+            }
+
+        }
+
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+         // /   debug($dataSend);die;
+            $order = $modelOrder->find()->where(array('id'=>$data->id_order))->first();
+            $datebed = $modelBed->get($_GET['idBed']);
+            $datebed->id_staff =(int) $dataSend['id_staff'];
+
+            $datebed->id_customer = (int)$dataSend['id_customer'];
+            $id_user_service =array();
+            if(!empty($dataSend['idService'])){
+                $conditions = ['id_order'=>$data->id_order, 'id_product NOT IN'=>$dataSend['idService'], 'type'=>'service'];
+                $conditionsService = ['id_order'=>$data->id_order, 'id_services NOT IN'=>$dataSend['idService'], 'status'=>1];
+                $modelOrderDetails->deleteAll($conditions);
+                $modelUserserviceHistories->deleteAll($conditionsService);
+                foreach($dataSend['idService'] as $key => $value){
+                    $checkOrderDetail = $modelOrderDetails->find()->where(['id_product'=>(int)$value,'id_order'=>$data->id_order, 'type'=>'service'])->first();
+                    if(empty($checkOrderDetail)){
+                        $checkOrderDetail = $modelOrderDetails->newEmptyEntity();
+                        $checkOrderDetail->type = 'service';
+                        $checkOrderDetail->id_order = $data->id_order;
+                        $checkOrderDetail->id_order = $data->id_order;
+                        $checkOrderDetail->id_product = (int)$value;
+                        $checkOrderDetail->number_uses +=1;
+                        $checkOrderDetail->id_member = $user->id_member;
+                    }
+                    $checkOrderDetail->price = (int)$dataSend['price'][$key];
+                    $checkOrderDetail->quantity = (int)$dataSend['quantityService'][$key];
+                    $modelOrderDetails->save($checkOrderDetail);
+                }
+
+                $UserService = $modelUserserviceHistories->find()->where(['id_services'=>(int)$value,'id_order'=>$data->id_order, 'status'=>1])->first();
+                if(empty($UserService)){
+                    $UserService = $modelUserserviceHistories->newEmptyEntity();
+                    $UserService->id_member = $user->id_member;
+                    $UserService->id_order_details = $checkOrderDetail->id;
+                    $UserService->id_order =  $data->id_order;
+                    $UserService->id_staff = $dataSend['id_staff'];
+                    $UserService->id_spa =$session->read('id_spa');
+                    $UserService->id_services =(int)$value;
+                    $UserService->created_at =time();
+                    $UserService->note =@$data['note'];
+                    $UserService->id_bed = $datebed->id;
+                    $UserService->id_customer = $datebed->id_customer;
+                    $UserService->status = 1;
+
+                    $modelUserserviceHistories->save($UserService);
+                }
+                $id_user_service[]= $UserService->id;
+
+            }
+            $datebed->id_userservice = implode(',', $id_user_service);
+            $order->total_pay = (int)$dataSend['total'];
+            $modelBed->save($datebed);
+            $modelOrder->save($order);
+             return $controller->redirect('/listRoomBed');
         }
 
         if(@$_GET['mess']=='done'){
@@ -470,14 +561,23 @@ function editBebOrder($input){
                                     ['id'=>$user->id_member],
                                     ['id_member'=>$user->id_member],
                                 ];
-        $dataMember = $modelMembers->find()->where($conditionsStaff)->all()->toList();
+        $dataMember = $modelMember->find()->where($conditionsStaff)->all()->toList();
 
-        debug($data);    
-        die;
+        $order = array('name'=>'asc');
+        $conditionsCategorieService = array('type' => 'category_service', 'id_member'=>$user->id_member);
+        $CategoryService = $modelCategories->find()->where($conditionsCategorieService)->order($order)->all()->toList();
+
+        if(!empty($CategoryService)){
+            foreach ($CategoryService as $key => $Service) {
+                $CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id, 'id_spa'=>(int) $session->read('id_spa')))->order($order)->all()->toList();
+            }
+        }
+
         setVariable('data', $data);
         setVariable('mess', @$mess);
         setVariable('dataMember',$dataMember);
         setVariable('modelUserserviceHistories', @$modelUserserviceHistories);
+        setVariable('CategoryService', @$CategoryService);
 
     }else{
         return $controller->redirect('/');

@@ -94,13 +94,13 @@
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 
-                 href="/plugins/admin/colennao-view-admin-workout-addChildExerciseWorkout/?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&id=' . $item->id . '"
+                 href="/plugins/admin/colennao-view-admin-workout-addChildExerciseWorkout/?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&id='.$item->id.'&id_connec='.$item->cc['id'].'"
                  >
                  <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>
                  <p align="center">
-                 <a class="btn btn-success" href="/plugins/admin/colennao-view-admin-workout-deleteChildExerciseWorkout/?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&id=' . $item->id . '">
+                 <a class="btn btn-success" href="/plugins/admin/colennao-view-admin-workout-deleteChildExerciseWorkout/?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&id=' . $item->id .'&id_connec='.$item->cc['id'].'">
                  <i class="bx bx-trash me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>

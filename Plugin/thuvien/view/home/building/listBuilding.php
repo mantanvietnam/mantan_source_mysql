@@ -3,8 +3,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listBuilding">Tòa nhà</a> /</span>
-    Danh sách tòa nhà
+    <span class="text-muted fw-light"><a href="/listBuilding">Huyện</a> /</span>
+    Danh sách huyện
   </h4>
 
   <p><a href="/addBuilding" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
@@ -23,7 +23,7 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên tòa nhà</label>
+            <label class="form-label">Tên huyện</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
@@ -47,14 +47,14 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách tòa nhà </h5>  <!-- - <span class="text-danger"><?php echo number_format(@$totalData);?> tòa nhà</span>-->
+    <h5 class="card-header">Danh sách huyện </h5>  <!-- - <span class="text-danger"><?php echo number_format(@$totalData);?> tòa nhà</span>-->
     <?php echo @$mess;?>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>tên tòa nhà</th>
+            <th>tên huyện</th>
             <th>số điện thoại</th>
             <th>địa chỉ</th>
             <th>Tầng</th>

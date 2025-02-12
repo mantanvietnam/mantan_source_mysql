@@ -3,15 +3,15 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listBuilding">Tòa nhà</a> /</span>
-    Thông tin tòa nhà
+    <span class="text-muted fw-light"><a href="/listBuilding">Huyện</a> /</span>
+    Thông tin huyện
   </h4>
   <!-- Basic Layout -->
     <div class="row">
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin tòa nhà</h5>
+            <h5 class="mb-0">Thông tin huyện</h5>
           </div>
           <div class="card-body">
             <p><?php echo @$mess;?></p>
@@ -24,7 +24,7 @@
                         <div class="row">
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-phone">Tên tòa nhà(*)</label>
+                              <label class="form-label" for="basic-default-phone">Tên Huyện(*)</label>
                               <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                             </div>
 
@@ -39,7 +39,7 @@
                               <input type="text" class="form-control phone-mask" name="address" id="name" value="<?php echo @$data->address;?>" />
                             </div>
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-phone">Giới thiệu tòa nhà</label>
+                              <label class="form-label" for="basic-default-phone">Giới thiện</label>
                               <textarea class="form-control" name="description"><?php echo @$data->description ?></textarea>
                             </div>
                           </div>

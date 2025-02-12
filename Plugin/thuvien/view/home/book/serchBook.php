@@ -71,6 +71,14 @@
     .border-book img{
       height: 250px;
     }
+
+    .border-book h5{
+      color: #5f93e5;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
     </style>
   </head>
 
@@ -270,7 +278,6 @@
                     $link =  '<a href="/detailBook/'.@$item->slug.'-'.$item->id.'.html" class="btn btn-primary">Đọc bản online</a>';
                   }
                ?>
-               Số điện thoại:</label>
                         <div class="modal fade" id="basicModal<?php echo $item->id; ?>"  name="id">
                                 
                           <div class="modal-dialog" role="document">

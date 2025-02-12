@@ -23,9 +23,9 @@
           </div> -->
 
           <div class="col-md-3">
-            <label class="form-label">Tên tòa nhà</label>
+            <label class="form-label">Tên huyện</label>
             <select class="form-select" name="id_building" id="id_building" onclick="getfloor()">
-              <option value="" >Chọn tòa nhà</option>
+              <option value="" >Chọn huyện</option>
               <?php if(!empty($dataBuilding)){
               foreach ($dataBuilding as $key => $item){
                 $selected = '';
@@ -134,7 +134,7 @@
               echo '<tr>
               <td>'.$item->id.'</td>
               <td>'.$item->book->name.'</td>
-              <td>Tòa nhà: '.$item->building->name.'</br>
+              <td>Huyện: '.$item->building->name.'</br>
               Tầng: '.$item->floor->name.'</br>
               Phòng: '.$item->room->name.'</br>
               Kệ sách: '.$item->shelf->name.'</td>

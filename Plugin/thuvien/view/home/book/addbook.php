@@ -15,7 +15,7 @@
           </div>
           <div class="card-body">
             <p><?php echo @$mess;?></p>
-            <form enctype="multipart/form-data" method="post" action="">
+            <form enctype="multipart/form-data" method="post" action=""  enctype="multipart/form-data" onsubmit="functions.submitForgot(); return false;">
               <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
               <div class="row">
                 <div class="col-12">
@@ -40,18 +40,18 @@
                             </div>
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">Ảnh</label>
-                              <?php showUploadFile('image','image',@$data->image,0);?>
+                               <input type="file" class="form-control phone-mask" name="image"  onchange="readURL1(this);" id="image" value=""/>                              
+                             <?php // showUploadFile('image','image',@$data->image,0); -->
+                               $image= '/plugins/thuvien/view/image/default-image.jpg';
+                              if(!empty($data->image)){
+                              $image = $data->image;
+                            }
+                            echo '<img src="'.$image.'" id="image_book" style="width: 50%  ">';
+                              ?>
+
                             </div>
                             
-                            <div class="mb-3">
-                              <label class="form-label">Trạng thái</label>
-                              <div class="input-group input-group-merge">
-                                <select class="form-select" name="status" id="status">
-                                  <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
-                                  <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
-                                </select>
-                              </div>
-                            </div>
+                            
                            
                             <div class="mb-3">
                                 <label class="form-label">Mô tả ngắn</label>
@@ -108,9 +108,20 @@
                                         <?php endif; ?>
                                     </select>
                                 </div>
+                                <div class="mb-3">
+                              <label class="form-label">Trạng thái</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="status" id="status">
+                                  <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
+                                  <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
+                                </select>
+                              </div>
+                            </div>
                                  <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">file pdf</label>
-                              <?php showUploadFile('file_pdf','file_pdf',@$data->file_pdf,1);?>
+                              <?php //showUploadFile('file_pdf','file_pdf',@$data->file_pdf,1);?>
+                               <input type="file" class="form-control phone-mask" name="file_pdf"  id="file_pdf" value=""/>                              
+
                             </div>
 
                                 <!-- <div class="mb-3">
@@ -137,6 +148,20 @@
 
     </div>
 </div>
+ <script>
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#image_book').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+             // console.log(reader);
+        }
+    }
+</script>
 <script type="text/javascript">
     function downloadImageFromSrc(url, phone){
       var fileName = 'QR_ICHAM_'+phone+'.jpg';

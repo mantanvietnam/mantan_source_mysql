@@ -502,6 +502,7 @@ function listChildExerciseWorkout($input)
         'ChildExerciseWorkouts.content_en',
         'ChildExerciseWorkouts.time_reverse',
         'cc.sort_order',    
+        'cc.id', 
             ];
 
     $listData = $modelChildExerciseWorkouts->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->order(['cc.sort_order'=>'ASC'])->all()->toList();
@@ -579,16 +580,13 @@ function addChildExerciseWorkout($input){
         // lấy data edit
         if(!empty($_GET['id'])){
             $data = $modelChildExerciseWorkouts->get( (int) $_GET['id']);
-            $checkContent = $modelCategoryConnect->find()->where(['keyword'=>'child_exercise', 'id_parent'=>(int) $_GET['id'], 'id_category'=>$dataExercise->id])->first();
+            $checkContent = $modelCategoryConnect->find()->where(['keyword'=>'child_exercise', 'id_parent'=>(int) $_GET['id'], 'id_category'=>$dataExercise->id,'id'=>(int)$_GET['id_connec']])->first();
         
         }else{
         
             $data = $modelChildExerciseWorkouts->newEmptyEntity();
             $data->created_at = time();
         }
-
-
-
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -696,7 +694,7 @@ function deleteChildExerciseWorkout(){
 
 
     if(!empty($_GET['id'])){
-          $checkContent = $modelCategoryConnect->find()->where(['keyword'=>'child_exercise', 'id_parent'=>(int) $_GET['id'], 'id_category'=>(int) $_GET['id_exercise']])->first();
+          $checkContent = $modelCategoryConnect->find()->where(['keyword'=>'child_exercise', 'id_parent'=>(int) $_GET['id'], 'id_category'=>(int) $_GET['id_exercise'],'id'=>(int)$_GET['id_connec']])->first();
         if(!empty($checkContent)){
             $modelCategoryConnect->delete($checkContent);
             return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout?id_workout='.@$_GET['id_workout'].'&id_exercise='.@$_GET['id_exercise'].'&mess=deleteSuccess');

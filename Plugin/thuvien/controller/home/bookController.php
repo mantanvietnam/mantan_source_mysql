@@ -189,14 +189,49 @@ function addbook($input) {
             $existingPublisher = $modelbooks->find()
                 ->where(['book_code' => $dataSend['book_code']] + $idCondition)
                 ->first();
+            if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
+                if(!empty($data->id)){
+                    $fileName = 'image_book'.$data->id;
+                }else{
+                    $fileName = 'image_book'.time().rand(0,1000000);
+                }
+                $image = uploadImage(1, 'image', $fileName);
+            }
 
+            if(!empty($image['linkOnline'])){
+                $data->image = $image['linkOnline'].'?time='.time();
+            }else{
+                if(empty($data->image)){
+                    $data->image = '/plugins/thuvien/view/image/default-image.jpg';
+                }
+            }
+
+            if(isset($_FILES['file_pdf']) && empty($_FILES['file_pdf']["error"])){
+                if(!empty($data->id)){
+                    $fileName = 'file_pdf'.$data->id;
+                }else{
+                    $fileName = 'file_pdf'.time().rand(0,1000000);
+                }
+                $file_pdf = uploadImage(1, 'file_pdf', $fileName);
+            }
+
+            
+            if(!empty($file_pdf['linkOnline'])){
+                $data->file_pdf = $file_pdf['linkOnline'].'?time='.time();
+            }else{
+                if(empty($data->file_pdf)){
+                    $data->file_pdf = '';
+                }
+            }
+
+          
             if (!empty($existingPublisher)) {
                 $mess = '<p class="text-danger">Mã xuất bản đã tồn tại. Vui lòng nhập mã khác.</p>';
             } else {
                 $data->name = $dataSend['name'];
                 $data->author = $dataSend['author'];
                 $data->published_date = (new DateTime($dataSend['published_date']))->getTimestamp();
-                $data->image = $dataSend['image'];
+                //$data->image = $dataSend['image'];
                 // $data->typebook = $dataSend['typebook'];
                 $data->description = $dataSend['description'];
                 $data->price = $dataSend['price'];
@@ -204,7 +239,7 @@ function addbook($input) {
                 $data->id_category = $dataSend['id_category'];
                 $data->publishing_id = $dataSend['publishing_id'];
                 $data->quantity = $dataSend['quantity'];
-                $data->file_pdf = $dataSend['file_pdf'];
+               // $data->file_pdf = $dataSend['file_pdf'];
 
                 $slug = createSlugMantan($dataSend['name']);
                 $slugNew = $slug;
@@ -532,8 +567,8 @@ function addDatabook(){
 
                 foreach ($dataSeries as $key => $value) {
                     if(!empty($value[0]) && !empty($value[1])){
-                        $value[1] = trim(str_replace(array(' ','.','-'), '', $value[1]));
-                        $value[1] = str_replace('+84','0',$value[1]);
+                        // $value[1] = trim(str_replace(array(' ','.','-'), '', $value[1]));
+                        // $value[1] = str_replace('+84','0',$value[1]);
 
                         $conditions = ['book_code'=>$value[0]];
                         $checkPhone = $modelbooks->find()->where($conditions)->first();
@@ -548,6 +583,7 @@ function addDatabook(){
                             $data->id_category = @$value[2];
                             $data->publishing_id =@$value[3];
                             $data->file_pdf = @$value[5];
+                            $data->image = @$value[7];
 
                             $slug = createSlugMantan(@$value[1]);
                             $slugNew = $slug;
