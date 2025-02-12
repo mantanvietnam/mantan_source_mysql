@@ -59,7 +59,7 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                             <div class="change-language">
                                 <span>English  <i class="fa-solid fa-arrow-down"></i></span>
                                 <div class="language-box">
-                                    <a href=""><span>Vietnamese</span></a>
+                                    <a href="http://vi.warmfacility.vn/"><span>Vietnamese</span></a>
                                 </div>
                             </div>
                         </div>
