@@ -18,19 +18,7 @@ global $urlThemeActive;
 
                 <!-- Bộ lọc -->
                 <div class="container container-box-filter-search">
-                    <div class="filter-option-box">
-                        <div class="filter-option-title">
-                            <p>Danh mục</p>
-                        </div>
-
-                        <!-- <div class="filter-option">
-                            <select class="form-select-filter">
-                                <option selected>Di tích văn hoá, lịch sử</option>
-                            
-                            </select>
-                        </div> -->
-                         <?php include __DIR__.'/../select.php' ;?>
-                    </div>
+                    
 
                     <div class="box-search">
                         <div class="input-search">
@@ -46,7 +34,7 @@ global $urlThemeActive;
 
         <section id="place-category">
             <div class="category-title">
-                <h1>DI TÍCH VĂN HÓA LỊCH SỬ</h1>
+                <h1>DANH MỤC DI TÍCH</h1>
                 <p>Hãy khám phá những điểm đến di tích lịch sử ở Cẩm Giàng</p>
             </div>
 

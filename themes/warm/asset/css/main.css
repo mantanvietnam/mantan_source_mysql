@@ -230,7 +230,7 @@ strong {
     line-height: 1.2;
     transition: all 0.3s linear;
     box-shadow: 2px 5px 12px #aaaaaa;
-    ;
+    z-index: 9999;
 }
 
 #section-topbar .language-box a {
