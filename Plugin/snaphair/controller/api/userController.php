@@ -193,13 +193,13 @@ function changePasswordApi($input): array
             $currentUser->device_token = @$dataSend['device_token'];
             $modelUser->save($currentUser);
 
-            return apiResponse(0, 'Thay đổi mật khẩu thành công', $currentUser);
+            return apiResponse(1, 'Thay đổi mật khẩu thành công', $currentUser);
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
 function forgotPasswordApi($input): array
@@ -519,14 +519,14 @@ function checkLoginAppleApi($input): array
                 $user->is_verified = 1;
                 $userModel->save($user);
 
-                return apiResponse(0, 'Đăng nhập thành công', $user);
+                return apiResponse(1, 'Đăng nhập thành công', $user);
             }
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
 function updateUserApi($input): array
@@ -605,10 +605,10 @@ function updateUserApi($input): array
 
       
 
-        return apiResponse(0, 'Cập nhật thông tin thành công',$currentUser);
+        return apiResponse(1, 'Cập nhật thông tin thành công',$currentUser);
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
 function deleteUserApi($input): array
@@ -644,9 +644,9 @@ function deleteUserApi($input): array
         $currentUser->status = 'delete';
         $modelUser->save($currentUser);
 
-        return apiResponse(0, 'Xóa tài khoản thành công');
+        return apiResponse(1, 'Xóa tài khoản thành công');
     }
 
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
  ?>

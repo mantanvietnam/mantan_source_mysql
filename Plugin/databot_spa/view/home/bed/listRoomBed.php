@@ -1,4 +1,4 @@
-x`<?php include(__DIR__.'/../header.php'); ?>
+<?php include(__DIR__.'/../header.php'); ?>
 
 <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic'
 rel='stylesheet' type='text/css'>
@@ -187,10 +187,10 @@ rel='stylesheet' type='text/css'>
                     url = listOrder + '?idBed=' + options.$trigger.attr("idBed")+'&status=0';
                     window.location = url;
                     break;
-                    case 'editBebOrder':
+                    /*case 'editBebOrder':
                     url = urlEditBebOrder + '?idBed=' + options.$trigger.attr("idBed")+'&status=0';
                     window.location = url;
-                    break;
+                    break;*/
                     case 'edit':
                     url = urlEdit + '?idBed=' + options.$trigger.attr("idBed");
                     window.location = url;
@@ -210,7 +210,7 @@ rel='stylesheet' type='text/css'>
             items: {
                 "paid": {name: "Check-out", icon: "quit"},
                 "view": {name: "Xem thông tin giường", icon: "paste"},
-                "editBebOrder": {name: "Sửa thông tin giường", icon: "edit"},
+                // "editBebOrder": {name: "Sửa thông tin giường", icon: "edit"},
                 "cancel": {name: "Hủy check-in", icon: "delete"},
                 "sep1": "---------",
                 //"listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
@@ -245,7 +245,7 @@ rel='stylesheet' type='text/css'>
                         window.location = url;
                         break;
                     case 'urllistOrderCombo':
-                        url = urllistOrderCombo;
+                        url = urllistOrderCombo+ '?idBed=' + options.$trigger.attr("idBed");
                         window.location = url;
                         break;
                 }

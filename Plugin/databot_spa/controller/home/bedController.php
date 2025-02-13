@@ -199,15 +199,14 @@ function infoRoomBed($input){
             $data = $modelBed->find()->where(['id'=>(int)$_GET['idBed'],'status'=>2])->first();
 
             if(!empty($data)){
-                if(!empty($data->id_userservice)){
+               if(!empty($data->id_userservice)){
                     $id_user_service =  explode(",", $data->id_userservice);
                     $userservice = array();
                     foreach($id_user_service as $id_userservice){
                         if(!empty($id_userservice)){
-                            $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>(int)$id_userservice, 'status'=>1))->first();
-                            debug($user_services);
-                            die;
-                            $user_service->service = $modelService->find()->where(array('id'=>$user_service->id_service))->first();
+                            $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>$id_userservice, 'status'=>1))->first();
+                            $user_service->orderDetail = $modelOrderDetails->find()->where(['id'=>$user_service->id_order_details,'id_order'=>$user_service->id_order])->first();
+                            $user_service->service = $modelService->find()->where(array('id'=>$user_service->id_services))->first();
 
                             $userservice[] =  $user_service;
                         }
@@ -234,7 +233,7 @@ function infoRoomBed($input){
         if(@$_GET['mess']=='done'){
             $mess = '<p class="text-success">Cập nhập thành công</p>';
         }
-        
+       
         
 
         setVariable('data', $data);
@@ -302,6 +301,7 @@ function cancelBed($input){
         $modelBed = $controller->loadModel('Beds');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelAgency = $controller->loadModel('Agencys');
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
         
         $user = $session->read('infoUser');
@@ -317,6 +317,16 @@ function cancelBed($input){
                     $item->check_out = time();
                     $item->note = @$item->note.', Nội dung hủy là: '.@$dataSend['note'];
                     $modelUserserviceHistories->save($item);
+
+                    $checkOrderDetail = $modelOrderDetails->find()->where(['id'=>$item->id_order_details, 'type'=>'service'])->first();
+                    if(!empty($checkOrderDetail)){
+                        $checkOrderDetail->number_uses -=1;
+                        $modelOrderDetails->save($checkOrderDetail);
+                    }
+                    $agency = $modelAgency->find()->where(['id_user_service'=>$item->id])->first();
+                    if(!empty($agency)){
+                        $modelAgency->delete($agency);  
+                    }
                 }
             }
             $datebed = $modelBed->get($dataSend['idBed']);
@@ -378,8 +388,8 @@ function checkoutBed($input){
                     foreach($id_user_service as $id_userservice){
                         if(!empty($id_userservice)){
                             $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>$id_userservice, 'status'=>1))->first();
-
-                            $user_service->service = $modelService->find()->where(array('id'=>$id_userservice))->first();
+                            $user_service->orderDetail = $modelOrderDetails->find()->where(['id'=>$user_service->id_order_details,'id_order'=>$user_service->id_order])->first();
+                            $user_service->service = $modelService->find()->where(array('id'=>$user_service->id_services))->first();
 
                             $userservice[] =  $user_service;
                         }
@@ -456,6 +466,7 @@ function editBebOrder($input){
         $modelMember = $controller->loadModel('Members');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelAgency = $controller->loadModel('Agencys');
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
 
         $user = $session->read('infoUser');
@@ -525,33 +536,67 @@ function editBebOrder($input){
                     $checkOrderDetail->price = (int)$dataSend['price'][$key];
                     $checkOrderDetail->quantity = (int)$dataSend['quantityService'][$key];
                     $modelOrderDetails->save($checkOrderDetail);
-                }
+                
 
-                $UserService = $modelUserserviceHistories->find()->where(['id_services'=>(int)$value,'id_order'=>$data->id_order, 'status'=>1])->first();
-                if(empty($UserService)){
-                    $UserService = $modelUserserviceHistories->newEmptyEntity();
-                    $UserService->id_member = $user->id_member;
-                    $UserService->id_order_details = $checkOrderDetail->id;
-                    $UserService->id_order =  $data->id_order;
-                    $UserService->id_staff = $dataSend['id_staff'];
-                    $UserService->id_spa =$session->read('id_spa');
-                    $UserService->id_services =(int)$value;
-                    $UserService->created_at =time();
-                    $UserService->note =@$data['note'];
-                    $UserService->id_bed = $datebed->id;
-                    $UserService->id_customer = $datebed->id_customer;
-                    $UserService->status = 1;
+                    $UserService = $modelUserserviceHistories->find()->where(['id_services'=>(int)$value,'id_order'=>$data->id_order, 'status'=>1])->first();
+                    if(empty($UserService)){
+                        $UserService = $modelUserserviceHistories->newEmptyEntity();
+                        $UserService->id_member = $user->id_member;
+                        $UserService->id_order_details = $checkOrderDetail->id;
+                        $UserService->id_order =  $data->id_order;
+                        $UserService->id_staff = $dataSend['id_staff'];
+                        $UserService->id_spa =$session->read('id_spa');
+                        $UserService->id_services =(int)$value;
+                        $UserService->created_at =time();
+                        $UserService->note =@$data['note'];
+                        $UserService->id_bed = $datebed->id;
+                        $UserService->id_customer = $datebed->id_customer;
+                        $UserService->status = 1;
 
-                    $modelUserserviceHistories->save($UserService);
+                        $modelUserserviceHistories->save($UserService);
+
+                        $money = 0;
+                        $checkService = $modelService->find()->where(array('id'=>$UserService->id_services))->first();
+                             
+                        if(!empty($checkService)){
+                            if(!empty($checkService->commission_staff_fix)){
+                                $money += $checkService->commission_staff_fix;
+                            }elseif(!empty($checkService->commission_staff_percent)){
+                                $money += ((int)$checkService->commission_staff_percent / 100)*$checkService->price;
+                            }
+                        }
+
+                        if($money>0){
+                            $agency = $modelAgency->newEmptyEntity();
+
+                            $agency->id_member = @$user->id_member;
+                            $agency->id_spa = $session->read('id_spa');
+                            $agency->id_staff = $UserService->id_staff;
+                            $agency->id_service = $UserService->id_services;
+                            $agency->id_user_service =  @$UserService->id;
+                            $agency->money = $money;
+                            $agency->created_at =time();
+                            $agency->note = 'lần thứ '.@$OrderDetails->number_uses;
+                            $agency->id_order_detail = $UserService->id_order_details;
+                            $agency->status = 0;
+                            $agency->id_order = $data->id_order;
+                            $agency->type = 'thực hiện';
+
+                            $modelAgency->save($agency);
+                        }
+
+                    }
+                    $id_user_service[]= $UserService->id;
                 }
-                $id_user_service[]= $UserService->id;
 
             }
             $datebed->id_userservice = implode(',', $id_user_service);
+
+           
             $order->total_pay = (int)$dataSend['total'];
             $modelBed->save($datebed);
             $modelOrder->save($order);
-             return $controller->redirect('/listRoomBed');
+             return $controller->redirect('/checkoutBed?idBed='.$_GET['idBed']);
         }
 
         if(@$_GET['mess']=='done'){

@@ -84,48 +84,7 @@
 
   <body>
     <!-- Content -->
-<?php if(empty($listData)){ ?>
-    <div class="container-xxl">
-      <div class="authentication-wrapper authentication-basic container-p-y">
-        <div class="authentication-inner">
-          <!-- Register -->
-          <div class="card">
-            <div class="card-body">
-              <!-- Logo -->
-              <div class="app-brand justify-content-center">
-                <a href="/" class="app-brand-link gap-2">
-                  <span class="app-brand-logo demo">
-                    <img src="/plugins/thuvien/view/home/assets/img/logo-phoenix.png" width="50">
-                  </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Tra cứu sách</span>
-                </a>
-              </div>
-              <!-- /Logo -->
-              
-              <form id="" class="mb-3" action="" method="GET">
-                <div class="mb-3">
-                  <label for="phone" class="form-label">Tên sách cần tra cứu</label>
-                  <input type="text" class="form-control" id="name" name="name" value="<?php echo @$_GET['name']; ?>" />
-                </div>
-                
-                <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Tìm kiếm</button>
-                </div>
-              </form>
-           
-            </div>
-              <p class="text-center">
-                <a href="/login">
-                  <span>Đăng nhập</span>
-                </a>
-              </p>
 
-          </div>
-          <!-- /Register -->
-        </div>
-      </div>
-    </div>
-<?php }else{ ?>
         <div class="layout-page mb-5">
           <!-- Navbar -->
           <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
@@ -256,7 +215,7 @@
               </ul>
             </nav>
           </div>
-<?php } 
+<?php 
   if(!empty($listData)){
               foreach ($listData as $item) {
                  $thuvien = '<div style="color: #768798;">';

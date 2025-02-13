@@ -1,12 +1,15 @@
 <?php include(__DIR__.'/../header.php'); ?>
-
+<style type="text/css">
+    table, th, td {
+  border: 1px solid #d9dee3;
+}
+</style>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Danh sách đơn Combo liệu trình</h4>
     <p><a href="/orderCombo" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
     
     <div class="data-content">
-        <form id="" action="" class="form-horizontal" method="get" enctype="">  
-            <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
+        <form id="" action="" class="form-horizontal" method="get" enctype="">                          
             <div class=" card mb-4">
                 <h5 class="card-header">Tìm kiếm dữ liệu</h5>
                 <div class="card-body">
@@ -17,7 +20,7 @@
                         </div>
                         <div class="mb-3 col-md-3">
                            <label class="form-label" for="basic-default-phone">Khách hàng (*)</label>
-                           <input required type="text" required="" class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$_GET['full_name'];?>" />
+                           <input  type="text"  class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$_GET['full_name'];?>" />
                             <input type="hidden" name="id_customer"  id="id_customer" value="<?php echo (int) @$_GET['id_customer'];?>">
                        </div>
                         <div class="col-md-2">
@@ -48,18 +51,27 @@
                                     <table class="table table-bordered" style=" text-align: center; ">
                                         <thead>
                                             <tr>
-                                                <th rowspan='2'>ID</th>
-                                                <th rowspan='2'>Thời gian</th>
-                                                <th rowspan='2'>Khách hàng</th>
-                                                <th colspan="3">Thông tin</th>
-                                                <th rowspan="2">Thành tiền </th>
-                                                <th rowspan="2">Chi tiết </th>                                             
+                                                <th width="5%">ID</th>
+                                                <th width="10%">Thời gian</th>
+                                                <th width="15%">Khách hàng</th>
+                                                <th width="40%" style="padding: 0px;">
+                                                    <table  class="table table-borderless" >
+                                                        <thead>
+                                                          <th colspan="4" class="text-center">Thông tin</th> 
+                                                          <tr>
+                                                            <th width="40%">Tên gói</th>
+                                                            <th width="40%">Giá bán</th>
+                                                            <th width="20%">Số lượng </th>
+                                                          </tr>
+                                                        </thead>
+                                                      </table>
+                                                </th>
+                                                 <th width="10%">Thành tiền </th> 
+                                                 <th width="10%">Chi tiết </th>                                              
                                             </tr>
-                                            <tr>
-                                                <th >Tên gói</th>
-                                                <th >Giá bán</th>
-                                                <th >Số lượng</th>
-                                            </tr>
+                                           <!--  <tr>
+                                                
+                                            </tr> -->
                                         </thead>
                                         <tbody>
                                             <?php
@@ -89,32 +101,42 @@
                                                             $number_row = count($item->order_details);
                                                         ?>
                                                         <tr> 
-                                                            <td rowspan='<?php echo $number_row; ?>'>
+                                                            <td>
                                                                 <?php echo @$item->id ?>
                                                             </td>
-                                                            <td rowspan='<?php echo $number_row; ?>'>
+                                                            <td>
                                                                 <?php echo date('H:i d/m/Y', $item->time); ?>
                                                             </td>
-                                                            <td rowspan='<?php echo $number_row; ?>'>
+                                                            <td>
                                                                 <?php echo $item->full_name ?>
                                                             </td>
-                                                            
-                                                            <?php  
+
+                                                            <td style="padding: 0px;">
+                                                                <table  class="table table-borderless">
+                                                                    <tbody>
+                                                                            <?php  
                                                                 if(!empty($item->order_details)){ 
                                                                     foreach($item->order_details as $k => $value){ 
-                                                                        echo '  <td>'.$value->info_combo->name.'</td>
-                                                                                <td>'.number_format($value->price).'đ</td>
-                                                                                <td>'.number_format($value->quantity).'</td>';
+                                                                        echo '  <tr> 
+                                                                        <td width="40%">'.$value->info_combo->name.'</td>
+                                                                                <td width="40%">'.number_format($value->price).'đ</td>
+                                                                                <td width="20%">'.number_format($value->quantity).'</td>';
                                                                     }
                                                                 }             
                                                             ?>
-                                                            <td rowspan='<?php echo $number_row; ?>' style="text-align: left;">
+                                                                        </tr> 
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            
+                                                            
+                                                            <td style="text-align: left;">
                                                                 Chưa giảm giá: <?php echo number_format(@$item->total) ?>đ<br/>
                                                                 Giảm giá: <?php echo $promotion ?><br/>
                                                                 Tổng cộng: <?php echo number_format(@$item->total_pay) ?>đ<br/>
                                                                 Trạng thái: <?php echo $type ?>
                                                             </td>
-                                                            <td rowspan='<?php echo $number_row; ?>'>
+                                                            <td>
                                                                 <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Xem đơn hàng" data-bs-toggle="modal" data-bs-target="#basicModal<?php echo $item->id; ?>" >
                                                                     <i class="bx  bx bxs-show"></i>
                                                                 </a>

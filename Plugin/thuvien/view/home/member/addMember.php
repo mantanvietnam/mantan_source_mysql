@@ -204,7 +204,7 @@
                           </div>
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-email">Phân tòa nhà </label>
+                              <label class="form-label" for="basic-default-email">Phân huyện</label>
 
                               <div class="col-sm-12" style="margin-left: 20px;">
                                 <div class="form-group" id="">

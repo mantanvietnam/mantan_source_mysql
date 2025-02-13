@@ -278,6 +278,20 @@
                                     echo '</optgroup>';
                                 }?>
                             </select>
+                            <label class="form-label">Chọn nhân viên phụ trách </label>
+                            <select  name="id_staff" required id="id_staff"  class="form-select color-dropdown">
+                                <option value="">Chọn nhân viên</option>
+                                <?php if(!empty($listStaff)){
+                                    foreach ($listStaff as $Staff) {
+                                        $selected = '';
+                                        if(@$user->id==$Staff->id){
+                                            $selected = 'selected';
+                                        }
+                                        echo '<option data-unit="'.@$Staff->id.'" '.@$selected.'  value="'.$Staff->id.'">'.$Staff->name.'</option>';
+                                    }
+                                    
+                                }?>
+                            </select>
                         </div>
                     </div>
                 </div>

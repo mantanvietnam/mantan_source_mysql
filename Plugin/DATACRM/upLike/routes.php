@@ -14,4 +14,8 @@
 	$routesPlugin['upFriendFacebook']= 'upLike/view/home/facebook/upFriendFacebook.php';	
 	$routesPlugin['upViewStoryFacebook']= 'upLike/view/home/facebook/upViewStoryFacebook.php';	
 	$routesPlugin['upShareFacebook']= 'upLike/view/home/facebook/upShareFacebook.php';	
+
+	//  tiktok
+	$routesPlugin['upLikeTikTok']= 'upLike/view/home/tiktok/upLikeTikTok.php';	
+
 	

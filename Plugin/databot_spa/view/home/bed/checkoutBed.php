@@ -100,7 +100,7 @@ if(@$data->order->promotion>101){
                                     if(!empty($data->userservice)){
                                         foreach($data->userservice as $key => $item){
                                             $quantity = 0;
-                                            $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$item->id_order_details, 'id_services'=>$item->id_services))->count(); 
+                                            $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$item->id_order_details, 'id_services'=>$item->id_services, 'status <'=>3))->count(); 
                                        echo "<tr>
                                             <td>".$item->service->name."</td>
                                             <td>".number_format($quantity)."</td>
@@ -116,7 +116,8 @@ if(@$data->order->promotion>101){
                
               </div>
                  <?php  if(@$data->order->status==0){ 
-                   echo '<a href="" data-bs-toggle="modal" data-bs-target="#thanhtoan"  class="btn btn-primary">Check-out</a>';
+                   echo '<a href="" data-bs-toggle="modal" data-bs-target="#thanhtoan"  class="btn btn-primary">Check-out</a>
+                   <a href="/editBebOrder?idBed='.@$data->id.'&status=0" class="btn btn-danger">Sửa</a>';
                  }else{
                     echo ' <a href="" data-bs-toggle="modal" data-bs-target="#Checkout"  class="btn btn-primary">Check-out</a>';
 
@@ -146,7 +147,7 @@ if(@$data->order->promotion>101){
                             <input type="hidden" value="<?php echo $data->id_services; ?>"  name="id_service">
                             <input type="hidden" value="<?php echo $data->id; ?>"  name="id_Userservice">
                             <input type="hidden" value="<?php echo $data->customer->name; ?>"  name="full_name">
-                            <input type="hidden" value="<?php echo @$data->bed->id; ?>"  name="id_bed">
+                            <input type="hidden" value="<?php echo @$data->id; ?>"  name="id_bed">
                             <input type="hidden" value="listRoomBed"  name="url">
                             <p><label>Tiên khách hàng:</label> <?php echo $data->customer->name ?></p>
                             <p><label>Điện thoại:</label> <?php echo $data->customer->phone ?></p>
@@ -227,7 +228,7 @@ if(@$data->order->promotion>101){
                             <input type="hidden" value="<?php echo $data->id_services; ?>"  name="id_service">
                             <input type="hidden" value="<?php echo $data->id; ?>"  name="id_Userservice">
                             <input type="hidden" value="<?php echo $data->customer->name; ?>"  name="full_name">
-                            <input type="hidden" value="<?php echo @$data->bed->id; ?>"  name="id_bed">
+                            <input type="hidden" value="<?php echo @$data->id; ?>"  name="id_bed">
                             <p><label>Tiên khách hàng:</label> <?php echo $data->customer->name ?></p>
                             <p><label>Điện thoại:</label> <?php echo $data->customer->phone ?></p>
                             <p><label>Email:</label> <?php echo $data->customer->email ?></p>

@@ -895,7 +895,7 @@ function orderService($input){
         }elseif($dataSend['typeOrder']==3){
 
 
-                    return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product);
+                    return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product.'&time='.$order->time.'&id_staff='.$dataSend['id_staff']);
                   
                 }else{
                     return $controller->redirect('/order?mess=1');
@@ -952,7 +952,7 @@ function listOrderProduct($input){
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
-        $order = array('id'=>'desc');
+        $order = array('time'=>'desc');
 
         if(!empty($_GET['id'])){
            $conditions['id']= $_GET['id']; 
@@ -1083,7 +1083,7 @@ function listOrderCombo($input){
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
-        $order = array('id'=>'desc');
+        $order = array('time'=>'desc');
 
         if(!empty($_GET['id'])){
             $conditions['id'] = $_GET['id'];
@@ -1109,9 +1109,9 @@ function listOrderCombo($input){
             $conditions['time <='] = $date_end;
         }
 
-        if(!empty($_GET['idBed'])){
-            $conditions['id_bed'] = $_GET['idBed'];
-        }
+        // if(!empty($_GET['idBed'])){
+            // $conditions['id_bed'] = $_GET['idBed'];
+        // }
 
         if(isset($_GET['status'])){
             $conditions['status'] = $_GET['status'];
@@ -1269,7 +1269,6 @@ function listOrderService($input){
     setVariable('page_view', 'listOrderService');
      if(!empty(checkLoginManager('listOrderService', 'product'))){
         $infoUser = $session->read('infoUser');
-        $infoUser = $session->read('infoUser');
 
         $modelCombo = $controller->loadModel('Combos');
         $modelProduct = $controller->loadModel('Products');
@@ -1294,7 +1293,7 @@ function listOrderService($input){
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
-        $order = array('id'=>'desc');
+        $order = array('time'=>'desc');
 
         if(!empty($_GET['id'])){
            $conditions['id']= $_GET['id']; 
@@ -1401,8 +1400,12 @@ function listOrderService($input){
 
         $listWarehouse = $modelWarehouses->find()->where($conditionsWarehouse)->all()->toList();
 
-        // debug($listData);
-        // die;
+         $conditionsStaff['OR'] = [ 
+             ['id'=>$infoUser->id_member],
+             ['id_member'=>$infoUser->id_member],
+         ];
+
+        $listStaff = $modelMembers->find()->where($conditionsStaff)->all()->toList();
         setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -1410,6 +1413,7 @@ function listOrderService($input){
     setVariable('urlPage', $urlPage);
     setVariable('totalData', $totalData);
 
+    setVariable('listStaff', $listStaff);
     setVariable('listData', $listData);
     setVariable('modelUserserviceHistories', $modelUserserviceHistories);
     setVariable('listWarehouse', $listWarehouse);
@@ -1517,7 +1521,7 @@ function addUserService($input){
     global $isRequestPost;
     global $session;
 
-
+ 
 
     setVariable('page_view', 'addUserService');
     $metaTitleMantan = 'Nhận khách làm dịch vụ';
@@ -1564,7 +1568,11 @@ function addUserService($input){
                 $UserService->id_order = $OrderDetails->id_order;
                 $UserService->id_spa =$session->read('id_spa');
                 $UserService->id_services =$_GET['id_service'];
-                $UserService->created_at =time();
+                if(!empty($_GET['time'])){
+                    $UserService->created_at = (int) $_GET['time'];
+                }else{
+                 $UserService->created_at =time();
+                }
                 $UserService->note =@$_GET['note'];
                 $UserService->id_customer = $Order->id_customer;
                 $UserService->status = 0;
@@ -1586,7 +1594,11 @@ function addUserService($input){
                 }
                 $UserService->id_spa =$session->read('id_spa');
                 $UserService->id_services =$_GET['id_service'];
-                $UserService->created_at =time();
+                 if(!empty($_GET['time'])){
+                    $UserService->created_at = (int) $_GET['time'];
+                }else{
+                 $UserService->created_at =time();
+                }
                 $UserService->note =@$_GET['note'];
                 $UserService->id_bed = $_GET['id_bed'];
                 $UserService->id_customer = $Order->id_customer;
@@ -1640,7 +1652,11 @@ function addUserService($input){
                 $agency->id_service = $_GET['id_service'];
                 $agency->id_user_service =  @$UserService->id;
                 $agency->money = $money;
-                $agency->created_at =time();
+                if(!empty($_GET['time'])){
+                    $agency->created_at = (int) $_GET['time'];
+                }else{
+                 $agency->created_at =time();
+                }
                 $agency->note = 'lần thứ '.@$OrderDetails->number_uses;
                 $agency->id_order_detail = $_GET['id'];
                 $agency->status = 0;
@@ -1742,12 +1758,23 @@ function paymentOrders($input){
             }
         }
         if(@$_GET['type']=="checkout"){
-            $dataSend = $input['request']->getData();
+
+            $listData = $modelUserserviceHistories->find()->where(array('id_bed'=>(int)$_GET['id_bed'], 'status'=>1))->all()->toList();
+
+            if(!empty($listData)){
+                foreach($listData as $key => $item){
+                    $item->status = 2;
+                    $item->check_out = time();
+                    $item->note = @$_GET['note'];
+                    $modelUserserviceHistories->save($item);
+                }
+            }
+            /*$dataSend = $input['request']->getData();
             $data = $modelUserserviceHistories->get($_GET['id_Userservice']);
             $data->note =@$_GET['note'];
             $data->status = 2;
             $data->check_out = time();
-            $modelUserserviceHistories->save($data);
+            $modelUserserviceHistories->save($data);*/
            
             $datebed = $modelBed->get($_GET['id_bed']);
             $datebed->status = 1;

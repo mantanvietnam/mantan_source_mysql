@@ -88,7 +88,7 @@ if(@$data->order->promotion>101){
                                     if(!empty($data->userservice)){
                                         foreach($data->userservice as $key => $item){
                                             $quantity = 0;
-                                            $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$item->id_order_details, 'id_services'=>$item->id_services))->count(); 
+                                            $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$item->id_order_details, 'id_services'=>$item->id_services, 'status <'=>3))->count(); 
                                        echo "<tr>
                                             <td>".$item->service->name."</td>
                                             <td>".number_format($quantity)."</td>
@@ -103,6 +103,9 @@ if(@$data->order->promotion>101){
                 </div>
               </div>
                 <a href="/listRoomBed" class="btn btn-primary">Quay lại</a> 
+                <?php  if(@$data->order->status==0){ 
+                   echo '<a href="/editBebOrder?idBed='.@$data->id.'&status=0" class="btn btn-danger">Sửa</a>';
+                 }?>
           </div>
         </div>
       </div>
