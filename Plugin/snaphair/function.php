@@ -391,4 +391,15 @@ function getInfoUser(){
 
     return $infoUser;
 }
+
+function getParameter(){
+    global $modelOptions;
+    $data_value = array();
+        $conditions = array('key_word' => 'parameterSetting');
+        $data = $modelOptions->find()->where($conditions)->first();        
+        if(!empty($data->value)){
+            $data_value = json_decode($data->value, true);
+        }
+    return $data_value;
+}
 ?>

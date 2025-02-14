@@ -420,14 +420,26 @@ function checkoutBed($input){
         if($isRequestPost){
             $dataSend = $input['request']->getData();
 
-            $data->note =@$dataSend['note'];
-            $data->status = 2;
-            $data->check_out = time();
+            $listData = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id, 'status'=>1))->all()->toList();
 
-            $modelUserserviceHistories->save($data);
+            if(!empty($listData)){
+                foreach($listData as $key => $item){
+                    $item->status = 2;
+                    $item->check_out = time();
+                    $item->note = @$item->note.', Nội dung hủy là: '.@$dataSend['note'];
+                    
+                    $modelUserserviceHistories->save($item);
+
+                   
+                }
+            }
            
-            $datebed = $modelBed->get($data->id_bed);
+            $datebed = $modelBed->get($data->id);
             $datebed->status = 1;
+            $datebed->id_order = NULL;
+            $datebed->id_staff = NULL;
+            $datebed->id_customer = NULL;
+            $datebed->id_id_userservice = NULL;
             $modelBed->save($datebed);
 
             return $controller->redirect('/listRoomBed');

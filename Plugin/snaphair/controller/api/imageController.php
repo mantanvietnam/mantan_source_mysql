@@ -24,8 +24,11 @@ function addImageUserAPI($input)
                 $image = $image['linkOnline'];
             }
 
+            $idlayer = $modelProductDetail->find()->where(array('id_user'=>$user->id))->count()+1;
+			 
+
             	$data = $modelImageUser->newEmptyEntity();
-               	$data->name = $dataSend['name'];
+               	$data->name = (!empty($dataSend['name']))?$dataSend['name']: 'ảnh '.$idlayer;
                	$data->status = 'active';
                	$data->image = $image;
                	$data->id_user = $user->id;
@@ -130,5 +133,66 @@ function detailImageUserAPI($input)
     }
     return apiResponse(0,'Gửi sai kiểu POST');
 }
- ?>
+
+function saveImageCollageAPI($input){
+ 	global $controller;
+    global $isRequestPost;
+    
+    $modelUser = $controller->loadModel('Users');
+    $modelImageUser = $controller->loadModel('ImageUsers');
+    // debug(getParameter());
+    // die;
+    $price = (int) getParameter()['transaction_fee'];
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['access_token']) && !empty($dataSend['id_imge_user']) && !empty($dataSend['id_image_sample']) && !empty($dataSend['base64data'])){
+            if(function_exists('getUserByToken')){
+                $user =  getUserByToken($dataSend['access_token']);
+            }
+            
+            if (!empty($user)) {
+            	if($user->coin<$price){
+            		return apiResponse(4,'tài khoản của bạn không đủ ');
+            	}
+            	
+
+            	$image = covertbaseimage($dataSend['base64data'],$user->phone);
+
+            	if($image['code']==1){
+            	
+
+	            	$data = $modelImageUser->newEmptyEntity();
+	               	$data->name = $dataSend['name'];
+	               	$data->status = 'active';
+	               	$data->image = $image;
+	               	$data->id_user = $user->id;
+	               	$data->id_imge_user = (int) $dataSend['id_imge_user'];
+	               	$data->id_image_sample = (int) $dataSend['id_image_sample'];
+	               	$data->created_at = time();
+	               	$data->type = 'collage';
+
+	               	$modelImageUser->save($data);
+
+	              	return apiResponse(1,'lưu dữ liệu thành công',$data);
+	            }else{
+	            	return apiResponse(5,'lỗi hệ thống ');
+	            }
+
+            }
+
+            return apiResponse(3,'Tài khoản không tồn tại hoặc chưa đăng nhập');
+
+        }
+
+        return apiResponse(2,'Gửi thiếu dữ liệu');
+
+    }
+
+    return apiResponse(0,'Gửi sai kiểu POST');
+
+}
+
+?>
 

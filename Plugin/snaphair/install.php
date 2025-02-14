@@ -45,6 +45,8 @@ $sqlInstallDatabase .="CREATE TABLE `image_users` (
 `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`id_imge_user` INT NULL DEFAULT NULL AFTER `note`,
+`id_image_sample` INT NULL DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -97,5 +99,7 @@ $sqlUpdateDatabase['image_users']['created_at'] = "ALTER TABLE `image_users` ADD
 $sqlUpdateDatabase['image_users']['status'] = "ALTER TABLE `image_users` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['image_users']['name'] = "ALTER TABLE `image_users` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['image_users']['note'] = "ALTER TABLE `image_users` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_users']['id_imge_user'] = "ALTER TABLE `image_users` ADD `id_imge_user` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_users']['id_image_sample'] = "ALTER TABLE `image_users` ADD `id_image_sample` INT NULL DEFAULT NULL;";
 
 $sqlUpdateDatabase['sample_photos']['slug'] = "ALTER TABLE `sample_photos` ADD `slug` TEXT NOT NULL AFTER `sex`;";

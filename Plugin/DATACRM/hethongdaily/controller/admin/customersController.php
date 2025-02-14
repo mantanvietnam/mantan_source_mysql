@@ -228,4 +228,176 @@ function blueCheckCustomerAdmin($input){
     }
     return $controller->redirect('/plugins/admin/hethongdaily-view-admin-customer-listCustomerAdmin');
 }
+
+function infoCustomerAdmin($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+    global $urlHomes;
+    global $modelCategoryConnects;
+
+    $user = checklogin('editCustomerAgency');   
+
+    $metaTitleMantan = 'Thông tin khách hàng';
+
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelActivityHistory = $controller->loadModel('ActivityHistorys');
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+    $modelTokenDevices = $controller->loadModel('TokenDevices');
+
+    if(!empty($_GET['id'])){
+        $join = [
+            [
+                'table' => 'category_connects',
+                'alias' => 'CategoryConnects',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'Customers.id = CategoryConnects.id_parent'
+                ],
+            ]
+        ];
+
+        $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo','Customers.token','Customers.max_export_mmtc'];
+
+            $data = $modelCustomers->find()->join($join)->select($select)->where(['Customers.id'=>(int) $_GET['id'], 'CategoryConnects.keyword'=>'member_customers'])->first();
+
+            if(empty($data)){
+                return $controller->redirect('/listCustomerAgency');
+            }
+           
+
+            
+            $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $data->id])->all()->toList();
+            $data->groups = [];
+
+            if(!empty($group_customers)){
+                foreach ($group_customers as $key => $value) {
+                    $data->groups[] = $value->id_category;
+                }
+            }
+        }else{
+            $data = $modelCustomers->newEmptyEntity();
+        }
+
+        $mess= '';
+        
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['full_name'])){
+                if(empty($_GET['id'])){
+                    if(!empty($dataSend['phone'])){
+                        $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+                        $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+                        if($dataSend['phone'][0]!='0'){
+                            $dataSend['phone'] = '0'.$dataSend['phone'];
+                        }
+
+                        $checkPhone = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
+
+                        if(!empty($checkPhone)){
+                            // $mess= '<p class="text-danger">Số điện thoại này đã được sử dụng bởi khách hàng khác</p>';
+                            $data = $checkPhone;
+                        }else{
+                            $data->phone = $dataSend['phone'];
+                            $data->status = 'active';
+                            $data->id_messenger = '';
+                            $data->id_zalo = '';
+                            $data->pass = md5($data->phone);
+                            $data->id_parent = 1;
+                            $data->created_at = time();
+                        }
+                    }else{
+                        $mess= '<p class="text-danger">Nhập thiếu dữ liệu số điện thoại</p>';
+                    }
+                }
+                    $data->full_name = $dataSend['full_name'];
+
+                    if(!empty($dataSend['email'])){
+                        $data->email = $dataSend['email'];
+                    }elseif(empty($data->email)){
+                        $data->email = '';
+                    }
+
+                    if(!empty($dataSend['address'])){
+                        $data->address = $dataSend['address'];
+                    }elseif(empty($data->address)){
+                        $data->address = '';
+                    }
+                    
+                    if(isset($dataSend['sex']) && $dataSend['sex'] != ''){
+                        $data->sex = (int) $dataSend['sex'];
+                    }elseif(empty($data->sex)){
+                        $data->sex = 0;
+                    }
+
+                    if(!empty($dataSend['id_city'])){
+                        $data->id_city = (int) @$dataSend['id_city'];
+                    }elseif(empty($data->id_city)){
+                        $data->id_city = 0;
+                    }
+
+                    if(!empty($dataSend['avatar'])){
+                        $data->avatar = $dataSend['avatar'];
+                    }
+
+                    if(!empty($dataSend['birthday_date'])){
+                        $data->birthday_date = (int) $dataSend['birthday_date'];
+                    }elseif(empty($data->birthday_date)){
+                        $data->birthday_date = 0;
+                    }
+
+                    if(!empty($dataSend['birthday_month'])){
+                        $data->birthday_month = (int) $dataSend['birthday_month'];
+                    }elseif(empty($data->birthday_month)){
+                        $data->birthday_month = 0;
+                    }
+                    
+                    if(!empty($dataSend['birthday_year'])){
+                        $data->birthday_year = (int) $dataSend['birthday_year'];
+                    }elseif(empty($data->birthday_year)){
+                        $data->birthday_year = 0;
+                    }
+
+                    if(!empty($dataSend['id_group'][0])){
+                        $data->id_group = (int) $dataSend['id_group'][0];
+                    }elseif(empty($data->id_group)){
+                        $data->id_group = 0;
+                    }
+
+                    if(!empty($dataSend['facebook'])){
+                        $data->facebook = @$dataSend['facebook'];
+                    }elseif(empty($data->facebook)){
+                        $data->facebook = '';
+                    }
+
+                    if(!empty($dataSend['status'])){
+                        $data->status = @$dataSend['status'];
+                    }
+
+                    if(isset($dataSend['max_export_mmtc'])){
+                        $data->max_export_mmtc = (int)@$dataSend['max_export_mmtc'];
+                    }
+
+                    if(!empty($dataSend['password'])){
+                        $data->pass = md5($dataSend['password']);
+                    }
+
+                    $modelCustomers->save($data);
+
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }else{
+                $mess= '<p class="text-danger">Bạn không được để trống các trường bắt buộc</p>';
+            }
+        }
+
+        setVariable('data', $data);
+        setVariable('mess', $mess);
+                            
+}
 ?>

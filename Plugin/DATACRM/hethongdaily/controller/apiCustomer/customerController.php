@@ -946,7 +946,7 @@ function getPointCustomerAPI($input){
 
     $modelPointCustomer = $controller->loadModel('PointCustomers');
     $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
-    
+    $max_export_mmtc = (int) listPonint()['max_export_mmtc'];
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -994,8 +994,11 @@ function getPointCustomerAPI($input){
                         }
                     }
                 }
+                if(empty($user->max_export_mmtc)){
+                    $user->max_export_mmtc =  $max_export_mmtc;
+                }
                
-                return array('code'=>1,'point'=> $point, 'membership'=>$membership, 'point_max'=>$point_max, 'messages'=>'Lấy dữ liệu thành công');
+                return array('code'=>1,'point'=> $point, 'membership'=>$membership, 'point_max'=>$point_max, 'export_mmtc'=> $user->max_export_mmtc, 'messages'=>'Lấy dữ liệu thành công');
             }
 
             return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');

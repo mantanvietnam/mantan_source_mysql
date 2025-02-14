@@ -102,7 +102,7 @@ function buyExportmmtcAPI($input)
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 }
 
-function addMoneyApplePayAPI($input)
+function addMoneyCustomeApplePayAPI($input)
 {
     global $controller;
     global $isRequestPost;

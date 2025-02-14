@@ -880,15 +880,25 @@ function getMemberByToken($token='',$permission='')
     global $controller;
 
     $modelMember = $controller->loadModel('Members');
+    $modelTokenDevice = $controller->loadModel('TokenDevices');
     $user = [];
     $modelStaff = $controller->loadModel('Staffs');
 
-    if(!empty($token)){
-        $checkBoss = $modelMember->find()->where(array('token'=>$token, 'status'=>'active' ))->first();
-        $checkStaff = $modelStaff->find()->where(array('token'=>$token, 'status'=>'active' ))->first();
+    $checkToken = $modelTokenDevice->find()->where(['token'=>$token])->first();
+    if(!empty($checkToken)){
+        if($checkToken->type=="member"){
+            $checkBoss = $modelMember->find()->where(array('id'=>$checkToken->id_member, 'deadline >'=>time(), 'status'=>'active' ))->first();
+        }elseif($checkToken->type=="staff"){
+            $checkStaff = $modelStaff->find()->where(array('id'=>$checkToken->id_member, 'status'=>'active' ))->first();
+            $checkDeadline = $modelMember->find()->where(array('id'=>$checkStaff->id_member, 'deadline >'=>time(), 'status'=>'active' ))->first();
+            if(empty($checkDeadline)){
+                $checkStaff = array();
+            }
+        }
         if(!empty($checkBoss)){
             $user = $checkBoss;
             // $user->id_member = $user->id;
+            $user->token = $checkToken->token;
             $user->type = 'member';
             $user->id_staff = 0;
             $user->type_tv = 'Đại lý';
@@ -900,6 +910,7 @@ function getMemberByToken($token='',$permission='')
             }
         }elseif(!empty($checkStaff)){
             $user = $checkStaff;
+            $user->token = $checkToken->token;
             $user->id_father = $modelMember->find()->where(array('id'=>$user->id_member, 'status'=>'active' ))->first()->id_father;
             if(!empty($user->id_father)){
                 $user->type_agency ='agency';

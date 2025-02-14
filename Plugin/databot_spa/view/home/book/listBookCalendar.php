@@ -316,11 +316,12 @@
                   echo '<optgroup label="'.$room->name.'">';
                   if(!empty($room->bed)){
                       foreach($room->bed as $bed){
+                          $selected = "";
                          if(!empty($data->id_bed) && $data->id_bed==$bed->id){
                               $selected = 'selected';
                          }
                                          
-                          echo '<option data-unit="'.@$bed->id.'"  value="'.$bed->id.'" '.$selected.'>'.$bed->name.'</option>';
+                          echo '<option data-unit="'.@$bed->id.'"  value="'.@$bed->id.'" '.$selected.'>'.@$bed->name.'</option>';
                      }
                   }
                   echo '</optgroup>';
@@ -538,9 +539,15 @@
       },
 
       eventClick: function(info) {
-        console.log(info.event.extendedProps.statusnote);
         listEvent = calendar.getEvents();
-
+        var id_staff = info.event.extendedProps.id_staff;
+        var id_bed = info.event.extendedProps.id_bed;
+        if(id_staff.length==0){
+          id_staff = 0;
+        }
+          if(id_bed.length==0){
+            id_bed = 0;
+          }
         //display a modal
         var modal = 
         '<div class="modal fade" id="modalinfo">\
@@ -586,7 +593,7 @@
            </div>\
            <div class="modal-footer">';
            if(info.event.extendedProps.statusnote=="1"|| info.event.extendedProps.statusnote=='0'){
-             modal += '<button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+info.event.extendedProps.id_staff+','+info.event.extendedProps.id_staff+');"><i class="bx bxs-edit"></i> Check in</button>\
+             modal += '<button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+id_staff+','+id_bed+');"><i class="bx bxs-edit"></i> Check in</button>\
             <a href="/addBook/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary"><i class="bx bxs-edit"></i> Sửa hẹn</a>\
             <button type="button" class="btn btn-danger" data-action="delete"><i class="bx bxs-trash"></i> Xóa hẹn</button>';
            }

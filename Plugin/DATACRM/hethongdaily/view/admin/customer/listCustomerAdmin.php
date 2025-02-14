@@ -136,7 +136,7 @@
                  '.$blue_check.'
               </td>
               <td>'.$item->groups.'</td>
-              <td align="center"><a href="/plugins/admin/product-view-admin-customer-infoCustomerAdmin/?id='.$item->id.'"><i class="bx bx-info-circle"></i></a></td>
+              <td align="center"><a href="/plugins/admin/hethongdaily-view-admin-customer-infoCustomerAdmin/?id='.$item->id.'"><i class="bx bx-info-circle"></i></a></td>
              </tr>';
            }
          }else{

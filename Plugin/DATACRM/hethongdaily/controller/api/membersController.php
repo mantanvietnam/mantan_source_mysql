@@ -109,7 +109,8 @@ function getInfoMemberAPI($input)
 		}
 
 		if(!empty($dataSend['token'])){
-			$conditions['token'] = $dataSend['token'];
+			$checkPhone = getMemberByToken($dataSend['token']);
+			$conditions['id'] = $checkPhone->id;
 		}
 
 		$checkPhone = $modelMember->find()->where($conditions)->first();
@@ -255,7 +256,8 @@ function getInfoMemberMyAPI($input)
 		$conditions = array('status NOT IN'=>'delete');
 
 		if(!empty($dataSend['token'])){
-			$conditions['token'] = $dataSend['token'];
+			$checkPhone = getMemberByToken($dataSend['token']);
+			$conditions['id'] = $checkPhone->id;
 		}elseif(!empty($dataSend['id'])){
 			$conditions['id'] = $dataSend['id'];
 		}else{
@@ -356,7 +358,7 @@ function checkLoginMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
-	$modelTokenDevices = $controller->loadModel('TokenDevices');
+	$modelTokenDevice = $controller->loadModel('TokenDevices');
 	$modelStaff = $controller->loadModel('Staffs');
 
 	$return = array('code'=>1);
@@ -372,6 +374,10 @@ function checkLoginMemberAPI($input)
 				$checkStaff = $modelStaff->find()->where(array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']), 'status'=>'active' ))->first();
 
 			if(!empty($checkPhone)){
+				if(empty($dataSend['token_device'])){
+					$dataSend['token_device'] = createToken();
+				}
+
 				/*
 				if(!empty($dataSend['token_device']) && $checkPhone->token_device != $dataSend['token_device']){
 					// gửi thông báo đăng xuất
@@ -383,26 +389,30 @@ function checkLoginMemberAPI($input)
 				if($checkPhone->deadline > time()){
 
 					$checkPhone->last_login = time();
-					$checkPhone->token = 'member'.createToken();
+					// $checkPhone->token = 'member'.createToken();
 
 					if(!empty($dataSend['token_device'])){
-						$checkPhone->token_device = $dataSend['token_device'];
+						//$checkPhone->token_device = $dataSend['token_device'];
 
-						$checkTokenDevice = $modelTokenDevices->find()->where(['token_device'=>$dataSend['token_device']])->first();
+						$checkTokenDevice = $modelTokenDevice->find()->where(['token_device'=>$dataSend['token_device']])->first();
+					}
 
 						if(!empty($checkTokenDevice)){
 							$checkTokenDevice->id_member = $checkPhone->id;
 						}else{
-							$checkTokenDevice = $modelTokenDevices->newEmptyEntity();
-
-							$checkTokenDevice->token_device = $dataSend['token_device'];
+							$checkTokenDevice = $modelTokenDevice->newEmptyEntity();
+							$checkTokenDevice->token_device = @$dataSend['token_device'];
 							$checkTokenDevice->id_member = $checkPhone->id;
 						}
+						$checkTokenDevice->type = 'member';
+						$checkTokenDevice->token = 'member'.createToken();	
 
-						$modelTokenDevices->save($checkTokenDevice);
-					}
+						$modelTokenDevice->save($checkTokenDevice);
+					
 
 					$modelMember->save($checkPhone);
+					$checkPhone->token  = $checkTokenDevice->token;
+					$checkPhone->token_device  = $checkTokenDevice->token_device;
 
 					$return = array(	'code'=>0, 
 			    						'info_member'=>$checkPhone
@@ -414,27 +424,31 @@ function checkLoginMemberAPI($input)
 				}
 			}elseif(!empty($checkStaff)){
 				$checkStaff->last_login = time();
-				$checkStaff->token = 'staff'.createToken();
+				//$checkStaff->token = 'staff'.createToken();
 				$checkBoss = $modelMember->find()->where(array('id'=>$checkStaff->id_member, 'deadline >'=>time(), 'status'=>'active' ))->first();
 				if(!empty($checkBoss)){
 					if(!empty($dataSend['token_device'])){
 						$checkStaff->token_device = $dataSend['token_device'];
 
-						$checkTokenDevice = $modelTokenDevices->find()->where(['token_device'=>$dataSend['token_device']])->first();
+						$checkTokenDevice = $modelTokenDevice->find()->where(['token_device'=>$dataSend['token_device']])->first();
 
 						if(!empty($checkTokenDevice)){
 							$checkTokenDevice->id_member = $checkStaff->id;
 						}else{
-							$checkTokenDevice = $modelTokenDevices->newEmptyEntity();
+							$checkTokenDevice = $modelTokenDevice->newEmptyEntity();
 
 							$checkTokenDevice->token_device = $dataSend['token_device'];
 							$checkTokenDevice->id_member = $checkStaff->id;
+							
 						}
+						$checkTokenDevice->type = 'staff';
+						$checkTokenDevice->token = 'staff'.createToken();
 
-						$modelTokenDevices->save($checkTokenDevice);
+						$modelTokenDevice->save($checkTokenDevice);
 					}
 
 					$modelStaff->save($checkStaff);
+					$checkStaff->token  = $checkTokenDevice->token;
 
 					$return = array(	'code'=>0, 
 			    						'info_member'=>$checkStaff
@@ -468,6 +482,7 @@ function logoutMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelTokenDevice = $controller->loadModel('TokenDevices');
 
     $modelStaff = $controller->loadModel('Staffs');
 	$return = array('code'=>1);
@@ -476,24 +491,26 @@ function logoutMemberAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkPhone = getMemberByToken($dataSend['token']);
+			//$checkPhone = getMemberByToken($dataSend['token']);
+			$checkPhone = $modelTokenDevice->find()->where(['token'=>$dataSend['token']])->first();
+
 			if(!empty($checkPhone)){
 				if($checkPhone->type=='member'){
-					$checkUser = $modelMember->find()->where(['id'=>$checkPhone->id])->first();
+					$checkUser = $modelMember->find()->where(['id'=>$checkPhone->id_member])->first();
 					if(!empty($checkUser)){
 						$checkUser->token = '';
 						$checkUser->token_device = null;
 						$modelMember->save($checkUser);
 					}
 				}elseif($checkPhone->type=='staff'){
-					$checkUser = $modelStaff->find()->where(['id'=>$checkPhone->id_staff])->first();
+					$checkUser = $modelStaff->find()->where(['id'=>$checkPhone->id_member])->first();
 					if(!empty($checkUser)){
 						$checkUser->token = '';
 						$checkUser->token_device = null;
 						$modelStaff->save($checkUser);
 					}
 				}
-				
+				$modelTokenDevice->delete($checkPhone);
 
 				$return = array('code'=>0);
 			}else{
