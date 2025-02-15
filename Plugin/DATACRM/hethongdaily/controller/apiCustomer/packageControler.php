@@ -76,12 +76,8 @@ function buyPackageAPI($input)
 
     $modelPackage = $controller->loadModel('Packages');
 
-    $string = 'p1xhchhhhgfgh';
+    $modelTransactionCustomers = $controller->loadModel('TransactionCustomers');
 
-	// Lấy ký tự đầu tiên
-	$firstChar = $string[0];
-	// Lấy phần còn lại của chuỗi
-	$remainingString = substr($string, 1);
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -94,7 +90,20 @@ function buyPackageAPI($input)
                 $conditions = array('status'=>'active','id'=>(int)$dataSend['id']);
 				$data = $modelPackage->find()->where($conditions)->first();
 				if(!empty($data)){
-	               	$sms = $user->phone.' P'.$data->id;          
+					$histories = $modelTransactionCustomers->newEmptyEntity();
+
+                    $histories->id_customer = $user->id;
+                    $histories->id_system = 1;
+                    $histories->id_package = $data->id;
+                    $histories->coin = (int) $data->price;
+                    $histories->type = 'plus';
+                    $histories->status = 'new';
+                    $histories->note = 'Mua gói '.$data->name;
+                    $histories->create_at = time();
+
+                    $modelTransactionCustomers->save($histories);
+
+	               	$sms = $user->phone.' P'.$histories->id;          
 
 	               if(function_exists('checkpayos')){
 	                    $infobank =  checkpayos($data->price,$sms);
@@ -122,6 +131,43 @@ function buyPackageAPI($input)
 	              return array('code'=>1,'mess'=>'Tạo yêu cầu thanh toán thành công', 'data'=>$data);
 	          	}
             	return array('code'=>1, 'mess'=>'Không tim thấy gói');
+            }
+
+            return array('code'=>3, 'mess'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'mess'=>'Gửi sai kiểu POST');
+}
+
+function checkPayPackageAPI($input)
+{
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+
+    $modelPackage = $controller->loadModel('Packages');
+
+    $modelTransactionCustomers = $controller->loadModel('TransactionCustomers');
+   
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token']) && !empty($dataSend['note'])){
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
+            
+            if(!empty($user)){
+                $conditions = array('status'=>'done','id_customer'=>(int)$user->id,'meta_payment'=>$dataSend['note'], 'status'=>'done');
+				$data = $modelTransactionCustomers->find()->where($conditions)->first();
+				if(!empty($data)){
+	              return array('code'=>1,'mess'=>'Đã thanh toán thành công', 'data'=>$data);
+	          	}
+            	return array('code'=>4, 'mess'=>'Chưa thanh toán toán');
             }
 
             return array('code'=>3, 'mess'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');

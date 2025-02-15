@@ -472,10 +472,10 @@ PRIMARY KEY (`id`)
 
 $sqlInstallDatabase .="CREATE TABLE `transaction_customers` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
-`id__customer` INT NULL DEFAULT NULL ,
+`id_customer` INT NULL DEFAULT NULL ,
 `coin` INT NULL DEFAULT NULL ,
 `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
-`note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `create_at` INT NULL DEFAULT NULL ,
 `id_system` INT NULL DEFAULT NULL , 
 `meta_payment` VARCHAR(255) NULL DEFAULT NULL,
@@ -903,14 +903,14 @@ $sqlUpdateDatabase['historie_point_customers']['point'] = "ALTER TABLE `historie
 $sqlUpdateDatabase['historie_point_customers']['created_at'] = "ALTER TABLE `historie_point_customers` ADD `created_at` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['historie_point_customers']['note'] = "ALTER TABLE `historie_point_customers` ADD `note`  VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
-$sqlUpdateDatabase['transaction_customers']['id__customer'] = "ALTER TABLE `transaction_customers` ADD `id__customer` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['transaction_customers']['id_customer'] = "ALTER TABLE `transaction_customers` ADD `id_customer` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['transaction_customers']['coin'] = "ALTER TABLE `transaction_customers` ADD `coin` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['transaction_customers']['type'] = "ALTER TABLE `transaction_customers` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
-$sqlUpdateDatabase['transaction_customers']['note'] = "ALTER TABLE `transaction_customers` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['transaction_customers']['create_at'] = "ALTER TABLE `transaction_customers` ADD `create_at` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['transaction_customers']['id_system'] = "ALTER TABLE `transaction_customers` ADD `id_system` INT NULL DEFAULT NULL;";
-$sqlUpdateDatabase['transaction_customers']['meta_payment'] = "ALTER TABLE `transaction_customers` ADD `meta_payment` VARCHAR(255) NULL DEFAULT NULL;";
-$sqlUpdateDatabase['transaction_customers']['payment_type'] = "ALTER TABLE `transaction_customers` ADD `payment_type` VARCHAR(255) NOT NULL DEFAULT 'payQrcode';";
+$sqlUpdateDatabase['transaction_customers']['meta_payment'] = "ALTER TABLE `transaction_customers` ADD `meta_payment` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_customers']['payment_type'] = "ALTER TABLE `transaction_customers` ADD `payment_type` VARCHAR(255)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL DEFAULT 'payQrcode';";
+$sqlUpdateDatabase['transaction_customers']['status'] = "ALTER TABLE `transaction_customers` ADD `status` VARCHAR(255)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transaction_customers']['id_package'] = "ALTER TABLE `transaction_customers` ADD `id_package` INT NULL DEFAULT NULL;";
 
 //gói dịch vụ 
