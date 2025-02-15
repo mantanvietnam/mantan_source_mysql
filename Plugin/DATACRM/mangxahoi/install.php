@@ -163,11 +163,11 @@ $sqlUpdateDatabase['report_wall_posts']['id_post'] = "ALTER TABLE `report_wall_p
 $sqlUpdateDatabase['keywords']['keyword'] = "ALTER TABLE `keywords` ADD `keyword` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['keywords']['replacement'] = "ALTER TABLE `keywords` ADD `replacement` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 
-$sqlUpdateDatabase['notifications']['id_user'] = "ALTER TABLE `notifications` ADD `id_user` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL';";
-$sqlUpdateDatabase['notifications']['title'] = "ALTER TABLE `notifications` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL';";
+$sqlUpdateDatabase['notifications']['id_user'] = "ALTER TABLE `notifications` ADD `id_user` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['notifications']['title'] = "ALTER TABLE `notifications` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['notifications']['created_at'] = "ALTER TABLE `notifications` ADD `created_at` INT NULL DEFAULT NULL;";
-$sqlUpdateDatabase['notifications']['action'] = "ALTER TABLE `notifications` ADD `action` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL';";
-$sqlUpdateDatabase['notifications']['content'] = "ALTER TABLE `notifications` ADD `content` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL';";
+$sqlUpdateDatabase['notifications']['action'] = "ALTER TABLE `notifications` ADD `action` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['notifications']['content'] = "ALTER TABLE `notifications` ADD `content` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['notifications']['id_object'] = "ALTER TABLE `notifications` ADD `id_object` INT NULL DEFAULT NULL;";
 
 $sqlUpdateDatabase['verify_accounts']['id_customer'] = "ALTER TABLE `verify_accounts` ADD `id_customer` INT NOT NULL;";
