@@ -77,7 +77,7 @@ global $urlThemeActive;
                                 </div>
                             </div>
                             <div class="content">
-                                <?php echo str_replace(array("&nbsp;", "&nbsp;", "\t"), "", $data->content) ?>
+                                <?php echo $data->content; ?>
                             </div>
                         </div>
                     </article>
