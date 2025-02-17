@@ -226,8 +226,8 @@ table {
 }
 
 #header .navbar-brand {
-    width: 56px;
-    height: 56px;
+        width: 100px;
+    height: 72px;
     padding: 0;
 }
 

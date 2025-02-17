@@ -899,5 +899,51 @@ function sendZNSZalo($template_id='', $params='', $phone='', $id_oa='', $app_id=
 }
 
 
+function apiResponse(int $code = 0, $messages = '', $data = [], $totalData = 1, array $meta = []): array
+{
+    return [
+        'data' => $data ?? [],
+        'code' => $code ?? '',
+        'messages' => $messages ?? '',
+        'meta' => $meta ?? [],
+        'totalData' => $totalData ?? 1
+    ];
+}
+
+function createToken($length = 30): string
+{
+    $chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return substr(str_shuffle($chars), 0, $length) . time();
+}
+
+function getMemberByToken($token='', $permission='', $module='')
+{
+    global $controller;
+    $modelMember = $controller->loadModel('Members');
+    $modelTokenDevice = $controller->loadModel('TokenDevices');
+    $user = [];
+   
+    $checkToken = $modelTokenDevice->find()->where(['token'=>$token])->first();
+    if(!empty($checkToken)){
+        $infoUser = $modelMember->find()->where(array('id'=>$checkToken->id_member, 'dateline_at >'=>time(), 'status'=>'1' ))->first();
+        if(!empty($infoUser)){
+            if($infoUser->type==1){
+                if(!empty($infoUser->module) && in_array($module, $infoUser->module)){
+                    $user = $infoUser;
+                }
+            }else{
+                $checkMember = $modelMember->find()->where(array('id'=>$infoUser->id_member, 'dateline_at >'=>time(), 'status'=>'1' ))->first();
+                if(!empty($checkMember->module) && in_array($module, $checkMember->module) && !empty($infoUser->list_permission) && in_array($permission, $infoUser->list_permission)){
+                    $user = $infoUser;
+                }
+            }
+            $infoUser->last_login = time();
+            $modelMember->save($infoUser);
+
+        }
+    }
+    return $user;
+}
+
 
 ?>

@@ -177,8 +177,9 @@ global $urlThemeActive;
     ?>];
 
      const map = L.map('map_HS', {
-      center: [20.668785542548076, 105.00060413875005],
-      zoom: 14,
+      center: [20.9506948,106.1691181,15116],
+      zoom: 13,
+      // 20.9506948,106.1691181,15116
     });
 
     L.tileLayer('https://maps.vnpost.vn/api/tm/{z}/{x}/{y}@@2x.png?apikey='+keyMap, {

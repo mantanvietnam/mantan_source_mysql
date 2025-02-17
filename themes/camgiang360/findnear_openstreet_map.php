@@ -207,10 +207,16 @@
 
     if (!empty($listHistorieAll)) {
         $listShowMap= array();
-        $icon = '/themes/camgiang360/assets/icon/ditich.png';
+       
         
         foreach ($listHistorieAll as $data) {
           if(!empty($data->latitude) & !empty($data->longitude)){
+             $icon = '/themes/camgiang360/assets/icon/ditich.png';
+            if($data->idTypeHistoricalSites==3){
+              $icon = '/themes/camgiang360/assets/icon/lehoi.png';
+            }elseif($data->idTypeHistoricalSites==4){
+              $icon = '/themes/camgiang360/assets/icon/khachsan.png';
+            }
               
               $content   = '<img src='.$data->image.' style=width:200px;height:156px;  ><br/><a href=/chi_tiet_di_tich_lich_su/'.$data->urlSlug.'.html>' . $data->name. '</a>';
               $content.='<br/>Điện thoại: ' . $data->phone;

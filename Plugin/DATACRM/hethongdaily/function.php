@@ -49,6 +49,11 @@ $menus[0]['sub'][]= array(  'title'=>'Cài đặt gói ',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listPackageAdmin'
                         );
+$menus[0]['sub'][]= array(  'title'=>'Thông số',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-system-setingParameterAdmin',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'setingParameterAdmin'
+                        );
 $menus[1]['title']= "Đơn hàng hệ thống";
 $menus[1]['sub'] = [];
 

@@ -13,7 +13,7 @@ $infoUser = $session->read('infoUser');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/thaianh.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/thaianh.css">
 
     <?php  if(@$isHome==false){ ?>
      <!-- FONTAWESOME 6 -->
@@ -22,16 +22,16 @@ $infoUser = $session->read('infoUser');
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <!-- FILE INCLUDE CSS -->
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/assets/css/slick.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/assets/css/slick-theme.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>asset/css/bootstrap.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>asset/css/slick.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>asset/css/slick-theme.css">
 
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/header.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/footer.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/particle.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/style.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/main.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/font.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/header.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/footer.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/particle.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/style.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/main.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/font.css">
     <!-- FILE INCLUDE CSS END -->
     <!-- FILE INCLUDE JS -->
     <!-- MAP JS API -->
@@ -39,14 +39,14 @@ $infoUser = $session->read('infoUser');
           integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
             integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    <script src="<?= $urlThemeActive ?>tayho/assets/js/jquery.js"></script>
+    <script src="<?= $urlThemeActive ?>asset/js/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= $urlThemeActive ?>tayho/assets/js/slick.min.js"></script>
-    <script src="<?= $urlThemeActive ?>tayho/js/jshieu.js"></script>
-    <script src="<?= $urlThemeActive ?>tayho/js/slick.js"></script>
-    <script src="<?= $urlThemeActive ?>tayho/js/slickslide.js"></script>
-    <script src="<?= $urlThemeActive ?>tayho/assets/js/main.js"></script>
-    <script src="<?= $urlThemeActive ?>tayho/js/slick.js"></script>
+    <script src="<?= $urlThemeActive ?>asset/js/slick.min.js"></script>
+    <script src="<?= $urlThemeActive ?>js/jshieu.js"></script>
+    <script src="<?= $urlThemeActive ?>js/slick.js"></script>
+    <script src="<?= $urlThemeActive ?>js/slickslide.js"></script>
+    <script src="<?= $urlThemeActive ?>asset/js/main.js"></script>
+    <script src="<?= $urlThemeActive ?>js/slick.js"></script>
 
 <?php }else{ ?>
     <link rel="stylesheet" href="<?= $urlThemeActive ?>maichau/css/main.css?time=100021">

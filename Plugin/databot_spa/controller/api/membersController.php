@@ -92,4 +92,49 @@ function createMemberAPI($input)
 	
 	return $return;
 }
+
+function loginAPI($input)
+{
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$metaTitleMantan = 'Đăng nhập công cụ phầm mềm quản lý SPA';
+
+	$modelMembers = $controller->loadModel('Members');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['phone']) && !empty($dataSend['password'])){
+			$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+			$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+			$conditions = array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']));
+			$infoUser = $modelMembers->find()->where($conditions)->first();
+
+			if($infoUser){
+	    		// nếu đây là nhân viên
+				if($infoUser->type == 0){
+					 $checkMember = $modelMember->find()->where(array('id'=>$infoUser->id_member, 'dateline_at >'=>time(), 'status'=>'1' ))->first();
+	                if(!empty($checkMember)){
+	                    $user = $infoUser;
+	                }
+					
+				}else{
+
+				}
+
+	    		
+			}else{
+				$mess= '<p class="text-danger">Sai số điện thoại hoặc mật khẩu</p>';
+			}
+		}else{
+			$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+		}
+	}
+
+	
+}
 ?>

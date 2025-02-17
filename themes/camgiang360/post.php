@@ -30,7 +30,7 @@ if (!isset($otherPosts)) $otherPosts = [];
                             <div class="head">
                                 <h1 class="mb-1"><?= $post->title ?></h1>
                                 <span
-                                    class="author"><?= $post->author ?> - <?= convert_timestamp($post->time) ?></span>
+                                    class="author"><?= $post->author ?> - <?= date('d/m/Y',$post->time) ?></span>
                             </div>
                             <div class="body">
                                 <div class="content">
@@ -47,6 +47,7 @@ if (!isset($otherPosts)) $otherPosts = [];
                             <div class="row g-3">
                                 <?php
                                 foreach ($otherPosts as $post) {
+                                    //limit_words
                                     ?>
                                     <div class="col-12">
                                         <a href="/<?= $post->slug ?>.html" class="d-block text-decoration-none">
@@ -55,10 +56,10 @@ if (!isset($otherPosts)) $otherPosts = [];
                                                      alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title mb-3">
-                                                        <?= limit_words($post->title) ?>
+                                                        <?php echo $post->title ?>
                                                     </h5>
                                                     <p class="card-time">
-                                                        <?= distance_from_now($post->time) ?>
+                                                        <?php echo  date('d/m/Y',$post->time) ?>
                                                     </p>
                                                 </div>
                                             </div>
@@ -86,10 +87,10 @@ if (!isset($otherPosts)) $otherPosts = [];
                                     <img class="card-img-top" src="<?= $oPost->image ?>" alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title mb-3">
-                                            <?= limit_words($oPost->title) ?>
+                                            <?= $oPost->title ?>
                                         </h5>
                                         <p class="card-time">
-                                            <?= distance_from_now($oPost->time) ?>
+                                            <?php echo date('d/m/Y',$oPost->time) ?>
                                         </p>
                                     </div>
                                 </div>
