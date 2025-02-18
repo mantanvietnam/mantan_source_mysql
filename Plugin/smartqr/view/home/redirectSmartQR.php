@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Truy cập mã QR</title>
+    <title><?php echo @$data->title;?></title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-141Q664ZHZ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -52,7 +52,7 @@
 <body>
     <div class="countdown-container">
         <div class="countdown" id="countdown">10</div>
-        <div class="message" id="message">Đợi chút để truy cập vào mã QR</div>
+        <div class="message" id="message">Đợi chút để truy cập vào mã QR của <?php echo @$data->title;?></div>
     </div>
 
     <script>

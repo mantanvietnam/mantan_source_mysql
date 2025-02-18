@@ -6,6 +6,7 @@ function redirectSmartQR($input)
 	$code = @$input['request']->getAttribute('params')['pass'][1];
 
 	$link_redirect = '/';
+	$data = [];
 
 	if(!empty($code)){
 		$modelSmartqr = $controller->loadModel('Smartqrs');
@@ -228,6 +229,7 @@ function redirectSmartQR($input)
 	}
 
 	setVariable('link_redirect', $link_redirect);
+	setVariable('data', $data);
 	//return $controller->redirect('/');
 }
 
