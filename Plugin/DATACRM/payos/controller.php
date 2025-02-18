@@ -19,7 +19,7 @@ function addMoneyPayOSBankAPI($input)
             $ransaction = $id_ransaction[1];
             $type = $id_ransaction[3];
         }
-		processAddMoney($datas['amount'], $ransaction ,$type);
+		 processAddMoney($datas['amount'], $ransaction ,$type, $datas['description']);
 		return array('code'=>1, 'mess'=>'bạn giao dịch thành công');
 	}
 	return array('code'=>0, 'mess'=>'giao dịch không thành công');

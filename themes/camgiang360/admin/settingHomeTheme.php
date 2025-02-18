@@ -88,6 +88,29 @@
 
         </div>
 
+         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Khối sự kện </h5>
+        </div>
+        <div class="card-body row">
+          <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <label class="form-label" for="basic-default-fullname">tiêu đề</label>
+            <input type="text" class="form-control" name="title6" value="<?php echo @$setting['title6'];?>" />
+          </div>
+          <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <label class="form-label" for="basic-default-fullname">chữ nhỏ</label>
+            <input type="text" class="form-control" name="note6" value="<?php echo @$setting['note6'];?>" />
+          </div>
+          <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <label class="form-label" for="basic-default-fullname">ảnh banne chưa có sự kiện</label>
+            <?php showUploadFile('image_6','image_6', @$setting['image_6'],6);?>
+          </div>
+          <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6"></div>
+          <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
+        </div>
+      </div>
+    </div>
         
 
         

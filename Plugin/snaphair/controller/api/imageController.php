@@ -24,7 +24,7 @@ function addImageUserAPI($input)
                 $image = $image['linkOnline'];
             }
 
-            $idlayer = $modelProductDetail->find()->where(array('id_user'=>$user->id))->count()+1;
+            $idlayer = $modelImageUser->find()->where(array('id_user'=>$user->id))->count()+1;
 			 
 
             	$data = $modelImageUser->newEmptyEntity();
@@ -140,6 +140,7 @@ function saveImageCollageAPI($input){
     
     $modelUser = $controller->loadModel('Users');
     $modelImageUser = $controller->loadModel('ImageUsers');
+    $modelTransactionHistory = $controller->loadModel('TransactionHistorys');
     // debug(getParameter());
     // die;
     $price = (int) getParameter()['transaction_fee'];
@@ -163,10 +164,12 @@ function saveImageCollageAPI($input){
             	if($image['code']==1){
             	
 
+            		$idlayer = $modelImageUser->find()->where(array('id_user'=>$user->id))->count()+1;
+			 
 	            	$data = $modelImageUser->newEmptyEntity();
-	               	$data->name = $dataSend['name'];
+	               	$data->name = 'collage '.$idlayer;
 	               	$data->status = 'active';
-	               	$data->image = $image;
+	               	$data->image = $image['link'];
 	               	$data->id_user = $user->id;
 	               	$data->id_imge_user = (int) $dataSend['id_imge_user'];
 	               	$data->id_image_sample = (int) $dataSend['id_image_sample'];
@@ -174,6 +177,19 @@ function saveImageCollageAPI($input){
 	               	$data->type = 'collage';
 
 	               	$modelImageUser->save($data);
+	               	$user->coin -= $price;
+	               	$modelUser->save($user);
+	               	$dataHistories = $modelTransactionHistory->newEmptyEntity();
+
+			        $dataHistories->idManager = $user->id;
+			        $dataHistories->total = $price;
+			        $dataHistories->coin_user = $user->coin;
+			        $dataHistories->type = 'minus';
+			        $dataHistories->note = 'trừ tiền ghép ảnh ';
+			        $dataHistories->type_note = 'minus';
+			        $dataHistories->modified = time();
+
+			        $modelTransactionHistory->save($dataHistories);
 
 	              	return apiResponse(1,'lưu dữ liệu thành công',$data);
 	            }else{

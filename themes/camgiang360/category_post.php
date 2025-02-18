@@ -54,7 +54,7 @@ global $urlThemeActive;
                                         <p class="card-time">
                                              <?php echo date('d/m/Y', $item->time) ?>
                                         </p>
-                                        <a href="/<?php echo $item->slug ?>.html" class="btn button-outline-primary-custom">Xem thêm</a>
+                                        <a href="/<?php echo $item->slug ?>.html" class="btn button-outline-primary-custom btn-seemmore">Xem thêm</a>
                                     </div>
                                 </div>
                             </div>

@@ -12,6 +12,7 @@
    include('controller/api/transactionController.php');
    include('controller/api/samplePhotoController.php');
    include('controller/api/imageController.php');
+   include('controller/api/postController.php');
 
    
  ?>

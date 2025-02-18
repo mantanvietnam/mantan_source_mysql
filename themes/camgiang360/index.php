@@ -65,8 +65,8 @@ global $urlThemeActive;
     <section id="events">
         <div class="row">
             <div class="events-title">
-                <h2>Tin tức - sự kiện</h2>
-                <p>Những Tin tức - Sự kiện Văn hoá, Du lịch tiêu biểu</p>
+                <h2><?php echo $setting['title6'] ?></h2>
+                <p><?php echo $setting['note6'] ?></p>
             </div>
         </div>
 
@@ -105,7 +105,7 @@ global $urlThemeActive;
                         <?php } }else { ?>
                         <div class="item-events-slide">
                             <div class="events-slide-img">
-                                <img src="https://camgiang360.vn/upload/admin/images/z6153160770777_15b7513f998d4950bef2740c27d0a281%20-%20Le%20Thao.jpg" alt="">
+                                <img src="<?php echo $setting['image_6'] ?>" alt="">
                             </div>
                             <div class="events-slide-content">
                                 <div class="row">

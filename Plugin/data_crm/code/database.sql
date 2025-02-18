@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th10 21, 2024 lúc 10:28 PM
+-- Thời gian đã tạo: Th2 17, 2025 lúc 12:25 AM
 -- Phiên bản máy phục vụ: 10.6.5-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -346,7 +346,12 @@ CREATE TABLE `customers` (
   `link_download_mmtc` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci DEFAULT NULL,
   `max_export_mmtc` int(11) NOT NULL DEFAULT 0,
   `id_friend_block` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `id_affsource` int(11) DEFAULT 0 COMMENT 'id người giới thiệu'
+  `id_affsource` int(11) DEFAULT 0 COMMENT 'id người giới thiệu',
+  `blue_check` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock',
+  `total_coin` int(11) DEFAULT 0,
+  `status_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'public',
+  `updated_at` int(11) DEFAULT NULL,
+  `last_login` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -615,7 +620,22 @@ CREATE TABLE `image_customers` (
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `public` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `link_local` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` int(11) DEFAULT NULL
+  `created_at` int(11) DEFAULT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'image',
+  `video` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code_youtube` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `keywords`
+--
+
+CREATE TABLE `keywords` (
+  `id` int(11) NOT NULL,
+  `keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `replacement` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -778,6 +798,22 @@ CREATE TABLE `menus` (
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
+  `id_user` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `action` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_object` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `options`
 --
 
@@ -908,6 +944,21 @@ CREATE TABLE `order_member_details` (
   `price` int(11) NOT NULL,
   `discount` int(11) NOT NULL DEFAULT 0 COMMENT 'phần trăm chiết khấu',
   `id_unit` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `packages`
+--
+
+CREATE TABLE `packages` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` int(11) NOT NULL,
+  `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'active',
+  `point` int(11) NOT NULL,
+  `numerology` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1258,7 +1309,9 @@ CREATE TABLE `token_devices` (
   `id` int(11) NOT NULL,
   `token_device` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `id_member` int(11) NOT NULL DEFAULT 0,
-  `id_customer` int(11) NOT NULL DEFAULT 0
+  `id_customer` int(11) NOT NULL DEFAULT 0,
+  `token` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1300,6 +1353,25 @@ CREATE TABLE `transaction_agency_histories` (
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `transaction_customers`
+--
+
+CREATE TABLE `transaction_customers` (
+  `id` int(11) NOT NULL,
+  `id_customer` int(11) DEFAULT NULL,
+  `coin` int(11) DEFAULT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `create_at` int(11) DEFAULT NULL,
+  `id_system` int(11) DEFAULT NULL,
+  `meta_payment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'payQrcode',
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_package` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `transaction_histories`
 --
 
@@ -1310,7 +1382,9 @@ CREATE TABLE `transaction_histories` (
   `type` varchar(255) NOT NULL,
   `note` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `create_at` int(11) NOT NULL,
-  `id_system` int(11) NOT NULL
+  `id_system` int(11) NOT NULL,
+  `meta_payment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'payQrcode'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1351,6 +1425,26 @@ CREATE TABLE `uplike_histories` (
   `note_buff` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `run` int(11) NOT NULL DEFAULT 0,
   `minute` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `verify_accounts`
+--
+
+CREATE TABLE `verify_accounts` (
+  `id` int(11) NOT NULL,
+  `id_customer` int(11) NOT NULL,
+  `image_face` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image_card_before` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image_card_after` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link_news` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `image_license_before` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image_license_after` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1397,7 +1491,8 @@ CREATE TABLE `wall_posts` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   `public` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `pin` int(11) NOT NULL DEFAULT 0
+  `pin` int(11) NOT NULL DEFAULT 0,
+  `link_share` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1658,6 +1753,12 @@ ALTER TABLE `image_customers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `keywords`
+--
+ALTER TABLE `keywords`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `lessons`
 --
 ALTER TABLE `lessons`
@@ -1700,6 +1801,12 @@ ALTER TABLE `menus`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `options`
 --
 ALTER TABLE `options`
@@ -1727,6 +1834,12 @@ ALTER TABLE `order_members`
 -- Chỉ mục cho bảng `order_member_details`
 --
 ALTER TABLE `order_member_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `packages`
+--
+ALTER TABLE `packages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1856,6 +1969,12 @@ ALTER TABLE `transaction_agency_histories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `transaction_customers`
+--
+ALTER TABLE `transaction_customers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `transaction_histories`
 --
 ALTER TABLE `transaction_histories`
@@ -1871,6 +1990,12 @@ ALTER TABLE `unit_conversions`
 -- Chỉ mục cho bảng `uplike_histories`
 --
 ALTER TABLE `uplike_histories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `verify_accounts`
+--
+ALTER TABLE `verify_accounts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2106,6 +2231,12 @@ ALTER TABLE `image_customers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT cho bảng `keywords`
+--
+ALTER TABLE `keywords`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `lessons`
 --
 ALTER TABLE `lessons`
@@ -2148,6 +2279,12 @@ ALTER TABLE `menus`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT cho bảng `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `options`
 --
 ALTER TABLE `options`
@@ -2175,6 +2312,12 @@ ALTER TABLE `order_members`
 -- AUTO_INCREMENT cho bảng `order_member_details`
 --
 ALTER TABLE `order_member_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `packages`
+--
+ALTER TABLE `packages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -2304,6 +2447,12 @@ ALTER TABLE `transaction_agency_histories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT cho bảng `transaction_customers`
+--
+ALTER TABLE `transaction_customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `transaction_histories`
 --
 ALTER TABLE `transaction_histories`
@@ -2319,6 +2468,12 @@ ALTER TABLE `unit_conversions`
 -- AUTO_INCREMENT cho bảng `uplike_histories`
 --
 ALTER TABLE `uplike_histories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `verify_accounts`
+--
+ALTER TABLE `verify_accounts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

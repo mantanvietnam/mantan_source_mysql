@@ -1,0 +1,271 @@
+/* footer .main-footer {
+
+    background: linear-gradient(174.23deg, #97c4bd 28.97%, #3b9281 96.37%);
+
+  }
+
+  footer .main-footer .logo-footer img {
+
+    display: block;
+
+    max-width: 130px;
+
+    margin: 0 auto;
+
+  }
+
+  footer .main-footer .list-info h5 {
+
+    font-style: normal;
+
+    font-weight: 400;
+
+    font-size: 24px;
+
+    line-height: 23px;
+
+    color: #013128;
+
+    margin-bottom: 15px;
+
+  }
+
+  footer .main-footer .list-info ul li, footer .main-footer .list-info ul li a {
+
+    font-style: normal;
+
+    font-weight: 400;
+
+    font-size: 20px;
+
+    line-height: 23px;
+
+    color: #3f4042;
+
+    text-decoration: none;
+
+  }
+
+  footer .bottom-footer {
+
+    padding: 10px;
+
+    background-color: #025545;
+
+  }
+
+  footer .bottom-footer span {
+
+    color: white;
+
+  } */
+
+  #contact .contact-content .contact-logo {
+    width: 77px;
+    height: 77px;
+}
+
+#contact .contact-content .contact-logo img {
+    width: 100%;
+    object-fit: cover;
+}
+
+#contact .contact-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+#contact .container {
+    padding-top: 60px;
+    padding-right: 100px;
+    padding-left: 100px;
+    padding-bottom: 80px;
+    max-width: 100%;
+}
+
+#contact .contact-content .contact-detail h4 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    color: #296C61;
+}
+
+#contact .contact-content .contact-detail p {
+    font-size: 18px;
+    color: #4C4C4C;
+    line-height: 24px;
+}
+
+#contact .contact-content .contact-detail span {
+    font-weight: 600;
+    color: #1A1A1A;
+}
+
+#contact .contact-content .contact-detail ul {
+    padding-left: 0;
+}
+
+#contact .contact-content .contact-detail li {
+    font-size: 16px;
+    line-height: 20px;
+    color: #21274F;
+    font-weight: 500;
+    margin: 16px 0;
+}
+
+#contact .contact-content .contact-detail li i {
+    padding: 6px;
+    border-radius: 15px;
+    background-color: #4D9F91;
+    color: #fff;
+    margin-right: 20px;
+}
+
+#contact .contact-content .contact-detail li:first-child i {
+    padding: 6px 5px;
+}
+
+#contact .contact-content .contact-text h4 {
+    font-size: 20px;
+    line-height: 28px;
+    color: #21274F;
+    font-weight: 600;
+}
+
+#contact .contact-content .contact-text a {
+    font-size: 18px;
+    line-height: 32px;
+    color: #4C4C4C;
+    text-decoration: none;
+    transition: all 0.2s linear;
+}
+
+#contact .contact-content .contact-text a:hover {
+    color: #296C61;
+    transition: all 0.2s linear;
+}
+
+#contact .contact-content .contact-icon h4 {
+    font-size: 20px;
+    line-height: 28px;
+    color: #21274F;
+    font-weight: 600;
+}
+
+#contact .contact-content .contact-icon .combo-icon a {
+    font-size: 24px;
+    background-color: black;
+    color: #fff;
+    border-radius: 50px;
+    margin: 0 28px;
+}
+
+#contact .contact-content .contact-icon .combo-icon a:first-child {
+    font-size: 40px;
+    color: #000;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+#contact .contact-content .contact-icon .combo-icon a:last-child {
+    font-size: 22px;
+    background-color: black;
+    color: #fff;
+    border-radius: 50px;
+    margin: 0;
+}
+
+#contact .contact-content .contact-icon .combo-icon {
+    display: flex;
+    align-items: center;
+}
+
+#contact .col-lg-6 {
+    width: 53%;
+}
+
+#contact .col-lg-3 {
+    width: 19%;
+}
+
+#contact .col-lg-2 {
+    width: 16.15%;
+}
+
+#footer {
+    background-color: #4D9F91;
+    text-align: center;
+}
+
+#footer p {
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
+    margin: 0;
+    padding: 16px 0;
+}
+
+
+@media (max-width: 768px) {
+  #contact .col-lg-6.col-md-12 {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  #contact .col-lg-1.col-md-12 {
+      width: 100%;
+      justify-content: center;
+      display: flex;
+  }
+  #contact .col-md-6 {
+      width: 50%;
+  }
+  #contact .contact-content .contact-logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+  }
+  #contact .container {
+      padding-bottom: 40px;
+  }
+  #contact .contact-content .contact-icon .combo-icon a {
+      margin: 0 20px;
+  }
+
+}
+
+@media (max-width: 475px){
+  #contact .container {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+  #contact .contact-content .contact-detail h4 {
+      font-size: 18px;
+  }
+  #contact .contact-content .contact-detail p {
+      font-size: 14px;
+  }
+  #contact .contact-content .contact-detail li {
+      font-size: 12px;
+  }
+
+  #footer p{
+    font-size: 12px;
+  }
+}
+
+/*     Em Hiếu CSS - START     */
+
+#contact .contact-content .contact-icon .combo-icon a {
+    padding: 8px 9px;
+}
+#contact .contact-content .contact-icon .combo-icon a:last-child {
+    padding: 9px 8px;
+}
+#map-section .map-iframe {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0px 15px 1px #c5c5c5;
+}
+
+/*     Em Hiếu CSS - END     */

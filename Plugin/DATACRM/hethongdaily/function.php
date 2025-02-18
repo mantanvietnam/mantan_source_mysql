@@ -49,6 +49,11 @@ $menus[0]['sub'][]= array(  'title'=>'Cài đặt gói ',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listPackageAdmin'
                         );
+$menus[0]['sub'][]= array(  'title'=>'Thông số',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-system-setingParameterAdmin',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'setingParameterAdmin'
+                        );
 $menus[1]['title']= "Đơn hàng hệ thống";
 $menus[1]['sub'] = [];
 
@@ -1691,7 +1696,7 @@ function addActivityHistory($user=array(),$note='',$keyword='',$id_key=0){
 }
 
 
-function processAddMoney($money = 0, $phone='', $type=''){
+function processAddMoney($money = 0, $phone='', $type='', $note=''){
     global $controller;
     
     $modelCustomer = $controller->loadModel('Customers');
@@ -1768,47 +1773,40 @@ function processAddMoney($money = 0, $phone='', $type=''){
             $firstChar = $type[0];
             $id = substr($type, 1);
             if($firstChar='P'){
-                $checkPackage = $modelPackage->find()->where(['id'=>(int)$id])->first();
-                if(!empty($checkPackage)){
-                    $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$infoUser->id])->first();
-                    if(!empty($checkPointCustomer)){
-                        $checkPointCustomer->point += $checkPackage->point;
-                        $checkPointCustomer->updated_at = time();
-                        $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
-                        if(!empty($rating)){
-                            $checkPointCustomer->id_rating = $rating->id;
+                $histories = $modelTransactionCustomers->find()->where(['id'=>(int)$id])->first();
+                if(!empty($histories)){   
+                    $checkPackage = $modelPackage->find()->where(['id'=>(int)$histories->id_package])->first();
+                    if(!empty($checkPackage)){
+                        $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$infoUser->id])->first();
+                        if(!empty($checkPointCustomer)){
+                            $checkPointCustomer->point += $checkPackage->point;
+                            $checkPointCustomer->updated_at = time();
+                            $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
+                            if(!empty($rating)){
+                                $checkPointCustomer->id_rating = $rating->id;
+                            }
+                            $modelPointCustomer->save($checkPointCustomer);
                         }
-                        $modelPointCustomer->save($checkPointCustomer);
+
+                        $infoUser->max_export_mmtc +=(int) $checkPackage->numerology;
+                        $modelCustomer->save($infoUser);
+
+                        $histories->meta_payment = $note;
+                        $histories->status = 'done';
+                        $modelTransactionCustomers->save($histories);
+
+                        $dataSendNotification= array('title'=>'Bạn thanh toán thành công',
+                                    'time'=>date('H:i d/m/Y'),
+                                    'content'=>"Bạn đã thanh toán mua gói $checkPackage->name thành công",
+                                    'action'=>'buyPackage');
+                        if(!empty($infoUser->token_device)){
+                            sendNotification($dataSendNotification, $infoUser->token_device);
+                            saveNotification($dataSendNotification, $infoUser->id);
+                        }
+
+                    return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này nạp tiền thành công</p>', 'data'=> $infoUser];
+
                     }
-
-                    $infoUser->max_export_mmtc +=(int) $checkPackage->numerology;
-                    $modelCustomer->save($infoUser);
-
-                    $histories = $modelTransactionCustomers->newEmptyEntity();
-
-                    $histories->id_customer = $infoUser->id;
-                    $histories->id_system = $data->id_system;
-                    $histories->id_package = $checkPackage->id;
-                    $histories->coin = (int) $money;
-                    $histories->type = 'plus';
-                    $histories->note = 'Mua gói '.$checkPackage->name;
-                    $histories->create_at = time();
-
-                    $modelTransactionCustomers->save($histories);
-
-                    $dataSendNotification= array('title'=>'Bạn thanh toán thành công',
-                                'time'=>date('H:i d/m/Y'),
-                                'content'=>"Bạn đã thanh toán mua gói $checkPackage->name thành công",
-                                'action'=>'buyPackage');
-                    if(!empty($infoUser->token_device)){
-                        sendNotification($dataSendNotification, $infoUser->token_device);
-                        saveNotification($dataSendNotification, $infoUser->id);
-                    }
-
-
-
-                return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này nạp tiền thành công</p>', 'data'=> $infoUser];
-
                 }
 
             }

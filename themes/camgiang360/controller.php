@@ -32,6 +32,9 @@ function settingHomeTheme($input){
                         'title_travel4' => @$dataSend['title_travel4'],
                         'image_travel4' => @$dataSend['image_travel4'],
                         'link_travel4' => @$dataSend['link_travel4'],
+                        'title6' => @$dataSend['title6'],
+                        'note6' => @$dataSend['note6'],
+                        'image_6' => @$dataSend['image_6'],
                         'title_footer' => @$dataSend['title_footer'],
                         'agency' => @$dataSend['agency'],
                         'address' => @$dataSend['address'],
@@ -49,6 +52,8 @@ function settingHomeTheme($input){
                         'key_google_map' => @$dataSend['key_google_map'],
                         
                     );
+
+
 
     
 
