@@ -57,12 +57,24 @@ function projectDetail($input)
             $project->infoKind = $infoKind;
         }    
      
+        if(!empty($project->id_apart_type)) {
+            $listType = $modelCategories->find()
+                ->where(['id' => $project->id_apart_type])
+                ->first();
+        } else {
+            $listType = null; 
+        }
+        if(!empty($project->id_apart_type)){
+            $infoType = $modelCategories->find()->where(['id'=> $project->id_apart_type])->first();
+            $project->infoType = $infoType;
+        }    
     
 
         $listDataproduct_projects= $modelProductProjects->find()->limit(3)->order($order)->all()->toList();
         setVariable('listDataproduct_projects', $listDataproduct_projects);
         setVariable('project', $project);
         setVariable('listKind', $listKind);
+        setVariable('listType', $listType);
 
         
     }else{

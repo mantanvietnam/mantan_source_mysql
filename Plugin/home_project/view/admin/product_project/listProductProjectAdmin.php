@@ -47,7 +47,8 @@
             <th>ID</th>
             <th>Ảnh minh họa</th>
             <th>Tên dự án</th>
-            <th>Mô tả</th>
+            <th>Danh mục</th>
+            <th>Mô hình</th>
             <th>Trạng thái</th>
             <th>Sửa</th>
             <th>Xóa</th>
@@ -58,6 +59,20 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $project_item) {
+                $category_name = '';
+                foreach ($listKind as $kind) {
+                    if ($kind->id == $project_item->id_kind) {
+                        $category_name = $kind->name;
+                        break;
+                    }
+                }
+                $model_name = '';
+                foreach ($listType as $model) {
+                    if ($model->id == $project_item->id_apart_type) {
+                        $model_name = $model->name;
+                        break;
+                    }
+                }
                 if($project_item->status == 'active'){
                   $status ='<span class="text-success">Kích hoạt</span>';
                 }else{
@@ -67,7 +82,8 @@
                         <td>'.$project_item->id.'</td>
                         <td><img src="'.$project_item->image.'" width="100" /></td>
                         <td><a target="_blank" href="/project/'.$project_item->slug.'.html">'.$project_item->name.'</a></td>
-                        <td>'.$project_item->description.'</td>
+                        <td>'.$category_name.'</td>
+                        <td>'.$model_name.'</td>
                         <td>'.$status.'</td>
 
 

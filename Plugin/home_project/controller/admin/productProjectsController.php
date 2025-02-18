@@ -78,6 +78,9 @@ function listProductProjectAdmin($input)
     $conditions = array('type' => 'category_kind');
     $listKind = $modelCategories->find()->where($conditions)->all()->toList();
 
+    $conditions = array('type' => 'category_type');
+    $listType = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -86,6 +89,7 @@ function listProductProjectAdmin($input)
     setVariable('totalData', $totalData);
     setVariable('listData', $listData);
     setVariable('listKind', $listKind);
+    setVariable('listType', $listType);
 
 }
 
@@ -123,15 +127,16 @@ function addProductProjectAdmin($input)
             $data->images = json_encode($dataSend['images']);
             $data->image = $dataSend['image'];
             $data->id_kind = $dataSend['id_kind'];
-            $data->info = $dataSend['info'];
+            $data->id_apart_type = $dataSend['id_apart_type'];
             $data->map = $dataSend['map'];
+            $data->investor = $dataSend['investor'];
+            $data->direction = $dataSend['direction'];
+            $data->ownership_type = $dataSend['ownership_type'];
+            $data->ecological_space = $dataSend['ecological_space']; 
+            $data->utility_services = $dataSend['utility_services']; 
+            $data->price = $dataSend['price'];
             $data->acreage = $dataSend['acreage'];
-            $data->subdivision = $dataSend['subdivision'];
-            $data->premises = $dataSend['premises'];
-            $data->landscape = $dataSend['landscape']; 
-            $data->color = $dataSend['color'];
-            $data->outstanding = isset($dataSend['outstanding']) && $dataSend['outstanding'] == '1' ? 1 : 0;    
-            $data->keypoint = isset($dataSend['keypoint']) && $dataSend['keypoint'] == '1' ? 1 : 0;          
+            $data->text_location = $dataSend['text_location'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -163,9 +168,13 @@ function addProductProjectAdmin($input)
     $conditions = array('type' => 'category_kind');
     $listKind = $modelCategories->find()->where($conditions)->all()->toList();
 
+    $conditions = array('type' => 'category_type');
+    $listType = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('data', $data);
     setVariable('mess', $mess);
     setVariable('listKind', $listKind);
+    setVariable('listType', $listType);
     
 
 }

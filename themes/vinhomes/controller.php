@@ -50,6 +50,7 @@ function settingHomeTheme($input){
                         'care_about_2' => @$dataSend['care_about_2'],     
                         'care_about_3' => @$dataSend['care_about_3'],     
                         'care_about_4' => @$dataSend['care_about_4'],     
+                        'side_bar' => @$dataSend['side_bar'],     
                     );
 
     

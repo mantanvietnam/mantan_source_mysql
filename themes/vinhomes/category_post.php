@@ -198,6 +198,11 @@ $categories = listCategoryBytype('post');
             <?php
             $keywords = $modelPosts->find()
                 ->select(['keyword'])
+                ->where([
+                    'type' => 'post',
+                    'keyword IS NOT' => null,
+                    'keyword !=' => ''
+                ])
                 ->group('keyword')
                 ->all();
 
@@ -206,7 +211,7 @@ $categories = listCategoryBytype('post');
                 $keyword = $keywordEntity->get('keyword');
                 $titles = $modelPosts->find()
                     ->select(['title', 'image', 'slug'])
-                    ->where(['keyword' => $keyword,  'type' => 'post'])
+                    ->where(['keyword' => $keyword])
                     ->limit(7)
                     ->all();
 

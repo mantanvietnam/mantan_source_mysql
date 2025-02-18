@@ -1,583 +1,448 @@
-<?php 
-    global $settingThemes;
-    getHeader();
+<?php
+global $settingThemes;
+getHeader();
 ?>
-    <style>
-        .background-header{
-          background-image: none !important;
-        }
-        .nav-projectpage a{
-          color: black !important;
-        }
-        .setcolor {
-          color: #333 !important;
-        }
-        .setcolor a{
-          color: #333 !important;
-        }
-        .set-backgroundcontact{
-          background-color: #182c77;
-          
-        }
-    </style>
-    <!-- Thông tin điều hướng , tên dự án -->
-    <div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus slide-right">
-      <!-- Breadcrumb -->
-      <div class="flex flex-wrap items-center space-x-2 text-sm text-gray-500">
-        <i class="fas fa-chevron-left"></i>
-        <a href="/" class="hover:underline hover:underline-offset-4"
-          >Trang chủ</a
-        >
-        <span>/</span>
-        <a href="#" class="hover:underline hover:underline-offset-4"
-          ><?= $project['name'] ?></a
-        >
-        <span>/</span>
-        <span class="text-[#142a72] font-bold">Phân khu: The Rainbow</span>
-      </div>
+<style>
+  .background-header {
+    background-image: none !important;
+  }
 
-      <!-- Title -->
-      <h1 class="mt-4 text-lg font-bold sm:text-xl lg:text-2xl">
-        Phân khu: The Rainbow – <?= $project['name'] ?>
+  .nav-projectpage a {
+    color: black !important;
+  }
+
+  .setcolor {
+    color: #333 !important;
+  }
+
+  .setcolor a {
+    color: #333 !important;
+  }
+
+  .set-backgroundcontact {
+    background-color: #182c77;
+
+  }
+
+  /* Tăng kích thước ảnh ở giữa */
+  .swiper-slide-active img {
+    transform: scale(1.2);
+    /* Ảnh giữa to hơn */
+    transition: transform 0.5s ease-in-out;
+  }
+
+  @media (max-width: 480px) {
+    .swiper {
+      width: 100%;
+      /* Giúp slider chiếm hết chiều rộng màn hình */
+    }
+
+    .swiper-slide img {
+      transform: scale(3);
+    }
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    color: white;
+    /* Giữ màu trắng cho icon mũi tên */
+    z-index: 10;
+  }
+
+  .swiper-button-next::before,
+  .swiper-button-prev::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: black;
+    opacity: 0.5;
+    /* Chỉ làm mờ màu nền */
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .list-tab-button .active {
+    background: #00b3e3 !important;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.overflow-x-auto {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+</style>
+
+<div class="relative text-[#444444] slide-right">
+  <img
+    src="<?= $project['images'][1] ?>"
+    alt="Aerial view of Vinhomes Global Gate"
+    class="w-full h-[440px] object-cover" />
+
+  <div
+    class="absolute inset-0 items-center justify-center left-[-29%] hidden md:flex">
+    <div class="max-w-lg p-8 bg-white shadow-lg">
+      <h1 class="mb-4 text-3xl font-semibold text-center">
+        <?= $project['name'] ?>
       </h1>
-
-      <!-- Address -->
-      <p class="mt-4 text-sm text-gray-500 sm:text-base">
-        <?= $project['address'] ?>
-        <!-- <a href="" class="text-[#142a72] underline underline-offset-4 ml-2"
-          >Xem bản đồ</a
-        > -->
+      <p class="mb-4 text-sm">
+        <?= $project['description'] ?>
       </p>
     </div>
+  </div>
 
-    <!-- Thư viện ảnh -->
-    <div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus slide-top">
-      <div class="relative hidden sm:block">
-        <button
-          id="viewAllBtn"
-          class="absolute px-4 py-2 text-[14px] text-white bg-black rounded-lg opacity-70 bottom-5 right-5 flex items-center"
-        >
-          <img src="<?= $urlThemeActive ?>image/icons/iconImage.png" alt="icon" class="h-4 mr-2" />
-          Xem tất cả ảnh
-        </button>
-        <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-        <?php if(!empty($project['images'][1])):?>
-          <div class="col-span-1 row-span-2 md:col-span-2 max-h-[30rem]">
-            <img
-              src="<?= $project['images'][1] ?>"
-              alt="Image 1"
-              class="object-cover w-full h-full rounded-lg"
-            />
-          </div>
-        <?php endif;?>
-        <?php if(!empty($project['images'][2])):?>
-          <div class="col-span-1 row-span-1 md:col-span-1">
-            <img
-              src="<?= $project['images'][2] ?>"
-              alt="Image 2"
-              class="object-cover w-full h-full rounded-lg"
-            />
-          </div>
-        <?php endif;?>
-        <?php if(!empty($project['images'][3])):?>
-          <div class="col-span-1 row-span-1 md:col-span-1">
-            <img
-              src="<?= $project['images'][3] ?>"
-              alt="Image 3"
-              class="object-cover w-full h-full rounded-lg"
-            />
-          </div>
-          <?php endif;?>
-          <?php if(!empty($project['images'][4] )):?>
-          <div class="col-span-2 row-span-1 md:col-span-2 max-h-[19rem]">
-            <img
-              src="<?= $project['images'][4] ?>"
-              alt="Image 4"
-              class="object-cover w-full h-full rounded-lg"
-            />
-          </div>
-          <?php endif;?>
-        </div>
-      </div>
-
-      <div class="block swiper mySwiper-image sm:hidden">
-        <div class="swiper-wrapper">
-          <?php foreach ($project['images'] as $image): ?>
-            <div class="swiper-slide"> 
-              <img
-                src="<?= htmlspecialchars($image, ENT_QUOTES, 'UTF-8') ?>"
-                alt="Project Image"
-                class="rounded-lg"
-              />
-            </div>
-          <?php endforeach; ?>
-<!-- 
-          <div class="swiper-slide">
-            <img
-              src="<?= $urlThemeActive ?>image/project/imgProject2.png"
-              alt="Image 1"
-              class="rounded-lg"
-            />
-          </div>
-          <div class="swiper-slide">
-            <img
-              src="<?= $urlThemeActive ?>image/project/imgProject3.png"
-              alt="Image 1"
-              class="rounded-lg"
-            />
-          </div>
-          <div class="swiper-slide">
-            <img
-              src="<?= $urlThemeActive ?>image/project/imgProject4.png"
-              alt="Image 1"
-              class="rounded-lg"
-            />
-          </div> -->
-        </div>
-
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-      </div>
+  <div class="flex items-center justify-center md:hidden">
+    <div class="max-w-lg p-8 bg-white">
+      <h1 class="mb-4 text-3xl font-semibold text-center">
+        <?= $project['name'] ?>
+      </h1>
+      <p class="mb-4 text-sm">
+        <?= $project['description'] ?>
+      </p>
     </div>
-
-    <!-- Modal ảnh -->
-    <div
-      id="imageModal"
-      tabindex="-1"
-      aria-hidden="true"
-      class="fixed inset-0 z-50 hidden overflow-y-auto"
-    >
-      <div
-        class="flex items-center justify-center min-h-screen px-4 text-center"
-      >
-        <div
-          class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"
-          aria-hidden="true"
-        ></div>
-        <div
-          class="w-[80%] overflow-hidden transition-all transform bg-white rounded-lg shadow-xl"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-title"
-        >
-          <div class="relative px-6 pt-5 pb-4 bg-white">
-            <button
-              type="button"
-              class="absolute z-10 inline-flex justify-center px-4 py-2 font-bold text-white bg-red-600 rounded-md shadow-sm w-fit right-5 hover:bg-red-700"
-              id="closeModal"
-            >
-              x
-            </button>
-            <div class="swiper mySwiper-image">
-              <div class="swiper-wrapper">
-              <?php foreach ($project['images'] as $image): ?>
-                  <?php if (!empty($image)): // Kiểm tra nếu không rỗng ?>
-                      <div class="swiper-slide">
-                        <img
-                          src="<?= htmlspecialchars($image, ENT_QUOTES, 'UTF-8') ?>"
-                          alt="Image"
-                          class="rounded-lg"
-                        />
-                      </div>
-                  <?php endif; ?>
-              <?php endforeach; ?>
-
-                <!-- <div class="swiper-slide">
-                  <img
-                    src="<?= $urlThemeActive ?>image/project/imgProject2.png"
-                    alt="Image 1"
-                    class="rounded-lg"
-                  />
-                </div>
-                <div class="swiper-slide">
-                  <img
-                    src="<?= $urlThemeActive ?>image/project/imgProject3.png"
-                    alt="Image 1"
-                    class="rounded-lg"
-                  />
-                </div>
-                <div class="swiper-slide">
-                  <img
-                    src="<?= $urlThemeActive ?>image/project/imgProject4.png"
-                    alt="Image 1"
-                    class="rounded-lg"
-                  />
-                </div> -->
-              </div>
-              <div class="swiper-pagination"></div>
-              <div class="swiper-button-prev"></div>
-              <div class="swiper-button-next"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Thanh lựa chọn tin -->
-    <div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus slide-top">
-      <div
-        class="flex space-x-8 heroSection-news-select font-bold pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap"
-      >
-        <a class="active" href="#overview">Tổng quan dự án</a>
-        <!-- <a href="#layout">Mặt bằng</a>
-        <a href="#location">Vị trí & Tiện ích cảnh quan</a>
-        <a href="#faq">Câu hỏi thường gặp</a> -->
-      </div>
-    </div>
-
-    <!-- Nội dung thông tin dự án -->
-    <div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus">
-      <div class="flex flex-col justify-between lg:flex-row">
-        <!-- Left -->
-        <div class="w-full lg:w-[56%] xl:w-[66%] slide-right">
-          <!-- Section 1 -->
-          <div
-            id="overview"
-            class="mt-4 section"
-            data-section="Tổng quan phân khu: The Rainbow"
-          >
-            <div class="toggle-content">
-              <div
-                class="flex items-center justify-between ml-[-6rem] pl-[6rem] py-4 pr-4 rounded-lg mb-4 bg-[#FFFAF1]"
-              >
-                <h1 class="text-xl font-bold text-blue-900">
-                  Tổng quan phân khu: The Rainbow
-                </h1>
-                <button
-                  class="font-semibold text-orange-500"
-                  data-expanded="true"
-                >
-                  Rút gọn <span class="text-orange-500">−</span>
-                </button>
-              </div>
-            </div>
-            <div class="text-base leading-7 content">
-              <p>
-                <?= $project['subdivision'] ?>
-              </p>
-
-            </div>
-          </div>
-
-          <!-- Section 2 -->
-          <div id="layout" class="mt-4 section" data-section="Mặt bằng">
-            <div class="toggle-content">
-              <div
-                class="flex items-center justify-between ml-[-6rem] pl-[6rem] py-4 pr-4 rounded-lg mb-4 bg-[#FFFAF1]"
-              >
-                <h1 class="text-xl font-bold text-blue-900">Mặt bằng</h1>
-                <button
-                  class="font-semibold text-orange-500"
-                  data-expanded="true"
-                >
-                  Rút gọn <span class="text-orange-500">−</span>
-                </button>
-              </div>
-            </div>
-            <div class="text-base leading-7 content">
-              <p>
-                <?= $project['premises'] ?>
-              </p>
-            </div>
-          </div>
-
-          <!-- Section 3 -->
-          <div
-            id="location"
-            class="mt-4 section"
-            data-sectio="Tiện ích cảnh quan"
-          >
-            <div class="toggle-content">
-              <div
-                class="flex items-center justify-between ml-[-6rem] pl-[6rem] py-4 pr-4 rounded-lg mb-4 bg-[#FFFAF1]"
-              >
-                <h1 class="text-xl font-bold text-blue-900">
-                  Tiện ích cảnh quan
-                </h1>
-                <button
-                  class="font-semibold text-orange-500"
-                  data-expanded="true"
-                >
-                  Rút gọn <span class="text-orange-500">−</span>
-                </button>
-              </div>
-            </div>
-            <div class="text-base leading-7 content">
-              <p>
-              <?= $project['landscape'] ?>
-              </p>
-
-            <?php if(!empty($project['map'])):?>
-            <div class="flex justify-center mt-4">
-                    <iframe src="<?= $project['map'] ?>"
-                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-              </div>
-            <?php endif;?>
-
-              <!-- <div
-                class="flex mt-4 space-x-6 sm:space-x-0 sm:justify-between heroSection-location-select font-bold pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap"
-              >
-                <a
-                  class="text-blue-700 tab-link active"
-                  href="#"
-                  data-tab="school"
-                  >Trường học</a
-                >
-                <a class="tab-link" href="#" data-tab="entertainment"
-                  >Giải trí</a
-                >
-                <a class="tab-link" href="#" data-tab="shopping">Mua sắm</a>
-                <a class="tab-link" href="#" data-tab="restaurant">Nhà hàng</a>
-                <a class="tab-link" href="#" data-tab="park">Công viên</a>
-                <a class="tab-link" href="#" data-tab="hospital">Bệnh viện</a>
-              </div> -->
-<!-- 
-              <div id="tab-content" class="max-w-4xl mt-4">
-          
-              </div> -->
-            </div>
-          </div>
-
-          <!-- Section 4 -->
-          <!-- <div
-            id="faq"
-            class="mt-4 section"
-            data-section="Câu hỏi hỏi thường gặp"
-          >
-            <div class="toggle-content">
-              <div
-                class="flex items-center justify-between ml-[-6rem] pl-[6rem] py-4 pr-4 rounded-lg mb-4 bg-[#FFFAF1]"
-              >
-                <h1 class="text-xl font-bold text-blue-900">
-                  Câu hỏi hỏi thường gặg
-                </h1>
-                <button
-                  class="font-semibold text-orange-500"
-                  data-expanded="true"
-                >
-                  Rút gọn <span class="text-orange-500">−</span>
-                </button>
-              </div>
-            </div>
-            <div class="text-base leading-7 content">
-              <p>Câu hỏi 1 ?</p>
-              <p>Câu trả lời 1</p>
-            </div>
-          </div> -->
-        </div>
-
-        <!-- Right -->
-        <div class="slide-left">
-          <div class="w-full p-6 bg-white rounded-lg shadow-lg lg:max-w-sm">
-            <div class="flex justify-center mb-4">
-              <img
-                alt="Vin Homes logo"
-                class="h-24"
-                src="<?= $urlThemeActive ?>image/heroSection/logoVin.png"
-              />
-            </div>
-            <h2 class="mb-4 text-lg font-semibold text-center">
-              Liên hệ tư vấn với chuyên gia
-            </h2>
-            <ul class="mb-4 space-y-2 text-[#64748B]">
-              <li class="flex items-center">
-                <i class="mr-2 text-yellow-500 fas fa-check-circle text-[20px]">
-                </i>
-                <span>
-                  Tư vấn quỹ căn, chính sách của Khách hàng để có lựa chọn căn
-                  tốt nhất
-                </span>
-              </li>
-              <li class="flex items-center">
-                <i class="mr-2 text-yellow-500 fas fa-check-circle text-[20px]">
-                </i>
-                <span> Bảo mật thông tin của khách hàng </span>
-              </li>
-              <li class="flex items-center">
-                <i class="mr-2 text-yellow-500 fas fa-check-circle text-[20px]">
-                </i>
-                <span> Giải đáp mọi thắc mắc của khách hàng </span>
-              </li>
-            </ul>
-            <form action="/contact"  class="space-y-4" method="post">
-              <input
-                id="full-name"
-                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Họ và tên" name="name"required
-                type="text"
-              />
-              <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
-              <input
-                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Địa chỉ Email" name="email" value=" " 
-                type="hidden"
-              />
-              <input type="hidden" placeholder="" name="subject" value="Người liên hệ">
-              <input
-                id="phone-number"
-                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Số điện thoại" name="phone"required
-                type="text"
-              />
-              <input
-                class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Lời nhắn của bạn" name="content" value = "Đăng ký tư vấn bật động sản <?=$project['name']?>" type="hidden"
-              ></input>
-              <button class="w-full py-2 rounded-lg buttonActive" type="submit">
-                Đăng ký tư vấn
-              </button>
-            </form>
-
-            <div class="flex items-center my-4">
-              <hr class="flex-grow border-t border-gray-300" />
-              <span class="px-2 text-gray-500"> Hoặc </span>
-              <hr class="flex-grow border-t border-gray-300" />
-            </div>
-            <div class="space-y-2">
-              <button
-                class="flex items-center justify-center w-full py-2 text-gray-700 border rounded-lg hover:bg-gray-100"
-              >
-                <img
-                  src="<?= $urlThemeActive ?>image/icons/iconCall.svg"
-                  alt="icon"
-                  class="h-6 mr-2"
-                />
-                Gọi 0123 456 789
-              </button>
-              <button
-                class="flex items-center justify-center w-full py-2 text-gray-700 border rounded-lg hover:bg-gray-100"
-              >
-                <img
-                  src="<?= $urlThemeActive ?>image/icons/iconZalo.png"
-                  alt="icon"
-                  class="h-6 mr-2"
-                />
-                Tư vấn qua Zalo
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dự án bất động sản khác -->
-    <div class="relative min-h-screen font-plus slide-top">
-  <div class="px-4 py-10 mx-auto md:py-20 sm:px-6 md:container xl:px-20">
-    <div class="flex items-center justify-between mb-8">
-      <div class="w-[60%] md:w-auto">
-        <h1 class="text-2xl font-bold md:text-4xl text-[#142A72]">
-          Dự án bất động sản khác
-        </h1>
-      </div>
-      <button class="flex items-center px-6 py-4 rounded-xl bg-[#E2E8F0] text-[#142A72] transition duration-300 hover:bg-[#CBD5E1] hover:text-[#0F172A]">
-        <a href="/projects" style="text-decoration:none">Xem tất cả</a>
-        <i class="ml-2 fas fa-arrow-right"></i>
-      </button>
-    </div>
-
-    <!-- <div class="flex mb-8 space-x-8 heroSection-news-select pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap">
-      <a class="active" href="#" data-tab="house">Nhà ở</a>
-      <a href="#" data-tab="villa">Biệt thự</a>
-      <a href="#" data-tab="apartment">Căn hộ</a>
-      <a href="#" data-tab="room">Phòng cho thuê</a>
-      <a href="#" data-tab="office">Văn phòng</a>
-      <a href="#" data-tab="hotel">Khách sạn</a>
-      <a href="#" data-tab="land">Khu đất dự án</a>
-    </div> -->
-
-    <div class="swiper mySwiper mySwiper-Projects">
-      <div class="swiper-wrapper" id="swiper-wrapper">
-        <!-- Slide 1 -->
-        <?php if(!empty($listDataproduct_projects)){
-          foreach($listDataproduct_projects as $item){ ?>
-            <div class="swiper-slide" data-tab="<?= $item->id_kind ?>">
-              <a href="<?php echo @$item->slug ?>.html">
-                <div class="relative">
-                  <img alt="Modern house with large windows and landscaped garden" class="object-cover w-full h-[440px] rounded-lg" src="<?= $item->image?>">
-                  <div class="absolute text-white py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4" style="background: linear-gradient(90deg, #182c77 0%, #6274bb 100%);">
-                    <?= $item->info ?>
-                  </div>
-                </div>
-                <h2 class="mt-4 text-xl font-bold"><?= $item->name ?></h2>
-                <!-- <div class="flex items-center mt-2 font-bold">
-                  <p class="mr-2">Phân khu:</p>
-                  <p class="underline underline-offset-4 text-[#142A72]">The Rainbow</p>
-                </div> -->
-                <div class="flex items-center mt-2 font-bold">
-                  <p class="mr-2">Tổng diện tích:</p>
-                  <p class="underline underline-offset-4 text-[#142A72]"><?= $item->acreage ?></p>
-                </div>
-                <p class="mt-2 text-gray-400 description"><?= $item->description ?></p>
-              </a>
-            </div>
-        <?php }} ?>
-      </div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-    </div>
-
   </div>
 </div>
 
-    <!-- Liên hệ -->
-    <div
-      class="relative bg-center bg-cover font-plus slide-top"
-      style="background-image: url('<?= $urlThemeActive ?>image/index/imageQS2.png')"
-    >
-      <div class="absolute inset-0 bg-gray-900 bg-opacity-50"></div>
-      <div
-        class="relative z-10 flex flex-col justify-between px-4 py-10 text-white md:flex-row md:py-20 sm:px-6 xl:px-20"
-      >
-        <div class="md:w-[45%]">
-          <h1 class="mb-4 text-4xl font-bold">
-            MinhTuanVinhomes - Chung tay xây dựng cộng đồng Vinhomes
-          </h1>
-          <p class="mb-8 text-lg">
-            Hãy để chúng tôi trở thành cầu nối giúp bạn đến gần hơn với cuộc
-            sống thượng lưu tại các quần thể đô thị Vinhomes.
-          </p>
-        </div>
-        <form method="post" action="/contact" class="p-8 text-gray-800 bg-white rounded-lg shadow-lg md:w-[50%]">
-            <div class="mb-4">
-              <input
-                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Họ và tên" name="name" required
-                type="text"
-              />
-              <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
-            </div>
-            <div class="mb-4">
-              <input
-                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Số điện thoại" name="phone" required
-                type="text"
-              />
-            </div>
-            <div class="mb-4">
-              <input
-                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Địa chỉ Email" name="email" required
-                type="email"
-              />
-              <input type="hidden" placeholder="" name="subject" value=" ">
-            </div>
-            <div class="mb-4">
-              <textarea
-                class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Lời nhắn của bạn" name="content" required
-              ></textarea>
-            </div>
-            <button
-              class="w-full p-4 text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-700 hover:scale-105 hover:shadow-lg"
-              type="submit"
-              style="background: linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
-            >
-              Submit
-            </button>
-        </form>
-      </div>
+<div class="flex flex-col items-center justify-center p-8 md:flex-row slide-right">
+  <div class="md:w-[45%] lg:w-[33%]">
+    <!-- Ảnh lớn hiển thị -->
+    <div class="image-container w-[100%] h-[200px] sm:h-[300px] overflow-hidden">
+      <img
+        id="mainImage"
+        src="<?= !empty($project['images'][1]) ? $project['images'][1] : 'default.jpg' ?>"
+        alt="Main Image"
+        class="w-full h-full object-cover p-2 mb-4 transition-all duration-300 border md:mb-0" />
     </div>
 
+    <!-- Danh sách ảnh nhỏ -->
+    <div class="grid grid-cols-4 gap-2">
+      <?php 
+      if (!empty($project['images']) && is_array($project['images'])) {
+          $maxImages = 8; // Giới hạn tối đa 8 ảnh nhỏ
+          $count = 0;
 
-    <?php getFooter();?>
+          for ($i = 1; $i <= $maxImages + 1; $i++) { 
+              if (empty($project['images'][$i])) continue; // Nếu ảnh không tồn tại, bỏ qua
+              $count++; // Đếm số ảnh hợp lệ hiển thị
+
+      ?>
+      <div class="relative group flex flex-col">
+        <img
+          src="<?= $project['images'][$i] ?>"
+          data-src="<?= $project['images'][$i] ?>"
+          alt="Thumbnail <?= $i ?>"
+          class="w-full h-full p-2 transition-all duration-300 border cursor-pointer hover:opacity-80 object-cover"
+          onmouseover="changeImage(this)" />
+        <span
+          class="absolute px-3 py-1 mb-3 text-[10px] text-white transition-opacity duration-300 -translate-x-1/2 bg-black rounded opacity-0 left-1/2 bottom-full group-hover:opacity-100">
+        </span>
+        <span
+          class="absolute w-0 h-0 mb-1 transition-opacity duration-300 -translate-x-1/2 border-t-4 border-l-4 border-r-4 border-transparent opacity-0 left-1/2 bottom-full border-t-black group-hover:opacity-100"></span>
+      </div>
+      <?php 
+          } 
+      } ?>
+    </div>
+  </div>
+
+  <div class="md:w-[45%] lg:w-[33%] md:pl-10 pt-10 md:pt-0">
+    <h1 class="mb-4 text-2xl font-semibold text-center">
+      TỔNG QUAN DỰ ÁN <?= $project['name'] ?>
+    </h1>
+    <div class="space-y-2 text-sm">
+      <p><strong>Chủ đầu tư: </strong> <?= $project->investor ?></p>
+      <p><strong>Tổng diện tích đất dự án: </strong> <?= $project->acreage ?> m²</p>
+      <p><strong>Loại hình phát triển: </strong><?= $project['infoType']['name'] ?></p>
+      <p><strong>Hướng: </strong><?= $project['direction'] ?></p>
+      <p><strong>Địa chỉ: </strong><?= $project['address'] ?></p>
+      <p><strong>Hình thức sở hữu: </strong> <?= $project['ownership_type'] ?></p>
+    </div>
+  </div>
+</div>
+
+<div
+  class="flex items-center justify-center text-white slide-left"
+  style="background: linear-gradient(270deg, #236093 0%, #345574)">
+  <div class="max-w-5xl p-8">
+    <h1 class="mb-4 text-2xl font-semibold text-center">
+      VỊ TRÍ <?= $project['name'] ?>
+    </h1>
+    <div class="text-xs">
+    <?= nl2br($project['text_location']) ?>
+    </div>
+  </div>
+</div>
+
+<?php if (!empty($project['map'])) { ?>
+    <div class="flex items-center justify-center border-b fade-in">  
+            <?= $project['map'] ?>
+    </div>
+<?php } ?>
+
+<?php if (!empty($project['images']['map'])) { ?>
+<div class="flex items-center justify-center border-b fade-in">
+  <img
+    src="<?= $project['images']['map'] ?>"
+    alt=""
+    class="w-[80%]" />
+</div>
+<?php } ?>
+
+<?php if (!empty($project['images']['premises'])) { ?>
+<div class="flex flex-col items-center justify-center mt-8 slide-right">
+  <h1 class="mb-8 text-2xl font-semibold text-center">
+    Mặt bằng tổng thể <?= $project['name'] ?>
+  </h1>
+  <img
+    src="<?= $project['images']['premises'] ?>"
+    alt=""
+    class="w-[100%]" />
+</div>
+<?php } ?>
+
+
+<div
+  class="flex items-center justify-center text-white slide-right"
+  style="background: linear-gradient(270deg, #236093 0%, #345574)">
+  <div class="w-full px-4 py-12 lg:max-w-5xl">
+    <h1
+      class="mb-8 text-2xl font-semibold text-center uppercase md:text-3xl">
+      Dịch vụ tiện ích “All in one”
+    </h1>
+    <p class="mb-12 text-sm">
+     <?= $project['utility_services'] ?>
+    </p>
+
+    <!-- Slider -->
+    <?php if (!empty($project['images']) && is_array($project['images'])) { ?>
+      <div class="swiper w-[90%] lg:max-w-[1200px] h-[230px] md:h-[360px] relative">
+        <div class="swiper-wrapper">
+          <?php 
+            $maxImages = 8;
+            for ($i = 2; $i <= $maxImages + 1; $i++) { 
+              if (empty($project['images'][$i])) continue;
+          ?>
+            <div class="flex items-center justify-center swiper-slide">
+              <img src="<?= htmlspecialchars($project['images'][$i]) ?>" alt="Ảnh <?= $i ?>" class="rounded-lg shadow-lg object-cover" />
+            </div>
+          <?php } ?>
+        </div>
+
+        <!-- Nút điều hướng -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    <?php } ?>
+  </div>
+</div>
+
+<div
+  class="px-4 md:px-[100px] lg:px-[200px] xl:px-[250px] py-10 text-[#444444] slide-right">
+  <h1 class="mb-4 text-2xl font-semibold text-center uppercase">
+    GIÁ BÁN <?= $project['name'] ?>
+  </h1>
+  <div class="overflow-x-auto text-xs">
+  <?= $project['price'] ?>
+  </div>
+</div>
+
+
+<div
+  class="relative min-h-[400px] bg-center bg-cover py-10 fade-in"
+  style="
+        background-image: url('<?= $project['image'] ?>');
+      ">
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+  <div
+    class="relative z-10 flex flex-col items-center justify-center px-4 min-h-[400px]">
+    <h1 class="mb-6 text-2xl font-bold text-white">
+      ĐĂNG KÝ TƯ VẤN CHUYÊN SÂU DỰ ÁN
+    </h1>
+    <div>
+      <form method="post" action="/contact" class="w-full max-w-4xl">
+        <div class="flex flex-wrap mb-4 -mx-2">
+          <div class="w-full px-2 mb-4 md:w-1/4 md:mb-0">
+            <input
+              class="w-full p-2 border border-gray-300 rounded"
+              type="text" name="name" required
+              placeholder="Họ và tên*" />
+          </div>
+          <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+          <div class="w-full px-2 mb-4 md:w-1/4 md:mb-0">
+            <input
+              class="w-full p-2 border border-gray-300 rounded"
+              type="text" name="phone" required
+              placeholder="Số điện thoại*" />
+          </div>
+          <div class="w-full px-2 mb-4 md:w-1/4 md:mb-0">
+            <input
+              class="w-full p-2 border border-gray-300 rounded"
+              type="email" name="email" required
+              placeholder="Email" />
+          </div>
+          <div class="w-full px-2 md:w-1/4">
+            <input
+              class="w-full p-2 border border-gray-300 rounded"
+              type="text" name="subject" 
+              placeholder="Dự án quan tâm" />
+          </div>
+        </div>
+        <div class="mb-4">
+          <textarea
+            class="w-full p-2 border border-gray-300 rounded"
+            rows="6" name="content" required
+            placeholder="Nhu cầu quan tâm"></textarea>
+        </div>
+      <button class="px-6 py-2 text-white bg-[#345574] rounded">
+        ĐĂNG KÝ
+      </button>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+
+<?php getFooter(); ?>
+
+<script src="./script.js"></script>
+<script>
+  function changeImage(element) {
+    const mainImage = document.getElementById("mainImage");
+    mainImage.src = element.getAttribute("data-src");
+  }
+</script>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper(".swiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3, // Hiển thị 3 ảnh cùng lúc
+    loop: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 100, // Cách nhau vừa phải
+      depth: 300, // Hiệu ứng 3D
+      modifier: 1,
+      slideShadows: false,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+      },
+      480: {
+        slidesPerView: 1.5,
+      },
+    },
+  });
+
+  // Kiểm tra kích thước màn hình
+  if (window.innerWidth < 768) {
+    swiperConfig.effect = "slide"; // Dưới md, dùng hiệu ứng trượt bình thường
+  } else {
+    swiperConfig.effect = "coverflow"; // Trên md, dùng hiệu ứng 3D
+  }
+
+  // Khởi tạo Swiper
+  var swiper = new Swiper(".swiper", swiperConfig);
+
+  // Lắng nghe sự thay đổi kích thước màn hình để cập nhật lại Swiper
+  window.addEventListener("resize", function() {
+    let newEffect = window.innerWidth < 768 ? "slide" : "coverflow";
+    if (swiper.params.effect !== newEffect) {
+      swiper.destroy(true, true);
+      swiperConfig.effect = newEffect;
+      swiper = new Swiper(".swiper", swiperConfig);
+    }
+  });
+</script>
+
+<script>
+  // Lấy tất cả nút
+  const buttons = document.querySelectorAll(".tab-button");
+  const image = document.getElementById("display-image");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Bỏ class active ở tất cả nút
+      buttons.forEach((btn) =>
+        btn.classList.remove("bg-[#00b3e3]", "active")
+      );
+      // Thêm class active vào nút đang click
+      button.classList.add("bg-[#00b3e3]", "active");
+
+      // Đổi ảnh theo data-img
+      image.src = button.getAttribute("data-img");
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const tabs = document.querySelectorAll(".tab-item");
+    const tables = document.querySelectorAll(".payment-table");
+
+    function activateTab(index) {
+      // Remove active class from all tabs and hide all tables
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle("active", i === index);
+        tab
+          .querySelector(".arrow-icon")
+          .classList.toggle("hidden", i !== index);
+      });
+
+      tables.forEach((table, i) => {
+        table.classList.toggle("hidden", i !== index);
+      });
+    }
+
+    // Add click event to each tab
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", function() {
+        activateTab(index);
+      });
+    });
+
+    // Activate the first tab by default
+    activateTab(0);
+  });
+</script>

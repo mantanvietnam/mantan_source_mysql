@@ -1,5 +1,6 @@
 <?php 
 getHeader();
+$setting = setting();
 global $urlThemeActive;
 $categories = listCategoryBytype('post');
 ?>
@@ -173,6 +174,15 @@ $categories = listCategoryBytype('post');
         }
         ?>
       </div>
+
+      <!--------Khung video---->
+      <div class="space-y-4 mt-6">
+          <h2 class="text-2xl font-bold text-[#142A72] mb-4 text-center">Video / Ảnh liên quan</h2>
+          <div class="p-4 border rounded-lg shadow-md bg-white">
+            <?php echo $setting['side_bar'] ?>
+          </div>
+      </div>
+
     </div>
   </div>
 </div>

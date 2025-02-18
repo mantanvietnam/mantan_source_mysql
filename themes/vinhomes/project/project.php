@@ -20,6 +20,16 @@
           background-color: #182c77;
           
         }
+        .short-description {
+    display: -webkit-box;              /* Thiết lập kiểu hiển thị cho các phần tử con theo kiểu box */
+    -webkit-line-clamp: 3;             /* Giới hạn văn bản hiển thị chỉ 3 dòng */
+    -webkit-box-orient: vertical;      /* Chỉ định rằng các dòng sẽ được xếp theo chiều dọc */
+    overflow: hidden;                  /* Ẩn phần văn bản vượt quá 3 dòng */
+    text-overflow: ellipsis;           /* Thêm dấu ba chấm (...) nếu có văn bản bị cắt */
+    line-height: 1.5em;                /* Tùy chỉnh chiều cao của mỗi dòng */
+    max-height: 4.5em;                 /* Giới hạn chiều cao tổng của 3 dòng */
+}
+
     </style>
 
     <form action="" method="get">
@@ -93,7 +103,7 @@
 
       <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3">
       <?php foreach ($listDataproject as $key => $value) { ?>
-        <a href="/project/<?= $value->slug;?>" class="rounded-lg">
+        <a href="/project/<?= $value->slug;?>" class="rounded-lg border p-4 bg-slate-100">
           <div class="relative overflow-hidden rounded-lg">
             <img
               alt="Modern house with large windows and landscaped garden"
@@ -120,9 +130,9 @@
             <p class="mr-2">Tổng diện tích:</p>
             <p class="text-[#142A72]"><?php echo $value->acreage; ?></p>
           </div>
-          <p class="mt-2 text-gray-400 description">
-            <?php echo $value->description; ?>
-          </p>
+          <div class="short-description">
+              <?= $value->description ?>
+          </div>
         </a>
       <?php } ?>
 

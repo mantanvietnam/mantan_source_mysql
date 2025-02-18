@@ -205,37 +205,54 @@
 
     <!-- Khối được quan tâm nhất -->
     <div class="row">
-    <div class="col-12">
+    <!-- Khối Video -->
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Khối Video</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <?php showEditorInput('side_bar', 'side_bar', @$setting['side_bar']);?>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <button type="submit" class="btn btn-primary">Lưu</button>
+        </div>
+    </div>
+
+    <!-- Khối được quan tâm nhất -->
+    <div class="col-md-6">
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Khối được quan tâm nhất</h5>
             </div>
-            <div class="card-body row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="form-label" for="title_why_choose">Quan tâm 1</label>
-                        <input type="text" class="form-control" name="care_about_1" value="<?php echo @$setting['care_about_2']; ?>" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="content1_why_choose">Quan tâm 2</label>
-                        <input type="text" class="form-control" name="care_about_2" value="<?php echo @$setting['care_about_2']; ?>" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="content2_why_choose">Quan tâm 3</label>
-                        <input type="text" class="form-control" name="care_about_3" value="<?php echo @$setting['care_about_3']; ?>" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="content3_why_choose">Quan tâm 4</label>
-                        <input type="text" class="form-control" name="care_about_4" value="<?php echo @$setting['care_about_4']; ?>" />
-                    </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Quan tâm 1</label>
+                    <input type="text" class="form-control" name="care_about_1" value="<?php echo @$setting['care_about_1']; ?>" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Quan tâm 2</label>
+                    <input type="text" class="form-control" name="care_about_2" value="<?php echo @$setting['care_about_2']; ?>" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Quan tâm 3</label>
+                    <input type="text" class="form-control" name="care_about_3" value="<?php echo @$setting['care_about_3']; ?>" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Quan tâm 4</label>
+                    <input type="text" class="form-control" name="care_about_4" value="<?php echo @$setting['care_about_4']; ?>" />
                 </div>
             </div>
-            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                  <button type="submit" class="btn btn-primary">Lưu</button>
-            </div>
+        </div>
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <button type="submit" class="btn btn-primary">Lưu</button>
         </div>
     </div>
 </div>
+
 
     <?= $this->Form->end(); ?>
 </div>

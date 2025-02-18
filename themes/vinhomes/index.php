@@ -20,6 +20,16 @@
       display: block; 
     }
   }
+  .short-description {
+    display: -webkit-box;              /* Thiết lập kiểu hiển thị cho các phần tử con theo kiểu box */
+    -webkit-line-clamp: 3;             /* Giới hạn văn bản hiển thị chỉ 3 dòng */
+    -webkit-box-orient: vertical;      /* Chỉ định rằng các dòng sẽ được xếp theo chiều dọc */
+    overflow: hidden;                  /* Ẩn phần văn bản vượt quá 3 dòng */
+    text-overflow: ellipsis;           /* Thêm dấu ba chấm (...) nếu có văn bản bị cắt */
+    line-height: 1.5em;                /* Tùy chỉnh chiều cao của mỗi dòng */
+    max-height: 4.5em;
+}
+
 </style>
       <!-- Nội dung chính -->
       <div class="absolute bottom-[-6%] z-10 w-full">
@@ -130,30 +140,24 @@
         <div class="swiper-wrapper" id="swiper-wrapper">
    
           <!-- Slide 1 -->
-            <?php if(!empty($listDataproject)){
+          <?php if(!empty($listDataproject)){
               foreach($listDataproject as $item){ ?>
-                <div class="swiper-slide" data-tab="<?= $item->id_kind ?>">
-                  <a href="/project/<?php echo @$item->slug ?>.html">
-                    <div class="relative">
-                      <img alt="Modern house with large windows and landscaped garden" class="object-cover w-full h-[440px] rounded-lg" src="<?= $item->image?>">
-                      <div class="absolute text-white py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4" style="background: <?= $item->color ?>">
-                        <?= $item->info ?>
-                      </div>
-                    </div>
-                    <h2 class="mt-4 text-xl font-bold"><?= $item->name ?></h2>
-                    <div class="flex items-center mt-2 text-[#fff] font-bold">
-                      <img
-                        src="<?= $urlThemeActive ?>image/icons/iconLocation.png"
-                        alt="icon"
-                        class="h-6 mr-2"
-                      />
-                      <?php echo $item->address; ?>
-                    </div>
-         
-                    <p class="mt-2 text-gray-400 description"><?= $item->description ?></p>
-                  </a>
-                </div>
-            <?php }} ?>
+                  <div class="swiper-slide" data-tab="<?= $item->id_kind ?>">
+                      <a href="/project/<?php echo @$item->slug ?>.html">
+                          <div class="relative">
+                              <img alt="Modern house with large windows and landscaped garden" class="object-cover w-full h-[440px] rounded-lg" src="<?= $item->image?>">
+                          </div>
+                          <h2 class="mt-4 text-xl font-bold"><?= $item->name ?></h2>
+                          <div class="flex items-center mt-2 text-[#fff] font-bold">
+                              <img src="<?= $urlThemeActive ?>image/icons/iconLocation.png" alt="icon" class="h-6 mr-2" />
+                              <?php echo $item->address; ?>
+                          </div>
+                          <div class="short-description">
+                              <?= $item->description ?>
+                          </div>
+                      </a>
+                  </div>
+          <?php }} ?>
         </div>
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
