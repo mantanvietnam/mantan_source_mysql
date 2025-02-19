@@ -220,6 +220,7 @@ function loginUserApi($input): array
 
             $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
             $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
+            $dataSend['password'] = trim($dataSend['password']);
 
             $user = $modelUser->find()->where([
                 'phone' => $dataSend['phone'],
