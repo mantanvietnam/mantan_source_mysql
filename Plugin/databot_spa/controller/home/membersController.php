@@ -278,135 +278,114 @@ function changePass($input)
 
 function account($input)
 {
-		global $session;
-		global $controller;
-		global $metaTitleMantan;
-		global $isRequestPost;
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+	global $isRequestPost;
 
-		$metaTitleMantan = 'Đổi thông tin tài khoản';
+	$metaTitleMantan = 'Đổi thông tin tài khoản';
 
     setVariable('page_view', 'account');
-		$modelMembers = $controller->loadModel('Members');
+	$modelMembers = $controller->loadModel('Members');
+	if(!empty($session->read('infoUser'))){
+		$mess = '';
+		$user = $modelMembers->get($session->read('infoUser')->id);
 
-		if(!empty($session->read('infoUser'))){
-			$mess = '';
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
 
-			$user = $modelMembers->get($session->read('infoUser')->id);
-
-			if($isRequestPost){
-				$dataSend = $input['request']->getData();
-
-				if(!empty($dataSend['name']) && !empty($dataSend['avatar']) && !empty($dataSend['email'])){
-					$user->name = $dataSend['name'];
-					$user->avatar = $dataSend['avatar'];
-					$user->email = $dataSend['email'];
-
-					$modelMembers->save($user);
-					$user->module = json_decode($user->module, true);
+			if(!empty($dataSend['name']) && !empty($dataSend['avatar']) && !empty($dataSend['email'])){
+				$user->name = $dataSend['name'];
+				$user->avatar = $dataSend['avatar'];
+				$user->email = $dataSend['email'];
+				$modelMembers->save($user);
+				$user->module = json_decode($user->module, true);
 				// nếu là chủ spa
-					if($user->type == 1){
-						$user->id_member = $user->id;
-					}
-					
-
-					$session->write('infoUser', $user);
-					return $controller->redirect('/managerSelectSpa');
-
-					$mess= '<p class="text-success">Đổi thông tin thành công</p>';
-				}else{
-					$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+				if($user->type == 1){
+					$user->id_member = $user->id;
 				}
+				$session->write('infoUser', $user);
+				return $controller->redirect('/managerSelectSpa');
+				$mess= '<p class="text-success">Đổi thông tin thành công</p>';
+			}else{
+				$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
 			}
-
-			setVariable('mess', $mess);
-			setVariable('user', $user);
-		}else{
-			return $controller->redirect('/login');
 		}
+
+		setVariable('mess', $mess);
+		setVariable('user', $user);
+	}else{
+		return $controller->redirect('/login');
 	}
+}
 
-	function forgotPass($input)
-	{
-		global $metaTitleMantan;
-		global $isRequestPost;
-		global $controller;
-		global $session;
+function forgotPass($input)
+{
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	$metaTitleMantan = 'Quên mật khẩu';
 
-		$metaTitleMantan = 'Quên mật khẩu';
-
-		$modelMembers = $controller->loadModel('Members');
+	$modelMembers = $controller->loadModel('Members');
 
     setVariable('page_view', 'forgotPass');
-		if($isRequestPost){
-			$dataSend = $input['request']->getData();
-			$conditions = array();
-			$conditions['phone'] = $dataSend['phone'];
-			$checkMember = $modelMembers->find()->where($conditions)->first();
-
-			if(!empty($checkMember)){
-				$pass = rand(100000,999999);
-				$checkMember->code_otp = $pass;
-
-				$modelMembers->save($checkMember);
-				sendEmailnewpassword($checkMember->email, $checkMember->name, $pass);
-				$session->write('phone', $checkMember->phone);
-
-				return $controller->redirect('/confirm');
-
-
-			}else{
-				$mess= '<p class="text-danger">Số điện thoại không đúng!</p>';
-			}
-			setVariable('mess', $mess);
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		$conditions['phone'] = $dataSend['phone'];
+		$checkMember = $modelMembers->find()->where($conditions)->first();
+		if(!empty($checkMember)){
+			$pass = rand(100000,999999);
+			$checkMember->code_otp = $pass;
+			$modelMembers->save($checkMember);
+			sendEmailnewpassword($checkMember->email, $checkMember->name, $pass);
+			$session->write('phone', $checkMember->phone);
+			return $controller->redirect('/confirm');
+		}else{
+			$mess= '<p class="text-danger">Số điện thoại không đúng!</p>';
 		}
+		setVariable('mess', $mess);
 	}
+}
 
-	function confirm($input)
-	{
+function confirm($input)
+{
 
-		global $metaTitleMantan;
-		global $isRequestPost;
-		global $controller;
-		global $session;
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
 
-		$phone = $session->read('phone');
+	$phone = $session->read('phone');
 
     setVariable('page_view', 'confirm');
-		$modelMembers = $controller->loadModel('Members');
+	$modelMembers = $controller->loadModel('Members');
 
-		if($isRequestPost){
-			$dataSend = $input['request']->getData();
-
-			$conditions = array();
-			$conditions = array('phone'=>@$phone, 'code_otp'=>$dataSend['code']);
-
-			$data = $modelMembers->find()->where($conditions)->first();
-
-			if(!empty($data)){
-				if($dataSend['pass'] == $dataSend['passAgain']){
-					$data->password = md5($dataSend['pass']);
-					$data->code_otp = rand(100000, 999999);
-
-					$modelMembers->save($data);
-
-					$session->destroy();
-
-					return $controller->redirect('/login');		
-
-				}else{
-					$mess= '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';
-				}
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		$conditions = array('phone'=>@$phone, 'code_otp'=>$dataSend['code']);
+		$data = $modelMembers->find()->where($conditions)->first();
+		if(!empty($data)){
+			if($dataSend['pass'] == $dataSend['passAgain']){
+				$data->password = md5($dataSend['pass']);
+				$data->code_otp = rand(100000, 999999);
+				$modelMembers->save($data);
+				$session->destroy();
+				return $controller->redirect('/login');		
 			}else{
-				$mess= '<p class="text-danger">Mã xác thực của bạn không đúng</p>';
+				$mess= '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';
 			}
-
-			setVariable('mess', $mess);
+		}else{
+			$mess= '<p class="text-danger">Mã xác thực của bạn không đúng</p>';
 		}
+		setVariable('mess', $mess);
 	}
+}
 
 
-	function register($input)
-	{
+function register($input){
 		global $isRequestPost;
 		global $controller;
 		global $session;
@@ -512,7 +491,7 @@ function account($input)
 		}
 		
 		setVariable('mess', $mess);
-	}
+}
 
 function managerSelectSpa() {
 	global $controller;

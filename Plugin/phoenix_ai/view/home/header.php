@@ -82,7 +82,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="/announcement" class="nav-link">
+                                <a href="/ai-virtual-assistant" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-user"></i></div>
                                         <div><span class="link-text">Trợ lý Phoenix</span></div>

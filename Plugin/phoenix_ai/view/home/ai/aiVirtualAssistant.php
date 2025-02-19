@@ -36,8 +36,9 @@
   <!-- Basic Layout -->
     <div class="row">
       <div class="col-xl">
-        <div class="card mb-12">
-          <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="card mb-12" style="display: block;">
+          <!-- <div class="card-header d-flex justify-content-between align-items-center"> -->
+          <div>
             <h5 class="mb-0">Dữ liệu cung cấp cho AI</h5>
           </div>
 
@@ -533,17 +534,23 @@
   var create_ai = '<?php echo @$data_ai->create_ai;?>';
 
   if(create_ai == 'done'){
-    $('#data_ai').hide();
-    $('#info_ai').show();
+   // $('#data_ai').hide();
+   // $('#info_ai').show();
+    document.getElementById("data_ai").style.display = "none"; 
+    document.getElementById("info_ai").style.display = "block"; 
   }else{
-    $('#data_ai').show();
-    $('#info_ai').hide();
+    // $('#data_ai').show();
+    // $('#info_ai').hide();
+    document.getElementById("data_ai").style.display = "block"; 
+    document.getElementById("info_ai").style.display = "none"; 
   }
 
   function updateData()
   {
-    $('#data_ai').show();
-    $('#info_ai').hide();
+    //$('#data_ai').show();
+   // $('#info_ai').hide();
+    document.getElementById("data_ai").style.display = "block"; 
+    document.getElementById("info_ai").style.display = "none"; 
   }
 
   function addRowProduct()

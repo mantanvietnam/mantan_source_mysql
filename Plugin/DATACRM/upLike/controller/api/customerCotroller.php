@@ -5,42 +5,75 @@ function customerUpLikePageFacebookAPI($input)
     global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
-    global $session;
+    global $session;   
+    global $modelOptions;
     global $isRequestPost;
     global $modelOptions;
     
-    $modelMembers = $controller->loadModel('Members');
+    $modelCustomer = $controller->loadModel('Customers');
     $modelUplikeHistories = $controller->loadModel('UplikeHistories');
     $modelTransactionHistories = $controller->loadModel('TransactionHistories');
 
     // kiểm tra cái đặt token
     
-        $type_api = 'facebook.buff.likepage';
+    $type_api = 'facebook.buff.likepage';
 
-        if($isRequestPost){
-            $dataSend = $input['request']->getData();
+     $conditions = array('key_word' => 'settingUpLikeCustomerAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+    $data_value =[];
+    if(!empty($data)){
+         $data_value = json_decode($data->value, true);
+    }
 
-            if(!empty($dataSend['token'])  && !empty($dataSend['id_page']) && !empty($dataSend['chanel']) && !empty($dataSend['number_up']) && !empty($dataSend['url_page'])){
 
-                $user =  getCustomerByToken($dataSend['token']);
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
 
+        if(!empty($dataSend['token'])  && !empty($dataSend['id_page']) && $dataSend['number_up']){
 
-                if(!empty($user)){
+            $user =  getCustomerByToken($dataSend['token']);
+            if(!empty($user)){
+                $startOfDay = strtotime("today 00:00:00");
+                $checktoday =  $modelTransactionHistories->find()->where(['type'=>'customer','create_at >'=>$startOfDay, 'id_member'=>$user->id])->first();
+
+                debu();
+                if(!empty($checktoday)){
+                    return array('code'=>4,'mess'=>'Bạn dùng tăng like Fanpage hôm nay rồi ');
+                }
+
+                if(!empty($user->up_like>=300)){
+                    return array('code'=>4,'mess'=>'dùng hiết 300 like rồi ');
+                }
+
+                if(empty($dataSend['number_up'])){
+                  /*  if($user->up_like==0){
+                        $dataSend['number_up'] = 100;
+                    }else{
+                         $dataSend['number_up'] = 10;
+                    }*/
+                }else{
+                    // if($user->up_like==0){
+                        if($dataSend['number_up']>300){
+                            return array('code'=>5,'mess'=>'số lượng bạn không vượt quá 300');
+                        }
+              //      }
+
+                    /*else{
+                        if($dataSend['number_up']>10){
+                            return array('code'=>5,'mess'=>'số lượng bạn không vượt quá 10');
+                        }
+                    }*/
+                }
+
                     // gửi yêu cầu sang hệ thống tăng like
-                    $sendOngTrum = sendRequestBuffOngTrum($type_api, $dataSend['id_page'], $dataSend['chanel'], $dataSend['number_up'], $dataSend['url_page'], $user->id);
+                    $sendOngTrum = sendRequestBuffOngTrum($type_api, $dataSend['id_page'], $data_value['chanel'], $dataSend['number_up'], $dataSend['url_page'], $user->id);
 
                     if($sendOngTrum['code']==200){
                         $mess= '<p class="text-success">Tạo yêu cầu thành công</p>';
-
+                        $save = $modelCustomer->get($user->id);
                         // trừ tiền tài khoản
-                        $user->coin -= $dataSend['total_pay'];
-                        $modelMembers->save($user);
-
-                        // tạo lịch sử giao dịch
-                        $histories = $modelTransactionHistories->newEmptyEntity();
-
-                       
-
+                        $save->up_like += (int) $dataSend['number_up'];
+                        $modelCustomer->save($save);
                         // lưu yêu cầu
                         $saveRequest = $modelUplikeHistories->newEmptyEntity();
 
@@ -48,12 +81,12 @@ function customerUpLikePageFacebookAPI($input)
                         $saveRequest->id_system = 0;
                         $saveRequest->id_page = $dataSend['id_page'];
                         $saveRequest->type_page = $type_api;
-                        $saveRequest->money = $dataSend['total_pay'];
+                        $saveRequest->money = 0;
                         $saveRequest->number_up = $dataSend['number_up'];
-                        $saveRequest->chanel = $dataSend['chanel'];
+                        $saveRequest->chanel = $data_value['chanel'];
                         $saveRequest->url_page = $dataSend['url_page'];
                         $saveRequest->price = 0;
-                        $saveRequest->type = 'staff';
+                        $saveRequest->type = 'customer';
                         $saveRequest->create_at = time();
                         $saveRequest->status = 'Running';
                         $saveRequest->run = 0;
@@ -61,18 +94,19 @@ function customerUpLikePageFacebookAPI($input)
                         $saveRequest->note_buff = json_encode($sendOngTrum);
 
                         $modelUplikeHistories->save($saveRequest);
+                        return array('code'=>1,'mess'=>'Bạn sử dụng tăng like thành công');
                     }else{
-                        $mess= '<p class="text-danger">'.$sendOngTrum['message'].'</p>';
+                        return array('code'=>5, 'mess'=>$sendOngTrum['message']);
                     }
                 }else{
-                    $mess= '<p class="text-danger">Số dư tài khoản của bạn không đủ, vui lòng <a href="/listTransactionHistories">NẠP TIỀN</a></p>';
+                     return array('code'=>3,'mess'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
                 }
             }else{
-                $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+                return array('code'=>2,'mess'=>'Gửi thiếu dữ liệu');
             }
         }
 
     
-    return array('code'=>0,'data'=>null,'messages'=>'Gửi sai kiểu POST');
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 }
  ?>

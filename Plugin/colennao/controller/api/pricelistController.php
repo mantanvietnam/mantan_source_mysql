@@ -167,7 +167,7 @@ function payAppleEntextendUserAPI($input){
                 $modelTransactions->save($checkTransaction);
                  entextendUserDeline($checkTransaction->id_user,$checkTransaction->id_price,$checkTransaction->id);
             
-                return apiResponse(0, 'Thanh toán thành công', $checkTransaction);
+                return apiResponse(1, 'Thanh toán thành công');
             }
                 return apiResponse(4, 'Thanh toán không thành công');
 
@@ -176,7 +176,7 @@ function payAppleEntextendUserAPI($input){
         } 
         return apiResponse(2, 'Gửi thiếu dữ liệu');  
     }
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
 
  ?>

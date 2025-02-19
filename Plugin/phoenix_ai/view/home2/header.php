@@ -17,7 +17,7 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="/plugins/phoenix_ai/view/home/assets/"
+  data-assets-path="/plugins/phoenix_ai/view/home2/assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -32,7 +32,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/plugins/phoenix_ai/view/home/assets/img/logo-phoenix.png" />
+    <link rel="icon" type="image/x-icon" href="/plugins/phoenix_ai/view/home2/assets/img/logo-phoenix.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,18 +43,18 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home2/assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home1/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home1/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home1/assets/css/demo.css" />
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home1/assets/css/training.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home2/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home2/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home2/assets/css/demo.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home2/assets/css/training.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home2/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home2/assets/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -73,19 +73,19 @@
 
 
     <!-- Helpers -->
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/js/helpers.js"></script>
+    <script src="/plugins/phoenix_ai/view/home2/assets/vendor/js/helpers.js"></script>
     
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="/plugins/phoenix_ai/view/home/assets/js/config.js"></script>
+    <script src="/plugins/phoenix_ai/view/home2/assets/js/config.js"></script>
     
     <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
     <script language="javascript" src="/ckeditor/ckeditor.js" type="text/javascript"></script>
 
     <!-- Core JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/plugins/phoenix_ai/view/home2/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -99,7 +99,7 @@
     <?php $user = checklogin() ?>
     <section id="header-menu" class="container-xxl">
       <nav class="navbar navbar-expand-lg">
-        <a title="PHOENIX AI" class="navbar-brand" href="/login"><img src="/plugins/phoenix_ai/view/home/assets/img/logo-phoenix.png" width="50"></a>
+        <a title="PHOENIX AI" class="navbar-brand" href="/login"><img src="/plugins/phoenix_ai/view/home2/assets/img/logo-phoenix.png" width="50"></a>
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"><i class="bx bx-menu bx-sm"></i></span>
