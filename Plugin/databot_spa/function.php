@@ -910,13 +910,8 @@ function apiResponse(int $code = 0, $messages = '', $data = [], $totalData = 1, 
     ];
 }
 
-function createToken($length = 30): string
-{
-    $chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    return substr(str_shuffle($chars), 0, $length) . time();
-}
 
-function getMemberByToken($token='', $permission='', $module='')
+function getMemberByToken($token='', $permission='', $module='customer')
 {
     global $controller;
     $modelMember = $controller->loadModel('Members');
@@ -926,19 +921,41 @@ function getMemberByToken($token='', $permission='', $module='')
     $checkToken = $modelTokenDevice->find()->where(['token'=>$token])->first();
     if(!empty($checkToken)){
         $infoUser = $modelMember->find()->where(array('id'=>$checkToken->id_member, 'dateline_at >'=>time(), 'status'=>'1' ))->first();
+
+        if(!empty($infoUser->module)){
+            $list_module =json_decode($infoUser->module, true);
+        }else{
+            $list_module = array();
+        }
         if(!empty($infoUser)){
             if($infoUser->type==1){
-                if(!empty($infoUser->module) && in_array($module, $infoUser->module)){
-                    $user = $infoUser;
+                if(!empty($infoUser->module) && in_array($module, $list_module)){
+                    $infoUser->last_login = time();
+                    $modelMember->save($infoUser);
+                    $infoUser->token = $checkToken->token;
+                    return $infoUser;
                 }
             }else{
                 $checkMember = $modelMember->find()->where(array('id'=>$infoUser->id_member, 'dateline_at >'=>time(), 'status'=>'1' ))->first();
-                if(!empty($checkMember->module) && in_array($module, $checkMember->module) && !empty($infoUser->list_permission) && in_array($permission, $infoUser->list_permission)){
-                    $user = $infoUser;
+                 if(!empty($checkMember->module)){
+                    $checkMember->module =json_decode($infoUser->module, true);
+                }else{
+                    $checkMember->module = array();
+                }
+                
+                if(!empty($infoUser->list_permission)){
+                    $list_permission =json_decode($infoUser->list_permission, true);
+                }else{
+                    $list_permission = array();
+                }
+                if(!empty($checkMember->module) && in_array($module, $checkMember->module) && !empty($list_permission) && in_array($permission, $list_permission)){
+                        $infoUser->last_login = time();
+                        $modelMember->save($infoUser);
+                        $infoUser->token = $checkToken->token;
+                        return $infoUser;
                 }
             }
-            $infoUser->last_login = time();
-            $modelMember->save($infoUser);
+            
 
         }
     }

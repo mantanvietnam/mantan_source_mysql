@@ -113,4 +113,70 @@ function paymEntextendUserAPI($input){
 }
 
 
+function payAppleEntextendUserAPI($input){
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $transactionKey;
+
+    $modelTransactions = $controller->loadModel('Transactions');
+    
+    $modelPriceList = $controller->loadModel('PriceLists');
+    $modelUser = $controller->loadModel('Users');
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+         if (!empty($dataSend['token']) && !empty($dataSend['productId'])) {
+            $conditions['OR'] = [ 
+                ['token'=>$dataSend['token']],
+                ['token_app'=>$dataSend['token']],
+            ];
+            $conditions['status'] = 'active';
+            $user = $modelUser->find()->where($conditions)->first();
+           // / $modelUser->save($user);
+            
+            if (!empty($user)) {
+            $conditions = array('id_apple'=> $dataSend['productId'],'status'=>'active');
+            $user->status_pay_package = 0;
+            $modelUser->save($user);
+
+            
+            $data = $modelPriceList->find()->where($conditions)->first();
+
+            if(!empty($data)){
+                $checkTransaction = $modelTransactions->find()->where(['id_price'=>$data->id,'id_user'=>$user->id, 'status'=>1])->first();
+                if(empty($checkTransaction)){
+                    $checkTransaction = $modelTransactions->newEmptyEntity();
+                    $checkTransaction->id_user = $user->id;
+                    $checkTransaction->name = $data->name;
+                    $checkTransaction->name_en = $data->name_en;
+                    $checkTransaction->total = $data->price;
+                    $checkTransaction->id_course = 0;
+                    $checkTransaction->id_package = 0;
+                    $checkTransaction->id_challenge = 0;
+                    $checkTransaction->id_price = $data->id;
+                    $checkTransaction->status = 2;
+                    $checkTransaction->type = 4;
+                    $checkTransaction->type_pay = 'payApple';
+                    $checkTransaction->created_at = time();
+                    $checkTransaction->code = time().$user->id.rand(0,10000);
+                }else{
+                    $checkTransaction->updated_at = time();
+                }
+                      $checkTransaction->status = 2;
+
+                $modelTransactions->save($checkTransaction);
+                 entextendUserDeline($checkTransaction->id_user,$checkTransaction->id_price,$checkTransaction->id);
+            
+                return apiResponse(0, 'Thanh toán thành công', $checkTransaction);
+            }
+                return apiResponse(4, 'Thanh toán không thành công');
+
+            }
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        } 
+        return apiResponse(2, 'Gửi thiếu dữ liệu');  
+    }
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
  ?>

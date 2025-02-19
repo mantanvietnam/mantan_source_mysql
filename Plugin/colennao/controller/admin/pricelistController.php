@@ -31,6 +31,7 @@ function listPriceList($input){
             $data->price = (int) $dataSend['price'];
             $data->price_old = (int) $dataSend['price_old'];
             $data->days = (int) $dataSend['days'];
+            $data->id_apple = $dataSend['id_apple'];
             
 
             $modelPriceList->save($data);

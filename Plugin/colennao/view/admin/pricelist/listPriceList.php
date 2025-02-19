@@ -34,7 +34,7 @@
                                     <td>giá cũ: '.number_format(@$item->price_old).'đ</br>
                                     giá mới:'.number_format(@$item->price).'đ</td>
                                     <td align="center">
-                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->price_old.'\', \''.$item->price.'\', \''.$item->days.'\', \''.$item->status.'\', \''.$item->name_en.'\' );">
+                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->price_old.'\', \''.$item->price.'\', \''.$item->days.'\', \''.$item->status.'\', \''.$item->name_en.'\', \''.$item->id_apple.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
                                       </a>
                                     </td>
@@ -91,7 +91,10 @@
                   <label class="form-label" for="basic-default-fullname">Số ngày</label>
                   <input type="number" class="form-control" placeholder="" name="days" id="days" value="" />
                 </div>
-
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">id apple</label>
+                  <input type="text" class="form-control" placeholder="" name="id_apple" id="id_apple" value="" />
+                </div>
                 <div class="mb-3">
                   <label class="form-label">Trạng thái</label>
                   <div class="input-group input-group-merge">
@@ -113,7 +116,7 @@
   </div>
 
   <script type="text/javascript">
-    function editData(id,name,price_old,price,days,status,name_en){
+    function editData(id,name,price_old,price,days,status,name_en,id_apple){
       $('#id').val(id);
       $('#name').val(name);
       $('#name_en').val(name_en);
@@ -121,6 +124,7 @@
       $('#price').val(price);
       $('#days').val(days);
       $('#status').val(status);
+      $('#id_apple').val(id_apple);
     }
 
     function deleteCategory(id){

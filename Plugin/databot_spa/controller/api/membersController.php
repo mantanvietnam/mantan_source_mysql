@@ -77,20 +77,22 @@ function createMemberAPI($input)
 				$modelWarehouse->save($dataWarehouse);
 
 				// gửi email thông báo tài khoản
-				sendEmailRegAcc($data->email, $data->name, $data->phone, $dataSend['phone']);
+				if(!empty($data->email)){
+					sendEmailRegAcc($data->email, $data->name, $data->phone, $dataSend['phone']);
+				}
+				
 
-				$return = ['code'=>0, 'mess'=>'Đăng ký phần mền quản lý SPA thành công'];
+				$return = apiResponse(1,'Đăng ký phần mền quản lý SPA thành công',$data);
 			}else{
-				$return = ['code'=>2, 'mess'=>'Số điện thoại đã tồn tại'];
+				$return = apiResponse(3,'Số điện thoại đã tồn tại');
 			}
 		}else{
-			$return = ['code'=>1, 'mess'=>'Gửi thiếu dữ liệu'];
+			$return = apiResponse( 2, 'Gửi thiếu dữ liệu');
 		}
 	}else{
-		$return = ['code'=>1, 'mess'=>'Gửi thiếu dữ liệu'];
+		$return = apiResponse(0,'Gửi thiếu dữ liệu');
 	}
 	
-	return $return;
 }
 
 function loginAPI($input)
@@ -103,6 +105,7 @@ function loginAPI($input)
 	$metaTitleMantan = 'Đăng nhập công cụ phầm mềm quản lý SPA';
 
 	$modelMembers = $controller->loadModel('Members');
+    $modelTokenDevice = $controller->loadModel('TokenDevices');
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
@@ -114,7 +117,8 @@ function loginAPI($input)
 			$conditions = array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']));
 			$infoUser = $modelMembers->find()->where($conditions)->first();
 
-			if($infoUser){
+			if(!empty($infoUser)){
+				$user = array();
 	    		// nếu đây là nhân viên
 				if($infoUser->type == 0){
 					 $checkMember = $modelMember->find()->where(array('id'=>$infoUser->id_member, 'dateline_at >'=>time(), 'status'=>'1' ))->first();
@@ -123,18 +127,38 @@ function loginAPI($input)
 	                }
 					
 				}else{
+					$user = $infoUser;
+				}
+				if(!empty($user)){
+					$checkTokenDevice = $modelTokenDevice->newEmptyEntity();
+					$checkTokenDevice->token_device = @$dataSend['token_device'];
+					$checkTokenDevice->id_member = $user->id;
+					if($infoUser->type == 0){	
+						$checkTokenDevice->type = 'staff';
+						$checkTokenDevice->token = 'staff'.createToken();
+					}else{
+						$checkTokenDevice->type = 'member';
+						$checkTokenDevice->token = 'member'.createToken();
+					}
+
+					$modelTokenDevice->save($checkTokenDevice);
+					return apiResponse(1,'Đăng nhập thành công',getMemberByToken($checkTokenDevice->token));
 
 				}
-
 	    		
-			}else{
-				$mess= '<p class="text-danger">Sai số điện thoại hoặc mật khẩu</p>';
 			}
-		}else{
-			$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+				return apiResponse(3,'Sai số điện thoại hoặc mật khẩu');
 		}
+			return apiResponse(2,'Bạn gửi thiếu thông tin');
+		
 	}
-
-	
+	return apiResponse(2,'Dữ liệu gửi kiểu POST');
 }
+
+function checktoken(){
+	debug(getMemberByToken('memberKUkaYjDW3z2NJcSTM5VIfEmGtsrpyb1739845953'));
+	die;
+}
+
+
 ?>

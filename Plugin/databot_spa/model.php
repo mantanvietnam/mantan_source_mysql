@@ -26,4 +26,5 @@ include('model/userservice_histories.php'); // khách hàng dùng thẻ trả tr
 include('model/transaction_histories.php'); // lịch sử giao dịch nạp tiền
 include('model/agency.php'); // lịch sử giao dịch nạp tiền
 include('model/medical_historie.php'); // lịch sử khám bệnh
+include('model/tokenDevices.php'); // lịch sử khám bệnh
 ?>

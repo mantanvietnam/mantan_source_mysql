@@ -155,14 +155,9 @@
     <script src="/plugins/databot_spa/view/home/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
-    <!-- Vendors JS -->
-
-    <!-- Main JS -->
+   
     <script src="/plugins/databot_spa/view/home/assets/js/main.js"></script>
 
-    <!-- Page JS -->
-
-    <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>
