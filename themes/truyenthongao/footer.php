@@ -9,7 +9,7 @@
                         <div class="col-md-4">
                             <div class="footer__brand">
                                 <img src="<?= @$settingThemes['logo'];?>" alt="PHONGTRUYEN" class="footer__logo">
-                                <p class="footer__name">PHONGTRUYENTHONG.COM</p>
+                                <p class="footer__name">PHONGTRUYENTHONGAO.COM</p>
                             </div>
                             <div class="footer__contact">
                                 <p class="footer__address">
@@ -26,11 +26,11 @@
 
                         <!-- Company Links -->
                         <div class="col-lg-4">
-                            <h3 class="footer__title">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</h3>
+                            <h3 class="footer__title">BÀI VIẾT TIÊU BIỂU</h3>
                             <ul class="footer__list">
-                                <li>Mã số thuế: 0110048533</li>
-                                <li>Đại diện pháp luật: Nguyễn Thị Kim Oanh</li>
-                                <li>Ngày cấp giấy phép: 01/07/2022</li>
+                                <li><a href="https://phongtruyenthongao.com/truong-chinh-tri-tinh-lao-cai-khai-truong-phong-truyen-thong-ao.html">Trường Chính trị tỉnh Lào Cai khai trương phòng truyền thống ảo</a></li>
+                                <li><a href="https://phongtruyenthongao.com/so-sanh-loi-ich-phong-truyen-thong-that-va-phong-truyen-thong-ao.html">So sánh lợi ích Phòng truyền thống thật và Phòng truyền thống ảo</a></li>
+                                <li><a href="https://phongtruyenthongao.com/so-hoa-phong-truyen-thong-nha-truong-bang-cong-nghe-thuc-te-ao-vr360.html">Số hóa phòng truyền thống nhà trường bằng công nghệ thực tế ảo VR360</a></li>
                             </ul>
                         </div>
 
@@ -62,7 +62,7 @@
                         <div class="col-md-12 d-flex align-items-center">
                             <div class="footer__logo">
                                 <p class="footer__copyright">
-                                    Copyright © 2024 TOP TOP DIGITAL SOLUTIONS CO., LTD. All rights reserved
+                                    Copyright © 2024 PHONGTRUYENTHONGAO.COM. All rights reserved
                                 </p>
                             </div>
                         </div>
