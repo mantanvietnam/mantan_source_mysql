@@ -250,12 +250,15 @@ function changePass($input)
 
 						$modelMembers->save($user);
 
-					// nếu là chủ spa
+						// nếu là chủ spa
 						if($user->type == 1){
 							$user->id_member = $user->id;
 						}
 
+						$user->module = json_decode($user->module, true);
+
 						$session->write('infoUser', $user);
+						
 						return $controller->redirect('/managerSelectSpa');
 
 						$mess= '<p class="text-success">Đổi mật khẩu thành công</p>';
@@ -413,7 +416,7 @@ function register($input){
 						$data = $modelMember->newEmptyEntity();
 
 						$data->name = $dataSend['name_spa'].' (chủ)';
-						$data->avatar = 'https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png';
+						$data->avatar = 'https://quanlydichvu.com/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 						$data->phone = $dataSend['phone'];
 						$data->email = @$dataSend['email'];
 						$data->password = md5($dataSend['password']);
