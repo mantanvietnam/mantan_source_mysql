@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">TRUYENTHONGAO - Home Setting</h4>
+    <h4 class="fw-bold py-3 mb-4">Cài đặt trang chủ</h4>
     <p><?php echo @$mess;?></p>
     <?= $this->Form->create(); ?>
         <div class="row">
@@ -464,9 +464,22 @@
                                     <label class="form-label" for="basic-default-fullname">image dưới cùng</label>
                                     <?php showUploadFile('imagedeep','imagedeep', @$data['imagedeep'],3);?>
                                 </div>
+                                
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tên doanh nghiệp</label>
+                                    <input type="text" class="form-control" name="name_company" value="<?php echo @$data['name_company'];?>" />
+                                </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">Mã số doanh nghiệp</label>
                                     <input type="text" class="form-control" name="codebusiness" value="<?php echo @$data['codebusiness'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Người đại diện pháp luật</label>
+                                    <input type="text" class="form-control" name="legal_representative" value="<?php echo @$data['legal_representative'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Ngày thành lập công ty</label>
+                                    <input type="text" class="form-control" name="date_start_company" value="<?php echo @$data['date_start_company'];?>" />
                                 </div>
                             </div>
                         </div>

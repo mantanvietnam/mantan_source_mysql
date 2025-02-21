@@ -121,7 +121,11 @@ function settinghometruyenthongao($input){
             'instagram'=>$dataSend['instagram'],
             'twiter'=>$dataSend['twiter'],
             'imagedeep'=>$dataSend['imagedeep'],
+            
             'codebusiness'=>$dataSend['codebusiness'],
+            'name_company'=>$dataSend['name_company'],
+            'legal_representative'=>$dataSend['legal_representative'],
+            'date_start_company'=>$dataSend['date_start_company'],
 
             
         );

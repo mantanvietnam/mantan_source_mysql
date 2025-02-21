@@ -8,7 +8,7 @@
                         <!-- Company Info -->
                         <div class="col-md-4">
                             <div class="footer__brand">
-                                <img src="<?= @$settingThemes['logo'];?>" alt="PHONGTRUYEN" class="footer__logo">
+                                <img src="<?= @$settingThemes['logo'];?>" alt="<?= @$settingThemes['name_company'];?>" class="footer__logo">
                                 <p class="footer__name">PHONGTRUYENTHONGAO.COM</p>
                             </div>
                             <div class="footer__contact">
@@ -26,11 +26,11 @@
 
                         <!-- Company Links -->
                         <div class="col-lg-4">
-                            <h3 class="footer__title">BÀI VIẾT TIÊU BIỂU</h3>
+                            <h3 class="footer__title"><?= @$settingThemes['name_company'];?></h3>
                             <ul class="footer__list">
-                                <li><a href="https://phongtruyenthongao.com/truong-chinh-tri-tinh-lao-cai-khai-truong-phong-truyen-thong-ao.html">Trường Chính trị tỉnh Lào Cai khai trương phòng truyền thống ảo</a></li>
-                                <li><a href="https://phongtruyenthongao.com/so-sanh-loi-ich-phong-truyen-thong-that-va-phong-truyen-thong-ao.html">So sánh lợi ích Phòng truyền thống thật và Phòng truyền thống ảo</a></li>
-                                <li><a href="https://phongtruyenthongao.com/so-hoa-phong-truyen-thong-nha-truong-bang-cong-nghe-thuc-te-ao-vr360.html">Số hóa phòng truyền thống nhà trường bằng công nghệ thực tế ảo VR360</a></li>
+                                <li>Mã số thuế: <?= @$settingThemes['codebusiness'];?></li>
+                                <li>Đại diện pháp luật: <?= @$settingThemes['legal_representative'];?></li>
+                                <li>Ngày cấp giấy phép: <?= @$settingThemes['date_start_company'];?></li>
                             </ul>
                         </div>
 
