@@ -439,10 +439,10 @@ function AISmaxBotAPI($input){
 
                 $return = array();
                 $return['set_attributes']['id_question'] = $reply_ai['conversation_id'];
-                $return['message']['text'] = $reply_ai['result'];
+                $return['set_attributes']['answer_ai'] = $reply_ai['result'];
+                $return['messages'] = array(array('text'=>$reply_ai['result']));
 
                 return $return;
-                //array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai);
             }
              return array('code'=> 2, 'mess'=>'thiếu dữ liệu');
         }
