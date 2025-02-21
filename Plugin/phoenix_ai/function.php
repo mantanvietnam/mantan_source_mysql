@@ -179,6 +179,73 @@ function callAIphoenixtech($query,$conversation_id=''){
 
 }
 
+function callAIHuongQue($query,$conversation_id=''){
+   
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://dify.phoenixtech.vn/v1/chat-messages',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS =>'{
+        "inputs": {},
+        "query": "'.$query.'",
+        "response_mode": "streaming",
+        "conversation_id": "'.$conversation_id.'",
+        "user": "abc-123",
+        "files": [ ]
+    }',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer app-wXpmjKnU0uOREHtZ5mapFl2h',
+        'Content-Type: application/json'
+      ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+   
+
+    // Tách chuỗi thành từng phần tử dữ liệu JSON
+    $pattern = '/data: (.+?)(?=\ndata: |$)/s';
+    preg_match_all($pattern, $response, $matches);
+
+    // Mảng lưu trữ các câu trả lời
+    $answers = [];
+
+    // Duyệt qua từng phần tử JSON và trích xuất "answer"
+    foreach ($matches[1] as $json) {
+        $data = json_decode($json, true);
+        if (isset($data['answer'])) {
+            $answers[] = $data['answer'];
+        }
+    }
+
+    // Kết hợp các câu trả lời thành chuỗi hoàn chỉnh
+    $result = implode('', $answers);
+
+    // Sử dụng regex để tìm các giá trị conversation_id
+    preg_match_all('/"conversation_id":\s*"([^"]+)"/', $response, $matches);
+
+    // Lấy tất cả các conversation_id
+    $conversationIds = $matches[1];
+
+    $conversation_id ='';
+    foreach ($conversationIds as $id) {
+      $conversation_id =$id;
+    }
+
+
+    return array('result'=>str_replace('*', '', $result),'conversation_id'=>$conversation_id);
+
+}
+
 function listBostAi(){
     return array(
            1 => array('id'=>1,'name'=>'Phoenix Ai', 'boot'=>'Social Media Manager', 'title'=>'Viết 10 bài viết đăng Facebook', 'district'=>'Lên kế hoạch, viết bài cho social media thật đơn giản' , 'type'=>'content_facebook' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendContentFacebook'),

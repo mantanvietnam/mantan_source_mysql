@@ -409,4 +409,46 @@ function getbosAPI(){
     return listBostAi();
  
 }
+
+function AISmaxBotAPI($input){
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+   // if(!empty($session->read('infoUser'))){
+        $mess = '';
+        $conversation_id = '';
+        $member = $session->read('infoUser');
+       
+
+        $modelContentFacebookAis = $controller->loadModel('ContentFacebookAis');
+        $modelHistoryChatAis = $controller->loadModel('HistoryChatAis');
+
+        $reply_ai = array();
+        $dataSend = array();
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+           if(!empty($dataSend['question'])){
+                $question = $dataSend['question'];
+
+                $conversation_id = @$dataSend['conversation_id'];
+            
+                $reply_ai = callAIHuongQue($question,$conversation_id);
+
+                $return = array();
+                $return['set_attributes']['id_question'] = $reply_ai['conversation_id'];
+                $return['message']['text'] = $reply_ai['result'];
+
+                return $return;
+                //array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai);
+            }
+             return array('code'=> 2, 'mess'=>'thiếu dữ liệu');
+        }
+         return array('code'=> 0, 'mess'=>'lỗi hệ thống');
+       
+    /*}
+     return array('code'=> 0, 'mess'=>'chưa đăng nhập');*/
+}
 ?>
