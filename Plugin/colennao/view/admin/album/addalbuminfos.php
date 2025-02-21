@@ -22,16 +22,14 @@
                   <label class="form-label">Hình ảnh tiếng Anh</label>
                   <?php showUploadFile('image_en','image_en',@$infoPost->image_en,1);?>
                 </div>
-
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
-                  <label class="form-label">Tiêu đề tiếng Việt</label>
-                  <input type="text" class="form-control" name="title" value="<?php echo @$infoPost->title;?>" />
+                  <label class="form-label">Hình ảnh màng mobile tiếng Việt*</label>
+                  <?php showUploadFile('image_mobile','image_mobile',@$infoPost->image_mobile,3);?>
                 </div>
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
-                  <label class="form-label">Tiêu đề tiếng Anh</label>
-                  <input type="text" class="form-control" name="title_en" value="<?php echo @$infoPost->title_en;?>" />
+                  <label class="form-label">Hình ảnh màng mobile tiếng Anh</label>
+                  <?php showUploadFile('image_en_mobile','image_en_mobile',@$infoPost->image_en_mobile,4);?>
                 </div>
-
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
                   <label class="form-label">Link liên kết tiếng Việt</label>
                   <input type="text" class="form-control" name="link" value="<?php echo @$infoPost->link;?>" />
@@ -43,6 +41,14 @@
               </div>
 
               <div class="col-12 col-sm-12 col-md-6">
+                 <div class="mb-3 col-12 col-sm-12 col-md-12">
+                  <label class="form-label">Tiêu đề tiếng Việt</label>
+                  <input type="text" class="form-control" name="title" value="<?php echo @$infoPost->title;?>" />
+                </div>
+                <div class="mb-3 col-12 col-sm-12 col-md-12">
+                  <label class="form-label">Tiêu đề tiếng Anh</label>
+                  <input type="text" class="form-control" name="title_en" value="<?php echo @$infoPost->title_en;?>" />
+                </div>
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-message">Mô tả ngắn tiếng Việt</label>
                   <textarea class="form-control" name="description" rows="5"><?php echo @$infoPost->description;?></textarea>

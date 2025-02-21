@@ -18,6 +18,9 @@ function setingBankAccount($input){
 
         $value = array('rose_ambassador' => @$dataSend['rose_ambassador'], 
                         'nutritional_function' => @$dataSend['nutritional_function'],
+                        'fasting_function' => @$dataSend['fasting_function'],
+                        'meal_function' => @$dataSend['meal_function'],
+                        'challenge_function' => @$dataSend['challenge_function'],
                         'payment' => @$dataSend['payment']
                        
                     );

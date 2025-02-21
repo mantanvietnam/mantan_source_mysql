@@ -74,7 +74,7 @@ rel='stylesheet' type='text/css'>
     .diagram {
         vertical-align: middle;
         margin-bottom: 10px;
-        height: 100px;
+        height: auto;
     }
     .diagram .floors {
         font-weight: bold;

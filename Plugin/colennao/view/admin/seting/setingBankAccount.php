@@ -31,11 +31,39 @@
           </select>
         </div>
       </div>
-
+       <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">Bận tắc chức năng Fasting</label>
+          <select name="fasting_function" class="form-select"  id="fasting_function">
+            <option value="active" <?php if(@$setting['fasting_function']=='active') echo 'selected';?> >Bật chức năng</option>
+            <option value="lock" <?php if(@$setting['fasting_function']=='lock') echo 'selected';?> >Tắt chức năng</option>
+          </select>
+        </div>
+      </div>
+       <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">Bận tắc chức năng Meal</label>
+          <select name="meal_function" class="form-select"  id="meal_function">
+            <option value="active" <?php if(@$setting['meal_function']=='active') echo 'selected';?> >Bật chức năng</option>
+            <option value="lock" <?php if(@$setting['meal_function']=='lock') echo 'selected';?> >Tắt chức năng</option>
+          </select>
+        </div>
+      </div>
+       <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">Bận tắc chức năng Challenge</label>
+          <select name="challenge_function" class="form-select"  id="challenge_function">
+            <option value="active" <?php if(@$setting['challenge_function']=='active') echo 'selected';?> >Bật chức năng</option>
+            <option value="lock" <?php if(@$setting['challenge_function']=='lock') echo 'selected';?> >Tắt chức năng</option>
+          </select>
+        </div>
+      </div>
     <div class="mb-3 col-md-12">
       <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
     </div>
   </div>
+
+
 
 
 

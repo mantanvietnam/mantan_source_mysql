@@ -28,7 +28,11 @@ function registerUserApi($input): array
                 ])->first();
             }
 
-            if (empty($checkDuplicatePhone) && empty($checkDuplicateEmail)) {
+            if(!empty($checkDuplicateEmail)){
+                return apiResponse(5, 'Email đã tồn tại');
+            }
+
+            if (empty($checkDuplicatePhone)) {
                 if ($dataSend['password'] !== $dataSend['password_confirmation']) {
                     return apiResponse(4, 'Mật khẩu nhập lại không chính xác');
                 }

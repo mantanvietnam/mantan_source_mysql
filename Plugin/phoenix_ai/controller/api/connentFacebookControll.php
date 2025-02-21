@@ -417,7 +417,7 @@ function AISmaxBotAPI($input){
     global $modelCategoryConnects;
     global $modelCategories;
 
-   // if(!empty($session->read('infoUser'))){
+
         $mess = '';
         $conversation_id = '';
         $member = $session->read('infoUser');
@@ -448,7 +448,5 @@ function AISmaxBotAPI($input){
         }
          return array('code'=> 0, 'mess'=>'lỗi hệ thống');
        
-    /*}
-     return array('code'=> 0, 'mess'=>'chưa đăng nhập');*/
 }
 ?>

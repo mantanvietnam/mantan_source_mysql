@@ -35,8 +35,6 @@ function customerUpLikePageFacebookAPI($input)
             if(!empty($user)){
                 $startOfDay = strtotime("today 00:00:00");
                 $checktoday =  $modelTransactionHistories->find()->where(['type'=>'customer','create_at >'=>$startOfDay, 'id_member'=>$user->id])->first();
-
-                debu();
                 if(!empty($checktoday)){
                     return array('code'=>4,'mess'=>'Bạn dùng tăng like Fanpage hôm nay rồi ');
                 }

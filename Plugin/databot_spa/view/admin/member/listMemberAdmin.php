@@ -95,9 +95,9 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                $type = 'Người dùng';
+                $type = 'Nhân viên';
                 if($item->type==1){
-                  $type = 'Member ';
+                  $type = 'Chủ Spa';
                 }
 
                 $status = 'Kích hoạt <br/>

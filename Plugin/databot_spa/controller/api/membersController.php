@@ -270,7 +270,7 @@ function saveNewPassAPI($input)
 						$checkPhone->code_otp = null;
 						$checkPhone->token = '';
 						$modelMember->save($checkPhone);
-						$return = array('code'=>1;,'mess'=> 'lưu mật khẩu mới thành công');
+						$return = array('code'=>1,'mess'=> 'lưu mật khẩu mới thành công');
 					}else{
 						$return = array('code'=>5,
 										'mess'=>'Mật khẩu nhập lại không đúng'
@@ -290,4 +290,114 @@ function saveNewPassAPI($input)
 
 	return $return;
 }
+
+function getInfoMyAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	global $modelCategories;
+	global $urlHomes;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$conditions = array('status NOT IN'=>'delete');
+
+		if(!empty($dataSend['token'])){
+			$checkPhone = getMemberByToken($dataSend['token']);
+			if(!empty($checkPhone)){
+				
+				
+				return array('code'=>1,
+								 'data'=>$checkPhone,
+								 'mess'=> 'Bạn lấy dữ liệu thành công'
+								);
+			}else{
+				return array('code'=>3,
+								'mess'=> 'Tài khoản không tồn tại'
+							);
+			}
+		
+		}else{
+			return array('code'=>2,
+						'mess'=> 'Gửi sai phương thức POST'
+						);
+		}
+
+	return array('code'=>0,
+						'mess'=> 'Gửi sai phương thức POST'
+						);
+	}
+}
+
+function saveInfoMemberAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+    $modelStaff = $controller->loadModel('Staffs');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token'])){
+			$checkPhone = getMemberByToken($dataSend['token']);
+
+			if(!empty($checkPhone)){
+					$checkUser = $modelMember->find()->where(['id'=>$checkPhone->id])->first();
+					if(!empty($checkUser)){
+						if(!empty($dataSend['name'])){
+							$checkUser->name = $dataSend['name'];
+						}
+
+						if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+							$avatar = uploadImage($checkUser->id, 'avatar', 'avatar_'.$checkUser->id);
+						}
+
+						if(!empty($avatar['linkOnline'])){
+							$checkUser->avatar = $avatar['linkOnline'].'?time='.time();
+						}
+
+						if(!empty($dataSend['email'])){
+							$checkUser->email = $dataSend['email'];
+						}
+
+						if(!empty($dataSend['address'])){
+							$checkUser->address = $dataSend['address'];
+						}
+						
+						if(!empty($dataSend['birthday'])){
+							$checkUser->birthday = $dataSend['birthday'];
+						}
+						
+						
+						$modelMember->save($checkUser);
+					}
+				
+				return array('code'=>1,'mess'=> 'Lưu thành công', 'data'=>getMemberByToken($dataSend['token']));
+
+				
+			}
+				return array('code'=>3,
+								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
+							);
+		}
+			return array('code'=>2,
+							'mess'=> 'Gửi thiếu dữ liệu'
+						);
+	}
+
+	return array('code'=>0,
+							'mess'=> 'Gửi kiểu POST'
+						);
+}
+
 ?>

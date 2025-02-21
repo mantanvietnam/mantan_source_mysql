@@ -44,6 +44,9 @@ $sqlInstallDatabase .= "CREATE TABLE `campaign_customers` (
                                 `time_checkin` INT NOT NULL DEFAULT '0',
                                 `id_ticket` INT NOT NULL DEFAULT '0',
                                 `create_at` INT NOT NULL DEFAULT '0',
+                                `id_staff` INT NULL DEFAULT NULL '0', 
+                                `number_call` INT NOT NULL DEFAULT '0',
+                                `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'new',
                                 PRIMARY KEY (`id`)
                             ) ENGINE = InnoDB; ";
 
@@ -85,5 +88,8 @@ $sqlUpdateDatabase['campaign_customers']['note'] = "ALTER TABLE `campaign_custom
 $sqlUpdateDatabase['campaign_customers']['time_checkin'] = "ALTER TABLE `campaign_customers` ADD  `time_checkin` INT NOT NULL DEFAULT '0'; ";
 $sqlUpdateDatabase['campaign_customers']['id_ticket'] = "ALTER TABLE `campaign_customers` ADD  `id_ticket` INT NOT NULL DEFAULT '0'; ";
 $sqlUpdateDatabase['campaign_customers']['create_at'] = "ALTER TABLE `campaign_customers` ADD  `create_at` INT NOT NULL DEFAULT '0'; ";
+$sqlUpdateDatabase['campaign_customers']['id_staff'] = "ALTER TABLE `campaign_customers` ADD  `id_staff` INT NOT NULL DEFAULT '0'; ";
+$sqlUpdateDatabase['campaign_customers']['number_call'] = "ALTER TABLE `campaign_customers` ADD  `number_call` INT NOT NULL DEFAULT '0'; ";
+$sqlUpdateDatabase['campaign_customers']['campaign_customers'] = "ALTER TABLE `campaign_customers` ADD  ALTER TABLE `campaign_customers` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'new';";
 
 ?>

@@ -137,6 +137,9 @@ $sqlInstallDatabase .= "CREATE TABLE `customer_histories` (
   `id_staff_now` INT NOT NULL , 
   `status` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new',
   `id_staff` INT NULL DEFAULT '0' COMMENT 'id nhân viên ',
+  `number_call` INT  NULL DEFAULT NULL , 
+  `id_campaign` INT  NULL DEFAULT NULL , 
+
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -663,6 +666,8 @@ $sqlUpdateDatabase['customer_histories']['action_now'] = "ALTER TABLE `customer_
 $sqlUpdateDatabase['customer_histories']['id_staff_now'] = "ALTER TABLE `customer_histories` ADD `id_staff_now` INT NOT NULL;";
 $sqlUpdateDatabase['customer_histories']['status'] = "ALTER TABLE `customer_histories` ADD `status` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new';";
 $sqlUpdateDatabase['customer_histories']['id_staff'] = "ALTER TABLE `customer_histories` ADD `id_staff` INT NULL DEFAULT '0' COMMENT 'id nhân viên ';";
+$sqlUpdateDatabase['customer_histories']['number_call'] = "ALTER TABLE `customer_histories` ADD `number_call` INT  NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customer_histories']['id_campaign'] = "ALTER TABLE `customer_histories` ADD `id_campaign` INT  NULL DEFAULT NULL;";
 
 // bảng order_members
 $sqlUpdateDatabase['order_members']['id_member_sell'] = "ALTER TABLE `order_members` ADD `id_member_sell` INT NOT NULL COMMENT 'id đại lý tuyến trên';";

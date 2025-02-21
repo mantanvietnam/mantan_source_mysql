@@ -1,5 +1,9 @@
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/header.php'); ?>
-
+<style type="text/css">
+  .text_p{
+    margin: 0px;
+  }
+</style>
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
@@ -65,7 +69,7 @@
             </select>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label class="form-label">Hạng vé</label>
             <select name="id_ticket" class="form-select color-dropdown">
               <option value="">Tất cả</option>
@@ -85,13 +89,24 @@
             </select>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label class="form-label">Checkin</label>
             <select name="checkin" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <option value="1" <?php if(!empty($_GET['checkin']) && $_GET['checkin']==1) echo 'selected';?>>Đã checkin</option>
               <option value="2" <?php if(!empty($_GET['checkin']) && $_GET['checkin']==2) echo 'selected';?>>Chưa checkin</option>
               
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Trạng thái</label>
+            <select required class="form-select" name="status" id="status">
+              <option value="">Chọn trạng thái</option>
+              <option value="done"<?php if(!empty($_GET['status']) && $_GET['status']=='done') echo 'selected';?>>chắc chắn tham gia</option>
+              <option value="think"<?php if(!empty($_GET['status']) && $_GET['status']=='think') echo 'selected';?>>suy nghĩ</option>
+              <option value="not_participate"<?php if(!empty($_GET['status']) && $_GET['status']=='not_participate') echo 'selected';?>>không tham gia</option>
+              <option value="no_answer"<?php if(!empty($_GET['status']) && $_GET['status']=='no_answer') echo 'selected';?>>không nghe máy </option>
+              <option value="other"<?php if(!empty($_GET['status']) && $_GET['status']=='other') echo 'selected';?>>Khác</option>
             </select>
           </div>
           
@@ -141,12 +156,32 @@
                 $history = '';
                 if(!empty($item->history)){
                   $status_history = 'text-danger';
-
+                  $result = '';
                   if($item->history->status == 'done'){
                     $status_history = 'text-success';
+                    $result = 'chắc chắn tham gia';
+                  }elseif($item->history->status = 'think'){
+                     $result = 'suy nghĩ';
+                  }elseif($item->history->status = 'not_participate'){
+                     $result = 'không tham gia';
+                  }elseif($item->history->status = 'no_answer'){
+                     $result = 'không nghe máy';
                   }
 
-                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
+                  $action_now ='';
+                  if($item->history->action_now=="call"){
+                    $action_now ='gọi điện';
+                  }elseif($item->history->action_now=="message"){
+                    $action_now ='nhắn tin';
+                  }elseif($item->history->action_now=="go_meet"){
+                    $action_now ='đi gặp';
+                  }elseif($item->history->action_now=="online_meeting"){
+                    $action_now ='họp online';
+                  }elseif($item->history->action_now=="other"){
+                    $action_now ='';
+                  }
+
+                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: chăn sóc lần thứ '.$item->number_call.' là '.$action_now.' kết quả '.$result ;
                 }
 
                 echo '<tr>
@@ -164,7 +199,7 @@
                         <td>
                           '.$history.'
                           <p class="text-center mt-3">
-                            <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
+                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'"   class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
                             <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-danger"><i class="bx bx-list-ul" ></i></a>
                           </p>
                         </td>
@@ -207,11 +242,32 @@
                 if(!empty($item->history)){
                   $status_history = 'text-danger';
 
+                   $result = '';
                   if($item->history->status == 'done'){
                     $status_history = 'text-success';
+                    $result = 'chắc chắn tham gia';
+                  }elseif($item->history->status = 'think'){
+                     $result = 'suy nghĩ';
+                  }elseif($item->history->status = 'not_participate'){
+                     $result = 'không tham gia';
+                  }elseif($item->history->status = 'no_answer'){
+                     $result = 'không nghe máy';
                   }
 
-                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
+                  $action_now ='';
+                  if($item->history->action_now=="call"){
+                    $action_now ='gọi điện';
+                  }elseif($item->history->action_now=="message"){
+                    $action_now ='nhắn tin';
+                  }elseif($item->history->action_now=="go_meet"){
+                    $action_now ='đi gặp';
+                  }elseif($item->history->action_now=="online_meeting"){
+                    $action_now ='họp online';
+                  }elseif($item->history->action_now=="other"){
+                    $action_now ='';
+                  }
+
+                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: chăn sóc lần thứ '.$item->number_call.' là '.$action_now.' kết quả '.$result ;
                 }
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
@@ -228,7 +284,7 @@
                        '.$checkin.'
 
                         <p class="text-center mt-3">
-                          <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
+                          <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
                           <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-info"><i class="bx bx-list-ul" ></i></a>
                         </p>
                       </p>
@@ -296,5 +352,85 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+<?php 
+if(!empty($listData)){
+              foreach ($listData as $item) { ?>
+                 <div class="modal fade" id="basicModal<?php echo $item->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header form-label border-bottom">
+                                <h5 class="modal-title" id="exampleModalLabel1">Thông tin khách hàng</h5>
+                                <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                             <form action="/addCallCustomerCampaign" method="GET">
+                               <div class="modal-footer">
+                                <input type="hidden" value="<?php echo $item->id; ?>"  name="id">
+                                <div class="card-body">
+                                  <div class="row gx-3 gy-2 align-items-center">
+                                    <div class="col-md-12">
+                                      <p class="text_p"><label class="form-label">Khách đăng ký: </label> <?php echo $item->customer_name ?><br/><?php echo $item->customer_phone; ?></p>
+                                      <p class="text_p"><label class="form-label">Khu vực: </label> <?php echo @$infoCampaign->location[$item->id_location]; ?></p>
+                                      <p class="text_p"><label class="form-label">Đội nhóm: </label> <?php echo @$infoCampaign->team[$item->id_team]['name']; ?></p>
+                                      <p class="text_p"><label class="form-label">Hạng vé:  </label> <?php echo @$infoCampaign->ticket[$item->id_ticket]['name']; ?></p>
+                                      <p class="text_p"><label class="form-label">chăm sóc lần:  </label> <?php echo $item->number_call + 1; ?></p>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                      <label class="form-label">Nhân viên</label>
+                                      <select name="id_staff" class="form-select color-dropdown">
+                                        <option value="0">Tất cả</option>
+                                        <?php
+                                        if(!empty($listStaff)){
+                                          foreach($listStaff as $value){
+                                            $selected = '';
+                                              if( $user->id_staff==$value->id){
+                                                $selected = 'selected';
+                                              }
+                                              echo '<option '.$selected.' value="'.$value->id.'">'.$value->name.'</option>';
+                                          }
+                                        }
+                                        ?>
+                                      </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label class="form-label">Hành động</label>
+                                     <select required class="form-select" name="action_now" id="action_now">
+                                        <option value="">Chọn hành động</option>
+                                        <option value="call" selected class="text_p" >Gọi điện</option>
+                                        <option value="message"  >Nhắn tin</option>
+                                        <option value="go_meet"  >Đi gặp</option>
+                                        <option value="online_meeting"  >Họp online</option>
+                                        <option value="other"  >Khác</option>
+                                      </select>
+                                    </div>
+                                     <div class="col-md-6">
+                                      <label class="form-label">Trạng thái</label>
+                                     <select required class="form-select" name="status" id="status">
+                                        <option value="">Chọn trạng thái</option>
+                                        <option value="done">chắc chắn tham gia</option>
+                                        <option value="think"  >suy nghĩ</option>
+                                        <option value="not_participate"  >không tham gia</option>
+                                        <option value="no_answer"  >không nghe máy </option>
+                                        <option value="other"  >Khác</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label class="form-label">Ghi chú  </label>
+                                      <textarea  class="form-control" rows="2" name="note"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">xác nhận  </button>
+                              </div>
+                             </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+
+<?php  }
+    } ?>
 
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/footer.php'); ?>

@@ -17,6 +17,7 @@ function listCustomerCampaign($input)
         $modelCampaigns = $controller->loadModel('Campaigns');
         $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
         $modelCustomers = $controller->loadModel('Customers');
+        $modelStaff = $controller->loadModel('Staffs');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
         if(!empty($_GET['id'])){
@@ -114,7 +115,7 @@ function listCustomerCampaign($input)
                         $listData[$key]->customer_avatar = @$checkCustomer->avatar;
 
                         // lịch sử chăm sóc
-                        $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id_customer])->order(['id'=>'desc'])->first();
+                        $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id_customer,'id_campaign'=>$value->id_campaign])->order(['id'=>'desc'])->first();
                     }
                 }
 
@@ -150,12 +151,16 @@ function listCustomerCampaign($input)
                     $urlPage = $urlPage . '?page=';
                 }
 
+                $conditions = array('id_member'=>$user->id);
+                $listStaff = $modelStaff->find()->where($conditions)->all()->toList();
+
                 setVariable('page', $page);
                 setVariable('totalPage', $totalPage);
                 setVariable('back', $back);
                 setVariable('next', $next);
                 setVariable('urlPage', $urlPage);
                 setVariable('totalData', $totalData);
+                setVariable('listStaff', $listStaff);
                 
                 setVariable('listData', $listData);
                 setVariable('infoCampaign', $infoCampaign);
@@ -428,3 +433,48 @@ function checkinCampaign($input)
         return $controller->redirect('/login');
     }
 }
+
+function addCallCustomerCampaign($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    $user = checklogin('listCampaign');   
+    if(!empty($user)){
+        $modelCampaigns = $controller->loadModel('Campaigns');
+        $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+        $modelCustomers = $controller->loadModel('Customers');
+        $modelStaff = $controller->loadModel('Staffs');
+        $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+        if(!empty($_GET['id'])){
+            $checkCampaign = $modelCampaignCustomers->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$user->id])->first();
+            if(!empty($checkCampaign)){
+                $checkCampaign->number_call += 1;
+                $checkCampaign->status = $_GET['status'];  
+                $data = $modelCustomerHistories->newEmptyEntity();
+                $data->id_customer = (int) $checkCampaign->id_customer;
+                $data->note_now = $_GET['note'];
+                $data->action_now = $_GET['action_now'];
+                $data->id_staff_now = $user->id;
+                $data->id_staff = (int)$_GET['id_staff'];
+                $data->status = $_GET['status'];
+                $data->id_campaign = $checkCampaign->id_campaign;
+                $data->number_call = $checkCampaign->number_call;
+                $data->time_now = time();
+                debug($data);
+                die;
+                $modelCustomerHistories->save($data);
+                $modelCampaignCustomers->save($checkCampaign);
+            }
+        }
+        return $controller->redirect('/listCustomerCampaign?id='.$checkCampaign->id_campaign);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+
+?>

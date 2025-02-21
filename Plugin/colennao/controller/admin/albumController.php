@@ -31,10 +31,16 @@ function addalbuminfos($input){
                     $infoPost->title_en = str_replace(array('"', "'"), '’', $dataSend['title_en']);
                     $infoPost->id_album = (int) $_GET['id_album'];
                     $infoPost->image = $dataSend['image'];
+                    $infoPost->image_mobile = $dataSend['image_mobile'];
                     if(!empty($dataSend['image_en'])){
                          $infoPost->image_en = $dataSend['image_en'];
                     }else{
                          $infoPost->image_en = $dataSend['image'];
+                    }
+                    if(!empty($dataSend['image_en_mobile'])){
+                         $infoPost->image_en_mobile = $dataSend['image_en_mobile'];
+                    }else{
+                         $infoPost->image_en_mobile = $dataSend['image_mobile'];
                     }
                     $infoPost->description = $dataSend['description'];
                     $infoPost->description_en = $dataSend['description_en'];
