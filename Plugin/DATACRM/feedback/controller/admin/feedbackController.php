@@ -119,6 +119,7 @@ function addFeedbackAdmin($input)
             $data->avatar = @$dataSend['avatar'];
             $data->position = @$dataSend['position'];
             $data->content = @$dataSend['content'];
+            
             $modelFeedback->save($data);
 
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';

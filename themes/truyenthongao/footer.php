@@ -9,7 +9,7 @@
                         <div class="col-md-4">
                             <div class="footer__brand">
                                 <img src="<?= @$settingThemes['logo'];?>" alt="<?= @$settingThemes['name_company'];?>" class="footer__logo">
-                                <p class="footer__name">PHONGTRUYENTHONGAO.COM</p>
+                                <p class="footer__name"><?php echo strtoupper($_SERVER['HTTP_HOST']);?></p>
                             </div>
                             <div class="footer__contact">
                                 <p class="footer__address">
@@ -62,7 +62,7 @@
                         <div class="col-md-12 d-flex align-items-center">
                             <div class="footer__logo">
                                 <p class="footer__copyright">
-                                    Copyright © 2024 PHONGTRUYENTHONGAO.COM. All rights reserved
+                                    Copyright © 2024 <?php echo strtoupper($_SERVER['HTTP_HOST']);?>. All rights reserved
                                 </p>
                             </div>
                         </div>
