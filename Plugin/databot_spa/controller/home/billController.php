@@ -108,6 +108,7 @@ function listCollectionBill($input){
 		}
 
 		$totalData = $modelBill->find()->where($conditions)->all()->toList();
+		
 		$total = 0;
 		if(!empty($totalData)){
 			foreach($totalData as $key => $value){

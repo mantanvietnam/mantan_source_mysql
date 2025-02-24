@@ -17,9 +17,7 @@
             <?= $this->Form->create(); ?>
             
             <div class="row">
-              <div class="col-md-6">
-                
-                <div class="mb-3">
+              <div class="col-md-6 mb-3">
                   <label class="form-label" for="basic-default-phone">chọn kênk like page </label>
                    <select name="chanel" id="chanel" class="form-select color-dropdown" required >
                 <option data-price='' value="">Chọn kênh</option>
@@ -38,12 +36,14 @@
               </select>
                 </div>
 
-                <!-- <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Hệ số nhân giá bán</label>
-                  <input required type="number" class="form-control phone-mask" name="multiplier" id="multiplier" value="<?php echo @$data['multiplier'];?>" />
-                </div> -->
-              </div>
-
+               <div class="col-md-6 mb-3">
+                <label class="form-label">Bân tắt chương trình  like page</label>
+                <select name="function_customerUpLikePage" class="form-select"  id="function_customerUpLikePage">
+                  <option value="on" <?php if(@$data['function_customerUpLikePage']=='on') echo 'selected';?> >Bật</option>
+                  <option value="off" <?php if(@$data['function_customerUpLikePage']=='off') echo 'selected';?> >Tắt</option>
+                </select>
+            </div>
+              
             </div>
 
               

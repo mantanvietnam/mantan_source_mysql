@@ -91,7 +91,7 @@ function saveRegisterCustomerAPI($input)
                 $conditions['phone'] = $dataSend['phone'];
                 $checkCustomer = $modelCustomer->find()->where($conditions)->first();
 
-                if(!empty($dataSend['email'])){
+                /*if(!empty($dataSend['email'])){
                     $checkEmail = $modelCustomer->find()->where(['email'=>$dataSend['email']])->first();
                     if(!empty($checkEmail)){
                         return array('code'=>3,
@@ -99,7 +99,7 @@ function saveRegisterCustomerAPI($input)
                             'messages'=>'Email này đã được đăng ký',
                         );
                     }
-                }
+                }*/
 
 
                 if(empty($checkCustomer)){
@@ -602,6 +602,7 @@ function getInfoUserCustomerAPI($input){
     global $isRequestPost;
     
     $modelCustomer = $controller->loadModel('Customers');
+    $modelUplikeHistories = $controller->loadModel('UplikeHistories');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -612,6 +613,14 @@ function getInfoUserCustomerAPI($input){
             if (!empty($user)) {
                 $user->linkinfo = $urlHomes.'infoCustomer?id='.$user->id;
                 $user->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$urlHomes.'infoCustomer?id='.$user->id;
+                $startOfDay = strtotime("today 00:00:00");
+                 $checktoday =  $modelUplikeHistories->find()->where(['type'=>'customer','create_at >'=>$startOfDay, 'id_member'=>$user->id])->first();
+                
+                if(!empty($checktoday)){
+                     $user->status_uplike = 1;
+                }else{
+                    $user->status_uplike = 0;
+                }
                
                 return array('code'=>1,'data'=> $user, 'messages'=>'Lấy dữ liệu thành công');
             }

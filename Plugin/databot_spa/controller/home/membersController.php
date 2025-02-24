@@ -124,9 +124,12 @@ function dashboard($input)
 		$conditBill['id_member'] = $user->id_member;
 		$conditBill['id_spa'] = $user->id_spa;
 		$modelBill = $controller->loadModel('Bills');
-		$order = array('created_at'=>'asc');
+		$order = array('time'=>'asc');
         $modelOrder = $controller->loadModel('Orders');
         $modelBook = $controller->loadModel('Books');
+
+        $conditBill['time >='] = strtotime('first day of this month 00:00:00');
+        $conditBill['time <='] = time();
 
 		$listDataBill = $modelBill->find()->where($conditBill)->order($order)->all()->toList();
 
@@ -186,18 +189,30 @@ function dashboard($input)
 
 		$totalbook = count($listBooking);
 
+		$days = [];
+		$month = date('n');
+		$year = date('Y');
+		$days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+		for ($day = 1; $day <= $days_in_month; $day++) {
+    		$days[] = $day.'-'.$month.'-'.$year;
+		}
+
 
 		
 		$total = 0;
 
 		$dayDataBill= array();
+		foreach ($days as $item) {
+	       	$dayTotalBill[$item] = 0;
+	    }
+
+
+
 
 		if(!empty($listDataBill)){
 			foreach ($listDataBill as $item) {
-				$time= @$item->created_at;
-				$time = strtotime($time);
+				$time= @$item->time;
 				$todayTime= getdate($time);
-
 	                      // tính doanh thu theo ngày
 				@$dayTotalBill[$todayTime['mday'].'-'.$todayTime['mon'].'-'.$todayTime['year']] += $item->total;
 				$total += $item->total; 
@@ -211,6 +226,9 @@ function dashboard($input)
 	            }
 	        }
 	    }
+
+
+
 	    setVariable('dayDataBill', $dayDataBill);
 	    setVariable('totalOrderproduct', $totalOrderproduct);
 	    setVariable('totalOrderService', $totalOrderService);

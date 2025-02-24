@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thống kê lượng dịch vụ sử dụng</h4>
+  <h4 class="fw-bold py-3 mb-4">Thống kê lượng dịch vụ sử dụng theo tháng</h4>
     <form method="get" action="">
         <div class="card mb-4">
             <h5 class="card-header">Tìm kiếm dữ liệu</h5>
@@ -84,23 +84,14 @@
             var data = google.visualization.arrayToDataTable([
               ['Ngày', 'Số lượng'],
               <?php 
-              // for($i=1;$i<32;$i++){
                     if(!empty(@$dayDataBill) ){
                         foreach($dayDataBill as $date=>$number){
-                          //  if ($i==date('d',$number["time"])) {
-                                echo '["'.date('d',$number["time"]).'",'.$number["value"].'],';
-                            // }else{
-                            //      echo '['.$i.',0],';
-                            // }
-                            
+                            echo '["'.date('d',$number["time"]).'",'.$number["value"].'],';
                         }
                     }else{
-
                         echo '["0",0],';
                     }
-                // }
-              ?>
-            ]);
+              ?>]);
 
             // var options = {
             //   title: '',

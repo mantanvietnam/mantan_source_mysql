@@ -150,9 +150,11 @@ function settingUpLikeCustomerAdmin($input){
 
         $value = array( 
                         'chanel' => $dataSend['chanel'],
+                        'function_customerUpLikePage' => $dataSend['function_customerUpLikePage'],
                     );
 
         $data->key_word = 'settingUpLikeCustomerAdmin';
+
         $data->value = json_encode($value);
 
         $modelOptions->save($data);
@@ -165,7 +167,7 @@ function settingUpLikeCustomerAdmin($input){
         $data_value = json_decode($data->value, true);
     }
     $listPrice = getListPriceOngTrum();
-    
+
 
     setVariable('data', $data_value);
     setVariable('mess', $mess);
