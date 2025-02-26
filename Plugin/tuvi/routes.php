@@ -2,4 +2,4 @@
 	global $routesPlugin;
 
 	// tài khoản cá nhân
-	$routesPlugin['login']= 'tuvi/view/home/customer/index.php';
+	$routesPlugin['registerform']= 'tuvi/view/home/customer/registerform.php';

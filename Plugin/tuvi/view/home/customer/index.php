@@ -1,1 +1,0 @@
-<?php getFileTheme('tuvi/index.php'); ?>

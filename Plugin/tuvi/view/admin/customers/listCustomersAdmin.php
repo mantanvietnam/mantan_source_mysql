@@ -41,11 +41,7 @@
             <th>ID</th>
             <th>Họ Tên</th>
             <th>Ngày Sinh</th>
-            <th>Giờ Sinh</th>
-            <th>Múi Giờ</th>
             <th>Giới Tính</th>
-            <th>Tháng Xem</th>
-            <th>Kiểu Lịch</th>
             <th>Email</th>
             <th>Số Điện Thoại</th>
           
@@ -70,12 +66,8 @@
                 echo '<tr>
                         <td>'.htmlspecialchars($item->id, ENT_QUOTES, 'UTF-8').'</td>
                         <td>'.htmlspecialchars($item->full_name, ENT_QUOTES, 'UTF-8').'</td>
-                        <td>'.htmlspecialchars($item->birth_date, ENT_QUOTES, 'UTF-8').'</td>
-                        <td>'.htmlspecialchars($item->birth_time, ENT_QUOTES, 'UTF-8').'</td>
-                        <td>'.htmlspecialchars($item->timezone, ENT_QUOTES, 'UTF-8').'</td>
+                        <td>'.htmlspecialchars(date('Y-m-d H:i:s', strtotime($item->birth_datetime)), ENT_QUOTES, 'UTF-8').'</td>
                         <td>'.htmlspecialchars($item->gender, ENT_QUOTES, 'UTF-8').'</td>
-                        <td>'.htmlspecialchars($item->view_month, ENT_QUOTES, 'UTF-8').'</td>
-                        <td>'.htmlspecialchars($item->calendar_type, ENT_QUOTES, 'UTF-8').'</td>
                         <td>'.htmlspecialchars($item->email, ENT_QUOTES, 'UTF-8').'</td>
                         <td>'.htmlspecialchars($item->phone_number, ENT_QUOTES, 'UTF-8').'</td>
                       </tr>';

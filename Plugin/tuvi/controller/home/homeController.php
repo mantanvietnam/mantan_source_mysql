@@ -1,94 +1,72 @@
 <?php
-function register_form($input)
-{
-    global $controller;
+function registerform($input) {
     global $metaTitleMantan;
+ 
+    global $controller;
     $metaTitleMantan = 'Đăng ký tài khoản';
-    $modelCustomer = $controller->loadModel('Customer');    
-    $conditions= array();
-    $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
-    $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
-    if ($page < 1) $page = 1;
-//đây là database CREATE TABLE customers (
- //   id INT AUTO_INCREMENT PRIMARY KEY,
-// full_name VARCHAR(255) NOT NULL,
-//    birth_date DATE NOT NULL,
- //   birth_time TIME NOT NULL,
- //   timezone VARCHAR(10) NOT NULL DEFAULT 'GMT+7',
- //   gender ENUM('Nam', 'Nữ') NOT NULL,
- //   view_year INT NOT NULL,
- //   view_month INT NOT NULL,
- //   calendar_type ENUM('Dương', 'Âm') NOT NULL DEFAULT 'Dương',
- //   email VARCHAR(255) UNIQUE NOT NULL,
- //   phone_number VARCHAR(15) UNIQUE NOT NULL,
- //   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    $modelCustomer = $controller->loadModel('customers');
+  
+    $mess = '';
 
-    if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
-        $conditions['id'] = $_GET['id'];
-    }
-    if (!empty($_GET['full_name'])) {
-        $conditions['full_name LIKE'] = '%' . $_GET['full_name'] . '%';
-    }
+    // Check if request is a POST
+    if ($input['request']->is('POST')) {
+        $dataSend = $input['request']->getData();
 
-    if (!empty($_GET['phone_number'])) {
-        $conditions['phone_number LIKE'] = '%' . $_GET['phone_number'] . '%';
-    }
+        // Validate required fields
+        if (!empty($dataSend['full_name']) &&
+            !empty($dataSend['phone_number']) &&
+            !empty($dataSend['email']) &&
+            !empty($dataSend['birth_day']) &&
+            !empty($dataSend['birth_month']) &&
+            !empty($dataSend['birth_year']) &&
+            !empty($dataSend['birth_hour']) &&
+            !empty($dataSend['birth_minute']) &&
+            !empty($dataSend['gender'])
+        ) {
+            $data = $modelCustomer->newEmptyEntity();
 
-    if (!empty($_GET['email'])) {
-        $conditions['email LIKE'] = '%' . $_GET['email'] . '%';
-    }
- if (!empty($_GET['birth_date'])) {
-        $conditions['birth_date LIKE'] = '%' . $_GET['birth_date'] . '%';
-    }
+            // Clean up phone number
+            $dataSend['phone_number'] = trim(str_replace(array(' ', '.', '-'), '', $dataSend['phone_number']));
+            $dataSend['phone_number'] = str_replace('+84', '0', $dataSend['phone_number']);
 
-    if (!empty($_GET['birth_time'])) {
-        $conditions['birth_time LIKE'] = '%' . $_GET['birth_time'] . '%';
-    }
-    if (!empty($_GET['timezone'])) {
-        $conditions['timezone LIKE'] = '%' . $_GET['timezone'] . '%';
-    }
+            // Check if the email is already registered
+            $conditions = ['email' => $dataSend['email']];
+            $checkCustomer = $modelCustomer->find()->where($conditions)->first();
 
-    if(!empty($_GET['excel']) && $_GET['excel']=='Excel'){
-        $listData = $modelCustomer->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
-        $titleExcel =   [
-            ['name'=>'ID', 'type'=>'text', 'width'=>10],
-            ['name'=>'Thời gian tạo', 'type'=>'text', 'width'=>25],
-            ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
-            ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
-            ['name'=>'Email', 'type'=>'text', 'width'=>25],  
-            ['name'=>'Ngày sinh', 'type'=>'text', 'width'=>25],  
-            ['name'=>'Giờ sinh', 'type'=>'text', 'width'=>25],  
-            ['name'=>'Múi giờ', 'type'=>'text', 'width'=>25],  
-            ['name'=>'Giới tính', 'type'=>'text', 'width'=>25],  
-            ['name'=>'Năm sinh', 'type'=>'text', 'width'=>25],  
-            ['name'=>'Tháng sinh', 'type'=>'text', 'width'=>25],  
-            ['name'=>'Loại lịch', 'type'=>'text', 'width'=>25],  
-        ];
-        $dataExcel = [];
-        if(!empty($listData)){
-            foreach ($listData as $key => $value) {
-                $dataExcel[] = [
-                    @$value->id,
-                    date('H:i d-m-Y', $value->created_at), 
-                    @$value->full_name,
-                    @$value->phone_number,
-                    @$value->email,
-                    @$value->birth_date,
-                    @$value->birth_time,
-                    @$value->timezone, ];
+            // If email is not already registered
+            if (empty($checkCustomer)) {
+                // Format birth datetime
+                $birth_datetime = sprintf(
+                    '%04d-%02d-%02d %02d:%02d:00',
+                    $dataSend['birth_year'],
+                    $dataSend['birth_month'],
+                    $dataSend['birth_day'],
+                    $dataSend['birth_hour'],
+                    $dataSend['birth_minute']
+                );
 
-    
+                // Set customer data
+                $data->full_name = $dataSend['full_name'];
+                $data->phone_number = $dataSend['phone_number'];
+                $data->email = $dataSend['email'];
+                $data->birth_datetime = $birth_datetime;
+                $data->gender = $dataSend['gender'];
 
-
-          } 
-        } export_excel($titleExcel, $dataExcel, 'Danh_sach_khach_hang');}
-        $listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
-        $totalCustomer= $modelCustomer->find()->where($conditions)->all()->toList();
-        $pagination = createPaginationMetaData(count($totalCustomer), $limit, $page);
-
-        if(!empty($listData)){
-            foreach ($listData as $key => $value) {
-                $listData[$key]->created_at = date('H:i d-m-Y', $value->created_at);
+                // Save data to the database
+                if ($modelCustomer->save($data)) {
+                    return $controller->redirect('/');
+                } else {
+                    $mess = '<p class="text-danger">Lỗi khi lưu dữ liệu. Vui lòng thử lại.</p>';
+                }
+            } else {
+                $mess = '<p class="text-danger">Email đã được đăng ký</p>';
             }
+        } else {
+            $mess = '<p class="text-danger">Vui lòng nhập đầy đủ thông tin</p>';
         }
     }
+
+    // Pass the message variable to the view
+    setVariable('mess', $mess);
+}
+?>
