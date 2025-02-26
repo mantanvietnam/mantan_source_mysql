@@ -108,9 +108,9 @@ function indexTheme($input)
         $slide_home = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['id_slide']])->all()->toList();
     }
 
-    $order = array('id' => 'asc');
+    $order = array('RAND()');
 
-    $listDatatop= $modelPosts->find()->limit(3)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
+    $listDatatop= $modelPosts->find()->limit(3)->where(array('type'=>'post'))->order($order)->all()->toList();
 
     // SẢN PHẨM NỔI BẬT
     $conditions = array('hot'=>1);
@@ -141,7 +141,7 @@ function indexTheme($input)
 
     //Sản phẩm bán chạy
     $conditions = array('hot'=>1);
-    $limit = 4;
+    $limit = 5;
     $page = 1;
     $order = ['RAND()'];
     $best_selling_products = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
@@ -155,7 +155,7 @@ function indexTheme($input)
     $comboProducts = $modelProduct->find()
         ->where(['id_category' => $comboCategory->id])
         ->order(['RAND()'])
-        ->limit(4)
+        ->limit(5)
         ->page(1)
         ->all()
         ->toList();
