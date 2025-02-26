@@ -1451,6 +1451,7 @@ function printInfoOrder($input){
         $modelBill = $controller->loadModel('Bills');
         $modelCustomer = $controller->loadModel('Customers');
         $modelDebts = $controller->loadModel('Debts');
+        $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
 
 
         if(!empty($_GET['id'])){
@@ -1465,6 +1466,8 @@ function printInfoOrder($input){
                 $data->bill = $bill;
                 if($bill->type_card==1){
                     $data->bill->typecollectionbill = 'Thẻ trả trước';
+                    $data->bill->infoCard = $modelCustomerPrepaycards->find()->where(['id'=>$bill->id_card])->first();
+
                 }else{
                     $data->bill->typecollectionbill = $type_collection_bill[@$bill->type_collection_bill];
                 }
@@ -1501,9 +1504,6 @@ function printInfoOrder($input){
             }
 
             $data->spa = getSpa($user->id_spa);
-
-          // debug($data);
-            // die;
 
             setVariable('user', $user);
             setVariable('data', $data);

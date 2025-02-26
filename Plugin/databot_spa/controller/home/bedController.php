@@ -400,12 +400,18 @@ function checkoutBed($input){
                 return $controller->redirect('/listRoomBed');
             }
 
-            if(!empty($data->id_customer)){
-                $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
-            }
             if(!empty($data->id_order)){
                 $data->order = $modelOrder->find()->where(array('id'=>$data->id_order))->first();
             }
+
+            if(!empty($data->id_customer)){
+                $customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
+                if(!empty($customer)){
+                     $customer->card = $modelCustomerPrepaycards->find()->where(['total >= '=>$data->order->total_pay, 'id_customer'=>$customer->id])->all()->toList();
+                }
+                $data->customer = $customer;
+            }
+           
 
             if(!empty($data->id_staff)){
                 $data->staff = $modelMember->find()->where(array('id'=>$data->id_staff))->first();
@@ -444,9 +450,6 @@ function checkoutBed($input){
 
             return $controller->redirect('/listRoomBed');
         }
-
-
-        
 
         setVariable('data', $data);
         setVariable('mess', @$mess);

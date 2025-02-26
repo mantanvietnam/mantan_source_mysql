@@ -37,9 +37,19 @@ function customerUpLikePageFacebookAPI($input)
             if(!empty($user)){
                 $startOfDay = strtotime("today 00:00:00");
                 $checktoday =  $modelUplikeHistories->find()->where(['type'=>'customer','create_at >'=>$startOfDay, 'id_member'=>$user->id])->first();
+                $checkIdpage =  $modelUplikeHistories->find()->where(['type'=>'customer','create_at >'=>$startOfDay, 'id_page'=> $dataSend['id_page']])->first();
+                $checkTokenDevice =  $modelUplikeHistories->find()->where(['type'=>'customer','create_at >'=>$startOfDay, 'token_device'=>$user->token_device])->first();
                 
                 if(!empty($checktoday)){
-                    return array('code'=>4,'mess'=>'Bạn dùng tăng like Fanpage hôm nay rồi ');
+                    return array('code'=>4,'mess'=>'Tài khoản của bạn dùng tăng like Fanpage hôm nay rồi ');
+                }
+
+                if(!empty($checkIdpage)){
+                    return array('code'=>4,'mess'=>'Fanpage của bạn dùng tăng like Fanpage hôm nay rồi ');
+                }
+
+                if(!empty($checkTokenDevice)){
+                    return array('code'=>4,'mess'=>'thiết bị của bạn dùng tăng like Fanpage hôm nay rồi ');
                 }
 
                 if(!empty($user->up_like>300)){
@@ -77,6 +87,7 @@ function customerUpLikePageFacebookAPI($input)
                     $saveRequest->create_at = time();
                     $saveRequest->status = 'Running';
                     $saveRequest->run = 0;
+                    $saveRequest->token_device = $user->token_device;
                     $saveRequest->id_request_buff = $sendOngTrum['id'];
                     $saveRequest->note_buff = json_encode($sendOngTrum);
                     $modelUplikeHistories->save($saveRequest);

@@ -498,6 +498,18 @@ $sqlInstallDatabase ."CREATE TABLE `token_devices` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
+$sqlInstallDatabase ."CREATE TABLE `staff_bonus` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_staff` INT NULL DEFAULT NULL,
+  `id_member` INT NULL DEFAULT NULL,
+  `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `status` INT NULL DEFAULT NULL,
+  `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `created_at` INT NULL DEFAULT NULL,
+  `money` INT NULL DEFAULT '0',
+  `id_spa` INT NULL DEFAULT NULL,
+   PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
  
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -528,6 +540,8 @@ $sqlDeleteDatabase .= "DROP TABLE agencys; ";
 $sqlDeleteDatabase .= "DROP TABLE zalo_templates; ";
 $sqlDeleteDatabase .= "DROP TABLE userservice_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE medical_histories; ";
+$sqlDeleteDatabase .= "DROP TABLE token_devices; ";
+$sqlDeleteDatabase .= "DROP TABLE staff_bonus; ";
 
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
@@ -836,7 +850,7 @@ $sqlUpdateDatabase['services']['image'] = "ALTER TABLE `services` ADD `image` te
 $sqlUpdateDatabase['services']['description'] = "ALTER TABLE `services` ADD `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['services']['created_at'] = "ALTER TABLE `services` ADD `created_at` datetime DEFAULT NULL; ";
 $sqlUpdateDatabase['services']['updated_at'] = "ALTER TABLE `services` ADD `updated_at` datetime DEFAULT NULL; ";
-$sqlUpdateDatabase['services']['duration'] = "ALTER TABLE `services` ADD `duration` int(11) DEFAULT NULL COMMENT 'thời lương ; ";
+$sqlUpdateDatabase['services']['duration'] = "ALTER TABLE `services` ADD `duration` int(11) DEFAULT NULL COMMENT 'thời lương'; ";
 $sqlUpdateDatabase['services']['slug'] = "ALTER TABLE `services` ADD `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['services']['status'] = "ALTER TABLE `services` ADD `status` tinyint(4) DEFAULT NULL; ";
 $sqlUpdateDatabase['services']['commission_staff_fix'] = "ALTER TABLE `services` ADD `commission_staff_fix` int(11) NOT NULL DEFAULT 0; ";
@@ -924,6 +938,15 @@ $sqlUpdateDatabase['token_devices']['token_device'] = "ALTER TABLE `token_device
 $sqlUpdateDatabase['token_devices']['id_member'] = "ALTER TABLE `token_devices` ADD `id_member` INT NOT NULL DEFAULT '0' ;";
 $sqlUpdateDatabase['token_devices']['token'] = "ALTER TABLE `token_devices` ADD `token` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['token_devices']['type'] = "ALTER TABLE `token_devices` ADD `type` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['staff_bonus']['id_staff'] = "ALTER TABLE `staff_bonus` ADD `id_staff` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_bonus']['id_member'] = "ALTER TABLE `staff_bonus` ADD `id_member` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_bonus']['note'] = "ALTER TABLE `staff_bonus` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_bonus']['status'] = "ALTER TABLE `staff_bonus` ADD `status` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_bonus']['type'] = "ALTER TABLE `staff_bonus` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_bonus']['created_at'] = "ALTER TABLE `staff_bonus` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_bonus']['money'] = "ALTER TABLE `staff_bonus` ADD `money` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['staff_bonus']['id_spa'] = "ALTER TABLE `staff_bonus` ADD `id_spa` INT NULL DEFAULT NULL;";
 
 /*-- Bước 1: Thêm cột tạm kiểu INT
 ALTER TABLE userservice_histories ADD COLUMN temp_int INT;

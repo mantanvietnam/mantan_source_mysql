@@ -27,4 +27,5 @@ include('model/transaction_histories.php'); // lịch sử giao dịch nạp ti�
 include('model/agency.php'); // lịch sử giao dịch nạp tiền
 include('model/medical_historie.php'); // lịch sử khám bệnh
 include('model/tokenDevices.php'); // lịch sử khám bệnh
+include('model/staff_bonu.php'); // lịch sử khám bệnh
 ?>

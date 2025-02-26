@@ -17,8 +17,14 @@ function createMemberAPI($input)
 
 		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-		$dataSend['password'] = $dataSend['phone'];
+		if(!empty($dataSend['password'])){
+			if($dataSend['password']!=$dataSend['password_again']){
+				return apiResponse(4,'Mật khẩu nhập lại không dúng');
+			}
+		}else{
+			$dataSend['password'] = $dataSend['phone'];	
+		}
+		
 
 		if(!empty($dataSend['name_spa']) && !empty($dataSend['phone'])){
 			
@@ -82,15 +88,15 @@ function createMemberAPI($input)
 				}
 				
 
-				$return = apiResponse(1,'Đăng ký phần mền quản lý SPA thành công',$data);
+					return apiResponse(1,'Đăng ký phần mền quản lý SPA thành công',$data);
 			}else{
-				$return = apiResponse(3,'Số điện thoại đã tồn tại');
+				return apiResponse(3,'Số điện thoại đã tồn tại');
 			}
 		}else{
-			$return = apiResponse( 2, 'Gửi thiếu dữ liệu');
+				return apiResponse( 2, 'Gửi thiếu dữ liệu');
 		}
 	}else{
-		$return = apiResponse(0,'Gửi thiếu dữ liệu');
+		return  apiResponse(0,'Gửi thiếu dữ liệu');
 	}
 	
 }
@@ -167,7 +173,6 @@ function logoutAPI($input)
 	
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-
 		if(!empty($dataSend['token'])){
 			$checkPhone = $modelTokenDevice->find()->where(['token'=>$dataSend['token']])->first();
 
@@ -181,20 +186,14 @@ function logoutAPI($input)
 				
 				$modelTokenDevice->delete($checkPhone);
 
-				$return = array('code'=>1, 'mess'=>'Đằng xuất thành công');
-			}else{
-				$return = array('code'=>3,
-								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
-							);
+				return apiResponse(1, 'Đăng xuất thành công');
 			}
-		}else{
-			$return = array('code'=>2,
-							'mess'=> 'Gửi thiếu dữ liệu'
-						);
+				return apiResponse(3,'Tài khoản không tồn tại hoặc sai token');
+			
 		}
+			return apiResponse(2,'Gửi thiếu dữ liệu');
+		
 	}
-
-	return $return;
 }
 
 function requestCodeForgotPasswordAPI($input)
@@ -221,23 +220,15 @@ function requestCodeForgotPasswordAPI($input)
 				$checkPhone->code_otp = $code;
 				$modelMember->save($checkPhone);
 				sendEmailNewPassword($checkPhone->email, $checkPhone->name, $code);
-
-				$return = array('code'=>1,
-								'codeForgotPassword' => $code,
-								'mess'=> 'Gửi email mã xác thực thành công'
-							);
+				apiResponse(1,'Gửi email mã xác thực thành công');
 			}else{
-				$return = array('code'=>3,
-								'mess'=> 'Tài khoản chưa cài email'
-							);
+				apiResponse(3,'Tài khoản chưa cài email');
 			}
 		}else{
-			$return = array('code'=>2,
-							'mess'=> 'Gửi thiếu dữ liệu hoặc sai định dạng số điện thoại'
-						);
+			apiResponse(2,'Gửi thiếu dữ liệu hoặc sai định dạng số điện thoại');
 		}
 	}
-	return $return;
+	return  apiResponse(0,'Gửi thiếu dữ liệu');
 }
 
 function saveNewPassAPI($input)

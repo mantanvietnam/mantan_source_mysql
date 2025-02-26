@@ -79,7 +79,7 @@
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>'.date('H:i d/m/Y', strtotime($item->created_at)).'</td>
+                          <td>'.date('H:i d/m/Y', $item->created_at).'</td>
                           <td>'.$item->infoPrepayCard->name.'</td>
                           <td> '.$item->infoCustomer->name.'<br/>
                             '.$item->infoCustomer->phone.'<br/>

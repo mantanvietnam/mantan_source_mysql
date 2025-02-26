@@ -125,6 +125,12 @@
                                     <td class="text-right" colspan="">hình thức thanh toán:</td>
                                      <td colspan="2"><b><?php echo $data->bill->typecollectionbill;?></b></td>
                                 </tr>
+                                <?php if(!empty($data->bill->infoCard)){ ?>
+                                     <tr>
+                                    <td class="text-right" colspan="">Tiền còn trong thẻ trả trước:</td>
+                                    <td colspan="2"><b><?php echo number_format($data->bill->infoCard->total);?>đ</b></td>
+                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

@@ -27,6 +27,7 @@ $sqlInstallDatabase .= "CREATE TABLE `uplike_histories` (
   `run` INT NOT NULL DEFAULT '0',
   `minute` INT NOT NULL DEFAULT '0',
   `type` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'member',
+  `token_device` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 
@@ -49,3 +50,4 @@ $sqlUpdateDatabase['uplike_histories']['note_buff'] = "ALTER TABLE `uplike_histo
 $sqlUpdateDatabase['uplike_histories']['run'] = "ALTER TABLE `uplike_histories` ADD `run` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['uplike_histories']['minute'] = "ALTER TABLE `uplike_histories` ADD `minute` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['uplike_histories']['type'] = "ALTER TABLE `uplike_histories` ADD `type` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'member';";
+$sqlUpdateDatabase['uplike_histories']['token_device'] = "ALTER TABLE `uplike_histories` ADD `token_device` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
