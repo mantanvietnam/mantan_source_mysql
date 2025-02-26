@@ -16,7 +16,8 @@ function parameterSettingAdmin($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
 
-        $value = array('transaction_fee' => @$dataSend['transaction_fee']
+        $value = array('transaction_fee' => @$dataSend['transaction_fee'],
+                        'id_post_policy' => @$dataSend['id_post_policy']
          );
         $data->key_word = 'parameterSetting';
         $data->value = json_encode($value);

@@ -12,6 +12,10 @@
           <label class="form-label">Phí ghép ảnh </label>
           <input type="text" class="form-control phone-mask" name="transaction_fee" id="transaction_fee" value="<?php echo @$setting['transaction_fee'];?>"/>
       </div>
+       <div class="col-md-6 mb-3">
+          <label class="form-label">ID bài viết chính sách</label>
+          <input type="text" class="form-control phone-mask" name="id_post_policy" id="id_post_policy" value="<?php echo @$setting['id_post_policy'];?>"/>
+      </div>
       
 
     <div class="mb-3 col-md-12">

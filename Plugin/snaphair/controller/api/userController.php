@@ -555,15 +555,7 @@ function updateUserApi($input): array
         }
 
         if (isset($dataSend['email'])) {
-            $checkEmail = $modelUser->find()
-                ->where([
-                    'email' => $dataSend['email'],
-                    'id <>' => $currentUser->id,
-                ])->first();
-
-            if (!empty($checkEmail)) {
-                return apiResponse(4, 'Email đã được sử dụng');
-            }
+           
             $currentUser->email = $dataSend['email'];
         }
 
@@ -599,7 +591,7 @@ function updateUserApi($input): array
 		}
 
         if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-            $avatars = uploadImage($ $currentUser->phone, 'avatar', 'avatar_'.$ $currentUser->phone);
+            $avatars = uploadImage($currentUser->phone, 'avatar', 'avatar_'.$currentUser->phone);
 	        if(!empty($avatars['linkOnline'])){
 	            $currentUser->avatar = $avatars['linkOnline'];
 	        }
@@ -652,5 +644,36 @@ function deleteUserApi($input): array
     }
 
     return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function getInfoUserAPI($input)
+{
+    global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(2, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            
+
+            return apiResponse(1, 'Lấy dữ liệu thành công', $currentUser);
+        }
+
+    }
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+
 }
  ?>

@@ -372,11 +372,11 @@ function checkLoginMemberAPI($input)
 		if(!empty($dataSend['phone']) && !empty($dataSend['password'])){
 				$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']), 'status'=>'active' ))->first();
 				$checkStaff = $modelStaff->find()->where(array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']), 'status'=>'active' ))->first();
-
+			if(empty($dataSend['token_device'])){
+				$dataSend['token_device'] = createToken();
+			}	
 			if(!empty($checkPhone)){
-				if(empty($dataSend['token_device'])){
-					$dataSend['token_device'] = createToken();
-				}
+				
 
 				/*
 				if(!empty($dataSend['token_device']) && $checkPhone->token_device != $dataSend['token_device']){

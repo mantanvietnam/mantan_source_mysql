@@ -35,9 +35,9 @@ function listCampaign($input)
         $listData = $modelCampaigns->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         
         foreach ($listData as $key => $value) {
-            $customer_reg = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$session->read('infoUser')->id])->all()->toList();
-            $customer_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$session->read('infoUser')->id, 'time_checkin >'=>0])->all()->toList();
-            $yet_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$session->read('infoUser')->id, 'time_checkin'=>0])->all()->toList();
+            $customer_reg = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$user->id])->all()->toList();
+            $customer_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$user->id, 'time_checkin >'=>0])->all()->toList();
+            $yet_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$user->id, 'time_checkin'=>0])->all()->toList();
 
             $listData[$key]->number_reg = count($customer_reg);
             $listData[$key]->number_checkin = count($customer_checkin);
@@ -139,7 +139,7 @@ function addCampaign($input)
                 }
 
                 if(empty($img_logo)){
-                    $system = $modelCategories->find()->where(['id'=>(int) $session->read('infoUser')->id_system])->first();
+                    $system = $modelCategories->find()->where(['id'=>(int) $user->id_system])->first();
 
                     if(!empty($system->image)){
                         $img_logo = $system->image;
@@ -154,7 +154,7 @@ function addCampaign($input)
                 }
 
                 if(empty($image)){
-                    $system = $modelCategories->find()->where(['id'=>(int) $session->read('infoUser')->id_system])->first();
+                    $system = $modelCategories->find()->where(['id'=>(int) user->id_system])->first();
 
                     if(!empty($system->image)){
                         $image = $system->image;
@@ -248,7 +248,7 @@ function deleteCampaign($input){
             if($data){
                 $note = $user->type_tv.' '. $user->name.' xóa thông tin chiến dịch sự kiện '.$data->name.' có id là:'.$data->id;
                 addActivityHistory($user,$note,'deleteAffiliaterAgency',$data->id);
-                $modelCampaignCustomers->deleteAll(['id_campaign'=>$data->id, 'id_member'=>$session->read('infoUser')->id]);
+                $modelCampaignCustomers->deleteAll(['id_campaign'=>$data->id, 'id_member'=>user->id]);
                 $modelCampaigns->delete($data);
             }
         }

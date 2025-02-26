@@ -37,4 +37,23 @@ function detailPostAPI($input){
 
    return $return;
 }
+
+
+function getInfoContactAPI($input){
+    global $modelOptions;
+    $conditions = array('key_word' => 'contact_site');
+    $contact_site = $modelOptions->find()->where($conditions)->first();
+
+    $contact_site_value = array();
+        if(!empty($contact_site->value)){
+            $contact_site_value = json_decode($contact_site->value, true);
+        }
+
+
+    return apiResponse(0, 'Lấy dữ liệu thành công', $contact_site_value);
+}
+
+function getParameterAPI(){
+    return apiResponse(1, 'Lấy dữ liệu thành công', getParameter());
+}
  ?>

@@ -81,6 +81,7 @@
             <th>Người đăng ký</th>
             <th>Tên miền</th>
             <th>Database</th>
+            <th>Sửa </th>
             <th>Xóa</th>
           </tr>
         </thead>
@@ -125,6 +126,10 @@
                             '.$item->user_db.'<br/>
                             '.$item->pass_db.'
                         </td>
+                        <td align="center"><a class="dropdown-item" href="/plugins/admin/data_crm-views-admin-addRegAdmin/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a>
+                          </td>
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/data_crm-views-admin-deleteRegAdmin/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>

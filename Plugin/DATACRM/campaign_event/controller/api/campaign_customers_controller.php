@@ -661,4 +661,52 @@ function getCustomerCampaignAPI($input)
 
  return $return;
 }
+
+function addCallCustomerCampaignAPI($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $isRequestPost;
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token']) && !empty($dataSend['id_campaign']) && !empty($dataSend['id_customer']) && !empty($dataSend['action_now']) && !empty($dataSend['id_staff']) && !empty($dataSend['status'])){
+            $user = getMemberByToken($dataSend['token']);
+
+            if(!empty($user)){
+                $modelCampaigns = $controller->loadModel('Campaigns');
+                $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+                $modelCustomers = $controller->loadModel('Customers');
+                $modelStaff = $controller->loadModel('Staffs');
+                $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+                $checkCampaign = $modelCampaignCustomers->find()->where(['id_campaign'=>(int) $dataSend['id_campaign'],'id_customer'=>(int) $dataSend['id_customer'], 'id_member'=>$user->id])->first();
+                if(!empty($checkCampaign)){
+                    $checkCampaign->number_call += 1;
+                    $checkCampaign->id_staff = (int)$dataSend['id_staff'];
+                    $checkCampaign->status = $dataSend['status'];  
+                    $data = $modelCustomerHistories->newEmptyEntity();
+                    $data->id_customer = (int) $checkCampaign->id_customer;
+                    $data->note_now = $dataSend['note'];
+                    $data->action_now = $dataSend['action_now'];
+                    $data->id_staff_now = $user->id;
+                    $data->id_staff = (int)$dataSend['id_staff'];
+                    $data->status = $dataSend['status'];
+                    $data->id_campaign = $checkCampaign->id_campaign;
+                    $data->number_call = $checkCampaign->number_call;
+                    $data->time_now = time();
+                 
+                    $modelCustomerHistories->save($data);
+                    $modelCampaignCustomers->save($checkCampaign);
+
+                    return array('code'=>1, 'mess'=>'bạn xác nhận thành công' ,'data'=>$data);
+                }
+                return array('code'=>4, 'mess'=>'Dữ liệu không tồn tại');
+            }
+            return array('code'=>3, 'mess'=>'Sai mã token');
+        }
+        return array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+    }
+    return array('code'=>0, 'mess'=>'Dữ liệu phải là POST');
+}
 ?>

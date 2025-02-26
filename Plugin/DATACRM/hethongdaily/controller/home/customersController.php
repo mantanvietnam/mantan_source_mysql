@@ -20,7 +20,7 @@ function listCustomerAgency($input)
         $modelCustomers = $controller->loadModel('Customers');
         $modelOrders = $controller->loadModel('Orders');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
-
+        $modelCampaigns = $controller->loadModel('Campaigns');
         // danh sách nhóm khách hàng
         $conditions = array('type' => 'group_customer', 'parent'=>$user->id);
         $listGroup = $modelCategories->find()->where($conditions)->all()->toList();
@@ -31,7 +31,9 @@ function listCustomerAgency($input)
             }
         }
 
-        $conditions = array('CategoryConnects.id_category'=>$user->id, 'CategoryConnects.keyword'=>'member_customers');
+        $listCampaign = $modelCampaigns->find()->where(['id_member'=>$user->id])->all()->toList();
+
+        $conditions = array('CategoryConnects.keyword'=>'member_customers');
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -44,6 +46,15 @@ function listCustomerAgency($input)
                 'conditions' => [
                     'Customers.id = CategoryConnects.id_parent'
                 ],
+            ],
+
+            [
+                'table' => 'campaign_customers',
+                'alias' => 'campaignCustomers',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'Customers.id = campaignCustomers.id_customer'
+                ],
             ]
         ];
 
@@ -54,8 +65,14 @@ function listCustomerAgency($input)
         }
 
         if(!empty($_GET['id_group'])){
-            $conditions['CategoryConnects.id_category'] = (int) $_GET['id_group'];
+            $conditions['CategoryConnects.id_category IN'] = $_GET['id_group'];
             $conditions['CategoryConnects.keyword'] = 'group_customers';
+        }else{
+            $conditions['CategoryConnects.id_category IN'] = $user->id;
+        }
+
+         if(!empty($_GET['id_campaign'])){
+            $conditions['campaignCustomers.id_campaign IN'] = $_GET['id_campaign'];
         }
 
         if(!empty($_GET['full_name'])){
@@ -85,7 +102,7 @@ function listCustomerAgency($input)
         if(!empty($_GET['email'])){
             $conditions['Customers.email'] = $_GET['email'];
         }
-
+        
         if(!empty($_GET['action']) && $_GET['action']=='Excel'){
             $listData = $modelCustomers->find()->join($join)->select($select)->where($conditions)->order($order)->all()->toList();
             
@@ -139,7 +156,7 @@ function listCustomerAgency($input)
                     $listData[$key]->number_order = count($order);
 
                     // lịch sử chăm sóc
-                    $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id, 'id_staff_now'=>$user->id])->order(['id'=>'desc'])->first();
+                    $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>@$value->id, 'id_staff_now'=>@$user->id])->order(['id'=>'desc'])->first();
 
                     // nhóm khách hàng
                     $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $value->id])->all()->toList();
@@ -203,6 +220,7 @@ function listCustomerAgency($input)
         setVariable('totalData', $totalData);
         
         setVariable('listData', $listData);
+        setVariable('listCampaign', $listCampaign);
         setVariable('listGroup', $listGroup);
     }else{
         return $controller->redirect('/login');

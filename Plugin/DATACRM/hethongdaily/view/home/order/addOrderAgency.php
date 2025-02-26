@@ -416,25 +416,56 @@ if(!empty($listPositions)){
         echo '  listPositions['.$key.'] = {};
                 listPositions['.$key.']["minMoney"] = '.(int) $value->keyword.';
                 listPositions['.$key.']["discount"] = '.(int) $value->description.';
+                listPositions['.$key.']["id_discount"] = '.(int) $value->id.';
             ';
     }
 }
 ?>
 
-function checkDiscountConfig(money)
+
+function discountConfig(money , id_position)
 {
     var discount = 0;
-
     Object.keys(listPositions).forEach(function(key) {
-        if(money >= listPositions[key]['minMoney']){
+        if(money >= listPositions[key]['minMoney'] && id_position==listPositions[key]['id_discount']){
             discount = listPositions[key]['discount'];
+
         }
     });
 
     $('#promotion').val(discount);
 
-    return discount;
 }
+
+function checkDiscountConfig(money)
+{
+    var discount = 0;
+    var id_member_buy = $('#id_member_buy').val();
+    var id_position = 0;
+    $.ajax({
+          method: "POST",
+          url: "/apis/getInfoMemberMyAPI",
+          data: { 
+            id: id_member_buy,
+        }
+    }).done(function( msg ) {
+            if(msg.code==0){
+                id_position = msg.data.id_position;
+                discountConfig(money , id_position);
+             }
+               
+        });
+            
+
+   // console.log(idDiscount);
+    // console.log(id_member_buy);
+
+    
+
+    // return discount;
+}
+
+
 
 // all sản phầm vào đơn hàng 
 function addProduct(id, name, priceProduct, type,unit)

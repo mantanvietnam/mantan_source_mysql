@@ -621,6 +621,10 @@ function getInfoUserCustomerAPI($input){
                 }else{
                     $user->status_uplike = 0;
                 }
+
+                if(empty($user->up_like)){
+                     $user->up_like = 100;
+                }
                
                 return array('code'=>1,'data'=> $user, 'messages'=>'Lấy dữ liệu thành công');
             }

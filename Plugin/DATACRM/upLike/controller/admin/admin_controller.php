@@ -48,6 +48,7 @@ function listUplikeHistoriesAdmin($input)
     $mess = '';
 
     $modelMembers = $controller->loadModel('Members');
+    $modelCustomer = $controller->loadModel('Customers');
     $modelUplikeHistories = $controller->loadModel('UplikeHistories');
     
     $conditions = array();
@@ -70,7 +71,13 @@ function listUplikeHistoriesAdmin($input)
 
     if(!empty($listData)){
         foreach ($listData as $key => $value) {
-            $listData[$key]->info_member = $modelMembers->find()->where(['id'=>$value->id_member])->first();
+            if($value->type=='member'){
+                 $listData[$key]->info_member = $modelMembers->find()->where(['id'=>$value->id_member])->first();
+             }else{
+                 $listData[$key]->info_member = $modelCustomer->find()->where(['id'=>$value->id_member])->first();
+
+             }
+           
 
             if($value->status == 'Running'){
                 $checkStatus = checkRequestOngTrum($value->id_request_buff, $value->type_page);

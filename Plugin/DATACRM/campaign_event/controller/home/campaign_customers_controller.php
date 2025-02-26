@@ -18,6 +18,7 @@ function listCustomerCampaign($input)
         $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
         $modelCustomers = $controller->loadModel('Customers');
         $modelStaff = $controller->loadModel('Staffs');
+        $modelMember = $controller->loadModel('Members');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
         if(!empty($_GET['id'])){
@@ -28,7 +29,7 @@ function listCustomerCampaign($input)
                 $infoCampaign->team = json_decode($infoCampaign->team, true);
                 $infoCampaign->ticket = json_decode($infoCampaign->ticket, true);
 
-                $conditions = array('id_member'=>$session->read('infoUser')->id, 'id_campaign'=>(int) $_GET['id']);
+                $conditions = array('id_member'=>$user->id, 'id_campaign'=>(int) $_GET['id']);
                 $limit = 20;
                 $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
                 if($page<1) $page = 1;
@@ -55,6 +56,15 @@ function listCustomerCampaign($input)
                 if(!empty($_GET['id_ticket'])){
                     $conditions['id_ticket'] = (int) $_GET['id_ticket'];
                 }
+
+                if(!empty($_GET['status'])){
+                    $conditions['status IN'] = $_GET['status'];
+                }
+
+                if(isset($_GET['id_staff'])){
+                    $conditions['id_staff'] = $_GET['id_staff'];
+                }
+
 
                 if(!empty($_GET['checkin'])){
                     if($_GET['checkin']==1){
@@ -115,7 +125,15 @@ function listCustomerCampaign($input)
                         $listData[$key]->customer_avatar = @$checkCustomer->avatar;
 
                         // lịch sử chăm sóc
-                        $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id_customer,'id_campaign'=>$value->id_campaign])->order(['id'=>'desc'])->first();
+                        $history = $modelCustomerHistories->find()->where(['id_customer'=>@$value->id_customer,'id_campaign'=>@$value->id_campaign])->order(['id'=>'desc'])->first();
+                        if(!empty($history)){
+                            if(!empty($history->id_staff)){
+                                $history->staff = $modelStaff->find()->where(['id'=>$history->id_staff])->first();
+                            }else{
+                                $history->staff = $modelMember->find()->where(['id'=>$history->id_staff_now])->first();
+                            }
+                            $listData[$key]->history = $history;
+                        }
                     }
                 }
 
@@ -232,7 +250,7 @@ function addCustomerCampaign($input)
                     $customer = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
 
                     if(empty($customer)){
-                        $customer = createCustomerNew($dataSend['full_name'], $dataSend['phone'], '', '', 0, 0, $session->read('infoUser')->id);
+                        $customer = createCustomerNew($dataSend['full_name'], $dataSend['phone'], '', '', 0, 0, $user->id);
                     }
 
                     // tạo dữ liệu save
@@ -258,8 +276,8 @@ function addCustomerCampaign($input)
 
                             // bắn thông báo khách đăng ký hoặc checkin chiến dịch
                             if( 
-                                (!empty($session->read('infoUser')->noti_reg_campaign) && empty($dataSend['checkin'])) ||
-                                (!empty($session->read('infoUser')->noti_checkin_campaign) && !empty($dataSend['checkin']))
+                                (!empty($user->noti_reg_campaign) && empty($dataSend['checkin'])) ||
+                                (!empty($user->noti_checkin_campaign) && !empty($dataSend['checkin']))
                             
                             ){
                                 $actionCampaign = 'đăng ký tham gia';
@@ -453,6 +471,7 @@ function addCallCustomerCampaign($input){
             $checkCampaign = $modelCampaignCustomers->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$user->id])->first();
             if(!empty($checkCampaign)){
                 $checkCampaign->number_call += 1;
+                $checkCampaign->id_staff = (int)$_GET['id_staff'];
                 $checkCampaign->status = $_GET['status'];  
                 $data = $modelCustomerHistories->newEmptyEntity();
                 $data->id_customer = (int) $checkCampaign->id_customer;
@@ -464,8 +483,7 @@ function addCallCustomerCampaign($input){
                 $data->id_campaign = $checkCampaign->id_campaign;
                 $data->number_call = $checkCampaign->number_call;
                 $data->time_now = time();
-                debug($data);
-                die;
+                
                 $modelCustomerHistories->save($data);
                 $modelCampaignCustomers->save($checkCampaign);
             }

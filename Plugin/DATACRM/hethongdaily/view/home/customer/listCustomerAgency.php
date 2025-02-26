@@ -1,7 +1,53 @@
 <?php include(__DIR__.'/../header.php'); ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
+<style>
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
 
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content label {
+  display: block;
+  margin: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown2 {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content2 {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content2 label {
+  display: block;
+  margin: 10px;
+}
+
+.dropdown2:hover .dropdown-content2 {
+  display: block;
+}
+</style>
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listCustomerAgency">Khách hàng</a> /</span>
     Danh sách khách hàng
@@ -35,22 +81,52 @@
             <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-2 dropdown">
             <label class="form-label">Nhóm khách hàng</label>
-            <select name="id_group" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
+            <button class="form-select color-dropdown" >chọn nhóm </button>
+            <!-- <select name="id_group[]" class="form-select color-dropdown">
+              <option value="">Tất cả</option> -->
+              <div class="dropdown-content">
+                <label><input type="checkbox" name="id_group[]" onclick="checkboxAll(this,'checkAll');" value="'.$value->id.'">&nbsp; Chọn tất cả </label>
               <?php 
               if(!empty($listGroup)){
                 foreach ($listGroup as $key => $value) {
-                  if(empty($_GET['id_group']) || $_GET['id_group']!=$value->id){
-                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                  if(empty($_GET['id_group']) || in_array($value->id, $_GET['id_group'])){
+                    // echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                    echo '<label><input type="checkbox" class="checkAll" name="id_group[]" checked value="'.$value->id.'"> &nbsp; '.$value->name.'</label>';
                   }else{
-                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                    // echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                    echo '<label><input type="checkbox" class="checkAll" name="id_group[]"  value="'.$value->id.'"> &nbsp; '.$value->name.'</label>';
                   }
                 }
               }
               ?>
-            </select>
+            </div>
+            <!-- </select> -->
+          </div>
+
+          <div class="col-md-2 dropdown2">
+            <label class="form-label">Chiến dịch</label>
+            <button class="form-select color-dropdown2" >chọn chiến dịch </button>
+            <!-- <select name="id_group[]" class="form-select color-dropdown">
+              <option value="">Tất cả</option> -->
+              <div class="dropdown-content2">
+                <label><input type="checkbox" name="id_campaign[]" onclick="checkboxAll(this,'checkAllcampaign');" value="'.$value->id.'">&nbsp; Chọn tất cả</label>
+              <?php 
+              if(!empty($listCampaign)){
+                foreach ($listCampaign as $key => $value) {
+                  if(empty($_GET['id_campaign']) || in_array($value->id, $_GET['id_campaign'])){
+                    // echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                    echo '<label><input type="checkbox" class="checkAllcampaign" name="id_campaign[]" checked value="'.$value->id.'"> &nbsp; '.$value->name.'</label>';
+                  }else{
+                    // echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                    echo '<label><input type="checkbox" class="checkAllcampaign" name="id_campaign[]"  value="'.$value->id.'"> &nbsp; '.$value->name.'</label>';
+                  }
+                }
+              }
+              ?>
+            </div>
+            <!-- </select> -->
           </div>
 
           <div class="col-md-2">
@@ -345,5 +421,16 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+
+<script>
+
+  function checkboxAll(source, className) {
+    const checkboxes = document.getElementsByClassName(className);
+    for(let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = source.checked;
+    }
+  }
+                                  
+</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

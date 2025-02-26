@@ -61,10 +61,17 @@
               <?php
               if(!empty($listData)){
                 foreach ($listData as $key => $value) {
+                  $info = '';
+                  if($value->type=='member'){
+                    $info = 'Đại lý: '.$value->info_member->name.'<br/>Số điện thoại '.$value->info_member->phone;
+                  }else{
+                    $info = 'Khách hàng: '.$value->info_member->full_name.'<br/>Số điện thoại '.$value->info_member->phone;
+                  }
+
                   echo '<tr>
                           <td>'.date('H:i d/m/Y', $value->create_at).'<br/>ID request<br/>'.$value->id_request_buff.'</td>
                           <td><a href="'.$value->url_page.'" target="_blank">'.$value->id_page.'</a></td>
-                          <td>'.$value->info_member->phone.'</td>
+                          <td>'.$info.'</td>
                           <td>'.number_format($value->run).'/'.number_format($value->number_up).'</td>
                           <td>'.number_format($value->money).'đ</td>
                           <td>'.$value->status.'</td>

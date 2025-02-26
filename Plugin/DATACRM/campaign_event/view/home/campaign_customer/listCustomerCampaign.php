@@ -3,6 +3,30 @@
   .text_p{
     margin: 0px;
   }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content label {
+  display: block;
+  margin: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 </style>
 <div class="container-xxl flex-grow-1 container-p-y">
 
@@ -98,18 +122,35 @@
               
             </select>
           </div>
-          <div class="col-md-3">
-            <label class="form-label">Trạng thái</label>
-            <select required class="form-select" name="status" id="status">
-              <option value="">Chọn trạng thái</option>
-              <option value="done"<?php if(!empty($_GET['status']) && $_GET['status']=='done') echo 'selected';?>>chắc chắn tham gia</option>
-              <option value="think"<?php if(!empty($_GET['status']) && $_GET['status']=='think') echo 'selected';?>>suy nghĩ</option>
-              <option value="not_participate"<?php if(!empty($_GET['status']) && $_GET['status']=='not_participate') echo 'selected';?>>không tham gia</option>
-              <option value="no_answer"<?php if(!empty($_GET['status']) && $_GET['status']=='no_answer') echo 'selected';?>>không nghe máy </option>
-              <option value="other"<?php if(!empty($_GET['status']) && $_GET['status']=='other') echo 'selected';?>>Khác</option>
+           <div class="col-md-3">
+            <label class="form-label">Nhân viên</label>
+            <select name="id_staff" class="form-select color-dropdown">
+              <option value="0">Boss </option>
+              <?php
+              if(!empty($listStaff)){
+                foreach($listStaff as $value){
+                  $selected = '';
+                  if($_GET['id_staff']==$value->id){
+                    $selected = 'selected';
+                  }
+                  echo '<option '.$selected.' value="'.$value->id.'">'.$value->name.'</option>';
+                }
+              }
+              ?>
             </select>
           </div>
-          
+          <div class="col-md-2 dropdown">
+            <label class="form-label">Trạng thái</label>
+            <button class="form-select color-dropdown" >chọn trạng thái</button>
+            <div class="dropdown-content">
+              <label><input type="checkbox" name="status[]" value="done" <?php if(!empty($_GET['status']) && in_array('done',$_GET['status'])) echo 'checked';?>> &nbsp; chắc chắn tham gia</label>
+              <label><input type="checkbox" name="status[]" value="think" <?php if(!empty($_GET['status']) && in_array('think',$_GET['status'])) echo 'checked';?>> &nbsp; suy nghĩ</label>
+              <label><input type="checkbox" name="status[]" value="not_participate" <?php if(!empty($_GET['status']) && in_array('not_participate',$_GET['status'])) echo 'checked';?>> &nbsp; không tham gia</label>
+              <label><input type="checkbox" name="status[]" value="no_answer" <?php if(!empty($_GET['status']) && in_array('no_answer',$_GET['status'])) echo 'checked';?>> &nbsp; không nghe máy </label>
+              <label><input type="checkbox" name="status[]" value="new" <?php if(!empty($_GET['status']) && in_array('new',$_GET['status'])) echo 'checked';?>> &nbsp; chưa chăm sóc</label>
+              <label><input type="checkbox" name="status[]" value="other" <?php if(!empty($_GET['status']) && in_array('other',$_GET['status'])) echo 'checked';?>> &nbsp; Khác</label>
+            </div>
+          </div>
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
@@ -181,7 +222,12 @@
                     $action_now ='';
                   }
 
-                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: chăn sóc lần thứ '.$item->number_call.' là '.$action_now.' kết quả '.$result ;
+                  $history = '
+                      Lần chăm sóc thứ: '.$item->number_call.'</br>
+                      Nhân viên: '.$item->history->staff->name.'</br>
+                      Kết quả: '.$result.'</br>
+                      Hàng dộng: '.$action_now.'</br>
+                      <span class="'.$status_history.'"> Thời gian: '.date('H:i d/m/Y', $item->history->time_now).'</br></span>';
                 }
 
                 echo '<tr>
@@ -267,7 +313,12 @@
                     $action_now ='';
                   }
 
-                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: chăn sóc lần thứ '.$item->number_call.' là '.$action_now.' kết quả '.$result ;
+                  $history = '
+                      Lần chăm sóc thứ: '.$item->number_call.'</br>
+                      Nhân viên: '.$item->history->staff->name.'</br>
+                      Kết quả: '.$result.'</br>
+                      Hàng dộng: '.$action_now.'</br>
+                      <span class="'.$status_history.'"> Thời gian: '.date('H:i d/m/Y', $item->history->time_now).'</br></span>';
                 }
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
@@ -379,7 +430,7 @@ if(!empty($listData)){
                                     <div class="col-md-6">
                                       <label class="form-label">Nhân viên</label>
                                       <select name="id_staff" class="form-select color-dropdown">
-                                        <option value="0">Tất cả</option>
+                                        <option value="0">Boss </option>
                                         <?php
                                         if(!empty($listStaff)){
                                           foreach($listStaff as $value){
@@ -405,7 +456,7 @@ if(!empty($listData)){
                                       </select>
                                     </div>
                                      <div class="col-md-6">
-                                      <label class="form-label">Trạng thái</label>
+                                      <label class="form-label">Trạng thái(*)</label>
                                      <select required class="form-select" name="status" id="status">
                                         <option value="">Chọn trạng thái</option>
                                         <option value="done">chắc chắn tham gia</option>
@@ -422,7 +473,7 @@ if(!empty($listData)){
                                   </div>
                                 </div>
                                 
-                                <button type="submit" class="btn btn-primary">xác nhận  </button>
+                                <button type="submit" class="btn btn-primary">Xác nhận  </button>
                               </div>
                              </form>
                               

@@ -317,3 +317,41 @@ function checkFolderDomain($input)
 
     echo implode('<br/>', $domain_error);die;
 }
+
+function addRegAdmin($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'thông tin datacrm';
+    $mess = '';
+    $modelRequestDatacrms = $controller->loadModel('RequestDatacrms');
+
+    if(!empty($_GET['id'])){
+        $data = $modelRequestDatacrms->find()->where(['id'=>$_GET['id']])->first();
+        if(!empty($data)){
+            if($isRequestPost){
+                $dataSend = $input['request']->getData();
+                $data->system_name = @$dataSend['system_name'];
+                $data->boss_name = @$dataSend['boss_name'];
+                $data->boss_phone = @$dataSend['boss_phone'];
+                $data->boss_email = @$dataSend['boss_email'];
+                $data->domain = @$dataSend['domain'];
+
+                $modelRequestDatacrms->save($data);
+                $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }
+            setVariable('mess', $mess);
+            setVariable('data', $data);
+        }else{
+            return $controller->redirect('/plugins/admin/data_crm-views-admin-listRegAdmin');
+        }
+    }else{
+        return $controller->redirect('/plugins/admin/data_crm-views-admin-listRegAdmin');
+    }
+}
+?>
