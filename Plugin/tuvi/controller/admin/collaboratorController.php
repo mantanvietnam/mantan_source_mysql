@@ -1,6 +1,6 @@
 <?php
 
-function listCollaboratorAdmin($input){
+function listCollaboratorAdmin($input) {
     global $controller;
     global $urlCurrent;
     global $metaTitleMantan;
@@ -8,36 +8,31 @@ function listCollaboratorAdmin($input){
     $metaTitleMantan = 'Danh sách Cộng Tác Viên';
 
     $modelCollaborators = $controller->loadModel('Collaborator');
+
     $conditions = array();
     $limit = 20;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
     if ($page < 1) $page = 1;
     $order = array('id' => 'desc');
 
-    // Lọc theo ID
+    // Lọc dữ liệu
     if (!empty($_GET['id'])) {
         $conditions['id'] = (int) $_GET['id'];
     }
-
-    // Lọc theo tên
     if (!empty($_GET['name'])) {
         $conditions['name LIKE'] = '%' . $_GET['name'] . '%';
     }
-
-    // Lọc theo số điện thoại
     if (!empty($_GET['phone'])) {
         $conditions['phone LIKE'] = '%' . $_GET['phone'] . '%';
-
-    // Lọc theo email
+    }
     if (!empty($_GET['email'])) {
         $conditions['email LIKE'] = '%' . $_GET['email'] . '%';
     }
-
-    // Lọc theo trạng thái
     if (isset($_GET['status'])) {
         $conditions['status'] = (int) $_GET['status'];
     }
 
+    // Lấy danh sách CTV
     $listData = $modelCollaborators->find()
         ->limit($limit)
         ->page($page)
@@ -46,20 +41,32 @@ function listCollaboratorAdmin($input){
         ->all()
         ->toList();
 
-    // Phân trang
-    $totalData = $modelCollaborators->find()->where($conditions)->all()->toList();
-    $totalData = count($totalData);
-
-    $balance = $totalData % $limit;
-    $totalPage = ($totalData - $balance) / $limit;
-    if ($balance > 0) {
-        $totalPage += 1;
+    // Hàm xác định bậc CTV
+    function getCollaboratorLevel($parentId) {
+        return ($parentId == 0) ? 1 : 2;
     }
 
-    $back = $page - 1;
-    $next = $page + 1;
-    if ($back <= 0) $back = 1;
-    if ($next >= $totalPage) $next = $totalPage;
+    // Xử lý thêm thông tin bậc và người giới thiệu
+    foreach ($listData as $key => $collaborator) {
+        // Gán bậc của CTV
+        $listData[$key]->level = getCollaboratorLevel($collaborator->parent);
+        $listData[$key]->level_text = ($listData[$key]->level == 2) ? 'Bậc 2' : 'Bậc 1';
+
+        // Nếu là bậc 2, lấy thông tin người giới thiệu
+        if ($listData[$key]->level == 2) {
+            $referrer = $modelCollaborators->find()->where(['id' => $collaborator->parent])->first();
+            $listData[$key]->referrer_name = (!empty($referrer)) ? $referrer->name : 'Không xác định';
+        } else {
+            $listData[$key]->referrer_name = '';
+        }
+    }
+
+    // Phân trang
+    $totalData = $modelCollaborators->find()->where($conditions)->count();
+    $totalPage = ceil($totalData / $limit);
+
+    $back = max(1, $page - 1);
+    $next = min($totalPage, $page + 1);
 
     if (isset($_GET['page'])) {
         $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
@@ -67,16 +74,8 @@ function listCollaboratorAdmin($input){
     } else {
         $urlPage = $urlCurrent;
     }
-    
-    if (strpos($urlPage, '?') !== false) {
-        if (count($_GET) >= 1) {
-            $urlPage = $urlPage . '&page=';
-        } else {
-            $urlPage = $urlPage . 'page=';
-        }
-    } else {
-        $urlPage = $urlPage . '?page=';
-    }
+
+    $urlPage .= (strpos($urlPage, '?') !== false ? '&' : '?') . 'page=';
 
     $mess = '';
     if (@$_GET['mess'] == 'saveSuccess') {
@@ -100,13 +99,15 @@ function editCollaboratorAdmin($input)
     global $controller;
     global $metaTitleMantan;
     global $isRequestPost;
-    global $modelCollaborators;
 
     $modelCollaborator = $controller->loadModel('Collaborator');
+    
 
     $metaTitleMantan = 'Thông tin Cộng Tác Viên';
     $mess = '';
 
+    $listCollaborators = $modelCollaborator->find()->order(['name' => 'ASC'])->all()->toList();
+    
     if (!empty($_GET['id'])) {
         $data = $modelCollaborator->find()
             ->where(['id' => (int)$_GET['id']])
@@ -122,16 +123,17 @@ function editCollaboratorAdmin($input)
             $data->name = $dataSend['name'];
             $data->phone = $dataSend['phone'];
             $data->email = $dataSend['email'];
+            $data->password = md5($dataSend['password']);
             $data->status = $dataSend['status'] ?? 1;
             $data->image = $dataSend['image'] ?? null;
+            $data->parent = (int)($dataSend['parent'] ?? 0);
 
-            // Tạo slug từ tên
             $slug = createSlugMantan($data->name);
             $slugNew = $slug;
             $number = 0;
             do {
                 $conditions = array('slug' => $slugNew);
-                $listData = $modelCollaborators->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+                $listData = $modelCollaborator->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
                 if (!empty($listData)) {
                     $number++;
@@ -142,7 +144,7 @@ function editCollaboratorAdmin($input)
             $data->slug = $slugNew;
 
             if ($modelCollaborator->save($data)) {
-                return $controller->redirect('/plugins/admin/snaphair-view-admin-collaborator-listCollaboratorAdmin?mess=saveSuccess');
+                return $controller->redirect('/plugins/admin/tuvi-view-admin-collaborator-listCollaboratorAdmin?mess=saveSuccess');
             } else {
                 $mess = '<p class="text-danger">Lưu dữ liệu thất bại</p>';
             }
@@ -152,5 +154,65 @@ function editCollaboratorAdmin($input)
     }
 
     setVariable('data', $data);
+    setVariable('mess', $mess);
+    setVariable('listCollaborators', $listCollaborators);
+}
+
+function deleteCollaboratorAdmin($input) {
+    global $controller;
+    $modelCollaborators = $controller->loadModel('Collaborator');
+
+    if (!empty($_GET['id'])) {
+        $collaboratorId = (int) $_GET['id'];
+
+        $modelCollaborators->updateAll(['parent' => 0], ['parent' => $collaboratorId]);
+
+        $data = $modelCollaborators->find()->where(['id' => $collaboratorId])->first();
+        if ($data) {
+            $modelCollaborators->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/tuvi-view-admin-collaborator-listCollaboratorAdmin?mess=deleteSuccess');
+}
+
+
+function settingAffiliateAdmin($input)
+{
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $modelCategories;
+
+    $metaTitleMantan = 'Cài đặt hoa hồng giới thiệu';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingAffiliateAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $value = array( 'percent1' => (double) $dataSend['percent1'],
+                        'percent2' => (double) $dataSend['percent2'],
+                    );
+
+        $data->key_word = 'settingAffiliateAdmin';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
     setVariable('mess', $mess);
 }

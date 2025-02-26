@@ -1,8 +1,9 @@
+
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light">
-            <a href="/plugins/admin/snaphair-view-admin-collaborator-listCollaboratorAdmin">Cộng tác viên</a> /
+            <a href="/plugins/admin/tuvi-view-admin-collaborator-listCollaboratorAdmin">Cộng tác viên</a> /
         </span>
         Thông tin cộng tác viên
     </h4>
@@ -57,6 +58,46 @@
                                 <img src="<?php echo $data->image; ?>" width="80px" height="80px" class="mt-2 rounded-circle">
                             <?php endif; ?>
                         </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="password">Mật khẩu (*)</label>
+                            <div class="input-group">
+                                <input 
+                                    type="password" 
+                                    class="form-control" 
+                                    name="password" 
+                                    id="password" 
+                                    value="<?php echo (!empty($data->id)) ? '********' : ''; ?>" 
+                                    autocomplete="new-password"
+                                />
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="parent">Cộng tác viên cha</label>
+                            <select class="form-control select2" name="parent" id="parent">
+                                <option value="0">Cộng tác viên gốc</option>
+                                <?php
+                                function showCollaboratorOptions($collaborators, $parent = 0, $prefix = '', $selectedId = 0) {
+                                    foreach ($collaborators as $collaborator) {
+                                        if ($collaborator->parent == $parent) {
+                                            $selected = ($collaborator->id == $selectedId) ? 'selected' : '';
+                                            echo '<option value="'.$collaborator->id.'" '.$selected.'>'.$prefix.$collaborator->name.'</option>';
+                                            showCollaboratorOptions($collaborators, $collaborator->id, $prefix . '— ', $selectedId);
+                                        }
+                                    }
+                                }
+
+                                if (!empty($listCollaborators)) {
+                                    showCollaboratorOptions($listCollaborators, 0, '', @$data->parent);
+                                   
+                                }
+                                ?>
+                            </select>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Lưu</button>
@@ -66,3 +107,37 @@
         </div>
     </div>
 </div>
+<!-- Thư viện Select2 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function() {
+        let passwordField = document.getElementById("password");
+        let icon = this.querySelector("i");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    });
+
+    document.getElementById("password").addEventListener("focus", function() {
+        if (this.value === "********") {
+            this.value = "";
+        }
+    });
+
+    $(document).ready(function() {
+        $('.select2').select2({
+            width: '100%',
+            placeholder: "Chọn cộng tác viên cha",
+            allowClear: true
+        });
+    });
+</script>

@@ -27,9 +27,23 @@ $sqlInstallDatabase .= "CREATE TABLE `customers`(
      `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
  
+$sqlInstallDatabase .= "CREATE TABLE `horoscopes` (
+  `id` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `gender` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `overview` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `direction` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `five_elements` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mascot` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_by_age` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 $sqlDeleteDatabase .= "DROP TABLE collaborators; ";
 $sqlDeleteDatabase .= "DROP TABLE customers; ";
+$sqlDeleteDatabase .= "DROP TABLE horoscopes; ";
 
-// $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
-
+$sqlUpdateDatabase['collaborators']['id'] = "ALTER TABLE `collaborators` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`id`);";
+$sqlUpdateDatabase['horoscopes']['slug'] = "ALTER TABLE `horoscopes` ADD `slug` VARCHAR(255) NOT NULL AFTER `name_by_age`;";
+$sqlUpdateDatabase['horoscopes']['price'] = "ALTER TABLE `horoscopes` ADD `price` INT NOT NULL AFTER `image`;";

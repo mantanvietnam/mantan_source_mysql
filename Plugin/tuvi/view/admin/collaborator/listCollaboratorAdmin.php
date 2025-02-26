@@ -10,7 +10,7 @@
       <h5 class="card-header">Tìm kiếm Cộng Tác Viên</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
-          <div class="col-md-1">
+          <div class="col-md-2">
             <label class="form-label">ID</label>
             <input type="text" class="form-control" name="id" value="<?php if (!empty($_GET['id'])) echo $_GET['id']; ?>">
           </div>
@@ -20,7 +20,7 @@
             <input type="text" class="form-control" name="name" value="<?php if (!empty($_GET['name'])) echo $_GET['name']; ?>">
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="form-label">Số điện thoại</label>
             <input type="text" class="form-control" name="phone" value="<?php if (!empty($_GET['phone'])) echo $_GET['phone']; ?>">
           </div>
@@ -39,11 +39,15 @@
             </select>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
 
+          <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
+            <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
+          </div>
         </div>
       </div>
     </div>
@@ -52,18 +56,16 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách Cộng Tác Viên - <span class="text-danger"><?php echo number_format(@$totalData); ?> người</span></h5>
-    <?php echo @$mess; ?>
+    <h5 class="card-header">Danh sách Cộng Tác Viên</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Họ và Tên</th>
             <th>Hình ảnh</th>
-            <th>Số điện thoại</th>
-            <th>Email</th>
-            <th>Trạng thái</th>
+            <th>Thông tin</th>
+            <th>Hoạt động</th>
+            <th>Thống kê</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -72,18 +74,37 @@
           <?php 
           if (!empty($listData)) {
             foreach ($listData as $item) {
+              $link_tuvi = "/dang-ky-tu-vi/?ref=".$item->phone;
+              $bac_ctv = ($item->level == 2) ? 'Bậc 2' : 'Bậc 1';
+              $nguoi_gioi_thieu = ($item->level == 2 && !empty($item->referrer_name)) ? '<br/><strong>Người giới thiệu:</strong> ' . $item->referrer_name : '';
+
               echo '<tr>
               <td>'.$item->id.'</td>
-              <td>'.$item->name.'</td>
+
               <td><img src="'.$item->image.'" alt="'.$item->name.'" width="80"></td>
-              <td>'.$item->phone.'</td>
-              <td>'.$item->email.'</td>
+
+              <td>
+                <strong>'.$item->name.'</strong><br/>
+                '.$item->phone.'<br/>
+                '.$item->email.'<br/>
+                <span class="badge bg-info">'.$bac_ctv.'</span> '.$nguoi_gioi_thieu.'<br/>
+                <a target="_blank" href="'.$link_tuvi.'" class="text-primary">Link đăng ký tử vi</a>
+              </td>
+
               <td>'.(($item->status == 1) ? '<span class="text-success">Hoạt động</span>' : '<span class="text-danger">Không hoạt động</span>').'</td>
+
+              <td>
+                <a href="/plugins/admin/order-listOrderAdmin/?id_ctv='.$item->id.'">Đã bán được '.number_format($item->number_order).' đơn hàng</a>
+                <br/>
+                <a href="/plugins/admin/customer-listCustomerAdmin/?id_ctv='.$item->id.'">Đã giới thiệu '.number_format($item->number_customer).' khách hàng</a>
+              </td>
+
               <td align="center">
-                <a class="dropdown-item" href="/plugins/admin/snaphair-view-admin-collaborator-editCollaboratorAdmin/?id='.$item->id.'">
+                <a class="dropdown-item" href="/plugins/admin/tuvi-view-admin-collaborator-editCollaboratorAdmin/?id='.$item->id.'">
                   <i class="bx bx-edit-alt me-1"></i>
                 </a>
               </td>
+
               <td align="center">
                 <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCollaboratorAdmin/?id='.$item->id.'">
                   <i class="bx bx-trash me-1"></i>
@@ -93,7 +114,7 @@
             }
           } else {
             echo '<tr>
-            <td colspan="8" align="center">Chưa có dữ liệu</td>
+            <td colspan="7" align="center">Chưa có dữ liệu</td>
             </tr>';
           }
           ?>
