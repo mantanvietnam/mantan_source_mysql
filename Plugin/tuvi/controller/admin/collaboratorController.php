@@ -15,7 +15,6 @@ function listCollaboratorAdmin($input) {
     if ($page < 1) $page = 1;
     $order = array('id' => 'desc');
 
-    // Lọc dữ liệu
     if (!empty($_GET['id'])) {
         $conditions['id'] = (int) $_GET['id'];
     }
@@ -32,7 +31,6 @@ function listCollaboratorAdmin($input) {
         $conditions['status'] = (int) $_GET['status'];
     }
 
-    // Lấy danh sách CTV
     $listData = $modelCollaborators->find()
         ->limit($limit)
         ->page($page)
@@ -41,18 +39,14 @@ function listCollaboratorAdmin($input) {
         ->all()
         ->toList();
 
-    // Hàm xác định bậc CTV
     function getCollaboratorLevel($parentId) {
         return ($parentId == 0) ? 1 : 2;
     }
 
-    // Xử lý thêm thông tin bậc và người giới thiệu
     foreach ($listData as $key => $collaborator) {
-        // Gán bậc của CTV
         $listData[$key]->level = getCollaboratorLevel($collaborator->parent);
         $listData[$key]->level_text = ($listData[$key]->level == 2) ? 'Bậc 2' : 'Bậc 1';
 
-        // Nếu là bậc 2, lấy thông tin người giới thiệu
         if ($listData[$key]->level == 2) {
             $referrer = $modelCollaborators->find()->where(['id' => $collaborator->parent])->first();
             $listData[$key]->referrer_name = (!empty($referrer)) ? $referrer->name : 'Không xác định';
@@ -120,34 +114,47 @@ function editCollaboratorAdmin($input)
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['email'])) {
-            $data->name = $dataSend['name'];
-            $data->phone = $dataSend['phone'];
-            $data->email = $dataSend['email'];
-            $data->password = md5($dataSend['password']);
-            $data->status = $dataSend['status'] ?? 1;
-            $data->image = $dataSend['image'] ?? null;
-            $data->parent = (int)($dataSend['parent'] ?? 0);
+            $existingPhone = $modelCollaborator->find()
+                ->where([
+                    'phone' => $dataSend['phone'],
+                    'id !=' => $data->id
+                ])
+                ->first();
 
-            $slug = createSlugMantan($data->name);
-            $slugNew = $slug;
-            $number = 0;
-            do {
-                $conditions = array('slug' => $slugNew);
-                $listData = $modelCollaborator->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-                if (!empty($listData)) {
-                    $number++;
-                    $slugNew = $slug . '-' . $number;
+            if ($existingPhone) {
+                $mess = '<p class="text-danger">Số điện thoại đã tồn tại. Vui lòng nhập số khác.</p>';
+            } else {
+                $data->name = $dataSend['name'];
+                $data->phone = $dataSend['phone'];
+                $data->email = $dataSend['email'];
+                if (!empty($dataSend['password'])) {
+                    $data->password = md5($dataSend['password']);
                 }
-            } while (!empty($listData));
+                $data->status = $dataSend['status'] ?? 1;
+                $data->image = $dataSend['image'] ?? null;
+                $data->parent = (int)($dataSend['parent'] ?? 0);
 
-            $data->slug = $slugNew;
+                $slug = createSlugMantan($data->name);
+                $slugNew = $slug;
+                $number = 0;
+                do {
+                    $conditions = array('slug' => $slugNew);
+                    $listData = $modelCollaborator->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                    if (!empty($listData)) {
+                        $number++;
+                        $slugNew = $slug . '-' . $number;
+                    }
+                } while (!empty($listData));
+
+                $data->slug = $slugNew;
 
             if ($modelCollaborator->save($data)) {
                 return $controller->redirect('/plugins/admin/tuvi-view-admin-collaborator-listCollaboratorAdmin?mess=saveSuccess');
             } else {
                 $mess = '<p class="text-danger">Lưu dữ liệu thất bại</p>';
             }
+        }
         } else {
             $mess = '<p class="text-danger">Vui lòng nhập đầy đủ thông tin</p>';
         }

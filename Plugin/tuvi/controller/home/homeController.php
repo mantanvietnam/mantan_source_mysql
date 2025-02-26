@@ -70,27 +70,4 @@ function registerform($input) {
     setVariable('mess', $mess);
 }
 
-    function horoscopeRegister($input)
-    {
-        global $controller;
-        global $modelAffiliaters;
-        global $urlHomes;
-
-        $modelAffiliaters = $controller->loadModel('Horoscope');
-
-        if (!empty($_GET['aff'])) {
-            $phone = trim(str_replace([' ', '.', '-'], '', $_GET['aff']));
-            $phone = str_replace('+84', '0', $phone);
-
-            $info = $modelAffiliaters->find()->where(['phone' => $phone])->first();
-
-            if (!empty($info)) {
-                $linkTuVi = $urlHomes . 'dang-ky-tu-vi/?ref=' . urlencode($info->phone);
-                return $controller->redirect($linkTuVi);
-            }
-        }
-
-        return $controller->redirect('/');
-    }
-
 ?>

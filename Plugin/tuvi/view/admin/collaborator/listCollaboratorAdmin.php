@@ -15,7 +15,7 @@
             <input type="text" class="form-control" name="id" value="<?php if (!empty($_GET['id'])) echo $_GET['id']; ?>">
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="form-label">Tên CTV</label>
             <input type="text" class="form-control" name="name" value="<?php if (!empty($_GET['name'])) echo $_GET['name']; ?>">
           </div>
@@ -25,7 +25,7 @@
             <input type="text" class="form-control" name="phone" value="<?php if (!empty($_GET['phone'])) echo $_GET['phone']; ?>">
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="form-label">Email</label>
             <input type="text" class="form-control" name="email" value="<?php if (!empty($_GET['email'])) echo $_GET['email']; ?>">
           </div>
@@ -39,15 +39,15 @@
             </select>
           </div>
 
-          <div class="col-md-1">
+          <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
 
-          <div class="col-md-1">
+          <!-- <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -74,7 +74,7 @@
           <?php 
           if (!empty($listData)) {
             foreach ($listData as $item) {
-              $link_tuvi = "/dang-ky-tu-vi/?ref=".$item->phone;
+              $link_tuvi = "/registerform/?ref=".$item->phone;
               $bac_ctv = ($item->level == 2) ? 'Bậc 2' : 'Bậc 1';
               $nguoi_gioi_thieu = ($item->level == 2 && !empty($item->referrer_name)) ? '<br/><strong>Người giới thiệu:</strong> ' . $item->referrer_name : '';
 
