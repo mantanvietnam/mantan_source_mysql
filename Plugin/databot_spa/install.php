@@ -246,6 +246,7 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
   `code_zalo_oa` varchar(500) DEFAULT NULL,
   `deadline_token_zalo_oa` int(11) DEFAULT NULL,
   `access_token_zalo_oa` varchar(500) DEFAULT NULL,
+  `id_spa` INT NOT NULL DEFAULT 0;
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -506,6 +507,7 @@ $sqlInstallDatabase ."CREATE TABLE `staff_bonus` (
   `status` INT NULL DEFAULT NULL,
   `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `created_at` INT NULL DEFAULT NULL,
+  `updated_at` INT NULL DEFAULT NULL,
   `money` INT NULL DEFAULT '0',
   `id_spa` INT NULL DEFAULT NULL,
    PRIMARY KEY (`id`)) ENGINE = InnoDB;";
@@ -757,7 +759,7 @@ $sqlUpdateDatabase['members']['refresh_token_zalo_oa'] = "ALTER TABLE `members` 
 $sqlUpdateDatabase['members']['code_zalo_oa'] = "ALTER TABLE `members` ADD `code_zalo_oa` varchar(500) DEFAULT NULL; ";
 $sqlUpdateDatabase['members']['deadline_token_zalo_oa'] = "ALTER TABLE `members` ADD `deadline_token_zalo_oa` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['members']['access_token_zalo_oa'] = "ALTER TABLE `members` ADD `access_token_zalo_oa` varchar(500) DEFAULT NULL; ";
-
+$sqlUpdateDatabase['members']['id_spa'] = "ALTER TABLE `members` ADD `id_spa` INT NOT NULL DEFAULT '0';";
 // Bang orders
 $sqlUpdateDatabase['orders']['id_member'] = "ALTER TABLE `orders` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['orders']['id_spa'] = "ALTER TABLE `orders` ADD `id_spa` int(11) NOT NULL; ";
@@ -945,10 +947,11 @@ $sqlUpdateDatabase['staff_bonus']['note'] = "ALTER TABLE `staff_bonus` ADD `note
 $sqlUpdateDatabase['staff_bonus']['status'] = "ALTER TABLE `staff_bonus` ADD `status` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_bonus']['type'] = "ALTER TABLE `staff_bonus` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_bonus']['created_at'] = "ALTER TABLE `staff_bonus` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_bonus']['updated_at'] = "ALTER TABLE `staff_bonus` ADD `updated_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_bonus']['money'] = "ALTER TABLE `staff_bonus` ADD `money` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['staff_bonus']['id_spa'] = "ALTER TABLE `staff_bonus` ADD `id_spa` INT NULL DEFAULT NULL;";
 
-/*-- Bước 1: Thêm cột tạm kiểu INT
+/*-- Bước 1: Thêm cột tạm kiểu INT 
 ALTER TABLE userservice_histories ADD COLUMN temp_int INT;
 
 -- Bước 2: Chuyển dữ liệu từ DATETIME sang INT

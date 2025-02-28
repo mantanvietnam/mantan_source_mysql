@@ -180,6 +180,7 @@ function logoutAPI($input)
 					$checkUser = $modelMember->find()->where(['id'=>$checkPhone->id_member])->first();
 					if(!empty($checkUser)){
 						$checkUser->token = '';
+						$checkUser->id_spa = 0;
 						$checkUser->token_device = null;
 						$modelMember->save($checkUser);
 					}
@@ -261,21 +262,15 @@ function saveNewPassAPI($input)
 						$checkPhone->code_otp = null;
 						$checkPhone->token = '';
 						$modelMember->save($checkPhone);
-						$return = array('code'=>1,'mess'=> 'lưu mật khẩu mới thành công');
+						$return = apiResponse(1, 'lưu mật khẩu mới thành công');
 					}else{
-						$return = array('code'=>5,
-										'mess'=>'Mật khẩu nhập lại không đúng'
-									);
+						$return = apiResponse(5,'Mật khẩu nhập lại không đúng');
 					}
 			}else{
-				$return = array('code'=>4,
-									'mess'=>'Mã xác thực nhập không đúng'
-								);
+				$return = apiResponse(4,'Mã xác thực nhập không đúng');
 			}
 		}else{
-			$return = array('code'=>2,
-							'mess'=>'Gửi thiếu dữ liệu'
-						);
+			$return = apiResponse(2,'Gửi thiếu dữ liệu');
 		}
 	}
 
@@ -303,25 +298,16 @@ function getInfoMyAPI($input)
 			if(!empty($checkPhone)){
 				
 				
-				return array('code'=>1,
-								 'data'=>$checkPhone,
-								 'mess'=> 'Bạn lấy dữ liệu thành công'
-								);
+				return apiResponse(1,'Bạn lấy dữ liệu thành công',$checkPhone );
 			}else{
-				return array('code'=>3,
-								'mess'=> 'Tài khoản không tồn tại'
-							);
+				return apiResponse(3,'Tài khoản không tồn tại' );
 			}
 		
 		}else{
-			return array('code'=>2,
-						'mess'=> 'Gửi sai phương thức POST'
-						);
+			return apiResponse(2,'Gửi sai phương thức POST' );
 		}
 
-	return array('code'=>0,
-						'mess'=> 'Gửi sai phương thức POST'
-						);
+	return apiResponse(0,'Gửi sai phương thức POST');
 	}
 }
 
@@ -373,22 +359,46 @@ function saveInfoMemberAPI($input)
 						$modelMember->save($checkUser);
 					}
 				
-				return array('code'=>1,'mess'=> 'Lưu thành công', 'data'=>getMemberByToken($dataSend['token']));
+				return apiResponse(1, 'Lưu thành công', getMemberByToken($dataSend['token']));
 
 				
 			}
-				return array('code'=>3,
-								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
-							);
+				return apiResponse(3,'Tài khoản không tồn tại hoặc sai token');
 		}
-			return array('code'=>2,
-							'mess'=> 'Gửi thiếu dữ liệu'
-						);
+			return apiResponse(2,'Gửi thiếu dữ liệu');
 	}
 
-	return array('code'=>0,
-							'mess'=> 'Gửi kiểu POST'
-						);
+	return apiResponse(0,'Gửi kiểu POST');
+}
+
+function managerSelectSpaAPI($input){
+	global $controller;
+	global $isRequestPost;
+	global $urlHomes;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
+
+	if($isRequestPost){
+		if(!empty($dataSend['token']) && $dataSend['idspa']){
+			$checkPhone = getMemberByToken($dataSend['token']);
+			if(!empty($checkPhone)){
+				$infoUser = $modelMember->find()->where(array('id'=>$checkPhone->id))->first();
+				$checkSpa = $modelSpas->find()->where(['id'=>(int)$dataSend['idspa'],'id_member'=>$checkPhone->id_member])->first();
+				if(!empty($checkSpa)){
+					$infoUser->id_spa = $dataSend['idspa'];
+					$modelMember->save($infoUser);
+
+					return apiResponse(3,'Tài khoản không tồn tại hoặc sai token');;
+				}
+				return apiResponse(4,'Spa không tồn tại');
+							
+			}
+			return apiResponse(3,'Tài khoản không tồn tại hoặc sai token');
+		}
+		return apiResponse(2,'Gửi thiếu dữ liệu');
+	}
+	return apiResponse(0,'Gửi kiểu POST');
 }
 
 ?>

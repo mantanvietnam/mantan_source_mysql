@@ -12,7 +12,7 @@
         <div class="col-xl">
             <div class="card mb-12">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Thông tin ảnh mẫu</h5>
+                    <h5 class="mb-0">Thông tin đăng ký Data CRM</h5>
                 </div>
 
                 <div class="card-body">

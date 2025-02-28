@@ -37,4 +37,5 @@ include_once('controller/api/transactionHistoriesController.php'); // lịch s�
 include_once('controller/api/staffController.php'); // nhân viên
 include_once('controller/api/membersController.php'); // tài khoản spa
 include_once('controller/api/booksController.php'); // đặt lịch hẹn
+include_once('controller/api/spaController.php'); // đặt lịch hẹn
 ?>

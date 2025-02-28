@@ -56,6 +56,8 @@
 	$routesPlugin['listGroupStaff']= 'databot_spa/view/home/staff/listGroupStaff.php';
 	$routesPlugin['addGroupStaff']= 'databot_spa/view/home/staff/addGroupStaff.php';
 	$routesPlugin['changePassStaff']= 'databot_spa/view/home/staff/changePassStaff.php';
+	$routesPlugin['listStaffBonus']= 'databot_spa/view/home/staff/listStaffBonus.php';
+	$routesPlugin['addStaffBonus']= 'databot_spa/view/home/staff/addStaffBonus.php';
 
 	$routesPlugin['listService']= 'databot_spa/view/home/service/listService.php';
 	$routesPlugin['addService']= 'databot_spa/view/home/service/addService.php';

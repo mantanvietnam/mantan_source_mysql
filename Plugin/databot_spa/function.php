@@ -151,7 +151,6 @@ function getListPermission()
                                                     array('name'=>'Thêm và sửa khách hàng','permission'=>'addCustomer'),
                                                     array('name'=>'Thêm khách hàng bằng Excel','permission'=>'addDataCustomer'),
                                                     array('name'=>'Xóa khách hàng','permission'=>'deleteCustomer'),
-                                                    
                                                     array('name'=>'Nhóm khách hàng','permission'=>'listCategoryCustomer'),
                                                     array('name'=>'Xóa nhóm khách hàng','permission'=>'deleteCategoryCustomer'),
                                                     array('name'=>'Thêm và sửa nguồn khách hàng','permission'=>'listSourceCustomer'),
@@ -176,7 +175,6 @@ function getListPermission()
                                                     array('name'=>'Thêm và sửa thẻ trả trước','permission'=>'addPrepayCard'),
                                                     array('name'=>'Xóa thẻ trả trước','permission'=>'deletePrepayCard'),
                                                     array('name'=>'bán thẻ trả trước','permission'=>'buyPrepayCard'),
-                                                    
                                                     array('name'=>'In phiếu thu thẻ trả trước','permission'=>'printInfoBillCard'),
                                                     array('name'=>'Danh sách khách hàng có thẻ trả trước','permission'=>'listCustomerPrepayCard'),
                                             ),
@@ -188,10 +186,8 @@ function getListPermission()
                                     'sub'=>array(   array('name'=>'Danh sách sản phẩm ','permission'=>'listProduct'),
                                                     array('name'=>'Thêm và sửa sản phẩm ','permission'=>'addProduct'),
                                                     array('name'=>'Xóa sản phẩm ','permission'=>'deleteProduct'),
-                                                    
                                                     array('name'=>'Danh nục sản phẩm ','permission'=>'listCategoryProduct'),
                                                     array('name'=>'Xóa danh nục sản phẩm ','permission'=>'deleteCategoryProduct'),
-                                                    
                                                     array('name'=>'Nhãn hiệu sản phẩm ','permission'=>'listTrademarkProduct'),
                                                     array('name'=>'Xóa nhãn hiệu sản phẩm ','permission'=>'deleteTrademarkProduct'),
                                             ),
@@ -201,7 +197,6 @@ function getListPermission()
                                     'sub'=>array(   array('name'=>'Danh sách dịch vụ ','permission'=>'listService'),
                                                     array('name'=>'Thêm và sửa dịch vụ ','permission'=>'addService'),
                                                     array('name'=>'Xóa dịch vụ ','permission'=>'deleteService'),
-
                                                     array('name'=>'Danh mục dịch vụ ','permission'=>'listCategoryService'),
                                                     array('name'=>'Xóa danh mục dịch vụ ','permission'=>'deleteCategoryService'),
                                             ),
@@ -269,12 +264,13 @@ function getListPermission()
                                     'sub'=>array(   array('name'=>'Danh sách nhân viên ','permission'=>'listStaff'),
                                                     array('name'=>'Thêm và sửa nhân viên','permission'=>'addStaff'),
                                                     array('name'=>'Khóa nhân viên','permission'=>'lockStaff'),
-                                                    
                                                     array('name'=>'Nhóm nhân viên','permission'=>'listGroupStaff'),
                                                     array('name'=>'Thêm và sửa nhóm nhân viên','permission'=>'addGroupStaff'),
                                                     array('name'=>'Xóa nhóm nhân viên','permission'=>'deteleGroupStaff'),
-
                                                     array('name'=>'Đổi mật khẩu nhân viên','permission'=>'changePassStaff'),
+                                                    array('name'=>'Danh sách tiền thưởng nhân viên','permission'=>'listStaffBonus'),
+                                                    array('name'=>'Thêm và sửa tiền thưởng nhân viên','permission'=>'addStaffBonus'),
+                                                    array('name'=>'Xóa tiền thưởng nhân viên','permission'=>'deleteStaffBonus'),
                                             ),
                             );
         }
@@ -933,6 +929,7 @@ function getMemberByToken($token='', $permission='', $module='customer')
                     $infoUser->last_login = time();
                     $modelMember->save($infoUser);
                     $infoUser->token = $checkToken->token;
+                    $infoUser->id_member = $infoUser->id;
                     return $infoUser;
                 }
             }else{

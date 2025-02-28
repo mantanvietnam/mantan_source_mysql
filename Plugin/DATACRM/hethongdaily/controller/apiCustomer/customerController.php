@@ -103,8 +103,8 @@ function saveRegisterCustomerAPI($input)
 
 
                 if(empty($checkCustomer)){
-                    // tạo dữ liệu save
-                    $data->full_name = preg_replace('/[^A-Za-z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯàáâãèéêìíòóôõùúăđĩũơưỳỵỷỹỲỴỶỸẠẢẤẦẨẪẬẮẰẲẴẶẾỀỂỄỆỐỒỔỖỘỚỜỞỠỢỨỪỬỮỰăĂằẰắẮẳẲẵẴặẶâÂầẦấẤẩẨẫẪậẬêÊềỀếẾểỂễỄệỆôÔồỒốỐổỔỗỖộỘơƠờỜớỚởỞỡỠợỢưƯừỪứỨửỬữỮựỰ]/u', '',checkKeyword($dataSend['full_name']));
+                    // tạo dữ liệu save 
+                    $data->full_name = preg_replace('/[^A-Za-z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯảạẢẠàáâãèéêìíòóôõùúăđĩũơưỳỵỷỹỲỴỶỸẠẢẤẦẨẪẬẮẰẲẴẶẾỀỂỄỆỐỒỔỖỘỚỜỞỠỢỨỪỬỮỰăĂằẰắẮẳẲẵẴặẶâÂầẦấẤẩẨẫẪậẬêÊềỀếẾểỂễỄệỆôÔồỒốỐổỔỗỖộỘơƠờỜớỚởỞỡỠợỢưƯừỪứỨửỬữỮựỰ]/u', '',checkKeyword($dataSend['full_name']));
                     $data->phone = $dataSend['phone'];
                     $data->email = @$dataSend['email'];
                     $data->address = (!empty($dataSend['address']))?$dataSend['address']:'';
@@ -497,7 +497,7 @@ function editInfoCustomerApi($input){
             if (!empty($user)) {
                 $user = $modelCustomer->find()->where(['id'=>$user->id])->first();
                 if(!empty($dataSend['full_name'])){
-                    $user->full_name =  preg_replace('/[^A-Za-z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯàáâãèéêìíòóôõùúăđĩũơưỳỵỷỹỲỴỶỸẠẢẤẦẨẪẬẮẰẲẴẶẾỀỂỄỆỐỒỔỖỘỚỜỞỠỢỨỪỬỮỰăĂằẰắẮẳẲẵẴặẶâÂầẦấẤẩẨẫẪậẬêÊềỀếẾểỂễỄệỆôÔồỒốỐổỔỗỖộỘơƠờỜớỚởỞỡỠợỢưƯừỪứỨửỬữỮựỰ]/u', '',checkKeyword($dataSend['full_name']));
+                    $user->full_name =  preg_replace('/[^A-Za-z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯàáâãèảạẢẠéêìíòóôõùúăđĩũơưỳỵỷỹỲỴỶỸẠẢẤẦẨẪẬẮẰẲẴẶẾỀỂỄỆỐỒỔỖỘỚỜỞỠỢỨỪỬỮỰăĂằẰắẮẳẲẵẴặẶâÂầẦấẤẩẨẫẪậẬêÊềỀếẾểỂễỄệỆôÔồỒốỐổỔỗỖộỘơƠờỜớỚởỞỡỠợỢưƯừỪứỨửỬữỮựỰ]/u', '',checkKeyword($dataSend['full_name']));
                 }
 
                 if(!empty($dataSend['email'])){

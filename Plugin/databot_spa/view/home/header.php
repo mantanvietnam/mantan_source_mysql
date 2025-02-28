@@ -487,6 +487,11 @@
                     <div>Nhóm nhân viên</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="/listStaffBonus/#listStaff" class="menu-link <?php if(@$page_view =='listStaffBonus') echo 'menu-active';?>">
+                    <div>Thưởng phạt nhân viên</div>
+                  </a>
+                </li>
               </ul>
             </li>
             

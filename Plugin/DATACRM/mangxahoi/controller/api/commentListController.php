@@ -36,7 +36,7 @@ function addlikeApi($input){
 		        $data->id_customer = $user->id;
         		$modelLike->save($data);
 
-        		   if($data->type=='like'){
+        		   if($data->type!='dislike'){
                         if(!empty($checkWallPost) && $check ==1 && $checkWallPost->id_customer!=$user->id && function_exists('accumulatePoint')){
                             $note = 'Bạn được công 1 điểm cho người like bài viết của bạn ';
                             accumulatePoint($checkWallPost->id_customer,$listPonint['point_like'],$note);
@@ -66,7 +66,7 @@ function addlikeApi($input){
                                  saveNotification($userdataSendNotification, $user->id, $data->id_object);
                             }
                         }
-                        return array('code'=>1,'messages'=>'bạn đã like  thành công ');
+                        return array('code'=>1,'messages'=>'bạn đã '.$data->type.'  thành công ');
 
                          
                     }elseif($data->type=='dislike'){

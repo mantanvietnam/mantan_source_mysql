@@ -461,4 +461,195 @@ function deteleGroupStaff($input){
         return $controller->redirect('/');
     }
 }
+
+function listStaffBonus($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+     
+    $metaTitleMantan = 'Danh sách nhân viên';
+    
+    setVariable('page_view', 'listStaffBonus');
+    $modelMember = $controller->loadModel('Members');
+	$modelStaffBonu = $controller->loadModel('StaffBonus');
+	
+	if(!empty(checkLoginManager('listStaffBonus', 'staff'))){
+		$infoUser = $session->read('infoUser');
+		$conditions = array('id_member'=>$infoUser->id_member);
+		$limit = 20;
+		$order = ['status'=>'desc','id' => 'DESC'];
+
+		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+		if($page<1) $page = 1;
+		
+		if(!empty($_GET['id'])){
+			$conditions['id'] = (int) $_GET['id'];
+		}
+
+		if(!empty($_GET['id_staff'])){
+			$conditions['id_staff'] = $_GET['id_staff'];
+		}
+
+		if(!empty($_GET['type'])){
+			$conditions['type'] = $_GET['type'];
+		}
+
+		if(isset($_GET['status'])){
+			if($_GET['status']!=''){
+				$conditions['status'] = (int) $_GET['status'];
+			}
+		}
+
+		if(!empty($_GET['date_start'])){
+			$date_start = explode('/', $_GET['date_start']);
+			$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+			$conditions['time >='] = $date_start;
+		}
+
+		if(!empty($_GET['date_end'])){
+			$date_end = explode('/', $_GET['date_end']);
+			$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+			$conditions['time <='] = $date_end;
+		}
+	    
+	    $listData = $modelStaffBonu->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+	    if(!empty($listData)){
+	    	foreach($listData as $key => $item){
+	    		$listData[$key]->infoStaff = $modelMember->find()->where(['id'=>$item->id_staff])->first();
+	    	}
+	    }
+
+	    $totalData = $modelStaffBonu->find()->where($conditions)->all()->toList();
+	    
+	    $totalMoney = 0;
+	     if(!empty($totalData)){
+			foreach($totalData as $key =>$item){
+				$totalMoney += $item->money;
+			}
+		}
+		$totalData = count($totalData);
+
+	    $balance = $totalData % $limit;
+	    $totalPage = ($totalData - $balance) / $limit;
+	    if ($balance > 0)
+	        $totalPage+=1;
+
+	    $back = $page - 1;
+	    $next = $page + 1;
+	    if ($back <= 0)
+	        $back = 1;
+	    if ($next >= $totalPage)
+	        $next = $totalPage;
+
+	    if (isset($_GET['page'])) {
+	        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+	        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+	    } else {
+	        $urlPage = $urlCurrent;
+	    }
+	    if (strpos($urlPage, '?') !== false) {
+	        if (count($_GET) >= 1) {
+	            $urlPage = $urlPage . '&page=';
+	        } else {
+	            $urlPage = $urlPage . 'page=';
+	        }
+	    } else {
+	        $urlPage = $urlPage . '?page=';
+	    }
+	    
+	    $conditionsCategories = array('type' => 'category_member', 'id_member' => $infoUser->id_member);
+        $order = array('name'=>'asc');
+        $listCategory = $modelCategories->find()->where($conditionsCategories)->order($order)->all()->toList();
+
+        $conditionsStaff['OR'] = [ 
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
+								];
+	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
+
+	    setVariable('page', $page);
+	    setVariable('totalPage', $totalPage);
+	    setVariable('totalData', $totalData);
+	    setVariable('back', $back);
+	    setVariable('next', $next);
+	    setVariable('totalMoney', $totalMoney);
+	    setVariable('urlPage', $urlPage);
+	    
+	    setVariable('listCategory', $listCategory);
+	    setVariable('listData', $listData);
+	    setVariable('listStaffs', $listStaffs);
+	}else{
+		return $controller->redirect('/');
+	}
+}
+
+function addStaffBonus($input){	
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $metaTitleMantan = 'Thông tin Nhóm nhân viên';
+
+    setVariable('page_view', 'addGroupStaff');
+    $modelMember = $controller->loadModel('Members');
+	$modelStaffBonu = $controller->loadModel('StaffBonus');
+	
+	if(!empty(checkLoginManager('addGroupStaff', 'staff'))){
+		$infoUser = $session->read('infoUser');
+
+		// lấy data edit
+	    if(!empty($_GET['id'])){
+	        $data = $modelStaffBonu->get( (int) $_GET['id']);
+	    }else{
+	        $data = $modelStaffBonu->newEmptyEntity();
+	        $data->created_at = time();
+			$data->status = 'new';
+	    }
+
+	    $mess ='';
+
+		if($isRequestPost) {
+	        $dataSend = $input['request']->getData();
+
+	        if(!empty($dataSend['money'])){
+	        	// tạo dữ liệu save
+	        	$data->id_staff =(int)@$dataSend['id_staff'];
+	        	$data->id_member = @$infoUser->id_member;
+	        	$data->note = @$dataSend['note'];
+	        	$data->type = @$dataSend['type'];
+	        	$data->updated_at =time();
+	        	$data->money = (int)@$dataSend['money'];
+	        	$data->id_spa = @$infoUser->id_spa;
+	        	
+
+			    $modelStaffBonu->save($data);
+
+			    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+			    
+		    }else{
+		    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
+		    }
+	    }
+
+	     $conditionsStaff['OR'] = [ 
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
+								];
+	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
+
+	    setVariable('data', $data);
+	    setVariable('listStaffs', $listStaffs);
+	    setVariable('mess', $mess);
+
+	}else{
+		return $controller->redirect('/');
+	}
+}
 ?>
