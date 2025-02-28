@@ -148,6 +148,7 @@ function indexTheme($input){
     setVariable('listDataproject', $listDataproject);
 }
 function project($input){
+    
     global $controller; 
     global $modelOptions;
     global $metaTitleMantan;

@@ -77,31 +77,31 @@ getHeader();
   table {
     width: 100%;
     border-collapse: collapse;
-}
+  }
 
-table th, table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
+  table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+  }
 
-table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
+  table th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+  }
 
-table tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-}
+  table tbody tr:nth-child(odd) {
+      background-color: #f9f9f9;
+  }
 
-table tbody tr:hover {
-    background-color: #f1f1f1;
-}
+  table tbody tr:hover {
+      background-color: #f1f1f1;
+  }
 
-.overflow-x-auto {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
+  .overflow-x-auto {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+  }
 
 </style>
 
@@ -109,7 +109,7 @@ table tbody tr:hover {
   <img
     src="<?= $project['images'][1] ?>"
     alt="Aerial view of Vinhomes Global Gate"
-    class="w-full h-[440px] object-cover" />
+    class="w-full h-[440px] " />
 
   <div
     class="absolute inset-0 items-center justify-center left-[-29%] hidden md:flex">
@@ -118,7 +118,7 @@ table tbody tr:hover {
         <?= $project['name'] ?>
       </h1>
       <p class="mb-4 text-sm">
-        <?= $project['description'] ?>
+        <?php echo $project['description']; ?>
       </p>
     </div>
   </div>
@@ -129,7 +129,7 @@ table tbody tr:hover {
         <?= $project['name'] ?>
       </h1>
       <p class="mb-4 text-sm">
-        <?= $project['description'] ?>
+        <?php echo $project['description']; ?>
       </p>
     </div>
   </div>
@@ -143,7 +143,7 @@ table tbody tr:hover {
         id="mainImage"
         src="<?= !empty($project['images'][1]) ? $project['images'][1] : 'default.jpg' ?>"
         alt="Main Image"
-        class="w-full h-full object-cover p-2 mb-4 transition-all duration-300 border md:mb-0" />
+        class="w-full h-full p-2 mb-4 transition-all duration-300 border md:mb-0" />
     </div>
 
     <!-- Danh sách ảnh nhỏ -->
@@ -163,7 +163,7 @@ table tbody tr:hover {
           src="<?= $project['images'][$i] ?>"
           data-src="<?= $project['images'][$i] ?>"
           alt="Thumbnail <?= $i ?>"
-          class="w-full h-full p-2 transition-all duration-300 border cursor-pointer hover:opacity-80 object-cover"
+          class="w-full h-full p-2 transition-all duration-300 border cursor-pointer hover:opacity-80 "
           onmouseover="changeImage(this)" />
         <span
           class="absolute px-3 py-1 mb-3 text-[10px] text-white transition-opacity duration-300 -translate-x-1/2 bg-black rounded opacity-0 left-1/2 bottom-full group-hover:opacity-100">
@@ -255,7 +255,7 @@ table tbody tr:hover {
               if (empty($project['images'][$i])) continue;
           ?>
             <div class="flex items-center justify-center swiper-slide">
-              <img src="<?= htmlspecialchars($project['images'][$i]) ?>" alt="Ảnh <?= $i ?>" class="rounded-lg shadow-lg object-cover" />
+              <img src="<?= htmlspecialchars($project['images'][$i]) ?>" alt="Ảnh <?= $i ?>" class="rounded-lg shadow-lg " />
             </div>
           <?php } ?>
         </div>

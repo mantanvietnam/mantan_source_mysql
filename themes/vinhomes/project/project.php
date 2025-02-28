@@ -21,15 +21,14 @@
           
         }
         .short-description {
-    display: -webkit-box;              /* Thiết lập kiểu hiển thị cho các phần tử con theo kiểu box */
-    -webkit-line-clamp: 3;             /* Giới hạn văn bản hiển thị chỉ 3 dòng */
-    -webkit-box-orient: vertical;      /* Chỉ định rằng các dòng sẽ được xếp theo chiều dọc */
-    overflow: hidden;                  /* Ẩn phần văn bản vượt quá 3 dòng */
-    text-overflow: ellipsis;           /* Thêm dấu ba chấm (...) nếu có văn bản bị cắt */
-    line-height: 1.5em;                /* Tùy chỉnh chiều cao của mỗi dòng */
-    max-height: 4.5em;                 /* Giới hạn chiều cao tổng của 3 dòng */
-}
-
+            display: -webkit-box;              /* Thiết lập kiểu hiển thị cho các phần tử con theo kiểu box */
+            -webkit-line-clamp: 3;             /* Giới hạn văn bản hiển thị chỉ 3 dòng */
+            -webkit-box-orient: vertical;      /* Chỉ định rằng các dòng sẽ được xếp theo chiều dọc */
+            overflow: hidden;                  /* Ẩn phần văn bản vượt quá 3 dòng */
+            text-overflow: ellipsis;           /* Thêm dấu ba chấm (...) nếu có văn bản bị cắt */
+            line-height: 1.5em;                /* Tùy chỉnh chiều cao của mỗi dòng */
+            max-height: 4.5em;                 /* Giới hạn chiều cao tổng của 3 dòng */
+        }
     </style>
 
     <form action="" method="get">

@@ -38,7 +38,7 @@ function projectDetail($input)
     if(!empty($project)){
         $metaTitleMantan = $project->name;
         $metaImageMantan = $project->image;
-        $metaDescriptionMantan = $project->description;
+        $metaDescriptionMantan = strip_tags($project->description);
         
         $project->images = json_decode($project->images, true);
 
