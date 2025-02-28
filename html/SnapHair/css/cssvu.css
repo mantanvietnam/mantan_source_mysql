@@ -52,7 +52,7 @@ table {
     border-radius: 16px;
     width: 48px;
     height: 100vh;
-    background: #343a40;
+    background: #272835;
     transition: width 0.3s ease;
     overflow: hidden;
     position: fixed;
@@ -188,7 +188,7 @@ table {
 
 .main-content {
     margin-top: 20px;
-    background-color: #343a40;
+    background-color: #272835;
     flex-grow: 1;
     padding: 20px;
     transition: margin-left 0.3s ease;
