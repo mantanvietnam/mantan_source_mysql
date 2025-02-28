@@ -92,7 +92,7 @@ $sqlInstallDatabase .= "CREATE TABLE `transaction_histories` (
 
 $sqlInstallDatabase .= "CREATE TABLE `customers` ( 
   `id` INT NOT NULL AUTO_INCREMENT , 
-  `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+  `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
   `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
   `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
@@ -533,6 +533,8 @@ $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
 
 // sửa lỗi
+$sqlFixDatabase .= "ALTER TABLE `customers` CHANGE `full_name` `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+
 /*
 $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `info` `info` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `description` `description` VARCHAR(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL;";
@@ -625,7 +627,7 @@ $sqlUpdateDatabase['transaction_histories']['id_system'] = "ALTER TABLE `transac
 $sqlUpdateDatabase['transaction_histories']['meta_payment'] = "ALTER TABLE `transaction_histories` ADD `meta_payment` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transaction_histories']['payment_type'] = "ALTER TABLE `transaction_histories` ADD `payment_type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'payQrcode';";
 // bảng customers
-$sqlUpdateDatabase['customers']['full_name'] = "ALTER TABLE `customers` ADD `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['full_name'] = "ALTER TABLE `customers` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['customers']['phone'] = "ALTER TABLE `customers` ADD `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` ADD `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['customers']['address'] = "ALTER TABLE `customers` ADD `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
