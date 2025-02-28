@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Interface</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+:root {
+    --sidebar-width: 240px;
+    --sidebar-collapsed-width: 65px;
+    --main-dark: #272835;
+    --hover-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: var(--main-dark);
+    border-right: 7px solid rgba(17, 11, 11, 0.1);
+    transition: width 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+.logo-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.logo {
+    max-width: 80%;
+    max-height: 80px;
+    height: auto;
+    object-fit: contain;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    color: #040404;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar-item:hover {
+    background-color: var(--hover-color);
+}
+
+.sidebar-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-item span {
+    margin-left: 10px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.collapsed .sidebar-item span {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 20px;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+.main-content.collapsed {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+/*bên trái thu ra đóng vào*/
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    color: #ffffff;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar-item:hover {
+    background-color: var(--hover-color);
+}
+
+.sidebar-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-item span {
+    margin-left: 10px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.collapsed .sidebar-item span {
+    opacity: 0;
+    visibility: hidden;}
+.section-title {
+    color: #6c757d;
+    font-size: 0.75em;
+    padding: 8px 15px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.collapsed .section-title {
+    text-align: center;
+    padding: 8px 0;
+}
+
+.section-divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 5px 0;
+}
+
+.create-button {
+    margin: 10px;
+    padding: 8px;
+    border-radius: 12px;
+    background: linear-gradient(to right, #e83e8c, #6f42c1);
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 20px);
+    transition: width 0.3s ease;
+}
+
+.collapsed .create-button {
+    width: 45px;
+    margin: 10px auto;
+    justify-content: center;
+}
+
+.create-button i {
+    width: 20px;
+    text-align: center;
+}
+
+.create-button span {
+    margin-left: 10px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.collapsed .create-button span {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.rocket-button {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: linear-gradient(to right, #e83e8c, #6f42c1);
+    border: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 20px;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+.main-content.collapsed {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+/* Compact spacing for section items */
+.section-items {
+    padding: 5px 0;
+}
+body {
+    background-color: #1A1B25;
+    color: white;
+    padding: 10px;
+}
+
+        /* Header */
+        .header {
+            background-color: var(--darker-bg);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .create-btn {
+            background-color: #c054d4;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Profile Section */
+ .profile-banner {
+        height: 240px;
+        position: relative;
+        /* Xóa overflow: hidden để avatar không bị cắt */
+    }
+
+    .profile-banner img.banner-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: absolute;
+        top: 90%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 4px solid var(--dark-bg);
+        background-color: white;
+        z-index: 10; /* Đảm bảo avatar hiển thị trên banner */
+    }
+
+    .profile-info {
+        padding-top: 20px;
+        text-align: center;
+        position: relative;
+    }
+
+        .profile-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+
+         .profile-stats {
+    text-align: left;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+    .stat-item {
+        text-align: left; /* Thay đổi từ center sang left */
+        min-width: 120px; /* Đảm bảo có đủ không gian cho text */
+    }
+
+    .stat-value {
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+        font-size: 1.1rem; /* Tăng kích thước cho số */
+    }
+
+    .stat-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        white-space: nowrap; /* Tránh label bị ngắt dòng */
+    }
+
+        /* Gallery Section */
+        .gallery-controls {
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .control-btn {
+            background-color: transparent;
+            border: 1px solid #6c757d;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gallery-grid {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 1rem;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .overlay-top {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .overlay-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .overlay-label {
+            background-color: #c054d4;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .overlay-stats {
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+<div class="sidebar">
+    <!-- Fixed top section -->
+    <div class="sidebar-top">
+        <div class="logo-container">
+            <img src="/image/Logo .png" alt="Logo" class="logo">
+        </div>
+        <div class="sidebar-item" onclick="toggleSidebar()">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </div>
+
+    <!-- Scrollable middle section -->
+    <div class="sidebar-middle">
+        <!-- CHUNG Section -->
+        <div class="section-title">CHUNG</div>
+        <div class="section-items">
+            <div class="sidebar-item">
+                <i class="fas fa-home"></i>
+                <span>Trang chủ</span>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <div class="section-items">
+            <div class="sidebar-item">
+                <i class="fas fa-layer-group"></i>
+                <span>Thư viện</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-clock-rotate-left"></i>
+                <span>Lịch sử</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-layer-group"></i>
+                <span>Bộ sưu tập</span>
+            </div>
+        </div>
+
+        <!-- AI Section -->
+        <div class="section-items">
+            <div class="sidebar-item">
+                <i class="fas fa-robot"></i>
+                <span>AI Generator</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-wand-magic-sparkles"></i>
+                <span>AI Enhancement</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-star"></i>
+                <span>AI Tools</span>
+            </div>
+        </div>
+
+        <!-- Additional Features -->
+        <div class="section-title">KHÁC</div>
+        <div class="section-items">
+            <div class="sidebar-item">
+                <i class="fas fa-clock"></i>
+                <span>Hoạt động</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-video"></i>
+                <span>Video hướng dẫn</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-bell"></i>
+                <span>Thông báo</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-user"></i>
+                <span>Tài khoản</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed bottom section -->
+    <div class="sidebar-bottom">
+        <button class="rocket-button">
+            <i class="fas fa-rocket"></i>
+        </button>
+    </div>
+</div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <button class="create-btn">
+                <i class="fas fa-plus"></i>
+                Tạo ảnh ngay
+            </button>
+            <div class="d-flex align-items-center gap-3">
+                <span>Điểm tích lũy: <span style="color: #ffd700">300</span> ePoint</span>
+                <img src="" class="rounded-circle" alt="User">
+            </div>
+        </div>
+
+    <div class="profile-banner">
+        <img src="/image/image1.jpg" class="profile-avatar" alt="Profile">
+        <img class="banner-img" src="/image/37.png" alt="Profile Banner"> 
+    </div>
+
+        <div class="profile-info">
+            <h2 class="profile-name">Nguyễn Minh Thành</h2>
+            <p class="profile-email">penguminthanh.design@gmail.com</p>
+        
+            <div class="stats">
+                <div><strong>100</strong> Người theo dõi</div>
+                <div><strong>10</strong> Theo dõi</div>
+                <div><strong>2.000</strong> Số lần sử dụng</div>
+                <div><strong>12.000</strong> Yêu thích</div>
+            </div>
+
+        <!-- Gallery Controls -->
+        <div class="gallery-controls">
+            <button class="control-btn">
+                <i class="fas fa-image"></i>
+                Tác phẩm của bạn
+            </button>
+            <button class="control-btn">
+                <i class="fas fa-heart"></i>
+                Được bạn yêu thích
+            </button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+            <!-- Gallery Item - repeated 5 times -->
+            <div class="gallery-item">
+                <img src="/image/image2.jpg" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="overlay-top">
+                        <div class="stat">
+                            <i class="fas fa-heart"></i>
+                            1,203
+                        </div>
+                    </div>
+                    <div class="overlay-bottom">
+                        <div class="overlay-label">Sử dụng ảnh</div>
+                        <div class="stat">
+                            <i class="fas fa-download"></i>
+                            1,203
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat 4 more times -->
+            <div class="gallery-item">
+                <img src="/image/image3.jpg" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="overlay-top">
+                        <div class="stat">
+                            <i class="fas fa-heart"></i>
+                            1,203
+                        </div>
+                    </div>
+                    <div class="overlay-bottom">
+                        <div class="overlay-label">Sử dụng ảnh</div>
+                        <div class="stat">
+                            <i class="fas fa-download"></i>
+                            1,203
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="/image/image4.jpg" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="overlay-top">
+                        <div class="stat">
+                            <i class="fas fa-heart"></i>
+                            1,203
+                        </div>
+                    </div>
+                    <div class="overlay-bottom">
+                        <div class="overlay-label">Sử dụng ảnh</div>
+                        <div class="stat">
+                            <i class="fas fa-download"></i>
+                            1,203
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="/image/image5.jpg" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="overlay-top">
+                        <div class="stat">
+                            <i class="fas fa-heart"></i>
+                            1,203
+                        </div>
+                    </div>
+                    <div class="overlay-bottom">
+                        <div class="overlay-label">Sử dụng ảnh</div>
+                        <div class="stat">
+                            <i class="fas fa-download"></i>
+                            1,203
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="/image/image6.jpg" alt="Gallery">
+                <div class="gallery-overlay">
+                    <div class="overlay-top">
+                        <div class="stat">
+                            <i class="fas fa-heart"></i>
+                            1,203
+                        </div>
+                    </div>
+                    <div class="overlay-bottom">
+                        <div class="overlay-label">Sử dụng ảnh</div>
+                        <div class="stat">
+                            <i class="fas fa-download"></i>
+                            1,203
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('collapsed');
+    }
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

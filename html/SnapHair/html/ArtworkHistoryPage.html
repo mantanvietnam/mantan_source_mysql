@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử tác phẩm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body class="bg-dark">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Sidebar -->
+            <div class="col-auto bg-dark min-vh-100 border-end border-secondary">
+                <div class="d-flex flex-column align-items-center p-3">
+                    <div class="mb-4">
+                        <img src="logo.png" alt="Logo" width="40">
+                    </div>
+                    <div class="nav flex-column gap-2">
+                        <div class="text-uppercase text-secondary small mb-2">CHUNG</div>
+                        <a href="#" class="nav-link text-secondary"><i class="bi bi-house"></i></a>
+                        <a href="#" class="nav-link text-secondary"><i class="bi bi-grid"></i></a>
+                        <div class="text-uppercase text-secondary small mb-2 mt-4">AI</div>
+                        <a href="#" class="nav-link text-secondary"><i class="bi bi-magic"></i></a>
+                        <a href="#" class="nav-link text-secondary"><i class="bi bi-stars"></i></a>
+                        <a href="#" class="nav-link text-white"><i class="bi bi-clock-history"></i></a>
+                        <div class="text-uppercase text-secondary small mb-2 mt-4">KHÁC</div>
+                        <a href="#" class="nav-link text-secondary"><i class="bi bi-gear"></i></a>
+                        <a href="#" class="nav-link text-secondary"><i class="bi bi-bell"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col">
+                <!-- Top Header -->
+                <div class="d-flex justify-content-between align-items-center p-3">
+                    <button class="btn btn-primary rounded-pill">
+                        Tạo ảnh ngay <span class="badge bg-white text-primary ms-2">2</span>
+                    </button>
+                    <div class="d-flex align-items-center">
+                        <span class="text-secondary me-3">Điểm tích lũy: 300 ePoints</span>
+                        <img src="avatar.jpg" alt="User" class="rounded-circle me-2" width="32" height="32">
+                        <div>
+                            <div class="text-white small">Nguyễn Minh Thành</div>
+                            <div class="text-secondary small">pemgothdev.design@gmail.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Area -->
+                <div class="p-4">
+                    <h4 class="text-white mb-4">Lịch sử các tác phẩm của bạn</h4>
+
+                    <!-- Statistics Cards -->
+                    <div class="bg-dark bg-opacity-50 rounded-4 p-4 mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="text-white mb-0">Thống kê toàn bộ</h6>
+                            <button class="btn btn-dark btn-sm">Chia sẻ thống kê</button>
+                        </div>
+                        <div class="row text-center g-3">
+                            <div class="col-3">
+                                <div class="text-white h4 mb-1">300.000</div>
+                                <div class="text-secondary small">Lượt xem</div>
+                            </div>
+                            <div class="col-3">
+                                <div class="text-white h4 mb-1">300.000</div>
+                                <div class="text-secondary small">Lượt yêu thích</div>
+                            </div>
+                            <div class="col-3">
+                                <div class="text-white h4 mb-1">300.000</div>
+                                <div class="text-secondary small">Lượt lưu</div>
+                            </div>
+                            <div class="col-3">
+                                <div class="text-white h4 mb-1">300.000</div>
+                                <div class="text-secondary small">Lượt sử dụng</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="d-flex gap-3 mb-4">
+                        <select class="form-select bg-dark text-white border-secondary w-auto">
+                            <option>Được tải nhiều nhất</option>
+                        </select>
+                        <select class="form-select bg-dark text-white border-secondary w-auto">
+                            <option>Ngày tạo</option>
+                        </select>
+                    </div>
+
+                    <!-- History List -->
+                    <div class="d-flex flex-column gap-3">
+                        <!-- History Item -->
+                        <div class="bg-dark bg-opacity-50 rounded p-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="artwork1.jpg" alt="Artwork" class="rounded" width="60" height="60">
+                                    <div>
+                                        <h6 class="text-white mb-1">Ảnh doanh nhân khoảnh tay</h6>
+                                        <div class="text-secondary small">Ngày tạo: 20/12/2024</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-4">
+                                    <div class="text-center">
+                                        <div class="text-white">3,400</div>
+                                        <div class="text-secondary small">Lượt xem</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-white">3,400</div>
+                                        <div class="text-secondary small">Lượt yêu thích</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-white">3,600</div>
+                                        <div class="text-secondary small">Lượt tải xuống</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-white">3,400</div>
+                                        <div class="text-secondary small">Lượt lưu</div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-dark">
+                                            <i class="bi bi-share"></i> Chia sẻ ảnh
+                                        </button>
+                                        <button class="btn btn-danger">
+                                            Xóa ảnh
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Repeat history item for more entries -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

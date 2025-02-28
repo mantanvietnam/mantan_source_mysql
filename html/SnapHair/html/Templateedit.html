@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNAP HAIR - Kho mẫu tóc bất tận</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>   
+    :root {
+       --primary-color: #E252BE;
+       --sidebar-width: 240px;
+       --sidebar-collapsed-width: 80px;
+       --dark-bg: #1E1E2D;
+       --text-light: #FFFFFF;
+       --text-secondary: #808191;
+   }
+
+   body {
+       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+       background-color: var(--dark-bg);
+       color: var(--text-light);
+       overflow-x: hidden;
+   }
+
+   /* Hide scrollbar for Chrome, Safari and Opera */
+   ::-webkit-scrollbar {
+       display: none;
+   }
+
+   /* Hide scrollbar for IE, Edge and Firefox */
+   body {
+       -ms-overflow-style: none;
+       /* IE and Edge */
+       scrollbar-width: none;
+       /* Firefox */
+   }
+
+   /* Sidebar Styles */
+   #sidebar {
+       height: 100vh;
+       width: var(--sidebar-width);
+       position: fixed;
+       top: 0;
+       left: 0;
+       padding: 20px;
+       background-color: #191927;
+       transition: all 0.3s;
+       z-index: 999;
+       overflow-y: auto;
+       -ms-overflow-style: none;
+       /* IE and Edge */
+       scrollbar-width: none;
+       /* Firefox */
+   }
+
+   #sidebar::-webkit-scrollbar {
+       display: none;
+   }
+
+   #sidebar.collapsed {
+       width: var(--sidebar-collapsed-width);
+   }
+
+   #sidebar .sidebar-heading {
+       padding: 15px 15px 15px 0;
+   }
+
+   #sidebar .sidebar-heading img {
+       height: 40px;
+   }
+
+   .sidebar-section {
+       margin-top: 30px;
+   }
+
+   .sidebar-section-title {
+       color: var(--text-secondary);
+       font-size: 0.8rem;
+       text-transform: uppercase;
+       margin-bottom: 15px;
+       font-weight: 600;
+   }
+
+   .nav-item {
+       margin-bottom: 10px;
+   }
+
+   .nav-link {
+       color: var(--text-secondary);
+       padding: 10px;
+       border-radius: 8px;
+       display: flex;
+       align-items: center;
+       transition: all 0.3s;
+   }
+
+   .nav-link:hover,
+   .nav-link.active {
+       background-color: rgba(255, 255, 255, 0.1);
+       color: var(--text-light);
+   }
+
+   .nav-link i,
+   .nav-link svg {
+       margin-right: 15px;
+       font-size: 1.2rem;
+       min-width: 20px;
+       text-align: center;
+   }
+
+   .nav-link-text {
+       transition: opacity 0.3s;
+   }
+
+   #sidebar.collapsed .nav-link-text {
+       display: none;
+   }
+
+   .notification-dot {
+       width: 8px;
+       height: 8px;
+       background-color: red;
+       border-radius: 50%;
+       display: inline-block;
+       margin-left: 5px;
+   }
+
+   /* Main Content Styles */
+   #content {
+       margin-left: var(--sidebar-width);
+       padding: 20px;
+       transition: all 0.3s;
+   }
+
+   #content.expanded {
+       margin-left: var(--sidebar-collapsed-width);
+   }
+
+   .page-header {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       margin-bottom: 30px;
+   }
+
+   .create-photo-btn {
+       background-color: var(--primary-color);
+       border: none;
+       border-radius: 25px;
+       padding: 10px 20px;
+       color: white;
+       display: flex;
+       align-items: center;
+       gap: 10px;
+   }
+
+   .user-info {
+       display: flex;
+       align-items: center;
+       gap: 15px;
+       background-color: rgba(255, 255, 255, 0.1);
+       padding: 8px 15px;
+       border-radius: 30px;
+       position: relative;
+   }
+
+   .user-info img {
+       width: 36px;
+       height: 36px;
+       border-radius: 50%;
+       cursor: pointer;
+   }
+
+   .user-info-details {
+       display: flex;
+       flex-direction: column;
+   }
+
+   .user-points {
+       background-color: rgba(255, 255, 255, 0.1);
+       padding: 8px 15px;
+       border-radius: 30px;
+       display: flex;
+       align-items: center;
+       gap: 10px;
+   }
+
+   .user-points span {
+       color: var(--primary-color);
+       font-weight: bold;
+   }
+
+   .main-heading {
+       margin: 30px 0;
+       text-align: center;
+       /* Added center alignment */
+   }
+
+   .main-heading h1 {
+       font-size: 2.5rem;
+       margin-bottom: 15px;
+   }
+
+   .main-heading h1 span {
+       color: var(--primary-color);
+   }
+
+   .search-bar {
+       background-color: rgba(255, 255, 255, 0.1);
+       border-radius: 30px;
+       padding: 10px 20px;
+       display: flex;
+       align-items: center;
+       gap: 10px;
+       margin: 30px 0;
+   }
+
+   .search-bar input {
+       background: transparent;
+       border: none;
+       color: white;
+       flex-grow: 1;
+   }
+
+   .search-bar input:focus {
+       outline: none;
+   }
+
+   .create-now-btn {
+       background-color: var(--primary-color);
+       border: none;
+       border-radius: 25px;
+       padding: 10px 20px;
+       color: white;
+   }
+
+   .category-section {
+       margin: 40px 0;
+   }
+
+   .category-header {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       margin-bottom: 20px;
+   }
+
+   .category-nav-buttons {
+       display: flex;
+       gap: 10px;
+   }
+
+   .nav-btn {
+       background-color: var(--primary-color);
+       border: none;
+       width: 36px;
+       height: 36px;
+       border-radius: 50%;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       color: white;
+   }
+
+   .category-card {
+       position: relative;
+       border-radius: 15px;
+       overflow: hidden;
+       height: 150px;
+   }
+
+   .category-card img {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+   }
+
+   .category-card-title {
+       position: absolute;
+       bottom: 10px;
+       width: 100%;
+       text-align: center;
+       color: white;
+       font-weight: bold;
+       z-index: 2;
+   }
+
+   .category-card::after {
+       content: "";
+       position: absolute;
+       bottom: 0;
+       left: 0;
+       right: 0;
+       height: 50%;
+       background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+   }
+
+   .new-badge {
+       position: absolute;
+       top: 10px;
+       left: 10px;
+       background-color: #007bff;
+       color: white;
+       padding: 2px 10px;
+       border-radius: 5px;
+       font-size: 0.8rem;
+       z-index: 2;
+   }
+
+   .gallery-section {
+       margin: 40px 0;
+   }
+
+   .gallery-filters {
+       display: flex;
+       justify-content: flex-end;
+       gap: 10px;
+       margin-bottom: 20px;
+   }
+
+   .filter-btn {
+       background-color: rgba(255, 255, 255, 0.1);
+       border: none;
+       border-radius: 25px;
+       padding: 8px 15px;
+       color: white;
+       display: flex;
+       align-items: center;
+       gap: 5px;
+   }
+
+
+   .gallery-container {
+       display: grid;
+       grid-template-columns: repeat(4, 1fr);
+       gap: 15px;
+       padding: 10px;
+   }
+
+   @media (max-width: 992px) {
+       .gallery-container {
+           grid-template-columns: repeat(2, 1fr);
+       }
+   }
+
+   @media (max-width: 576px) {
+       .gallery-container {
+           grid-template-columns: 1fr;
+       }
+   }
+
+   .gallery-container {
+       display: grid;
+       grid-template-columns: repeat(4, 1fr);
+       gap: 15px;
+       padding: 10px;
+   }
+
+   @media (max-width: 992px) {
+       .gallery-container {
+           grid-template-columns: repeat(2, 1fr);
+       }
+   }
+
+   @media (max-width: 576px) {
+       .gallery-container {
+           grid-template-columns: 1fr;
+       }
+   }
+
+   .gallery-card {
+       position: relative;
+       border-radius: 12px;
+       overflow: hidden;
+       background-color: #2A2A3C;
+       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+       height: 100%;
+       display: flex;
+       flex-direction: column;
+   }
+
+   .gallery-card-img-container {
+       position: relative;
+   }
+
+   .gallery-card img.main-img {
+       width: 100%;
+       aspect-ratio: 3/4;
+       object-fit: cover;
+       display: block;
+   }
+
+   .like-btn {
+       position: absolute;
+       top: 12px;
+       right: 12px;
+       background-color: rgba(255, 255, 255, 0.2);
+       border: none;
+       border-radius: 20px;
+       padding: 6px 15px;
+       display: flex;
+       align-items: center;
+       color: white;
+       z-index: 2;
+       font-size: 18px;
+   }
+
+   .like-btn i {
+       margin-right: 6px;
+       font-size: 18px;
+   }
+
+   .action-buttons {
+       position: absolute;
+       bottom: 15px;
+       left: 0;
+       width: 100%;
+       display: flex;
+       justify-content: space-between;
+       padding: 0 12px;
+   }
+
+   .use-photo-btn {
+       background-color: rgba(255, 255, 255, 0.15);
+       border: none;
+       border-radius: 24px;
+       padding: 8px 16px;
+       color: white;
+       display: flex;
+       align-items: center;
+       gap: 6px;
+       font-size: 16px;
+   }
+
+   .use-photo-btn i {
+       color: #ff66ff;
+       font-size: 16px;
+   }
+
+   .download-btn {
+       background-color: rgba(255, 255, 255, 0.15);
+       border: none;
+       border-radius: 24px;
+       padding: 8px 16px;
+       color: white;
+       display: flex;
+       align-items: center;
+       gap: 6px;
+       font-size: 16px;
+   }
+
+   .download-btn i {
+       font-size: 16px;
+   }
+
+   .card-content {
+       padding: 18px;
+       flex-grow: 1;
+   }
+
+   .gallery-card-title {
+       margin: 0;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       white-space: nowrap;
+       font-size: 18px;
+       font-weight: 600;
+       color: white;
+   }
+
+   .creator-info {
+       display: flex;
+       align-items: center;
+       gap: 10px;
+       font-size: 16px;
+       color: #cccccc;
+       margin-top: 10px;
+   }
+
+   .creator-info img {
+       width: 28px;
+       height: 28px;
+       border-radius: 50%;
+   }
+
+   /* User dropdown */
+   .user-dropdown {
+       position: absolute;
+       top: 100%;
+       right: 0;
+       background-color: #2A2A3C;
+       border-radius: 10px;
+       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+       padding: 15px;
+       margin-top: 10px;
+       z-index: 100;
+       min-width: 250px;
+       display: none;
+   }
+
+   .user-dropdown.active {
+       display: block;
+   }
+
+   .dropdown-user-info {
+       display: flex;
+       align-items: center;
+       gap: 15px;
+       margin-bottom: 15px;
+       padding-bottom: 15px;
+       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+   }
+
+   .dropdown-user-info img {
+       width: 50px;
+       height: 50px;
+       border-radius: 50%;
+   }
+
+   .dropdown-menu-items a {
+       display: flex;
+       align-items: center;
+       gap: 10px;
+       color: var(--text-light);
+       text-decoration: none;
+       padding: 10px 5px;
+       border-radius: 5px;
+       transition: all 0.2s;
+   }
+
+   .dropdown-menu-items a:hover {
+       background-color: rgba(255, 255, 255, 0.1);
+   }
+
+   .dropdown-menu-items i {
+       width: 20px;
+       text-align: center;
+   }
+
+   /* Mobile Responsive */
+   @media (max-width: 768px) {
+       #sidebar {
+           width: var(--sidebar-collapsed-width);
+       }
+
+       #sidebar.expanded {
+           width: var(--sidebar-width);
+       }
+
+       #content {
+           margin-left: var(--sidebar-collapsed-width);
+           padding: 15px;
+           width: calc(100% - var(--sidebar-collapsed-width));
+       }
+
+       #content.collapsed {
+           margin-left: var(--sidebar-width);
+           width: calc(100% - var(--sidebar-width));
+       }
+
+       .nav-link-text {
+           display: none;
+       }
+
+       #sidebar.expanded .nav-link-text {
+           display: inline;
+       }
+
+       .main-heading h1 {
+           font-size: 1.8rem;
+       }
+
+       .page-header {
+           flex-direction: column;
+           gap: 15px;
+       }
+
+       .user-info,
+       .user-points {
+           width: 100%;
+       }
+
+       /* Hide user details in mobile view */
+       .user-info-details {
+           display: none;
+       }
+
+       /* Center profile image in mobile view */
+       .user-info {
+           justify-content: center;
+       }
+
+       /* Adjust dropdown position for mobile */
+       .user-dropdown {
+           width: calc(100% - 30px);
+           right: 15px;
+           left: -100px;
+       }
+   }
+
+   /* For extra small screens */
+   @media (max-width: 576px) {
+       #content {
+           width: 100%;
+           margin-left: 0;
+           padding: 10px;
+       }
+
+       #sidebar {
+           width: 0;
+           padding: 0;
+       }
+
+       #sidebar.expanded {
+           width: 80%;
+           padding: 20px;
+       }
+
+       #content.expanded {
+           margin-left: 0;
+       }
+
+       #content.collapsed {
+           margin-left: 0;
+           width: 100%;
+       }
+
+       .main-heading h1 {
+           font-size: 1.5rem;
+       }
+
+       /* Show mobile menu toggle button */
+       .mobile-menu-toggle {
+           display: block;
+           position: fixed;
+           top: 15px;
+           left: 15px;
+           z-index: 1000;
+           background-color: var(--primary-color);
+           border: none;
+           border-radius: 50%;
+           width: 40px;
+           height: 40px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           color: white;
+       }
+   }</style>
+<body>
+    <!-- Mobile Menu Toggle Button (only visible on small screens) -->
+    <button class="mobile-menu-toggle d-md-none" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-heading d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <img src="/image/Logo .png" alt="SNAP HAIR Logo" height="30" class="me-2">
+                <span class="nav-link-text text-white fw-bold">SNAP HAIR</span>
+            </div>
+            <!-- Toggle button -->
+            <button id="sidebarToggle" class="btn toggle-btn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title nav-link-text">CHUNG</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span class="nav-link-text">Trang chủ</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span class="nav-link-text">Cộng đồng</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <span class="nav-link-text">Hồ sơ</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title nav-link-text">CÔNG CỤ HÌNH ẢNH AI</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span class="nav-link-text">Tạo hình ảnh</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-image"></i>
+                        <span class="nav-link-text">Tạo hình ảnh từ thư viện</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-history"></i>
+                        <span class="nav-link-text">Lịch sử</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title nav-link-text">KHÁC</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user-check"></i>
+                        <span class="nav-link-text">Thành viên</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link position-relative">
+                        <i class="fas fa-bell"></i>
+                        <span class="nav-link-text">Thông báo</span>
+                        <span class="notification-dot"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-headset"></i>
+                        <span class="nav-link-text">Liên hệ hỗ trợ</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-gift"></i>
+                        <span class="nav-link-text">Mời (Nhận ePoint)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="pro-upgrade-panel">
+            <div class="nav-link-text">
+                <h6>Mở khóa các tính năng mới với phiên bản Pro</h6>
+                <p class="small text-secondary mb-3">Nâng cấp ngay để được sử dụng các công cụ mới nhất, xử lý nhanh hơn
+                    và nội dung độc quyền.</p>
+                <button class="btn btn-primary w-100" style="background-color: var(--primary-color); border: none;">Nâng
+                    cấp ngay</button>
+            </div>
+        </div>
+
+        <!-- Create button that shows at the bottom when collapsed -->
+        <button class="create-action-btn d-none" id="createActionBtn">
+            <i class="fas fa-plus"></i>
+        </button>
+    </nav>
+
+
+    <!-- Page Content -->
+    <div id="content">
+        <div class="page-header">
+            <button class="create-photo-btn">
+                <span>Tạo ảnh ngay</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+    
+            <div class="d-flex align-items-center gap-3">
+                <div class="user-points">
+                    <span>Điểm tích lũy: <strong>300 ePoint</strong></span>
+                </div>
+    
+                <div class="user-info" id="userInfoContainer">
+                    <div class="user-info-details">
+                        <div>Nguyễn Minh Thành <small class="text-secondary">Cơ bản</small></div>
+                        <div class="user-email small text-secondary">nguyenminhthanh.design@gmail.com</div>
+                    </div>
+                    <img src="/image/image2.jpg" alt="User profile" id="userProfileImage" />
+    
+                    <!-- User Dropdown Menu -->
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-user-info">
+                            <img src="/image/image2.jpg" alt="User profile">
+                            <div>
+                                <div>Nguyễn Minh Thành <span class="badge bg-secondary">Cơ bản</span></div>
+                                <div class="user-email small text-secondary">nguyenminhthanh.design@gmail.com</div>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu-items">
+                            <a href="#"><i class="fas fa-user"></i> Hồ sơ của tôi</a>
+                            <a href="#"><i class="fas fa-cog"></i> Cài đặt tài khoản</a>
+                            <a href="#"><i class="fas fa-crown" style="color: var(--primary-color);"></i> Nâng cấp lên
+                                Pro</a>
+                            <a href="#"><i class="fas fa-history"></i> Lịch sử giao dịch</a>
+                            <a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-heading">
+            <h1>Kho mẫu tóc <span>bất tận</span> dành cho khách hàng của SNAP HAIR</h1>
+            <p>Bạn có thể sử dụng các mẫu tóc có sẵn để tạo một bức ảnh thật đẹp của riêng bạn</p>
+        </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="search-bar">
+                    <i class="fas fa-bolt"></i>
+                    <input type="text" placeholder="Ví dụ: Tóc duôi ngựa">
+                    <button class="create-now-btn">
+                        <span>Tạo ngay</span>
+                        <i class="fas fa-chevron-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="category-section">
+            <div class="category-header">
+                <h2>Danh mục tóc đẹp</h2>
+                <div class="category-nav-buttons">
+                    <button class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="category-card">
+                        <span class="new-badge">MỚI</span>
+                        <img src="/image/image1.jpg" alt="TÓC HOT 2025">
+                        <div class="category-card-title">TÓC HOT 2025</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="category-card">
+                        <img src="/image/image7.jpg" alt="Tóc nam">
+                        <div class="category-card-title">Tóc nam</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="category-card">
+                        <img src="../image/image8.jpg" alt="Tóc nữ">
+                        <div class="category-card-title">Tóc nữ</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="category-card">
+                        <img src="/image/image9.jpg" alt="Tóc dành cho trẻ em">
+                        <div class="category-card-title">Tóc dành cho trẻ em</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-section">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Kho mẫu tóc</h2>
+                <div class="gallery-filters">
+                    <button class="filter-btn">
+                        <i class="fas fa-fire"></i>
+                        <span>Phổ biến nhất</span>
+                    </button>
+                    <button class="filter-btn">
+                        <i class="fas fa-heart"></i>
+                        <span>Được yêu thích</span>
+                    </button>
+                    <button class="filter-btn">
+                        <i class="fas fa-download"></i>
+                        <span>Được tải nhiều nhất</span>
+                    </button>
+                </div>
+            </div>
+
+<div class="gallery-container">
+    <!-- Card 1 -->
+    <div class="gallery-card">
+        <div class="gallery-card-img-container">
+            <img class="main-img" src="/image/image1.jpg" alt="Ảnh doanh nhân">
+            <button class="like-btn">
+                <i class="far fa-heart"></i>
+                <span>1,203</span>
+            </button>
+            <div class="action-buttons">
+                <button class="use-photo-btn">
+                    <i class="fas fa-circle"></i>
+                    <span>Sử dụng ảnh</span>
+                </button>
+                <button class="download-btn">
+                    <i class="far fa-heart"></i>
+                    <span>1,203</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-content">
+            <h5 class="gallery-card-title">Ảnh doanh nhân khoanh tay chuyên nghiệp</h5>
+            <div class="creator-info">
+                <img src="/image/image1.jpg" alt="Creator">
+                <span>Peter Anderson</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="gallery-card">
+        <div class="gallery-card-img-container">
+            <img class="main-img" src="/image/image2.jpg" alt="Ảnh doanh nhân">
+            <button class="like-btn">
+                <i class="far fa-heart"></i>
+                <span>1,203</span>
+            </button>
+            <div class="action-buttons">
+                <button class="use-photo-btn">
+                    <i class="fas fa-circle"></i>
+                    <span>Sử dụng ảnh</span>
+                </button>
+                <button class="download-btn">
+                    <i class="far fa-heart"></i>
+                    <span>1,203</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-content">
+            <h5 class="gallery-card-title">Ảnh doanh nhân khoanh tay chuyên nghiệp</h5>
+            <div class="creator-info">
+                <img src="/image/image2.jpg" alt="Creator">
+                <span>Peter Anderson</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="gallery-card">
+        <div class="gallery-card-img-container">
+            <img class="main-img" src="/image/image3.jpg" alt="Ảnh doanh nhân">
+            <button class="like-btn">
+                <i class="far fa-heart"></i>
+                <span>1,203</span>
+            </button>
+            <div class="action-buttons">
+                <button class="use-photo-btn">
+                    <i class="fas fa-circle"></i>
+                    <span>Sử dụng ảnh</span>
+                </button>
+                <button class="download-btn">
+                    <i class="far fa-heart"></i>
+                    <span>1,203</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-content">
+            <h5 class="gallery-card-title">Ảnh doanh nhân khoanh tay chuyên nghiệp</h5>
+            <div class="creator-info">
+                <img src="/image/image4.jpg" alt="Creator">
+                <span>Peter Anderson</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="gallery-card">
+        <div class="gallery-card-img-container">
+            <img class="main-img" src="/image/image4.jpg" alt="Ảnh doanh nhân">
+            <button class="like-btn">
+                <i class="far fa-heart"></i>
+                <span>1,203</span>
+            </button>
+            <div class="action-buttons">
+                <button class="use-photo-btn">
+                    <i class="fas fa-circle"></i>
+                    <span>Sử dụng ảnh</span>
+                </button>
+                <button class="download-btn">
+                    <i class="far fa-heart"></i>
+                    <span>1,203</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-content">
+            <h5 class="gallery-card-title">Ảnh doanh nhân khoanh tay chuyên nghiệp</h5>
+            <div class="creator-info">
+                <img src="/image/image4.jpg" alt="Creator">
+                <span>Peter Anderson</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="gallery-card">
+        <div class="gallery-card-img-container">
+            <img class="main-img" src="/image/image7.jpg" alt="Ảnh doanh nhân">
+            <button class="like-btn">
+                <i class="far fa-heart"></i>
+                <span>1,203</span>
+            </button>
+            <div class="action-buttons">
+                <button class="use-photo-btn">
+                    <i class="fas fa-circle"></i>
+                    <span>Sử dụng ảnh</span>
+                </button>
+                <button class="download-btn">
+                    <i class="far fa-heart"></i>
+                    <span>1,203</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-content">
+            <h5 class="gallery-card-title">Ảnh doanh nhân khoanh tay chuyên nghiệp</h5>
+            <div class="creator-info">
+                <img src="/image/image7.jpg" alt="Creator">
+                <span>Peter Anderson</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="gallery-card">
+        <div class="gallery-card-img-container">
+            <img class="main-img" src="/image/image8.jpg" alt="Ảnh doanh nhân">
+            <button class="like-btn">
+                <i class="far fa-heart"></i>
+                <span>1,203</span>
+            </button>
+            <div class="action-buttons">
+                <button class="use-photo-btn">
+                    <i class="fas fa-circle"></i>
+                    <span>Sử dụng ảnh</span>
+                </button>
+                <button class="download-btn">
+                    <i class="far fa-heart"></i>
+                    <span>1,203</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-content">
+            <h5 class="gallery-card-title">Ảnh doanh nhân khoanh tay chuyên nghiệp</h5>
+            <div class="creator-info">
+                <img src="/image/image8.jpg" alt="Creator">
+                <span>Peter Anderson</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="gallery-card">
+        <div class="gallery-card-img-container">
+            <img class="main-img" src="/image/image7.jpg" alt="Ảnh doanh nhân">
+            <button class="like-btn">
+                <i class="far fa-heart"></i>
+                <span>1,203</span>
+            </button>
+            <div class="action-buttons">
+                <button class="use-photo-btn">
+                    <i class="fas fa-circle"></i>
+                    <span>Sử dụng ảnh</span>
+                </button>
+                <button class="download-btn">
+                    <i class="far fa-heart"></i>
+                    <span>1,203</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-content">
+            <h5 class="gallery-card-title">Ảnh doanh nhân khoanh tay chuyên nghiệp</h5>
+            <div class="creator-info">
+                <img src="/image/image6.jpg" alt="Creator">
+                <span>Peter Anderson</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="gallery-card">
+        <div class="gallery-card-img-container">
+            <img class="main-img" src="/image/image7.jpg" alt="Ảnh doanh nhân">
+            <button class="like-btn">
+                <i class="far fa-heart"></i>
+                <span>1,203</span>
+            </button>
+            <div class="action-buttons">
+                <button class="use-photo-btn">
+                    <i class="fas fa-circle"></i>
+                    <span>Sử dụng ảnh</span>
+                </button>
+                <button class="download-btn">
+                    <i class="far fa-heart"></i>
+                    <span>1,203</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-content">
+            <h5 class="gallery-card-title">Ảnh doanh nhân khoanh tay chuyên nghiệp</h5>
+            <div class="creator-info">
+                <img src="/image/image7.jpg" alt="Creator">
+                <span>Peter Anderson</span>
+            </div>
+        </div>
+    </div>
+</div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
+            const sidebarToggle = document.getElementById("sidebarToggle");
+            const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+
+            // Toggle sidebar khi click nút trong sidebar
+            sidebarToggle.addEventListener("click", function () {
+                sidebar.classList.toggle("collapsed");
+                content.classList.toggle("expanded");
+
+                // Đổi icon khi toggle
+                const icon = sidebarToggle.querySelector("i");
+                if (sidebar.classList.contains("collapsed")) {
+                    icon.classList.remove("fa-chevron-left");
+                    icon.classList.add("fa-chevron-right");
+                } else {
+                    icon.classList.remove("fa-chevron-right");
+                    icon.classList.add("fa-chevron-left");
+                }
+            });
+
+            // Toggle sidebar khi click nút mobile
+            mobileMenuToggle.addEventListener("click", function () {
+                sidebar.classList.toggle("expanded");
+
+                // Thêm overlay khi sidebar mở trên mobile
+                if (sidebar.classList.contains("expanded")) {
+                    const overlay = document.createElement("div");
+                    overlay.id = "sidebarOverlay";
+                    overlay.style.position = "fixed";
+                    overlay.style.top = "0";
+                    overlay.style.left = "0";
+                    overlay.style.width = "100%";
+                    overlay.style.height = "100%";
+                    overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
+                    overlay.style.zIndex = "998";
+                    document.body.appendChild(overlay);
+
+                    overlay.addEventListener("click", function () {
+                        sidebar.classList.remove("expanded");
+                        document.body.removeChild(overlay);
+                    });
+                } else {
+                    const overlay = document.getElementById("sidebarOverlay");
+                    if (overlay) {
+                        document.body.removeChild(overlay);
+                    }
+                }
+            });
+            // Thiết lập mặc định cho mobile
+            if (window.innerWidth < 768) {
+                sidebar.classList.remove("expanded");
+                sidebar.classList.add("collapsed");
+                content.classList.add("expanded");
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userInfoContainer = document.getElementById("userInfoContainer");
+            const userDropdown = document.getElementById("userDropdown");
+
+            userInfoContainer.addEventListener("click", function (event) {
+                userDropdown.classList.toggle("active");
+                event.stopPropagation();
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!userInfoContainer.contains(event.target)) {
+                    userDropdown.classList.remove("active");
+                }
+            });
+        });
+        
+    </script>
+</body>
+
+</html>
