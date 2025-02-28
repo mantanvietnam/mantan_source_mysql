@@ -82,6 +82,62 @@ function settingHomeThemeWarm($input)
     setVariable('mess', $mess);
 }
 
+function settingWarmfacility($input){
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện trang chủ';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingWarmfacility');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $value = array(
+                        'title_top' => $dataSend['title_top'],
+                        'text_top' => $dataSend['text_top'],
+                        'title_2' => $dataSend['title_2'],
+                        'text_2' => $dataSend['text_2'],
+                        'image_2' => $dataSend['image_2'],
+                        'title_3' => $dataSend['title_3'],
+                        'text_3' => $dataSend['text_3'],
+                        'image_3' => $dataSend['image_3'],
+                        'title_4' => $dataSend['title_4'],
+                        'text_4' => $dataSend['text_4'],
+                        'title_5'=> $dataSend['title_5'],
+                        'image_5'=> $dataSend['image_5'],
+                        'text_5_top'=> $dataSend['text_5_top'],
+                        'text_5_phai'=> $dataSend['text_5_phai'],
+                        'text_5_duoi'=> $dataSend['text_5_duoi'],
+                        'title_7' => $dataSend['title_7'],
+                        'text_7' => $dataSend['text_7'],
+                        'title_6' => $dataSend['title_6'],
+                        'text_6' => $dataSend['text_6'],
+                    );
+
+        $data->key_word = 'settingWarmfacility';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
+
 function indexTheme($input)
 {
     global $modelCategories;
@@ -233,6 +289,29 @@ function albumTheme($input)
 function videoTheme($input)
 {
     
+}
+
+function warmfacility($input)
+{
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện trang chủ';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingWarmfacility');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('data', $data_value);
 }
 
 ?>
