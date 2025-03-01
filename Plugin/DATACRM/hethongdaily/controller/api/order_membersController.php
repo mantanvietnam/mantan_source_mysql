@@ -505,6 +505,16 @@ function createOrderMemberAPI($input)
 
 		                $save = $modelOrderMembers->newEmptyEntity();
 
+		                if(!empty($dataSend['time'])){
+		                    $time = explode(' ', $dataSend['time']);
+		                    $date = explode('/', $time[1]);
+		                    $time = explode(':', $time[0]);
+
+		                    $create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+		                }else{
+		                    $create_at = time();
+		                }
+
 		                $save->id_member_sell = $member_buy->id_father; // id người bán
 		                $save->id_member_buy = $member_buy->id; // id người mua
 		                $save->note_sell = '';
@@ -513,7 +523,7 @@ function createOrderMemberAPI($input)
                     	}
 		                $save->note_buy = @$dataSend['note']; // ghi chú người mua  
 		                $save->status = 'new';
-		                $save->create_at = time();
+		                $save->create_at = $create_at;
 		                $save->money = (int) $dataSend['total'];
 		                $save->total = (int) $dataSend['totalPays'];
 		                $save->status_pay = 'wait';

@@ -541,4 +541,8 @@ function listNotificationApi($input){
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 }
 
+function listSocialAPI(){
+    return getsocial();
+}
+
  ?>

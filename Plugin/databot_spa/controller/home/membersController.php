@@ -124,12 +124,12 @@ function dashboard($input)
 		$conditBill['id_member'] = $user->id_member;
 		$conditBill['id_spa'] = $user->id_spa;
 		$modelBill = $controller->loadModel('Bills');
-		$order = array('time'=>'asc');
+		$order = array('created_at'=>'asc');
         $modelOrder = $controller->loadModel('Orders');
         $modelBook = $controller->loadModel('Books');
 
-        $conditBill['time >='] = strtotime('first day of this month 00:00:00');
-        $conditBill['time <='] = time();
+        $conditBill['created_at >='] = strtotime('first day of this month 00:00:00');
+        $conditBill['created_at <='] = time();
 
 		$listDataBill = $modelBill->find()->where($conditBill)->order($order)->all()->toList();
 
@@ -207,11 +207,9 @@ function dashboard($input)
 	    }
 
 
-
-
 		if(!empty($listDataBill)){
 			foreach ($listDataBill as $item) {
-				$time= @$item->time;
+				$time= @$item->created_at;
 				$todayTime= getdate($time);
 	                      // tính doanh thu theo ngày
 				@$dayTotalBill[$todayTime['mday'].'-'.$todayTime['mon'].'-'.$todayTime['year']] += $item->total;
@@ -226,8 +224,6 @@ function dashboard($input)
 	            }
 	        }
 	    }
-
-
 
 	    setVariable('dayDataBill', $dayDataBill);
 	    setVariable('totalOrderproduct', $totalOrderproduct);

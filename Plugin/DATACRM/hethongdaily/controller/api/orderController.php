@@ -47,6 +47,15 @@ function createOrderCustomerAPI($input)
 	                // tạo đơn hàng mới
 	                $save = $modelOrders->newEmptyEntity();
 
+	                if(!empty($dataSend['time'])){
+                        $time = explode(' ', $dataSend['time']);
+                        $date = explode('/', $time[1]);
+                        $time = explode(':', $time[0]);
+                        $create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+                    }else{
+                        $create_at = time();
+                    }
+
 	                $save->id_user = (int) @$customer_buy->id;
 	                $save->full_name = @$customer_buy->full_name;
 	                $save->email = @$customer_buy->email;
@@ -56,7 +65,7 @@ function createOrderCustomerAPI($input)
 	                $save->note_user = @$dataSend['note'];
 	                $save->note_admin = '';
 	                $save->status = 'new';
-	                $save->create_at = time();
+	                $save->create_at = $create_at;
 	                $save->money = (int) @$dataSend['total'];
 	                $save->total = (int) @$dataSend['totalPays'];
 	                $save->promotion = (int) @$dataSend['promotion'];

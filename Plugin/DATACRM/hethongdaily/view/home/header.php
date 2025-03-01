@@ -148,6 +148,7 @@
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Nhân viên</a>
                               <div class="dropdown-menu menuSub3">
                                 <a class="dropdown-item" href="/listStaff">Nhân viên</a>
+                                <a class="dropdown-item" href="/timesheetStaff">Chấm công nhân viên</a>
                                 <a class="dropdown-item" href="/listGroupStaff">Nhóm nhân viên</a>
                                 <a class="dropdown-item" href="/listActivityHistory">Lịch sử Hoạt động nhân viên</a>
                               </div>

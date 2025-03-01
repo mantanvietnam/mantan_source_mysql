@@ -4,7 +4,7 @@ function addMoneyApplePayAPI($input)
     global $controller;
     global $isRequestPost;
     
-    $modelUser = $controller->loadModel('UserOrders');
+    $modelUser = $controller->loadModel('Users');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -16,7 +16,6 @@ function addMoneyApplePayAPI($input)
             
             if (!empty($user)) {
                 $infodata = array();
-               $data = getMemberById($user->id_parent);
                $totalPrice = (int)$dataSend['money'];
 
                $sms = $user->phone.' NAPTIEN';          
@@ -61,20 +60,21 @@ function addMoneyApplePayAPI($input)
 }
 
 
-function listHistories($input)
+function listHistorieAPI($input)
 {
 	global $controller;
 	global $urlCurrent;
 	global $metaTitleMantan;
 	global $modelCategories;
-	global $session;
+    global $session;
+	global $isRequestPost;
 
-	$modelUser = $controller->loadModel('UserOrders');
+	$modelUser = $controller->loadModel('Users');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (!empty($dataSend['access_token']) && !empty($dataSend['money'])){
+        if (!empty($dataSend['access_token'])){
             if(function_exists('getUserByToken')){
                 $user =  getUserByToken($dataSend['access_token']);
             }
@@ -84,16 +84,16 @@ function listHistories($input)
 
 				$conditions = array('id_user'=>$user->id);
 				$limit = 20;
-				$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 				if($page<1) $page = 1;
 				$order = array('id'=>'desc');
 
-				if(!empty($_GET['id'])){
-					$conditions['id'] = (int) $_GET['id'];
+				if(!empty($dataSend['id'])){
+					$conditions['id'] = (int) $dataSend['id'];
 				}
 
-				if(!empty($_GET['type'])){
-					$conditions['type'] = (int) $_GET['type'];
+				if(!empty($dataSend['type'])){
+					$conditions['type'] = (int) $dataSend['type'];
 				}
 
 			    $listData = $modelTransactionHistory->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
