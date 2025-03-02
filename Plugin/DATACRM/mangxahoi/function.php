@@ -191,4 +191,15 @@ function zipImage($urlLocalFile='')
     }
 }
 
+function getsocial(){
+    return array('like',
+                'dislike',
+                'love', 
+                'wow',
+                'care',
+                'haha',
+                'sad',
+                'angry',);
+}
+
 ?>

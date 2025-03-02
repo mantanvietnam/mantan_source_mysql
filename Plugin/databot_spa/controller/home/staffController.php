@@ -472,13 +472,30 @@ function listStaffBonus($input){
      
     $metaTitleMantan = 'Danh sách nhân viên';
     
-    setVariable('page_view', 'listStaffBonus');
+   
     $modelMember = $controller->loadModel('Members');
 	$modelStaffBonu = $controller->loadModel('StaffBonus');
 	
 	if(!empty(checkLoginManager('listStaffBonus', 'staff'))){
+
 		$infoUser = $session->read('infoUser');
 		$conditions = array('id_member'=>$infoUser->id_member);
+		$url= explode('?', $urlCurrent);
+		if($url[0]=='/listStaffPunish'){
+	    	 setVariable('page_view', 'listStaffPunish');
+	    	$conditions['type']= 'punish';
+	    	$title = 'Phạt';
+	    	$slug = 'Punish';
+	    	$type ='phạt';
+	    }else{
+	    	 setVariable('page_view', 'listStaffBonus');
+	    	$conditions['type']= 'bonus';
+	    	$title = 'Thưởng';
+	    	$slug = 'Bonus';
+	    	$type ='thưởng';
+	    }
+		
+		
 		$limit = 20;
 		$order = ['status'=>'desc','id' => 'DESC'];
 
@@ -491,10 +508,6 @@ function listStaffBonus($input){
 
 		if(!empty($_GET['id_staff'])){
 			$conditions['id_staff'] = $_GET['id_staff'];
-		}
-
-		if(!empty($_GET['type'])){
-			$conditions['type'] = $_GET['type'];
 		}
 
 		if(isset($_GET['status'])){
@@ -578,6 +591,9 @@ function listStaffBonus($input){
 	    setVariable('next', $next);
 	    setVariable('totalMoney', $totalMoney);
 	    setVariable('urlPage', $urlPage);
+	    setVariable('title', $title);
+	    setVariable('slug', $slug);
+	    setVariable('type', $type);
 	    
 	    setVariable('listCategory', $listCategory);
 	    setVariable('listData', $listData);
@@ -597,12 +613,27 @@ function addStaffBonus($input){
 
     $metaTitleMantan = 'Thông tin Nhóm nhân viên';
 
-    setVariable('page_view', 'addGroupStaff');
+   
     $modelMember = $controller->loadModel('Members');
 	$modelStaffBonu = $controller->loadModel('StaffBonus');
 	
 	if(!empty(checkLoginManager('addGroupStaff', 'staff'))){
 		$infoUser = $session->read('infoUser');
+
+		$url= explode('?', $urlCurrent);
+		if($url[0]=='/addStaffPunish'){
+	    	 setVariable('page_view', 'addStaffPunish');
+	    	$datatype= 'punish';
+	    	$title = 'Phạt';
+	    	$slug = 'Punish';
+	    	$type ='phạt';
+	    }else{
+	    	 setVariable('page_view', 'addStaffBonus');
+	    	$datatype= 'bonus';
+	    	$title = 'Thưởng';
+	    	$slug = 'Bonus';
+	    	$type ='thưởng';
+	    }
 
 		// lấy data edit
 	    if(!empty($_GET['id'])){
@@ -623,7 +654,7 @@ function addStaffBonus($input){
 	        	$data->id_staff =(int)@$dataSend['id_staff'];
 	        	$data->id_member = @$infoUser->id_member;
 	        	$data->note = @$dataSend['note'];
-	        	$data->type = @$dataSend['type'];
+	        	$data->type = @$datatype;
 	        	$data->updated_at =time();
 	        	$data->money = (int)@$dataSend['money'];
 	        	$data->id_spa = @$infoUser->id_spa;
@@ -647,6 +678,9 @@ function addStaffBonus($input){
 	    setVariable('data', $data);
 	    setVariable('listStaffs', $listStaffs);
 	    setVariable('mess', $mess);
+	    setVariable('title', $title);
+	    setVariable('slug', $slug);
+	    setVariable('type', $type);
 
 	}else{
 		return $controller->redirect('/');

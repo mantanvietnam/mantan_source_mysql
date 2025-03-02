@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Tiền thưởng phạt nhận viên</h4>
-  <p><a href="/addStaffBonus" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Tiền <?php echo @$type ?> nhân viên</h4>
+  <p><a href="/addStaff<?php echo @$slug ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -44,14 +44,7 @@
               <option value="done" <?php if(!empty($_GET['status']) && $_GET['status']=='done') echo 'selected';?> >Đã thanh toán </option>
             </select>
           </div>
-          <div class="col-md-2">
-            <label class="form-label">Hình thức</label>
-            <select name="type" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="reward" <?php if(!empty($_GET['type']) && $_GET['type']=='reward') echo 'selected';?> >Thưởng</option>
-              <option value="penalty" <?php if(!empty($_GET['type']) && $_GET['type']=='penalty') echo 'selected';?> >Phạt</option>
-            </select>
-          </div>
+         
 
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
@@ -65,7 +58,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Tiền thưởng phạt nhận viên - <b class="text-danger"><?php echo number_format($totalMoney);?>đ</b></h5>
+    <h5 class="card-header">Tiền <?php echo @$type ?> nhân viên - <b class="text-danger"><?php echo number_format($totalMoney);?>đ</b></h5>
     <?php echo @$mess; ?>
     <div class="card-body row">
       <div class="table-responsive">
@@ -75,10 +68,9 @@
               <th>ID</th>
               <th>Thời gian</th>
               <th>Nhân viên</th>
-              <th>Số tiền</th>
+              <th>Số tiền <?php echo @$type ?></th>
               <th>Nội dung</th>
               <th>Trạng thái</th>
-              <th>hình thức</th>
               <th>Sửa</th>
               <!-- <th>in</th> -->
             </tr>
@@ -88,11 +80,7 @@
               if(!empty($listData)){
                 global $type_collection_bill;
                 foreach ($listData as $item) {
-                   if($item->type=='penalty'){
-                      $type = '<p class="text-danger">Phạt</p>';
-                   }else{
-                      $type = '<p class="text-success">Thưởng</p>';
-                   }
+                   
 
                    if($item->status=='new'){
                       $status = '<p class="text-danger">chưa thanh toán</p>';
@@ -108,9 +96,8 @@
                           <td>'.number_format($item->total).'đ</td>
                           <td>'.$item->note.'</td>
                           <td>'.$status.'</td>
-                          <td>'.$type.'</td>
                           <td align="center">
-                            <a class="dropdown-item" href="/addStaffBonus/?id='.$item->id.'">
+                            <a class="dropdown-item" href="/addStaff'.@$slug.'/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>

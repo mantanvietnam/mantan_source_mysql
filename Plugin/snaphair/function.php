@@ -246,13 +246,13 @@ function processAddMoney($money = 0, $phone=''){
                 // lưu lịch sử giao dịch
         $dataHistories = $modelTransactionHistory->newEmptyEntity();
 
-        $dataHistories->idManager = $infoUser->id;
+        $dataHistories->id_user = $infoUser->id;
         $dataHistories->total = $money;
         $dataHistories->coin_user = $infoUser->coin;
         $dataHistories->type = 'plus';
         $dataHistories->note = 'Nạp tiền tài khoản qua chuyển khoản';
         $dataHistories->type_note = 'plus_banking';
-        $dataHistories->modified = time();
+        $dataHistories->created = time();
 
         $modelTransactionHistory->save($dataHistories);
 

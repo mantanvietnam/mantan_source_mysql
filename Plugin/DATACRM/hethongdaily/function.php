@@ -1953,4 +1953,6 @@ global $priceExtend;
 $priceExtend = array( 1=> 2000000,3=> 5000000,5=> 7000000);
 
 
+
+
 ?>

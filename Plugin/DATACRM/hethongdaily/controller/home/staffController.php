@@ -429,18 +429,18 @@ function checktimesheet(){
             if(empty($checkdate)){
                 $checkdate = $modelStaffTimekeepers->newEmptyEntity();
                 $checkdate->day = $date;
+                // $checkdate->date = $date;
                 $checkdate->id_staff = $staff->id;
             }
 
             $checkdate->shift = implode(', ', $_GET['shift']);
-
 
             $modelStaffTimekeepers->save($checkdate);
         }elseif(!empty($checkdate)){
             $modelStaffTimekeepers->delete($checkdate);
         }
 
-        $note = $user->type_tv.' '. $user->name.' đã chấm công cho nhân viên '.$data->name.' ngày :'.date('d/m/Y',$date);
+        $note = $user->type_tv.' '. $user->name.' đã chấm công cho nhân viên '.$staff->name.' ngày :'.date('d/m/Y',$date);
         addActivityHistory($user,$note,'checktimesheet',$staff->id);
 
 

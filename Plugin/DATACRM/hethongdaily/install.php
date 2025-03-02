@@ -411,10 +411,10 @@ PRIMARY KEY (`id`)
 
 $sqlInstallDatabase .="CREATE TABLE `staff_timekeepers` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
-`day` INT NOT NULL ,
+`day` INT NULL DEFAULT NULL ,
 `shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
-`id_staff` INT NOT NULL ,
+`id_staff` INT NULL DEFAULT NULL ,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -872,10 +872,10 @@ $sqlUpdateDatabase['staffs']['last_login'] = "ALTER TABLE `staffs` ADD `last_log
 $sqlUpdateDatabase['staffs']['id_group'] = "ALTER TABLE `staffs` ADD `id_group` INT NULL DEFAULT NULL;"; 
 $sqlUpdateDatabase['staffs']['permission'] = "ALTER TABLE `staffs` ADD `permission` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]';";
 
-$sqlUpdateDatabase['staff_timekeepers']['day'] = "ALTER TABLE `staff_timekeepers` ADD `day` INT NOT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['day'] = "ALTER TABLE `staff_timekeepers` ADD `day` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['shift'] = "ALTER TABLE `staff_timekeepers` ADD `shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['note'] = "ALTER TABLE `staff_timekeepers` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['staff_timekeepers']['id_staff'] = "ALTER TABLE `staff_timekeepers` ADD `id_staff` INT NOT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['id_staff'] = "ALTER TABLE `staff_timekeepers` ADD `id_staff` INT NULL DEFAULT NULL;";
 
 $sqlUpdateDatabase['activity_historys']['note'] = "ALTER TABLE `activity_historys` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['activity_historys']['time'] = "ALTER TABLE `activity_historys` ADD `time` INT NOT NULL DEFAULT '0';";
