@@ -84,15 +84,15 @@ function listUplikeHistoriesAdmin($input)
 
                 if($checkStatus['code'] == 200){
                     if($checkStatus['data']['status'] != 'Running'){
-                        $listData[$key]->status = $checkStatus['data']['status'];
+                        $listData[$key]->status = @$checkStatus['data']['status'];
                     }
+                    $listData[$key]->run = (int) @$checkStatus['data']['run'];
 
-                    $listData[$key]->run = (int) $checkStatus['data']['run'];
-
-                    $modelUplikeHistories->save($listData[$key]);
+                 $modelUplikeHistories->save($listData[$key]);
                 }
             }
         }
+
     }
     
 

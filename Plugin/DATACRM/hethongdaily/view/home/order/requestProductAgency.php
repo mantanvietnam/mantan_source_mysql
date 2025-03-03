@@ -292,10 +292,9 @@
                             }else{
                               $showPrice = number_format($priceBuy).'đ';
                             }
-
  
                               echo '<tr> 
-                              <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->product.'</td>
+                              <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->product->title.'</td>
                               <td  width="30%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$showPrice.'</td>
                               <td  width="20%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->quantity.'</td>
                               </tr>';

@@ -1422,11 +1422,15 @@ function checklogin($permission=''){
             $user->permission = $info_staff->permission;
             $user->deadline = $info_staff->deadline;
         }
-        $user->id_father = $modelMember->find()->where(array('id'=>$user->id_member, 'status'=>'active' ))->first()->id_father;
+        $father = $modelMember->find()->where(array('id'=>$user->id_member, 'status'=>'active' ))->first();
+        $user->id_father = $father->id_father;
         $user->type = 'staff';
         $user->type_tv = 'Nhân viên';
         $user->id_staff = $user->id;
-        $user->id = $user->id_member;
+        $user->id_staff = $user->id;
+        $user->id_position = $father->id_position;
+        $user->create_agency = $father->create_agency;
+        $user->create_order_agency = $father->create_order_agency;
         $user->noti_new_customer = 1;
         if(!empty($permission)){
             if(!empty($user->permission) && in_array($permission, json_decode($user->permission, true))){
