@@ -53,12 +53,20 @@ $type_collection_bill = array(      'tien_mat'=>'Tiền mặt',
                                     'hinh_thuc_khac'=>'Hình thức khác',
                                 );
 
-function getListPermission()
+function getListPermission($id)
 {
     global $session;
+    global $controller;
+    $modelMember = $controller->loadModel('Members');
 
     $permission = [];
-    $infoUser = $session->read('infoUser');
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+    }else{
+        $infoUser = $modelMember->get($id);
+        $infoUser->module = json_decode($infoUser->module, true);
+
+    }
 
     if(!empty($infoUser->module)){
         if(in_array('static', $infoUser->module)){

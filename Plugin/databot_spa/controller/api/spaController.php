@@ -42,11 +42,9 @@ function listSpaAPI($input){
 					$listData = $modelSpas->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
 					$totalData = $modelSpas->find()->where($conditions)->count();
-				    	return apiResponse(1,'Bạn lấy dữ liệu thành công',$listData, $totalData );
-				}else{
-					return apiResponse(3,'Tài khoản không tồn tại' );
+				    return apiResponse(1,'Bạn lấy dữ liệu thành công',$listData, $totalData );
 				}
-			
+				return apiResponse(3,'Tài khoản không tồn tại' );
 			}
 			return apiResponse(2,'thếu dữ liệu' );
 		}
@@ -71,10 +69,7 @@ function detailSpaAPI($input){
 		$infoUser = getMemberByToken($dataSend['token'], 'listSpa');
 		if(!empty($infoUser)){ 
 				$conditions = array();
-				$limit = 20;
-				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
-				if($page<1) $page = 1;
-				$order = array('id'=>'desc');
+				
 
 				$conditions['id_member']= $infoUser->id_member;
 				$conditions['id']= $dataSend['id'];
@@ -142,8 +137,14 @@ function addSpaAPI($input){
 		    	$data->facebook = $dataSend['facebook'];
 				$data->website = $dataSend['website'];
 				$data->zalo = $dataSend['zalo'];
-				$data->image = $dataSend['image'];
-	    	
+				if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
+					$avatar = uploadImage($checkUser->id, 'image', 'image_sap'.$checkUser->id);
+				}
+
+				if(!empty($avatar['linkOnline'])){
+
+					$data->image = $avatar['linkOnline'].'?time='.time();
+	    		}
 	    		$modelSpas->save($data);
 	    	
 	    		if(empty($dataSend['id'])){

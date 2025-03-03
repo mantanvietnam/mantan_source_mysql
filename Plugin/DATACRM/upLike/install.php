@@ -17,7 +17,7 @@ $sqlInstallDatabase .= "CREATE TABLE `uplike_histories` (
   `money` INT NOT NULL DEFAULT '0' , 
   `number_up` INT NOT NULL DEFAULT '0' , 
   `create_at` INT NOT NULL , 
-  `status` VARCHAR(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Running' , 
+  `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Running' , 
   `chanel` INT NOT NULL DEFAULT '0',
   `url_page` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_system` INT NOT NULL DEFAULT '0',
@@ -40,7 +40,7 @@ $sqlUpdateDatabase['uplike_histories']['type_page'] = "ALTER TABLE `uplike_histo
 $sqlUpdateDatabase['uplike_histories']['money'] = "ALTER TABLE `uplike_histories` ADD `money` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['uplike_histories']['number_up'] = "ALTER TABLE `uplike_histories` ADD `number_up` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['uplike_histories']['create_at'] = "ALTER TABLE `uplike_histories` ADD `create_at` INT NOT NULL;";
-$sqlUpdateDatabase['uplike_histories']['status'] = "ALTER TABLE `uplike_histories` ADD `status` VARCHAR(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Running';";
+$sqlUpdateDatabase['uplike_histories']['status'] = "ALTER TABLE `uplike_histories` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Running';";
 $sqlUpdateDatabase['uplike_histories']['chanel'] = "ALTER TABLE `uplike_histories` ADD `chanel` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['uplike_histories']['url_page'] = "ALTER TABLE `uplike_histories` ADD `url_page` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['uplike_histories']['id_system'] = "ALTER TABLE `uplike_histories` ADD `id_system` INT NOT NULL DEFAULT '0';";

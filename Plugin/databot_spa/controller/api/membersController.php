@@ -318,7 +318,6 @@ function saveInfoMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
-    $modelStaff = $controller->loadModel('Staffs');
 
 	$return = array('code'=>1);
 	
@@ -380,16 +379,17 @@ function managerSelectSpaAPI($input){
 	$modelSpas = $controller->loadModel('Spas');
 
 	if($isRequestPost){
-		if(!empty($dataSend['token']) && $dataSend['idspa']){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
 			$checkPhone = getMemberByToken($dataSend['token']);
 			if(!empty($checkPhone)){
 				$infoUser = $modelMember->find()->where(array('id'=>$checkPhone->id))->first();
-				$checkSpa = $modelSpas->find()->where(['id'=>(int)$dataSend['idspa'],'id_member'=>$checkPhone->id_member])->first();
+				$checkSpa = $modelSpas->find()->where(['id'=>(int)$dataSend['id'],'id_member'=>$checkPhone->id_member])->first();
 				if(!empty($checkSpa)){
-					$infoUser->id_spa = $dataSend['idspa'];
+					$infoUser->id_spa = $dataSend['id'];
 					$modelMember->save($infoUser);
 
-					return apiResponse(3,'Tài khoản không tồn tại hoặc sai token');;
+					return apiResponse(1,'bạn chọn cơ sở thành công',$checkSpa);
 				}
 				return apiResponse(4,'Spa không tồn tại');
 							

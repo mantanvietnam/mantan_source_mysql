@@ -12,7 +12,7 @@
   <h4 class="fw-bold py-3 mb-4">Hệ thống tuyến dưới</h4>
 
   <?php 
-  if($session->read('infoUser')->create_agency == 'active'){
+  if(checklogin('listMember')->create_agency == 'active'){
     echo '<p><a href="/addMember" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>';
   }
   ?>
@@ -221,8 +221,8 @@
             var dateDealine = new Date(dataAgency.deadline*1000).toLocaleString();
             var status, payFees, verify, edit;
             var linkProfile = '<?php global $urlHomes; echo $urlHomes;?>info/?id=';
-            var create_agency = '<?php echo $session->read('infoUser')->create_agency;?>';
-            var create_order_agency = '<?php echo $session->read('infoUser')->create_order_agency;?>';
+            var create_agency = '<?php echo checklogin('listMember')->create_agency;?>';
+            var create_order_agency = '<?php echo checklogin('listMember')->create_order_agency;?>';
 
             edit = '';
 

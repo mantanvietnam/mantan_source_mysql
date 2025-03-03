@@ -140,7 +140,7 @@ function createRequestImportProductAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token'],'warehouseProductAgency');
+            $infoMember = getMemberByToken($dataSend['token'],'addRequestProductAgency');
             $id_parent = 0;
             if(!empty($infoMember)){
                 if(empty($infoMember->grant_permission)){
