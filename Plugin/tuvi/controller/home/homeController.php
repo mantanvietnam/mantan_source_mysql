@@ -5,14 +5,20 @@ function registerform($input) {
     global $controller;
     $metaTitleMantan = 'Đăng ký tài khoản';
     $modelCustomer = $controller->loadModel('customers');
-  
+  $modelCollaborator = $controller->loadModel('Collaborator');
+ 
     $mess = '';
 
-    // Check if request is a POST
+                
+    $conditions = [];
+
+    if (!empty($_GET['ref'])) {
+        $conditions['phone'] = $_GET['ref'];
+    }        $collaborator = $modelCollaborator->find()->where($conditions)->first();
+    
+    $collaborator = $modelCollaborator->find()->where($conditions)->first();
     if ($input['request']->is('POST')) {
         $dataSend = $input['request']->getData();
-
-        // Validate required fields
         if (!empty($dataSend['full_name']) &&
             !empty($dataSend['phone_number']) &&
             !empty($dataSend['email']) &&
@@ -24,18 +30,11 @@ function registerform($input) {
             !empty($dataSend['gender'])
         ) {
             $data = $modelCustomer->newEmptyEntity();
-
-            // Clean up phone number
             $dataSend['phone_number'] = trim(str_replace(array(' ', '.', '-'), '', $dataSend['phone_number']));
             $dataSend['phone_number'] = str_replace('+84', '0', $dataSend['phone_number']);
-
-            // Check if the email is already registered
             $conditions = ['email' => $dataSend['email']];
             $checkCustomer = $modelCustomer->find()->where($conditions)->first();
-
-            // If email is not already registered
             if (empty($checkCustomer)) {
-                // Format birth datetime
                 $birth_datetime = sprintf(
                     '%04d-%02d-%02d %02d:%02d:00',
                     $dataSend['birth_year'],
@@ -44,17 +43,15 @@ function registerform($input) {
                     $dataSend['birth_hour'],
                     $dataSend['birth_minute']
                 );
-
-                // Set customer data
                 $data->full_name = $dataSend['full_name'];
                 $data->phone_number = $dataSend['phone_number'];
                 $data->email = $dataSend['email'];
                 $data->birth_datetime = $birth_datetime;
                 $data->gender = $dataSend['gender'];
+                $data->id_collaborator  = $collaborator->id;
 
-                // Save data to the database
                 if ($modelCustomer->save($data)) {
-                    return $controller->redirect('/');
+                    return $controller->redirect('/information?id=' . $data->id);
                 } else {
                     $mess = '<p class="text-danger">Lỗi khi lưu dữ liệu. Vui lòng thử lại.</p>';
                 }
@@ -64,10 +61,60 @@ function registerform($input) {
         } else {
             $mess = '<p class="text-danger">Vui lòng nhập đầy đủ thông tin</p>';
         }
+    
     }
-
-    // Pass the message variable to the view
+ 
     setVariable('mess', $mess);
 }
+//khi người dùng nhập thông tin xong xong so sánh năm sinh và giới tính xem có trùng với dữ liệu trong bảng database horoscopes không nếu trùng thì hiển thị thông tin mascots trong bảng horoscopes có năm sinh và giới tính trùng với năm sinh và giới tính người dùng nhập vào
+function information($input) {
+    global $metaTitleMantan;
+    global $controller;
+
+    $metaTitleMantan = 'Thông tin chi tiết';
+
+    $modelCustomer = $controller->loadModel('customers');
+    $modelHoroscopes = $controller->loadModel('Horoscope');
+
+    $mess = ''; 
+    $mascot = null;
+    $dataSend = $input['request']->getQuery();
+
+    if (!empty($dataSend['id'])) {
+        $conditions = ['id' => $dataSend['id']];
+    } else {
+        $conditions = ['id IS' => null];
+    }
+
+    $customer = $modelCustomer->find()->where($conditions)->first();
+
+    if ($customer) {
+        if (!empty($customer->birth_datetime) && !empty($customer->gender)) {
+            $birth_year = $customer->birth_datetime->format('Y');
+            $gender = $customer->gender;
+
+            $conditions = [
+                'year' => $birth_year,
+                'gender' => $gender
+            ];
+
+            $horoscope = $modelHoroscopes->find()->where($conditions)->first();
+           
+            if ($horoscope) {
+                $mascot = $horoscope->mascot;
+            } else {
+                $mess = "Không tìm thấy thông tin phù hợp.";
+            }
+        } else {
+            $mess = "Dữ liệu khách hàng không hợp lệ.";
+        }
+    } else {
+        $mess = "Không tìm thấy khách hàng.";
+    }
+
+    setVariable('mess', $mess);
+    setVariable('mascot', $mascot);
+}
+
 
 ?>
