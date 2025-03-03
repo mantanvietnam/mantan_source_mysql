@@ -13,6 +13,6 @@ function createPhotoAIHairAPI($input)
 	$data = file_get_contents($path);
 	$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-    return ['base64'=>$base64];
+    return ['image1'=>$base64, 'image2'=>$base64, 'image3'=>$base64];
 }
 ?>
