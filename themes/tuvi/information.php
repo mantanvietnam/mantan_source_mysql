@@ -49,17 +49,16 @@
     <div class="container">
         <h2>Thông Tin Tử vi</h2>
         <div class="mascot-box">
-            <p><strong>Linh vật của bạn:</strong></p>
             <p>
-                <?= !empty($mascot) ? ($mascot) : "Không có dữ liệu!"; ?>
+                <?= !empty($overview) ? ($overview) : "Không có dữ liệu!"; ?>
             </p>
         </div>
 
         <!-- Đường link đăng ký nhận bản đầy đủ -->
-        <p><a href="#">Đăng ký nhận bản đầy đủ</a></p>
+        <p><a href="/regis">Đăng ký nhận bản đầy đủ</a></p>
 
         <!-- Nút quay lại -->
-        <a href="index.php" class="back-button">Quay lại</a>
+        <a href="/registerform" class="back-button">Quay lại</a>
     </div>
 
 </body>

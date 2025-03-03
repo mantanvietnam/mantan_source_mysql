@@ -14,7 +14,7 @@ function registerform($input) {
 
     if (!empty($_GET['ref'])) {
         $conditions['phone'] = $_GET['ref'];
-    }        $collaborator = $modelCollaborator->find()->where($conditions)->first();
+    } $collaborator = $modelCollaborator->find()->where($conditions)->first();
     
     $collaborator = $modelCollaborator->find()->where($conditions)->first();
     if ($input['request']->is('POST')) {
@@ -77,7 +77,7 @@ function information($input) {
     $modelHoroscopes = $controller->loadModel('Horoscope');
 
     $mess = ''; 
-    $mascot = null;
+    $overview = null;
     $dataSend = $input['request']->getQuery();
 
     if (!empty($dataSend['id'])) {
@@ -101,7 +101,7 @@ function information($input) {
             $horoscope = $modelHoroscopes->find()->where($conditions)->first();
            
             if ($horoscope) {
-                $mascot = $horoscope->mascot;
+                $overview = $horoscope->overview;
             } else {
                 $mess = "Không tìm thấy thông tin phù hợp.";
             }
@@ -113,7 +113,7 @@ function information($input) {
     }
 
     setVariable('mess', $mess);
-    setVariable('mascot', $mascot);
+    setVariable('overview', $overview);
 }
 
 
