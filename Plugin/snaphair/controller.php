@@ -14,5 +14,7 @@
    include('controller/api/imageController.php');
    include('controller/api/postController.php');
 
+   include('controller/api/aiController.php');
+
    
  ?>
