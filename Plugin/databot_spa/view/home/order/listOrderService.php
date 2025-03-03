@@ -49,15 +49,15 @@
                                 <table class="table table-bordered" style=" text-align: center; ">
                                     <thead>
                                         <tr>
-                                            <th rowspan='2'>Id</th>
-                                            <th rowspan='2'>thời gian</th>
-                                            <th rowspan='2'>khách hàng</th>
-                                            <th rowspan="2">Thành tiền </th>
-                                            <th rowspan="2">Chi tiết </th>
-                                            <th colspan="4">thông tin sản phẩn </th>                                                
+                                            <th rowspan='2'>ID</th>
+                                            <th rowspan='2'>Thời gian</th>
+                                            <th rowspan='2'>Khách hàng</th>
+                                            <th rowspan="2">Thành tiền</th>
+                                            <th colspan="3">Thông tin dịch vụ</th>       
+                                            <th rowspan="2">Sử dụng</th>                                
                                         </tr>
                                         <tr>
-                                            <th >Sản phẩn</th>
+                                            <th >Dịch vụ</th>
                                             <th >Giá bán</th>
                                             <th >Số lượng </th>
                                         </tr>
@@ -68,55 +68,84 @@
                                         if(!empty($listData)){
                                             foreach($listData as $key => $item){ 
                                                 
-                                                  $type = '<span style="color: red">Chưa thanh toán</span>';
+                                                $type = '<span style="color: red">Chưa thanh toán</span>';
                                                 if($item->status==1){
                                                     $type = 'Đã thanh toán';
                                                 }elseif($item->status==2){
-                                                    $type = 'Dang sử lý';
+                                                    $type = 'Đang xử lý';
                                                 }elseif($item->status==3){
                                                     $type = 'Hủy';
                                                 }
+                                                
                                                 $checkin ='';
                                                 if(!empty($item->bed) && $item->status==0){
                                                     $checkin ='<a class="dropdown-item" href="/checkinbed?id_order='. $item->id.'&id_bed='. $item->id_bed.'" title="check in"><i class="bx bx-exclude me-1"></i></a>';
                                                 }
 
                                                 if($item->promotion>101){
-                                                  $promotion = number_format($item->promotion).'đ';
-                                              }else{
-                                                 $promotion = $item->promotion.'%';
-                                             }
-                                             $count = 0;
-                                             if(!empty($item->product)){
-                                                $count = count(@$item->product);
-                                             }
-                                             ?>
+                                                    $promotion = number_format($item->promotion).'đ';
+                                                }else{
+                                                    $promotion = $item->promotion.'%';
+                                                }
+
+                                                $count = 0;
+                                                if(!empty($item->product)){
+                                                    $count = count(@$item->product);
+                                                }
+                                            ?>
                                             <tr> 
-                                                <td rowspan='<?php echo $count; ?>'><?php echo $item->id ?></td>
+                                                <td rowspan='<?php echo $count; ?>'>
+                                                    <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Xem chi tiết" data-bs-toggle="modal"
+                                                       data-bs-target="#basicModal<?php echo $item->id; ?>" ><?php echo $item->id ?></a>
+                                                </td>
                                                 <td rowspan='<?php echo $count; ?>'><?php echo date('H:i d/m/Y', $item->time); ?></td>
-                                                <td rowspan='<?php echo $count; ?>'><?php echo $item->full_name ?></td>
-                                                <td rowspan='<?php echo $count; ?>' style="text-align: left;">Chưa giảm giá <?php echo number_format(@$item->total) ?>đ<br/>
+                                                <td rowspan='<?php echo $count; ?>'><?php echo $item->full_name.'<br/>'.@$item->customer->phone; ?></td>
+                                                <td rowspan='<?php echo $count; ?>' style="text-align: left;">
+                                                    Chưa giảm giá <?php echo number_format(@$item->total) ?>đ<br/>
                                                     Giảm giá: <?php echo $promotion ?><br/>
                                                     Tổng cộng: <?php echo number_format(@$item->total_pay) ?>đ<br/>
-                                                    Trạng thái: <?php echo $type ?></td>
-                                                    <td rowspan='<?php echo $count; ?>'><a class="btn rounded-pill btn-icon btn-outline-secondary" title="Từ chối" data-bs-toggle="modal"
-                                                       data-bs-target="#basicModal<?php echo $item->id; ?>" ><i class="bx  bx bxs-show"></i></a>
-                                                   </td>
-                                                   <?php  if(!empty($item->product)){ 
-                                                      foreach($item->product as $k => $value){
+                                                    Trạng thái: <?php echo $type ?>
+                                                </td>
+                                                
+                                                <?php  
+                                                    if(!empty($item->product)){ 
+                                                        foreach($item->product as $k => $value){
+                                                            $button_use = '';
+                                                            if($value->number_uses<$value->quantity){
+                                                                $button_use = '<button  type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                                   data-bs-target="#sudung'.$value->id.'">Sử dụng</button>';
+                                                            }
 
-                                                        ?>
+                                                            if($k==0){
+                                                                echo '  <td>'.$value->prod->name.'</td>
+                                                                        <td>'.number_format($value->price).'đ</td>
+                                                                        <td>'.$value->number_uses.'/'.$value->quantity.'</td>
+                                                                        <td>'.$button_use.'</td>
+                                                                    ';
+                                                            }else{
+                                                                echo '      
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>'.$value->prod->name.'</td>
+                                                                            <td>'.number_format($value->price).'đ</td>
+                                                                            <td>'.$value->number_uses.'/'.$value->quantity.'</td>
+                                                                            <td>'.$button_use.'</td>
+                                                                    ';
+                                                            }
 
-                                                        <td><?php echo $value->prod->name ?></td>
-                                                        <td><?php echo number_format($value->price) ?>đ</td>
-                                                        <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
-                                                    </tr>
-                                                <?php }} 
-                                            }}else{
-                                                echo '<tr>
-                                                <td colspan="10" align="center">Chưa có đơn nào</td>
-                                                </tr>';
-                                            } ?>
+                                                            
+                                                        }
+                                                    }
+                                                ?>
+                                                
+                                            </tr>
+                                            <?php 
+                                            }
+                                        }else{
+                                            echo '<tr>
+                                            <td colspan="10" align="center">Chưa có đơn nào</td>
+                                            </tr>';
+                                        } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -180,68 +209,71 @@
         if($items->status==1){
             $type = 'Đã thanh toán';
         }elseif($items->status==2){
-             $type = 'Dang sử lý';
+             $type = 'Đang xử lý';
         }elseif($items->status==3){
             $type = 'Hủy';
         }
 
-     ?>      
-     <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+    ?>      
+    
+    <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Thông tin Dịch vụ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel1">Thông tin Dịch vụ</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-footer" style="display: block;">
-            <p><label>ID:</label> <?php echo $items->id ?></p>
-            <p><label>Tên khách hàng:</label> <?php echo $items->full_name ?></p>
-            <p><label>Điện thoại:</label> <?php echo @$items->customer->phone ?></p>
-            <p><label>Email:</label> <?php echo @$items->customer->email ?></p>
-            <p> Chưa giảm giá: <?php echo number_format(@$items->total) ?>đ <br/>
-                Giảm giá: <?php echo $promotion ?><br/>
-                Tổng cộng: <?php echo number_format(@$items->total_pay) ?>đ<br/>
-                Trạng thái: <?php echo $type ?></td></p>
+                <div class="modal-footer" style="display: block;">
+                    <div class="row mb-3">
+                        <div class="col-md-6"><b>ID:</b> <?php echo $items->id ?></div>
+                        <div class="col-md-6"><b>Tên khách hàng:</b> <?php echo $items->full_name ?></div>
+                        <div class="col-md-6"><b>Điện thoại:</b> <?php echo $items->customer->phone ?></div>
+                        <div class="col-md-6"><b>Email:</b> <?php echo $items->customer->email ?></div>
+                        <div class="col-md-6"><b>Giá ban đầu:</b> <?php echo number_format(@$items->total) ?>đ</div>
+                        <div class="col-md-6"><b>Giảm giá:</b> <?php echo $promotion ?></div>
+                        <div class="col-md-6"><b>Thành tiền:</b> <?php echo number_format(@$items->total_pay) ?>đ</div>
+                        <div class="col-md-6"><b>Trạng thái:</b> <?php echo $type ?></div>
+                    </div>
 
-                <table class="table table-bordered" style=" text-align: center; ">
-                    <thead>
-                        <tr>
-                            <th >Dịch vụ</th>
-                            <th >Giá bán</th>
-                            <th >Số lượng </th>                                                
-                            <th >Hành động </th>                                                
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php  if(!empty($items->product)){ 
-                          foreach($items->product as $k => $value){
-
-                            ?>
+                    <table class="table table-bordered" style=" text-align: center; ">
+                        <thead>
                             <tr>
-                                <td><?php echo $value->prod->name ?></td>
-                                <td><?php echo number_format($value->price) ?>đ</td>
-                                <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
-                                <td>
-                                    <?php if($value->number_uses < $value->quantity){ ?>
-                                        <a class="btn btn-primary d-block" title="sử dụng" data-bs-toggle="modal" data-bs-target="#sudung<?php echo $value->id; ?>" style=" color: white; ">Sử dụng</a>
-                                    <?php }else{ ?>
-                                        Đã hết
-                                    <?php } ?>
-                                </td>
-
+                                <th >Dịch vụ</th>
+                                <th >Giá bán</th>
+                                <th >Số lượng </th>                                                
+                                <th >Sử dụng </th>                                                
                             </tr>
-                        <?php }} ?>
-                    </tbody>
-                </table>
-                <?php  if(@$items->status==0){ ?>
-                    <a href="" data-bs-toggle="modal" data-bs-target="#thanhtoan<?php echo $items->id; ?>"  class="btn btn-primary">Thanh toán</a>
-                <?php } ?>
-            </div>
+                        </thead>
+                        <tbody>
+                            <?php  if(!empty($items->product)){ 
+                              foreach($items->product as $k => $value){
 
+                                ?>
+                                <tr>
+                                    <td><?php echo $value->prod->name ?></td>
+                                    <td><?php echo number_format($value->price) ?>đ</td>
+                                    <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
+                                    <td>
+                                        <?php if($value->number_uses < $value->quantity){ ?>
+                                            <a class="btn btn-primary d-block" title="Sử dụng" data-bs-toggle="modal" data-bs-target="#sudung<?php echo $value->id; ?>" style=" color: white; ">Sử dụng</a>
+                                        <?php }else{ ?>
+                                            Đã hết
+                                        <?php } ?>
+                                    </td>
+
+                                </tr>
+                            <?php }} ?>
+                        </tbody>
+                    </table>
+                
+                    <?php  if(@$items->status==0){ ?>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#thanhtoan<?php echo $items->id; ?>"  class="btn btn-primary">Thanh toán</a>
+                    <?php } ?>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
 <?php  if(!empty($items->product)){ 
     foreach($items->product as $k => $value){?>

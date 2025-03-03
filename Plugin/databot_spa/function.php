@@ -247,7 +247,7 @@ function getListPermission($id)
             }
 
             if(in_array('product', $infoUser->module)){
-                $order['sub'][] = array('name'=>'Danh sách đơn sản phẩn','permission'=>'listOrderProduct');
+                $order['sub'][] = array('name'=>'Danh sách đơn sản phẩm','permission'=>'listOrderProduct');
             }
 
             if(in_array('combo', $infoUser->module)){
