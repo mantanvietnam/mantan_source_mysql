@@ -21,7 +21,7 @@ function searchProductApi($input)
             if($listData){
                 foreach($listData as $data){
                     $return[]= array('id'=>$data->id,
-                    				'label'=>$data->name.' '.$data->price,
+                    				'label'=>$data->name.' '.number_format($data->price).'đ',
                     				'value'=>$data->id,
                     				'name'=>$data->name,
                     				'price'=>$data->price,

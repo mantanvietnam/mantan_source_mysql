@@ -91,16 +91,17 @@
                           </div>
 
                           <div class="col-md-6">
-                            
+                            <?php
+                            ?>
                             <div class="mb-3">
                               <label class="form-label">Cấp độ (*)</label>
                               <select class="form-select" name="level" id="level" >
                                 <option value="">Chọn Cấp độ</option>
-                                <?php 
-                                global $listLevel;
+                                <?php
+                                 global $listLevel; 
 
                                   foreach ($listLevel as $key => $item) {
-                                    if(empty($data->level) || $data->level!=$item){
+                                    if(empty($data->level) || $data->level!=$item['id']){
                                       echo '<option value="'.$item['id'].'">'.$item['name'].'</option>';
                                     }else{
                                       echo '<option selected value="'.$item['id'].'">'.$item['name'].'</option>';

@@ -53,7 +53,7 @@ $type_collection_bill = array(      'tien_mat'=>'Tiền mặt',
                                     'hinh_thuc_khac'=>'Hình thức khác',
                                 );
 
-function getListPermission($id)
+function getListPermission($id=0)
 {
     global $session;
     global $controller;
@@ -247,7 +247,7 @@ function getListPermission($id)
             }
 
             if(in_array('product', $infoUser->module)){
-                $order['sub'][] = array('name'=>'Danh sách đơn sản phẩn','permission'=>'listOrderProduct');
+                $order['sub'][] = array('name'=>'Danh sách đơn sản phẩm','permission'=>'listOrderProduct');
             }
 
             if(in_array('combo', $infoUser->module)){

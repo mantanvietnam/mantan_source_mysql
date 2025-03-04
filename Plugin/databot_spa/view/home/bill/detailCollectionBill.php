@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-md-12">
                     <br> 
-                    <h5 class="mb-0">thông tin sản phẩm</h5>
+                    <h5 class="mb-0">Thông tin sản phẩm</h5>
                     <br>
 
                         <div class="scroll-table mb-3">
@@ -92,7 +92,7 @@
                                 <table class="table table-bordered" style=" text-align: center; ">
                                     <thead>
                                         <tr>
-                                            <th >Sản phẩn</th>
+                                            <th >Sản phẩm</th>
                                             <th >Giá bán</th>
                                             <th >Số lượng </th>
                                             <th>Thành tiền</th>
@@ -121,14 +121,14 @@
                 </div>
                 <div class="col-md-12">
                    <br> 
-                  <h5 class="mb-0">thông tin dịch vụ </h5>
+                  <h5 class="mb-0">Thông tin dịch vụ </h5>
                   <br>
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style=" text-align: center; ">
                                     <thead>
                                         <tr>
-                                            <th >dịch vụ</th>
+                                            <th >Dịch vụ</th>
                                             <th >Giá bán</th>
                                             <th >Số lượng </th>
                                             <th>Thành tiền</th>
@@ -157,14 +157,14 @@
                 </div>
                 <div class="col-md-12">
                    <br> 
-                  <h5 class="mb-0">thông tin combo</h5>
+                  <h5 class="mb-0">Thông tin combo</h5>
                   <br>
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style=" text-align: center; ">
                                     <thead>
                                         <tr>
-                                            <th >combo</th>
+                                            <th >Combo</th>
                                             <th >Giá bán</th>
                                             <th >Số lượng </th>
                                             <th>Thành tiền</th>

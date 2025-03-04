@@ -305,7 +305,7 @@
                                         <li><a href="javascript:void(0);" class="btn btn-danger" onclick="createOrder();">Thanh toán</a></li>
                                     <?php }else{ ?>
 
-                                        <li><a  href="javascript:void(0);" class="btn btn-primary" onclick="nhankhach();">nhận khách </a></li>
+                                        <li><a  href="javascript:void(0);" class="btn btn-primary" onclick="nhankhach();">Nhận khách </a></li>
                                     <?php } ?>
                                     </ul>
                                 </div>
@@ -609,7 +609,7 @@ function addProduct(id, name, priceProduct,type){
         $('#nhankhach').show();
         if(id_customer>0){
             if(numberProduct>0){
-                r = confirm("bạn nhận khách này vào giường?");
+                r = confirm("Bạn nhận khách này vào giường?");
                 if (r == true) {
                     if(checkProduct){
                         $('#summary-form').submit();

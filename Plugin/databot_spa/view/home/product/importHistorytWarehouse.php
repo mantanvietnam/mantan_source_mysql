@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="col-sm-12 control-label">Sản phẩn:</label>
+                            <label class="col-sm-12 control-label">Sản phẩm:</label>
                             <div class="col-sm-12">
                                 <input type="hidden" name="id_product" id="id_product" value="<?php echo @$_GET['id_product'] ?>">  
                                 <input type="text"  maxlength="100" name="searchProduct" placeholder="Tìm kiếm sản phẩm theo tên sản phẩm"  id="searchProduct" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['searchProduct'] ?>" /> 
@@ -70,11 +70,11 @@
                                     <table class="table table-bordered" style=" text-align: center; ">
                                         <thead>
                                             <tr>
-                                                <th rowspan='2'>Id</th>
-                                                <th rowspan='2'>thời gian</th>
-                                                <th rowspan='2'>tên kho</th>
+                                                <th rowspan='2'>ID</th>
+                                                <th rowspan='2'>Thời gian</th>
+                                                <th rowspan='2'>Tên kho</th>
                                                 <th rowspan='2'>Nhà cung cấp</th>
-                                                <th colspan="4">thông tin sản phẩn </th>
+                                                <th colspan="4">Thông tin sản phẩm </th>
                                             </tr>
                                             <tr>
                                                 <th >Sản phẩm</th>

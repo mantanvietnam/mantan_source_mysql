@@ -108,7 +108,7 @@
                                                                 <?php echo date('H:i d/m/Y', $item->time); ?>
                                                             </td>
                                                             <td>
-                                                                <?php echo $item->full_name ?>
+                                                                <?php echo $item->full_name; ?>
                                                             </td>
 
                                                             <td style="padding: 0px;">
@@ -118,7 +118,7 @@
                                                                 if(!empty($item->order_details)){ 
                                                                     foreach($item->order_details as $k => $value){ 
                                                                         echo '  <tr> 
-                                                                        <td width="40%">'.$value->info_combo->name.'</td>
+                                                                                <td width="40%">'.$value->info_combo->name.'</td>
                                                                                 <td width="40%">'.number_format($value->price).'đ</td>
                                                                                 <td width="20%">'.number_format($value->quantity).'</td>';
                                                                     }
@@ -275,7 +275,7 @@
                                                         if($key > 0) echo '<tr>';
                                                         
                                                         echo '<td>'.$item->name.'</td>
-                                                              <td>Sản phẩn</td>
+                                                              <td>Sản phẩm</td>
                                                               <td>'.number_format($quantity).'</td>
                                                               <td></td>
                                                             </tr>';
