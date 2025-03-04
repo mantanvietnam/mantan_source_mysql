@@ -2677,3 +2677,104 @@
     padding: 8px 16px;
     width: 100%;
 }
+
+
+/*Style*/
+/* GLOBAL STYLES */
+.style body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1E1E1E;
+    color: white;
+    margin: 0;
+}
+
+.style .container {
+    margin: 20px auto;
+}
+
+.style .form-container {
+    background-color: #141414;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* BANNER STYLING */
+.style .banner {
+    background: url('assets/banner.jpg') no-repeat center;
+    background-size: cover;
+    min-height: 400px;
+    position: relative;
+}
+
+.style .banner::after {
+    content: "Tạo ảnh theo phong cách của riêng bạn bằng AI";
+    position: absolute;
+    bottom: 20px;
+    left: 10%;
+    right: 10%;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* FORM STYLING */
+.style .form-content {
+    padding: 30px;
+}
+
+.style .form-content h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.style .form-content p {
+    text-align: center;
+    color: #b3b3b3;
+    margin-bottom: 20px;
+}
+
+.style .btn-primary {
+    background: linear-gradient(90deg, #ff007f, #ff5e90);
+    border: none;
+}
+
+.style .btn-primary:hover {
+    background: linear-gradient(90deg, #e60073, #ff4f88);
+}
+
+.style .social-btn {
+    border: 1px solid #333;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.style .footer-text {
+    color: #b3b3b3;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* DASHBOARD PAGE */
+.style .dashboard {
+    padding: 20px;
+}
+
+.style .dashboard h1 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.style .dashboard-card {
+    background: #141414;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
