@@ -178,7 +178,7 @@
    }
 
    .templateedit .user-points span {
-       color: var(--primary-color);
+       color: #ffcc00;;
        font-weight: bold;
    }
 
@@ -1347,7 +1347,7 @@
     /* Tăng khoảng cách giữa chữ và icon */
     background: linear-gradient(135deg, #ff758c, #ff7eb3);
     color: white;
-    padding: 18px 28px;
+    padding: 10px 28px;
     /* Tăng padding để nút lớn hơn */
     border: none;
     border-radius: 50px;
@@ -1609,4 +1609,1172 @@
     .Notification .notification-content {
         font-size: 12px;
     }
+}
+
+/* Landingpage */
+.landingpage :root {
+    --primary-color: #FF1493;
+    --dark-bg: #1a1a1a;
+}
+
+.landingpage body {
+    background-color: #131316;
+    color: white;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.landingpage .navbar {
+    background-color: #000000;
+    padding: 10px;
+}
+
+.landingpage .navbar-brand {
+    font-size: 22px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff69b4, #c13584);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+}
+
+.landingpage .navbar-brand img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.landingpage .navbar-nav {
+    display: flex;
+    align-items: center;
+    background-color: #36394A;
+    padding: 2px 10px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.landingpage .navbar-nav .nav-item {
+    margin: 0 10px;
+}
+
+.landingpage .navbar-nav .nav-link {
+    color: white;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 25px;
+}
+
+.landingpage .navbar-nav .nav-link:hover {
+    color: #ff69b4;
+}
+
+.landingpage .nav-item.active .nav-link {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+.landingpage .btn-login {
+    background: linear-gradient(45deg, #ff69b4, #c13584);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.landingpage .btn-login i {
+    margin-left: 10px;
+}
+
+@media (max-width: 992px) {
+    .landingpage .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .landingpage .navbar-nav .nav-item {
+        margin: 5px 0;
+    }
+
+    .landingpage .btn-login {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.landingpage .btn-login:hover {
+    background: linear-gradient(to right, #c13584, #ff69b4);
+}
+
+.landingpage .hero-section {
+    text-align: center;
+    margin-top: 20px;
+    padding: 30px;
+}
+
+.landingpage .hero-title {
+    font-size: 72px;
+    font-weight: 600;
+}
+
+.landingpage .hero-title p {
+    font-size: 72px;
+    margin-top: 2px;
+    margin-bottom: 3rem;
+}
+
+.landingpage .hero-title span {
+    color: #ff69b4;
+}
+
+.landingpage .search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.landingpage .search-bar {
+    width: 600px;
+    display: flex;
+    border-radius: 40px;
+    overflow: hidden;
+    background-color: #272835;
+    padding: 8px;
+    align-items: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.landingpage .search-bar input {
+    flex: 1;
+    border: none;
+    padding: 15px 15px 15px 50px;
+    background: white;
+    color: black;
+    font-size: 18px;
+    outline: none;
+    border-radius: 30px;
+}
+
+.landingpage .search-bar input::placeholder {
+    color: #666;
+    font-size: 18px;
+}
+
+.landingpage .search-bar button {
+    background: linear-gradient(to right, #ff69b4, #c13584);
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.landingpage .search-bar button:hover {
+    background: linear-gradient(to right, #c13584, #ff69b4);
+}
+
+.landingpage .search-icon {
+    color: black;
+    font-size: 20px;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+/* Gallery Grid */
+.landingpage .gallery {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    gap: 30px;
+    /* Giảm khoảng cách tối đa giữa các ảnh */
+    align-items: center;
+}
+
+.landingpage .header {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.landingpage .gallery img {
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.landingpage .gallery img:nth-child(odd) {
+    grid-row: span 2;
+}
+
+@media (max-width: 992px) {
+    .landingpage .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .landingpage .navbar-nav .nav-item {
+        margin: 5px 0;
+    }
+
+    .landingpage .btn-login {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .landingpage .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3px;
+    }
+}
+
+/* Steps Section */
+.landingpagebody {
+    background-color: #0b0c10;
+    color: #ffffff;
+    background-image: url('background-spiral.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.landingpage .step-container {
+    position: relative;
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.landingpage .step {
+    background-color: #1f1f1f;
+    border-radius: 20px;
+    padding: 20px;
+    color: #ffffff;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.landingpage .step-number {
+    background-color: #ff80ab;
+    color: #ffffff;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.landingpage .step-1 {
+    top: 4%;
+    left: 9%;
+    width: 500px;
+}
+
+.landingpage .step-2 {
+    top: 25%;
+    left: 31%;
+    width: 608px;
+}
+
+.landingpage .step-3 {
+    bottom: 36%;
+    right: 0;
+    width: 567px;
+}
+
+.landingpage .step h2 {
+    font-size: 1.5rem;
+}
+
+.landingpage .step p {
+    color: #ffffff;
+}
+
+.landingpage .cta-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(to right, #ff4081, #ff80ab);
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    width: fit-content;
+    margin-top: 50px;
+    cursor: pointer;
+}
+
+.landingpage .cta-icon {
+    background: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4081;
+}
+
+/* Portfolio Section */
+.landingpage body {
+    background-color: #141622;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.landingpage h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 40px;
+}
+
+.landingpage h1 span {
+    color: #d97ab1;
+}
+
+.landingpage p {
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+
+
+.landingpage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.landingpage .btn {
+    display: inline-block;
+    background: linear-gradient(90deg, #e44c9a, #f98d9c);
+    padding: 10px 25px;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* Testimonials Section */
+.landingpage body {
+    background-color: #0d0c13;
+    /* Giữ nền tối giống ảnh */
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+.landingpage .testimonials {
+    max-width: 1326px;
+    margin: auto;
+    text-align: left;
+}
+
+.landingpage h2 {
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    /* Căn trái tiêu đề */
+}
+
+.landingpage h2 span {
+    color: #e91e63;
+    /* Màu hồng nổi bật */
+}
+
+.landingpage .subtext {
+    color: #a1a1b5;
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: left;
+    /* Căn trái mô tả */
+}
+
+.landingpage .testimonials-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.landingpage .testimonial {
+    background-color: #1a1a2e;
+    /* Giữ màu thẻ review */
+    padding: 20px;
+    border-radius: 12px;
+    width: 30%;
+    min-width: 280px;
+    text-align: left;
+    position: relative;
+    border: 1px solid rgba(233, 30, 99, 0.3);
+    /* Viền hồng nhạt */
+}
+
+.landingpage .testimonial p {
+    font-size: 15px;
+    color: white;
+    text-align: left;
+}
+
+.landingpage .author {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.landingpage .author img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.landingpage .author h4 {
+    font-size: 14px;
+    margin: 0;
+    color: white;
+}
+
+.landingpage .stars {
+    font-size: 12px;
+    color: gold;
+}
+
+.landingpage .testimonial i {
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0.3;
+}
+
+/* Giữ nút chuyển trang ở giữa */
+.landingpage .controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.landingpage .controls button {
+    background-color: #27263d;
+    /* Màu nền tối hơn */
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 5px;
+    transition: background 0.3s ease;
+}
+
+.landingpage .controls button:hover {
+    background-color: #e91e63;
+    /* Màu hồng khi hover */
+}
+
+/* Process Steps */
+.landingpage .snaphair-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a25;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+.landingpage .snaphair-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.landingpage .snaphair-heading {
+    font-size: 32px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.landingpage .snaphair-pink-text {
+    color: #ff5c8d;
+}
+
+.landingpage .snaphair-subtitle {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.landingpage .snaphair-step-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+}
+
+.landingpage .snaphair-step {
+    display: flex;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 15px;
+    background-color: rgba(40, 40, 55, 0.7);
+    position: relative;
+    max-width: 80%;
+}
+
+.landingpage .snaphair-step:nth-child(even) {
+    align-self: flex-end;
+}
+
+/* Bước 3 căn phải */
+.landingpage .snaphair-step:nth-child(3) {
+    align-self: flex-end;
+}
+
+.landingpage .snaphair-step-number {
+    width: 40px;
+    height: 40px;
+    background-color: #ff5c8d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.landingpage .snaphair-step-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.landingpage .snaphair-step-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.landingpage .snaphair-step-description {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.landingpage .snaphair-try-now-box {
+    background-color: #1a2040;
+    border-radius: 15px;
+    padding: 15px;
+    width: 250px;
+    position: absolute;
+    left: 50px;
+    bottom: 20px;
+}
+
+.landingpage .snaphair-try-now-title {
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.landingpage .snaphair-try-now-steps {
+    font-size: 12px;
+    color: #ccc;
+    text-align: left;
+    /* Thay đổi từ center sang left */
+    margin-bottom: 15px;
+}
+
+.landingpage .snaphair-try-now-button {
+    background-color: #ff5c8d;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.landingpage .snaphair-image-float {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.landingpage .snaphair-image-1 {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    top: 170px;
+    right: 100px;
+}
+
+.landingpage .snaphair-image-2 {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    top: 90px;
+    right: 220px;
+}
+
+.landingpage .snaphair-image-3 {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    top: 200px;
+    right: 280px;
+}
+
+.landingpage .snaphair-image-4 {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    top: 260px;
+    right: 40px;
+}
+
+.landingpage .snaphair-image-5 {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    top: 100px;
+    right: 30px;
+}
+
+.landingpage .snaphair-image-6 {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    top: 340px;
+    left: 300px;
+}
+
+.landingpage .snaphair-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Footer */
+.landingpage footer {
+    background: url('Dưới.jpg') no-repeat center center/cover;
+    padding: 50px 0;
+    font-family: Arial, sans-serif;
+    position: relative;
+    filter: brightness(100%);
+}
+
+.landingpage footer h5 {
+    font-weight: bold;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    color: black;
+    text-align: left;
+}
+
+.landingpage footer p,
+.landingpage footer ul {
+    font-size: 17px;
+    color: black;
+    position: relative;
+    z-index: 1;
+    text-align: left;
+}
+
+.landingpage footer a {
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s;
+    position: relative;
+    z-index: 1;
+}
+
+.landingpage footer a:hover {
+    color: #dc3545;
+}
+
+.landingpage .social-icons a {
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.landingpage .footer-bottom {
+    text-align: left;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+    margin-top: 20px;
+    color: black;
+}
+
+.landingpage .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff4f8a;
+}
+
+.landingpage .brand-logo img {
+    width: 24px;
+    height: 24px;
+}
+
+.landingpage .footer-section {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    align-items: flex-start;
+}
+
+.landingpage .footer-section>div:first-child {
+    flex: 1 1 300px;
+}
+
+.landingpage .footer-bottom div {
+    display: flex;
+    justify-content: flex-start;
+    gap: 102px;
+}
+
+.landingpage .hero {
+    background: url('/image/Backgrond\ dow.jpg') no-repeat center top/cover;
+    text-align: center;
+    padding: 120px 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+}
+
+.landingpage .hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.landingpage .hero p,
+.landingpage .hero button {
+    position: relative;
+    z-index: 2;
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.8);
+}
+
+.landingpage .hero button {
+    background: linear-gradient(to right, #ff6b81, #ff4f8a);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.landingpage footer {
+    background-color: #ffffff;
+    /* Màu nền trắng */
+    color: #333;
+    /* Màu chữ tối */
+    padding: 40px 60px;
+    font-family: Arial, sans-serif;
+    border-top: 1px solid #ddd;
+    /* Viền trên nhẹ */
+}
+
+.landingpage .footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.landingpage .footer-left {
+    max-width: 40%;
+}
+
+.landingpage .footer-left h2 {
+    color: #E91E63;
+    /* Màu chữ SNAP HAIR */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.landingpage .footer-left p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.landingpage .footer-left a {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+}
+
+.landingpage .footer-social {
+    margin-top: 10px;
+}
+
+.landingpage .footer-social a {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.landingpage .footer-links {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.landingpage .footer-links div {
+    margin-right: 0px;
+}
+
+.landingpage .footer-links h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.landingpage .footer-links a {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.landingpage .footer-links a:hover {
+    color: #E91E63;
+}
+
+.landingpage .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    font-size: 12px;
+    color: #999;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.landingpage .footer-bottom a {
+    color: #666;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.landingpage .footer-bottom a:hover {
+    color: #E91E63;
+}
+
+/* Gradient Bar */
+.landingpage .gradient-bar {
+    height: 50px;
+    background: linear-gradient(90deg, #ff589b, #cf67ff);
+    margin-top: -20px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Additional Card Styles */
+.landingpage .card {
+    background-color: #2a2a2a;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.landingpage .card:hover {
+    transform: translateY(-5px);
+}
+
+.landingpage .card-img-top {
+    height: 300px;
+    object-fit: cover;
+}
+
+.landingpage .card-body {
+    padding: 1.25rem;
+}
+
+/* ---- grid ---- */
+
+.landingpage .grid {
+    position: relative;
+    z-index: 0;
+}
+
+/* clearfix */
+.landingpage .grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.landingpage .grid-item {
+    width: 200px;
+    height: 120px;
+    float: left;
+
+    margin-bottom: 12px;
+
+}
+
+.landingpage .grid-item--width2 {
+    width: 400px;
+}
+
+.landingpage .grid-item--width3 {
+    width: 600px;
+}
+
+.landingpage .grid-item--width4 {
+    width: 800px;
+}
+
+.landingpage .grid-item--height3-2 {
+    height: 180px;
+}
+
+.landingpage .grid-item--height2 {
+    height: 240px;
+}
+
+.landingpage .grid-item--height3 {
+    height: 360px;
+}
+
+.landingpage.grid-item--height4 {
+    height: 480px;
+}
+
+.landingpage .grid-item img {
+    width: 127%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    /* Đảm bảo ảnh không bị méo */
+
+}
+
+.landingpage body {
+    background-color: #13131a;
+    color: white;
+}
+
+.landingpage .text-pink {
+    color: #e573d9;
+}
+
+.landingpage .text-muted {
+    color: #aaa !important;
+}
+
+.landingpage .btn-custom {
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: 1px solid #444;
+    color: white;
+    background-color: transparent;
+    transition: 0.3s;
+}
+
+.landingpage .btn-custom:hover,
+.landingpage .btn-custom.active {
+    background-color: white;
+    color: black;
+    border-color: white;
+}
+
+.landingpage .btn-nav {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    font-size: 18px;
+}
+
+.landingpage .btn-prev {
+    background-color: #333;
+    color: white;
+}
+
+.landingpage .btn-next {
+    background-color: #e573d9;
+    color: white;
+}
+
+.landingpage .card-custom {
+    background-color: #1a1a2e;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.landingpage.card-custom img {
+    width: 100%;
+    height: 381px;
+    object-fit: cover;
+}
+
+.landingpage .card-custom h5,
+.landingpage .card-custom p {
+    color: white;
+}
+
+.landingpage .btn-try {
+    background: linear-gradient(90deg, #e573d9, #ff6bcb);
+    border: none;
+    color: white;
+    border-radius: 20px;
+    padding: 8px 16px;
+    width: 100%;
+}
+
+
+/*Style*/
+/* GLOBAL STYLES */
+.style body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1E1E1E;
+    color: white;
+    margin: 0;
+}
+
+.style .container {
+    margin: 20px auto;
+}
+
+.style .form-container {
+    background-color: #141414;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* BANNER STYLING */
+.style .banner {
+    background: url('assets/banner.jpg') no-repeat center;
+    background-size: cover;
+    min-height: 400px;
+    position: relative;
+}
+
+.style .banner::after {
+    content: "Tạo ảnh theo phong cách của riêng bạn bằng AI";
+    position: absolute;
+    bottom: 20px;
+    left: 10%;
+    right: 10%;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* FORM STYLING */
+.style .form-content {
+    padding: 30px;
+}
+
+.style .form-content h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.style .form-content p {
+    text-align: center;
+    color: #b3b3b3;
+    margin-bottom: 20px;
+}
+
+.style .btn-primary {
+    background: linear-gradient(90deg, #ff007f, #ff5e90);
+    border: none;
+}
+
+.style .btn-primary:hover {
+    background: linear-gradient(90deg, #e60073, #ff4f88);
+}
+
+.style .social-btn {
+    border: 1px solid #333;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.style .footer-text {
+    color: #b3b3b3;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* DASHBOARD PAGE */
+.style .dashboard {
+    padding: 20px;
+}
+
+.style .dashboard h1 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.style .dashboard-card {
+    background: #141414;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
