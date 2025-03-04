@@ -638,4 +638,73 @@
            justify-content: center;
            color: white;
        }
-   }
+   } 
+/* Thêm vào file CSS của bạn */
+#sidebar.collapsed .sidebar-section-title {
+    display: block;
+    text-align: center;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    white-space: normal;
+    line-height: 1;
+}
+
+/* Màu sắc cho các tiêu đề */
+.sidebar-section:nth-of-type(1) .sidebar-section-title {
+    color: #808191 !important;
+    /* CHUNG - màu xanh lá */
+}
+
+.sidebar-section:nth-of-type(2) .sidebar-section-title {
+    color: #808191 !important;
+    /* CÔNG CỤ HÌNH ẢNH AI - màu xanh dương */
+}
+
+.sidebar-section:nth-of-type(3) .sidebar-section-title {
+    color: #808191 !important;
+    /* KHÁC - màu cam */
+}
+
+/* Khi sidebar thu gọn, ẩn text trong các liên kết nhưng giữ icon */
+#sidebar.collapsed .nav-link-text {
+    display: none;
+}
+
+/* Nhưng hiển thị text của tiêu đề */
+#sidebar.collapsed .sidebar-section-title {
+    display: block;
+}
+
+/* Căn giữa icon khi sidebar thu gọn */
+#sidebar.collapsed .nav-link {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+/* Tăng kích thước icon khi sidebar thu gọn */
+#sidebar.collapsed .nav-link i {
+    font-size: 1.25rem;
+    margin-right: 0;
+}
+.create-action-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+/* When sidebar is collapsed */
+.sidebar.collapsed+#content .create-action-btn {
+    display: block;
+}
