@@ -11,6 +11,8 @@ function getListCustomerCampaignAPI($input)
     $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
     
     $modelCustomers = $controller->loadModel('Customers');
+    $modelStaff = $controller->loadModel('Staffs');
+    $modelMember = $controller->loadModel('Members');
     $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
     $return = array('code'=>1);
@@ -53,6 +55,14 @@ function getListCustomerCampaignAPI($input)
                             $conditions['id_ticket'] = (int) $dataSend['id_ticket'];
                         }
 
+                        if(!empty($_GET['status'])){
+                            $conditions['status IN'] = $_GET['status'];
+                        }
+
+                        if(isset($_GET['id_staff'])){
+                            $conditions['id_staff'] = $_GET['id_staff'];
+                        }
+
                         if(!empty($dataSend['checkin'])){
                             if($dataSend['checkin']==1){
                                 $conditions['time_checkin >'] = 0;
@@ -73,7 +83,16 @@ function getListCustomerCampaignAPI($input)
                                 $listData[$key]->customer_avatar = @$checkCustomer->avatar;
 
                                 // lịch sử chăm sóc
-                                $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id_customer])->order(['id'=>'desc'])->first();
+                                 // lịch sử chăm sóc
+                                $history = $modelCustomerHistories->find()->where(['id_customer'=>@$value->id_customer,'id_campaign'=>@$value->id_campaign])->order(['id'=>'desc'])->first();
+                                if(!empty($history)){
+                                    if(!empty($history->id_staff)){
+                                        $history->staff = $modelStaff->find()->where(['id'=>$history->id_staff])->first();
+                                    }else{
+                                        $history->staff = $modelMember->find()->where(['id'=>$history->id_staff_now])->first();
+                                    }
+                                    $listData[$key]->history = $history;
+                                }
                             }
                         }
                         

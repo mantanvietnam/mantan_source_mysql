@@ -53,7 +53,7 @@ $type_collection_bill = array(      'tien_mat'=>'Tiền mặt',
                                     'hinh_thuc_khac'=>'Hình thức khác',
                                 );
 
-function getListPermission($id)
+function getListPermission($id=0)
 {
     global $session;
     global $controller;
