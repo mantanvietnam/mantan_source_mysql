@@ -23,93 +23,136 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
     <link rel="stylesheet" href="../css/cssvu.css" />
+    <link rel="stylesheet" href="../css/template.css" />
   </head>
   <body>
     <div class="container-fluid bgr-main">
       <div class="row">
-        <div class="menu-container">
-          <nav id="sidebar" class="sidebar">
-            <img
-              class="sidebar-img"
-              src="../image/image1.jpg"
-              data-default="../image/image1.jpg"
-              data-expanded="../image/Logo 2.png"
-              alt="Logo"
-            />
-            <button id="toggle-btn" class="toggle-btn rp-menu">
-              <i class="fa-regular fa-circle-right"></i>
+        <nav id="sidebar">
+          <div
+            class="sidebar-heading d-flex align-items-center justify-content-between"
+          >
+            <div class="d-flex align-items-center" id="sidebarToggle">
+              <img
+                src="/html/SnapHair/image/Logo .png"
+                alt="SNAP HAIR Logo"
+                height="30"
+                class="me-2"
+              />
+            </div>
+            <!-- Toggle button -->
+            <button id="sidebarToggle" class="btn toggle-btn">
+              <i class="fas fa-chevron-left"></i>
             </button>
+          </div>
+
+          <div class="sidebar-section">
+            <div
+              class="sidebar-section-title nav-link-text"
+              style="color: #1c1820"
+            >
+              CHUNG
+            </div>
             <ul class="nav flex-column">
-              <p>chung</p>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="bi bi-house-door"></i>
-                  <span class="menu-text">Trang chủ</span>
+                <a href="#" class="nav-link active">
+                  <i class="fas fa-home"></i>
+                  <span class="nav-link-text">Trang chủ</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fa-solid fa-users-rectangle"></i>
-                  <span class="menu-text">Cộng đồng</span>
+                  <i class="fas fa-users"></i>
+                  <span class="nav-link-text">Cộng đồng</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fa-solid fa-user-group"></i>
-                  <span class="menu-text">Hồ sơ</span>
+                  <i class="fas fa-user"></i>
+                  <span class="nav-link-text">Hồ sơ</span>
                 </a>
               </li>
             </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-section-title nav-link-text">
+              CÔNG CỤ HÌNH ẢNH AI
+            </div>
             <ul class="nav flex-column">
-              <p>AI</p>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fa-solid fa-wand-magic-sparkles"></i>
-                  <span class="menu-text">Tạo hình ảnh</span>
+                  <i class="fas fa-wand-magic-sparkles"></i>
+                  <span class="nav-link-text">Tạo hình ảnh</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fa-solid fa-star-of-david"></i>
-                  <span class="menu-text">Tạo ảnh theo thư viện</span>
+                  <i class="fas fa-image"></i>
+                  <span class="nav-link-text">Tạo hình ảnh từ thư viện</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fa-solid fa-clock-rotate-left"></i>
-                  <span class="menu-text">Lịch sử</span>
+                  <i class="fas fa-history"></i>
+                  <span class="nav-link-text">Lịch sử</span>
                 </a>
               </li>
             </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-section-title nav-link-text">KHÁC</div>
             <ul class="nav flex-column">
-              <p>Khác</p>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fa-solid fa-users"></i>
-                  <span class="menu-text">Thành viên</span>
+                  <i class="fas fa-user-check"></i>
+                  <span class="nav-link-text">Thành viên</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link position-relative">
+                  <i class="fas fa-bell"></i>
+                  <span class="nav-link-text">Thông báo</span>
+                  <span class="notification-dot"></span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fa-solid fa-bell"></i>
-                  <span class="menu-text">Thông báo</span>
+                  <i class="fas fa-headset"></i>
+                  <span class="nav-link-text">Liên hệ hỗ trợ</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fa-solid fa-phone"></i>
-                  <span class="menu-text">Liên hệ hỗ trợ</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa-solid fa-user-plus"></i>
-                  <span class="menu-text">Mời bạn</span>
+                  <i class="fas fa-gift"></i>
+                  <span class="nav-link-text">Mời (Nhận ePoint)</span>
                 </a>
               </li>
             </ul>
-          </nav>
-        </div>
+          </div>
+
+          <div class="pro-upgrade-panel">
+            <div class="nav-link-text">
+              <h6>Mở khóa các tính năng mới với phiên bản Pro</h6>
+              <p class="small text-secondary mb-3">
+                Nâng cấp ngay để được sử dụng các công cụ mới nhất, xử lý nhanh
+                hơn và nội dung độc quyền.
+              </p>
+              <button
+                class="btn btn-primary w-100"
+                style="background-color: var(--primary-color); border: none"
+              >
+                Nâng cấp ngay
+              </button>
+            </div>
+          </div>
+
+          <!-- Create button that shows at the bottom when collapsed -->
+          <button class="create-action-btn d-none" id="createActionBtn">
+            <i class="fas fa-plus"></i>
+          </button>
+        </nav>
 
         <div
           class="main-content container-fluid"
