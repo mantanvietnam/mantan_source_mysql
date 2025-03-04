@@ -132,3 +132,17 @@ $(document).ready(function() {
     });
 });
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+
+    // Kiểm tra nếu phần tử tồn tại trước khi thêm sự kiện
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener("click", function () {
+        sidebar.classList.toggle("open");
+      });
+    } else {
+      console.error("Không tìm thấy menu-toggle hoặc sidebar");
+    }
+  });

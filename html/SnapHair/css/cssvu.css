@@ -236,6 +236,7 @@ table {
 }
 
 .nav-tabs .nav-link.active {
+    color: black;
     background-color: white;
     border: none;
     border-radius: 35px;    
@@ -706,7 +707,6 @@ table {
     .main-content .list-navs li{
         margin: 10px;
     }
-    .cre-ai{margin-left: 85px;}
 
     .none-sm{
         display: none !important;
