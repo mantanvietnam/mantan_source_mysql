@@ -19,6 +19,10 @@ function registerform($input) {
     $collaborator = $modelCollaborator->find()->where($conditions)->first();
     if ($input['request']->is('POST')) {
         $dataSend = $input['request']->getData();
+<<<<<<< HEAD
+        // Validate required fields
+=======
+>>>>>>> f84ed18414b4cd13273857a8177f13ac8cbb00bd
         if (!empty($dataSend['full_name']) &&
             !empty($dataSend['phone_number']) &&
             !empty($dataSend['email']) &&

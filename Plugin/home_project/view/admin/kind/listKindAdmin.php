@@ -87,7 +87,8 @@
 
                 <div class="d-flex justify-content-between">
                     <button type="button" class="btn btn-danger" id="btnDelete" onclick="deleteCurrentCategory();">Xóa</button>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-primary" onclick="updateCategory();">Cập Nhật</button>
+                    <button type="button" class="btn btn-success" onclick="addCategory();">Thêm Mới</button>
                 </div>
 
               <?= $this->Form->end() ?>
@@ -142,6 +143,94 @@
       $('#parent').val(parent).trigger('change');
       
     }
+
+
+    function addCategory() {
+    var name = $('#name').val();
+    var image = $('#image').val();
+    var keyword = $('#keyword').val();
+    var description = $('#description').val();
+    var parent = $('#parent').val();
+
+    if (name === '') {
+        alert('Tên chuyên mục không được để trống!');
+        $('#name').focus();
+        return;
+    }
+
+    var data = {
+        name: name,
+        image: image,
+        keyword: keyword,
+        description: description,
+        parent: parent
+    };
+
+    $.ajax({
+        method: "POST",
+        url: "/apis/saveKindAPI",
+        data: data,
+        success: function(response) {
+
+            if (response.success === true) {
+                alert('Chuyên mục mới đã được thêm thành công!');
+                window.location.reload();
+            } else {
+                console.warn("Server responded with an error:", response.message);
+                alert('Lỗi: ' + response.message);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Request Error:", {
+                textStatus: textStatus,
+                errorThrown: errorThrown,
+                responseText: jqXHR.responseText
+            });
+
+            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+        }
+    });
+}
+
+function updateCategory() {
+    var id = $('#idCategoryEdit').val();
+
+    if (!id) {
+        alert("Vui lòng chọn một chuyên mục để cập nhật!");
+        return;
+    }
+
+    var formData = {
+        idCategoryEdit: id,
+        name: $('#name').val(),
+        image: $('#image').val(),
+        keyword: $('#keyword').val(),
+        description: $('#description').val(),
+        parent: $('#parent').val()
+    };
+
+    var url = "/apis/saveKindAPI";
+
+    $.ajax({
+    method: "POST",
+    url: url,
+    data: formData
+})
+.done(function(response) {
+
+    if (response && response.success) {
+        alert("Cập nhật chuyên mục thành công!");
+        window.location.reload();
+    } else {
+        alert("❌ Lỗi từ server: " + (response.message || "Không rõ nguyên nhân!"));
+    }
+})
+.fail(function(xhr, status, error) {
+    console.error("❌ Lỗi cập nhật:", status, error);
+    console.error("❌ Phản hồi từ server:", xhr.responseText);
+    alert("Cập nhật thất bại, vui lòng thử lại!");
+});
+};
 
     function deleteCurrentCategory() {
         var id = $('#idCategoryEdit').val();
