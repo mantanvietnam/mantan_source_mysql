@@ -1,4 +1,4 @@
-<?php 
+  <?php 
 
 $sqlInstallDatabase .= "CREATE TABLE `collaborators` (
   `id` int(11) NOT NULL,
@@ -47,3 +47,4 @@ $sqlDeleteDatabase .= "DROP TABLE horoscopes; ";
 $sqlUpdateDatabase['collaborators']['id'] = "ALTER TABLE `collaborators` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`id`);";
 $sqlUpdateDatabase['horoscopes']['slug'] = "ALTER TABLE `horoscopes` ADD `slug` VARCHAR(255) NOT NULL AFTER `name_by_age`;";
 $sqlUpdateDatabase['horoscopes']['price'] = "ALTER TABLE `horoscopes` ADD `price` INT NOT NULL AFTER `image`;";
+$sqlUpdateDatabase['customers']['id_collaborator']="ALTER TABLE `customers` ADD `id_collaborator` INT(11) NOT NULL AFTER `created_at`;";

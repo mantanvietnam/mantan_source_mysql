@@ -142,10 +142,10 @@
             <th rowspan='2'>Thời gian</th>
             <th rowspan='2'>Khách hàng</th>
             <th rowspan="2">Thành tiền </th>
-            <th colspan="4">Thông tin sản phẩn </th>
+            <th colspan="4">Thông tin sản phẩm</th>
           </tr>
           <tr>
-            <th>Sản phẩn</th>
+            <th>Sản phẩm</th>
             <th>Giá bán</th>
             <th>Số lượng </th>
           </tr>
@@ -158,7 +158,7 @@
               if ($item->status == 1) {
                 $type = 'Đã thanh toán';
               } elseif ($item->status == 2) {
-                $type = 'Dang sử lý';
+                $type = 'Đang xử lý';
               } elseif ($item->status == 3) {
                 $type = 'Hủy';
               }

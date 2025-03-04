@@ -231,7 +231,7 @@ function dashboard($input)
 	    setVariable('totalOrderCombo', $totalOrderCombo);
 	    setVariable('totalbook', $totalbook);
 	    setVariable('listBooking', $listBooking);
-	    setVariable('total', $total);
+	    setVariable('total', $total); // tổng doanh thu trong tháng
 	}else{
 		return $controller->redirect('/login');
 	}
