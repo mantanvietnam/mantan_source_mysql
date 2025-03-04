@@ -9,6 +9,7 @@
 
     //api
     include_once('controller/api/productProjectsController.php');
+    include_once('controller/api/kindController.php');
 
     
 

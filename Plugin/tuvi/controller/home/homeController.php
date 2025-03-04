@@ -11,7 +11,6 @@ function registerform($input) {
     // Check if request is a POST
     if ($input['request']->is('POST')) {
         $dataSend = $input['request']->getData();
-
         // Validate required fields
         if (!empty($dataSend['full_name']) &&
             !empty($dataSend['phone_number']) &&
