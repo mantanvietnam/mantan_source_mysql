@@ -400,16 +400,6 @@ $sqlInstallDatabase .="CREATE TABLE `trademarks` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
-$sqlInstallDatabase .="CREATE TABLE `transaction_histories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_member` int(11) NOT NULL,
-  `coin` int(11) NOT NULL,
-  `type` varchar(255) NOT NULL,
-  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `create_at` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-
 $sqlInstallDatabase .="CREATE TABLE `userservice_histories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_member` int(11) NOT NULL,
@@ -512,6 +502,18 @@ $sqlInstallDatabase ."CREATE TABLE `staff_bonus` (
   `id_spa` INT NULL DEFAULT NULL,
    PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
+
+$sqlInstallDatabase .= "CREATE TABLE `transaction_histories` ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_member` INT NOT NULL , 
+  `coin` INT NOT NULL , 
+  `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `create_at` INT NOT NULL , 
+  `meta_payment` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `payment_type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'payQrcode',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB; ";
  
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -883,13 +885,6 @@ $sqlUpdateDatabase['trademarks']['id_member'] = "ALTER TABLE `trademarks` ADD `i
 $sqlUpdateDatabase['trademarks']['image'] = "ALTER TABLE `trademarks` ADD `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['trademarks']['slug'] = "ALTER TABLE `trademarks` ADD `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 
-// Bang transaction_histories
-$sqlUpdateDatabase['transaction_histories']['id_member'] = "ALTER TABLE `transaction_histories` ADD `id_member` int(11) NOT NULL; ";
-$sqlUpdateDatabase['transaction_histories']['coin'] = "ALTER TABLE `transaction_histories` ADD `coin` int(11) NOT NULL; ";
-$sqlUpdateDatabase['transaction_histories']['type'] = "ALTER TABLE `transaction_histories` ADD `type` varchar(255) NOT NULL; ";
-$sqlUpdateDatabase['transaction_histories']['note'] = "ALTER TABLE `transaction_histories` ADD `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['transaction_histories']['create_at'] = "ALTER TABLE `transaction_histories` ADD `create_at` int(11) NOT NULL; ";
-
 // Bang userservice_histories
 $sqlUpdateDatabase['userservice_histories']['id_member'] = "ALTER TABLE `userservice_histories` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['userservice_histories']['id_order_details'] = "ALTER TABLE `userservice_histories` ADD `id_order_details` int(11) NOT NULL; ";
@@ -950,6 +945,15 @@ $sqlUpdateDatabase['staff_bonus']['created_at'] = "ALTER TABLE `staff_bonus` ADD
 $sqlUpdateDatabase['staff_bonus']['updated_at'] = "ALTER TABLE `staff_bonus` ADD `updated_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_bonus']['money'] = "ALTER TABLE `staff_bonus` ADD `money` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['staff_bonus']['id_spa'] = "ALTER TABLE `staff_bonus` ADD `id_spa` INT NULL DEFAULT NULL;";
+
+// bảng transaction_histories
+$sqlUpdateDatabase['transaction_histories']['id_member'] = "ALTER TABLE `transaction_histories` ADD `id_member` INT NOT NULL;";
+$sqlUpdateDatabase['transaction_histories']['coin'] = "ALTER TABLE `transaction_histories` ADD `coin` INT NOT NULL;";
+$sqlUpdateDatabase['transaction_histories']['type'] = "ALTER TABLE `transaction_histories` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_histories']['note'] = "ALTER TABLE `transaction_histories` ADD `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['transaction_histories']['create_at'] = "ALTER TABLE `transaction_histories` ADD `create_at` INT NOT NULL;";
+$sqlUpdateDatabase['transaction_histories']['meta_payment'] = "ALTER TABLE `transaction_histories` ADD `meta_payment` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_histories']['payment_type'] = "ALTER TABLE `transaction_histories` ADD `payment_type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'payQrcode';";
 
 /*-- Bước 1: Thêm cột tạm kiểu INT 
 ALTER TABLE userservice_histories ADD COLUMN temp_int INT;

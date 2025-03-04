@@ -932,10 +932,10 @@ function getMemberByToken($token='', $permission='', $module='customer')
             $list_module = array();
         }
         if(!empty($infoUser)){
+            $infoUser->last_login = time();
+            $modelMember->save($infoUser);
             if($infoUser->type==1){
                 if(!empty($infoUser->module) && in_array($module, $list_module)){
-                    $infoUser->last_login = time();
-                    $modelMember->save($infoUser);
                     $infoUser->token = $checkToken->token;
                     $infoUser->id_member = $infoUser->id;
                     return $infoUser;
@@ -954,8 +954,6 @@ function getMemberByToken($token='', $permission='', $module='customer')
                     $list_permission = array();
                 }
                 if(!empty($checkMember->module) && in_array($module, $checkMember->module) && !empty($list_permission) && in_array($permission, $list_permission)){
-                        $infoUser->last_login = time();
-                        $modelMember->save($infoUser);
                         $infoUser->token = $checkToken->token;
                         return $infoUser;
                 }
@@ -965,6 +963,47 @@ function getMemberByToken($token='', $permission='', $module='customer')
         }
     }
     return $user;
+}
+
+global $priceExtend;
+
+$priceExtend = array( 1=> 2000000,3=> 5000000,5=> 7000000);
+
+function processAddMoney($amount, $ransaction){
+    global $controller;
+    global $priceExtend;
+
+    $modelMember = $controller->loadModel('Members');
+    $modelTransactionHistories = $controller->loadModel('TransactionHistories');
+        $description = explode("Y", $ransaction);
+
+         $user = $modelMember->find()->where(['phone'=>$description[0]])->first();
+        if(!empty($user)){
+               
+                
+                if(!empty($user->dateline_at)){
+                    $user->dateline_at  += ($description[1] * 365 * 24 * 60 * 60);
+                }else{
+                    $user->dateline_at  = time() + ($description[1] * 365 * 24 * 60 * 60);
+                }
+                
+                $modelMember->save($user);
+
+                // tạo lịch sử giao dịch
+                    $histories = $modelTransactionHistories->newEmptyEntity();
+
+                    $histories->id_member = $user->id;
+                    $histories->coin = (int) $priceExtend[$description[1]];
+                    $histories->type = 'plus';
+                    $histories->meta_payment = 'Giá hạn qua Qrcode. nội dung '.$ransaction; // id giao dịch của Apple
+                    $histories->payment_type = 'payQrcode';
+                    $histories->note = 'Thời gian giao dịch gia hạn với payQrcode: '.date('H:i d-m-Y' ,time());
+                    $histories->create_at = time();
+
+                    $modelTransactionHistories->save($histories);
+                return apiResponse(1,'Gia hạn thành công');
+            }
+            return apiResponse(2,'Gia hạn không thành công');
 }
 
 

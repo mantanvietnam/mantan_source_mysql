@@ -15,7 +15,7 @@
           </div>
           <div class="card-body">
             <p><?php echo @$mess;?></p>
-            <p>Tải file excel để nhập liệu: <a href="/plugins/hethongdaily/view/home/product/list_data_san_phan.xlsx">DOWNLOAD EXCEL</a></p>
+            <p>Tải file excel để nhập liệu: <a href="/plugins/hethongdaily/view/home/product/list_data_san_pham.xlsx">DOWNLOAD EXCEL</a></p>
             
             <form enctype="multipart/form-data" method="post" action="">
               <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
