@@ -172,7 +172,7 @@ function deteleGroupStaffAPI($input){
 
             if(!empty($data)){
                 $modelCategories->delete($data);
-                return apiResponse(1,'Bạn lấy dữ liệu thành công');
+                return apiResponse(1,'Xóa dữ liệu thành công');
 			}
 			return apiResponse(4,'Dữ liệu không tồn tại' );
 		}
@@ -204,7 +204,6 @@ function listStaffAPI($input)
 		if(!empty($dataSend['token'])){
 			$infoUser = getMemberByToken($dataSend['token'], 'listStaff','staff');
 			if(!empty($infoUser)){ 
-				$infoUser = $session->read('infoUser');
 				$conditions = array('id_member'=>$infoUser->id_member);
 				$limit = 20;
 				$order = ['status'=>'desc','id' => 'DESC'];
@@ -254,6 +253,56 @@ function listStaffAPI($input)
 	return apiResponse(0,'Gửi sai phương thức POST');
 }
 
+function detailStaffAPI($input)
+{
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+     
+    $metaTitleMantan = 'Danh sách nhân viên';
+    
+
+    $modelMember = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
+
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listStaff','staff');
+			if(!empty($infoUser)){ 
+				$conditions = array('id_member'=>$infoUser->id_member);
+
+				$conditions['id'] = (int) $dataSend['id'];
+				
+			    $listData = $modelMember->find()->where($conditions)->first();
+
+				
+				if(!empty($listData->permission)){
+        			$listData->permission = json_decode($listData->permission, true);
+        		}else{
+        			$listData->permission =array();
+        		}
+
+        		if(!empty($listData->module)){
+        			$listData->module = json_decode($listData->module, true);
+        		}else{
+        			$listData->module =array();
+        		}
+	
+				return apiResponse(1,'Bạn lấy dữ liệu thành công',$listData );
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
 function addStaffAPI($input){	
 	global $isRequestPost;
     global $modelCategories;
@@ -261,6 +310,8 @@ function addStaffAPI($input){
     global $session;
     global $controller;
     global $urlCurrent;
+    global $urlHomes;
+
 
     $modelMembers = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
@@ -303,7 +354,20 @@ function addStaffAPI($input){
 
 				        $data->name = $dataSend['name'];
 				        $data->id_group =(int) @$dataSend['id_group'];
-				        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:'https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png';
+				        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:'https://spa.databot.vn';
+
+				        if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+							$avatar = uploadImage($data->phone, 'avatar', 'avatar'.$data->phone);
+						}
+
+						if(!empty($avatar['linkOnline'])){
+
+							$data->image = $avatar['linkOnline'].'?time='.time();
+			    		}
+
+			    		if(empty($data->image)){
+			    			$data->image = $urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
+			    		}
 						$data->email = $dataSend['email'];
 						$data->permission = json_encode(@$dataSend['check_list_permission']);
 						$data->address = $dataSend['address'];
@@ -313,6 +377,18 @@ function addStaffAPI($input){
 						$data->code_otp = rand(100000, 999999);
 
 				        $modelMembers->save($data);
+
+				        if(!empty($data->permission)){
+		        			$data->permission = json_decode($data->permission, true);
+		        		}else{
+		        			$data->permission = array();
+		        		}
+
+		        		if(!empty($data->module)){
+		        			$data->module = json_decode($data->module, true);
+		        		}else{
+		        			$data->module =array();
+		        		}
 
 				      return apiResponse(1,'Lưu dữ liệu thành công',$data);
 				  	}
