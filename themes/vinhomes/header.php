@@ -65,60 +65,81 @@ $setting = setting();
               class="items-center hidden space-x-2 lg:flex md:property-button lg:space-x-6 xl:space-x-16"
             >
             <nav class="flex space-x-2 text-white nav-sectionpage lg:space-x-6 xl:space-x-16 setcolor">
-                <?php  
-                $menus = getMenusDefault();  
-                if (!empty($menus)):  
-                    foreach ($menus as $categoryMenu): 
-                ?>
-                    <div class="relative group">
-                        <?php if (empty($categoryMenu['sub'])): ?> 
-                            <a href="<?php echo $categoryMenu['link']; ?>" class="flex items-center">
-                                <?php echo $categoryMenu['name']; ?>
-                            </a>
-                        <?php else: ?>
-                            <a href="#" class="flex items-center">
-                                <?php echo $categoryMenu['name']; ?>
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                </svg>
-                            </a>
-                            <div class="absolute left-0 hidden pt-2 group-hover:block">
-                                <div class="w-[220px] px-2 py-2 bg-white rounded-lg shadow-lg">
-                                    <?php foreach ($categoryMenu['sub'] as $subMenu): ?>
-                                        <div class="relative group/sub">
-                                            <?php if (!empty($subMenu['sub'])): ?>
-                                                <a href="#" class="block px-4 py-2 text-sm !text-gray-700 hover:bg-gray-100 flex items-center justify-between">
-                                                    <?php echo $subMenu['name']; ?>
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                                    </svg>
+              <?php  
+              $menus = getMenusDefault();  
+              if (!empty($menus) && is_array($menus)):  
+                  foreach ($menus as $categoryMenu): 
+              ?>
+                  <div class="group">
+                      <?php if (empty($categoryMenu['sub'])): ?> 
+                          <a href="<?php echo $categoryMenu['link']; ?>" class="flex items-center">
+                              <?php echo $categoryMenu['name']; ?>
+                          </a>
+                      <?php else: ?>
+                          <a href="<?php echo $categoryMenu['link']; ?>" class="flex items-center font-semibold text-lg">
+                              <?php echo $categoryMenu['name']; ?>
+                              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                              </svg>
+                          </a>
+                          
+                          <!-- Mega Menu Dropdown -->
+                          <div class="absolute left-1/2 transform -translate-x-1/2 hidden pt-4 group-hover:block z-50">
+                              <div class="w-[1200px] bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                              <?php 
+                                  $countSubMenu = count($categoryMenu['sub']);
+                                  $gridCols = min(6, max(2, $countSubMenu));
+                              ?>
+                              
+                                  <div class="grid grid-cols-<?php echo $gridCols; ?> gap-6">
+                                      <?php foreach ($categoryMenu['sub'] as $subMenu): ?>
+                                          <div class="border-r border-gray-300 last:border-0 pr-6">
+                                              <h4 class="font-bold !text-gray-900 pb-2 border-b border-gray-300 !text-[14px]">
+                                                <a href="<?php echo $subMenu['link']; ?>" class="hover:!text-blue-500 transition duration-200 !text-gray-900">
+                                                  <?php echo $subMenu['name']; ?>
                                                 </a>
-                                                <div class="absolute top-0 left-full hidden pt-0 pl-2 group-hover/sub:block">
-                                                    <div class="w-[200px] px-2 py-2 bg-white rounded-lg shadow-lg">
-                                                        <?php foreach ($subMenu['sub'] as $subSubMenu): ?>
-                                                            <a href="<?php echo $subSubMenu['link']; ?>" 
-                                                              class="block px-4 py-2 text-sm !text-gray-700 hover:bg-gray-100">
-                                                                <?php echo $subSubMenu['name']; ?>
-                                                            </a>
-                                                        <?php endforeach; ?>
-                                                    </div>
-                                                </div>
-                                            <?php else: ?>
-                                                <a href="<?php echo $subMenu['link']; ?>" class="block px-4 py-2 text-sm !text-gray-700 hover:bg-gray-100">
-                                                    <?php echo $subMenu['name']; ?>
-                                                </a>
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                <?php 
-                    endforeach;  
-                endif;  
-                ?>
-            </nav>
+                                              </h4>
+                                              <ul class="mt-3 space-y-2">
+                                                  <?php if (!empty($subMenu['sub'])): ?>
+                                                      <?php foreach ($subMenu['sub'] as $subSubMenu): ?>
+                                                          <li class="relative">
+                                                              <div class="flex items-center space-x-2">
+                                                                  <span class="text-gray-500 text-sm">&rsaquo;</span>
+                                                                  <a href="<?php echo $subSubMenu['link']; ?>" 
+                                                                      class="block px-4 py-2 !text-gray-700 hover:bg-gray-100 rounded-md text-sm !text-[12px]">
+                                                                      <?php echo $subSubMenu['name']; ?>
+                                                                  </a>
+                                                              </div>
+
+                                                              <?php if (!empty($subSubMenu['sub'])): ?>
+                                                                  <ul class="pl-6 mt-2 space-y-2">
+                                                                      <?php foreach ($subSubMenu['sub'] as $subSubSubMenu): ?>
+                                                                          <li class="flex items-center space-x-2">
+                                                                              <span class="text-gray-500 text-sm">&rsaquo;</span>
+                                                                              <a href="<?php echo $subSubSubMenu['link']; ?>" 
+                                                                                  class="block px-4 py-2 !text-gray-700 hover:bg-gray-100 rounded-md text-sm !text-[11px]">
+                                                                                  <?php echo $subSubSubMenu['name']; ?>
+                                                                              </a>
+                                                                          </li>
+                                                                      <?php endforeach; ?>
+                                                                  </ul>
+                                                              <?php endif; ?>
+                                                          </li>
+                                                      <?php endforeach; ?>
+                                                  <?php endif; ?>
+                                              </ul>
+                                          </div>
+                                      <?php endforeach; ?>
+                                  </div>
+                              </div>
+                          </div>
+                      <?php endif; ?>
+                  </div>
+              <?php 
+                  endforeach;  
+              endif;  
+              ?>
+          </nav>
             <a
               href="/contact"
               class="set-backgroundcontact px-4 py-2 text-white transition-all duration-300 ease-in-out bg-transparent border border-white shadow-md rounded-xl hover:bg-white hover:text-blue-700 hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"

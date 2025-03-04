@@ -33,6 +33,11 @@
                     </button>
                   </li>
                   <li class="nav-item">
+                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#nav-officially">
+                      Chính thức mở bán
+                    </button>
+                  </li>
+                  <li class="nav-item">
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#nav-ecological_space">
                       Không gian sinh thái
                     </button>
@@ -159,6 +164,40 @@
                       <label class="form-label">Thông tin về vị trí</label>
                       <?php showEditorInput('text_location', 'text_location', @$data->text_location); ?>
                     </div>
+                  </div>
+
+                  <!-- Tab chính thức mở bán -->
+                  <div class="tab-pane fade" id="nav-officially" role="tabpanel">
+                      <div class="row">
+                          <!-- Tiêu đề -->
+                          <div class="col-md-4">
+                              <div class="mb-3">
+                                  <label class="form-label">Tiêu đề</label>
+                                  <input type="text" name="officially[title]" class="form-control" 
+                                        value="<?php echo isset($data->officially['title']) ? $data->officially['title'] : ''; ?>">
+                              </div>
+                          </div>
+
+                          <!-- Hình ảnh -->
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Hình ảnh</label>
+                                <input type="file" name="officially[image]" class="form-control">
+                                <?php if (!empty($data->officially['image'])): ?>
+                                    <div class="mt-2">
+                                        <img src="<?php echo $data->officially['image']; ?>" alt="Hình ảnh hiện tại" 
+                                            style="max-width: 100px; height: auto;">
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                          </div>
+
+                          <!-- Mô tả -->
+                          <div class="mb-3">
+                              <label class="form-label">Mô tả</label>
+                              <?php showEditorInput('officially[description]', 'officially[description]', @$data->officially['description']); ?>
+                          </div>
+                      </div>
                   </div>
 
                   <!-- Tab Không gian sinh thái -->

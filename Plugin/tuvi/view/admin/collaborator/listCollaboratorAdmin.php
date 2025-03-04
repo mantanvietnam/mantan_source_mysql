@@ -74,7 +74,7 @@
           <?php 
           if (!empty($listData)) {
             foreach ($listData as $item) {
-              $link_tuvi = "/registerform/?ref=".$item->phone;
+              $link_tuvi = $urlHomes.'registerform/?ref='.$item->phone;
               $bac_ctv = ($item->level == 2) ? 'Bậc 2' : 'Bậc 1';
               $nguoi_gioi_thieu = ($item->level == 2 && !empty($item->referrer_name)) ? '<br/><strong>Người giới thiệu:</strong> ' . $item->referrer_name : '';
 
