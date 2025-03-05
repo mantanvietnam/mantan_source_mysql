@@ -242,17 +242,21 @@
        gap: 10px;
    }
 
-   .templateedit .nav-btn {
-       background-color: var(--primary-color);
-       border: none;
-       width: 36px;
-       height: 36px;
-       border-radius: 50%;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       color: white;
-   }
+ .templateedit .nav-btn {
+     border: none;
+     width: 36px;
+     height: 36px;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: white;
+     transition: background-color 0.3s;
+ }
+
+ .templateedit .nav-btn:hover {
+     background-color: #e252be;
+ }
 
    .templateedit .category-card {
        position: relative;
@@ -319,8 +323,12 @@
        display: flex;
        align-items: center;
        gap: 5px;
+       transition: background-color 0.3s;
    }
 
+   .templateedit .filter-btn:hover {
+       background-color: #e252be;
+   }
 
    .templateedit .gallery-container {
        display: grid;
@@ -386,13 +394,13 @@
        position: absolute;
        top: 12px;
        right: 12px;
-       background-color: rgba(255, 255, 255, 0.2);
+       background-color: rgba(255, 255, 255, 100% );
        border: none;
        border-radius: 20px;
        padding: 6px 15px;
        display: flex;
        align-items: center;
-       color: white;
+       color: rgb(0, 0, 0);
        z-index: 2;
        font-size: 18px;
    }
@@ -413,7 +421,7 @@
    }
 
    .templateedit .use-photo-btn {
-       background-color: rgba(255, 255, 255, 0.15);
+       background-color: rgba(186, 20, 136, 100);
        border: none;
        border-radius: 24px;
        padding: 8px 16px;
@@ -430,11 +438,11 @@
    }
 
    .templateedit .download-btn {
-       background-color: rgba(255, 255, 255, 0.15);
+       background-color: rgb(255, 255, 255);
        border: none;
        border-radius: 24px;
        padding: 8px 16px;
-       color: white;
+       color: rgb(0, 0, 0);
        display: flex;
        align-items: center;
        gap: 6px;
