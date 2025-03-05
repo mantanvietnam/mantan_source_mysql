@@ -6,6 +6,7 @@ function listStaffAPI($input)
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $isRequestPost;
     global $modelCategoryConnects;
 
      $return = array('code'=>1);

@@ -713,7 +713,16 @@ function addCallCustomerCampaignAPI($input){
                     $data->status = $dataSend['status'];
                     $data->id_campaign = $checkCampaign->id_campaign;
                     $data->number_call = $checkCampaign->number_call;
-                    $data->time_now = time();
+
+                     if(!empty($dataSend['time'])){
+                        $time = explode(' ', $dataSend['time']);
+                        $date = explode('/', $time[1]);
+                        $time = explode(':', $time[0]);
+                        $data->time_now = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+                    }else{
+                        $data->time_now = time();
+                    }
+                  
                  
                     $modelCustomerHistories->save($data);
                     $modelCampaignCustomers->save($checkCampaign);

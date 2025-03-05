@@ -428,28 +428,30 @@ function lockStaffAPI($input){
     global $controller;
     global $urlCurrent;
      
-    $metaTitleMantan = 'Danh sách nhóm nhân viên';
 
     $modelMember = $controller->loadModel('Members');
-	
-	if(!empty(checkLoginManager('lockStaff', 'staff'))){
-		$infoUser = $session->read('infoUser');
-
-		if(!empty($_GET['id'])){
-		$data = $modelMember->get($_GET['id']);
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'lockStaff','staff');
+			if(!empty($infoUser)){ 
+		$data = $modelMember->find()->where(['id'=>(int)$dataSend['id'], 'id_member'=>$infoUser->id_member])->first();
 		
-			if($data){
-				if(isset($_GET['status'])){
-					$data->status = $_GET['status'];
+			if(!empty($data)){
+					$data->status = $dataSend['status'];
 				
 	         	$modelMember->save($data);
-	         	return $controller->redirect('/listStaff');
-	        	}
+	         	return apiResponse(1,'Lưu dữ liệu thành công',$data);
 			}
+			return apiResponse(4,'Dữ liệu không tồn tại' );
+				
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+			
 		}
-	}else{
-		return $controller->redirect('/login');
+		return apiResponse(2,'thếu dữ liệu' );
 	}
+	return apiResponse(0,'Gửi sai phương thức POST');
 }
 
 function changePassStaffAPI($input){

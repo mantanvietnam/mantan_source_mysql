@@ -29,20 +29,18 @@
 
    /* Sidebar Styles */
    .templateedit #sidebar {
-       height: 100vh;
-       width: var(--sidebar-width);
-       position: fixed;
-       top: 0;
-       left: 0;
-       padding: 20px;
-       background-color: #191927;
-       transition: all 0.3s;
-       z-index: 999;
-       overflow-y: auto;
-       -ms-overflow-style: none;
-       /* IE and Edge */
-       scrollbar-width: none;
-       /* Firefox */
+    height: 100vh;
+    width: var(--sidebar-width);
+    position: fixed;
+    top: 20px;
+    left: 0;
+    padding: 20px;
+    background-color: #191927;
+    transition: all 0.3s;
+    z-index: 999;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
    }
 
    .templateedit #sidebar::-webkit-scrollbar {
@@ -119,9 +117,9 @@
 
    /* Main Content Styles */
    .templateedit #content {
-       margin-left: var(--sidebar-width);
-       padding: 20px;
-       transition: all 0.3s;
+    margin-left: var(--sidebar-width);
+    padding: 0px 20px;
+    transition: all 0.3s;
    }
 
    .templateedit #content.expanded {
