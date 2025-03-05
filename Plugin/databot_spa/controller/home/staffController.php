@@ -686,4 +686,124 @@ function addStaffBonus($input){
 		return $controller->redirect('/');
 	}
 }
+
+function timesheetStaff(){
+
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+    if(!empty(checkLoginManager('timesheetStaff', 'staff'))){
+        
+         
+        
+        $metaTitleMantan = 'Bảng chấm công nhân viên';
+        $user = $session->read('infoUser');
+
+        $modelMember = $controller->loadModel('Members');
+		$modelSpas = $controller->loadModel('Spas');
+        
+        $order = array('id'=>'desc');
+
+        $conditions = array('id_member'=>$user->id_member);
+
+        // phân trang
+        $listStaff = $modelMember->find()->where($conditions)->all()->toList();
+        // Thiết lập tháng và năm
+
+        if(!empty($_GET['month'])){
+            $thang = (int) $_GET['month'];
+        }else{
+            $thang = date('m');
+        }
+
+        if(!empty($_GET['year'])){
+            $nam = (int) $_GET['year'];
+        }else{
+            $nam = date('Y');
+        }
+
+        // Lấy số ngày trong tháng
+        $so_ngay_trong_thang = cal_days_in_month(CAL_GREGORIAN, $thang, $nam);
+
+        $date = array();
+
+        // Lặp qua các ngày trong tháng
+        for ($ngay = 1; $ngay <= $so_ngay_trong_thang; $ngay++) {
+            // Tạo chuỗi ngày định dạng Y-m-d
+            $ngay_dang = sprintf("%04d-%02d-%02d", $nam, $thang, $ngay);
+            
+            // Lấy tên thứ bằng tiếng Anh và chuyển sang tiếng Việt
+            $thu = thu_tieng_viet(date('l', strtotime($ngay_dang)));
+            
+            // In ra ngày và thứ
+          //  echo $ngay_dang . " - " . $thu . "<br>";
+            $date[$ngay] = array('thu'=>$thu, 'ngay'=>$ngay.'/'.$thang.'/'.$nam);
+
+        }
+
+ 
+    setVariable('date', $date);
+    setVariable('thang', $thang);
+    setVariable('nam', $nam);
+    setVariable('listStaff', $listStaff);
+
+    }else{
+       return $controller->redirect('/listStaff');
+    }
+}
+
+function checktimesheet(){
+     global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+    $user = checklogin('checktimesheet');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/timesheetStaff');
+        }
+        $metaTitleMantan = 'Danh sách nhân viên';
+
+        $modelMember = $controller->loadModel('Members');
+        $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
+
+        $conditions = array('id_member'=>$user->id_member, 'id'=>(int)$_GET['id_staff']);
+        $staff = $modelMember->find()->where($conditions)->first();
+        // Thiết lập tháng và năm
+
+        $date = explode('/', $_GET['date']);
+        $date = mktime(0,0,0,$date[1],$date[0],$date[2]);
+        
+        $checkdate = $modelStaffTimekeepers->find()->where(['day'=>$date,'id_staff'=>$staff->id])->first();
+        if(!empty($_GET['shift'])){
+            if(empty($checkdate)){
+                $checkdate = $modelStaffTimekeepers->newEmptyEntity();
+                $checkdate->day = $date;
+                // $checkdate->date = $date;
+                $checkdate->id_staff = $staff->id;
+            }
+
+            $checkdate->shift = implode(', ', $_GET['shift']);
+
+            $modelStaffTimekeepers->save($checkdate);
+        }elseif(!empty($checkdate)){
+            $modelStaffTimekeepers->delete($checkdate);
+        }
+
+        
+
+        return $controller->redirect('/timesheetStaff');
+        
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

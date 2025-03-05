@@ -55,12 +55,12 @@ function getListCustomerCampaignAPI($input)
                             $conditions['id_ticket'] = (int) $dataSend['id_ticket'];
                         }
 
-                        if(!empty($_GET['status'])){
-                            $conditions['status IN'] = $_GET['status'];
+                        if(!empty($dataSend['status'])){
+                            $conditions['status IN'] = $dataSend['status'];
                         }
 
-                        if(isset($_GET['id_staff'])){
-                            $conditions['id_staff'] = $_GET['id_staff'];
+                        if($dataSend['id_staff']!=''){
+                            $conditions['id_staff'] = (int )$dataSend['id_staff'];
                         }
 
                         if(!empty($dataSend['checkin'])){
@@ -689,7 +689,7 @@ function addCallCustomerCampaignAPI($input){
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token']) && !empty($dataSend['id_campaign']) && !empty($dataSend['id_customer']) && !empty($dataSend['action_now']) && !empty($dataSend['id_staff']) && !empty($dataSend['status'])){
+        if(!empty($dataSend['token']) && !empty($dataSend['id_campaign']) && !empty($dataSend['id_customer']) && !empty($dataSend['action_now']) && !empty($dataSend['status'])){
             $user = getMemberByToken($dataSend['token']);
 
             if(!empty($user)){

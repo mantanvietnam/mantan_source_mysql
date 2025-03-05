@@ -330,6 +330,11 @@
             ?>
           </select>
         </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">thời gian check in</label>
+          <input type="text" name="time_checkin"  id="time_checkin" class="form-control datetimepicker" value="<?php echo date('d/m/Y H:i')?>">
+          
+        </div>
       </div>
    </div>
    <div class="modal-footer">
@@ -486,7 +491,8 @@
                     name: "'.$data->name.'",
                     phone: "'.$data->phone.'",
                     email: "'.$data->email.'",
-                    time_book: "'.date("d/m/Y H:i", $time_book).'",
+                    time_book: "'.date("H:i d/m/Y", $time_book).'",
+                    time_chekin: "'.$time_book.'",
                     start: "'.date('Y-m-d', $time_book).'",
                     end: "'.date('Y-m-d', $time_book).'",
                     service: "'.$data->Services['name'].'",
@@ -593,7 +599,7 @@
            </div>\
            <div class="modal-footer">';
            if(info.event.extendedProps.statusnote=="1"|| info.event.extendedProps.statusnote=='0'){
-             modal += '<button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+id_staff+','+id_bed+');"><i class="bx bxs-edit"></i> Check in</button>\
+             modal += '<button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+id_staff+','+id_bed+','+info.event.extendedProps.time_chekin+');"><i class="bx bxs-edit"></i> Check in</button>\
             <a href="/addBook/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary"><i class="bx bxs-edit"></i> Sửa hẹn</a>\
             <button type="button" class="btn btn-danger" data-action="delete"><i class="bx bxs-trash"></i> Xóa hẹn</button>';
            }
@@ -770,17 +776,29 @@
     }
   }
 
-  function checkin(id, id_staff, idbed){
+  function checkin(id, id_staff, idbed, time_chekin){
 
      $('#idStaff').val(id_staff);
      $('#id_book').val(id);
      $('#idbed').val(idbed);
+     $('#time_checkin').val(formatCustom(time_chekin));
 
     //document.getElementById("createBookModal").style.display = 'none';
     $('#modalinfo').remove();
     $('.modal-backdrop').remove();
     $('#checkinbet').modal('show');
   }
+
+  function formatCustom(timestamp) {
+    const date = new Date(timestamp * 1000);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
 
   
 

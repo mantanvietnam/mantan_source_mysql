@@ -35,6 +35,7 @@ $sqlInstallDatabase .= "CREATE TABLE `beds` (
   `id_order` INT NULL DEFAULT NULL,
   `id_staff` INT NULL DEFAULT NULL,
   `id_customer` INT NULL DEFAULT NULL,
+  `time_checkin` INT NULL DEFAULT NULL,
   `id_userservice` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
@@ -514,6 +515,18 @@ $sqlInstallDatabase .= "CREATE TABLE `transaction_histories` (
   `payment_type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'payQrcode',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
+
+$sqlInstallDatabase .="CREATE TABLE `staff_timekeepers` ( 
+`id` INT NOT NULL AUTO_INCREMENT ,
+`day` INT NULL DEFAULT NULL ,
+`shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`id_staff` INT NULL DEFAULT NULL ,
+`id_spa` INT NULL DEFAULT NULL ,
+`check_in` INT NULL DEFAULT NULL ,
+`created_at` INT NULL DEFAULT NULL ,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
  
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -546,6 +559,7 @@ $sqlDeleteDatabase .= "DROP TABLE userservice_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE medical_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE token_devices; ";
 $sqlDeleteDatabase .= "DROP TABLE staff_bonus; ";
+$sqlDeleteDatabase .= "DROP TABLE staff_timekeepers; ";
 
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
@@ -578,8 +592,9 @@ $sqlUpdateDatabase['beds']['id_order'] = "ALTER TABLE `beds` ADD `id_order` INT 
 $sqlUpdateDatabase['beds']['id_staff'] = "ALTER TABLE `beds` ADD `id_staff` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['beds']['id_customer'] = "ALTER TABLE `beds` ADD `id_customer` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['beds']['id_userservice'] = "ALTER TABLE `beds` ADD `id_userservice` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['beds']['time_checkin'] = "ALTER TABLE `beds` ADD `time_checkin` INT NULL DEFAULT NULL;";
 
-// Bang bills
+// Bang bills 
 $sqlUpdateDatabase['bills']['id_member'] = "ALTER TABLE `bills` ADD `id_member` int(11) NOT NULL COMMENT 'ID chủ spa'; ";
 $sqlUpdateDatabase['bills']['id_spa'] = "ALTER TABLE `bills` ADD `id_spa` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['id_staff'] = "ALTER TABLE `bills` ADD `id_staff` int(11) NOT NULL COMMENT 'ID nhân viên thực hiện thu tiền'; ";
@@ -954,6 +969,14 @@ $sqlUpdateDatabase['transaction_histories']['note'] = "ALTER TABLE `transaction_
 $sqlUpdateDatabase['transaction_histories']['create_at'] = "ALTER TABLE `transaction_histories` ADD `create_at` INT NOT NULL;";
 $sqlUpdateDatabase['transaction_histories']['meta_payment'] = "ALTER TABLE `transaction_histories` ADD `meta_payment` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transaction_histories']['payment_type'] = "ALTER TABLE `transaction_histories` ADD `payment_type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'payQrcode';";
+
+$sqlUpdateDatabase['staff_timekeepers']['day'] = "ALTER TABLE `staff_timekeepers` ADD `day` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['shift'] = "ALTER TABLE `staff_timekeepers` ADD `shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['note'] = "ALTER TABLE `staff_timekeepers` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['id_staff'] = "ALTER TABLE `staff_timekeepers` ADD `id_staff` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['id_spa'] = "ALTER TABLE `staff_timekeepers` ADD `id_spa` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['check_in'] = "ALTER TABLE `staff_timekeepers` ADD `check_in` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['created_at'] = "ALTER TABLE `staff_timekeepers` ADD `created_at` INT NULL DEFAULT NUL;";
 
 /*-- Bước 1: Thêm cột tạm kiểu INT 
 ALTER TABLE userservice_histories ADD COLUMN temp_int INT;

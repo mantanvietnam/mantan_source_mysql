@@ -279,6 +279,7 @@ function getListPermission($id=0)
                                                     array('name'=>'Danh sách tiền thưởng nhân viên','permission'=>'listStaffBonus'),
                                                     array('name'=>'Thêm và sửa tiền thưởng nhân viên','permission'=>'addStaffBonus'),
                                                     array('name'=>'Xóa tiền thưởng nhân viên','permission'=>'deleteStaffBonus'),
+                                                    array('name'=>'chấm công nhân viên','permission'=>'timesheetStaff'),
                                             ),
                             );
         }
@@ -1004,6 +1005,32 @@ function processAddMoney($amount, $ransaction){
                 return apiResponse(1,'Gia hạn thành công');
             }
             return apiResponse(2,'Gia hạn không thành công');
+}
+
+ // Hàm chuyển đổi tên thứ từ tiếng Anh sang tiếng Việt
+function thu_tieng_viet($thu_tieng_anh) {
+    $thu_dich = [
+        'Monday' => 'Thứ2',
+        'Tuesday' => 'Thứ3',
+        'Wednesday' => 'Thứ4',
+        'Thursday' => 'Thứ5',
+        'Friday' => 'Thứ6',
+        'Saturday' => 'Thứ7',
+        'Sunday' => 'CN'
+    ];
+    return $thu_dich[$thu_tieng_anh];
+}
+
+function checkStaffTimekeepers($date,$id_staff){
+    global $controller;
+
+    $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
+    $date = explode('/', $date);
+    $date = mktime(0,0,0,$date[1],$date[0],$date[2]);
+
+    $checkdate = $modelStaffTimekeepers->find()->where(['check_in'=>$date,'id_staff'=>(int)$id_staff])->first();
+
+    return $checkdate;
 }
 
 

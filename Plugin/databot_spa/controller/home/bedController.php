@@ -334,6 +334,7 @@ function cancelBed($input){
             $datebed->id_order = NULL;
             $datebed->id_staff = NULL;
             $datebed->id_customer = NULL;
+            $datebed->time_checkin = NULL;
             $datebed->id_id_userservice = NULL;
             $modelBed->save($datebed);
 
@@ -426,13 +427,22 @@ function checkoutBed($input){
         if($isRequestPost){
             $dataSend = $input['request']->getData();
 
+            if(!empty($dataSend['time_checkout'])){   
+                $time = explode(' ', $dataSend['time_checkout']);
+                $date = explode('/', $time[0]);
+                $hour = explode(':', $time[1]);
+                $time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+            }else{
+                $time = time();
+            }
+
             $listData = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id, 'status'=>1))->all()->toList();
 
             if(!empty($listData)){
                 foreach($listData as $key => $item){
                     $item->status = 2;
-                    $item->check_out = time();
-                    $item->note = @$item->note.', Nội dung hủy là: '.@$dataSend['note'];
+                    $item->check_out = $time;
+                    $item->note = @$item->note.', '.@$dataSend['note'];
                     
                     $modelUserserviceHistories->save($item);
 
@@ -445,6 +455,7 @@ function checkoutBed($input){
             $datebed->id_order = NULL;
             $datebed->id_staff = NULL;
             $datebed->id_customer = NULL;
+            $datebed->time_checkin = NULL;
             $datebed->id_id_userservice = NULL;
             $modelBed->save($datebed);
 

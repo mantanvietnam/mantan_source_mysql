@@ -80,6 +80,10 @@ if(@$data->order->promotion>101){
                         <label class="col-sm-4 control-label"><strong>Nhân viên:</strong></label>
                         <div class="col-sm-8"><?php echo $data->staff->name; ?> </div>
                     </div>
+                     <div class="form-group col-sm-12 row">
+                        <label class="col-sm-4 control-label"><strong>Check in:</strong></label>
+                        <div class="col-sm-8"> <?php echo date('H:i d/m/Y',$data->order->time); ?> </div>
+                    </div>
                 </div>
                
                 <div class="col-md-6 mb-3">
@@ -176,6 +180,14 @@ if(@$data->order->promotion>101){
                         <div class="col-md-6">
                             <b>Thành tiền:</b> <?php echo number_format(@$data->order->total_pay) ?>đ
                         </div>
+                        <div class="col-md-12">
+                        <b>Check in:</b> <?php echo date('H:i d/m/Y',$data->order->time); ?>
+                        </div>
+
+                        <div class="col-md-12">
+                            <b class="form-label">Check out</b>
+                            <input type="text" name="time_checkout"  id="time_checkout" class="form-control datetimepicker" value="<?php echo date('d/m/Y H:i')?>">
+                        </div>
 
                         <div class="col-md-12">
                             <b class="form-label">Hình thức thanh toán </b>
@@ -264,7 +276,9 @@ if(@$data->order->promotion>101){
                             <p><label>Tiên khách hàng:</label> <?php echo $data->customer->name ?></p>
                             <p><label>Điện thoại:</label> <?php echo $data->customer->phone ?></p>
                             <p><label>Email:</label> <?php echo $data->customer->email ?></p>
-                          
+                            <b><label>check in:</label> <?php echo date('H:i d/m/Y',$data->order->time); ?>
+                            <label class="form-label">Check out</label>
+                            <input type="text" name="time_checkout"  id="time_checkout" class="form-control datetimepicker" value="<?php echo date('d/m/Y H:i')?>">
                             <label class="form-label">Kết quả sử dụng dịch vụ</label>
                             <textarea class="form-control" name="note"></textarea>
                         </div>
