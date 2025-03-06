@@ -2922,3 +2922,246 @@
     color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+
+/* Discover */
+ .header-container {
+     text-align: center;
+     padding: 40px 20px;
+ }
+
+ .header-title {
+     color: white;
+     font-size: 2.5rem;
+     margin-bottom: 15px;
+ }
+
+ .header-title span {
+     color: #FF2C82;
+ }
+
+ .header-description {
+     color: #B0B3C0;
+     max-width: 800px;
+     margin: 0 auto 30px;
+     font-size: 0.8rem;
+ }
+
+ .divider {
+     width: 100%;
+     height: 1px;
+     background-color: #2C3142;
+     margin: 20px 0;
+ }
+
+ .search-container {
+     background-color: #1a1d2b;
+     padding: 15px 0;
+ }
+
+ .search-input {
+     background-color: #50566b;
+     border: 1px solid #2d3345;
+     border-radius: 25px;
+     color: white;
+     padding: 14px 15px;
+     width: 100%;
+ }
+
+ .search-input:focus {
+     box-shadow: none;
+     background-color: #232735;
+     color: white;
+     border-color: #3a425a;
+ }
+
+ .search-button {
+     background-color: #e74ea0;
+     border: none;
+     border-radius: 50%;
+     width: 42px;
+     height: 42px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     position: absolute;
+     right: 8px;
+     top: 50%;
+     transform: translateY(-50%);
+ }
+
+ .search-button:hover {
+     background-color: #d0418f;
+ }
+
+ .nav-button {
+     background-color: white;
+     color: #16213e;
+     border-radius: 20px;
+     padding: 8px 15px;
+     margin: 0 5px;
+     font-size: 14px;
+     border: none;
+     transition: all 0.3s ease;
+ }
+
+ .nav-button:hover {
+     background-color: #ff66cc;
+     color: white;
+     cursor: pointer;
+ }
+
+ /* Thay đổi grid-template-columns từ 4 thành 5 cột */
+ .gallery-container {
+     display: grid;
+     grid-template-columns: repeat(5, 1fr);
+     gap: 12px;
+     padding: 10px;
+ }
+
+ @media (max-width: 992px) {
+     .gallery-container {
+         grid-template-columns: repeat(3, 1fr);
+     }
+ }
+
+ @media (max-width: 576px) {
+     .gallery-container {
+         grid-template-columns: repeat(2, 1fr);
+     }
+ }
+
+ /* Điều chỉnh kích thước ảnh nhỏ hơn */
+ .gallery-card {
+     position: relative;
+     border-radius: 12px;
+     overflow: hidden;
+     background-color: #2A2A3C;
+     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+     height: 100%;
+     display: flex;
+     flex-direction: column;
+ }
+
+ .gallery-card-img-container {
+     position: relative;
+ }
+
+ .gallery-card img.main-img {
+     width: 100%;
+     aspect-ratio: 3/4;
+     /* Giữ nguyên tỉ lệ */
+     object-fit: cover;
+     display: block;
+ }
+
+ /* Điều chỉnh kích thước nút và chữ cho phù hợp với kích thước ảnh nhỏ hơn */
+ .like-btn {
+     position: absolute;
+     top: 8px;
+     right: 8px;
+     background-color: rgba(255, 255, 255, 100%);
+     border: none;
+     border-radius: 16px;
+     padding: 4px 10px;
+     display: flex;
+     align-items: center;
+     color: rgb(0, 0, 0);
+     z-index: 2;
+     font-size: 14px;
+ }
+
+ .like-btn i {
+     margin-right: 4px;
+     font-size: 14px;
+ }
+
+ .action-buttons {
+     position: absolute;
+     bottom: 10px;
+     left: 0;
+     width: 100%;
+     display: flex;
+     justify-content: space-between;
+     padding: 0 8px;
+ }
+
+ .use-photo-btn {
+     background-color: rgba(186, 20, 136, 100);
+     border: none;
+     border-radius: 20px;
+     padding: 6px 12px;
+     color: white;
+     display: flex;
+     align-items: center;
+     gap: 4px;
+     font-size: 14px;
+ }
+
+ .use-photo-btn i {
+     color: #ff66ff;
+     font-size: 14px;
+ }
+
+ .download-btn {
+     background-color: rgb(255, 255, 255);
+     border: none;
+     border-radius: 20px;
+     padding: 6px 12px;
+     color: rgb(0, 0, 0);
+     display: flex;
+     align-items: center;
+     gap: 4px;
+     font-size: 14px;
+ }
+
+ .download-btn i {
+     font-size: 14px;
+ }
+
+ .card-content {
+     padding: 14px;
+     flex-grow: 1;
+     text-align: left;
+     /* Đảm bảo nội dung trong card-content được căn lề trái */
+ }
+
+ /* Ghi đè mạnh mẽ cho tiêu đề */
+ .gallery-card-title,
+ h5.gallery-card-title {
+     font-size: 14px;
+     /* Giảm kích thước chữ */
+     margin: 0;
+     text-align: left !important;
+     /* Sử dụng !important để ghi đè bất kỳ quy tắc nào khác */
+     justify-content: flex-start !important;
+     align-items: flex-start !important;
+     display: block !important;
+     /* Đảm bảo hiển thị dạng block */
+     width: 100%;
+ }
+
+ .creator-info {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     font-size: 14px;
+     color: #cccccc;
+     margin-top: 8px;
+     text-align: left;
+     /* Đảm bảo thông tin người tạo được căn lề trái */
+     justify-content: flex-start;
+ }
+
+ .creator-info img {
+     width: 24px;
+     height: 24px;
+     border-radius: 50%;
+ }
+
+ /* Thêm breakpoint cho màn hình lớn hơn để đảm bảo hiển thị tốt */
+ @media (min-width: 1200px) {
+     .Discover .gallery-container {
+         grid-template-columns: repeat(5, 1fr);
+     }
+ }
