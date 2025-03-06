@@ -34,6 +34,8 @@ $sqlDeleteDatabase .= "DROP TABLE product_projects; ";
 $sqlUpdateDatabase['product_projects']['description'] = "ALTER TABLE `product_projects` CHANGE `description` `description` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['product_projects']['text_location'] = "ALTER TABLE `product_projects` ADD `text_location` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `map`;";
 $sqlUpdateDatabase['product_projects']['map'] = "ALTER TABLE `product_projects` CHANGE `map` `map` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['product_projects']['officially'] = "ALTER TABLE `product_projects` ADD `officially` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `acreage`;";
+$sqlUpdateDatabase['product_projects']['commerce'] = "ALTER TABLE `product_projects` ADD `commerce` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `officially`;";
 
 ?>
 

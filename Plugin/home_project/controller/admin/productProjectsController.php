@@ -108,7 +108,8 @@ function addProductProjectAdmin($input)
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelProductProjects->get( (int) $_GET['id']);
-        $data->images = json_decode($data->images, true);     
+        $data->images = json_decode($data->images, true);
+        $data->officially = json_decode($data->officially, true);     
         // $data->id_product = json_decode($data->id_product, true);
 
     }else{
@@ -124,8 +125,6 @@ function addProductProjectAdmin($input)
             $data->address = $dataSend['address'];
             $data->description= $dataSend['description'];
             $data->status= $dataSend['status'];
-            $data->images = json_encode($dataSend['images']);
-            $data->image = $dataSend['image'];
             $data->id_kind = $dataSend['id_kind'];
             $data->id_apart_type = $dataSend['id_apart_type'];
             $data->map = $dataSend['map'];
@@ -137,7 +136,81 @@ function addProductProjectAdmin($input)
             $data->price = $dataSend['price'];
             $data->acreage = $dataSend['acreage'];
             $data->text_location = $dataSend['text_location'];
-            // tạo slug
+            $data->officially = json_encode($dataSend['officially']);
+            // $data->commerce = processCommerceData($data, $dataSend);
+
+            if (!empty($_FILES['image']['name'])) {
+                $upload = uploadImage('vinhome_', 'image', 'image_'.time().rand(0, 1000000));
+            
+                if (!empty($upload['linkOnline'])) {
+                    $data->image = $upload['linkOnline'];
+                }
+            }else{
+                $data->image = $data->image;
+            }
+            
+            $uploadedImages = [];
+
+            if (!empty($_FILES['images']['name'][0])) {
+                $user_id = 'vinhome_';
+                
+                foreach ($_FILES['images']['name'] as $key => $value) {
+                    $temp_file = [
+                        'name' => $_FILES['images']['name'][$key],
+                        'type' => $_FILES['images']['type'][$key],
+                        'tmp_name' => $_FILES['images']['tmp_name'][$key],
+                        'error' => $_FILES['images']['error'][$key],
+                        'size' => $_FILES['images']['size'][$key]
+                    ];
+                    
+                    $_FILES['temp_image'] = $temp_file;
+                    
+                    $upload = uploadImage($user_id, 'temp_image', 'image_'.time().rand(0,1000000));
+                    
+                    if (isset($upload['code']) && $upload['code'] === 0 && !empty($upload['linkOnline'])) {
+                        $uploadedImages[] = $upload['linkOnline'];
+                    }
+            }
+                
+            }else {
+                $uploadedImages = !empty($data->images) ? (is_array($data->images) ? $data->images : json_decode($data->images, true)) : [];
+            }
+            
+            if (!empty($_FILES['img_map']['name'])) {
+               
+                $upload = uploadImage('vinhome_', 'img_map', 'image_'.time().rand(0, 1000000));
+                if (!empty($upload['linkOnline'])) {
+                    $uploadedImages['img_map'] = $upload['linkOnline'];
+                }
+            } else {
+                if (!empty($data->images['img_map'])) {
+                    $uploadedImages['img_map'] = $data->images['img_map'];
+                }
+            }
+            
+            if (!empty($_FILES['img_premises']['name'])) {
+                $upload = uploadImage('vinhome_', 'img_premises', 'image_'.time().rand(0, 1000000));
+                if (!empty($upload['linkOnline'])) {
+                    $uploadedImages['img_premises'] = $upload['linkOnline'];
+                }
+            } else {
+                if (!empty($data->images['img_premises'])) {
+                    $uploadedImages['img_premises'] = $data->images['img_premises'];
+                }
+            }
+            
+            $formattedImages = [];
+            $index = 1;
+            foreach ($uploadedImages as $key => $imageUrl) {
+                if ($key === 'img_map' || $key === 'img_premises') {
+                    $formattedImages[$key] = $imageUrl;
+                } else {
+                    $formattedImages[$index++] = $imageUrl;
+                }
+            }
+            
+            $data->images = json_encode($formattedImages);            
+
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
             $number = 0;
@@ -177,6 +250,110 @@ function addProductProjectAdmin($input)
     setVariable('listType', $listType);
     
 
+}
+
+function processCommerceData($data, $dataSend) {
+    $commerce = $dataSend['commerce'] ?? [];
+    
+    if (!empty($data->commerce) && is_string($data->commerce)) {
+        $oldData = json_decode($data->commerce, true);
+        
+        for ($i = 1; $i <= 3; $i++) {
+            if (empty($_FILES['commerce']['name']["image$i"]) && !empty($oldData["image$i"])) {
+                $commerce["image$i"] = $oldData["image$i"];
+            }
+        }
+        
+        if (isset($commerce['id']) && $commerce['id'] == 2 && isset($oldData['items'])) {
+            $commerce['items'] = $oldData['items'];
+        }
+    }
+    
+    if ($commerce['id'] == 1) {
+        for ($i = 1; $i <= 3; $i++) {
+            if (!empty($_FILES['commerce']['name']["image$i"])) {
+                $temp_file = [
+                    'name' => $_FILES['commerce']['name']["image$i"],
+        // Preserve 'items' data if View 2 is selected
+                    'type' => $_FILES['commerce']['type']["image$i"],
+                    'tmp_name' => $_FILES['commerce']['tmp_name']["image$i"],
+                    'error' => $_FILES['commerce']['error']["image$i"],
+                    'size' => $_FILES['commerce']['size']["image$i"]
+                ];
+    // Process images for View 1
+                
+                $_FILES['temp_image'] = $temp_file;
+                
+                $upload = uploadImage('vinhome_', 'temp_image', "commerce_view1_$i" . time());
+                
+                if (isset($upload['code']) && $upload['code'] === 0 && !empty($upload['linkOnline'])) {
+                    $commerce["image$i"] = $upload['linkOnline'];
+                }
+            }
+        }
+    }
+    
+    // Xử lý cho View 2 (trường động)
+    if ($commerce['id'] == 2) {
+        // Khởi tạo mảng items nếu chưa có
+        if (!isset($commerce['items']) || !is_array($commerce['items'])) {
+            $commerce['items'] = [];
+        }
+        
+        // Lấy và xử lý từng item
+        if (isset($commerce['title']) && is_array($commerce['title'])) {
+            $titles = $commerce['title'];
+            $descriptions = $commerce['description'] ?? [];
+            
+            // Loại bỏ các khóa không cần lưu
+            unset($commerce['title']);
+            unset($commerce['description']);
+            unset($commerce['image']);
+            
+            $newItems = [];
+            
+            foreach ($titles as $index => $title) {
+                if (empty($title)) continue; // Bỏ qua nếu không có tiêu đề
+                
+                $item = [
+                    'title' => $title,
+                    'description' => $descriptions[$index] ?? ''
+                ];
+                
+                // Xử lý hình ảnh
+                if (!empty($_FILES['commerce']['name']['image'][$index])) {
+                    $temp_file = [
+                        'name' => $_FILES['commerce']['name']['image'][$index],
+                        'type' => $_FILES['commerce']['type']['image'][$index],
+                        'tmp_name' => $_FILES['commerce']['tmp_name']['image'][$index],
+                        'error' => $_FILES['commerce']['error']['image'][$index],
+                        'size' => $_FILES['commerce']['size']['image'][$index]
+                    ];
+                    
+                    $_FILES['temp_image'] = $temp_file;
+                    
+                    $upload = uploadImage('vinhome_', 'temp_image', "commerce_view2_" . time() . "_$index");
+                    
+                    if (isset($upload['code']) && $upload['code'] === 0 && !empty($upload['linkOnline'])) {
+                        $item['image'] = $upload['linkOnline'];
+                    }
+                } 
+                // Giữ lại hình ảnh cũ nếu có
+                elseif (isset($commerce['items'][$index]['image'])) {
+                    $item['image'] = $commerce['items'][$index]['image'];
+                }
+                
+                $newItems[] = $item;
+            }
+            
+            $commerce['items'] = $newItems;
+        }
+    }
+    
+    // Lưu dữ liệu
+    $data->commerce = json_encode($commerce);
+    
+    return $data;
 }
 
 function deleteProductProjectAdmin($input){
