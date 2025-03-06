@@ -319,6 +319,8 @@ $sqlInstallDatabase .= 'CREATE TABLE `rating_point_customers` (
 `point_min` INT NOT NULL ,
 `created_at` INT NULL DEFAULT NULL ,
 `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT `active`,
+
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
@@ -497,6 +499,7 @@ $sqlInstallDatabase .="CREATE TABLE `packages` (
 `numerology` INT NOT NULL ,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
@@ -803,6 +806,7 @@ $sqlUpdateDatabase['rating_point_customers']['name'] = "ALTER TABLE `rating_poin
 $sqlUpdateDatabase['rating_point_customers']['point_min'] = "ALTER TABLE `rating_point_customers` ADD `point_min` INT NOT NULL;";
 $sqlUpdateDatabase['rating_point_customers']['created_at'] = "ALTER TABLE `rating_point_customers` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['rating_point_customers']['note'] = "ALTER TABLE `rating_point_customers` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['rating_point_customers']['status'] = "ALTER TABLE `rating_point_customers` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'active';";
 $sqlUpdateDatabase['point_customers']['id_member'] = "ALTER TABLE `point_customers` ADD `id_member` INT NULL DEFAULT '0' ;";
 $sqlUpdateDatabase['point_customers']['id_customer'] = "ALTER TABLE `point_customers` ADD `id_customer` INT NULL DEFAULT '0' ;";
 $sqlUpdateDatabase['point_customers']['point'] = "ALTER TABLE `point_customers` ADD `point` INT NOT NULL DEFAULT'0' ;";

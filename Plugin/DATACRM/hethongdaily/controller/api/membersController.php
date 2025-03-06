@@ -246,6 +246,7 @@ function getInfoMemberMyAPI($input)
 	global $urlHomes;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelStaff = $controller->loadModel('Staffs');
 
 	$modelLinkInfo = $controller->loadModel('LinkInfos');
 
@@ -265,23 +266,37 @@ function getInfoMemberMyAPI($input)
 							'mess'=> 'Thiếu dữ liệu'
 						);
 		}
+		if($checkPhone->type=='member'){
+			$infoMember = $modelMember->find()->where($conditions)->first();
+		}else{
+			$conditions['id'] = $checkPhone->id_staff;
+			$infoMember = $modelStaff->find()->where($conditions)->first();
+		}
+		
 
-		$checkPhone = $modelMember->find()->where($conditions)->first();
-
-		if(!empty($checkPhone)){
-			$dataLink = $modelLinkInfo->find()->where(['id_member'=>$checkPhone->id])->all()->toList();
-			$position = $modelCategories->find()->where(array('id'=>$checkPhone->id_position))->first();
+		if(!empty($infoMember)){
+			if($checkPhone->type=='staff'){
+				if(!empty($infoMember->permission)){
+			    	$infoMember->permission = json_decode($infoMember->permission, true);
+			    }else{
+			    	$infoMember->permission = array();
+			    }
+			}else{
+				$dataLink = $modelLinkInfo->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+				$position = $modelCategories->find()->where(array('id'=>$infoMember->id_position))->first();
+				
+				$infoMember->name_position = @$position->name;
+				$infoMember->ListLink = @$dataLink;
+				$infoMember->discount_position = @$position->description;
+				$infoMember->Link = $urlHomes.'info/?id='.@$infoMember->id;
+				$infoMember->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$urlHomes.'info/?id='.@$infoMember->id;
+			}
 			
-			$checkPhone->name_position = @$position->name;
-			$checkPhone->ListLink = @$dataLink;
-			$checkPhone->discount_position = @$position->description;
-			$checkPhone->Link = $urlHomes.'info/?id='.@$checkPhone->id;
-			$checkPhone->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$urlHomes.'info/?id='.@$checkPhone->id;
-
-			unset($checkPhone->password);
+			$infoMember->type = $checkPhone->type;
+			unset($infoMember->password);
 			
 			$return = array('code'=>0,
-							 'data'=>$checkPhone,
+							 'data'=>$infoMember,
 							 'mess'=> 'Bạn lấy dữ liệu thành công'
 							);
 		}else{
@@ -1876,6 +1891,12 @@ function getParameter($input)
             } 
 
    return $return;
+}
+
+function getListPermissionAPI($input){
+	global $isRequestPost;
+	$data = getListPermission();
+	return array('code' => 1, 'mess' => 'Lấy dữ liệu thành công', 'data' => $data);		
 }
 ?>
 

@@ -305,8 +305,8 @@ function addServiceAPI($input){
 
 
 		        // lấy data edit
-		        if(!empty($_GET['id'])){
-		            $data = $modelService->get( (int) $_GET['id']);
+		        if(!empty($dataSend['id'])){
+		            $data = $modelService->get( (int) $dataSend['id']);
 		        }else{
 		            $data = $modelService->newEmptyEntity();
 		            $data->created_at = time();
@@ -322,7 +322,7 @@ function addServiceAPI($input){
 			    if(empty($data->image)){
 			    	$data->image = $urlHomes.'/plugins/databot_spa/view/home/assets/img/default-thumbnail.png';
 			    }
-                if(empty($dataSend['code']) && empty($_GET['id'])) $dataSend['code'] = createToken(10);
+                if(empty($dataSend['code']) && empty($dataSend['id'])) $dataSend['code'] = createToken(10);
 
                 // tạo dữ liệu save
                 if(!empty($dataSend['name'])){
@@ -391,8 +391,8 @@ function deleteServiceAPI($input){
 
         
 
-        if(!empty($_GET['id'])){
-            $data = $modelService->get($_GET['id']);
+        if(!empty($dataSend['id'])){
+            $data = $modelService->get($dataSend['id']);
 
             $checkCombo = $modelCombo->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
 
