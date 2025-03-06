@@ -109,14 +109,36 @@
             <div class="points">Điểm tích lũy: <span>300 ePoint</span></div>
         </div>
 
-        <!-- Thông tin người dùng -->
-        <div class="user-info ms-3">
-            <img src="/image/image1.jpg" alt="User Avatar" class="user-avatar">
-            <div>
-                <div class="user-name">Nguyễn Minh Thành <span class="vip-badge">VIP</span></div>
-                <div class="user-email">penguinthanh.design@gmail.com</div>
+        <div class="user-dropdown">
+            <div class="user-info dropdown-toggle">
+                <img src="/html/SnapHair/image/image3.jpg" alt="User Avatar" class="user-avatar">
+                <div class="user-details">
+                    <div class="user-name">Nguyễn Minh Thành <span class="vip-badge">Basic</span></div>
+                    <div class="user-email">penguinthanh.design@gmail.com</div>
+                </div>
+            </div>
+        
+            <div class="dropdown-menu">
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-user-circle"></i> Cài đặt tài khoản
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-shield-alt"></i> Chính sách
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-arrow-circle-up"></i> Nâng cấp tài khoản
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-globe"></i> Ngôn ngữ: Tiếng Việt <span class="arrow">&#10095;</span>
+                </a>
+                <a href="#" class="dropdown-item logout">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </a>
             </div>
         </div>
+        
+        <!-- Font Awesome for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </div>
 </div>
 </header>
@@ -187,6 +209,24 @@
             sidebar.classList.toggle('collapsed');
             mainContent.classList.toggle('collapsed');
         }
+    </script>
+    <script>
+        // Toggle dropdown on click
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        dropdownToggle.addEventListener('click', function () {
+            dropdownMenu.classList.toggle('active');
+            dropdownToggle.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function (event) {
+            if (!event.target.closest('.user-dropdown')) {
+                dropdownMenu.classList.remove('active');
+                dropdownToggle.classList.remove('active');
+            }
+        });
     </script>
 </body>
 
