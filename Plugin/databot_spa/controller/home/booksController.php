@@ -491,15 +491,25 @@ function checkinbetBook($input){
 	        $order->full_name = @$customer->name;
 	        $order->id_bed =@$dataSend['id_bed'];
 	        $order->note =@$dataSend['note'];
-	        $order->created_at =time();
-	        $order->updated_at =time();
+
+	        if(!empty($dataSend['time_checkin'])){   
+
+		     $time = explode(' ', $dataSend['time_checkin']);
+		     $date = explode('/', $time[0]);
+		     $hour = explode(':', $time[1]);
+		     $time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+		    }else{
+		     $time = time();
+		    }
+	        $order->created_at =$time;
+	        $order->updated_at =$time;
 	   		$order->status =0;
 	       	//$order->promotion =@$dataSend['promotion'];
 	       	$order->total =@$service->price;
 	       	$order->total_pay =@$service->price;
 	       	$order->type_order =3;
 	       	$order->type ='service';
-		    $order->time = time();
+		    $order->time = $time;
 
 		    $modelOrder->save($order);
 
@@ -514,7 +524,7 @@ function checkinbetBook($input){
 
 	        $modelOrderDetail->save($detail);
 	         
-	        return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product.'&id_staff='.@$dataSend['idStaff']);
+	        return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product.'&time='.$time.'&id_staff='.@$dataSend['idStaff']);
 
 	    }
 

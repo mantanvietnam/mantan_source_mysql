@@ -98,7 +98,7 @@ function getListCustomerAPI($input)
                     }
                 }
 
-                $conditions = array('CategoryConnects.id_category'=>$infoMember->id, 'CategoryConnects.keyword'=>'member_customers');
+                $conditions = array( 'CategoryConnects.keyword'=>'member_customers');
                 if(!empty($dataSend['full_name'])){
                     $conditions['Customers.full_name LIKE'] = '%'.$dataSend['full_name'].'%';
                 }
@@ -106,6 +106,17 @@ function getListCustomerAPI($input)
                 if(!empty($dataSend['phone'])){
                     $conditions['Customers.phone LIKE'] = '%'.$dataSend['phone'].'%';
                 }
+
+                 if(!empty($dataSend['id_group'])){
+            $conditions['CategoryConnects.id_category IN'] = $dataSend['id_group'];
+            $conditions['CategoryConnects.keyword'] = 'group_customers';
+        }else{
+            $conditions['CategoryConnects.id_category IN'] = $infoMember->id;
+        }
+
+         if(!empty($dataSend['id_campaign'])){
+            $conditions['campaignCustomers.id_campaign IN'] = $dataSend['id_campaign'];
+        }
 
 
                 $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
@@ -119,6 +130,14 @@ function getListCustomerAPI($input)
                         'type' => 'LEFT',
                         'conditions' => [
                             'Customers.id = CategoryConnects.id_parent'
+                        ],
+                    ],
+                    [
+                        'table' => 'campaign_customers',
+                        'alias' => 'campaignCustomers',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Customers.id = campaignCustomers.id_customer'
                         ],
                     ]
                 ];

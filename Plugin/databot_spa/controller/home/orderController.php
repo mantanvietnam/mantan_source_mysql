@@ -1618,6 +1618,11 @@ function addUserService($input){
                     $dataBed->status = 2;
                     $dataBed->id_order = $UserService->id_order;
                     $dataBed->id_staff = (int)$UserService->id_staff;
+                    if(!empty($_GET['time'])){
+                        $dataBed->time_checkin = (int) $_GET['time'];
+                    }else{
+                        $dataBed->time_checkin = time();
+                    }
                     $dataBed->id_customer = (int)@$Order->id_customer;
                     $dataBed->id_userservice  =implode(',', $id_user_service);
 
@@ -1695,9 +1700,15 @@ function paymentOrders($input){
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
         $modelBed = $controller->loadModel('Beds');
 
-        // debug(@$_GET);
-        // die;
-
+         if(!empty($_GET['time_checkout'])){   
+            $time = explode(' ', $_GET['time_checkout']);
+            $date = explode('/', $time[0]);
+            $hour = explode(':', $time[1]);
+            $time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+        }else{
+            $time = time();
+        }
+        
         if(!empty($_GET['id'])){
             $order = $modelOrder->get($_GET['id']); 
 
@@ -1715,12 +1726,12 @@ function paymentOrders($input){
                 $debt->total =  $order->total_pay;
                 $debt->note =  'án hàng ID đơn hàng là '.$data->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
                $debt->type = 0; //0: Thu, 1: chi
-               $debt->ceated_at =time();
-               $debt->updated_a =time();
+               $debt->ceated_at =$time;
+               $debt->updated_a =$time;
                $debt->id_order = $order->id;
                $debt->id_customer = (int)$order->id_customer;
                $debt->full_name = @$_GET['full_name'];
-               $debt->time = time();
+               $debt->time = $time;
 
                 $modelDebts->save($debt);
             }else{
@@ -1733,8 +1744,8 @@ function paymentOrders($input){
                 $bill->note = 'Bán hàng IDđơn hàng là '.$order->id.', ngườibán là '.$infoUser->name.', thời gian '.date('Y-m-dH:i:s');
                 $bill->type = 0; //0: Thu, 1: hi
                 $bill->id_order = $order->id;
-                $bill->created_at =time();
-                $bill->updated_at=time();
+                $bill->created_at =$time;
+                $bill->updated_at=$time;
                 $bill->id_customer = (int)$order->id_customer;
                 $bill->full_name = @$_GET['full_name'];
                 $bill->moneyReturn = @$_GET['moneyReturn'];
@@ -1747,7 +1758,7 @@ function paymentOrders($input){
                     $bill->id_card = (int)$_GET['card'];
                 }
                 $bill->moneyCustomerPay = @$_GET['moneyCustomerPay'];
-                $bill->time = time();
+                $bill->time = $time;
                 $modelBill->save($bill);
 
                 if(!empty($_GET['card'])){
@@ -1764,23 +1775,18 @@ function paymentOrders($input){
             if(!empty($listData)){
                 foreach($listData as $key => $item){
                     $item->status = 2;
-                    $item->check_out = time();
+                    $item->check_out = $time;
                     $item->note = @$_GET['note'];
                     $modelUserserviceHistories->save($item);
                 }
             }
-            /*$dataSend = $input['request']->getData();
-            $data = $modelUserserviceHistories->get($_GET['id_Userservice']);
-            $data->note =@$_GET['note'];
-            $data->status = 2;
-            $data->check_out = time();
-            $modelUserserviceHistories->save($data);*/
            
             $datebed = $modelBed->get($_GET['id_bed']);
             $datebed->status = 1;
             $datebed->id_order = NULL;
             $datebed->id_staff = NULL;
             $datebed->id_customer = NULL;
+            $datebed->time_checkin = NULL;
             $datebed->id_id_userservice = NULL;
             $modelBed->save($datebed);
 

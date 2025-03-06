@@ -125,12 +125,13 @@
            <div class="col-md-3">
             <label class="form-label">Nhân viên</label>
             <select name="id_staff" class="form-select color-dropdown">
-              <option value="0">Boss </option>
+              <option value="">Tất cả</option>
+              <option value="0" <?php if(@$_GET['id_staff']==0) echo 'selected' ;?>>Boss </option>
               <?php
               if(!empty($listStaff)){
-                foreach($listStaff as $value){
+                foreach($listStaff as $key => $value){
                   $selected = '';
-                  if($_GET['id_staff']==$value->id){
+                  if(@$_GET['id_staff']==$value->id){
                     $selected = 'selected';
                   }
                   echo '<option '.$selected.' value="'.$value->id.'">'.$value->name.'</option>';

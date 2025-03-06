@@ -61,8 +61,8 @@ function listCustomerCampaign($input)
                     $conditions['status IN'] = $_GET['status'];
                 }
 
-                if(isset($_GET['id_staff'])){
-                    $conditions['id_staff'] = $_GET['id_staff'];
+                if($_GET['id_staff']!=''){
+                    $conditions['id_staff'] =(int) $_GET['id_staff'];
                 }
 
 
@@ -114,6 +114,8 @@ function listCustomerCampaign($input)
                 }
 
                 $listData = $modelCampaignCustomers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+
                 
                 if(!empty($listData)){
                     foreach ($listData as $key => $value) {

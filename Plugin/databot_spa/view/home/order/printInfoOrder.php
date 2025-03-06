@@ -52,7 +52,7 @@
                 </div>
                 <div class="content text-center">
                     <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">Thời gian: <?php echo date('H:i:s d/m/Y', time());?></div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">Thời gian: <?php echo date('H:i:s d/m/Y', $data->bill->created_at);?></div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-condensed">
