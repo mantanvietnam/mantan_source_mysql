@@ -538,6 +538,10 @@ $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions';
 // sửa lỗi
 $sqlFixDatabase .= "ALTER TABLE `customers` CHANGE `full_name` `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 
+$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\",\"smaxbot\",\"keys\"]' WHERE `options`.`key_word` = 'plugins_site'; ";
+
+$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\",\"smaxbot\",\"keys\"]' WHERE `options`.`key_word` = 'plugin_installed'; ";
+
 /*
 $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `info` `info` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `description` `description` VARCHAR(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL;";
@@ -551,9 +555,7 @@ $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `title` `title` VARCHAR(255) C
 
 //$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"document\",\"cashBook\",\"affiliater\",\"staff\",\"jobManagement\",\"webShop\"]' WHERE `options`.`key_word` = 'crm_module'; ";
 
-//$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\"]' WHERE `options`.`key_word` = 'plugins_site'; ";
 
-//$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\",\"abc\"]' WHERE `options`.`key_word` = 'plugin_installed'; ";
 
 //$sqlFixDatabase .= "INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES (NULL, 'settingUpLikeAdmin', '{\"tokenOngTrum\":\"Rt8B7GDHfcauGgTZKwkjfVItJm6kNllHC7sy6UuBCbQ9mpwP03W4rkrvE2lWIF4YimUXNJ4KcxXrah7V\",\"multiplier\":3}', NULL); ";
 

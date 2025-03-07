@@ -1411,6 +1411,10 @@ function statisticalAPI($input){
                 'static_today' => date('H:i d/m/Y'),
             ];
 
+    if(function_exists('sendNotificationSmaxBot')){
+        sendNotificationSmaxBot('67cae869d734f3b28d873c92', $return);
+    }
+
     return $return;
 }
 ?>
