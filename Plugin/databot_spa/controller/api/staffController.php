@@ -354,7 +354,6 @@ function addStaffAPI($input){
 
 				        $data->name = $dataSend['name'];
 				        $data->id_group =(int) @$dataSend['id_group'];
-				        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:'https://spa.databot.vn';
 
 				        if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
 							$avatar = uploadImage($data->phone, 'avatar', 'avatar'.$data->phone);
@@ -362,11 +361,11 @@ function addStaffAPI($input){
 
 						if(!empty($avatar['linkOnline'])){
 
-							$data->image = $avatar['linkOnline'].'?time='.time();
+							$data->avatar = $avatar['linkOnline'].'?time='.time();
 			    		}
 
-			    		if(empty($data->image)){
-			    			$data->image = $urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
+			    		if(empty($data->avatar)){
+			    			$data->avatar = $urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 			    		}
 						$data->email = $dataSend['email'];
 						$data->permission = json_encode(@$dataSend['check_list_permission']);

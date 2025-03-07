@@ -906,13 +906,20 @@ function sendZNSZalo($template_id='', $params='', $phone='', $id_oa='', $app_id=
 
 function apiResponse(int $code = 0, $messages = '', $data = [], $totalData = 1, array $meta = []): array
 {
-    return [
-        'data' => $data ?? [],
-        'code' => $code ?? '',
-        'messages' => $messages ?? '',
-        'meta' => $meta ?? [],
-        'totalData' => $totalData ?? 1
-    ];
+    $return = [];
+    if(!empty($data)){
+        $return['data'] = $data;
+    }
+    $return['code'] = $code;
+    $return['messages'] = $messages ?? '';
+    if(!empty($totalData)){
+        $return['totalData'] = $totalData;
+    }
+    if(!empty($meta)){
+        $return['meta'] = $meta;
+    }
+
+    return $return;
 }
 
 

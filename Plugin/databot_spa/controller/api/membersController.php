@@ -35,7 +35,7 @@ function createMemberAPI($input)
 				$data = $modelMember->newEmptyEntity();
 
 				$data->name = $dataSend['name_spa'].' (chủ)';
-				$data->avatar = 'https://phanmem.quanlyspa.pro/plugins/databot_spa/view/home/assets/img/avatar-default.png';
+				$data->avatar = $urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 				$data->phone = $dataSend['phone'];
 				$data->email = @$dataSend['email'];
 				$data->password = md5($dataSend['password']);

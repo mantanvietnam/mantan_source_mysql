@@ -68,7 +68,7 @@ getHeader();
               id="main-image"
               alt="Main Image"
               class="img-fluid rounded-xl"
-              src="<?php echo @$urlThemeActive; ?>/assets/images/trisacto.png"
+              src="<?php echo $product->image;?>"
             />
           </div>
         </div>

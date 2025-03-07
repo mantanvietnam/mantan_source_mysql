@@ -12,7 +12,7 @@ function searchProductAPI($input)
     $conditions = [];
 
 	if(!empty($dataSend['term'])){
-        $conditions['title LIKE'] = '%'.$dataSend['term'].'%';
+        $conditions['OR'] = ['title LIKE' => '%'.$dataSend['term'].'%', 'code LIKE' => '%'.$dataSend['term'].'%'];
     }
 
     if(!empty($dataSend['id'])){
