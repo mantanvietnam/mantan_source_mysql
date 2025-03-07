@@ -117,10 +117,33 @@
        margin-left: 5px;
    }
 
+   .pagination {
+    display: inline-block;
+  }
+  
+  .pagination a {
+    color: white;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  .pagination a.active {
+    background: radial-gradient(circle, rgba(210, 36, 241, 1) 0%, rgba(252, 70, 167, 1) 100%);
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+  } 
+  
+
    /* Main Content Styles */
    .templateedit #content {
        margin-left: var(--sidebar-width);
-       padding: 20px;
+       padding:0 20px;
        transition: all 0.3s;
    }
 
@@ -3168,9 +3191,6 @@ table {
 }
 
 
-.menu-container.expanded + .main-container .main-content {
-
-}
 
 .title-incard{
     font-size: 20px;
@@ -3334,6 +3354,8 @@ table {
    }
 
    .crt-img{
+    border-radius: 25px;
+    color: white;
     background: rgb(210,36,241);
     background: radial-gradient(circle, rgba(210,36,241,1) 0%, rgba(252,70,167,1) 100%);
    }
@@ -3343,12 +3365,17 @@ table {
       gap: 12px; 
     }
    .modal-face .face-list img {
-     max-width: 80px !important;
-     max-height: 80px !important;
+     width: 80px !important;
+     height: 80px !important;
        cursor: pointer;
         border-radius: 10px; 
         transition: transform 0.3s ease, border 0.3s ease;
      }
+
+     .face-list-1 {
+        border-right: 2px solid rgba(255, 255, 255, 0.2);
+        padding-right: 15px;
+      }
    .modal-face .face-list img:hover {
      transform: scale(1.1);
      }
@@ -3377,12 +3404,81 @@ table {
 
     #selectedFace{
         height: 200px;
-        width: 260px;
+        width: 290px;
     }
 
     .modal-face .name-text-3{
         text-align: start !important;
-        margin: 20px 57px;
+        margin: 20px 25px;
+    }
+    .upload-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+      
+      .upload-box {
+        width: 400px;
+        height: 200px;
+        background: #141418;
+        border-radius: 12px;
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+        font-size: 16px;
+        text-align: center;
+      }
+      
+      .upload-box:hover {
+        border-color: rgba(252, 70, 167, 1);
+      }
+      
+      .upload-box i {
+        font-size: 24px;
+        margin-bottom: 8px;
+      }
+      
+      .hidden {
+        display: none;
+      }
+      
+      #previewImage {
+        margin-top: 15px;
+        max-width: 100%;
+        width: 200px;
+        height: auto;
+        border-radius: 8px;
+      }
+      
+      .color-picker {
+        display: flex;
+        margin: 5px;
+      }
+      
+      .color-option {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.3s;
+      }
+      
+      .color-option:hover,
+      .color-option.active {
+        border: 3px solid white;
+      }
+      
+    .use-face{
+        border-radius: 25px !important;
+        color: white !important;
+        background: rgb(210,36,241) !important;
+        background: radial-gradient(circle, rgba(210,36,241,1) 0%, rgba(252,70,167,1) 100%) !important;
     }
 
     .face-selection-header {
@@ -3456,8 +3552,10 @@ table {
 }
 
 /* Style cho các phần tử trong modal */
-.modal-title {
-    font-size: 1.25rem;
+.modal-content .modal-title {
+    width: 100%;
+    text-align: center;
+    font-size: 1.25rem !important;
     color: white;
 }
 
@@ -3546,10 +3644,11 @@ table {
     border-radius: 10px;
 }
 .result-image {
+    max-width: 90% !important;
     border-radius: 10px;
 }
 .btn-custom {
-    background: linear-gradient(90deg, #c36fff, #6a5cff);
+    background: radial-gradient(circle, rgba(210, 36, 241, 1) 0%, rgba(252, 70, 167, 1) 100%);
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
@@ -3598,7 +3697,6 @@ table {
 }
 .form-control{
     color: white !important;
-    background-color: black !important;
 }
 
 .user-card {

@@ -215,3 +215,48 @@ $(document).ready(function() {
     });
 });
 
+document.getElementById("fileUpload").addEventListener("change", function (event) {
+    const file = event.target.files[0]; // Lấy file ảnh
+  
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = function (e) {
+        const previewImage = document.getElementById("previewImage");
+        const uploadBox = document.getElementById("uploadBox");
+  
+        previewImage.src = e.target.result;
+        previewImage.classList.remove("hidden"); // Hiển thị ảnh xem trước
+  
+        document.getElementById("uploadText").textContent = "Ảnh đã tải lên";
+        uploadBox.style.border = "2px solid rgba(252, 70, 167, 1)"; // Đổi màu viền
+      };
+  
+      reader.readAsDataURL(file);
+    } else {
+      alert("Vui lòng chọn một ảnh hợp lệ!");
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const colorOptions = document.querySelectorAll(".color-option");
+    const selectedColorInput = document.getElementById("selectedColor");
+  
+    colorOptions.forEach((colorOption) => {
+      // Gán màu nền cho mỗi ô màu
+      colorOption.style.backgroundColor = colorOption.getAttribute("data-color");
+  
+      colorOption.addEventListener("click", function () {
+        // Xóa class 'active' khỏi tất cả các ô
+        colorOptions.forEach((c) => c.classList.remove("active"));
+  
+        // Thêm class 'active' vào ô được chọn
+        this.classList.add("active");
+  
+        // Cập nhật giá trị màu đã chọn
+        selectedColorInput.value = this.getAttribute("data-color");
+        console.log("Màu tóc đã chọn:", selectedColorInput.value);
+      });
+    });
+  });
+  
