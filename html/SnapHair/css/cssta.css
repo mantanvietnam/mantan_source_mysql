@@ -2923,7 +2923,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-html, body, div, span, applet, object, iframe,
+ html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -3659,5 +3659,682 @@ table {
     .mbi-cl{
         flex-direction: column;
     }
+} 
+/* History */
+
+.History body {
+    background-color: #121218;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
+/* Sidebar styles */
+.History .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 240px;
+    background-color: #1c1c25;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+    z-index: 1000;
+    border-right: 1px solid #2a2a35;
+}
+
+.History .sidebar.collapsed {
+    width: 70px;
+}
+
+.History .sidebar-top {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.History .logo-container {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.History .logo {
+    width: 40px;
+    height: 40px;
+}
+
+.History .section-title {
+    color: #515151;
+    /* Màu đỏ giống nút rocket */
+    font-weight: bold;
+}
+
+/* Căn giữa các nút ở sidebar-bottom */
+.History .sidebar-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ẩn thanh trượt cho tất cả các trình duyệt */
+.History .sidebar-middle {
+    /* Ẩn thanh trượt nhưng vẫn giữ chức năng cuộn */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE và Edge */
+}
+
+/* Ẩn thanh trượt cho Chrome, Safari và Opera */
+.History .sidebar-middle::-webkit-scrollbar {
+    display: none;
+}
+
+.History .section-items {
+    margin-bottom: 15px;
+}
+
+.History .sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.History .sidebar-item:hover {
+    background-color: #2a2a35;
+}
+
+.History .sidebar-item i {
+    width: 20px;
+    margin-right: 15px;
+}
+
+.History .sidebar.collapsed .sidebar-item span {
+    display: none;
+}
+
+.History .sidebar-bottom {
+    padding: 15px;
+    border-top: 1px solid #2a2a35;
+    display: flex;
+    justify-content: center;
+}
+
+.History .rocket-button {
+    background-color: #f24e54;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Main content styles */
+.History .main-content {
+    margin-left: 240px;
+    transition: margin-left 0.3s ease;
+    min-height: 100vh;
+}
+
+.History .main-content.collapsed {
+    margin-left: 70px;
+}
+
+/* Header styles */
+.History .header {
+    background-color: #1c1c25;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #2a2a35;
+}
+
+.History .create-btn {
+    background-color: #ee48b1;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.History .create-btn svg {
+    margin-left: 5px;
+}
+
+.History .profile-container {
+    display: flex;
+    align-items: center;
+}
+
+.History .points {
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+.History .points span {
+    font-weight: bold;
+    color: #f24e54;
+}
+
+.History .user-dropdown {
+    position: relative;
+}
+
+.History .user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.History .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.History .user-details {
+    line-height: 1.2;
+}
+
+.History .user-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.History .vip-badge {
+    background-color: #f24e54;
+    color: white;
+    border-radius: 10px;
+    padding: 1px 5px;
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+.History .user-email {
+    font-size: 12px;
+    color: #949494;
+}
+
+.History .dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #1c1c25;
+    border-radius: 10px;
+    width: 220px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1000;
+    border: 1px solid #2a2a35;
+}
+
+.History .dropdown-menu.active {
+    display: block;
+}
+
+.History .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.History .dropdown-item:hover {
+    background-color: #2a2a35;
+}
+
+.History .dropdown-item i {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.History .dropdown-item.logout {
+    border-top: 1px solid #2a2a35;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+}
+
+.History .arrow {
+    margin-left: auto;
+}
+
+/* Content styles */
+.History .content {
+    padding: 20px;
+}
+
+.History .page-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.History .stats-card {
+    background-color: #1c1c25;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #2a2a35;
+}
+
+.History .stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.History .stats-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.History .share-button {
+    background-color: #1c1c25;
+    border: 1px solid #2a2a35;
+    color: #949494;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.History .stats-count {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.History .stat-item {
+    flex: 1;
+}
+
+.History .stat-number {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.History .stat-label {
+    font-size: 12px;
+    color: #949494;
+}
+
+.History .filter-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.History .filter-dropdown {
+    background-color: #1c1c25;
+    border: 1px solid #2a2a35;
+    color: white;
+    border-radius: 20px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 170px;
+}
+
+.History .filter-dropdown i {
+    margin-left: 10px;
+}
+
+.History .work-card {
+    background-color: transparent;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.History .work-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.History .work-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.History .work-info {
+    flex-grow: 1;
+}
+
+.History .work-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+.History .work-date {
+    color: #949494;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.History .work-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #949494;
+}
+
+.History .work-stat-item {
+    flex: 1;
+}
+
+.History .action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.History .edit-button {
+    background-color: #1c1c25;
+    border: 1px solid #2a2a35;
+    color: white;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 13px;
+}
+
+.History .delete-button {
+    background-color: #f24e54;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .History .work-stats {
+        flex-direction: column;
+    }
+
+    .History .action-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .History .sidebar {
+        width: 70px;
+    }
+
+    .History .sidebar .sidebar-item span {
+        display: none;
+    }
+
+    .History .main-content {
+        margin-left: 70px;
+    }
+
+    .History .stats-count {
+        flex-wrap: wrap;
+    }
+
+    .History .stat-item {
+        flex: 0 0 50%;
+        margin-bottom: 10px;
+    }
+
+    .History .filter-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .History .work-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .History .work-image {
+        margin-bottom: 10px;
+    }
+
+    .History .action-buttons {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .History .edit-button,
+    .History .delete-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+/* Discover */
+.Discover .header-container {
+    text-align: center;
+    padding: 40px 20px;
+}
+.Discover .header-title {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+.Discover .header-title span {
+    color: #FF2C82;
+}
+.Discover .header-description {
+    color: #B0B3C0;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    font-size: 0.8rem;
+}
+.Discover .divider {
+    width: 100%;
+    height: 1px;
+    background-color: #2C3142;
+    margin: 20px 0;
+}
+.Discover .search-container {
+    background-color: #1a1d2b;
+    padding: 15px 0;
+}
+.Discover .search-input {
+    background-color: #50566b;
+    border: 1px solid #2d3345;
+    border-radius: 25px;
+    color: white;
+    padding: 14px 15px;
+    width: 100%;
+}
+.Discover .search-input:focus {
+    box-shadow: none;
+    background-color: #232735;
+    color: white;
+    border-color: #3a425a;
+}
+.Discover .search-button {
+    background-color: #e74ea0;
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.Discover .search-button:hover {
+    background-color: #d0418f;
+}
+.Discover .nav-button {
+    background-color: white;
+    color: #16213e;
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin: 0 5px;
+    font-size: 14px;
+    border: none;
+    transition: all 0.3s ease;
+}
+.Discover .nav-button:hover {
+    background-color: #ff66cc;
+    color: white;
+    cursor: pointer;
+}
+ /* Thay đổi grid-template-columns từ 4 thành 5 cột */
+ .Discover .gallery-container {
+     display: grid;
+     grid-template-columns: repeat(5, 1fr);
+     gap: 12px;
+     padding: 10px;
+ }
+  @media (max-width: 992px) {
+      .Discover .gallery-container {
+          grid-template-columns: repeat(3, 1fr);
+      }
+  }
+   @media (max-width: 576px) {
+       .Discover .gallery-container {
+           grid-template-columns: repeat(2, 1fr);
+       }
+   }
+        /* Điều chỉnh kích thước ảnh nhỏ hơn */
+        .Discover .gallery-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #2A2A3C;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+.Discover .gallery-card-img-container {
+    position: relative;
+}
+.Discover .gallery-card img.main-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    /* Giữ nguyên tỉ lệ */
+    object-fit: cover;
+    display: block;
+}
+ .Discover .like-btn {
+     position: absolute;
+     top: 8px;
+     right: 8px;
+     background-color: rgba(255, 255, 255, 100%);
+     border: none;
+     border-radius: 16px;
+     padding: 4px 10px;
+     display: flex;
+     align-items: center;
+     color: rgb(0, 0, 0);
+     z-index: 2;
+     font-size: 14px;
+ }
+ .Discover .like-btn i {
+     margin-right: 4px;
+     font-size: 14px;
+ }
+  .Discover .action-buttons {
+      position: absolute;
+      bottom: 10px;
+      left: 8;
+      display: flex;
+      justify-content: space-between;
+      width: 95%;
+    }
+.Discover .use-photo-btn {
+    background-color: rgba(186, 20, 136, 100);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+}
+.Discover .use-photo-btn i {
+    color: #ff66ff;
+    font-size: 14px;
+}
+.Discover .download-btn {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+}
+.Discover .download-btn i {
+    font-size: 14px;
+}
+.Discover .card-content {
+    padding: 14px;
+    flex-grow: 1;
+    text-align: left;
+    /* Đảm bảo nội dung trong card-content được căn lề trái */
+}
+ /* Ghi đè mạnh mẽ cho tiêu đề */
+ .Discover .gallery-card-title,
+ .Discover h5.gallery-card-title {
+     font-size: 14px;
+     /* Giảm kích thước chữ */
+     margin: 0;
+     text-align: left !important;
+     /* Sử dụng !important để ghi đè bất kỳ quy tắc nào khác */
+     justify-content: flex-start !important;
+     align-items: flex-start !important;
+     display: block !important;
+     /* Đảm bảo hiển thị dạng block */
+     width: 100%;
+ }
+  .Discover .creator-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #cccccc;
+      margin-top: 8px;
+      text-align: left;
+      /* Đảm bảo thông tin người tạo được căn lề trái */
+      justify-content: flex-start;
+  }
+  .Discover .creator-info img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+  }
+   /* Thêm breakpoint cho màn hình lớn hơn để đảm bảo hiển thị tốt */
+   @media (min-width: 1200px) {
+       .Discover .gallery-container {
+           grid-template-columns: repeat(5, 1fr);
+       }
+   }
