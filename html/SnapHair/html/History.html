@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử các tác phẩm của bạn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/html/SnapHair/css/cssta.css">
+</head>
+<body class="History">
+<div class="sidebar">
+    <!-- Fixed top section -->
+    <div class="sidebar-top">
+        <div class="logo-container">
+            <img src="/html/SnapHair/image/Logo .png" alt="Logo" class="logo">
+        </div>
+        <div class="sidebar-item" onclick="toggleSidebar()">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </div>
+
+    <!-- Scrollable middle section -->
+    <div class="sidebar-middle">
+        <!-- CHUNG Section -->
+        <div class="section-title">Chung</div>
+        <div class="section-items">
+            <div class="sidebar-item">
+                <i class="fas fa-home"></i>
+                <span>Trang chủ</span>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <div class="section-items">
+            <div class="sidebar-item">
+                <i class="fas fa-layer-group"></i>
+                <span>Thư viện</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-clock-rotate-left"></i>
+                <span>Lịch sử</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-layer-group"></i>
+                <span>Bộ sưu tập</span>
+            </div>
+        </div>
+
+        <!-- AI Section -->
+        <div class="section-items">
+            <div class="sidebar-item">
+                <i class="fas fa-robot"></i>
+                <span>AI Generator</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-wand-magic-sparkles"></i>
+                <span>AI Enhancement</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-star"></i>
+                <span>AI Tools</span>
+            </div>
+        </div>
+
+        <!-- Additional Features -->
+        <div class="section-title">Khác</div>
+        <div class="section-items">
+            <div class="sidebar-item">
+                <i class="fas fa-clock"></i>
+                <span>Hoạt động</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-video"></i>
+                <span>Video hướng dẫn</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-bell"></i>
+                <span>Thông báo</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-user"></i>
+                <span>Tài khoản</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed bottom section -->
+    <div class="sidebar-bottom">
+        <button class="rocket-button">
+            <i class="fas fa-rocket"></i>
+        </button>
+    </div>
+</div>
+
+    <div class="main-content">
+        <header class="header">
+            <button class="create-btn">
+                Tạo ảnh ngay
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+
+            <div class="profile-container">
+                <!-- Điểm tích lũy -->
+                <div class="text-end">
+                    <div class="points">Điểm tích lũy: <span>300 ePoint</span></div>
+                </div>
+
+                <div class="user-dropdown">
+                    <div class="user-info dropdown-toggle">
+                        <img src="/html/SnapHair/image/image2.jpg" alt="User Avatar" class="user-avatar">
+                        <div class="user-details">
+                            <div class="user-name">Nguyễn Minh Thành <span class="vip-badge">Basic</span></div>
+                            <div class="user-email">penguinthanh.design@gmail.com</div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user-circle"></i> Cài đặt tài khoản
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-shield-alt"></i> Chính sách
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-arrow-circle-up"></i> Nâng cấp tài khoản
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-globe"></i> Ngôn ngữ: Tiếng Việt <span class="arrow">&#10095;</span>
+                        </a>
+                        <a href="#" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <h1 class="page-title">Lịch sử các tác phẩm của bạn</h1>
+
+            <!-- Stats Card -->
+            <div class="stats-card">
+                <div class="stats-header">
+                    <div class="stats-title">Thống kê toàn bộ</div>
+                    <button class="share-button">
+                        <i class="fas fa-share-alt"></i> Chia sẻ thành quả
+                    </button>
+                </div>
+                <div class="stats-count">
+                    <div class="stat-item">
+                        <div class="stat-number">300.000</div>
+                        <div class="stat-label">Lượt xem</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">300.000</div>
+                        <div class="stat-label">Lượt yêu thích</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">300.000</div>
+                        <div class="stat-label">Lượt lưu</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">300.000</div>
+                        <div class="stat-label">Lượt sử dụng</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-container">
+                <div class="filter-dropdown">
+                    Được tải nhiều nhất <i class="fas fa-angle-down"></i>
+                </div>
+                <div class="filter-dropdown">
+                    Ngày tạo <i class="fas fa-angle-down"></i>
+                </div>
+            </div>
+
+            <!-- Work List -->
+            <div class="work-list">
+                <!-- Work Item 1 -->
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="/html/SnapHair/image/image2.jpg" alt="Ảnh doanh nhân">
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">Ảnh doanh nhân khoảnh tay</div>
+                        <div class="work-date">Ngày tạo: 20/12/2024</div>
+                        <div class="work-stats">
+                            <div class="work-stat-item">Lượt xem: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt yêu thích: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt sử dụng: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt lưu: 3.600 lượt</div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="edit-button">
+                            <i class="fas fa-edit"></i> Chỉnh sửa ảnh
+                        </button>
+                        <button class="delete-button">
+                            Xóa ảnh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Work Item 2 -->
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="/html/SnapHair/image/image2.jpg" alt="Ảnh Noel">
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">Ảnh tham gia lễ hội Noel</div>
+                        <div class="work-date">Ngày tạo: 20/12/2024</div>
+                        <div class="work-stats">
+                            <div class="work-stat-item">Lượt xem: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt yêu thích: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt sử dụng: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt lưu: 3.600 lượt</div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="edit-button">
+                            <i class="fas fa-edit"></i> Chỉnh sửa ảnh
+                        </button>
+                        <button class="delete-button">
+                            Xóa ảnh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Work Item 3 -->
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="/html/SnapHair/image/image2.jpg" alt="Ảnh dự tiệc">
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">Ảnh dự tiệc dạ hội</div>
+                        <div class="work-date">Ngày tạo: 20/12/2024</div>
+                        <div class="work-stats">
+                            <div class="work-stat-item">Lượt xem: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt yêu thích: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt sử dụng: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt lưu: 3.600 lượt</div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="edit-button">
+                            <i class="fas fa-edit"></i> Chỉnh sửa ảnh
+                        </button>
+                        <button class="delete-button">
+                            Xóa ảnh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Work Item 4 -->
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="/html/SnapHair/image/image2.jpg" alt="Ảnh sự kiện">
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">Ảnh đi sự kiện cùng công ty</div>
+                        <div class="work-date">Ngày tạo: 20/12/2024</div>
+                        <div class="work-stats">
+                            <div class="work-stat-item">Lượt xem: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt yêu thích: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt sử dụng: 3.600 lượt</div>
+                            <div class="work-stat-item">Lượt lưu: 3.600 lượt</div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="edit-button">
+                            <i class="fas fa-edit"></i> Chỉnh sửa ảnh
+                        </button>
+                        <button class="delete-button">
+                            Xóa ảnh
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('collapsed');
+        }
+
+        // Toggle dropdown on click
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        dropdownToggle.addEventListener('click', function () {
+            dropdownMenu.classList.toggle('active');
+            dropdownToggle.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function (event) {
+            if (!event.target.closest('.user-dropdown')) {
+                dropdownMenu.classList.remove('active');
+                dropdownToggle.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+
+</html>
