@@ -138,6 +138,11 @@
     background-color: #ddd;
     border-radius: 5px;
   } 
+
+  .color-option.active {
+    box-shadow: 0 0 0 4px white, 0 0 0 6px black;
+
+}
   
 
    /* Main Content Styles */
@@ -206,6 +211,8 @@
    }
 
    .templateedit .main-heading {
+    border-bottom: 1px solid #444444;
+    padding-bottom: 40px;
        margin: 30px 0;
        text-align: center;
        /* Added center alignment */
@@ -248,6 +255,72 @@
        padding: 10px 20px;
        color: white;
    }
+
+   .custom-search-wrapper {
+    background: #1d2f49; /* Màu nền bao quanh */
+    padding: 10px;
+    border-radius: 40px; /* Bo tròn viền ngoài */
+    display: inline-block;
+}
+
+.custom-search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1b1e2b;
+    padding: 5px;
+    border-radius: 40px;
+}
+
+.custom-search-bar {
+    flex: 1;
+    background: transparent;
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: 2px solid #2a2d3e;
+    display: flex;
+    align-items: center;
+    width: 370px;
+}
+
+.custom-search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 14px;
+}
+
+.custom-search-input::placeholder {
+    color: #8c8fa5;
+}
+
+.custom-search-btn {
+    background: linear-gradient(135deg, #ff7eb3, #ff4d97);
+    border: none;
+    outline: none;
+    width: 55px;
+    height: 40px;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-search-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 126, 179, 0.6);
+}
+
+.custom-search-btn i {
+    color: white;
+    font-size: 16px;
+}
+
+   
 
    .templateedit .category-section {
        margin: 40px 0;
@@ -4436,3 +4509,13 @@ table {
            grid-template-columns: repeat(5, 1fr);
        }
    }
+
+
+   /* thêm css */
+
+   @media (max-width: 576px) { /* Bootstrap breakpoint SM */
+    .custom-search-bar {    
+        width: 280px;
+    }
+    
+}
