@@ -23,12 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // }
     });
 
-    sidebarToggleOpen.addEventListener("click", function () {
-        sidebar.classList.toggle("collapsed");
-        content.classList.toggle("expanded");
+    // sidebarToggleOpen.addEventListener("click", function () {
+    //     sidebar.classList.toggle("collapsed");
+    //     content.classList.toggle("expanded");
 
-        sidebarToggleOpen.classList.add("d-none");
-    });
+    //     sidebarToggleOpen.classList.add("d-none");
+    // });
 
     // Toggle sidebar khi click nút mobile
     mobileMenuToggle.addEventListener("click", function () {
