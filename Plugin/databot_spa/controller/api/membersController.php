@@ -234,19 +234,19 @@ function requestCodeForgotPasswordAPI($input)
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
 		if(!empty($dataSend['phone'])){
-			$checkPhone = $modelStaff->find()->where(array('phone'=>$dataSend['phone']))->first();
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 			if(!empty($checkPhone->email)){
 				$code = rand(1000,9999);
 
 				$checkPhone->code_otp = $code;
 				$modelMember->save($checkPhone);
 				sendEmailNewPassword($checkPhone->email, $checkPhone->name, $code);
-				apiResponse(1,'Gửi email mã xác thực thành công');
+				return apiResponse(1,'Gửi email mã xác thực thành công');
 			}else{
-				apiResponse(3,'Tài khoản chưa cài email');
+				return	apiResponse(3,'Tài khoản chưa cài email');
 			}
 		}else{
-			apiResponse(2,'Gửi thiếu dữ liệu hoặc sai định dạng số điện thoại');
+			return apiResponse(2,'Gửi thiếu dữ liệu hoặc sai định dạng số điện thoại');
 		}
 	}
 	return  apiResponse(0,'Gửi thiếu dữ liệu');
@@ -282,19 +282,18 @@ function saveNewPassAPI($input)
 						$checkPhone->code_otp = null;
 						$checkPhone->token = '';
 						$modelMember->save($checkPhone);
-						$return = apiResponse(1, 'lưu mật khẩu mới thành công');
+						return apiResponse(1, 'lưu mật khẩu mới thành công');
 					}else{
-						$return = apiResponse(5,'Mật khẩu nhập lại không đúng');
+						return apiResponse(5,'Mật khẩu nhập lại không đúng');
 					}
 			}else{
-				$return = apiResponse(4,'Mã xác thực nhập không đúng');
+				return apiResponse(4,'Mã xác thực nhập không đúng');
 			}
 		}else{
-			$return = apiResponse(2,'Gửi thiếu dữ liệu');
+			return apiResponse(2,'Gửi thiếu dữ liệu');
 		}
 	}
 
-	return $return;
 }
 
 function getInfoMyAPI($input)

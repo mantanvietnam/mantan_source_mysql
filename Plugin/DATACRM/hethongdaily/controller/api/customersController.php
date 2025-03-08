@@ -926,6 +926,39 @@ function addGroupCustomerAPI($input)
     return $return;
 }
 
+function detailGroupCustomerAPI($input){ 
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $modelMembers = $controller->loadModel('Members');
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        
+        if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+            $infoMember = getMemberByToken($dataSend['token'],'groupCustomerAgency');
+
+            if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
+
+            $data = $modelCategories->find()->where(['id'=> (int) $dataSend['id'], 'type'=>'group_customer', 'parent'=>$infoMember->id])->first();
+            if(!empty($data)){
+                return array('code'=>1,'mess'=>'Bạn lấy dữ liệu thành công','data'=>$data);
+            }
+            return array('code'=>4,'mess'=>'Dữ liệu không tồn tại' );
+        }
+            return array('code'=>3,'mess'=>'Tài khoản không tồn tại' );
+        }
+        return array('code'=>2,'mess'=>'thếu dữ liệu' );
+    }
+    return array('code'=>0,'mess'=>'Gửi sai phương thức POST');
+}
 function listGroupCustomerAPI($input)
 {
     global $controller;

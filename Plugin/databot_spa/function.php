@@ -1041,4 +1041,117 @@ function checkStaffTimekeepers($date,$id_staff){
 }
 
 
+function addUserserviceHistories($id=0,$id_bed=0,$id_service=0,$time=0,$id_staff=0,$note=''){
+    global $controller;
+    global $modelCategories;
+    global $urlCurrent;
+
+    $modelCombo = $controller->loadModel('Combos');
+    $modelProduct = $controller->loadModel('Products');
+    $modelService = $controller->loadModel('Services');
+    $modelRoom = $controller->loadModel('Rooms');
+    $modelBed = $controller->loadModel('Beds');
+    $modelMembers = $controller->loadModel('Members');
+    $modelOrder = $controller->loadModel('Orders');
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
+    $modelBill = $controller->loadModel('Bills');
+    $modelAgency = $controller->loadModel('Agencys');
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+
+    if(!empty($id)){
+        $OrderDetails = $modelOrderDetails->get($id);
+        $Order = $modelOrder->get($OrderDetails->id_order);
+        if(empty($id_bed)){
+            $OrderDetails->number_uses +=1;
+            $modelOrderDetails->save($OrderDetails);
+            $UserService = $modelUserserviceHistories->newEmptyEntity();
+            $UserService->id_member = $Order->id_member;
+            $UserService->id_staff = $id_staff; 
+           
+            $UserService->id_order_details = $id;
+            $UserService->id_order = $OrderDetails->id_order;
+            $UserService->id_spa =$Order->id_spa;
+            $UserService->id_services =$id_service;
+            $UserService->created_at = (int) $time;
+            
+            $UserService->note =@$note;
+            $UserService->id_customer = $Order->id_customer;
+            $UserService->status = 0;
+        
+            $modelUserserviceHistories->save($UserService);
+        }else{
+            $OrderDetails->number_uses +=1;
+            $modelOrderDetails->save($OrderDetails);
+
+            $UserService = $modelUserserviceHistories->newEmptyEntity();
+            $UserService->id_member = $Order->id_member;
+            $UserService->id_order_details = $id;
+            $UserService->id_order =  $OrderDetails->id_order;
+            $UserService->id_staff = $id_staff; 
+            $UserService->id_spa =$Order->id_spa;;
+            $UserService->id_services =$id_service;
+            $UserService->created_at = (int) $time;
+            $UserService->note =@$note;
+            $UserService->id_bed = $id_bed;
+            $UserService->id_customer = $Order->id_customer;
+            $UserService->status = 1;
+            $modelUserserviceHistories->save($UserService);
+
+            $bed = $modelBed->find()->where(array('id'=>$id_bed, 'status'=>2,'id_order !='=>$UserService->id_order))->first();
+            if(empty($bed)){
+                $dataBed = $modelBed->get($id_bed);
+                $id_user_service =array();
+                if(!empty($dataBed->id_id_userservice)){
+                    $id_user_service =  explode(",", $dataBed->id_id_userservice);
+                }
+                $id_user_service[] = $UserService->id;
+                $dataBed->status = 2;
+                $dataBed->id_order = $UserService->id_order;
+                $dataBed->id_staff = (int)$UserService->id_staff;
+                $dataBed->time_checkin = (int) $time;
+                $dataBed->id_customer = (int)@$Order->id_customer;
+                $dataBed->id_userservice  =implode(',', $id_user_service);
+
+                $modelBed->save($dataBed);
+                   
+            }
+        }
+        $money = 0;
+        $checkService = $modelService->find()->where(array('id'=>$id_service))->first();
+                 
+        if(!empty($checkService)){
+            if(!empty($checkService->commission_staff_fix)){
+                $money += $checkService->commission_staff_fix;
+            }elseif(!empty($checkService->commission_staff_percent)){
+                $money += ((int)$checkService->commission_staff_percent / 100)*$checkService->price;
+            }
+        }
+
+        if($money>0){
+            $agency = $modelAgency->newEmptyEntity();
+            $agency->id_member = $Order->id_member;
+            $agency->id_spa = $Order->id_spa;
+            if(!empty($id_staff)){
+                $agency->id_staff = $id_staff; 
+            }else{
+                $agency->id_staff = $user->id;
+            }
+            $agency->id_service = $id_service;
+            $agency->id_user_service =  @$UserService->id;
+            $agency->money = $money;
+            $agency->created_at = (int) $time;
+            $agency->note = 'lần thứ '.@$OrderDetails->number_uses;
+            $agency->id_order_detail = $id;
+            $agency->status = 0;
+            $agency->id_order = $Order->id;
+            $agency->type = 'thực hiện';
+            $modelAgency->save($agency);
+        }
+
+        return array('code'=>1, 'mess'=>'Check in thành công');
+    }
+    return array('code'=>0, 'mess'=>'lỗi hệ thống');
+}
+
 ?>
