@@ -260,3 +260,8 @@ document.getElementById("fileUpload").addEventListener("change", function (event
     });
   });
   
+// JavaScript để xử lý đóng/mở sidebar
+document.getElementById('sidebarToggleClose').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('collapsed');
+    document.getElementById('content').classList.toggle('expanded');
+});

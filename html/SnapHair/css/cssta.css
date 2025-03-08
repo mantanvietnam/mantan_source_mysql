@@ -61,7 +61,7 @@
    }
 
    .templateedit #sidebar .sidebar-heading img {
-       height: 40px;
+       height: 50px;
    }
 
    .templateedit .sidebar-section {
@@ -202,6 +202,7 @@
    .templateedit .user-info-details {
        display: flex;
        flex-direction: column;
+       gap: 6px;
    }
 
    .templateedit .user-points {
@@ -3443,6 +3444,7 @@ table {
        cursor: pointer;
         border-radius: 10px; 
         transition: transform 0.3s ease, border 0.3s ease;
+        object-fit: cover;
      }
 
      .face-list-1 {
@@ -3531,21 +3533,26 @@ table {
       
       .color-picker {
         display: flex;
-        margin: 5px;
+        justify-content: space-between; /* Phân bố đều các phần tử */
+        gap: 10px; /* Khoảng cách giữa các phần tử */
+        margin: 15px 0;
       }
       
       .color-option {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
+        width: 30px; /* Kích thước cố định cho mỗi màu */
+        height: 30px;
+        border-radius: 50%; /* Tạo hình tròn */
         cursor: pointer;
+        transition: transform 0.2s ease;
         border: 2px solid transparent;
-        transition: all 0.3s;
       }
       
-      .color-option:hover,
-      .color-option.active {
-        border: 3px solid white;
+      .color-option:hover {
+        transform: scale(1.1);
+      }
+      
+      .color-option.selected {
+        border: 2px solid #333; /* Viền cho màu được chọn */
       }
       
     .use-face{
@@ -3606,6 +3613,7 @@ table {
       .modal-face .face-list-2 img {
         max-width: 50px !important;
         max-height: 50px !important;
+        object-fit: cover;
           cursor: pointer;
            border-radius: 10px; 
            transition: transform 0.3s ease, border 0.3s ease;
@@ -4562,3 +4570,37 @@ table {
     padding: 8px 20px;
 }
 
+/* CSS cho logo */
+.sidebar-logo {
+    display: block; /* Hiển thị theo mặc định khi sidebar mở */
+}
+
+/* Khi sidebar bị đóng lại (thêm class 'collapsed' vào #sidebar) */
+#sidebar.collapsed .sidebar-logo {
+    display: none; /* Ẩn logo */
+}
+
+/* Hoặc sử dụng opacity để có hiệu ứng mượt hơn */
+#sidebar .sidebar-logo {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+#sidebar.collapsed .sidebar-logo {
+    opacity: 0;
+}
+.sidebar-logo {
+    width: auto;
+    max-width: 150px; /* Điều chỉnh theo kích thước logo của bạn */
+    overflow: hidden;
+    transition: max-width 0.3s ease, opacity 0.3s ease;
+}
+
+#sidebar.collapsed .sidebar-logo {
+    max-width: 0;
+    opacity: 0;
+}
+
+body i{
+    margin-right: 6px;
+}
