@@ -690,7 +690,7 @@
 
        /* Adjust dropdown position for mobile */
        .templateedit .user-dropdown {
-           width: calc(100% - 30px);
+        min-width: 296px;
            right: 15px;
            left: -100px;
        }
