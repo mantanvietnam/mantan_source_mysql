@@ -188,7 +188,9 @@ function addRequestProductAgency($input)
                 $save->money = (int) $dataSend['total'];
                 $save->total = (int) $dataSend['totalPays'];
                 $save->status_pay = 'wait';
-                $save->discount = $dataSend['promotion'];
+
+                $save->discount = (!empty($dataSend['promotion']))?$dataSend['promotion']:0;
+             
                 $modelOrderMembers->save($save);
 
                 foreach ($dataSend['idHangHoa'] as $key => $value) {
@@ -198,7 +200,8 @@ function addRequestProductAgency($input)
                     $saveDetail->id_order_member = $save->id;
                     $saveDetail->quantity = $dataSend['soluong'][$key];
                     $saveDetail->price = $dataSend['money'][$key];
-                    $saveDetail->discount = (int) @$dataSend['discount'][$key];
+                    $saveDetail->discount = (!empty(@$dataSend['discount'][$key]))?@$dataSend['discount'][$key]:0;
+
                     $saveDetail->id_unit = (int)$dataSend['id_unit'][$key];
                     $modelOrderMemberDetails->save($saveDetail);
                 }

@@ -186,6 +186,7 @@ function listBookAPI($input){
 	}
 	return apiResponse(0,'Gửi sai phương thức POST');
 }
+
 function listBookCalendarAPI($input){
 	global $controller;
 	global $urlCurrent;
@@ -428,6 +429,37 @@ function checkinbetBookAPI($input){
 		        addUserserviceHistories($detail->id,$dataSend['id_bed'],$book->id_service,$time,$dataSend['id_staff']);
 	        	return apiResponse(1,'check in thành công');
 			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function detailServiceAPI($input){	
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $modelMembers = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
+	$modelService = $controller->loadModel('Services');
+	$modelBook = $controller->loadModel('Books');
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listBook','calendar');
+			if(!empty($infoUser)){
+
+	        $data = $modelBook->find()->where(['id'=> (int) $dataSend['id'], 'id_member'=>$infoUser->id_member])->first();
+	        if(!empty($data)){
+			    return apiResponse(1,'Bạn lấy dữ liệu thành công',$data);
+			}
+			return apiResponse(4,'Dữ liệu không tồn tại' );
+		}
 			return apiResponse(3,'Tài khoản không tồn tại' );
 		}
 		return apiResponse(2,'thếu dữ liệu' );

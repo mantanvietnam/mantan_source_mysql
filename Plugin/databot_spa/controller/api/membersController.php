@@ -252,6 +252,36 @@ function requestCodeForgotPasswordAPI($input)
 	return  apiResponse(0,'Gửi thiếu dữ liệu');
 }
 
+function checkCodeOtAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+		if(!empty($dataSend['phone']) 
+			&& !empty($dataSend['code'])){
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'code_otp'=>$dataSend['code']))->first();
+
+			if(!empty($checkPhone)){
+				return apiResponse(1, 'Check mã xác thực thành công');		
+			}
+				return apiResponse(4,'Mã xác thực nhập không đúng');
+		}
+		return apiResponse(2,'Gửi thiếu dữ liệu');
+	}
+	return  apiResponse(0,'Gửi sai phương thức POST');
+}
+
 function saveNewPassAPI($input)
 {
 	global $isRequestPost;
