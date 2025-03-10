@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,298 +9,382 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    
     <link href="../css/cssta.css" rel="stylesheet">
 </head>
 
 <body class="landingpage">
-<nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="../image/Logo .png" alt="Logo"> SNAP HAIR
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item active"><a class="nav-link" href="#">Trang chủ</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Khám phá</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Về chúng tôi</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Cách hoạt động</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
-            </ul>
-            <button class="btn-login">Đăng nhập <i class="fas fa-arrow-right"></i></button>
+<!-- Navigation Component -->
+<nav class="primary-navigation">
+    <div class="nav-container">
+        <!-- All elements on the same row -->
+        <div class="brand-section">
+            <a class="brand-logo" href="#">
+                <img src="../image/Logo .png" alt="Logo"> <span>SNAP HAIR</span>
+            </a>
+
+            <!-- Menu Section Inline -->
+            <div class="menu-section" id="menuSection">
+                <div class="menu-wrapper">
+                    <ul class="main-menu">
+                        <li class="menu-item active"><a href="#">Trang chủ</a></li>
+                        <li class="menu-item"><a href="#">Khám phá</a></li>
+                        <li class="menu-item"><a href="#">Về chúng tôi</a></li>
+                        <li class="menu-item"><a href="#">Cách hoạt động</a></li>
+                        <li class="menu-item"><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="login-section">
+                    <button class="btn-login">Đăng nhập <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle">
+                <span class="menu-icon"></span>
+            </button>
         </div>
     </div>
 </nav>
-<!-- Phần chính -->
-<div class="hero-section">
-    <h1 class="hero-title">Thay đổi phong cách mái tóc 
-        <p>mà bạn yêu thích bằng <span>SNAP HAIR</span></p></h1>
-    <div class="search-container">
-        <div class="search-bar">
-            <i class="fas fa-bolt search-icon"></i>
-            <input type="text" id="searchInput" placeholder="Ví dụ: Tóc đuôi ngựa">
-            <button onclick="search()">Thử ngay <i class="fas fa-chevron-right"></i></button>
-        </div>
-    </div>
-</div>
 
-<script>
-    function search() {
-        let inputValue = document.getElementById("searchInput").value;
-        if (inputValue.trim() === "") {
-            alert("Vui lòng nhập kiểu tóc bạn muốn thử!");
-        } else {
-            alert("Bạn đã chọn kiểu tóc: " + inputValue);
-        }
-    }
-</script>
-<!-- Grid ảnh -->
-<div class="container mt-4">
-<div class="grid">
-    <div class="grid-item grid-item--height2"><img src="../image/image1.jpg"/> </div>
-    <div class="grid-item grid-item--height2"><img src="../image/image1.jpg" /> </div>
-    <div class="grid-item grid-item--height3-2"><img src="../image/image1.jpg" /> </div>
-    <div class="grid-item grid-item--height2"><img src="../image/image1.jpg" /> </div>
-    <div class="grid-item grid-item--height3-2"><img src="../image/image1.jpg" /> </div>
-
-    <div class="grid-item grid-item--height2"><img src="../image/image1.jpg" /> </div>
-    <div class="grid-item grid-item--height2"><img src="../image/image1.jpg" /> </div>
-    <div class="grid-item grid-item--height3-2"><img src="../image/image1.jpg" /> </div>
-    <div class="grid-item grid-item--height3-2"><img src="../image/image1.jpg" /> </div>
-    <div class="grid-item grid-item--height3-2"><img src="../image/image1.jpg" /> </div>
-</div>
-
-
-
-
-<!-- Thanh gradient dưới -->
-<div class="gradient-bar"></div>
-
-<body class="bg-dark text-white">
-    <div class="container mt-5">
-        <h2 class="mb-3 text-start">
-            Khám phá <span class="text-pink">kho mẫu tóc bất tận</span> và thay đổi vào khuôn mặt của bạn
-        </h2>
-        <p class="text-muted mb-4 text-start">
-            These steps outline the process of using the AI Image Generator, from choosing a style to saving or sharing
-            the final artwork
-        </p>
-
-        <div class="d-flex justify-content-start gap-3 mb-4 align-items-center">
-            <button class="btn btn-custom">
-                <i class="bi bi-star me-2"></i> Nổi bật
-            </button>
-            <button class="btn btn-custom">
-                <i class="bi bi-heart me-2"></i> Được yêu thích
-            </button>
-            <button class="btn btn-custom">
-                <i class="bi bi-clock me-2"></i> Mới nhất
-            </button>
-            <div class="ms-auto">
-                <button class="btn-nav btn-prev me-2">←</button>
-                <button class="btn-nav btn-next ms-2">→</button>
-            </div>
-        </div>
-    </div>
-    <div class="row g-3">
-        <div class="col-md-4">
-            <div class="card card-custom">
-                <img src="../image/image1.jpg" alt="Tóc ngắn thành đạt">
-                <div class="p-3">
-                    <h5>Tóc ngắn thành đạt</h5>
-                    <p>Lorem ipsum dolor sit amet. Ut dolores omnis quo quos consequatur ut sunt alias</p>
-                    <button class="btn-try">Thử ngay</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom">
-                <img src="../image/image1.jpg" alt="Tóc dài mullet">
-                <div class="p-3">
-                    <h5>Tóc dài mullet</h5>
-                    <p>Lorem ipsum dolor sit amet. Ut dolores omnis quo quos consequatur ut sunt alias</p>
-                    <button class="btn-try">Thử ngay</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom">
-                <img src="../image/image1.jpg" alt="Tóc ngắn xoăn">
-                <div class="p-3">
-                    <h5>Tóc ngắn xoăn</h5>
-                    <p>Lorem ipsum dolor sit amet. Ut dolores omnis quo quos consequatur ut sunt alias</p>
-                    <button class="btn-try">Thử ngay</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-</div>
-    <!-- Process Steps -->
-<body class="snaphair-body">
-    <div class="snaphair-container">
-        <h1 class="snaphair-heading">Cách để có một mái tóc ưng ý bằng <span class="snaphair-pink-text">SNAP HAIR</span>
+    <!-- Phần chính -->
+    <div class="hero-section">
+        <h1 class="hero-title">Thay đổi phong cách mái tóc
+            <p>mà bạn yêu thích bằng <span>SNAP HAIR</span></p>
         </h1>
-        <div class="snaphair-subtitle">These steps outline the process of using the AI Image Generator, from choosing a
-            style to saving or sharing the final artwork.</div>
-
-        <div class="snaphair-step-container">
-            <div class="snaphair-step">
-                <div class="snaphair-step-number">1</div>
-                <div class="snaphair-step-content">
-                    <div class="snaphair-step-title">Chọn mẫu tóc ưng ý</div>
-                    <div class="snaphair-step-description">Chọn mẫu tóc từ trên kho mẫu tóc có sẵn + 20.000 mẫu</div>
-                </div>
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-bolt search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Ví dụ: Tóc đuôi ngựa">
+                <button onclick="search()">Thử ngay <i class="fas fa-chevron-right"></i></button>
             </div>
-
-            <div class="snaphair-step">
-                <div class="snaphair-step-number">2</div>
-                <div class="snaphair-step-content">
-                    <div class="snaphair-step-title">Thay đổi bằng khuôn mặt của bạn</div>
-                    <div class="snaphair-step-description">Tải ảnh khuôn mặt của bạn lên để AI có thể áp dụng kiểu tóc
-                        đấy cho bạn</div>
-                </div>
-            </div>
-
-            <div class="snaphair-step">
-                <div class="snaphair-step-number">3</div>
-                <div class="snaphair-step-content">
-                    <div class="snaphair-step-title">Xem thành quả sáng tạo</div>
-                    <div class="snaphair-step-description">Chưa đầy 1 phút là bạn đã có được ánh ảnh ưng ý với kiểu tóc
-                        riêng</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="snaphair-try-now-box">
-            <div class="snaphair-try-now-title">3 bước</div>
-            <div class="snaphair-try-now-steps">đơn giản để có kiểu tóc ưng ý</div>
-            <div class="snaphair-buttons-container">
-                <img src="/html/SnapHair/image/image2.jpg" alt="arrow" style="width: 40px; height: 40px;">
-                <a href="#" class="snaphair-try-now-button">Thử ngay</a>
-            </div>
-        </div>
-
-        <img src="../image/image1.jpg" alt="hairstyle example" class="snaphair-image-float snaphair-image-1">
-        <img src="../image/image1.jpg" alt="hairstyle example" class="snaphair-image-float snaphair-image-2">
-        <img src="../image/image1.jpg" alt="hairstyle example" class="snaphair-image-float snaphair-image-3">
-        <img src="../image/image1.jpg" alt="hairstyle example" class="snaphair-image-float snaphair-image-4">
-        <img src="../image/image1.jpg" alt="hairstyle example" class="snaphair-image-float snaphair-image-5">
-        <img src="../image/image1.jpg" alt="hairstyle example" class="snaphair-image-float snaphair-image-6">
-    </div>
-</body>
-    <!-- Testimonials Section -->
-<section class="testimonials">
-    <h2>Nhận được hơn <span class="highlight">1.000+</span> sự tin tưởng</h2>
-    <p class="subtext">These steps outline the process of using the AI Image Generator, from choosing a style to saving
-        or sharing the final artwork</p>
-
-    <div class="testimonials-container">
-        <div class="testimonial active">
-            <p>Tôi cảm thấy đây là một bước tiến lớn của ngành AI Việt Nam</p>
-            <div class="author">
-                <img src="/image/image1.jpg" alt="Nguyễn Văn Anh">
-                <div>
-                    <h4>Nguyễn Văn Anh</h4>
-                    <div class="stars">★★★★★</div>
-                </div>
-            </div>
-            <i class="fa-solid fa-quote-right"></i>
-        </div>
-
-        <div class="testimonial">
-            <p>Ứng dụng này thật tuyệt vời. Tôi có ảnh trong 1 nốt nhạc</p>
-            <div class="author">
-                <img src="/image/image2.jpg" alt="Trương Thị Xuân">
-                <div>
-                    <h4>Trương Thị Xuân</h4>
-                    <div class="stars">★★★★★</div>
-                </div>
-            </div>
-            <i class="fa-solid fa-quote-right"></i>
-        </div>
-
-        <div class="testimonial">
-            <p>Ảnh rất thực tế, không ai biết tôi đã dùng AI để có ảnh này.</p>
-            <div class="author">
-                <img src="/image/image3.jpg" alt="Lại Công Lâm">
-                <div>
-                    <h4>Lại Công Lâm</h4>
-                    <div class="stars">★★★★★</div>
-                </div>
-            </div>
-            <i class="fa-solid fa-quote-right"></i>
         </div>
     </div>
 
-    <div class="controls">
-        <button class="prev"><i class="fa-solid fa-arrow-left"></i></button>
-        <button class="next"><i class="fa-solid fa-arrow-right"></i></button>
+    <script>
+        function search() {
+            let inputValue = document.getElementById("searchInput").value;
+            if (inputValue.trim() === "") {
+                alert("Vui lòng nhập kiểu tóc bạn muốn thử!");
+            } else {
+                alert("Bạn đã chọn kiểu tóc: " + inputValue);
+            }
+        }
+    </script>
+    <!-- Grid ảnh -->
+    <div class="container mt-4">
+        <div class="grid">
+            <div class="grid-item grid-item--height2"><img src="../image/image1.jpg" /> </div>
+            <div class="grid-item grid-item--height2"><img src="../image/image1.jpg" /> </div>
+            <div class="grid-item grid-item--height3-2"><img src="../image/image1.jpg" /> </div>
+            <div class="grid-item grid-item--height2"><img src="../image/image1.jpg" /> </div>
+            <div class="grid-item grid-item--height3-2"><img src="../image/image1.jpg" /> </div>
+
+            <div class="grid-item grid-item--height2"><img src="../image/image1.jpg" /> </div>
+            <div class="grid-item grid-item--height2"><img src="../image/image1.jpg" /> </div>
+            <div class="grid-item grid-item--height3-2"><img src="../image/image1.jpg" /> </div>
+            <div class="grid-item grid-item--height3-2"><img src="../image/image1.jpg" /> </div>
+            <div class="grid-item grid-item--height3-2"><img src="../image/image1.jpg" /> </div>
+        </div>
+
+
+
+
+        <!-- Thanh gradient dưới -->
+        <div class="gradient-bar"></div>
+
+        <body class="bg-dark text-white">
+            <div class="container mt-5">
+                <h2 class="mb-3 text-start">
+                    Khám phá <span class="text-pink">kho mẫu tóc bất tận</span> và thay đổi vào khuôn mặt của bạn
+                </h2>
+                <p class="text-muted mb-4 text-start">
+                    These steps outline the process of using the AI Image Generator, from choosing a style to saving or
+                    sharing
+                    the final artwork
+                </p>
+
+                <div class="d-flex justify-content-start gap-3 mb-4 align-items-center">
+                    <button class="btn btn-custom">
+                        <i class="bi bi-star me-2"></i> Nổi bật
+                    </button>
+                    <button class="btn btn-custom">
+                        <i class="bi bi-heart me-2"></i> Được yêu thích
+                    </button>
+                    <button class="btn btn-custom">
+                        <i class="bi bi-clock me-2"></i> Mới nhất
+                    </button>
+                    <div class="ms-auto">
+                        <button class="btn-nav btn-prev me-2">←</button>
+                        <button class="btn-nav btn-next ms-2">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="card card-custom">
+                        <img src="../image/image1.jpg" alt="Tóc ngắn thành đạt">
+                        <div class="p-3">
+                            <h5>Tóc ngắn thành đạt</h5>
+                            <p>Lorem ipsum dolor sit amet. Ut dolores omnis quo quos consequatur ut sunt alias</p>
+                            <button class="btn-try">Thử ngay</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-custom">
+                        <img src="../image/image1.jpg" alt="Tóc dài mullet">
+                        <div class="p-3">
+                            <h5>Tóc dài mullet</h5>
+                            <p>Lorem ipsum dolor sit amet. Ut dolores omnis quo quos consequatur ut sunt alias</p>
+                            <button class="btn-try">Thử ngay</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-custom">
+                        <img src="../image/image1.jpg" alt="Tóc ngắn xoăn">
+                        <div class="p-3">
+                            <h5>Tóc ngắn xoăn</h5>
+                            <p>Lorem ipsum dolor sit amet. Ut dolores omnis quo quos consequatur ut sunt alias</p>
+                            <button class="btn-try">Thử ngay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
-</section>
-
-<div class="hero">
-    <p>Ứng dụng tiên phong cho việc giúp khách hàng có nhiều mẫu tóc thời trang tại Việt Nam</p>
-    <button>Bắt đầu sử dụng ngay</button>
-</div>
-
-<!--Footer-->
-<footer class="bg-white py-5">
+    </div>
+    <!-- Process Steps -->
     <div class="container">
-        <div class="footer-section">
-            <div>
-                <div class="brand-logo">
-                    <img src="/image/Logo .png" alt="Logo">
-                    <span>SNAP HAIR</span>
+        <div class="header">
+            <h1>Cách để có một mái tóc ưng ý bằng <span class="snap-hair">SNAP HAIR</span></h1>
+            <p class="subheader">These steps outline the process of using the AI Image Generator, from choosing a
+                style
+                to saving or sharing the final artwork</p>
+        </div>
+
+        <div class="row">
+            <!-- Cột bên trái với video YouTube -->
+            <div class="col-md-6 mb-4">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
-            <p>Khám phá nền tảng AI sinh thành phong phú của chúng tôi: đa dạng mô hình, công cụ mạnh mẽ. Sáng tạo những
-                điều kỳ diệu vượt xa trí tưởng tượng.</p>
-            <a href="mailto:hello@snaphair.com">hello@snaphair.com</a>
-            <div class="footer-social">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+
+            <!-- Cột bên phải với 3 bước - thứ tự từ 1 đến 3 -->
+            <div class="col-md-6">
+                <div class="steps-container">
+                    <!-- Bước 1 -->
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Chọn mẫu tóc ưng ý</div>
+                            <div class="step-description">Chọn mẫu tóc từ thư viện mẫu tóc có sẵn + 20.000 mẫu</div>
+                        </div>
+                    </div>
+
+                    <!-- Bước 2 -->
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Thay đổi bằng khuôn mặt của bạn</div>
+                            <div class="step-description">Tải ảnh khuôn mặt của bạn lên để AI có thể áp dụng kiểu
+                                tóc
+                                đẹp cho bạn</div>
+                        </div>
+                    </div>
+
+                    <!-- Bước 3 -->
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Xem thành quả sáng tạo</div>
+                            <div class="step-description">Chưa đầy 1 phút là bạn đã có tóc đẹp ưng ý với kiểu tóc
+                                riêng
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="footer-links">
-            <div>
-                <h3>Company</h3>
-                <a href="#">About Us</a>
-                <a href="#">Careers</a>
-                <a href="#">How to Book</a>
-                <a href="#">Blog</a>
-            </div>
-            <div>
-                <h3>Discover</h3>
-                <a href="#">Webinars</a>
-                <a href="#">In Person</a>
-                <a href="#">Categories</a>
-                <a href="#">Countries</a>
-            </div>
-            <div>
-                <h3>Social Media</h3>
-                <a href="#">Instagram</a>
-                <a href="#">Facebook</a>
-                <a href="#">Twitter</a>
-                <a href="#">YouTube</a>
+        <!-- Nút Thử ngay ở cuối cùng và căn giữa -->
+        <div class="row">
+            <div class="col-12">
+                <div class="try-now-container">
+                    <button class="try-now-btn">Thử ngay</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="footer-bottom">
-        <span>&copy; Copyright EZPICS 2024</span>
-        <div>
-            <a href="#">FAQ</a>
-            <a href="#">Terms of Condition</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Changelog</a>
+
+    <div class="container">
+        <div class="header">
+            <h1>Sản phẩm của hơn <span>5.000+</span>khách hàng</h1>
+            <p class="subheader">These steps outline the process of using the AI Image Generator, from choosing a
+                style to saving or
+                sharing the final artwork.</p>
+        </div>
+
+
+        <div class="grid grid-cols-6 grid-rows-3 gap-4 h-[600px]">
+
+            <div class="row-span-2 col-span-2">
+                <img src="/html/SnapHair/image/image1.jpg" alt="Portrait 1"
+                    class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div class="row-span-1 col-span-1">
+                <img src="/html/SnapHair/image/image2.jpg" alt="Portrait 2"
+                    class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div class="row-span-1 col-span-1">
+                <img src="/html/SnapHair/image/image2.jpg" alt="Portrait 2"
+                    class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div class="row-span-2 col-span-2">
+                <img src="/html/SnapHair/image/image3.jpg" alt="Portrait 3"
+                    class="w-full h-full object-cover rounded-lg">
+            </div>
+
+            <div class="row-span-2 col-span-2">
+                <img src="/html/SnapHair/image/image3.jpg" alt="Portrait 3"
+                    class="w-full h-full object-cover rounded-lg">
+            </div>
+
+            <div class="row-span-1 col-span-2">
+                <img src="/html/SnapHair/image/image3.jpg" alt="Portrait 3"
+                    class="w-full h-full object-cover rounded-lg">
+            </div>
+
+            <div class="row-span-1 col-span-2">
+                <img src="/html/SnapHair/image/image3.jpg" alt="Portrait 3"
+                    class="w-full h-full object-cover rounded-lg">
+            </div>
+        </div>
+
+
+        <div class="button-wrapper">
+            <button class="view-more-button">Xem thêm</button>
+        </div>
+
+
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <h2>Nhận được hơn <span class="highlight">1.000+</span> sự tin tưởng</h2>
+            <p class="subtext">These steps outline the process of using the AI Image Generator, from choosing a
+                style to saving
+                or sharing the final artwork</p>
+
+            <div class="testimonials-container">
+                <div class="testimonial active">
+                    <p>Tôi cảm thấy đây là một bước tiến lớn của ngành AI Việt Nam</p>
+                    <div class="author">
+                        <img src="/html/SnapHair/image/image2.jpg" alt="Nguyễn Văn Anh">
+                        <div>
+                            <h4>Nguyễn Văn Anh</h4>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+
+                <div class="testimonial">
+                    <p>Ứng dụng này thật tuyệt vời. Tôi có ảnh trong 1 nốt nhạc</p>
+                    <div class="author">
+                        <img src="/html/SnapHair/image/image2.jpg" alt="Trương Thị Xuân">
+                        <div>
+                            <h4>Trương Thị Xuân</h4>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+
+                <div class="testimonial">
+                    <p>Ảnh rất thực tế, không ai biết tôi đã dùng AI để có ảnh này.</p>
+                    <div class="author">
+                        <img src="/html/SnapHair/image/image2.jpg" alt="Lại Công Lâm">
+                        <div>
+                            <h4>Lại Công Lâm</h4>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="prev"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="next"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+        <div class="hero">
+            <p>Ứng dụng tiên phong cho việc giúp khách hàng có nhiều mẫu tóc thời trang tại Việt Nam</p>
+            <button>Bắt đầu sử dụng ngay</button>
         </div>
     </div>
-</footer>
+
+    <!--Footer-->
+    <footer class="bg-white py-5">
+        <div class="container">
+            <div class="footer-section">
+                <div>
+                    <div class="brand-logo">
+                        <img src="/html/SnapHair/image/Logo .png" alt="Logo">
+                        <span>SNAP HAIR</span>
+                    </div>
+                    <p>Khám phá nền tảng AI sinh thành phong phú của chúng tôi: đa dạng mô hình, công cụ mạnh
+                        mẽ. Sáng tạo những
+                        điều kỳ diệu vượt xa trí tưởng tượng.</p>
+                    <a href="mailto:hello@snaphair.com">hello@snaphair.com</a>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div>
+                        <h3>Company</h3>
+                        <a href="#">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">How to Book</a>
+                        <a href="#">Blog</a>
+                    </div>
+                    <div>
+                        <h3>Discover</h3>
+                        <a href="#">Webinars</a>
+                        <a href="#">In Person</a>
+                        <a href="#">Categories</a>
+                        <a href="#">Countries</a>
+                    </div>
+                    <div>
+                        <h3>Social Media</h3>
+                        <a href="#">Instagram</a>
+                        <a href="#">Facebook</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">YouTube</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; Copyright EZPICS 2024</span>
+                <div>
+                    <a href="#">FAQ</a>
+                    <a href="#">Terms of Condition</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Changelog</a>
+                </div>
+            </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
@@ -318,6 +403,7 @@
         //     });
 
     </script>
+
 </body>
 
 </html>

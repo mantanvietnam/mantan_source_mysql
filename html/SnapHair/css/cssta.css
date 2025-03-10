@@ -1864,86 +1864,203 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.landingpage .navbar {
-    background-color: #000000;
-    padding: 10px;
+/* Base styles */
+.landingpage .primary-navigation {
+    width: 100%;
+    background-color: #000;
+    padding: 15px 0;
 }
 
-.landingpage .navbar-brand {
-    font-size: 22px;
-    font-weight: bold;
-    background: linear-gradient(45deg, #ff69b4, #c13584);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.landingpage .nav-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.landingpage .primary-navigation {
+    width: 100%;
+    background-color: #000;
+    padding: 15px 0;
+}
+
+.landingpage .nav-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Brand section - now contains all elements */
+.landingpage .brand-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.landingpage .brand-logo {
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.25rem;
 }
 
-.landingpage .navbar-brand img {
-    width: 40px;
+.landingpage .brand-logo img {
+    height: 40px;
     margin-right: 10px;
 }
 
-.landingpage .navbar-nav {
+.landingpage .menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.landingpage .menu-icon,
+.landingpage .menu-icon:before,
+.landingpage .menu-icon:after {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    position: relative;
+}
+
+.landingpage .menu-icon:before,
+.landingpage .menu-icon:after {
+    content: '';
+    position: absolute;
+}
+
+.landingpage .menu-icon:before {
+    top: -8px;
+}
+
+.landingpage .menu-icon:after {
+    bottom: -8px;
+}
+
+/* Menu section */
+.landingpage .menu-section {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    background-color: #36394A;
-    padding: 2px 10px;
-    border-radius: 50px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    margin-left: auto;
+    /* Push menu to the right of logo */
+    margin-right: 20px;
+    /* Space between menu and toggle button */
 }
 
-.landingpage .navbar-nav .nav-item {
-    margin: 0 10px;
+.landingpage .menu-wrapper {
+    margin-right: 20px;
+    /* Space between menu and login button */
 }
 
-.landingpage .navbar-nav .nav-link {
-    color: white;
-    font-size: 16px;
-    padding: 8px 16px;
-    border-radius: 25px;
+.landingpage .main-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 12px 20px;
+    border-radius: 30px;
+    background-color: #111;
+    border: 1px solid #333;
 }
 
-.landingpage .navbar-nav .nav-link:hover {
-    color: #ff69b4;
+.landingpage .menu-item {
+    margin: 0 15px;
 }
 
-.landingpage .nav-item.active .nav-link {
-    background-color: white;
-    color: black;
-    font-weight: bold;
+.landingpage .menu-item a {
+    text-decoration: none;
+    color: #888;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s;
+    display: block;
+    border: 1px solid transparent;
+}
+
+.landingpage .menu-item.active a {
+    color: #ff3366;
+    border-color: #ff3366;
+}
+
+.landingpage .menu-item a:hover {
+    color: #ff3366;
+    background-color: rgba(255, 51, 102, 0.08);
+    border-color: #ff3366;
+}
+
+/* Login section */
+.landingpage .login-section {
+    margin: 0;
 }
 
 .landingpage .btn-login {
-    background: linear-gradient(45deg, #ff69b4, #c13584);
-    border: none;
+    background-color: #ff3366;
     color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 30px;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 500;
+    cursor: pointer;
     display: flex;
     align-items: center;
 }
 
 .landingpage .btn-login i {
-    margin-left: 10px;
+    margin-left: 8px;
 }
 
-@media (max-width: 992px) {
-    .landingpage .navbar-nav {
+/* Responsive styles */
+@media (max-width: 768px) {
+  .landingpage .menu-toggle {
+        display: block;
+    }
+
+   .landingpage .menu-section {
+        display: none;
+        position: absolute;
+        top: 70px;
+        /* Adjust based on your nav height */
+        left: 0;
+        width: 100%;
+        background-color: #000;
         flex-direction: column;
+        padding: 15px;
+        z-index: 100;
+    }
+
+   .landingpage .menu-section.active {
+        display: flex;
+    }
+
+  .landingpage  .menu-wrapper {
+        margin-right: 0;
+        width: 100%;
+    }
+
+  .landingpage  .main-menu {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+  .landingpage  .menu-item {
+        margin: 8px 0;
         width: 100%;
         text-align: center;
-        padding: 15px;
     }
 
-    .landingpage .navbar-nav .nav-item {
-        margin: 5px 0;
-    }
-
-    .landingpage .btn-login {
-        width: 100%;
-        justify-content: center;
+   .landingpage .login-section {
+        margin-top: 15px;
     }
 }
 
@@ -2084,97 +2201,142 @@
 }
 
 /* Steps Section */
-.landingpagebody {
-    background-color: #0b0c10;
-    color: #ffffff;
-    background-image: url('background-spiral.png');
-    background-size: cover;
-    background-position: center;
+.landingpage body {
+    background-color: #1a1a22;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px 0;
 }
 
-.landingpage .step-container {
-    position: relative;
-    height: 750px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+.landingpage .header {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.landingpage .header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    /* Tăng giá trị này từ mặc định */
+}
+
+.landingpage .snap-hair {
+    color: #ff6b9d;
+}
+
+.landingpage .subheader {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    /* Thêm khoảng cách phía trên */
 }
 
 .landingpage .step {
-    background-color: #1f1f1f;
-    border-radius: 20px;
+    background-color: #252533;
+    border-radius: 15px;
     padding: 20px;
-    color: #ffffff;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    margin-bottom: 20px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.landingpage .step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .landingpage .step-number {
-    background-color: #ff80ab;
-    color: #ffffff;
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-.landingpage .step-1 {
-    top: 4%;
-    left: 9%;
-    width: 500px;
-}
-
-.landingpage .step-2 {
-    top: 25%;
-    left: 31%;
-    width: 608px;
-}
-
-.landingpage .step-3 {
-    bottom: 36%;
-    right: 0;
-    width: 567px;
-}
-
-.landingpage .step h2 {
-    font-size: 1.5rem;
-}
-
-.landingpage .step p {
-    color: #ffffff;
-}
-
-.landingpage .cta-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(to right, #ff4081, #ff80ab);
-    padding: 10px 20px;
-    border-radius: 30px;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    width: fit-content;
-    margin-top: 50px;
-    cursor: pointer;
-}
-
-.landingpage .cta-icon {
-    background: white;
-    border-radius: 50%;
     width: 40px;
     height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ff4081;
+    background-color: #ff6b9d;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    position: absolute;
+    left: -15px;
+    top: 20px;
+}
+
+.landingpage .step-content {
+    padding-left: 40px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.landingpage .step-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.landingpage .step-description {
+    color: #aaa;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.landingpage .try-now-container {
+    text-align: center;
+    margin: 40px 0 20px;
+}
+
+.landingpage .try-now-btn {
+    background-color: #ff6b9d;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.landingpage .try-now-btn:hover {
+    background-color: #ff4b87;
+    transform: scale(1.05);
+}
+
+.landingpage .video-container {
+    background-color: #252533;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    padding-top: 56.25%;
+    margin-bottom: 20px;
+}
+
+.landingpage .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+@media (max-width: 767px) {
+    .landingpage .header {
+        text-align: center;
+    }
+
+    .landingpage .step-number {
+        left: 50%;
+        transform: translateX(-50%);
+        top: -20px;
+    }
+
+    .landingpage .step-content {
+        padding-left: 0;
+        padding-top: 30px;
+        text-align: center;
+    }
+
+    .landingpage .header h1 {
+        font-size: 1.8rem;
+    }
 }
 
 /* Portfolio Section */
@@ -2205,7 +2367,7 @@
 
 
 
-.landingpage img {
+/* .landingpage img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -2220,7 +2382,7 @@
     text-decoration: none;
     font-weight: bold;
     margin-top: 15px;
-}
+} */
 
 /* Testimonials Section */
 .landingpage body {
@@ -2241,6 +2403,7 @@
     font-weight: bold;
     color: white;
     text-align: left;
+    margin-bottom: 20px;
     /* Căn trái tiêu đề */
 }
 
@@ -2329,7 +2492,7 @@
     /* Màu nền tối hơn */
     color: white;
     border: none;
-    padding: 12px 16px;
+    padding: 8px 7px;
     font-size: 18px;
     border-radius: 50%;
     cursor: pointer;
@@ -2518,7 +2681,7 @@
     object-fit: cover;
     top: 340px;
     left: 300px;
-}
+} 
 
 .landingpage .snaphair-buttons-container {
     display: flex;
@@ -2612,7 +2775,7 @@
 }
 
 .landingpage .hero {
-    background: url('/image/Backgrond\ dow.jpg') no-repeat center top/cover;
+    background: url('/html/SnapHair/image/Backgrond\ dow.jpg') no-repeat center top/cover;
     text-align: center;
     padding: 120px 20px;
     color: white;
@@ -2837,7 +3000,7 @@
     height: 480px;
 }
 
-.landingpage .grid-item img {
+ .landingpage .grid-item img {
     width: 127%;
     height: 100%;
     object-fit: cover;
