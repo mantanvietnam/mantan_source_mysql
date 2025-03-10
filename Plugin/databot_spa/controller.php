@@ -39,4 +39,5 @@ include_once('controller/api/membersController.php'); // tài khoản spa
 include_once('controller/api/booksController.php'); // đặt lịch hẹn
 include_once('controller/api/spaController.php'); // đặt lịch hẹn
 include_once('controller/api/statisticalController.php'); // đặt lịch hẹn
+include_once('controller/api/roomBedController.php'); // đặt lịch hẹn
 ?>
