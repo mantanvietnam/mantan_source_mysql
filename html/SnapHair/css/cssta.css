@@ -2775,7 +2775,7 @@
 }
 
 .landingpage .hero {
-    background: url('/html/SnapHair/image/Backgrond\ dow.jpg') no-repeat center top/cover;
+    background: url('../html/SnapHair/image/Backgrond\ dow.jpg') no-repeat center top/cover;
     text-align: center;
     padding: 120px 20px;
     color: white;
