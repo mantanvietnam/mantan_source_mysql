@@ -2689,7 +2689,9 @@
     gap: 10px;
     margin-top: 20px;
 }
-
+.landingpage .try-now-container {
+    text-align: center;
+}
 /* Footer */
 .landingpage footer {
     background: url('Dưới.jpg') no-repeat center center/cover;
@@ -2775,7 +2777,7 @@
 }
 
 .landingpage .hero {
-    background: url('../html/SnapHair/image/Backgrond\ dow.jpg') no-repeat center top/cover;
+    background: url('../image/Backgrond\ dow.jpg') no-repeat center top/cover;
     text-align: center;
     padding: 120px 20px;
     color: white;
