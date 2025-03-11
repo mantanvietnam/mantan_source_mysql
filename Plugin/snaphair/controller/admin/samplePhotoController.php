@@ -128,6 +128,7 @@ function editSamplePhotoAdmin($input)
             $data->sex = $dataSend['sex'] ?? 1;
             $data->color = $dataSend['color'] ?? null;
             $data->image = $dataSend['image'];
+            $data->hot = $dataSend['hot'];
             // tạo slug
             $slug = createSlugMantan($data->name);
             $slugNew = $slug;

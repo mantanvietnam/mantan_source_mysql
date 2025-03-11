@@ -65,6 +65,16 @@
                                 <img src="<?php echo $data->image; ?>" width="80px" height="80px" class="mt-2">
                             <?php endif; ?>
                         </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Mẫu Hot (Ghim lên đầu)</label>
+                            <div class="input-group input-group-merge">
+                                <select class="form-select" name="hot" id="hot">
+                                    <option value="0" <?php if (empty($data->hot) || $data->hot == '0') echo 'selected'; ?>>Không</option>
+                                    <option value="1" <?php if (!empty($data->hot) && $data->hot == '1') echo 'selected'; ?>>Có</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Lưu</button>

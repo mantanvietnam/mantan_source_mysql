@@ -18,6 +18,8 @@ function projectDetail($input)
 
     $metaTitleMantan = 'Chi tiết sản phẩm';;
 
+    $modelCommerce = $controller->loadModel('Commerce');
+    $modelCommerceItems = $controller->loadModel('CommerceItems');
 	$modelProductProjects = $controller->loadModel('ProductProjects');
     $order = array('id'=>'desc');
   
@@ -69,6 +71,16 @@ function projectDetail($input)
             $project->infoType = $infoType;
         }    
     
+        // **Lấy dữ liệu từ Commerce**
+        $commerceData = $modelCommerce->find()->where(['id_product' => $project->id])->all()->toList();
+        $project->commerceData = $commerceData;
+
+        // **Lấy dữ liệu từ CommerceItems**
+        if (!empty($commerceData)) {
+            foreach ($commerceData as $commerce) {
+                $commerce->items = $modelCommerceItems->find()->where(['id_commerce' => $commerce->id])->all()->toList();
+            }
+        }
 
         $listDataproduct_projects= $modelProductProjects->find()->limit(3)->order($order)->all()->toList();
         setVariable('listDataproduct_projects', $listDataproduct_projects);

@@ -206,6 +206,10 @@ function listSamplePhotoApi($input)
                     $conditions['sex'] = $dataSend['sex'];
                 }
 
+                if (isset($dataSend['hot']) && $dataSend['hot'] == '1') {
+                    $conditions['hot'] = 1;
+                }
+
                 $listData = $modelSamplePhoto->find()
                     ->limit($limit)
                     ->page($page)
@@ -243,6 +247,38 @@ function listSamplePhotoApi($input)
         return apiResponse(5, 'Thiếu access_token');
     }
     return apiResponse(0, 'Yêu cầu không hợp lệ. Vui lòng sử dụng phương thức POST.');
+}
+
+function detailSamplePhotoApi($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $isRequestPost;
+
+    $modelSamplePhoto = $controller->loadModel('SamplePhoto');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['access_token']) && !empty($dataSend['id'])){
+            if(function_exists('getUserByToken')){
+                $user =  getUserByToken($dataSend['access_token']);
+            }
+	   		$modelTransactionHistory = $controller->loadModel('TransactionHistorys');
+	   		 
+			if(!empty($user)){
+				
+			    $listData = $modelSamplePhoto->find()->where(['id'=> (int) $dataSend['id']])->first();
+			    
+			    return apiResponse(1,'Bạn lấy dữ liệu thành công',$listData);		   
+			}
+            return apiResponse(3,'Tài khoản không tồn tại hoặc chưa đăng nhập');
+    	}
+        return apiResponse(2,'Gửi thiếu dữ liệu');
+    }
+    return apiResponse(0,'Gửi sai kiểu POST');
 }
 
 function saveSamplePhotoApi($input)

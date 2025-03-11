@@ -28,14 +28,32 @@ $sqlInstallDatabase .= "CREATE TABLE `product_projects` (
   `price` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1; ";
 
+$sqlInstallDatabase .= "CREATE TABLE `commerce` (
+  `id` int(11) NOT NULL,
+  `id_product` int(11) DEFAULT NULL,
+  `main_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `view_type` int(11) NOT NULL,
+  `main_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+$sqlInstallDatabase .= "CREATE TABLE `commerce_items` (
+  `id` int(11) NOT NULL,
+  `id_commerce` int(11) NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+
 $sqlDeleteDatabase .= "DROP TABLE product_projects; ";
+$sqlDeleteDatabase .= "DROP TABLE commerce; ";
+$sqlDeleteDatabase .= "DROP TABLE commerce_items; ";
 
 
 $sqlUpdateDatabase['product_projects']['description'] = "ALTER TABLE `product_projects` CHANGE `description` `description` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['product_projects']['text_location'] = "ALTER TABLE `product_projects` ADD `text_location` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `map`;";
 $sqlUpdateDatabase['product_projects']['map'] = "ALTER TABLE `product_projects` CHANGE `map` `map` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['product_projects']['officially'] = "ALTER TABLE `product_projects` ADD `officially` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `acreage`;";
-$sqlUpdateDatabase['product_projects']['commerce'] = "ALTER TABLE `product_projects` ADD `commerce` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `officially`;";
 
 ?>
 

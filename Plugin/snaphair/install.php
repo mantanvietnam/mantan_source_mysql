@@ -101,5 +101,7 @@ $sqlUpdateDatabase['image_users']['name'] = "ALTER TABLE `image_users` ADD `name
 $sqlUpdateDatabase['image_users']['note'] = "ALTER TABLE `image_users` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['image_users']['id_imge_user'] = "ALTER TABLE `image_users` ADD `id_imge_user` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['image_users']['id_image_sample'] = "ALTER TABLE `image_users` ADD `id_image_sample` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_users']['is_public'] = "ALTER TABLE `image_users` ADD `is_public` BOOLEAN NOT NULL AFTER `id_image_sample`;";
 
 $sqlUpdateDatabase['sample_photos']['slug'] = "ALTER TABLE `sample_photos` ADD `slug` TEXT NOT NULL AFTER `sex`;";
+$sqlUpdateDatabase['sample_photos']['hot'] = "ALTER TABLE `sample_photos` ADD `hot` BOOLEAN NOT NULL AFTER `sex`;";

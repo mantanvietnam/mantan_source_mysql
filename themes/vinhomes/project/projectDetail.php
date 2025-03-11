@@ -1,6 +1,8 @@
 <?php
 global $settingThemes;
 getHeader();
+// debug($project);
+// die();
 ?>
 <style>
   .background-header {
@@ -103,6 +105,10 @@ getHeader();
       -webkit-overflow-scrolling: touch;
   }
 
+  .commerce-description {
+    display: inline;
+}
+
 </style>
 
 <div class="relative text-[#444444] slide-right">
@@ -135,6 +141,37 @@ getHeader();
   </div>
 </div>
 
+<?php 
+    // Giải mã JSON từ trường 'officially'
+    $officially = json_decode($project->officially, true);
+?>
+
+<?php if (!empty($officially['title']) || !empty($officially['description'])) : ?>
+    <div
+        class="flex flex-col items-center justify-center p-8 md:flex-row slide-left"
+        style="background: linear-gradient(270deg, #236093 0%, #345574 100%)"
+    >
+        <div class="max-w-lg p-8 text-white border border-white">
+            <h1 class="px-12 mb-4 text-xl font-bold text-center">
+                <?= isset($officially['title']) ? htmlspecialchars($officially['title'], ENT_QUOTES, 'UTF-8') : '' ?>
+            </h1>
+            <?php if (!empty($officially['description'])) : ?>
+                <ul class="pl-2 space-y-2 text-sm">
+                    <?= $officially['description'] ?>
+                </ul>
+            <?php endif; ?>
+        </div>
+
+        <div class="flex items-center justify-center mt-8 md:mt-0 md:ml-8">
+            <img
+                src="<?= !empty($project['images'][2]) ? $project['images'][2] : 'default.jpg' ?>"
+                alt="Aerial view of Vinhomes Global Gate with buildings, roads, and water bodies"
+                class="object-cover border-8 border-white rounded-full w-[400px] h-[400px]"
+            />
+        </div>
+    </div>
+<?php endif; ?>
+
 <div class="flex flex-col items-center justify-center p-8 md:flex-row slide-right">
   <div class="md:w-[45%] lg:w-[33%]">
     <!-- Ảnh lớn hiển thị -->
@@ -150,12 +187,12 @@ getHeader();
     <div class="grid grid-cols-4 gap-2">
       <?php 
       if (!empty($project['images']) && is_array($project['images'])) {
-          $maxImages = 8; // Giới hạn tối đa 8 ảnh nhỏ
+          $maxImages = 8;
           $count = 0;
 
           for ($i = 1; $i <= $maxImages + 1; $i++) { 
-              if (empty($project['images'][$i])) continue; // Nếu ảnh không tồn tại, bỏ qua
-              $count++; // Đếm số ảnh hợp lệ hiển thị
+              if (empty($project['images'][$i])) continue;
+              $count++;
 
       ?>
       <div class="relative group flex flex-col">
@@ -211,27 +248,69 @@ getHeader();
     </div>
 <?php } ?>
 
-<?php if (!empty($project['images']['map'])) { ?>
+<?php if (!empty($project['images']['img_map'])) { ?>
 <div class="flex items-center justify-center border-b fade-in">
   <img
-    src="<?= $project['images']['map'] ?>"
+    src="<?= $project['images']['img_map'] ?>"
     alt=""
     class="w-[80%]" />
 </div>
 <?php } ?>
 
-<?php if (!empty($project['images']['premises'])) { ?>
+<?php if (!empty($project->commerceData)) : ?>
+    <?php foreach ($project->commerceData as $commerce) : ?>
+        <?php if ($commerce->view_type == 1) : ?>
+            <div
+                class="flex items-center justify-center text-white slide-left"
+                style="background: linear-gradient(270deg, #236093 0%, #345574)"
+            >
+                <div class="max-w-5xl px-4 py-12">
+                    <h1 class="mb-8 text-2xl font-semibold text-center md:text-3xl">
+                        <?= htmlspecialchars_decode($commerce->main_title) ?>
+                    </h1>
+                    <p class="mb-12 text-sm">
+                        <?= htmlspecialchars_decode($commerce->main_description) ?>
+                    </p>
+                    <br><br>
+                    <div class="grid grid-cols-1 gap-8 text-sm md:grid-cols-3">
+                        <?php if (!empty($commerce->items)) : ?>
+                            <?php foreach ($commerce->items as $item) : ?>
+                                <div class="">
+                                    <img
+                                        src="<?= !empty($item->image) ? htmlspecialchars($item->image) : 'default.jpg' ?>"
+                                        alt="<?= htmlspecialchars_decode($item->title) ?>"
+                                        class="mx-auto mb-4 border-4 border-white"
+                                    />
+                                    <span>
+                                        <h2 class="inline font-bold"><?= htmlspecialchars_decode($item->title) ?></h2> &nbsp;– 
+                                        <p class="inline">
+                                        <?= strip_tags($item->description) ?>
+                                        </p>
+                                    </span>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <p class="text-center">Không có dữ liệu hiển thị.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full h-[1px] bg-gradient-to-r from-gray-100 via-gray-300 to-gray-100 my-5"></div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if (!empty($project['images']['img_premises'])) { ?>
 <div class="flex flex-col items-center justify-center mt-8 slide-right">
   <h1 class="mb-8 text-2xl font-semibold text-center">
     Mặt bằng tổng thể <?= $project['name'] ?>
   </h1>
   <img
-    src="<?= $project['images']['premises'] ?>"
+    src="<?= $project['images']['img_premises'] ?>"
     alt=""
     class="w-[100%]" />
 </div>
 <?php } ?>
-
 
 <div
   class="flex items-center justify-center text-white slide-right"
@@ -255,7 +334,8 @@ getHeader();
               if (empty($project['images'][$i])) continue;
           ?>
             <div class="flex items-center justify-center swiper-slide">
-              <img src="<?= htmlspecialchars($project['images'][$i]) ?>" alt="Ảnh <?= $i ?>" class="rounded-lg shadow-lg " />
+              <img src="<?= strip_tags($project['images'][$i]) ?>" alt="Ảnh <?= $i ?>" class="rounded-lg shadow-lg " />
+
             </div>
           <?php } ?>
         </div>
@@ -268,16 +348,89 @@ getHeader();
   </div>
 </div>
 
+<?php if (!empty($project->commerceData)) : ?>
+    <?php foreach ($project->commerceData as $commerce) : ?>
+        <?php if ($commerce->view_type == 2) : ?>
+            <div class="flex flex-col items-center justify-center slide-left">
+                <div class="w-full px-4 mt-10 lg:max-w-5xl">
+                    <h1 class="mb-8 text-2xl font-semibold text-center uppercase md:text-3xl">
+                        <?= htmlspecialchars_decode($commerce->main_title) ?>
+                    </h1>
+                    <p class="mb-12 text-sm">
+                        <?= htmlspecialchars_decode($commerce->main_description) ?>
+                    </p>
+                </div>
+<br></br>
+                <?php if (!empty($commerce->items) && isset($commerce->items[0])) : ?>
+                    <img
+                        src="<?= $project['images'][3] ?>"
+                        alt=" <?= htmlspecialchars_decode($commerce->main_title) ?>"
+                        class="w-[100%]"
+                    />
+                <?php endif; ?>
+            </div>
+
+            <div class="py-8 text-white fade-in" style="background: linear-gradient(270deg, #236093 0%, #345574 100%)">
+                <?php if (!empty($commerce->items)) : ?>
+                    <?php for ($i = 0; $i < count($commerce->items); $i++) : ?>
+                        <div class="flex flex-col justify-center p-8 md:flex-row <?= ($i % 2 == 0) ? 'slide-right' : 'slide-left' ?>">
+                            <?php if ($i % 2 == 0) : ?>
+                                <div class="flex items-center justify-center mt-8 md:mt-0 md:mr-8">
+                                    <img
+                                        src="<?= htmlspecialchars($commerce->items[$i]->image ?? 'default.jpg') ?>"
+                                        alt="<?= htmlspecialchars($commerce->items[$i]->title ?? '') ?>"
+                                        class="object-cover border-8 border-gray-200 w-[600px] h-[360px]"
+                                    />
+                                </div>
+                                <div class="pt-6 md:max-w-xs md:pl-6 md:pt-0">
+                                    <h1 class="mb-4 text-xl font-semibold text-center uppercase">
+                                        <?= $commerce->items[$i]->title ?>
+                                    </h1>
+                                    <p class="text-xs leading-relaxed" style="font-size: 14px;">
+                                    <?= strip_tags($commerce->items[$i]->description) ?>
+                                    </p>
+                                </div>
+                            <?php else : ?>
+                                <div class="flex flex-col justify-center p-8 md:flex-row">
+                                  <div class="md:pr-6 md:max-w-xs">
+                                      <h1 class="mb-4 text-xl font-semibold text-center uppercase">
+                                          <?= htmlspecialchars_decode($commerce->items[$i]->title ?? '') ?>
+                                      </h1>
+                                      <p class="text-xs leading-relaxed" style="font-size: 14px;">
+                                      <?= strip_tags($commerce->items[$i]->description) ?>
+                                      </p>
+                                  </div>
+                                  <div class="flex items-center justify-center mt-6 md:mt-0 md:ml-8">
+                                      <img
+                                          src="<?= htmlspecialchars($commerce->items[$i]->image ?? 'default.jpg') ?>"
+                                          alt="<?= htmlspecialchars($commerce->items[$i]->title ?? '') ?>"
+                                          class="object-cover border-8 border-gray-200 w-[600px] h-[360px]"
+                                      />
+                                  </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endfor; ?>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>
+
 <div
   class="px-4 md:px-[100px] lg:px-[200px] xl:px-[250px] py-10 text-[#444444] slide-right">
   <h1 class="mb-4 text-2xl font-semibold text-center uppercase">
-    GIÁ BÁN <?= $project['name'] ?>
+    GIÁ BÁN <?= isset($project['name']) ? htmlspecialchars($project['name'], ENT_QUOTES, 'UTF-8') : 'Dự án' ?>
   </h1>
-  <div class="overflow-x-auto text-xs">
-  <?= $project['price'] ?>
-  </div>
-</div>
 
+  <?php if (!empty($project['price'])) : ?>
+    <div class="overflow-x-auto text-xs">
+    <?= html_entity_decode($project['price']) ?>
+    </div>
+  <?php else : ?>
+    <div class="text-center text-gray-500">Thông tin giá bán chưa cập nhật</div>
+  <?php endif; ?>
+</div>
 
 <div
   class="relative min-h-[400px] bg-center bg-cover py-10 fade-in"
@@ -332,8 +485,6 @@ getHeader();
     </div>
   </div>
 </div>
-
-
 
 <?php getFooter(); ?>
 

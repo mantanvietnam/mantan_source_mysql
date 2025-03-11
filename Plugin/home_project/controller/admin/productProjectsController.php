@@ -103,6 +103,8 @@ function addProductProjectAdmin($input)
     $metaTitleMantan = 'Thông tin Dự án';
 
 	$modelProductProjects = $controller->loadModel('ProductProjects');
+    $modelCommerce = $controller->loadModel('Commerce');
+    $modelCommerceItems = $controller->loadModel('CommerceItems');
 	$mess= '';
 
 	// lấy data edit
@@ -118,6 +120,8 @@ function addProductProjectAdmin($input)
 
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
+        // debug($dataSend);
+        // die();
 
         if(!empty($dataSend['name'])){
 	        // tạo dữ liệu save
@@ -231,6 +235,7 @@ function addProductProjectAdmin($input)
             $modelProductProjects->save($data);   
 
             $data->images = json_decode($data->images, true);
+            processCommerceData($data->id, $dataSend);
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
@@ -244,6 +249,32 @@ function addProductProjectAdmin($input)
     $conditions = array('type' => 'category_type');
     $listType = $modelCategories->find()->where($conditions)->all()->toList();
 
+    if (!empty($_GET['id'])) {
+        $data = $modelProductProjects->get((int) $_GET['id']);
+        $data->images = json_decode($data->images, true);
+        $data->officially = json_decode($data->officially, true);
+
+        $conditionsCommerce = ['id_product' => $data->id];
+        $commerceData = $modelCommerce->find()->where($conditionsCommerce)->first();
+
+        if (!empty($commerceData)) {
+            $conditionsItems = ['id_commerce' => $commerceData->id];
+            $commerceItems = $modelCommerceItems->find()->where($conditionsItems)->all()->toList();
+        } else {
+            $commerceData = $modelCommerce->newEmptyEntity();
+            $commerceItems = [];
+        }
+    } else {
+        $data = $modelProductProjects->newEmptyEntity();
+        $commerceData = $modelCommerce->newEmptyEntity();
+        $commerceItems = [];
+    }
+    // debug($commerceData);
+    // debug($commerceItems);
+    // die();
+
+    setVariable('commerceData', $commerceData);
+    setVariable('commerceItems', $commerceItems);
     setVariable('data', $data);
     setVariable('mess', $mess);
     setVariable('listKind', $listKind);
@@ -252,108 +283,93 @@ function addProductProjectAdmin($input)
 
 }
 
-function processCommerceData($data, $dataSend) {
-    $commerce = $dataSend['commerce'] ?? [];
-    
-    if (!empty($data->commerce) && is_string($data->commerce)) {
-        $oldData = json_decode($data->commerce, true);
-        
-        for ($i = 1; $i <= 3; $i++) {
-            if (empty($_FILES['commerce']['name']["image$i"]) && !empty($oldData["image$i"])) {
-                $commerce["image$i"] = $oldData["image$i"];
-            }
-        }
-        
-        if (isset($commerce['id']) && $commerce['id'] == 2 && isset($oldData['items'])) {
-            $commerce['items'] = $oldData['items'];
-        }
+function processCommerceData($id_product, $dataSend)
+{
+    global $controller;
+    $modelCommerce = $controller->loadModel('Commerce');
+    $modelCommerceItems = $controller->loadModel('CommerceItems');
+
+    if (empty($id_product) || empty($dataSend)) {
+        return;
     }
-    
-    if ($commerce['id'] == 1) {
-        for ($i = 1; $i <= 3; $i++) {
-            if (!empty($_FILES['commerce']['name']["image$i"])) {
-                $temp_file = [
-                    'name' => $_FILES['commerce']['name']["image$i"],
-        // Preserve 'items' data if View 2 is selected
-                    'type' => $_FILES['commerce']['type']["image$i"],
-                    'tmp_name' => $_FILES['commerce']['tmp_name']["image$i"],
-                    'error' => $_FILES['commerce']['error']["image$i"],
-                    'size' => $_FILES['commerce']['size']["image$i"]
-                ];
-    // Process images for View 1
-                
-                $_FILES['temp_image'] = $temp_file;
-                
-                $upload = uploadImage('vinhome_', 'temp_image', "commerce_view1_$i" . time());
-                
-                if (isset($upload['code']) && $upload['code'] === 0 && !empty($upload['linkOnline'])) {
-                    $commerce["image$i"] = $upload['linkOnline'];
-                }
-            }
-        }
+
+    $commerceEntity = $modelCommerce->find()->where(['id_product' => $id_product])->first();
+    if (!$commerceEntity) {
+        $commerceEntity = $modelCommerce->newEmptyEntity();
+        $commerceEntity->id_product = $id_product;
     }
-    
-    // Xử lý cho View 2 (trường động)
-    if ($commerce['id'] == 2) {
-        // Khởi tạo mảng items nếu chưa có
-        if (!isset($commerce['items']) || !is_array($commerce['items'])) {
-            $commerce['items'] = [];
-        }
+
+    $commerceEntity->main_title = $dataSend['commerce_main_title'] ?? '';
+    $commerceEntity->view_type = (int) ($dataSend['commerce_view_id'] ?? 1);
+    $commerceEntity->main_description = $dataSend['commerce_main_description'] ?? '';
+
+    if ($modelCommerce->save($commerceEntity)) {
+        $commerceId = $commerceEntity->id;
+
+        $existingItems = $modelCommerceItems->find()->where(['id_commerce' => $commerceId])->toArray();
         
-        // Lấy và xử lý từng item
-        if (isset($commerce['title']) && is_array($commerce['title'])) {
-            $titles = $commerce['title'];
-            $descriptions = $commerce['description'] ?? [];
-            
-            // Loại bỏ các khóa không cần lưu
-            unset($commerce['title']);
-            unset($commerce['description']);
-            unset($commerce['image']);
-            
-            $newItems = [];
-            
-            foreach ($titles as $index => $title) {
-                if (empty($title)) continue; // Bỏ qua nếu không có tiêu đề
-                
-                $item = [
-                    'title' => $title,
-                    'description' => $descriptions[$index] ?? ''
-                ];
-                
-                // Xử lý hình ảnh
-                if (!empty($_FILES['commerce']['name']['image'][$index])) {
-                    $temp_file = [
-                        'name' => $_FILES['commerce']['name']['image'][$index],
-                        'type' => $_FILES['commerce']['type']['image'][$index],
-                        'tmp_name' => $_FILES['commerce']['tmp_name']['image'][$index],
-                        'error' => $_FILES['commerce']['error']['image'][$index],
-                        'size' => $_FILES['commerce']['size']['image'][$index]
-                    ];
-                    
-                    $_FILES['temp_image'] = $temp_file;
-                    
-                    $upload = uploadImage('vinhome_', 'temp_image', "commerce_view2_" . time() . "_$index");
-                    
-                    if (isset($upload['code']) && $upload['code'] === 0 && !empty($upload['linkOnline'])) {
-                        $item['image'] = $upload['linkOnline'];
+        $existingItemsMap = array_values($existingItems);
+
+        if ($commerceEntity->view_type == 1) {
+            for ($i = 0; $i < 3; $i++) {
+                if (empty($dataSend["commerce_title_" . ($i + 1)])) continue;
+
+                $itemEntity = $existingItemsMap[$i] ?? $modelCommerceItems->newEmptyEntity();
+                $itemEntity->id_commerce = $commerceId;
+                $itemEntity->title = $dataSend["commerce_title_" . ($i + 1)];
+                $itemEntity->description = $dataSend["commerce_description_" . ($i + 1)] ?? '';
+
+                $fileKey = "commerce_image_" . ($i + 1);
+                if (!empty($_FILES[$fileKey]['name'])) {
+                    $upload = uploadImage('commerce_', $fileKey, 'commerce_item_' . time() . "_$i");
+                    if (!empty($upload['linkOnline'])) {
+                        $itemEntity->image = $upload['linkOnline'];
                     }
-                } 
-                // Giữ lại hình ảnh cũ nếu có
-                elseif (isset($commerce['items'][$index]['image'])) {
-                    $item['image'] = $commerce['items'][$index]['image'];
+                } else {
+                    if (!empty($existingItemsMap[$i])) {
+                        $itemEntity->image = $existingItemsMap[$i]->image;
+                    }
                 }
-                
-                $newItems[] = $item;
+
+                $modelCommerceItems->save($itemEntity);
             }
-            
-            $commerce['items'] = $newItems;
+        }
+
+        // **Nếu View Type là 2**
+        if ($commerceEntity->view_type == 2 && !empty($dataSend['commerce_title'])) {
+            foreach ($dataSend['commerce_title'] as $index => $title) {
+                if (empty($title)) continue;
+
+                $itemEntity = $existingItemsMap[$index] ?? $modelCommerceItems->newEmptyEntity();
+                $itemEntity->id_commerce = $commerceId;
+                $itemEntity->title = $title;
+                $itemEntity->description = $dataSend['commerce_description'][$index] ?? '';
+
+                if (!empty($_FILES['commerce_image']['name'][$index])) {
+                    $_FILES["commerce_image_$index"] = [
+                        'name' => $_FILES['commerce_image']['name'][$index],
+                        'full_path' => $_FILES['commerce_image']['full_path'][$index],
+                        'type' => $_FILES['commerce_image']['type'][$index],
+                        'tmp_name' => $_FILES['commerce_image']['tmp_name'][$index],
+                        'error' => $_FILES['commerce_image']['error'][$index],
+                        'size' => $_FILES['commerce_image']['size'][$index],
+                    ];
+
+                    $upload = uploadImage('vinhome_', "commerce_image_$index", 'image_' . time() . rand(0, 1000000));
+
+                    if (!empty($upload['linkOnline'])) {
+                        $itemEntity->image = $upload['linkOnline'];
+                    }
+                } else {
+                    if (!empty($existingItemsMap[$index])) {
+                        $itemEntity->image = $existingItemsMap[$index]->image;
+                    }
+                }
+
+                $modelCommerceItems->save($itemEntity);
+            }
         }
     }
-    
-    // Lưu dữ liệu
-    $data->commerce = json_encode($commerce);
-    
-    return $data;
 }
 
 function deleteProductProjectAdmin($input){

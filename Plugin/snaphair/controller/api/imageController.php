@@ -76,7 +76,14 @@ function listImageUserAPI($input)
 
 			if(!empty($user)){
 
-				$conditions = array('id_user'=>$user->id);
+				$conditions = [];
+
+				if (!empty($dataSend['is_public']) && $dataSend['is_public'] == '1') {
+                    $conditions['is_public'] = 1;
+                } else {
+                    $conditions['id_user'] = $user->id;
+                }
+				
 				$limit = 20;
 				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 				if($page<1) $page = 1;
