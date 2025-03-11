@@ -2287,7 +2287,7 @@
     background-color: #ff6b9d;
     color: white;
     border: none;
-    padding: 12px 40px;
+    padding: 12px 80px;
     border-radius: 30px;
     font-weight: bold;
     font-size: 1.1rem;
@@ -2359,11 +2359,11 @@
     color: #d97ab1;
 }
 
-.landingpage p {
+/* .landingpage p {
     font-size: 14px;
     color: #ffffff;
     margin-bottom: 20px;
-}
+} */
 
 
 
@@ -2801,6 +2801,7 @@
     position: relative;
     z-index: 2;
     text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.8);
+    font-size: 38px;
 }
 
 .landingpage .hero button {
@@ -2814,110 +2815,158 @@
     margin-top: 20px;
 }
 
-.landingpage footer {
-    background-color: #ffffff;
-    /* Màu nền trắng */
-    color: #333;
-    /* Màu chữ tối */
-    padding: 40px 60px;
-    font-family: Arial, sans-serif;
-    border-top: 1px solid #ddd;
-    /* Viền trên nhẹ */
-}
-
-.landingpage .footer-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.landingpage .footer-left {
-    max-width: 40%;
-}
-
-.landingpage .footer-left h2 {
-    color: #E91E63;
-    /* Màu chữ SNAP HAIR */
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.landingpage .footer-left p {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.6;
-}
-
-.landingpage .footer-left a {
-    font-size: 16px;
-    font-weight: bold;
-    color: #000;
-    text-decoration: none;
-    display: block;
-    margin-top: 10px;
-}
-
-.landingpage .footer-social {
-    margin-top: 10px;
-}
-
-.landingpage .footer-social a {
-    display: inline-block;
-    margin-right: 10px;
-    font-size: 18px;
-}
-
-.landingpage .footer-links {
-    display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
-}
-
-.landingpage .footer-links div {
-    margin-right: 0px;
-}
-
-.landingpage .footer-links h3 {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #000;
-}
-
-.landingpage .footer-links a {
-    display: block;
-    font-size: 14px;
-    color: #666;
-    text-decoration: none;
-    margin-bottom: 5px;
-}
-
-.landingpage .footer-links a:hover {
-    color: #E91E63;
-}
-
-.landingpage .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
-    font-size: 12px;
-    color: #999;
-    margin-top: 20px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-}
-
-.landingpage .footer-bottom a {
-    color: #666;
-    text-decoration: none;
-    margin-left: 10px;
-}
-
-.landingpage .footer-bottom a:hover {
-    color: #E91E63;
-}
-
+ .landingpage footer {
+            background-color: #ffffff;
+            color: #333;
+            padding: 40px 60px;
+            font-family: Arial, sans-serif;
+            border-top: 1px solid #ddd;
+        }
+        
+        .landingpage .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .landingpage .footer-left {
+            max-width: 40%;
+        }
+        
+        .landingpage .footer-left h2 {
+            color: #E91E63;
+            /* Màu chữ SNAP HAIR */
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .landingpage .footer-left p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .landingpage .footer-left a {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+        }
+        
+        .landingpage .footer-social {
+            margin-top: 10px;
+        }
+        
+        .landingpage .footer-social a {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .landingpage .footer-links {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+        
+        .landingpage .footer-links div {
+            margin-right: 0px;
+        }
+        
+        .landingpage .footer-links h3 {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .landingpage .footer-links a {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
+        
+        .landingpage .footer-links a:hover {
+            color: #E91E63;
+        }
+        
+        .landingpage .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        
+        .landingpage .footer-bottom a {
+            color: #666;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        
+        .landingpage .footer-bottom a:hover {
+            color: #E91E63;
+        }
+        
+        /* Social media icon colors */
+        .landingpage .footer-social a:nth-child(1) i {
+            color: #C13584; /* Instagram */
+        }
+        
+        .landingpage .footer-social a:nth-child(2) i {
+            color: #25D366; /* WhatsApp */
+        }
+        
+        .landingpage .footer-social a:nth-child(3) i {
+            color: #FF0000; /* YouTube */
+        }
+        
+        .landingpage .footer-social a:nth-child(4) i {
+            color: #1DA1F2; /* Twitter */
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .landingpage .footer-container {
+                flex-direction: column;
+            }
+            
+            .landingpage .footer-left {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .landingpage .footer-links {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            
+            .landingpage .footer-links div {
+                width: 50%;
+                margin-bottom: 20px;
+            }
+            
+            .landingpage .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .landingpage .footer-bottom div {
+                margin-top: 10px;
+            }
+            
+            .landingpage .footer-bottom a:first-child {
+                margin-left: 0;
+            }
+        }
 /* Gradient Bar */
 .landingpage .gradient-bar {
     height: 50px;
@@ -3198,7 +3247,7 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
+	/* margin: 0; */
 	padding: 0;
 	border: 0;
 	font-size: 100%;
