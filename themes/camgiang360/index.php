@@ -13,12 +13,17 @@ global $urlThemeActive;
         <div class="iframe-360">
             <iframe src="<?php echo $setting['link_image360'] ?>" frameborder="0"></iframe>
         </div>
-
+        <!--
         <div class="iframe-360-layer">
             <a href="javascript:void(0)" class="banner360-1 banner360">Xem toàn cảnh 360</a>
+            
             <a href="<?php echo $setting['link_image360'] ?>" class="banner360-3 banner360">Truy cập link 360</a>
+            
         </div>
+        -->
+        
         <a href="javascript:void(0)" class="banner360-2 banner360" style="display: none;">Dừng xem 360</a>
+        <a href="javascript:void(0)" class="banner360-1 banner360" style="display: none;">Xem toàn cảnh 360</a>
     </section>
 
     <!--  Phần Places  -->
