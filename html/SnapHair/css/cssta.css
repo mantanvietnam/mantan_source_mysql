@@ -1988,14 +1988,14 @@
 }
 
 .landingpage .menu-item.active a {
-    color: #ff3366;
-    border-color: #ff3366;
+    color: #ffffff;
+    border-color: #ffffff;
 }
 
 .landingpage .menu-item a:hover {
-    color: #ff3366;
+    color: #ffffff;
     background-color: rgba(255, 51, 102, 0.08);
-    border-color: #ff3366;
+    border-color: #ffffff;
 }
 
 /* Login section */
