@@ -257,15 +257,18 @@
 /*     Em Hiếu CSS - START     */
 
 #contact .contact-content .contact-icon .combo-icon a {
-    padding: 8px 9px;
+    padding: 2px 9px;
 }
 #contact .contact-content .contact-icon .combo-icon a:last-child {
-    padding: 9px 8px;
+    padding: 2px 6px;
+    font-size: 26px;
 }
 #map-section .map-iframe {
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 0px 15px 1px #c5c5c5;
 }
-
+#contact .static{
+    font-size: small;
+}
 /*     Em Hiếu CSS - END     */
