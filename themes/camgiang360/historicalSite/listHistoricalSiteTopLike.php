@@ -7,7 +7,7 @@ global $urlThemeActive;
 
         <section id="place-category" class="mt-5">
             <div class="category-title">
-                <h1>ĐIỂM ĐẾN DI TÍCH YÊU THÍCH</h1>
+                <h1>DI TÍCH TIÊU BIỂU</h1>
             </div>
 
             <div class="container">
