@@ -2004,7 +2004,7 @@
 }
 
 .landingpage .btn-login {
-    background: linear-gradient(to right, #B8CBB8, #B465DA, #CF6CC9, #EE609C);
+    background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%);
     color: white;
     border: none;
     border-radius: 25px;
@@ -2124,7 +2124,7 @@
 }
 
 .landingpage .search-bar button {
-    background: linear-gradient(to right, #ff69b4, #c13584);
+    background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%);
     border: none;
     padding: 15px 30px;
     font-size: 18px;
@@ -2284,7 +2284,7 @@
 }
 
 .landingpage .try-now-btn {
-background: linear-gradient(to right, #B8CBB8, #B465DA, #CF6CC9, #EE609C);
+background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%);
     color: white;
     border: none;
     padding: 12px 80px;
@@ -2921,24 +2921,27 @@ background: linear-gradient(to right, #B8CBB8, #B465DA, #CF6CC9, #EE609C);
       text-align: center;
   }
 
-  .landingpage .hero-heading {
-      color: white;
-      font-size: 2.5rem;
-      font-weight: bold;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      max-width: 80%;
-      margin-bottom: 30px;
-  }
-
+.landingpage .hero-heading {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    max-width: 80%;
+    margin-bottom: 30px;
+    line-height: 1.4;
+    /* Thêm line-height để tăng khoảng cách giữa các dòng */
+    letter-spacing: 0.5px;
+    /* Tăng nhẹ khoảng cách giữa các chữ */
+}
   .landingpage .hero-cta {
-    background: linear-gradient(to right, #B8CBB8, #B465DA, #CF6CC9, #EE609C);
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 4px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+    background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
 
   .landingpage .hero-cta:hover {
@@ -3300,7 +3303,7 @@ background: linear-gradient(to right, #B8CBB8, #B465DA, #CF6CC9, #EE609C);
 }
 
 .landingpage .btn-try {
-    background: linear-gradient(90deg, #e573d9, #ff6bcb);
+    background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%);
     border: none;
     color: white;
     border-radius: 20px;
@@ -4119,7 +4122,7 @@ table {
     border-radius: 10px;
 }
 .btn-custom {
-    background: linear-gradient(to right, #B8CBB8, #B465DA, #CF6CC9, #EE609C);
+background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%);
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
