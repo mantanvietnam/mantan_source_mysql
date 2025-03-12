@@ -311,6 +311,9 @@ function saveInfoCustomerAPI($input)
                 ){
                     $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
                     $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+                    if($dataSend['phone'][0] != 0){
+                        $dataSend['phone'] = '0'.$dataSend['phone'];
+                    }
 
                     if(!empty($dataSend['id'])){
                         $infoCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id']])->first();

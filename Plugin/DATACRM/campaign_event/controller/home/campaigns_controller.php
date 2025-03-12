@@ -154,7 +154,7 @@ function addCampaign($input)
                 }
 
                 if(empty($image)){
-                    $system = $modelCategories->find()->where(['id'=>(int) user->id_system])->first();
+                    $system = $modelCategories->find()->where(['id'=>(int) $user->id_system])->first();
 
                     if(!empty($system->image)){
                         $image = $system->image;
