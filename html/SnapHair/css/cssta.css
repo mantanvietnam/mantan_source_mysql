@@ -3297,9 +3297,13 @@ background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 3
     object-fit: cover;
 }
 
-.landingpage .card-custom h5,
-.landingpage .card-custom p {
+.landingpage .card-custom h5 {
+    font-weight: bold;
     color: white;
+}
+
+.landingpage .card-custom p {
+    color: rgb(178, 176, 176);
 }
 
 .landingpage .btn-try {
