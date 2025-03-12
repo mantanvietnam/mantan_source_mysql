@@ -61,10 +61,15 @@ function listChallengeAPI($input)
 			    		$user = array();
 			    		if(!empty($UserChallenges)){
 			    			foreach($UserChallenges as $k => $value){
-			    				$avatar = $modelUser->find()->where(['id'=>$value->id_user])->first()->avatar;
-			    				if(empty($avatar)){
-			    					$avatar = $urlHomes.'/plugins/colennao/view/image/default-avatar.png';
+			    				if(!empty($value->id_user)){
+			    					$id_user = $modelUser->find()->where(['id'=>$value->id_user])->first();
+				    				if(empty($id_user->avatar)){
+				    					$avatar = $urlHomes.'/plugins/colennao/view/image/default-avatar.png';
+				    				}else{
+				    					$avatar =$id_user->avatar;
+				    				}
 			    				}
+			    				
 			    				
                           		$user[] = $avatar;
 			    			}

@@ -471,7 +471,7 @@
               </ul>
             </li>
             
-            <li class="menu-item  <?php if(!empty(@$page_view) && in_array(@$page_view, ['listStaff','listGroupStaff','addStaff','addGroupStaff'])) echo 'open';?>" id="listStaff">
+            <li class="menu-item  <?php if(!empty(@$page_view) && in_array(@$page_view, ['listStaff','listGroupStaff','addStaff','addGroupStaff','timesheetStaff'])) echo 'open';?>" id="listStaff">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('staff', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div>Đội ngũ</div>
@@ -495,6 +495,11 @@
                 <li class="menu-item">
                   <a href="/listStaffPunish/#listStaff" class="menu-link <?php if(@$page_view =='listStaffPunish') echo 'menu-active';?>">
                     <div>Thưởng phạt nhân viên</div>
+                  </a>
+                </li>
+                 <li class="menu-item">
+                  <a href="/timesheetStaff/#listStaff" class="menu-link <?php if(@$page_view =='timesheetStaff') echo 'menu-active';?>">
+                    <div>chấm công nhân viên</div>
                   </a>
                 </li>
               </ul>

@@ -37,7 +37,11 @@ function listUserAdmin($input)
         $conditions['email LIKE'] = '%' . $_GET['email'] . '%';
     }
 
-    if (isset($_GET['type']) && $_GET['type'] !== '' && is_numeric($_GET['type'])) {
+    if (!empty($_GET['id_affsource'])) {
+        $conditions['id_affsource'] =  $_GET['id_affsource'];
+    }
+
+    if (!empty($_GET['type'])) {
         $conditions['type'] = $_GET['type'];
     }
 
@@ -81,6 +85,7 @@ function listUserAdmin($input)
                 $listData[$key]->name_people = $modelUserpeople->find()->where(['id'=>$item->id_group_user])->first();
 
                 $listData[$key]->historyResult= $modelHistoryResultUser->find()->where(['id_user'=>$item->id])->first();
+                $listData[$key]->number_user= $modelUser->find()->where(['id_affsource'=>$item->id])->count();
             }
         }
         

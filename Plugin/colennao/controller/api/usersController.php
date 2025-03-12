@@ -13,12 +13,11 @@ function registerUserApi($input): array
         $dataSend = $input['request']->getData();
 
         if (isset($dataSend['full_name'])
-            && isset($dataSend['phone'])
-            && isset($dataSend['password'])
             && isset($dataSend['email'])
+            && isset($dataSend['password'])
             && isset($dataSend['password_confirmation'])
         ){
-            $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
+            $dataSend['phone'] = str_replace([' ', '.', '-'], '', @$dataSend['phone']);
             $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
             $checkDuplicatePhone = $modelUser->find()->where([
                 'phone' => $dataSend['phone']
@@ -30,7 +29,7 @@ function registerUserApi($input): array
                 ])->first();
             }
 
-            if (empty($checkDuplicatePhone)) {
+            if (empty($checkDuplicateEmail)) {
                 if ($dataSend['password'] !== $dataSend['password_confirmation']) {
                     return apiResponse(4, 'Mật khẩu nhập lại không chính xác');
                 }
@@ -66,7 +65,8 @@ function registerUserApi($input): array
                 $user->address = @$dataSend['address'] ?? null;
                 $user->status = 'lock';
                 $user->created_at = time();
-                $user->deadline =  strtotime("+7 days", time());
+                // $user->deadline =  strtotime("+7 days", time());
+                $user->deadline =  time();
                 $user->updated_at = time();
                 $user->last_login = time();
                 $user->token = 'web'.createToken();
@@ -78,6 +78,7 @@ function registerUserApi($input): array
                 $user->target_weight =  (double) @$dataSend['target_weight'];
                 $user->height =  (int) @$dataSend['height'];
                 $user->id_group_user =  (int) @$dataSend['id_group_user'];
+                $user->start_date = time();
                 $modelUser->save($user);
 
                 $loginUser = $modelUser->find()->where([
@@ -110,7 +111,7 @@ function registerUserApi($input): array
                 return apiResponse(0, 'Lưu thông tin thành công', $loginUser);
             }
 
-            return apiResponse(3, 'Số điện thoại đã tồn tại');
+            return apiResponse(3, 'Gmail này đã tồn tại');
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');
@@ -129,9 +130,8 @@ function sendEmailCodeApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
         $conditions = array();
-        if (isset($dataSend['phone'])) {
-            $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
-            $conditions['phone'] = str_replace('+84', '0', $dataSend['phone']);
+        if (isset($dataSend['email'])) {
+
         }elseif(!empty($dataSend['token'])){
             $conditions['token'] = $dataSend['token'];
         }else{
@@ -140,11 +140,11 @@ function sendEmailCodeApi($input): array
 
 
             $user = $modelUser->find()->where([
-                'phone' => $dataSend['phone'],
+                'email' => $dataSend['email'],
             ])->first();
 
             if (!$user) {
-                return apiResponse(3, 'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
+                return apiResponse(3, 'Email chưa được đăng kí cho bất kì tài khoản nào');
             }
 
             if (!$user->email) {
@@ -176,10 +176,9 @@ function confirmotpcodeApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (isset($dataSend['phone']) && isset($dataSend['code'])  && isset($dataSend['device_token'])) {
-            $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
-            $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
-            $user = $modelUser->find()->where(['phone' => $dataSend['phone'], 'status !='=>'delete'])->first();
+        if (isset($dataSend['email']) && isset($dataSend['code'])  && isset($dataSend['device_token'])) {
+            
+            $user = $modelUser->find()->where(['email' => $dataSend['email'], 'status !='=>'delete'])->first();
 
             if (empty($user)) {
                 return apiResponse(3, 'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
@@ -216,14 +215,14 @@ function loginUserApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (!empty($dataSend['phone']) && !empty($dataSend['password'])) {
+        if (!empty($dataSend['email']) && !empty($dataSend['password'])) {
 
-            $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
-            $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
+            // $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
+            // $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
             $dataSend['password'] = trim($dataSend['password']);
 
             $user = $modelUser->find()->where([
-                'phone' => $dataSend['phone'],
+                'email' => $dataSend['email'],
                 'password' => md5($dataSend['password']),
                 'status !='=>'delete'
             ])->first();
@@ -353,11 +352,9 @@ function forgotPasswordApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (isset($dataSend['phone'])) {
-            $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
-            $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
+        if (isset($dataSend['email'])) {
             $user = $modelUser->find()->where([
-                'phone' => $dataSend['phone'],
+                'email' => $dataSend['email'],
             ])->first();
 
             if (!$user) {
@@ -396,15 +393,13 @@ function resetPasswordApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (isset($dataSend['phone'])
+        if (isset($dataSend['email'])
             && isset($dataSend['code'])
             && isset($dataSend['new_password'])
             && isset($dataSend['password_confirmation'])
         ) {
-            $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
-            $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
             $user = $modelUser->find()->where([
-                'phone' => $dataSend['phone'],
+                'email' => $dataSend['email'],
             ])->first();
 
             if (empty($user)) {

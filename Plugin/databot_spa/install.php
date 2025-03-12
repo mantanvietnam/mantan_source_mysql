@@ -247,6 +247,11 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
   `code_zalo_oa` varchar(500) DEFAULT NULL,
   `deadline_token_zalo_oa` int(11) DEFAULT NULL,
   `access_token_zalo_oa` varchar(500) DEFAULT NULL,
+  `fixed_salary` INT NULL DEFAULT NULL,
+  `insurance` INT NULL DEFAULT NULL,
+  `allowance` INT NULL DEFAULT NULL,
+  `account_bank` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL, 
+  `code_bank` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `id_spa` INT NOT NULL DEFAULT 0;
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
@@ -527,6 +532,28 @@ $sqlInstallDatabase .="CREATE TABLE `staff_timekeepers` (
 `created_at` INT NULL DEFAULT NULL ,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `payrolls` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `salary` INT NULL DEFAULT NULL ,
+  `work` INT NULL DEFAULT NULL ,
+  `fixed_salary` INT NULL DEFAULT NULL ,
+  `working_day` FLOAT NULL DEFAULT NULL ,
+  `commission` INT NULL DEFAULT NULL ,
+  `bonus` INT NULL DEFAULT NULL ,
+  `allowance` INT NULL DEFAULT NULL ,
+  `fine` INT NULL DEFAULT NULL ,
+  `insurance` INT NULL DEFAULT NULL ,
+  `advance` INT NULL DEFAULT NULL ,
+  `status` VARCHAR(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `note` VARCHAR(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `month` INT NULL DEFAULT NULL ,
+  `yer` INT NULL DEFAULT NULL ,
+  `id_member` INT NULL DEFAULT NULL ,
+  `id_staff` INT NULL DEFAULT NULL ,
+  `created_at` INT NULL DEFAULT NULL ,
+  `updated_at` INT NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`)) ENGINE = InnoDB;";
  
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -560,6 +587,7 @@ $sqlDeleteDatabase .= "DROP TABLE medical_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE token_devices; ";
 $sqlDeleteDatabase .= "DROP TABLE staff_bonus; ";
 $sqlDeleteDatabase .= "DROP TABLE staff_timekeepers; ";
+$sqlDeleteDatabase .= "DROP TABLE payrolls; ";
 
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
@@ -777,6 +805,11 @@ $sqlUpdateDatabase['members']['code_zalo_oa'] = "ALTER TABLE `members` ADD `code
 $sqlUpdateDatabase['members']['deadline_token_zalo_oa'] = "ALTER TABLE `members` ADD `deadline_token_zalo_oa` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['members']['access_token_zalo_oa'] = "ALTER TABLE `members` ADD `access_token_zalo_oa` varchar(500) DEFAULT NULL; ";
 $sqlUpdateDatabase['members']['id_spa'] = "ALTER TABLE `members` ADD `id_spa` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['members']['fixed_salary'] = "ALTER TABLE `members` ADD `fixed_salary` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['members']['insurance'] = "ALTER TABLE `members` ADD `insurance` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['members']['allowance'] = "ALTER TABLE `members` ADD `allowance` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['members']['account_bank'] = "ALTER TABLE `members` ADD `account_bank` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['members']['code_bank'] = "ALTER TABLE `members` ADD `code_bank` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 // Bang orders
 $sqlUpdateDatabase['orders']['id_member'] = "ALTER TABLE `orders` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['orders']['id_spa'] = "ALTER TABLE `orders` ADD `id_spa` int(11) NOT NULL; ";
@@ -977,6 +1010,25 @@ $sqlUpdateDatabase['staff_timekeepers']['id_staff'] = "ALTER TABLE `staff_timeke
 $sqlUpdateDatabase['staff_timekeepers']['id_spa'] = "ALTER TABLE `staff_timekeepers` ADD `id_spa` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['check_in'] = "ALTER TABLE `staff_timekeepers` ADD `check_in` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['created_at'] = "ALTER TABLE `staff_timekeepers` ADD `created_at` INT NULL DEFAULT NUL;";
+
+$sqlUpdateDatabase['payrolls']['salary'] = "ALTER TABLE `payrolls` ADD `salary` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['work'] = "ALTER TABLE `payrolls` ADD `work` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['working_day'] = "ALTER TABLE `payrolls` ADD `working_day` FLOAT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['commission'] = "ALTER TABLE `payrolls` ADD `commission` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['bonus'] = "ALTER TABLE `payrolls` ADD `bonus` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['allowance'] = "ALTER TABLE `payrolls` ADD `allowance` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['fine'] = "ALTER TABLE `payrolls` ADD `fine` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['insurance'] = "ALTER TABLE `payrolls` ADD `insurance` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['advance'] = "ALTER TABLE `payrolls` ADD `advance` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['status'] = "ALTER TABLE `payrolls` ADD `status` VARCHAR(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['note'] = "ALTER TABLE `payrolls` ADD `note` VARCHAR(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['month'] = "ALTER TABLE `payrolls` ADD `month` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['yer'] = "ALTER TABLE `payrolls` ADD `yer` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['fixed_salary'] = "ALTER TABLE `payrolls` ADD `fixed_salary` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['id_member'] = "ALTER TABLE `payrolls` ADD `id_member` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['id_staff'] = "ALTER TABLE `payrolls` ADD `id_staff` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['created_at'] = "ALTER TABLE `payrolls` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['updated_at'] = "ALTER TABLE `payrolls` ADD `updated_at` INT NULL DEFAULT NULL;";
 
 /*-- Bước 1: Thêm cột tạm kiểu INT 
 ALTER TABLE userservice_histories ADD COLUMN temp_int INT;

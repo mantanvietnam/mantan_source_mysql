@@ -75,7 +75,36 @@
                     <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
                     <input type="text"  <?php if(!empty($_GET['id'])) echo 'readonly=""'; ?> class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone; ?>" />
                   </div>
-
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Lương cứng (*)</label>
+                    <input type="text" class="form-control" placeholder="" name="fixed_salary" id="" value="<?php echo @$data->fixed_salary; ?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Tiền đóng bảo hiểm (*)</label>
+                    <input type="text" class="form-control" placeholder="" name="insurance" id="" value="<?php echo @$data->insurance; ?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Phụ cấp  (*)</label>
+                    <input type="text" class="form-control" placeholder="" name="allowance" id="" value="<?php echo @$data->allowance; ?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Số tài khoản ngây hàng  (*)</label>
+                    <input type="text" class="form-control" placeholder="" name="account_bank" id="phone" value="<?php echo @$data->account_bank; ?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname"> ngây hàng  (*)</label>
+                    <select class="form-select" name="code_bank" id="code_bank">
+                      <option value="">Chọn ngân hàng</option>
+                      <?php
+                      foreach($listBank as $key => $item){
+                        $selected = '';
+                        if(@$data->code_bank==$item['code']){ 
+                          $selected = 'selected';
+                        }
+                        echo'<option value="'.$item['code'].'" '.$selected.' >'.$item['name'].' ('.$item['code'].')</option>';
+                      } ?>
+                    </select>
+                  </div>
                   <?php 
                     if(empty($_GET['id'])){
                       echo '<div class="mb-3">

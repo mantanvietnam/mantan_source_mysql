@@ -297,7 +297,7 @@ function addOrderAgency($input)
                     $save->money = (int) $dataSend['total'];
                     $save->total = (int) $dataSend['totalPays'];
                     $save->status_pay = 'wait';
-                    $save->discount = $dataSend['promotion'];
+                    $save->discount = (!empty($dataSend['promotion']))?$dataSend['promotion']:0;
 
                     $costsIncurred = array();
                     $total_costsIncurred = 0;
@@ -1393,7 +1393,7 @@ function editOrderMemberAgency($input)
             $order->money = (int) $dataSend['total'];
             $order->total = (int) $dataSend['totalPays'];
             $order->status_pay = 'wait';
-            $order->discount = $dataSend['promotion'];
+            $order->discount = (!empty($dataSend['promotion']))?$dataSend['promotion']:0;
             $order->create_at = $create_at;
             
             $costsIncurred = array();

@@ -279,7 +279,9 @@ function getListPermission($id=0)
                                                     array('name'=>'Danh sách tiền thưởng nhân viên','permission'=>'listStaffBonus'),
                                                     array('name'=>'Thêm và sửa tiền thưởng nhân viên','permission'=>'addStaffBonus'),
                                                     array('name'=>'Xóa tiền thưởng nhân viên','permission'=>'deleteStaffBonus'),
-                                                    array('name'=>'chấm công nhân viên','permission'=>'timesheetStaff'),
+                                                    array('name'=>'xem bảng chấm công nhân viên','permission'=>'timesheetStaff'),
+                                                    array('name'=>'chấm công nhân viên','permission'=>'checktimesheet'),
+                                                    array('name'=>'tính lương nhân viên','permission'=>'payrollstaff'),
                                             ),
                             );
         }
@@ -1153,5 +1155,16 @@ function addUserserviceHistories($id=0,$id_bed=0,$id_service=0,$time=0,$id_staff
     }
     return array('code'=>0, 'mess'=>'lỗi hệ thống');
 }
+
+function getMonthStartEnd($year, $month) {
+    $startDate = new DateTime("$year-$month-01");
+    $endDate = new DateTime("$year-$month-" . $startDate->format('t')); // 't' lấy số ngày cuối cùng của tháng
+
+    return [
+        'start' => $startDate->format('Y-m-d H:i:s'),
+        'end' => $endDate->format('Y-m-d 23:59:00')
+    ];
+}
+
 
 ?>

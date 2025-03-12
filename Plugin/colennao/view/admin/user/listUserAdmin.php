@@ -43,6 +43,16 @@
               </option>
             </select>
           </div>
+          <div class="col-md-3">
+            <label class="form-label">Kiểu tài khoản </label>
+            <select name="type" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="default" <?php if (!empty($_GET['type']) && $_GET['type'] == 'default') echo 'selected'; ?> >bình thường
+              </option>
+              <option value="ambassador" <?php if (!empty($_GET['type']) && $_GET['type'] == 'ambassador') echo 'selected'; ?> >Đại sứ
+              </option>
+            </select>
+          </div>
 
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
@@ -127,18 +137,19 @@
                  <td>'.@$item->name_people->name.'
                   '.$historyResult.'</td>
                   <td> kiểu người dùng: '.@$type.'</br>
-                  hoa hồng: '.number_format($item->total_coin).'đ</td>
+                  hoa hồng: '.number_format($item->total_coin).'đ</br>
+                 <a href="/plugins/admin/colennao-view-admin-user-listUserAdmin/?id_affsource='.$item->id.'" >SL người giới thiệu: '.number_format($item->number_user).'</a></td>
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 
-                 href="/plugins/admin/colennao-view-admin-user-viewUserDetailAdmin/?id=' . $item->id . '"
+                 href="/plugins/admin/colennao-view-admin-user-viewUserDetailAdmin/?id='.$item->id.'"
                  >
                  <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>
                  <p align="center">
                  <a class="btn btn-danger" 
-                 href="/plugins/admin/colennao-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=delete"
+                 href="/plugins/admin/colennao-view-admin-user-updateStatusUserAdmin/?id='.$item->id.'&status=delete"
                   onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');">
                  <i class="bx bx-trash me-1" style="font-size: 22px;"></i>
                  </a>

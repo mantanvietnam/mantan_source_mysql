@@ -112,6 +112,7 @@ function addStaff($input){
     global $metaTitleMantan;
     global $session;
     global $controller;
+    global $listBank;
     global $urlCurrent;
 
     $metaTitleMantan = 'Thông tin nhân viên';
@@ -171,7 +172,11 @@ function addStaff($input){
 					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
 					$data->updated_at = time();
 					$data->code_otp = rand(100000, 999999);
-
+					$data->fixed_salary = @$dataSend['fixed_salary'];
+					$data->insurance = @$dataSend['insurance'];
+					$data->allowance = @$dataSend['allowance'];
+					$data->account_bank = @$dataSend['account_bank'];
+					$data->code_bank = @$dataSend['code_bank'];
 			        $modelMembers->save($data);
 
 			        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
@@ -196,6 +201,7 @@ function addStaff($input){
 
 	    setVariable('data', $data);
 	    setVariable('mess', $mess);
+	    setVariable('listBank', $listBank);
 	    setVariable('listPermissionMenu', $listPermissionMenu);
         setVariable('listCategory', $listCategory);
 
@@ -687,7 +693,7 @@ function addStaffBonus($input){
 	}
 }
 
-function timesheetStaff(){
+function timesheetStaff($input){
 
     global $controller;
     global $urlCurrent;
@@ -697,8 +703,6 @@ function timesheetStaff(){
     global $modelCategoryConnects;
 
     if(!empty(checkLoginManager('timesheetStaff', 'staff'))){
-        
-         
         
         $metaTitleMantan = 'Bảng chấm công nhân viên';
         $user = $session->read('infoUser');
@@ -756,7 +760,7 @@ function timesheetStaff(){
     }
 }
 
-function checktimesheet(){
+function checktimesheet($input){
      global $controller;
     global $urlCurrent;
     global $modelCategories;
@@ -764,11 +768,11 @@ function checktimesheet(){
     global $session;
     global $modelCategoryConnects;
 
-    $user = checklogin('checktimesheet');   
-    if(!empty($user)){
-        if(empty($user->grant_permission)){
-            return $controller->redirect('/timesheetStaff');
-        }
+     if(!empty(checkLoginManager('checktimesheet', 'staff'))){
+        
+        $metaTitleMantan = 'Bảng chấm công nhân viên';
+        $user = $session->read('infoUser');
+       
         $metaTitleMantan = 'Danh sách nhân viên';
 
         $modelMember = $controller->loadModel('Members');
@@ -781,16 +785,17 @@ function checktimesheet(){
         $date = explode('/', $_GET['date']);
         $date = mktime(0,0,0,$date[1],$date[0],$date[2]);
         
-        $checkdate = $modelStaffTimekeepers->find()->where(['day'=>$date,'id_staff'=>$staff->id])->first();
+        $checkdate = $modelStaffTimekeepers->find()->where(['created_at'=>$date,'id_staff'=>$staff->id])->first();
         if(!empty($_GET['shift'])){
             if(empty($checkdate)){
                 $checkdate = $modelStaffTimekeepers->newEmptyEntity();
-                $checkdate->day = $date;
-                // $checkdate->date = $date;
+                $checkdate->created_at = $date;
+                 $checkdate->check_in = $date;
                 $checkdate->id_staff = $staff->id;
             }
 
             $checkdate->shift = implode(', ', $_GET['shift']);
+            
 
             $modelStaffTimekeepers->save($checkdate);
         }elseif(!empty($checkdate)){
@@ -803,7 +808,133 @@ function checktimesheet(){
         
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/timesheetStaff');
+    }
+}
+
+function payrollstaff($input){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+    if(!empty(checkLoginManager('payrollstaff', 'staff'))){
+        
+        $metaTitleMantan = 'Bảng chấm công nhân viên';
+        $user = $session->read('infoUser');
+       
+        $metaTitleMantan = 'Danh sách nhân viên';
+
+        $modelMember = $controller->loadModel('Members');
+        $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
+		$modelStaffBonu = $controller->loadModel('StaffBonus');
+        $modelAgency = $controller->loadModel('Agencys');
+
+        $conditions = array('id_member'=>$user->id_member );
+
+        if(!empty($_GET['id_staff'])){
+        	$conditions['id']= $_GET['id_staff'];
+        }
+
+        // phân trang
+        $dataStaff = $modelMember->find()->where($conditions)->first();
+        // Thiết lập tháng và năm
+
+        if(!empty($_GET['month'])){
+            $thang = (int) $_GET['month'];
+        }else{
+            $thang = date('m');
+        }
+
+        if(!empty($_GET['year'])){
+            $nam = (int) $_GET['year'];
+        }else{
+            $nam = date('Y');
+        }
+
+        // Lấy số ngày trong tháng
+        $so_ngay_trong_thang = cal_days_in_month(CAL_GREGORIAN, $thang, $nam);
+
+        $date = array();
+
+        // Lặp qua các ngày trong tháng
+        for ($ngay = 1; $ngay <= $so_ngay_trong_thang; $ngay++) {
+            // Tạo chuỗi ngày định dạng Y-m-d
+            $ngay_dang = sprintf("%04d-%02d-%02d", $nam, $thang, $ngay);
+            
+            // Lấy tên thứ bằng tiếng Anh và chuyển sang tiếng Việt
+            $thu = thu_tieng_viet(date('l', strtotime($ngay_dang)));
+            
+            // In ra ngày và thứ
+          //  echo $ngay_dang . " - " . $thu . "<br>";
+            $date[$ngay] = array('thu'=>$thu, 'ngay'=>$ngay.'/'.$thang.'/'.$nam);
+
+        }
+
+        $working_day = 0;
+        if(!empty($dataStaff)){
+            foreach($date as $key => $value){
+                $checkdate = checkStaffTimekeepers($value['ngay'],$dataStaff->id);
+                if(!empty($checkdate)){
+                	$shift = count(explode(",", $checkdate->shift));
+                    if($shift==1){
+                      $working_day += 0.5;
+                    }else{
+                      $working_day += 1;
+                    }
+                }
+            } 
+        }
+
+
+		$date = getMonthStartEnd($nam, $thang);
+		$conditions = array('id_member'=>$user->id_member,'id_staff'=>$dataStaff->id);
+		$conditions['created_at >='] = (int) strtotime($date['start']);
+		$conditions['created_at <='] = (int) strtotime($date['end']);
+		$conditions['type'] = 'punish';
+	    $listDatapunish = $modelStaffBonu->find()->where($conditions)->all()->toList();
+
+	    $conditions['type'] = 'bonus';
+	    $listDatabonus = $modelStaffBonu->find()->where($conditions)->all()->toList();
+	    $punish= 0;
+	    if(!empty($listDatapunish)){
+            foreach($listDatapunish as $key => $value){
+                $punish +=  $value->money;
+            } 
+        }
+
+        $bonus= 0;
+	    if(!empty($listDatabonus)){
+            foreach($listDatabonus as $key => $value){
+                $bonus +=  $value->money;
+            } 
+        }
+
+        $conditions = array('id_member'=>$user->id_member,'id_staff'=>$dataStaff->id);
+		$conditions['created_at >='] = (int) strtotime($date['start']);
+		$conditions['created_at <='] = (int) strtotime($date['end']);
+	    $listDatacommission= $modelAgency->find()->where($conditions)->all()->toList();
+
+	     $commission= 0;
+	    if(!empty($listDatacommission)){
+            foreach($listDatacommission as $key => $value){
+                $commission +=  $value->money;
+            } 
+        }
+
+        setVariable('date', $date);
+    	setVariable('thang', $thang);
+    	setVariable('nam', $nam);
+    	setVariable('dataStaff', $dataStaff);
+    	setVariable('working_day', $working_day);
+    	setVariable('punish', $punish);
+    	setVariable('bonus', $bonus);
+    	setVariable('commission', $commission);
+
+    }else{
+        return $controller->redirect('/timesheetStaff');
     }
 }
 ?>

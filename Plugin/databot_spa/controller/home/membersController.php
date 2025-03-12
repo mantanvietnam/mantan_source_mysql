@@ -77,7 +77,7 @@ function login($input)
 							$session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id_member.'/');
 
 							$session->write('infoUser', $info_customer);
-
+							setcookie('id_member',$info_customer->id,time()+365*24*60*60, "/");
 							return $controller->redirect('/managerSelectSpa');
 						}else{
 							$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
@@ -91,6 +91,64 @@ function login($input)
 			}else{
 				$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
 			}
+		}elseif(!empty($_COOKIE['id_member'])){
+			$conditions = array('id'=>(int) $_COOKIE['id_member']);
+				$info_customer = $modelMembers->find()->where($conditions)->first();
+
+				if($info_customer){
+	    			// nếu đây là nhân viên
+					if($info_customer->type == 0){
+						$info_member = $modelMembers->find()->where(array('id'=>$info_customer->id_member, 'type'=>1))->first();
+
+						// lấy tình trạng tài khoản của nhân viên theo chủ spa
+						$info_customer->dateline_at = $info_member->dateline_at;
+						$info_customer->status = $info_member->status;
+						$info_customer->module = json_decode($info_member->module, true);
+					}
+
+	    			// còn hạn sử dụng
+					if($info_customer->dateline_at >= time()){
+
+	    				// nếu tài khoản không bị khóa
+						if($info_customer->status == 1){
+							$info_customer->last_login = time();
+							
+							if(is_array($info_customer->module)){
+								$info_customer->module = json_encode($info_customer->module);
+							}
+							
+							$modelMembers->save($info_customer);
+
+							if(is_string($info_customer->module)){
+								$info_customer->module = json_decode($info_customer->module, true);
+							}
+							
+			    			// nếu là chủ spa
+							if($info_customer->type == 1){
+								$info_customer->id_member = $info_customer->id;
+
+								if(is_string($info_customer->module)){
+									$info_customer->module = json_decode($info_customer->module, true);
+								}
+							}
+
+							if(!empty($info_customer->permission) && is_string($info_customer->permission)){
+								$info_customer->list_permission = json_decode($info_customer->permission,true);
+							}
+
+							$session->write('CheckAuthentication', true);
+							$session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id_member.'/');
+
+							$session->write('infoUser', $info_customer);
+							setcookie('id_member',$info_customer->id,time()+365*24*60*60, "/");
+							return $controller->redirect('/managerSelectSpa');
+						}else{
+							$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
+						}
+					}else{
+						$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn</p>';
+					}
+				}
 		}
 
 		setVariable('mess', $mess);
@@ -105,6 +163,7 @@ function logout($input)
 	global $controller;
 
 	$session->destroy();
+	setcookie('id_member','',time()+365*24*60*60, "/");
 
 	return $controller->redirect('/login');
 }
