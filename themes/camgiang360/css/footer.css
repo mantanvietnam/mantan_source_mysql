@@ -153,27 +153,65 @@
 }
 
 #contact .contact-content .contact-icon .combo-icon a {
-    font-size: 24px;
-    background-color: black;
-    color: #fff;
+    font-size: 30px;
+    /* Kích thước đồng nhất cho tất cả */
     border-radius: 50px;
     margin: 0 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    height: 50px;
+    /* Đảm bảo chiều cao đồng nhất */
+    width: 50px;
+    /* Đảm bảo chiều rộng đồng nhất */
 }
 
 #contact .contact-content .contact-icon .combo-icon a:first-child {
-    font-size: 40px;
-    color: #000;
+    
     background-color: transparent;
     padding: 0;
-    margin: 0;
+    margin: 0 28px 0 0;
+    /* Thêm margin bên phải để giữ khoảng cách */
+    font-size: 30px;
+    /* Thay đổi từ 40px xuống 30px */
+}
+
+#contact .contact-content .contact-icon .combo-icon a:first-child i {
+    color: #1877F2;
+    /* Màu xanh Facebook */
+}
+
+#contact .contact-content .contact-icon .combo-icon a:nth-child(2) i {
+    color: #000000;
+    /* Màu đen TikTok */
+    background: linear-gradient(to right, #25F4EE, #FE2C55, #000000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 #contact .contact-content .contact-icon .combo-icon a:last-child {
-    font-size: 22px;
-    background-color: black;
-    color: #fff;
-    border-radius: 50px;
-    margin: 0;
+    margin: 0 0 0 28px;
+    /* Thêm margin bên trái để giữ khoảng cách */
+    font-size: 30px;
+    /* Thay đổi từ 22px lên 30px */
+}
+
+#contact .contact-content .contact-icon .combo-icon a:last-child i {
+    color: #FF0000;
+    /* Màu đỏ YouTube */
+}
+
+#contact .contact-content .contact-icon .combo-icon a:nth-child(2),
+#contact .contact-content .contact-icon .combo-icon a:last-child {
+    background-color: transparent;
+}
+
+/* Thêm một chút căn chỉnh cho container */
+#contact .contact-content .contact-icon .combo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #contact .contact-content .contact-icon .combo-icon {
