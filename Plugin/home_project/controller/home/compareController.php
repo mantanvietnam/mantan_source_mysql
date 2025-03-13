@@ -28,14 +28,6 @@ function compare($input)
         $projectIds[] = (int) $_GET['project3'];
     }
     
-    // Nếu không có dự án nào được chọn, lấy một dự án mặc định
-    if (empty($projectIds)) {
-        $defaultProject = $modelProductProjects->find()->first();
-        if (!empty($defaultProject)) {
-            $projectIds[] = $defaultProject->id;
-        }
-    }
-    
     // Lấy thông tin chi tiết của từng dự án
     foreach ($projectIds as $projectId) {
         $project = $modelProductProjects->find()->where(['id' => $projectId])->first();

@@ -34,4 +34,43 @@ $menus[3]['sub'][]= array(	'title'=>'Danh Sách Tử Vi',
 							);
 addMenuAdminMantan($menus);
 
+
+
+function sendHoroscopeEmail($email, $name, $year, $gender, $conn) {
+    // Truy vấn lấy dữ liệu tử vi từ database
+    $stmt = $conn->prepare("SELECT * FROM horoscopes WHERE year = ? AND gender = ?");
+    $stmt->bind_param("is", $year, $gender);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $link_download = "https://yourwebsite.com/downloads/horoscope_" . $row['id'] . ".pdf";
+        
+        $to = [trim($email)];
+        $subject = '[Tử vi] Link tải bản tử vi đầy đủ của ' . $name;
+        
+        $content = '<!DOCTYPE html>
+        <html lang="vi">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Link tải tử vi của bạn</title>
+        </head>
+        <body>
+            <p>Xin chào ' . htmlspecialchars($name) . ',</p>
+            <p>Chúng tôi gửi bạn link tải tử vi dựa trên năm sinh (' . $year . ') và giới tính (' . htmlspecialchars($gender) . '):</p>
+            <p><a href="' . $link_download . '">' . $link_download . '</a></p>
+            <p>Trân trọng,</p>
+            <p>Đội ngũ hỗ trợ</p>
+        </body>
+        </html>';
+        
+        sendEmail($to, [], [], $subject, $content);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 ?>
