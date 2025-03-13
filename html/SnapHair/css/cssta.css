@@ -258,7 +258,7 @@
    }
 
    .templateedit .create-now-btn {
-       background-color: var(--primary-color);
+    background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%) !important;
        border: none;
        border-radius: 25px;
        padding: 10px 20px;
@@ -348,7 +348,7 @@
    }
 
  .templateedit .nav-btn {
- /*    background-color: var(--primary-color);*/
+    background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%) !important;
      border: none;
      width: 36px;
      height: 36px;
@@ -4165,7 +4165,7 @@ background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 3
     border-radius: 20px;
     color: black;
     font-weight: bold;
-    background-color: white;
+    background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%) !important;
 }
 
 .box-ig{
@@ -4240,6 +4240,17 @@ background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 3
 
     .mbi-cl{
         flex-direction: column;
+    }
+
+    .landingpage .btn-custom {
+        display: none;
+    }
+    .landingpage .grid{
+        display: none;
+    }
+
+    .landingpage .hero-title{
+        display: none;
     }
 }  */
 /* History */
