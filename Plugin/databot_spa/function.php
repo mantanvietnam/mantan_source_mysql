@@ -650,7 +650,7 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
     }
 }
 
-function sendEmailRegAcc($email='', $fullName='', $user= '', $pass= '')
+function sendEmailRegAcc($email='', $fullName='', $user= '', $pass= '', $code_otp)
 {
     $to = array();
 
@@ -707,6 +707,7 @@ function sendEmailRegAcc($email='', $fullName='', $user= '', $pass= '')
                         Link đăng nhập: <a href="https://quanlydichvu.com">https://quanlydichvu.com</a><br/>
                         Tài khoản: '.$user.'<br/>
                         Mật khẩu: '.$pass.'<br/>
+                        Mã xác thực OTP: '.$code_otp.'<br/>
                         <br><br>
                         
                         Trân trọng ./

@@ -436,7 +436,7 @@ function checkinbetBookAPI($input){
 	return apiResponse(0,'Gửi sai phương thức POST');
 }
 
-function detailServiceAPI($input){	
+function detailBookAPI($input){	
 	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;

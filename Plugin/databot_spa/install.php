@@ -527,6 +527,7 @@ $sqlInstallDatabase .="CREATE TABLE `staff_timekeepers` (
 `shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `id_staff` INT NULL DEFAULT NULL ,
+`id_member` INT NULL DEFAULT NULL ,
 `id_spa` INT NULL DEFAULT NULL ,
 `check_in` INT NULL DEFAULT NULL ,
 `created_at` INT NULL DEFAULT NULL ,
@@ -1007,6 +1008,7 @@ $sqlUpdateDatabase['staff_timekeepers']['day'] = "ALTER TABLE `staff_timekeepers
 $sqlUpdateDatabase['staff_timekeepers']['shift'] = "ALTER TABLE `staff_timekeepers` ADD `shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['note'] = "ALTER TABLE `staff_timekeepers` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['id_staff'] = "ALTER TABLE `staff_timekeepers` ADD `id_staff` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['id_member'] = "ALTER TABLE `staff_timekeepers` ADD `id_member` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['id_spa'] = "ALTER TABLE `staff_timekeepers` ADD `id_spa` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['check_in'] = "ALTER TABLE `staff_timekeepers` ADD `check_in` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['created_at'] = "ALTER TABLE `staff_timekeepers` ADD `created_at` INT NULL DEFAULT NUL;";

@@ -488,13 +488,13 @@
                     id: "'.$id.'",
                     idBook: "'.$data->id.'",
                     title: "'.date("H:i", $time_book).' '.$data->Services['name'].'",
-                    name: "'.$data->name.'",
+                  name: "'.$data->name.'",
                     phone: "'.$data->phone.'",
                     email: "'.$data->email.'",
                     time_book: "'.date("H:i d/m/Y", $time_book).'",
                     time_chekin: "'.$time_book.'",
                     start: "'.date('Y-m-d', $time_book).'",
-                    end: "'.date('Y-m-d', $time_book).'",
+                     /* end: "'.date('Y-m-d', $time_book).'",
                     service: "'.$data->Services['name'].'",
                     staff: "'.$data->Members['name'].'",
                     id_staff: "'.$data->Members['id'].'",
@@ -507,7 +507,7 @@
                     repeat_book: "'.$data->repeat_book.'",
                     apt_times: "'.$data->apt_times.'",
                     apt_step: "'.$data->apt_step.'",
-                    color: "'.$color.'",
+                    color: "'.$color.'",*/
                   },';
               } while (!empty($data->repeat_book) && $data->apt_times>=$apt_times);
             }

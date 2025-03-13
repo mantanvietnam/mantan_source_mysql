@@ -1418,11 +1418,12 @@ function checklogin($permission=''){
     }elseif(!empty($session->read('infoStaff'))){
         $user = $session->read('infoStaff');
         $info_staff = $modelStaff->find()->where(['id'=>$user->id])->first();
+        $father = $modelMember->find()->where(array('id'=>$user->id_member, 'status'=>'active' ))->first();
         if(!empty($info_staff)){
             $user->permission = $info_staff->permission;
-            $user->deadline = $info_staff->deadline;
+            $user->deadline = $father->deadline;
         }
-        $father = $modelMember->find()->where(array('id'=>$user->id_member, 'status'=>'active' ))->first();
+        
         $user->id_father = $father->id_father;
         $user->type = 'staff';
         $user->type_tv = 'Nhân viên';
@@ -1444,6 +1445,10 @@ function checklogin($permission=''){
     }else{
       $user ='';  
     }    
+    if($user->deadline < time()){
+        $user->grant_permission = 0;
+    }
+
     return $user; 
 }
 
