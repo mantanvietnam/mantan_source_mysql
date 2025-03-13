@@ -13,10 +13,8 @@ function compare($input)
     $modelCommerce = $controller->loadModel('Commerce');
     $modelCommerceItems = $controller->loadModel('CommerceItems');
 
-    // Mảng để lưu các dự án cần so sánh
     $compareData = [];
     
-    // Lấy ID của các dự án cần so sánh từ tham số URL
     $projectIds = [];
     if (!empty($_GET['project1'])) {
         $projectIds[] = (int) $_GET['project1'];
@@ -28,28 +26,23 @@ function compare($input)
         $projectIds[] = (int) $_GET['project3'];
     }
     
-    // Lấy thông tin chi tiết của từng dự án
     foreach ($projectIds as $projectId) {
         $project = $modelProductProjects->find()->where(['id' => $projectId])->first();
         
         if (!empty($project)) {
-            // Xử lý dữ liệu JSON
             $images = !empty($project->images) ? json_decode($project->images, true) : [];
             $officially = !empty($project->officially) ? json_decode($project->officially, true) : [];
             
-            // Lấy thông tin danh mục cho loại dự án
             $kindCategory = null;
             if (!empty($project->id_kind)) {
                 $kindCategory = $modelCategories->find()->where(['id' => $project->id_kind])->first();
             }
             
-            // Lấy thông tin loại căn hộ
             $apartType = null;
             if (!empty($project->id_apart_type)) {
                 $apartType = $modelCategories->find()->where(['id' => $project->id_apart_type])->first();
             }
             
-            // Xử lý dữ liệu dự án
             $projectData = [
                 'id' => $project->id,
                 'name' => $project->name,
@@ -72,7 +65,6 @@ function compare($input)
                 'images' => $images
             ];
             
-            // Lấy thông tin tiện ích qua bảng commerce
             $commerceData = $modelCommerce->find()->where(['id_product' => $project->id])->first();
             if (!empty($commerceData)) {
                 $projectData['commerce'] = [
@@ -81,7 +73,6 @@ function compare($input)
                     'view_type' => $commerceData->view_type
                 ];
                 
-                // Lấy danh sách các tiện ích
                 $commerceItems = $modelCommerceItems->find()->where(['id_commerce' => $commerceData->id])->all()->toList();
                 $projectData['amenities'] = [];
                 
@@ -98,14 +89,12 @@ function compare($input)
         }
     }
     
-    // Lấy tất cả các dự án để hiển thị trong modal chọn
     $allProjects = $modelProductProjects->find()
         ->select(['id', 'name', 'status', 'image'])
         ->order(['id' => 'DESC'])
         ->all()
         ->toList();
     
-    // Chuẩn bị các tiêu chí so sánh chính
     $compareFeatures = [
         'price' => 'Giá niêm yết',
         'acreage' => 'Diện tích',
@@ -115,13 +104,11 @@ function compare($input)
         'status' => 'Tình trạng'
     ];
     
-    // Chuẩn bị các tiêu chí vị trí
     $locationFeatures = [
         'address' => 'Địa chỉ',
         'text_location' => 'Khu vực'
     ];
     
-    // Gửi dữ liệu ra view
     setVariable('compareData', $compareData);
     setVariable('allProjects', $allProjects);
     setVariable('compareFeatures', $compareFeatures);

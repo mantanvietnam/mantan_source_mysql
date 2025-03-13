@@ -59,7 +59,6 @@ function getProjectDetailsAPI()
     $modelCommerce = $controller->loadModel('Commerce');
     $modelCommerceItems = $controller->loadModel('CommerceItems');
 
-    // Nhận dữ liệu từ request
     $dataSend = $_REQUEST;
 
     if (!empty($dataSend['id'])) {
@@ -68,23 +67,19 @@ function getProjectDetailsAPI()
         $project = $modelProductProjects->find()->where(['id' => $projectId])->first();
 
         if (!empty($project)) {
-            // Xử lý JSON
             $images = !empty($project->images) ? json_decode($project->images, true) : [];
             $officially = !empty($project->officially) ? json_decode($project->officially, true) : [];
 
-            // Lấy thông tin danh mục cho loại dự án
             $kindCategory = null;
             if (!empty($project->id_kind)) {
                 $kindCategory = $modelCategories->find()->where(['id' => $project->id_kind])->first();
             }
 
-            // Lấy thông tin loại căn hộ
             $apartType = null;
             if (!empty($project->id_apart_type)) {
                 $apartType = $modelCategories->find()->where(['id' => $project->id_apart_type])->first();
             }
 
-            // Xử lý dữ liệu dự án
             $return = [
                 'id' => $project->id,
                 'name' => $project->name,
@@ -107,7 +102,6 @@ function getProjectDetailsAPI()
                 'images' => $images
             ];
 
-            // Lấy thông tin tiện ích qua bảng commerce
             $commerceData = $modelCommerce->find()->where(['id_product' => $project->id])->first();
             if (!empty($commerceData)) {
                 $return['commerce'] = [
@@ -116,7 +110,6 @@ function getProjectDetailsAPI()
                     'view_type' => $commerceData->view_type
                 ];
 
-                // Lấy danh sách các tiện ích
                 $commerceItems = $modelCommerceItems->find()->where(['id_commerce' => $commerceData->id])->all()->toList();
                 $return['amenities'] = [];
 

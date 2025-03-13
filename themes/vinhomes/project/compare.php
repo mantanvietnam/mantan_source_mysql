@@ -196,7 +196,6 @@ tr:hover td {
                                         <img src="<?= $project->image ?>" alt="<?= $project->name ?>" class="me-3" style="width: 50px; height: 50px; object-fit: cover;">
                                         <div>
                                             <h6 class="mb-0"><?= $project->name ?></h6>
-                                            <small class="text-muted"><?= $project->status ?></small>
                                         </div>
                                     </div>
                                 </li>
@@ -360,50 +359,46 @@ tr:hover td {
         });
 
         document.addEventListener("click", function(event) {
-    if (event.target.classList.contains("view-full-description")) {
-        event.preventDefault();
-        const fullDescription = decodeURIComponent(event.target.getAttribute("data-full-description"));
+            if (event.target.classList.contains("view-full-description")) {
+                event.preventDefault();
+                const fullDescription = decodeURIComponent(event.target.getAttribute("data-full-description"));
 
-        const modalHtml = `
-            <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center description-modal">
-                <div class="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-xl font-bold text-[#142A72]">Mô tả chi tiết</h3>
-                        <button class="close-modal text-gray-500 hover:text-gray-700">
-                            <i class="fas fa-times text-xl"></i>
-                        </button>
+                const modalHtml = `
+                    <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center description-modal">
+                        <div class="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-xl font-bold text-[#142A72]">Mô tả chi tiết</h3>
+                                <button class="close-modal text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+                            <div class="description-content">
+                                ${fullDescription}
+                            </div>
+                            <div class="mt-4 text-center">
+                                <button class="close-modal px-4 py-2 bg-[#142A72] text-white rounded-lg hover:bg-[#0e1d4d]">
+                                    Đóng
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="description-content">
-                        ${fullDescription}
-                    </div>
-                    <div class="mt-4 text-center">
-                        <button class="close-modal px-4 py-2 bg-[#142A72] text-white rounded-lg hover:bg-[#0e1d4d]">
-                            Đóng
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
+                `;
 
-        document.body.insertAdjacentHTML('beforeend', modalHtml);
+                document.body.insertAdjacentHTML('beforeend', modalHtml);
 
-        document.querySelectorAll(".close-modal").forEach(button => {
-            button.addEventListener("click", () => {
-                document.querySelector(".description-modal").remove();
-            });
+                document.querySelectorAll(".close-modal").forEach(button => {
+                    button.addEventListener("click", () => {
+                        document.querySelector(".description-modal").remove();
+                    });
+                });
+            }
         });
-    }
-});
 
         function updateComparisonTables(properties) {
-            console.log("🔄 Đang cập nhật bảng so sánh với dữ liệu:", properties);
-
-            // Đặt lại tất cả các ô trống trong bảng
             document.querySelectorAll("table td").forEach(cell => {
                 cell.innerHTML = "";
             });
             
-            // Lấy ra tất cả các bảng
             const tables = document.querySelectorAll("table.w-full.border-collapse");
             
             if (tables.length < 3) {
@@ -411,37 +406,27 @@ tr:hover td {
                 return;
             }
             
-            // Bảng giá - bảng thứ nhất
             const priceTable = tables[0];
             const priceRows = priceTable.querySelectorAll("tr");
             
-            // Bảng thông tin chi tiết - bảng thứ hai
             const detailsTable = tables[1];
             const detailsRows = detailsTable.querySelectorAll("tr");
             
-            // Bảng vị trí & tiện ích - bảng thứ ba
             const amenitiesTable = tables[2];
             const amenitiesRows = amenitiesTable.querySelectorAll("tr");
 
-            // Kiểm tra xem có tìm thấy các hàng không
             if (!priceRows.length || !detailsRows.length || !amenitiesRows.length) {
                 console.error("❌ Không tìm thấy các hàng trong bảng so sánh!");
                 return;
             }
 
-            // Log thông tin debug
-            console.log("Số hàng trong bảng giá:", priceRows.length);
-            console.log("Số hàng trong bảng chi tiết:", detailsRows.length);
-            console.log("Số hàng trong bảng tiện ích:", amenitiesRows.length);
 
-            // Cập nhật từng bảng với dữ liệu dự án
             for (let i = 0; i < Math.min(properties.length, 3); i++) {
                 const property = properties[i];
                 if (!property || !property.id) continue;
 
                 const columnIndex = i + 2;
 
-                // Bảng giá
                 if (priceRows.length > 0) {
                     const priceRow = priceRows[0];
                     const priceCell = priceRow.querySelector(`td:nth-child(${columnIndex})`);
@@ -449,7 +434,6 @@ tr:hover td {
                         if (property.price && property.price.includes("<table") || 
                             (typeof property.priceDetail === 'string' && property.priceDetail.includes("<table"))) {
 
-                            // Chỉ hiển thị link "Xem chi tiết"
                             priceCell.innerHTML = `
                                 <div>
                                     <span class="text-[#FF5722] font-bold">${property.price ? '' : ''}</span>
@@ -460,53 +444,29 @@ tr:hover td {
                                 </div>
                             `;
                         } else {
-                            // Nếu không phải bảng phức tạp, hiển thị giá trực tiếp
                             priceCell.innerHTML = property.price || 'Liên hệ';
                         }
                     }
                 }
 
-            // Bảng thông tin chi tiết
             if (detailsRows.length >= 7) {
-                        // Chủ đầu tư
                         updateCellByRowAndColumn(detailsRows[0], columnIndex, property.investor || '');
-                        
-                        // Mô tả dự án
-                        updateCellByRowAndColumn(detailsRows[1], columnIndex, property.description || '');
-                        
-                        // Diện tích
-                        updateCellByRowAndColumn(detailsRows[2], columnIndex, property.acreage || '');
-                        
-                        // Địa chỉ
+                        updateCellByRowAndColumn(detailsRows[1], columnIndex, property.description || '');                        
+                        updateCellByRowAndColumn(detailsRows[2], columnIndex, property.acreage || '');                       
                         updateCellByRowAndColumn(detailsRows[3], columnIndex, property.address || '');
-                        
-                        // Hướng
                         updateCellByRowAndColumn(detailsRows[4], columnIndex, property.direction || '');
-                        
-                        // Loại mô hình
-                        updateCellByRowAndColumn(detailsRows[5], columnIndex, property.type || '');
-                        
-                        // Hình thức sở hữu
+                        updateCellByRowAndColumn(detailsRows[5], columnIndex, property.apart_type || '');
                         updateCellByRowAndColumn(detailsRows[6], columnIndex, property.ownership_type || '');
                     }
 
-                    // Bảng vị trí & tiện ích
                     if (amenitiesRows.length >= 4) {
-                        // Không gian
-                        updateCellByRowAndColumn(amenitiesRows[0], columnIndex, property.space || '');
-                        
-                        // Dịch vụ tiện ích
-                        updateCellByRowAndColumn(amenitiesRows[1], columnIndex, formatAmenities(property.amenities));
-                        
-                        // Vị trí thương mại
-                        updateCellByRowAndColumn(amenitiesRows[2], columnIndex, property.commercialLocation || '');
-                        
-                        // Khác
-                        updateCellByRowAndColumn(amenitiesRows[3], columnIndex, property.others || '');
+                        updateCellByRowAndColumn(amenitiesRows[0], columnIndex, property.ecological_space || '');
+                        updateCellByRowAndColumn(amenitiesRows[1], columnIndex, property.utility_services || '');
+                        updateCellByRowAndColumn(amenitiesRows[2], columnIndex, property.officially['description'] || '');
+                        updateCellByRowAndColumn(amenitiesRows[3], columnIndex, property.commerce['main_description'] || '');
                     }
                 }
                 addPriceDetailsEvents();
-                console.log("✅ Cập nhật bảng so sánh thành công!");
             
         }
 
