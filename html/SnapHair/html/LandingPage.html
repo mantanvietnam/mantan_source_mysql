@@ -469,133 +469,268 @@
         //     });
 
     </script>
-<script>document.addEventListener('DOMContentLoaded', function() {
-// Khởi tạo slider 1 (cards slider)
-initCardSlider();
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Khởi tạo slider 1 (cards slider)
+        initCardSlider();
 
-// Khởi tạo slider 2 (testimonials slider)
-initTestimonialSlider();
+        // Khởi tạo slider 2 (testimonials slider)
+        initTestimonialSlider();
 
-function initCardSlider() {
-const prevButton = document.querySelector('.btn-prev');
-const nextButton = document.querySelector('.btn-next');
-const cards = document.querySelectorAll('.col-md-4');
+        function initCardSlider() {
+            const prevButton = document.querySelector('.btn-prev');
+            const nextButton = document.querySelector('.btn-next');
+            const cards = document.querySelectorAll('.col-md-4');
+            let autoSlideInterval;
 
-let currentBatch = 0;
-const totalBatches = Math.ceil(cards.length / 3) - 1;
+            let currentBatch = 0;
+            const totalBatches = Math.ceil(cards.length / 3) - 1;
 
-// Cập nhật hiển thị dựa trên batch hiện tại
-function updateDisplay() {
-cards.forEach((card, index) => {
-const batchIndex = Math.floor(index / 3);
+            // Cập nhật hiển thị dựa trên batch hiện tại
+            function updateDisplay(direction) {
+                // Ẩn tất cả cards trước
+                cards.forEach((card) => {
+                    card.style.display = 'none';
+                });
 
-if (batchIndex === currentBatch) {
-card.style.display = 'block';
-card.style.opacity = '1';
-card.style.transform = 'translateX(0)';
-} else {
-card.style.transform = batchIndex < currentBatch ? 'translateX(-100%)' : 'translateX(100%)' ; card.style.opacity='0' ;
-    setTimeout(()=> {
-    if (Math.floor(index / 3) !== currentBatch) {
-    card.style.display = 'none';
-    }
-    }, 500);
-    }
-    card.style.transition = 'all 0.5s ease';
-    });
+                // Hiển thị cards trong batch hiện tại
+                for (let i = currentBatch * 3; i < (currentBatch + 1) * 3 && i < cards.length; i++) {
+                    const card = cards[i];
 
-    // Cập nhật trạng thái nút
-    prevButton.disabled = currentBatch === 0;
-    prevButton.style.opacity = currentBatch === 0 ? '0.5' : '1';
-    nextButton.disabled = currentBatch >= totalBatches;
-    nextButton.style.opacity = currentBatch >= totalBatches ? '0.5' : '1';
-    }
+                    // Đặt vị trí ban đầu
+                    if (direction === 'next') {
+                        card.style.transform = 'translateX(100%)'; // Bắt đầu từ bên phải
+                    } else if (direction === 'prev') {
+                        card.style.transform = 'translateX(-100%)'; // Bắt đầu từ bên trái
+                    } else {
+                        card.style.transform = 'translateX(0)'; // Không có hiệu ứng khởi tạo
+                    }
 
-    // Thêm sự kiện cho các nút
-    nextButton.addEventListener('click', function() {
-    if (currentBatch < totalBatches) { currentBatch++; updateDisplay(); } }); prevButton.addEventListener('click',
-        function() { if (currentBatch> 0) {
-        currentBatch--;
-        updateDisplay();
-        }
-        });
+                    card.style.display = 'block';
+                    card.style.opacity = '0';
 
-        // Khởi tạo hiển thị ban đầu
-        updateDisplay();
+                    // Force reflow để animation hoạt động
+                    void card.offsetWidth;
+
+                    // Chuyển đến vị trí hiển thị
+                    card.style.transform = 'translateX(0)';
+                    card.style.opacity = '1';
+                    card.style.transition = 'all 0.5s ease';
+                }
+
+                // Cập nhật trạng thái nút
+                prevButton.disabled = currentBatch === 0;
+                prevButton.style.opacity = currentBatch === 0 ? '0.5' : '1';
+                nextButton.disabled = currentBatch >= totalBatches;
+                nextButton.style.opacity = currentBatch >= totalBatches ? '0.5' : '1';
+            }
+
+            // Hàm chuyển đến batch tiếp theo
+            function nextSlide() {
+                if (currentBatch < totalBatches) {
+                    currentBatch++;
+                    updateDisplay('next');
+                } else {
+                    // Quay lại batch đầu tiên khi đã đến batch cuối
+                    currentBatch = 0;
+                    updateDisplay('next');
+                }
+            }
+
+            // Hàm chuyển đến batch trước đó
+            function prevSlide() {
+                if (currentBatch > 0) {
+                    currentBatch--;
+                    updateDisplay('prev');
+                } else {
+                    // Chuyển đến batch cuối cùng khi đã ở batch đầu tiên
+                    currentBatch = totalBatches;
+                    updateDisplay('prev');
+                }
+            }
+
+            // Thêm sự kiện cho các nút
+            nextButton.addEventListener('click', function () {
+                nextSlide();
+                // Reset auto slide interval khi người dùng tương tác
+                resetAutoSlideInterval();
+            });
+
+            prevButton.addEventListener('click', function () {
+                prevSlide();
+                // Reset auto slide interval khi người dùng tương tác
+                resetAutoSlideInterval();
+            });
+
+            // Thiết lập auto slide
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(nextSlide, 3000); // Tự động chuyển sau mỗi 3 giây
+            }
+
+            // Reset auto slide interval
+            function resetAutoSlideInterval() {
+                clearInterval(autoSlideInterval);
+                startAutoSlide();
+            }
+
+            // Khởi tạo hiển thị ban đầu và bắt đầu auto slide
+            updateDisplay();
+            startAutoSlide();
         }
 
         function initTestimonialSlider() {
-        const testimonialsContainer = document.querySelector('.testimonials-container');
-        const prevButton = document.querySelector('.controls .prev');
-        const nextButton = document.querySelector('.controls .next');
-        const testimonials = document.querySelectorAll('.testimonial');
+            const testimonialsContainer = document.querySelector('.testimonials-container');
+            const testimonialsWrapper = document.querySelector('.testimonials-wrapper') || testimonialsContainer.parentElement;
+            const prevButton = document.querySelector('.controls .prev');
+            const nextButton = document.querySelector('.controls .next');
+            const testimonials = document.querySelectorAll('.testimonial');
+            let autoSlideInterval;
 
-        let currentPosition = 0;
-        let testimonialWidth = testimonials[0].offsetWidth;
-        const gap = 20;
-        let visibleTestimonials = getVisibleCount();
-        let maxPosition = calculateMaxPosition();
+            let currentPosition = 0;
+            let testimonialWidth = testimonials[0].offsetWidth;
+            const gap = 20;
+            let visibleTestimonials = getVisibleCount();
+            let maxPosition = calculateMaxPosition();
 
-        function getVisibleCount() {
-        return Math.floor(testimonialsContainer.offsetWidth / testimonialWidth);
-        }
+            // Đảm bảo container có overflow hidden
+            testimonialsWrapper.style.overflow = 'hidden';
 
-        function calculateMaxPosition() {
-        return Math.max(0, testimonials.length - getVisibleCount());
-        }
-
-        function updateSliderPosition() {
-        testimonialsContainer.style.transform = `translateX(-${currentPosition * (testimonialWidth + gap)}px)`;
-
-        // Cập nhật trạng thái nút
-        prevButton.disabled = currentPosition === 0;
-        nextButton.disabled = currentPosition >= maxPosition;
-        prevButton.classList.toggle('disabled', currentPosition === 0);
-        nextButton.classList.toggle('disabled', currentPosition >= maxPosition);
-        }
-
-        // Thêm sự kiện cho các nút
-        prevButton.addEventListener('click', function() {
-        if (currentPosition > 0) {
-        currentPosition--;
-        updateSliderPosition();
-        }
-        });
-
-        nextButton.addEventListener('click', function() {
-        if (currentPosition < maxPosition) { currentPosition++; updateSliderPosition(); } }); // Xử lý responsive
-            window.addEventListener('resize', function() { testimonialWidth=testimonials[0].offsetWidth;
-            maxPosition=calculateMaxPosition(); if (currentPosition> maxPosition) {
-            currentPosition = maxPosition;
+            function getVisibleCount() {
+                return Math.floor(testimonialsWrapper.offsetWidth / testimonialWidth);
             }
 
-            updateSliderPosition();
+            function calculateMaxPosition() {
+                return Math.max(0, testimonials.length - getVisibleCount());
+            }
+
+            function updateSliderPosition(direction) {
+                // Tạo hiệu ứng rõ ràng hơn cho việc chuyển đổi
+                if (direction === 'next') {
+                    // Khi chuyển sang phải, các phần tử mới sẽ từ bên phải xuất hiện
+                    testimonialsContainer.style.transition = 'transform 0.5s ease';
+                    testimonialsContainer.style.transform = `translateX(-${currentPosition * (testimonialWidth + gap)}px)`;
+                } else if (direction === 'prev') {
+                    // Khi chuyển sang trái, các phần tử mới sẽ từ bên trái xuất hiện
+                    testimonialsContainer.style.transition = 'transform 0.5s ease';
+                    testimonialsContainer.style.transform = `translateX(-${currentPosition * (testimonialWidth + gap)}px)`;
+                } else {
+                    // Không có hiệu ứng cho lần tải đầu tiên
+                    testimonialsContainer.style.transition = 'none';
+                    testimonialsContainer.style.transform = `translateX(-${currentPosition * (testimonialWidth + gap)}px)`;
+                    // Force reflow
+                    void testimonialsContainer.offsetWidth;
+                    testimonialsContainer.style.transition = 'transform 0.5s ease';
+                }
+
+                // Cập nhật trạng thái nút
+                prevButton.disabled = currentPosition === 0;
+                nextButton.disabled = currentPosition >= maxPosition;
+                prevButton.classList.toggle('disabled', currentPosition === 0);
+                nextButton.classList.toggle('disabled', currentPosition >= maxPosition);
+            }
+
+            // Hàm chuyển đến vị trí tiếp theo
+            function nextSlide() {
+                if (currentPosition < maxPosition) {
+                    currentPosition++;
+                    updateSliderPosition('next');
+                } else {
+                    // Quay lại vị trí đầu tiên khi đã đến vị trí cuối
+                    currentPosition = 0;
+
+                    // Tạo hiệu ứng quay về đầu mượt mà
+                    testimonialsContainer.style.transition = 'none';
+                    testimonialsContainer.style.transform = 'translateX(0)';
+                    void testimonialsContainer.offsetWidth;
+                    testimonialsContainer.style.transition = 'transform 0.5s ease';
+
+                    updateSliderPosition('next');
+                }
+            }
+
+            // Hàm chuyển đến vị trí trước đó
+            function prevSlide() {
+                if (currentPosition > 0) {
+                    currentPosition--;
+                    updateSliderPosition('prev');
+                } else {
+                    // Chuyển đến vị trí cuối cùng khi đã ở vị trí đầu tiên
+                    currentPosition = maxPosition;
+
+                    // Tạo hiệu ứng quay về cuối mượt mà
+                    testimonialsContainer.style.transition = 'none';
+                    testimonialsContainer.style.transform = `translateX(-${maxPosition * (testimonialWidth + gap)}px)`;
+                    void testimonialsContainer.offsetWidth;
+                    testimonialsContainer.style.transition = 'transform 0.5s ease';
+
+                    updateSliderPosition('prev');
+                }
+            }
+
+            // Thêm sự kiện cho các nút
+            prevButton.addEventListener('click', function () {
+                prevSlide();
+                // Reset auto slide interval khi người dùng tương tác
+                resetAutoSlideInterval();
+            });
+
+            nextButton.addEventListener('click', function () {
+                nextSlide();
+                // Reset auto slide interval khi người dùng tương tác
+                resetAutoSlideInterval();
+            });
+
+            // Xử lý responsive
+            window.addEventListener('resize', function () {
+                testimonialWidth = testimonials[0].offsetWidth;
+                visibleTestimonials = getVisibleCount();
+                maxPosition = calculateMaxPosition();
+
+                if (currentPosition > maxPosition) {
+                    currentPosition = maxPosition;
+                }
+
+                updateSliderPosition();
             });
 
             // Thêm chức năng vuốt cho mobile
             let touchStartX = 0;
             let touchEndX = 0;
 
-            testimonialsContainer.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
+            testimonialsWrapper.addEventListener('touchstart', function (e) {
+                touchStartX = e.changedTouches[0].screenX;
             });
 
-            testimonialsContainer.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
+            testimonialsWrapper.addEventListener('touchend', function (e) {
+                touchEndX = e.changedTouches[0].screenX;
 
-            const swipeThreshold = 50;
-            if (touchEndX < touchStartX - swipeThreshold && currentPosition < maxPosition) { currentPosition++;
-                updateSliderPosition(); } else if (touchEndX> touchStartX + swipeThreshold && currentPosition > 0) {
-                currentPosition--;
-                updateSliderPosition();
+                const swipeThreshold = 50;
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    nextSlide();
+                    resetAutoSlideInterval();
+                } else if (touchEndX > touchStartX + swipeThreshold) {
+                    prevSlide();
+                    resetAutoSlideInterval();
                 }
-                });
+            });
 
-                // Khởi tạo slider
-                updateSliderPosition();
-                }
-                });
-                </script>
+            // Thiết lập auto slide
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(nextSlide, 3000); // Tự động chuyển sau mỗi 3 giây
+            }
+
+            // Reset auto slide interval
+            function resetAutoSlideInterval() {
+                clearInterval(autoSlideInterval);
+                startAutoSlide();
+            }
+
+            // Khởi tạo slider và bắt đầu auto slide
+            updateSliderPosition();
+            startAutoSlide();
+        }
+    });
+</script>
 </body>
 
 </html>
