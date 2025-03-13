@@ -3278,10 +3278,16 @@ background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 3
 .landingpage .btn-prev {
     background-color: #333;
     color: white;
+    transition: all 0.3s ease;
+}
+
+.landingpage .btn-prev:hover {
+    background-color: #ff44e3;
+    color: white;
 }
 
 .landingpage .btn-next {
-    background-color: #e573d9;
+    background-color: #ff44e3;
     color: white;
 }
 
