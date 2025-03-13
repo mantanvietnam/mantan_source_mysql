@@ -61,7 +61,7 @@ function listCustomerCampaign($input)
                     $conditions['status IN'] = $_GET['status'];
                 }
 
-                if($_GET['id_staff']!=''){
+                if(@$_GET['id_staff']!=''){
                     $conditions['id_staff'] =(int) $_GET['id_staff'];
                 }
 
@@ -353,6 +353,7 @@ function deleteCustomerCampaign($input)
     global $session;
 
     $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCustomers = $controller->loadModel('Customers');
     $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
     $user = checklogin('deleteCustomerCampaign');   
     if(!empty($user)){
