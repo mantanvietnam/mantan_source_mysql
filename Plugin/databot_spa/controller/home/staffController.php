@@ -785,12 +785,13 @@ function checktimesheet($input){
         $date = explode('/', $_GET['date']);
         $date = mktime(0,0,0,$date[1],$date[0],$date[2]);
         
-        $checkdate = $modelStaffTimekeepers->find()->where(['created_at'=>$date,'id_staff'=>$staff->id])->first();
+        $checkdate = $modelStaffTimekeepers->find()->where(['created_at'=>$date,'id_staff'=>$staff->id, 'id_member'=>$user->id_member])->first();
         if(!empty($_GET['shift'])){
             if(empty($checkdate)){
                 $checkdate = $modelStaffTimekeepers->newEmptyEntity();
                 $checkdate->created_at = $date;
                  $checkdate->check_in = $date;
+                 $checkdate->id_member = $user->id_member;
                 $checkdate->id_staff = $staff->id;
             }
 
@@ -831,6 +832,9 @@ function payrollstaff($input){
         $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
 		$modelStaffBonu = $controller->loadModel('StaffBonus');
         $modelAgency = $controller->loadModel('Agencys');
+        $modelService = $controller->loadModel('Services');
+		$modelOrder = $controller->loadModel('Orders');
+		$modelCustomer = $controller->loadModel('Customers');
 
         $conditions = array('id_member'=>$user->id_member );
 
@@ -872,7 +876,6 @@ function payrollstaff($input){
             $date[$ngay] = array('thu'=>$thu, 'ngay'=>$ngay.'/'.$thang.'/'.$nam);
 
         }
-
         $working_day = 0;
         if(!empty($dataStaff)){
             foreach($date as $key => $value){
@@ -888,11 +891,16 @@ function payrollstaff($input){
             } 
         }
 
-
 		$date = getMonthStartEnd($nam, $thang);
+
+		 
+
+
 		$conditions = array('id_member'=>$user->id_member,'id_staff'=>$dataStaff->id);
 		$conditions['created_at >='] = (int) strtotime($date['start']);
 		$conditions['created_at <='] = (int) strtotime($date['end']);
+
+		$listStaffTimekeeper = $modelStaffTimekeepers->find()->where($conditions)->all()->toList();
 		$conditions['type'] = 'punish';
 	    $listDatapunish = $modelStaffBonu->find()->where($conditions)->all()->toList();
 
@@ -902,6 +910,7 @@ function payrollstaff($input){
 	    if(!empty($listDatapunish)){
             foreach($listDatapunish as $key => $value){
                 $punish +=  $value->money;
+                $listDatapunish[$key]->infoStaff = $modelMember->find()->where(['id'=>$value->id_staff])->first();
             } 
         }
 
@@ -909,6 +918,7 @@ function payrollstaff($input){
 	    if(!empty($listDatabonus)){
             foreach($listDatabonus as $key => $value){
                 $bonus +=  $value->money;
+                $listDatabonus[$key]->infoStaff = $modelMember->find()->where(['id'=>$value->id_staff])->first();
             } 
         }
 
@@ -921,6 +931,19 @@ function payrollstaff($input){
 	    if(!empty($listDatacommission)){
             foreach($listDatacommission as $key => $value){
                 $commission +=  $value->money;
+                $listDatacommission[$key]->infoStaff = $modelMember->find()->where(['id'=>$value->id_staff])->first();
+				$service = $modelService->find()->where(array('id'=>$value->id_service))->first();
+
+				if(!empty($service)){
+					$listDatacommission[$key]->service = $service->name;
+				}
+
+				$order = $modelOrder->find()->where(['id'=>$value->id_order])->first();
+				if(!empty($order)){
+					$order->customer = $modelCustomer->find()->where(['id'=>$order->id_customer])->first();
+				}
+
+				$listDatacommission[$key]->order= $order;
             } 
         }
 
@@ -932,7 +955,10 @@ function payrollstaff($input){
     	setVariable('punish', $punish);
     	setVariable('bonus', $bonus);
     	setVariable('commission', $commission);
-
+    	setVariable('listDatapunish', $listDatapunish);
+    	setVariable('listDatabonus', $listDatabonus);
+    	setVariable('listDatacommission', $listDatacommission);
+    	setVariable('listStaffTimekeeper', $listStaffTimekeeper);
     }else{
         return $controller->redirect('/timesheetStaff');
     }

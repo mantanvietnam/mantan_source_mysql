@@ -37,7 +37,7 @@ function login($input)
 	    		if(!empty($info_customer)){
     				// nếu tài khoản không bị khóa
     				if($info_customer->status == 'active'){
-    					if($info_customer->deadline > time()){
+    					//if($info_customer->deadline > time()){
     						$info_customer->last_login = time();
 							$modelMembers->save($info_customer);
 							
@@ -60,9 +60,9 @@ function login($input)
 							}else{
 								return $controller->redirect('/verify');
 							}
-						}else{
-							$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ</p>';
-						}
+						// }else{
+						// 	$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ</p>';
+						// }
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 					}

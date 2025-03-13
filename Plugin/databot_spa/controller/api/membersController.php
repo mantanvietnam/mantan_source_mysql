@@ -39,7 +39,7 @@ function createMemberAPI($input)
 				$data->phone = $dataSend['phone'];
 				$data->email = @$dataSend['email'];
 				$data->password = md5($dataSend['password']);
-				$data->status = 1; //1: kích hoạt, 0: khóa
+				$data->status = 0; //1: kích hoạt, 0: khóa
 				$data->type = 1; // 0: nhân viên, 1: chủ spa
 				$data->id_member = 0;
 				$data->created_at = time();
@@ -84,7 +84,7 @@ function createMemberAPI($input)
 
 				// gửi email thông báo tài khoản
 				if(!empty($data->email)){
-					sendEmailRegAcc($data->email, $data->name, $data->phone, $dataSend['phone']);
+					sendEmailRegAcc($data->email, $data->name, $data->phone, $dataSend['password'], $data->code_otp);
 				}
 				
 
@@ -99,6 +99,40 @@ function createMemberAPI($input)
 		return  apiResponse(0,'Gửi thiếu dữ liệu');
 	}
 	
+}
+
+function verifyAccountOtpAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+		if(!empty($dataSend['phone']) 
+			&& !empty($dataSend['code'])){
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'code_otp'=>$dataSend['code']))->first();
+
+			if(!empty($checkPhone)){
+				$checkPhone->code_otp = null;
+				$checkPhone->status = 1;
+				$modelMember->save($checkPhone);
+
+				return apiResponse(1, 'Xác thực tài khoản thành công');		
+			}
+				return apiResponse(4,'Mã xác thực nhập không đúng');
+		}
+		return apiResponse(2,'Gửi thiếu dữ liệu');
+	}
+	return  apiResponse(0,'Gửi sai phương thức POST');
 }
 
 function loginAPI($input)

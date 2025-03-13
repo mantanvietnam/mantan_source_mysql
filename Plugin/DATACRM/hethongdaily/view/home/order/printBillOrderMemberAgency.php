@@ -147,7 +147,7 @@
                             Người bán<br/><?php echo $member_sell->name;?>
                         </div>
                     </div>
-                    <?php if(!empty($member_sell->bank_number) && !empty($member_sell->bank_code)){
+                    <?php if(!empty($member_sell->bank_number) && !empty($member_sell->bank_code) && listPonint()['bill_qrcode']=='active'){
                         $link = 'https://img.vietqr.io/image/'.$member_sell->bank_code.'-'.$member_sell->bank_number.'-compact2.png?accountName='.@$member_sell->bank_name.'&amount='.$order->total.'&addInfo= Thanh toan don hang ma '.$order->id;
                      ?>
                     <div class=" footer " style="padding-top: 5px;">

@@ -116,6 +116,7 @@ function settingSystem($input){
                                     'point_comment'=>(int) @$dataSend['point_comment'],
                                     'point_comment_delete'=>(int) @$dataSend['point_comment_delete'],
                                     'email_notification'=> @$dataSend['email_notification'],
+                                    'bill_qrcode'=> @$dataSend['bill_qrcode'],
                                     );
                 $data->description = json_encode($description);
 
@@ -150,6 +151,7 @@ function settingSystem($input){
         $data->point_comment =(int) @$description['point_comment'];
         $data->point_comment_delete =(int) @$description['point_comment_delete'];
         $data->email_notification = @$description['email_notification'];
+        $data->bill_qrcode = @$description['bill_qrcode'];
         }
        
 

@@ -44,7 +44,7 @@ function registerUserApi($input): array
                 $getBankAccount =getBankAccount();
                   $user = $modelUser->newEmptyEntity();
                 if(!empty($dataSend['affsource'])){
-                    $affsource = $modelUser->find()->where(array('phone'=>$dataSend['affsource']))->first();
+                    $affsource = $modelUser->find()->where(array('email'=>$dataSend['affsource']))->first();
                     if(!empty($affsource)){
                         $user->id_affsource =$affsource->id;
                         

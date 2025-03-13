@@ -112,6 +112,12 @@ function statisticAgency($input){
     $user = checklogin();   
 
     if(!empty($user)){
+
+        if($user->deadline < time()){
+            return $controller->redirect('/extendMember');
+        }
+
+
       if(empty($user->grant_permission)){
         return $controller->redirect('/statisticAgency');
       }

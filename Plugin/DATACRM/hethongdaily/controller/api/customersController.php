@@ -846,7 +846,7 @@ function deleteGroupCustomerAPI($input)
                 if(!empty($infoCategory)){
                      $note = $infoMember->type_tv.' '. $infoMember->name.' xóa thông tin nhóm khách hàng '.$infoCategory->name.' có id là:'.$infoCategory->id;
 
-                    addActivityHistory($infoMember,$note,'deletegroupcustomer',$data->id);
+                    addActivityHistory($infoMember,$note,'deletegroupcustomer',$infoCategory->id);
                     $modelCategories->delete($infoCategory);
 
                     $modelCategoryConnects->deleteAll(['keyword'=>'group_customers', 'id_category'=>(int)$dataSend['id']]);
@@ -914,7 +914,7 @@ function addGroupCustomerAPI($input)
                 }else{
                     $note = $infoMember->type_tv.' '. $infoMember->name.' tạo mới thông tin nhóm khách hàng '.$infoCategory->name.' có id là:'.$infoCategory->id;
                 }
-                 addActivityHistory($infoMember,$note,'group_customer',$data->id);
+                 addActivityHistory($infoMember,$note,'group_customer',$infoCategory->id);
 
                 $return = array('code'=>0, 'mess'=>'Lưu nhóm khách hàng thành công', 'id_group'=>$infoCategory->id);
                 
