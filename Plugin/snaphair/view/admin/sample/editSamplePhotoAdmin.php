@@ -1,3 +1,32 @@
+<style>
+    .img-container {
+        width: 200px;
+        height: 150px;
+        border: 1px solid #ddd;
+        padding: 5px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .img-preview {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+    }
+
+    .image-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .img-container:hover {
+        border-color: #aaa;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+</style>
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
@@ -17,7 +46,7 @@
 
                 <div class="card-body">
                     <p><?php echo $mess ?? ''; ?></p>
-                    <?= $this->Form->create(); ?>
+                    <?= $this->Form->create(null, ['type' => 'file']); ?>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -59,11 +88,25 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Hình ảnh (*)</label>
-                            <?php showUploadFile('image', 'image', @$data->image, 0); ?>
-                            <?php if (!empty($data->image)): ?>
-                                <img src="<?php echo $data->image; ?>" width="80px" height="80px" class="mt-2">
-                            <?php endif; ?>
+                            <label class="form-label">Chọn nhiều hình ảnh (Hình 1 -> Hình 3)</label>
+                            <input type="file" name="images[]" class="form-control" multiple>
+                            <div class="image-list">
+                                <?php
+                                if (!empty($data->images) && is_array($data->images) && count($data->images) > 0) {
+                                    $allowed_keys = ['image1', 'image2', 'image3'];
+
+                                    foreach ($data->images as $key => $img) {
+                                        if (in_array($key, $allowed_keys)) {
+                                            ?>
+                                            <div class="img-container">
+                                                <img src="<?= htmlspecialchars($img) ?>" class="img-preview">
+                                            </div>
+                                            <?php
+                                        }
+                                    }
+                                }
+                                ?>
+                            </div>
                         </div>
 
                         <div class="col-md-6 mb-3">

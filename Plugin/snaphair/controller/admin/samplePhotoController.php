@@ -45,6 +45,11 @@ function listSamplePhotoAdmin($input){
         ->order($order)
         ->all()
         ->toList();
+        if (!empty($listData)) {
+            foreach ($listData as &$item) {
+                $item->images = json_decode($item->image, true);
+            }
+        }
 
     // Phân trang
     $totalData = $modelSamplePhoto->find()->where($conditions)->all()->toList();
@@ -115,6 +120,7 @@ function editSamplePhotoAdmin($input)
         $data = $modelSamplePhoto->find()
             ->where(['id' => (int)$_GET['id']])
             ->first();
+            $data->images = json_decode($data->image, true);
     } else {
         $data = $modelSamplePhoto->newEmptyEntity();
     }
@@ -122,13 +128,47 @@ function editSamplePhotoAdmin($input)
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (!empty($dataSend['name']) && !empty($dataSend['image'])) {
+        if (!empty($dataSend['name'])) {
             $data->name = $dataSend['name'];
             $data->id_sample_cate = $dataSend['id_sample_cate'] ?? 0;
             $data->sex = $dataSend['sex'] ?? 1;
             $data->color = $dataSend['color'] ?? null;
-            $data->image = $dataSend['image'];
             $data->hot = $dataSend['hot'];
+
+            $uploadedImages = [];
+
+            if (!empty($_FILES['images']['name'][0])) {
+              
+                $user_id = 'snaphair_';
+                $imageKeys = ['image1', 'image2', 'image3'];
+                $index = 0;
+                
+                foreach ($_FILES['images']['name'] as $key => $value) {
+                    $temp_file = [
+                        'name' => $_FILES['images']['name'][$key],
+                        'type' => $_FILES['images']['type'][$key],
+                        'tmp_name' => $_FILES['images']['tmp_name'][$key],
+                        'error' => $_FILES['images']['error'][$key],
+                        'size' => $_FILES['images']['size'][$key]
+                    ];
+                    
+                    $_FILES['temp_image'] = $temp_file;
+                    
+                    $upload = uploadImage($user_id, 'temp_image', 'image_'.time().rand(0,1000000));
+                    
+                    
+                    if (isset($upload['code']) && $upload['code'] === 0 && !empty($upload['linkOnline']) && $index < 3) {
+                        $uploadedImages[$imageKeys[$index]] = $upload['linkOnline'];
+                        $index++;
+                    }
+                }
+                
+            }else {
+                $uploadedImages = !empty($data->images) ? (is_array($data->images) ? $data->images : json_decode($data->images, true)) : [];
+            }
+
+            $data->image = json_encode($uploadedImages);
+
             // tạo slug
             $slug = createSlugMantan($data->name);
             $slugNew = $slug;

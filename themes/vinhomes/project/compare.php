@@ -463,7 +463,13 @@ tr:hover td {
                         updateCellByRowAndColumn(amenitiesRows[0], columnIndex, property.ecological_space || '');
                         updateCellByRowAndColumn(amenitiesRows[1], columnIndex, property.utility_services || '');
                         updateCellByRowAndColumn(amenitiesRows[2], columnIndex, property.officially['description'] || '');
-                        updateCellByRowAndColumn(amenitiesRows[3], columnIndex, property.commerce['main_description'] || '');
+                        if (amenitiesRows.length >= 4) {
+                            let mainDescription = '';
+                            if (property.commerce) {
+                                mainDescription = property.commerce.main_description || '';
+                            }
+                            updateCellByRowAndColumn(amenitiesRows[3], columnIndex, mainDescription);
+                        }
                     }
                 }
                 addPriceDetailsEvents();
