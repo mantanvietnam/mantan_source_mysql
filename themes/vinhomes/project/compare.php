@@ -1,27 +1,140 @@
-<?php 
-    global $settingThemes;
-    getHeader();
+<?php
+global $settingThemes;
+getHeader();
 ?>
 <style>
   .background-header {
     background-image: none !important;
-  }
+}
 
-  .nav-projectpage a {
+.nav-projectpage a {
     color: black !important;
-  }
+}
 
-  .setcolor {
+.setcolor, .setcolor a {
     color: #333 !important;
-  }
+}
 
-  .setcolor a {
-    color: #333 !important;
-  }
-
-  .set-backgroundcontact {
+.set-backgroundcontact {
     background-color: #182c77;
-  }
+}
+
+.price-details-content table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.price-details-content th, 
+.price-details-content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.price-details-content th {
+    background-color: #f2f2f2;
+}
+/* Nâng cấp giao diện modal */
+/* .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1055;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 1.75rem auto;
+    pointer-events: none;
+}
+
+.modal-content {
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #f4f4f4;
+    font-weight: bold;
+}
+
+td {
+    background: white;
+}
+
+tr:hover td {
+    background: #f8f9fa;
+}
+
+.property-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.property-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contact-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #182c77, #6274bb);
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+    background: linear-gradient(45deg, #6274bb, #182c77);
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .grid-cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .property-card {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-cols-3 {
+        grid-template-columns: repeat(1, 1fr);
+    }
+} */
+
 </style>
 
 <div class="py-10 px-4 sm:px-6 md:container xl:px-20 bg-white text-black font-plus fade-in">
@@ -31,32 +144,31 @@
         </h1>
 
         <div id="propertyListContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <?php 
-            // Hiển thị các dự án đã chọn để so sánh
+            <?php
             if (!empty($compareData)) {
-                foreach ($compareData as $index => $project) { 
+                foreach ($compareData as $index => $project) {
             ?>
-                <div id="property<?= $index+1 ?>" class="bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-lg">
-                    <div class="relative">
-                        <img src="<?= $project['image'] ?>" alt="<?= $project['name'] ?>" class="h-48 w-full object-cover" onerror="this.src=''" />
-                        <button class="remove-property absolute top-2 right-2 bg-white rounded-full p-1 text-gray-500 hover:text-gray-700" data-project-id="<?= $project['id'] ?>">
-                            <i class="fas fa-times"></i>
-                        </button>
+                    <div id="property<?= $index + 1 ?>" class="bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-lg">
+                        <div class="relative">
+                            <img src="<?= $project['image'] ?>" alt="<?= $project['name'] ?>" class="h-48 w-full object-cover" onerror="this.src=''" />
+                            <button class="remove-property absolute top-2 right-2 bg-white rounded-full p-1 text-gray-500 hover:text-gray-700" data-project-id="<?= $project['id'] ?>">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <h5 class="text-lg font-semibold mb-2"><?= $project['name'] ?></h5>
+                            <p class="text-xl font-bold text-[#FF5722] mb-2"><?= $project['price'] ?></p>
+                            <a href="#" class="text-[#142A72] hover:underline change-property" data-bs-toggle="modal" data-bs-target="#realEstateModal" data-position="<?= $index + 1 ?>">Đổi bất động sản khác</a>
+                        </div>
                     </div>
-                    <div class="p-4">
-                        <h5 class="text-lg font-semibold mb-2"><?= $project['name'] ?></h5>
-                        <p class="text-xl font-bold text-[#FF5722] mb-2"><?= $project['price'] ?></p>
-                        <a href="#" class="text-[#142A72] hover:underline change-property" data-bs-toggle="modal" data-bs-target="#realEstateModal" data-position="<?= $index+1 ?>">Đổi bất động sản khác</a>
-                    </div>
-                </div>
-            <?php 
+                <?php
                 }
             }
-            
+
             // Hiển thị các ô trống để thêm dự án mới (tối đa 3 dự án)
             $emptySlots = 3 - (count($compareData ?? []));
-            for ($i = 0; $i < $emptySlots; $i++) { 
-            ?>
+            for ($i = 0; $i < $emptySlots; $i++) {
+                ?>
                 <div data-bs-toggle="modal" data-bs-target="#realEstateModal" data-position="<?= count($compareData) + $i + 1 ?>" class="border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center p-4 h-full min-h-[250px] hover:border-gray-400 cursor-pointer transition-all add-property-btn">
                     <div class="mb-3 text-gray-400">
                         <i class="fas fa-plus-circle text-5xl"></i>
@@ -66,8 +178,7 @@
             <?php } ?>
         </div>
 
-        <!-- Modal chọn bất động sản -->
-        <div class="modal fade" id="realEstateModal" tabindex="-1" aria-labelledby="realEstateModalLabel" aria-hidden="true">
+        <div class="modal fade" id="realEstateModal" tabindex="-1" aria-labelledby="realEstateModalLabel" aria-hidden="true" data-position="">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -96,144 +207,120 @@
             </div>
         </div>
 
-        <!-- Tùy chọn hiển thị -->
-        <div class="flex flex-wrap gap-4 mb-8">
-            <div class="flex items-center">
-                <input class="mr-2 h-4 w-4" type="checkbox" id="showImportant" checked />
-                <label for="showImportant">Chỉ hiển thị thông số quan trọng</label>
-            </div>
-            <div class="flex items-center">
-                <input class="mr-2 h-4 w-4" type="checkbox" id="showDifferences" />
-                <label for="showDifferences">Chỉ hiển thị các điểm khác biệt</label>
-            </div>
-        </div>
-
-        <?php if (!empty($compareData)) { ?>
-        <!-- Bảng so sánh giá -->
-        <div id="priceTableContainer" class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+        <!-- Bảng Giá Bất Động Sản -->
+        <div
+            id="priceTableContainer"
+            class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
             <div class="flex justify-between items-center p-4 border-b">
                 <h5 class="font-semibold text-lg">Giá bất động sản</h5>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
-                    <thead>
-                        <tr class="border-b">
-                            <th class="text-left p-4 bg-gray-50"></th>
-                            <?php foreach ($compareData as $project) { ?>
-                                <th class="p-4"><?= $project['name'] ?></th>
-                            <?php } ?>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr class="border-b">
-                            <th class="text-left p-4 bg-gray-50">Giá niêm yết</th>
-                            <?php foreach ($compareData as $project) { ?>
-                                <td class="p-4"><?= $project['price'] ?></td>
-                            <?php } ?>
+                        <th class="text-left p-4 bg-gray-50">Bảng giá</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Bảng so sánh thông tin chi tiết -->
+        <!-- Bảng Thông Tin Chi Tiết -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
             <div class="p-4 border-b">
                 <h5 class="font-semibold text-lg">Thông tin chi tiết</h5>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
-                    <thead>
-                        <tr class="border-b">
-                            <th class="text-left p-4 bg-gray-50"></th>
-                            <?php foreach ($compareData as $project) { ?>
-                                <th class="p-4"><?= $project['name'] ?></th>
-                            <?php } ?>
-                        </tr>
-                    </thead>
                     <tbody>
-                        <?php foreach ($compareFeatures as $key => $label) { ?>
-                            <tr class="border-b feature-row" data-feature="<?= $key ?>">
-                                <th class="text-left p-4 bg-gray-50"><?= $label ?></th>
-                                <?php foreach ($compareData as $project) { ?>
-                                    <td class="p-4"><?= $project[$key] ?? '' ?></td>
-                                <?php } ?>
-                            </tr>
-                        <?php } ?>
+                        <tr class="border-b">
+                            <th class="text-left p-4 bg-gray-50">Chủ đàu tư</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-left p-4 bg-gray-50">Mô tả dự án</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-left p-4 bg-gray-50">Diện tích</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-left p-4 bg-gray-50">Địa chỉ</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-left p-4 bg-gray-50">Hướng</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-left p-4 bg-gray-50">Loại mô hình</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr>
+                            <th class="text-left p-4 bg-gray-50">Hình thức sở hữu</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Bảng so sánh vị trí -->
+        <!-- Bảng Vị Trí & Tiện Ích -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
             <div class="p-4 border-b">
                 <h5 class="font-semibold text-lg">Vị trí & Tiện ích</h5>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
-                    <thead>
-                        <tr class="border-b">
-                            <th class="text-left p-4 bg-gray-50"></th>
-                            <?php foreach ($compareData as $project) { ?>
-                                <th class="p-4"><?= $project['name'] ?></th>
-                            <?php } ?>
-                        </tr>
-                    </thead>
                     <tbody>
-                        <!-- Hiển thị thông tin vị trí -->
-                        <?php foreach ($locationFeatures as $key => $label) { ?>
-                            <tr class="border-b location-row" data-feature="<?= $key ?>">
-                                <th class="text-left p-4 bg-gray-50"><?= $label ?></th>
-                                <?php foreach ($compareData as $project) { ?>
-                                    <td class="p-4"><?= $project[$key] ?? '' ?></td>
-                                <?php } ?>
-                            </tr>
-                        <?php } ?>
-                        
-                        <!-- Hiển thị các tiện ích -->
-                        <?php 
-                        // Tạo danh sách các tiện ích duy nhất từ tất cả các dự án
-                        $allAmenities = [];
-                        foreach ($compareData as $project) {
-                            if (!empty($project['amenities'])) {
-                                foreach ($project['amenities'] as $amenity) {
-                                    $allAmenities[$amenity['title']] = $amenity['title'];
-                                }
-                            }
-                        }
-                        
-                        // Hiển thị từng tiện ích
-                        foreach ($allAmenities as $amenityTitle) { 
-                        ?>
-                            <tr class="border-b amenity-row" data-amenity="<?= $amenityTitle ?>">
-                                <th class="text-left p-4 bg-gray-50"><?= $amenityTitle ?></th>
-                                <?php foreach ($compareData as $project) { 
-                                    $hasAmenity = false;
-                                    if (!empty($project['amenities'])) {
-                                        foreach ($project['amenities'] as $amenity) {
-                                            if ($amenity['title'] == $amenityTitle) {
-                                                $hasAmenity = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                ?>
-                                    <td class="p-4 <?= $hasAmenity ? 'text-green-500' : 'text-red-500' ?>">
-                                        <?php if ($hasAmenity) { ?>
-                                            <i class="fas fa-check"></i>
-                                        <?php } else { ?>
-                                            <i class="fas fa-times"></i>
-                                        <?php } ?>
-                                    </td>
-                                <?php } ?>
-                            </tr>
-                        <?php } ?>
+                        <tr class="border-b">
+                            <th class="text-left p-4 bg-gray-50">Không gian</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-left p-4 bg-gray-50">
+                                Dịch vụ tiện ích
+                            </th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-left p-4 bg-gray-50">Vị trí thương mại</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-left p-4 bg-gray-50">Khác</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <?php } ?>
 
         <!-- Nút liên hệ tư vấn -->
         <div class="text-center mb-8">
@@ -243,207 +330,423 @@
         </div>
     </div>
 </div>
-<?php getFooter();?>
+<?php getFooter(); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const propertyListContainer = document.getElementById("propertyListContainer");
-        const priceTableContainer = document.getElementById("priceTableContainer");
-        const removeButtons = document.querySelectorAll(".remove-property");
-        const showImportantCheckbox = document.getElementById("showImportant");
-        const showDifferencesCheckbox = document.getElementById("showDifferences");
-        const searchBox = document.getElementById("searchBox");
-        const projectItems = document.querySelectorAll(".project-item");
-        const addPropertyButtons = document.querySelectorAll(".add-property-btn");
-        const changePropertyLinks = document.querySelectorAll(".change-property");
-        
-        // Biến để lưu vị trí của dự án cần thay đổi
-        let currentProjectPosition = 0;
-        
-        // Kiểm tra số lượng dự án và hiển thị/ẩn bảng giá
-        function checkProperties() {
-            const properties = propertyListContainer.querySelectorAll(".bg-white.shadow-md").length;
-            if (properties > 0) {
-                if (priceTableContainer) {
-                    priceTableContainer.classList.remove("hidden");
+    document.addEventListener("DOMContentLoaded", function() {
+        let compareData = [];
+        document.addEventListener("click", function(event) {
+            let slot = event.target.closest(".add-property-btn, .change-property");
+            if (slot) {
+                let position = slot.getAttribute("data-position");
+                let modal = document.getElementById("realEstateModal");
+                modal.setAttribute("data-position", position);
+            }
+        });
+
+        document.addEventListener("click", function(event) {
+            let selectedItem = event.target.closest(".project-item");
+            if (selectedItem) {
+                let projectId = selectedItem.getAttribute("data-project-id");
+                let position = document.getElementById("realEstateModal").getAttribute("data-position");
+
+                addPropertyToComparison(projectId, position);
+
+                let modalInstance = bootstrap.Modal.getInstance(document.getElementById("realEstateModal"));
+                modalInstance.hide();
+            }
+        });
+
+        document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("view-full-description")) {
+        event.preventDefault();
+        const fullDescription = decodeURIComponent(event.target.getAttribute("data-full-description"));
+
+        const modalHtml = `
+            <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center description-modal">
+                <div class="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-[#142A72]">Mô tả chi tiết</h3>
+                        <button class="close-modal text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="description-content">
+                        ${fullDescription}
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button class="close-modal px-4 py-2 bg-[#142A72] text-white rounded-lg hover:bg-[#0e1d4d]">
+                            Đóng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+        document.querySelectorAll(".close-modal").forEach(button => {
+            button.addEventListener("click", () => {
+                document.querySelector(".description-modal").remove();
+            });
+        });
+    }
+});
+
+        function updateComparisonTables(properties) {
+            console.log("🔄 Đang cập nhật bảng so sánh với dữ liệu:", properties);
+
+            // Đặt lại tất cả các ô trống trong bảng
+            document.querySelectorAll("table td").forEach(cell => {
+                cell.innerHTML = "";
+            });
+            
+            // Lấy ra tất cả các bảng
+            const tables = document.querySelectorAll("table.w-full.border-collapse");
+            
+            if (tables.length < 3) {
+                console.error("❌ Không tìm thấy đủ bảng so sánh trong DOM!");
+                return;
+            }
+            
+            // Bảng giá - bảng thứ nhất
+            const priceTable = tables[0];
+            const priceRows = priceTable.querySelectorAll("tr");
+            
+            // Bảng thông tin chi tiết - bảng thứ hai
+            const detailsTable = tables[1];
+            const detailsRows = detailsTable.querySelectorAll("tr");
+            
+            // Bảng vị trí & tiện ích - bảng thứ ba
+            const amenitiesTable = tables[2];
+            const amenitiesRows = amenitiesTable.querySelectorAll("tr");
+
+            // Kiểm tra xem có tìm thấy các hàng không
+            if (!priceRows.length || !detailsRows.length || !amenitiesRows.length) {
+                console.error("❌ Không tìm thấy các hàng trong bảng so sánh!");
+                return;
+            }
+
+            // Log thông tin debug
+            console.log("Số hàng trong bảng giá:", priceRows.length);
+            console.log("Số hàng trong bảng chi tiết:", detailsRows.length);
+            console.log("Số hàng trong bảng tiện ích:", amenitiesRows.length);
+
+            // Cập nhật từng bảng với dữ liệu dự án
+            for (let i = 0; i < Math.min(properties.length, 3); i++) {
+                const property = properties[i];
+                if (!property || !property.id) continue;
+
+                const columnIndex = i + 2;
+
+                // Bảng giá
+                if (priceRows.length > 0) {
+                    const priceRow = priceRows[0];
+                    const priceCell = priceRow.querySelector(`td:nth-child(${columnIndex})`);
+                    if (priceCell) {
+                        if (property.price && property.price.includes("<table") || 
+                            (typeof property.priceDetail === 'string' && property.priceDetail.includes("<table"))) {
+
+                            // Chỉ hiển thị link "Xem chi tiết"
+                            priceCell.innerHTML = `
+                                <div>
+                                    <span class="text-[#FF5722] font-bold">${property.price ? '' : ''}</span>
+                                    <a href="#" class="block text-[#142A72] hover:underline mt-2 view-price-details" 
+                                        data-project-id="${property.id}"
+                                        data-price-html="${encodeURIComponent(property.priceDetail || property.price || '')}"
+                                        data-project-name="${property.name}">Xem chi tiết giá</a>
+                                </div>
+                            `;
+                        } else {
+                            // Nếu không phải bảng phức tạp, hiển thị giá trực tiếp
+                            priceCell.innerHTML = property.price || 'Liên hệ';
+                        }
+                    }
+                }
+
+            // Bảng thông tin chi tiết
+            if (detailsRows.length >= 7) {
+                        // Chủ đầu tư
+                        updateCellByRowAndColumn(detailsRows[0], columnIndex, property.investor || '');
+                        
+                        // Mô tả dự án
+                        updateCellByRowAndColumn(detailsRows[1], columnIndex, property.description || '');
+                        
+                        // Diện tích
+                        updateCellByRowAndColumn(detailsRows[2], columnIndex, property.acreage || '');
+                        
+                        // Địa chỉ
+                        updateCellByRowAndColumn(detailsRows[3], columnIndex, property.address || '');
+                        
+                        // Hướng
+                        updateCellByRowAndColumn(detailsRows[4], columnIndex, property.direction || '');
+                        
+                        // Loại mô hình
+                        updateCellByRowAndColumn(detailsRows[5], columnIndex, property.type || '');
+                        
+                        // Hình thức sở hữu
+                        updateCellByRowAndColumn(detailsRows[6], columnIndex, property.ownership_type || '');
+                    }
+
+                    // Bảng vị trí & tiện ích
+                    if (amenitiesRows.length >= 4) {
+                        // Không gian
+                        updateCellByRowAndColumn(amenitiesRows[0], columnIndex, property.space || '');
+                        
+                        // Dịch vụ tiện ích
+                        updateCellByRowAndColumn(amenitiesRows[1], columnIndex, formatAmenities(property.amenities));
+                        
+                        // Vị trí thương mại
+                        updateCellByRowAndColumn(amenitiesRows[2], columnIndex, property.commercialLocation || '');
+                        
+                        // Khác
+                        updateCellByRowAndColumn(amenitiesRows[3], columnIndex, property.others || '');
+                    }
+                }
+                addPriceDetailsEvents();
+                console.log("✅ Cập nhật bảng so sánh thành công!");
+            
+        }
+
+        function addPriceDetailsEvents() {
+            document.querySelectorAll(".view-price-details").forEach(link => {
+                link.removeEventListener("click", showPriceDetailsModal);
+                link.addEventListener("click", showPriceDetailsModal);
+            });
+        }
+
+        function showPriceDetailsModal(event) {
+            event.preventDefault();
+
+            const priceHtml = decodeURIComponent(this.getAttribute("data-price-html"));
+            const projectName = this.getAttribute("data-project-name");
+
+            const modalHtml = `
+                <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center price-details-modal">
+                    <div class="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-[#142A72]">Chi tiết giá ${projectName || ''}</h3>
+                            <button class="close-modal text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="price-details-content">
+                            ${priceHtml || 'Không có thông tin chi tiết'}
+                        </div>
+                        <div class="mt-4 text-center">
+                            <button class="close-modal px-4 py-2 bg-[#142A72] text-white rounded-lg hover:bg-[#0e1d4d]">
+                                Đóng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+            document.querySelectorAll(".close-modal").forEach(button => {
+                button.addEventListener("click", () => {
+                    document.querySelector(".price-details-modal").remove();
+                });
+            });
+        }
+
+        function updateCellByRowAndColumn(row, columnIndex, value) {
+            if (!row) return;
+
+            const cell = row.querySelector(`td:nth-child(${columnIndex})`);
+            if (cell) {
+                if (value && value.length > 200) {
+                    const shortDescription = value.substring(0, 200) + "...";
+                    cell.innerHTML = `
+                        <div>
+                            ${shortDescription}
+                            <a href="#" class="text-[#142A72] hover:underline mt-2 view-full-description" 
+                                data-full-description="${encodeURIComponent(value)}">Xem thêm</a>
+                        </div>
+                    `;
+                } else {
+                    cell.innerHTML = value || '';
                 }
             } else {
-                if (priceTableContainer) {
-                    priceTableContainer.classList.add("hidden");
-                }
+                console.warn(`⚠️ Không tìm thấy ô ở cột ${columnIndex} trong hàng:`, row);
             }
         }
-        
-        // Xử lý sự kiện xóa dự án
-        removeButtons.forEach(button => {
-            button.addEventListener("click", function () {
-                const projectId = this.getAttribute("data-project-id");
-                const propertyElement = this.closest(".bg-white.shadow-md");
-                
-                // Tạo phần tử mới để thay thế
-                const newElement = document.createElement("div");
-                newElement.setAttribute("data-bs-toggle", "modal");
-                newElement.setAttribute("data-bs-target", "#realEstateModal");
-                newElement.setAttribute("data-position", propertyElement.id.replace("property", ""));
-                newElement.className = "border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center p-4 h-full min-h-[250px] hover:border-gray-400 cursor-pointer transition-all add-property-btn";
-                newElement.innerHTML = `
+
+        function formatAmenities(amenities) {
+            if (!amenities) return '';
+            
+            if (Array.isArray(amenities)) {
+                return amenities.map(amenity => `<div class="mb-1"><i class="fas fa-check text-green-500 mr-2"></i>${amenity}</div>`).join('');
+            }
+            
+            if (typeof amenities === 'string') {
+                const amenityList = amenities.split(',').map(item => item.trim());
+                return amenityList.map(amenity => `<div class="mb-1"><i class="fas fa-check text-green-500 mr-2"></i>${amenity}</div>`).join('');
+            }
+            
+            if (typeof amenities === 'object') {
+                return Object.entries(amenities)
+                    .map(([key, value]) => `<div class="mb-1">${key}: ${getAmenityIcon(value)} ${value === true ? '' : value}</div>`)
+                    .join('');
+            }
+            
+            return amenities;
+        }
+
+
+        function addPropertyToComparison(projectId, position) {
+            fetch(`/apis/getProjectDetailsAPI?id=${projectId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(project => {
+                    if (!project || !project.id) {
+                        console.error("❌ Không tìm thấy dữ liệu dự án hợp lệ");
+                        return;
+                    }
+
+                    let propertySlot = document.querySelector(`[data-position='${position}']`);
+
+                    if (!propertySlot) {
+                        console.error(`❌ Không tìm thấy vị trí ${position} trong DOM!`);
+                        return;
+                    }
+
+                    propertySlot.outerHTML = `
+                        <div id="property${position}" class="bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-lg" data-position="${position}" data-project-id="${project.id}">
+                            <div class="relative">
+                                <img src="${project.image}" alt="${project.name}" class="h-48 w-full object-cover" onerror="this.src=''"/>
+                                <button class="remove-property absolute top-2 right-2 bg-white rounded-full p-1 text-gray-500 hover:text-gray-700" data-project-id="${project.id}" data-position="${position}">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <h5 class="text-lg font-semibold mb-2">${project.name}</h5>
+                                <a href="#" class="text-[#142A72] hover:underline change-property" data-bs-toggle="modal" data-bs-target="#realEstateModal" data-position="${position}">Đổi bất động sản khác</a>
+                            </div>
+                        </div>
+                    `;
+
+                    addRemoveEvent();
+                    setTimeout(() => {
+                        fetchAllSelectedProperties();
+                    }, 300);
+
+                    setTimeout(() => {
+                    document.querySelectorAll(".view-price-details").forEach(link => {
+                        const projectId = link.getAttribute("data-project-id");
+                        if(projectId == project.id){
+                            link.setAttribute("data-price-html", encodeURIComponent(project.priceDetail || project.price || ''));
+                            link.setAttribute("data-project-name", project.name);
+                        }
+                    });
+                    }, 500);
+                })
+                .catch(error => console.error("❌ Lỗi khi lấy dữ liệu dự án:", error));
+
+
+        }
+
+        function fetchAllSelectedProperties() {
+            const propertyElements = document.querySelectorAll("[id^='property']");
+            const propertyIds = [];
+
+            propertyElements.forEach(element => {
+                const projectId = element.getAttribute("data-project-id");
+                if (projectId) {
+                    propertyIds.push(projectId);
+                }
+            });
+
+            if (propertyIds.length === 0) {
+                updateComparisonTables([]);
+                return;
+            }
+
+            Promise.all(
+                    propertyIds.map(id =>
+                        fetch(`/apis/getProjectDetailsAPI?id=${id}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .catch(error => {
+                            console.error(`❌ Lỗi khi lấy dữ liệu dự án ID ${id}:`, error);
+                            return null;
+                        })
+                    )
+                )
+                .then(properties => {
+                    const validProperties = properties.filter(p => p !== null);
+                    updateComparisonTables(validProperties);
+                });
+        }
+
+        function addRemoveEvent() {
+            document.querySelectorAll(".remove-property").forEach(button => {
+                button.removeEventListener("click", removeProperty);
+                button.addEventListener("click", removeProperty);
+            });
+        }
+
+        function removeProperty() {
+            event.preventDefault();
+            event.stopPropagation();
+
+            let projectId = this.getAttribute("data-project-id");
+            let position = this.getAttribute("data-position");
+
+            let propertySlot = document.getElementById(`property${position}`);
+            if (propertySlot) propertySlot.remove();
+
+            let emptySlot = `
+                <div data-bs-toggle="modal" data-bs-target="#realEstateModal" data-position="${position}" class="border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center p-4 h-full min-h-[250px] hover:border-gray-400 cursor-pointer transition-all add-property-btn">
                     <div class="mb-3 text-gray-400">
                         <i class="fas fa-plus-circle text-5xl"></i>
                     </div>
                     <h5 class="text-lg font-medium text-gray-600">Chọn bất động sản</h5>
-                `;
-                
-                // Thay thế phần tử cũ bằng phần tử mới
-                propertyElement.replaceWith(newElement);
-                
-                // Cập nhật URL để xóa dự án khỏi so sánh
-                updateUrl();
-                
-                // Kiểm tra số lượng dự án
-                checkProperties();
-                
-                // Nếu không còn dự án nào, tải lại trang
-                const remainingProperties = propertyListContainer.querySelectorAll(".bg-white.shadow-md").length;
-                if (remainingProperties === 0) {
-                    window.location.reload();
-                }
+                </div>
+            `;
+
+            document.getElementById("propertyListContainer").insertAdjacentHTML("beforeend", emptySlot);
+
+            document.querySelectorAll(".add-property-btn").forEach(slot => {
+                slot.removeEventListener("click", openModal);
+                slot.addEventListener("click", openModal);
             });
-        });
-        
-        // Xử lý sự kiện khi nhấp vào nút thêm dự án
-        addPropertyButtons.forEach(button => {
-            button.addEventListener("click", function() {
-                currentProjectPosition = this.getAttribute("data-position");
-            });
-        });
-        
-        // Xử lý sự kiện khi nhấp vào liên kết thay đổi dự án
-        changePropertyLinks.forEach(link => {
-            link.addEventListener("click", function(e) {
-                e.preventDefault();
-                currentProjectPosition = this.getAttribute("data-position");
-            });
-        });
-        
-        // Xử lý sự kiện khi chọn dự án từ danh sách
-        projectItems.forEach(item => {
-            item.addEventListener("click", function() {
-                const projectId = this.getAttribute("data-project-id");
-                
-                // Cập nhật URL với dự án đã chọn
-                const currentUrl = new URL(window.location.href);
-                currentUrl.searchParams.set("project" + currentProjectPosition, projectId);
-                
-                // Chuyển hướng đến URL mới
-                window.location.href = currentUrl.toString();
-            });
-        });
-        
-        // Hàm cập nhật URL khi xóa dự án
-        function updateUrl() {
-            const currentUrl = new URL(window.location.href);
-            const properties = propertyListContainer.querySelectorAll(".bg-white.shadow-md");
-            
-            // Xóa tất cả các tham số project
-            currentUrl.searchParams.delete("project1");
-            currentUrl.searchParams.delete("project2");
-            currentUrl.searchParams.delete("project3");
-            
-            // Thêm lại các tham số cho các dự án còn lại
-            properties.forEach((property, index) => {
-                const projectId = property.querySelector(".remove-property").getAttribute("data-project-id");
-                currentUrl.searchParams.set("project" + (index + 1), projectId);
-            });
-            
-            // Cập nhật URL mà không tải lại trang
-            window.history.pushState({}, '', currentUrl.toString());
+            fetchAllSelectedProperties();
         }
-        
-        // Xử lý tìm kiếm dự án
-        searchBox.addEventListener("input", function() {
-            const searchText = this.value.toLowerCase();
+
+        document.getElementById("searchBox").addEventListener("keyup", function() {
+            const searchTerm = this.value.toLowerCase();
+            const propertyItems = document.querySelectorAll("#propertyList .project-item");
             
-            projectItems.forEach(item => {
-                const itemName = item.querySelector("h6").textContent.toLowerCase();
-                if (itemName.includes(searchText)) {
+            propertyItems.forEach(item => {
+                const propertyName = item.querySelector("h6").textContent.toLowerCase();
+                const propertyStatus = item.querySelector("small").textContent.toLowerCase();
+                
+                if (propertyName.includes(searchTerm) || propertyStatus.includes(searchTerm)) {
                     item.style.display = "";
                 } else {
                     item.style.display = "none";
                 }
             });
         });
-        
-        // Xử lý chỉ hiển thị thông số quan trọng
-        showImportantCheckbox.addEventListener("change", function() {
-            const featureRows = document.querySelectorAll(".feature-row");
-            const locationRows = document.querySelectorAll(".location-row");
-            
-            if (this.checked) {
-                // Hiển thị chỉ các thông số quan trọng
-                featureRows.forEach(row => {
-                    const feature = row.getAttribute("data-feature");
-                    if (Object.keys(<?= json_encode($compareFeatures) ?>).includes(feature)) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                });
-                
-                locationRows.forEach(row => {
-                    const feature = row.getAttribute("data-feature");
-                    if (Object.keys(<?= json_encode($locationFeatures) ?>).includes(feature)) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                });
-            } else {
-                // Hiển thị tất cả thông số
-                featureRows.forEach(row => {
-                    row.style.display = "";
-                });
-                
-                locationRows.forEach(row => {
-                    row.style.display = "";
-                });
-            }
-        });
-        
-        // Xử lý chỉ hiển thị các điểm khác biệt
-        showDifferencesCheckbox.addEventListener("change", function() {
-            const allRows = document.querySelectorAll(".feature-row, .location-row, .amenity-row");
-            
-            if (this.checked) {
-                // Hiển thị chỉ các hàng có giá trị khác nhau
-                allRows.forEach(row => {
-                    const cells = row.querySelectorAll("td");
-                    let allSame = true;
-                    let firstValue = cells[0]?.textContent.trim();
-                    
-                    for (let i = 1; i < cells.length; i++) {
-                        if (cells[i]?.textContent.trim() !== firstValue) {
-                            allSame = false;
-                            break;
-                        }
-                    }
-                    
-                    row.style.display = allSame ? "none" : "";
-                });
-            } else {
-                // Hiển thị tất cả các hàng
-                allRows.forEach(row => {
-                    row.style.display = "";
-                });
-            }
-            
-            // Kết hợp với lựa chọn chỉ hiển thị thông số quan trọng
-            if (showImportantCheckbox.checked) {
-                showImportantCheckbox.dispatchEvent(new Event("change"));
-            }
-        });
-        
-        // Kiểm tra ban đầu
-        checkProperties();
+
+        function openModal() {
+            let position = this.getAttribute("data-position");
+            let modal = document.getElementById("realEstateModal");
+            modal.setAttribute("data-position", position);
+        }
+
+        addRemoveEvent();
+        setTimeout(fetchAllSelectedProperties, 500);
     });
 </script>
