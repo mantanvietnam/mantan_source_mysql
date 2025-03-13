@@ -147,9 +147,17 @@ input[type="radio"] {
         flex-direction: column;
     }
 }
+.alert-message {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
 
 </style>
 
+
+<link rel="stylesheet" href="style.css">
 
 
 <div class="form-wrapper">
@@ -232,7 +240,8 @@ input[type="radio"] {
 
             <button type="submit" class="submit-button">Lập lá số</button>
         </form>
-    </div>
+        <p class="alert-message"><?php echo $mess; ?></p>
+        </div>
 </div>
 
 <?php getFooter(); ?>

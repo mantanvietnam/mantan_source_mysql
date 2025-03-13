@@ -1,7 +1,7 @@
 <?php
 function registerform($input) {
     global $metaTitleMantan;
- 
+    global $isRequestPost;
     global $controller;
     $metaTitleMantan = 'Đăng ký tài khoản';
     $modelCustomer = $controller->loadModel('customers');
@@ -17,7 +17,7 @@ function registerform($input) {
     } $collaborator = $modelCollaborator->find()->where($conditions)->first();
     
     $collaborator = $modelCollaborator->find()->where($conditions)->first();
-    if ($input['request']->is('POST')) {
+    if($isRequestPost){
         $dataSend = $input['request']->getData();
         if (!empty($dataSend['full_name']) &&
             !empty($dataSend['phone_number']) &&
