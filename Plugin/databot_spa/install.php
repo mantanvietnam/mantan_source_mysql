@@ -57,6 +57,7 @@ $sqlInstallDatabase .= "CREATE TABLE `bills` (
   `id_debt` int(11) DEFAULT NULL,
   `id_warehouse_product` int(11) DEFAULT NULL,
   `id_order` int(11) DEFAULT NULL,
+  `id_payroll` INT NULL DEFAULT 0,
   `moneyCustomerPay` int(11) DEFAULT NULL,
   `type_card` int(11) DEFAULT NULL COMMENT '0: tiền thật, 1 tiền thẻ trả trước',
   PRIMARY KEY (`id`)
@@ -230,6 +231,7 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
   `updated_at` datetime DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   `dateline_at` datetime DEFAULT NULL,
+  `id_card`  varchar(12) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `number_spa` int(11) DEFAULT NULL,
   `birthday` varchar(255) DEFAULT NULL,
   `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -554,6 +556,8 @@ $sqlInstallDatabase .="CREATE TABLE `payrolls` (
   `id_staff` INT NULL DEFAULT NULL ,
   `created_at` INT NULL DEFAULT NULL ,
   `updated_at` INT NULL DEFAULT NULL ,
+  `payment_date` INT NULL DEFAULT NULL,
+  `note_boss` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`)) ENGINE = InnoDB;";
  
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
@@ -636,11 +640,13 @@ $sqlUpdateDatabase['bills']['type_collection_bill'] = "ALTER TABLE `bills` ADD `
 $sqlUpdateDatabase['bills']['id_customer'] = "ALTER TABLE `bills` ADD `id_customer` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['full_name'] = "ALTER TABLE `bills` ADD `full_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['time'] = "ALTER TABLE `bills` ADD `time` int(11) NOT NULL DEFAULT 0; ";
+$sqlUpdateDatabase['bills']['id_payroll'] = "ALTER TABLE `bills` ADD `id_payroll` int(11) NOT NULL DEFAULT 0; ";
 $sqlUpdateDatabase['bills']['id_debt'] = "ALTER TABLE `bills` ADD `id_debt` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['id_warehouse_product'] = "ALTER TABLE `bills` ADD `id_warehouse_product` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['id_order'] = "ALTER TABLE `bills` ADD `id_order` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['moneyCustomerPay'] = "ALTER TABLE `bills` ADD `moneyCustomerPay` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['type_card'] = "ALTER TABLE `bills` ADD `type_card` int(11) DEFAULT NULL COMMENT '0: tiền thật, 1 tiền thẻ trả trước'; ";
+ 
 
 // Bang books
 $sqlUpdateDatabase['books']['name'] = "ALTER TABLE `books` ADD `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
@@ -811,6 +817,7 @@ $sqlUpdateDatabase['members']['insurance'] = "ALTER TABLE `members` ADD `insuran
 $sqlUpdateDatabase['members']['allowance'] = "ALTER TABLE `members` ADD `allowance` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['members']['account_bank'] = "ALTER TABLE `members` ADD `account_bank` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['members']['code_bank'] = "ALTER TABLE `members` ADD `code_bank` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['members']['id_card'] = "ALTER TABLE `members` ADD `id_card`  varchar(12) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 // Bang orders
 $sqlUpdateDatabase['orders']['id_member'] = "ALTER TABLE `orders` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['orders']['id_spa'] = "ALTER TABLE `orders` ADD `id_spa` int(11) NOT NULL; ";
@@ -1031,7 +1038,8 @@ $sqlUpdateDatabase['payrolls']['id_member'] = "ALTER TABLE `payrolls` ADD `id_me
 $sqlUpdateDatabase['payrolls']['id_staff'] = "ALTER TABLE `payrolls` ADD `id_staff` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['payrolls']['created_at'] = "ALTER TABLE `payrolls` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['payrolls']['updated_at'] = "ALTER TABLE `payrolls` ADD `updated_at` INT NULL DEFAULT NULL;";
-
+$sqlUpdateDatabase['payrolls']['payment_date'] = "ALTER TABLE `payrolls` ADD `payment_date` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['payrolls']['note_boss'] = "ALTER TABLE `payrolls` ADD `note_boss` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 /*-- Bước 1: Thêm cột tạm kiểu INT 
 ALTER TABLE userservice_histories ADD COLUMN temp_int INT;
 

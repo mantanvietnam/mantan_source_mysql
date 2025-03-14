@@ -8,12 +8,11 @@
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
-          <!-- <div class="col-md-3">
+           <div class="col-md-3">
             <label class="form-label">ID</label>
-            <input type="text" class="form-control" name="id" value="<?php if (!empty($_GET['id'])) echo $_GET['id']; ?>">
-            <input type="hidden" class="form-control" name="id_workout" value="<?php if (!empty($_GET['id_workout'])) echo $_GET['id_workout']; ?>">
-            <input type="hidden" class="form-control" name="id_exercise" value="<?php if (!empty($_GET['id_exercise'])) echo $_GET['id_exercise']; ?>">
-          </div> -->
+            <input type="text" class="form-control" name="code" value="<?php if (!empty($_GET['code'])) echo $_GET['code']; ?>">
+            
+          </div>
 
           <div class="col-md-3">
             <label class="form-label">Tiêu đề</label>
@@ -22,7 +21,7 @@
 
           <div class="col-md-3">
             <label class="form-label">MÃ youtube</label>
-            <input type="text" class="form-control" name="name" value="<?php if (!empty($_GET['youtube_code'])) echo $_GET['youtube_code']; ?>">
+            <input type="text" class="form-control" name="youtube_code" value="<?php if (!empty($_GET['youtube_code'])) echo $_GET['youtube_code']; ?>">
           </div>
 
 
@@ -58,7 +57,8 @@
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
-        <tr class=""><th>ID</th>
+        <tr class="">
+            <!-- <th>ID</th> -->
               <th>Hình Ảnh</th>
               <th>tiêu đề động tác tập</th>
               <th>Bài tập</th>
@@ -82,13 +82,15 @@
                     }
                 }
 
-                
+                //   <td align="center">' . $item->code . '
 
               echo '<tr>
-                 <td align="center">' . $item->id . '
+               
                   </td><td align="center"><img src="' . $item->image . '" width="100" />
                   </td>
-                  <td>'.$item->title . '  </td>
+                  <td>'.$item->title . '</br>
+                    ID: ' . $item->code . '
+                  </td>
                  <td>'.$item->count_exercise.'</td>
                  <td align="center"><iframe width="200" height="120" src="https://www.youtube.com/embed/'.$item->youtube_code.'?si=emQRmJrVSmDkqipZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                  </td>

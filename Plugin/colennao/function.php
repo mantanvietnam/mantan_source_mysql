@@ -546,18 +546,31 @@ function processAddMoney($money, $id_ransaction= 0): string
                                 $modelUser->save($user);
                             }
                         }
+                        $type ='';
                         if($transactions->type==2){
                             createChallengeUser($transactions->id_user, $transactions->id_challenge, $transactions->id);
+                            $type ='thử thách   ';
                         }elseif($transactions->type==1){
                             createCourseUser($transactions->id_user, $transactions->id_course, $transactions->id);
+                            $type ='khóa học';
                         }elseif($transactions->type==3){
                              createPackageUser($transactions->id_user,$transactions->id_package,$transactions->id);
+                             $type ='gói tập';
                         }elseif($transactions->type==4){
                             entextendUserDeline($transactions->id_user,$transactions->id_price,$transactions->id);
+                            $type ='gia hạn ';
                         }
 
                          $transactions->status = 2;
                         $modelTransactions->save($transactions);
+
+                        $dataSendNotification= array('title'=>'Bạn bạn mua thành công','time'=>date('H:i d/m/Y'),'content'=>'Bạn bạn mua '.$type.' thành công ','action'=>'productNew');
+                     if(!empty($user->token_device)){
+                        sendNotification($dataSendNotification, $user->token_device);
+                    }
+                     if(!empty($user->email)){
+                        sendEmailtransactioncBy($user->email, $user->full_name, $transactions, $type);
+                     }
                     }
                     return 'bạn mua thành công';
                 }
@@ -1033,5 +1046,181 @@ function getdaty($id_user){
         $day[] = $value;
     }
     return  $day;
+}
+
+function sendEmailtransactioncMoney($email='', $fullName='',$order=array(), $certificate='')
+{
+    $to = array();
+
+    if(!empty($email)){
+        $to[]= trim($email);
+    
+        $cc = array();
+        $bcc = array();
+        $subject = 'Bạn đã rút tiền thành công';
+
+        $content ='<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Thông tin rút tiền thành công</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>Bạn đã rút tiền thành công</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
+                        <br/>
+                        <b> Số tiền bạn rút là: '.number_format($order->total).'VNĐ</b>
+                         <br/>
+                        '.$order->note.'
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    <div class="thong_tin">
+                        <div class="line"><div class="line1"></div></div>
+                        <div class="cty">
+                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span>Ứng dụng Co Len Nao </span>
+                        </div>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: </li>
+                            <li>Mobile: </li>
+                            <li>Website: <a href="#"></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        $attachments = [];
+        if(!empty($certificate)){
+            $attachments = [
+                                ['type'=>'image/png', 'link'=>$certificate]
+                            ];
+        }
+
+        sendEmail(@$to, @$cc, @$bcc, @$subject, @$content, 'default', $attachments);
+    }
+}
+
+function sendEmailtransactioncBy($email='', $fullName='',$order=array(),  $type)
+{
+    $to = array();
+
+    if(!empty($email)){
+        $to[]= trim($email);
+    
+        $cc = array();
+        $bcc = array();
+        $subject = 'Giao dịch mua '.$type.' của bạn thành công';
+
+        $content ='<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Giao dịch mua '.$type.' của bạn thành công</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>Bạn đã rút tiền thành công</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
+                        <br/>
+                        <b> Số tiền bạn mua là: '.number_format(@$order->total).'VNĐ</b>
+                         <br/>
+                        '.@$order->note.'
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    <div class="thong_tin">
+                        <div class="line"><div class="line1"></div></div>
+                        <div class="cty">
+                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span>Ứng dụng Co Len Nao </span>
+                        </div>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: </li>
+                            <li>Mobile: </li>
+                            <li>Website: <a href="#"></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        $attachments = [];
+        if(!empty($certificate)){
+            $attachments = [
+                                ['type'=>'image/png', 'link'=>$certificate]
+                            ];
+        }
+
+        sendEmail(@$to, @$cc, @$bcc, @$subject, @$content, 'default', $attachments);
+    }
 }
 ?>

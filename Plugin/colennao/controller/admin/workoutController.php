@@ -217,7 +217,7 @@ function listExerciseWorkout($input)
     }
 
     
-    $listData = $modelExerciseWorkouts->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
+    $listData = $modelExerciseWorkouts->find()->limit($limit)->page($page)->where($conditions)->order(['sort_order'=>'ASC','id' => 'desc'])->all()->toList();
     if(!empty($listData)){
         foreach($listData as $key => $item){
             $listData[$key]->total_child = $modelCategoryConnect->find()->where(['id_category'=>$item->id, 'keyword'=>'child_exercise'])->count();
@@ -338,6 +338,7 @@ function addExerciseWorkout($input){
                 $data->time =(int) @$dataSend['time'];
                 $data->level = @$dataSend['level'];
                 $data->kcal =(int)@$dataSend['kcal'];
+                $data->sort_order = (int) @$dataSend['sort_order'];
                 $data->time_reverse =(int)@$dataSend['time_reverse'];
                 $data->device = json_encode(@$dataSend['device']);
                 $data->area = json_encode(@$dataSend['area']);
@@ -817,6 +818,10 @@ function listChildExerciseAdmin($input)
         $conditions['ChildExerciseWorkouts.title LIKE'] = '%' . $_GET['name'] . '%';
     }
 
+    if (!empty($_GET['code'])) {
+        $conditions['ChildExerciseWorkouts.code LIKE'] = '%' . $_GET['code'] . '%';
+    }
+
     $join =[
         'table' => 'category_connects',
             'alias' => 'cc',
@@ -824,10 +829,12 @@ function listChildExerciseAdmin($input)
             'conditions' => 'cc.id_parent = ChildExerciseWorkouts.id',
 
     ];
+    
 
     $select = ['ChildExerciseWorkouts.id',
         'ChildExerciseWorkouts.title',
         'ChildExerciseWorkouts.image',
+        'ChildExerciseWorkouts.code',
         'ChildExerciseWorkouts.time',
         'ChildExerciseWorkouts.device',
         'ChildExerciseWorkouts.description',

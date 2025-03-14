@@ -91,13 +91,13 @@
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
-            <tr class="">
+            <tr  align="center">
               <th>ID</th>
-              <th>Tên nhân viên</th>
-              <th>Số điện thoại</th>
-              <th>Email</th>
+              <th>Thông tin nhân viên</th>
+             
               <th>Nhóm nhân viên</th>
               <th>Trạng thái</th>
+              <th>Tính lương</th>
               <th>Đổi mật khẩu</th>
               <th>Sửa</th>
               <th>Khóa</th>
@@ -120,12 +120,16 @@
 
                 echo '<tr>
                           <td>' . $item->id . '</td>
-                          <td>' . $item->name . ' </td>
-                          <td>' . $item->phone . '</td>
-                          <td>' . $item->email . '</td>
+                          <td>Tên: ' . $item->name . ' </br>
+                          SĐT: ' . $item->phone . '</br>
+                          Email:  ' . $item->email . '</td>
                           <td>' . @$group->name . '</td>
                           <td>' . $status . '</td>
-                         
+                         <td align="center">
+                            <a class="dropdown-item" href="/payrollstaff?&id_staff=' . $item->id . '">
+                              <i class="bx bxs-calculator"></i>
+                            </a>
+                          </td>
                           <td align="center">
                             <a class="dropdown-item" href="/changePassStaff?id=' . $item->id . '">
                               <i class="bx bx-transfer"></i>

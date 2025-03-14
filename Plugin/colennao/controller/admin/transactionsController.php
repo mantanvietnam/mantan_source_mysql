@@ -207,9 +207,9 @@ function transactioncMoneyAdmin($input){
 					 if(!empty($user->token_device)){
                 		sendNotification($dataSendNotification, $user->token_device);
             		}
-            		// if(!empty($user->email)){
-            		//  	sendEmailtransactioncMoney($user->email, $user->name, $data);
-            		// }
+            		 if(!empty($user->email)){
+            		  	sendEmailtransactioncMoney($user->email, $user->name, $data);
+            		 }
 
             		if(!empty($_GET['page'])){
 						return $controller->redirect('/plugins/admin/colennao-view-admin-transaction-listTransactionRoseAdmin?mess=1&page='.$_GET['page']);

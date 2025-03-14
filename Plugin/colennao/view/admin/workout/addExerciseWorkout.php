@@ -1,4 +1,4 @@
-<!-- Helpers -->
+ <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Bài luyện tập </a> / <a href="/plugins/admin/colennao-view-admin-workout-listExerciseWorkout/?id_workout=<?php echo @$_GET['id_workout'] ?>"><?php echo $checkWorkout->title; ?></a> /</span>
@@ -116,7 +116,10 @@
                               <label class="form-label">đối cháy kcal</label>
                               <input type="number" class="form-control phone-mask" name="kcal" id="kcal" value="<?php echo @$data->kcal;?>" required />
                             </div>
-
+                             <div class="mb-3">
+                              <label class="form-label">sắp xếp theo thứ tự</label>
+                              <input type="number" class="form-control phone-mask" name="sort_order" id="sort_order" value="<?php echo @$data->sort_order;?>"/>
+                            </div>
                            <!--  <div class="mb-3">
                               <label class="form-label">Hình minh họa khu vực  (*)</label>
                                <input type="file" class="form-control phone-mask" name="area_image" id="area_image" value=""/>

@@ -57,6 +57,7 @@
               <th>Hình Ảnh</th>
               <th>tiêu đề</th>
               <th>sô động tác tập</th>
+              <th>Số thứ tự </th>
               <th>Vieo</th>
               <th>Trạng thái</th>
               <th>Hàng động</th> 
@@ -83,6 +84,7 @@
                   </td>
                   <td>'.$item->title . '  </td>
                   <td> <a href="/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout/?id_workout='.$item->id_workout.'&id_exercise='.$item->id.'">'.$item->total_child . '</a> </td>
+                  <td>'.$item->sort_order . '  </td>
                  
                  <td align="center"><iframe width="200" height="120" src="https://www.youtube.com/embed/'.$item->youtube_code.'?si=emQRmJrVSmDkqipZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></td>
                  <td>'.$status.'</td>

@@ -18,7 +18,7 @@ function listStaff($input)
 		$infoUser = $session->read('infoUser');
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$limit = 20;
-		$order = ['status'=>'desc','id' => 'DESC'];
+		$order = ['id' => 'DESC'];
 
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
@@ -177,6 +177,7 @@ function addStaff($input){
 					$data->allowance = @$dataSend['allowance'];
 					$data->account_bank = @$dataSend['account_bank'];
 					$data->code_bank = @$dataSend['code_bank'];
+					$data->id_card = @$dataSend['id_card'];
 			        $modelMembers->save($data);
 
 			        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
@@ -835,8 +836,11 @@ function payrollstaff($input){
         $modelService = $controller->loadModel('Services');
 		$modelOrder = $controller->loadModel('Orders');
 		$modelCustomer = $controller->loadModel('Customers');
+		$modelPayroll = $controller->loadModel('Payrolls');
 
         $conditions = array('id_member'=>$user->id_member );
+
+
 
         if(!empty($_GET['id_staff'])){
         	$conditions['id']= $_GET['id_staff'];
@@ -857,6 +861,8 @@ function payrollstaff($input){
         }else{
             $nam = date('Y');
         }
+        $data = $modelPayroll->find()->where(['id_staff'=>(int)$_GET['id_staff'], 'month'=>(int)$thang, 'yer'=>(int)$nam])->first();
+
 
         // Lấy số ngày trong tháng
         $so_ngay_trong_thang = cal_days_in_month(CAL_GREGORIAN, $thang, $nam);
@@ -947,8 +953,13 @@ function payrollstaff($input){
 				$listDatacommission[$key]->order= $order;
             } 
         }
+        if(!empty($data)){
+        	$day = $data->work;
+        }else{
+        	$day = date('d',$end);
+        }
 
-        $day = date('d',$end);
+        
         $salary = (($dataStaff->fixed_salary/$day)* $working_day)+ ($commission + $bonus + $dataStaff->allowance) -(0 + $dataStaff->insurance + $punish);
         
 
@@ -1030,8 +1041,12 @@ function addPayroll($input){
         // $data->fine = (int) $_GET['fine'];
         $data->insurance = (int) $_GET['insurance'];
         $data->advance = (int) $_GET['advance'];
-        $data->status = 'new';
+        if(empty($data->status)){
+        	$data->status = 'new';
+        }
+        
        	$data->updated_at = time();
+
         $modelPayroll->save($data);
 
         $date = getMonthStartEnd($nam, $thang);
@@ -1051,5 +1066,222 @@ function addPayroll($input){
         return $controller->redirect('/listStaff');
     }
     return $controller->redirect('/listStaff');
+}
+
+function listPayroll($input){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $listBank;
+	global $type_collection_bill;
+    global $modelCategoryConnects;
+     setVariable('page_view', 'listPayroll');
+    if(!empty(checkLoginManager('listPayroll', 'staff'))){
+        
+        $metaTitleMantan = 'Bảng chấm công nhân viên';
+        $user = $session->read('infoUser');
+       
+        $metaTitleMantan = 'Danh sách nhân viên';
+
+        $modelMember = $controller->loadModel('Members');
+        $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
+		$modelStaffBonu = $controller->loadModel('StaffBonus');
+        $modelAgency = $controller->loadModel('Agencys');
+        $modelService = $controller->loadModel('Services');
+		$modelOrder = $controller->loadModel('Orders');
+		$modelCustomer = $controller->loadModel('Customers');
+		$modelPayroll = $controller->loadModel('Payrolls');
+        $conditions = array('id_member'=>$user->id_member );
+
+        if(!empty($_GET['thang'])){
+            $conditions['month'] = (int) $_GET['thang'];
+        }
+
+        if(!empty($_GET['nam'])){
+            $conditions['yer'] = (int) $_GET['nam'];
+        }
+
+        if(!empty($_GET['status'])){
+            $conditions['status'] = (int) $_GET['status'];
+        }
+
+        if(!empty($_GET['id_staff'])){
+            $conditions['id_staff'] = (int) $_GET['id_staff'];
+        }
+
+        $limit = 20;
+		$order = ['yer'=>'desc','month' => 'DESC'];
+
+		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+		if($page<1) $page = 1;
+
+        $listData = $modelPayroll->find()->limit($limit)->page($page)->where($conditions)->order($order)->toList();
+
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                $listData[$key]->infoStaff = $modelMember->find()->where(['id'=>$item->id_staff,'id_member'=>$user->id_member])->first();
+                
+            } 
+        }
+
+
+        $totalData = $modelPayroll->find()->where($conditions)->count();
+
+        $balance = $totalData % $limit;
+	    $totalPage = ($totalData - $balance) / $limit;
+	    if ($balance > 0)
+	        $totalPage+=1;
+
+	    $back = $page - 1;
+	    $next = $page + 1;
+	    if ($back <= 0)
+	        $back = 1;
+	    if ($next >= $totalPage)
+	        $next = $totalPage;
+
+	    if (isset($_GET['page'])) {
+	        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+	        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+	    } else {
+	        $urlPage = $urlCurrent;
+	    }
+	    if (strpos($urlPage, '?') !== false) {
+	        if (count($_GET) >= 1) {
+	            $urlPage = $urlPage . '&page=';
+	        } else {
+	            $urlPage = $urlPage . 'page=';
+	        }
+	    } else {
+	        $urlPage = $urlPage . '?page=';
+	    }
+	    
+	    $conditionsCategories = array('type' => 'category_member', 'id_member' => $user->id_member);
+        $order = array('name'=>'asc');
+        $listCategory = $modelCategories->find()->where($conditionsCategories)->order($order)->all()->toList();
+
+        if(empty($listCategory)){
+        	return $controller->redirect('/listGroupStaff/?error=requestGroupStaff');
+        }
+
+        $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
+
+	    setVariable('type_collection_bill', $type_collection_bill);
+	    setVariable('listStaffs', $listStaffs);
+	    setVariable('page', $page);
+	    setVariable('totalPage', $totalPage);
+	    setVariable('totalData', $totalData);
+	    setVariable('back', $back);
+	    setVariable('user', $user);
+	    setVariable('next', $next);
+	    setVariable('listBank', $listBank);
+	    setVariable('urlPage', $urlPage);
+	    
+	    setVariable('listCategory', $listCategory);
+	    setVariable('listData', $listData);
+
+    }else{
+    	return $controller->redirect('/listStaff');
+    }
+    
+}
+
+function salaryVerification($input){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+	 if(!empty(checkLoginManager('salaryVerification', 'staff'))){
+        
+        $metaTitleMantan = 'Bảng chấm công nhân viên';
+        $user = $session->read('infoUser');
+       
+        $metaTitleMantan = 'Danh sách nhân viên';
+
+        $modelMember = $controller->loadModel('Members');
+        $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
+		$modelStaffBonu = $controller->loadModel('StaffBonus');
+        $modelAgency = $controller->loadModel('Agencys');
+        $modelService = $controller->loadModel('Services');
+		$modelOrder = $controller->loadModel('Orders');
+		$modelCustomer = $controller->loadModel('Customers');
+		$modelPayroll = $controller->loadModel('Payrolls');
+        $conditions = array('id_member'=>$user->id_member);
+        $data = $modelPayroll->find()->where(['id_member'=>$user->id_member, 'id'=>(int)$_GET['id'] ])->first();
+
+        if(!empty($data)){
+        	$data->status = $_GET['status'];
+        	$data->note_boss = $_GET['note_boss'];
+       		$data->updated_at = time();
+        	$modelPayroll->save($data);
+    	}
+        return $controller->redirect('/listPayroll');
+    }
+    return $controller->redirect('/listPayroll');
+}
+
+function salaryPayment($input){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+	 if(!empty(checkLoginManager('salaryVerification', 'staff'))){
+        
+        $metaTitleMantan = 'Bảng chấm công nhân viên';
+        $user = $session->read('infoUser');
+       
+        $metaTitleMantan = 'Danh sách nhân viên';
+
+        $modelMember = $controller->loadModel('Members');
+        $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
+		$modelStaffBonu = $controller->loadModel('StaffBonus');
+        $modelAgency = $controller->loadModel('Agencys');
+        $modelService = $controller->loadModel('Services');
+		$modelOrder = $controller->loadModel('Orders');
+		$modelCustomer = $controller->loadModel('Customers');
+		$modelBill = $controller->loadModel('Bills');
+		$modelPayroll = $controller->loadModel('Payrolls');
+        $conditions = array('id_member'=>$user->id_member);
+        $data = $modelPayroll->find()->where(['id_member'=>$user->id_member, 'id'=>(int)$_GET['id'] ])->first();
+   
+        if(!empty($data)){
+        	$data->status = 'done';
+       		$data->payment_date = time();
+        	$modelPayroll->save($data);
+
+        	$bill = $modelBill->newEmptyEntity();
+
+            $info_staff = $modelMember->find()->where(['id'=>$data->id_staff])->first();
+                
+            $bill->created_at = time();
+            $bill->time = time();
+            $bill->id_member = @$user->id_member;
+            $bill->id_spa = $session->read('id_spa');
+            $bill->id_staff = $user->id;
+            $bill->total = (int) $data->salary;
+            $bill->note = 'thanh toán luong tháng '.$data->month.'/'.$data->yer.'  cho nhân viên '.$info_staff->name.' ngày '. date('Y-m-d H:i:s');
+            $bill->type = 1; //0: Thu, 1: chi
+            $bill->updated_at = time();
+           	$bill->type_collection_bill = $_GET['type_collection_bill'];
+           	$bill->id_customer = 0;
+           	$bill->full_name =0;
+           	$bill->id_warehouse_product = 0;
+           	$bill->id_payroll=(int)$_GET['id'];
+           	$modelBill->save($bill);
+    	}
+        return $controller->redirect('/listPayroll');
+    }
+    return $controller->redirect('/listPayroll');
 }
 ?>

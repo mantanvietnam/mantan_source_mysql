@@ -440,7 +440,7 @@ function getUserWorkoutAPI($input){
 
 			    	
 			    	
-		    		$exerciseWorkout = $modelExerciseWorkouts->find()->where($conditions)->all()->toList();
+		    		$exerciseWorkout = $modelExerciseWorkouts->find()->where($conditions)->order(['sort_order'=>'ASC','id' => 'ASC'])->all()->toList();
 		    		if(!empty($exerciseWorkout)){
 		    			foreach($exerciseWorkout as $key => $item){
 		    				if(!empty($item->level)){
@@ -717,7 +717,7 @@ function getUserExerciseWorkoutAPI($input){
 			        $conditions['id'] = $dataSend['id'];
 			    }
 			    
-			    $data = $modelExerciseWorkouts->find()->where($conditions)->order(['id' => 'desc'])->first();
+			    $data = $modelExerciseWorkouts->find()->where($conditions)->order(['sort_order'=>'ASC','id' => 'ASC'])->first();
 			   
 			    if(!empty($data)){
                     if(!empty($data->group_exercise)){
