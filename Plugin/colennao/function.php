@@ -89,7 +89,12 @@ $menus[2]['sub'][]= array( 'title'=>'Chế độ dinh dưỡng',
 $menus[2]['sub'][]= array( 'title'=>'Bài luyện tập  ',
                             'url'=>'/plugins/admin/colennao-view-admin-workout-listWorkout',
                             'classIcon'=>'bx bx-extension',
-                            'permission'=>'listContactAdmin'
+                            'permission'=>'listWorkout'
+                    );
+$menus[2]['sub'][]= array( 'title'=>'Động tác ',
+                            'url'=>'/plugins/admin/colennao-view-admin-workout-listChildExerciseAdmin',
+                            'classIcon'=>'bx bx-extension',
+                            'permission'=>'listChildExerciseAdmin'
                     );
 // $menus[3]['title'] = 'Câu hỏi và điều kiện lập kế hoạch mới';
 //                             // newnew

@@ -29,4 +29,5 @@ include('model/medical_historie.php'); // lịch sử khám bệnh
 include('model/tokenDevices.php'); // lịch sử khám bệnh
 include('model/staff_bonu.php'); // lịch sử khám bệnh
 include('model/staff_timekeeper.php'); // lịch sử khám bệnh
+include('model/payroll.php'); // lịch sử khám bệnh
 ?>

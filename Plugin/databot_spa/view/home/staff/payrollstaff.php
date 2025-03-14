@@ -71,7 +71,7 @@
   <div class="card row">
     <h5 class="card-header">Bảng tính lương nhân viên <?php echo $dataStaff->name ?> tháng <?php echo @$thang.'/'.$nam ?></h5>
     <?php echo @$mess;
-  //  debug($dataStaff);
+   
     ?>
      
     <ul class="nav nav-tabs" role="tablist">
@@ -103,7 +103,7 @@
     </ul>
     <div class="tab-content">
       <div class="tab-pane fade " id="navs-top-home" role="tabpanel">
-        <form id="summary-form" action="" method="post" class="form-horizontal">
+        <form id="summary-form" action="addPayroll" method="get" class="form-horizontal">
           <div class="row">
             <div class="mb-3 col-md-6">
               <label class="form-label">Ngày làm việc: </label>: <?php echo $working_day; ?>
@@ -137,15 +137,27 @@
             </div>
              <div class="mb-3 col-md-6">
               <label class="form-label">Tổng ngày </label>
-              <input type="text" class="form-control" name="total_day" id="total_day" onchange="tinhluong();" value="">
+              <input type="text" class="form-control" name="total_day" id="total_day" onchange="tinhluong();" value="<?php echo $day; ?>">
             </div>
            <!--  <div class="mb-3 col-md-6">
               <label class="form-label">tiền tạm ứng: </label>
              
             </div> -->
             <div class="mb-3 col-md-6">
-              <label class="form-label">Lương thanh toán: </label> <span id="total"></span>
-              <input type="hidden" class="form-control" name="salary" id="salary" value="0">
+              <label class="form-label">Lương thanh toán: </label> <span id="total" class="text-danger"><?php echo number_format((int)$salary); ?>đ</span>
+              <input type="hidden" class="form-control" name="salary" id="salary" value="<?php echo (int)$salary; ?>">
+              <input type="hidden" class="form-control" name="thang" id="thang" value="<?php echo (int)$thang; ?>">
+              <input type="hidden" class="form-control" name="nam" id="nam" value="<?php echo (int)$nam; ?>">
+              <input type="hidden" class="form-control" name="id_staff" id="id_staff" value="<?php echo (int)$dataStaff->id; ?>">
+            </div>
+             <div class="mb-3 col-md-6"></div>
+             <div class="mb-3 col-md-6">
+               
+            <button type="submit" class="btn btn-primary d-block">Chấm công</button>
+             </div>
+
+            <div class="mb-3 col-md-12">
+             <label class="form-label">  <b>Lương = ((lương cứng / công )* ngày công) + (hoa hồng  + tiền thưởng  + phục cấp) – (tiền phạt + Bảo hiểm)</b></label>
             </div>
           </div>
         </form>
@@ -406,10 +418,6 @@
                     id: "'.$id.'",
                     id_member: "'.$data->id_member.'",
                     title: "'.$data->shift.'",
-                    time_book: "'.date("H:i d/m/Y", $data->check_in).'",
-                    time_chekin: "'.$data->check_in.'",
-                    time_book: "'.date("H:i d/m/Y", $data->check_in).'",
-                    time_chekin: "'.$data->check_in.'",
                     start: "'.date('Y-m-d', $data->check_in).'",
                     end: "'.date('Y-m-d', $data->check_in).'",
                   },';
@@ -429,109 +437,9 @@
 
         repeatBook();
 
-        //$('#createBookModal').modal('show');
       },
 
-     /* eventClick: function(info) {
-        listEvent = calendar.getEvents();
-        var id_staff = info.event.extendedProps.id_staff;
-        var id_bed = info.event.extendedProps.id_bed;
-        if(id_staff.length==0){
-          id_staff = 0;
-        }
-          if(id_bed.length==0){
-            id_bed = 0;
-          }
-        //display a modal
-        var modal = 
-        '<div class="modal fade" id="modalinfo">\
-          <div class="modal-dialog modal-lg">\
-           <div class="modal-content">\
-           <form class="no-margin">\
-           <div class="modal-body">\
-              <label><b>Thông tin khách đặt</b></label>\
-              <table class="table table-bordered">\
-                <tbody>\
-                  <tr>\
-                    <th>Khách hàng</th>\
-                    <td>' + info.event.extendedProps.name + '</td>\
-                    <th>Điện thoại</th>\
-                    <td>' + info.event.extendedProps.phone + '</td>\
-                  </tr>\
-                  <tr>\
-                    <th>Email</th>\
-                    <td>' + info.event.extendedProps.email + '</td>\
-                    <th>Thời gian đặt</th>\
-                    <td>' + info.event.extendedProps.time_book + '</td>\
-                  </tr>\
-                  <tr>\
-                    <th>Dịch vụ</th>\
-                    <td>' + info.event.extendedProps.service + '</td>\
-                    <th>NV phụ trách</th>\
-                    <td>' + info.event.extendedProps.staff + '</td>\
-                  </tr>\
-                  <tr>\
-                    <th>Xếp giường</th>\
-                    <td>' + info.event.extendedProps.bed + '</td>\
-                    <th>Kiểu đặt</th>\
-                    <td>' + info.event.extendedProps.type + '</td>\
-                  </tr>\
-                  <tr>\
-                    <th>Trạng thái</th>\
-                    <td>' + info.event.extendedProps.status + '</td>\
-                    <th>Ghi chú</th>\
-                    <td>' + info.event.extendedProps.note + '</td>\
-                  </tr>\
-                </tbody>\
-              </table>\
-           </div>\
-           <div class="modal-footer">';
-           if(info.event.extendedProps.statusnote=="1"|| info.event.extendedProps.statusnote=='0'){
-             modal += '<button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+id_staff+','+id_bed+','+info.event.extendedProps.time_chekin+');"><i class="bx bxs-edit"></i> Check in</button>\
-            <a href="/addBook/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary"><i class="bx bxs-edit"></i> Sửa hẹn</a>\
-            <button type="button" class="btn btn-danger" data-action="delete"><i class="bx bxs-trash"></i> Xóa hẹn</button>';
-           }
-           
-
-
-           modal +=  '</div>\
-          </form>\
-          </div>\
-         </div>\
-        </div>';
-      
-      
-        var modal = $(modal).appendTo('body');
-
-        modal.find('button[data-action=delete]').on('click', function() {
-          var check= confirm('Bạn có chắc chắn muốn xóa lịch hẹn này không?');
-          
-          if(check){
-            $.ajax({
-              method: "GET",
-              url: "/deleteBook/?id="+info.event.extendedProps.idBook,
-              data: {}
-            })
-            .done(function( msg ) {
-              if(listEvent.length > 0){
-                for (var i = 0; i < listEvent.length; i++) {
-                  if(listEvent[i]._def.extendedProps.idBook == info.event.extendedProps.idBook){
-                    calendar.getEventById(listEvent[i]._def.publicId).remove();
-                  }
-                }
-              }
-                
-              modal.modal("hide");
-            });
-          }
-          
-        });
-        
-        modal.modal('show').on('hidden', function(){
-          modal.remove();
-        });
-
-      }*/
+     
     });
 
     calendar.render();

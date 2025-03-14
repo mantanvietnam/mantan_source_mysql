@@ -893,8 +893,6 @@ function payrollstaff($input){
 
 		$date = getMonthStartEnd($nam, $thang);
 
-		 
-
 
 		$conditions = array('id_member'=>$user->id_member,'id_staff'=>$dataStaff->id);
 		$conditions['created_at >='] = (int) strtotime($date['start']);
@@ -922,9 +920,12 @@ function payrollstaff($input){
             } 
         }
 
+        $start = strtotime($date['start']);  
+        $end  = strtotime($date['end']);
+
         $conditions = array('id_member'=>$user->id_member,'id_staff'=>$dataStaff->id);
-		$conditions['created_at >='] = (int) strtotime($date['start']);
-		$conditions['created_at <='] = (int) strtotime($date['end']);
+		$conditions['created_at >='] = (int) $start;
+		$conditions['created_at <='] = (int) $end;
 	    $listDatacommission= $modelAgency->find()->where($conditions)->all()->toList();
 
 	     $commission= 0;
@@ -947,6 +948,10 @@ function payrollstaff($input){
             } 
         }
 
+        $day = date('d',$end);
+        $salary = (($dataStaff->fixed_salary/$day)* $working_day)+ ($commission + $bonus + $dataStaff->allowance) -(0 + $dataStaff->insurance + $punish);
+        
+
         setVariable('date', $date);
     	setVariable('thang', $thang);
     	setVariable('nam', $nam);
@@ -954,13 +959,97 @@ function payrollstaff($input){
     	setVariable('working_day', $working_day);
     	setVariable('punish', $punish);
     	setVariable('bonus', $bonus);
+    	setVariable('day', $day);
     	setVariable('commission', $commission);
     	setVariable('listDatapunish', $listDatapunish);
     	setVariable('listDatabonus', $listDatabonus);
+    	setVariable('salary', $salary);
     	setVariable('listDatacommission', $listDatacommission);
     	setVariable('listStaffTimekeeper', $listStaffTimekeeper);
     }else{
-        return $controller->redirect('/timesheetStaff');
+        return $controller->redirect('/listStaff');
     }
+}
+
+function addPayroll($input){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+    if(!empty(checkLoginManager('payrollstaff', 'staff'))){
+        
+        $metaTitleMantan = 'Bảng chấm công nhân viên';
+        $user = $session->read('infoUser');
+       
+        $metaTitleMantan = 'Danh sách nhân viên';
+
+        $modelMember = $controller->loadModel('Members');
+        $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
+		$modelStaffBonu = $controller->loadModel('StaffBonus');
+        $modelAgency = $controller->loadModel('Agencys');
+        $modelService = $controller->loadModel('Services');
+		$modelOrder = $controller->loadModel('Orders');
+		$modelCustomer = $controller->loadModel('Customers');
+		$modelPayroll = $controller->loadModel('Payrolls');
+        $conditions = array('id_member'=>$user->id_member );
+
+        if(!empty($_GET['thang'])){
+            $thang = (int) $_GET['thang'];
+        }else{
+            $thang = date('m');
+        }
+
+        if(!empty($_GET['nam'])){
+            $nam = (int) $_GET['nam'];
+        }else{
+            $nam = date('Y');
+        }
+
+        $data = $modelPayroll->find()->where(['id_staff'=>(int)$_GET['id_staff'], 'month'=>(int)$_GET['thang'], 'yer'=>(int)$_GET['nam']])->first();
+
+        if(empty($data)){
+        	$data = $modelPayroll->newEmptyEntity();
+        	$data->id_staff = (int) $_GET['id_staff'];
+        	$data->month = (int) $_GET['thang'];
+        	$data->yer = (int) $_GET['nam'];
+        	$data->created_at = time();
+        	$data->id_member = $user->id_member;
+
+        }
+
+        $data->salary = (int) $_GET['salary'];
+        $data->work = (int) $_GET['total_day'];
+        $data->fixed_salary = (int) $_GET['fixed_salary'];
+        $data->working_day = (float) $_GET['working_day'];
+        $data->commission = (int) $_GET['commission'];
+        $data->bonus = (int) $_GET['bonus'];
+        $data->allowance = (int) $_GET['allowance'];
+        // $data->fine = (int) $_GET['fine'];
+        $data->insurance = (int) $_GET['insurance'];
+        $data->advance = (int) $_GET['advance'];
+        $data->status = 'new';
+       	$data->updated_at = time();
+        $modelPayroll->save($data);
+
+        $date = getMonthStartEnd($nam, $thang);
+        $start = strtotime($date['start']);  
+        $end  = strtotime($date['end']);
+
+        $conditions = array('id_member'=>$user->id_member,'id_staff'=>(int) $_GET['id_staff']);
+		$conditions['created_at >='] = (int) $start;
+		$conditions['created_at <='] = (int) $end;
+	    $listDatacommission= $modelAgency->find()->where($conditions)->all()->toList();
+	     if(!empty($listDatacommission)){
+            foreach($listDatacommission as $key => $value){
+                $value->status = 1;
+                $modelAgency->save($data);
+            } 
+        }
+        return $controller->redirect('/listStaff');
+    }
+    return $controller->redirect('/listStaff');
 }
 ?>
