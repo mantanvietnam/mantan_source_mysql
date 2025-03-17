@@ -119,6 +119,7 @@ function customerUpAPI($input)
     $modelCustomer = $controller->loadModel('Customers');
     $modelUplikeHistories = $controller->loadModel('UplikeHistories');
     $modelTransactionHistories = $controller->loadModel('TransactionHistories');
+    $modelTransactionCustomers = $controller->loadModel('TransactionCustomers');
 
     // kiểm tra cái đặt token
     
@@ -176,7 +177,21 @@ function customerUpAPI($input)
 
                     $modelUplikeHistories->save($saveRequest);
 
-                    $sms = $user->phone.' upLike'.$saveRequest->id;          
+                    $histories = $modelTransactionCustomers->newEmptyEntity();
+
+                    $histories->id_customer = $user->id;
+                    $histories->id_system = 1;
+                    $histories->id_uplike = $saveRequest->id;
+                    $histories->coin = (int) $saveRequest->money;
+                    $histories->type = 'plus';
+                    $histories->type_histories = 'up_like';
+                    $histories->status = 'new';
+                    $histories->note = 'Tăng tương tác '.$dataSend['type_api'];
+                    $histories->create_at = time();
+
+                    $modelTransactionCustomers->save($histories);
+
+                    $sms = $user->phone.' P'.$histories->id;          
 
                    if(function_exists('checkpayos')){
                         $infobank =  checkpayos($saveRequest->money,$sms);
@@ -215,5 +230,30 @@ function customerUpAPI($input)
         }
     }
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
+function listPriceAPI(){
+
+    global $modelOptions;
+
+    // kiểm tra cái đặt token
+    $multiplier = 1;
+    $conditions = array('key_word' => 'settingUpLikeAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    if(!empty($data_value['multiplier'])){
+        $multiplier = $data_value['multiplier'];
+    }else{
+        return $controller->redirect('/chooseUpLike/?error=tokenEmpty');
+    }
+    $listPrice = getListPriceOngTrum();
+
+
+    return array('multiplier'=>$multiplier, 'listPrice'=>$listPrice);
+
 }
  ?>

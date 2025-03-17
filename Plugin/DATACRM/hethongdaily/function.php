@@ -1707,7 +1707,6 @@ function addActivityHistory($user=array(),$note='',$keyword='',$id_key=0){
 
 function processAddMoney($money = 0, $phone='', $type='', $note=''){
     global $controller;
-    
     $modelCustomer = $controller->loadModel('Customers');
     $modelBill = $controller->loadModel('Bills');
     $modelMember = $controller->loadModel('Members');
@@ -1715,6 +1714,7 @@ function processAddMoney($money = 0, $phone='', $type='', $note=''){
     $modelPackage = $controller->loadModel('Packages');
     $modelPointCustomer = $controller->loadModel('PointCustomers');
     $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
+    $modelUplikeHistories = $controller->loadModel('UplikeHistories');
     $member = $modelMember->find()->where(['id_father'=>0])->first();
 
     $infoUser = $modelCustomer->find()->where(['phone'=>$phone])->first();
@@ -1775,7 +1775,7 @@ function processAddMoney($money = 0, $phone='', $type='', $note=''){
 
 
 
-                return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này nạp tiền thành công</p>', 'data'=> $user];
+                return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này nạp tiền thành công</p>', 'data'=> $histories];
         }else{
 
             $data = getMemberById($infoUser->id_parent);
@@ -1783,41 +1783,73 @@ function processAddMoney($money = 0, $phone='', $type='', $note=''){
             $id = substr($type, 1);
             if($firstChar='P'){
                 $histories = $modelTransactionCustomers->find()->where(['id'=>(int)$id])->first();
-                if(!empty($histories)){   
-                    $checkPackage = $modelPackage->find()->where(['id'=>(int)$histories->id_package])->first();
-                    if(!empty($checkPackage)){
-                        $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$infoUser->id])->first();
-                        if(!empty($checkPointCustomer)){
-                            $checkPointCustomer->point += $checkPackage->point;
-                            $checkPointCustomer->updated_at = time();
-                            $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
-                            if(!empty($rating)){
-                                $checkPointCustomer->id_rating = $rating->id;
+                if(!empty($histories)){ 
+                    if($histories->type_histories=='package'){ 
+                        $checkPackage = $modelPackage->find()->where(['id'=>(int)$histories->id_package])->first();
+                        if(!empty($checkPackage)){
+                            $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$infoUser->id])->first();
+                            if(!empty($checkPointCustomer)){
+                                $checkPointCustomer->point += $checkPackage->point;
+                                $checkPointCustomer->updated_at = time();
+                                $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
+                                if(!empty($rating)){
+                                    $checkPointCustomer->id_rating = $rating->id;
+                                }
+                                $modelPointCustomer->save($checkPointCustomer);
                             }
-                            $modelPointCustomer->save($checkPointCustomer);
+
+                            $infoUser->max_export_mmtc +=(int) $checkPackage->numerology;
+                            $modelCustomer->save($infoUser);
+
+                            $histories->meta_payment = $note;
+                            $histories->status = 'done';
+                            $modelTransactionCustomers->save($histories);
+
+                            $dataSendNotification= array('title'=>'Bạn thanh toán thành công',
+                                        'time'=>date('H:i d/m/Y'),
+                                        'content'=>"Bạn đã thanh toán mua gói $checkPackage->name thành công",
+                                        'action'=>'buyPackage');
+                            if(!empty($infoUser->token_device)){
+                                sendNotification($dataSendNotification, $infoUser->token_device);
+                                saveNotification($dataSendNotification, $infoUser->id);
+                            }
+
+                        return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này nạp tiền thành công</p>', 'data'=> $infoUser];
+
                         }
+                    }elseif($histories->type_histories=='up_like'){ 
+                        $saveRequest = $modelUplikeHistories->find()->where(['id'=>(int)$histories->id_uplike])->first();
+                        if(!empty($saveRequest)){
+                             $sendOngTrum = sendRequestBuffOngTrum($saveRequest->type_page, $saveRequest->id_page, $saveRequest->chanel, $saveRequest->number_up, $saveRequest->url_page, $histories->id_customer);
+                            if($sendOngTrum['code']==200){
 
-                        $infoUser->max_export_mmtc +=(int) $checkPackage->numerology;
-                        $modelCustomer->save($infoUser);
+                                $saveRequest->id_request_buff = $sendOngTrum['id'];
+                                $saveRequest->note_buff = json_encode($sendOngTrum);
+                                $saveRequest->status = 'Running';
+                                $modelUplikeHistories->save($saveRequest);
+                            
 
-                        $histories->meta_payment = $note;
-                        $histories->status = 'done';
-                        $modelTransactionCustomers->save($histories);
+                                $histories->meta_payment = $note;
+                                $histories->status = 'done';
+                                $modelTransactionCustomers->save($histories);
 
-                        $dataSendNotification= array('title'=>'Bạn thanh toán thành công',
-                                    'time'=>date('H:i d/m/Y'),
-                                    'content'=>"Bạn đã thanh toán mua gói $checkPackage->name thành công",
-                                    'action'=>'buyPackage');
-                        if(!empty($infoUser->token_device)){
-                            sendNotification($dataSendNotification, $infoUser->token_device);
-                            saveNotification($dataSendNotification, $infoUser->id);
+                                $dataSendNotification= array('title'=>'Bạn thanh toán thành công',
+                                            'time'=>date('H:i d/m/Y'),
+                                            'content'=>"Bạn đã thanh toán tăng tương tác thành công",
+                                            'action'=>'buyPackage');
+                                if(!empty($infoUser->token_device)){
+                                    sendNotification($dataSendNotification, $infoUser->token_device);
+                                    saveNotification($dataSendNotification, $infoUser->id);
+                                }
+
+                                return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này nạp tiền thành công</p>', 'data'=> $infoUser];
+                            }
+
                         }
-
-                    return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này nạp tiền thành công</p>', 'data'=> $infoUser];
 
                     }
-                }
 
+                }
             }
         }
         

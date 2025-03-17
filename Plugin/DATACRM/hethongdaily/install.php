@@ -487,6 +487,8 @@ $sqlInstallDatabase .="CREATE TABLE `transaction_customers` (
 `meta_payment` VARCHAR(255) NULL DEFAULT NULL,
 `payment_type` VARCHAR(255) NOT NULL DEFAULT 'payQrcode',
 `id_package` INT NULL DEFAULT NULL,
+`type_histories` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'package',
+`id_uplike` INT NULL DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -927,6 +929,8 @@ $sqlUpdateDatabase['transaction_customers']['meta_payment'] = "ALTER TABLE `tran
 $sqlUpdateDatabase['transaction_customers']['payment_type'] = "ALTER TABLE `transaction_customers` ADD `payment_type` VARCHAR(255)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL DEFAULT 'payQrcode';";
 $sqlUpdateDatabase['transaction_customers']['status'] = "ALTER TABLE `transaction_customers` ADD `status` VARCHAR(255)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transaction_customers']['id_package'] = "ALTER TABLE `transaction_customers` ADD `id_package` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_customers']['type_histories'] = "ALTER TABLE `transaction_customers` ADD `type_histories` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'package';";
+$sqlUpdateDatabase['transaction_customers']['id_uplike'] = "ALTER TABLE `transaction_customers` ADD `id_uplike` INT NULL DEFAULT NULL;";
 
 //gói dịch vụ 
 $sqlUpdateDatabase['packages']['name'] = "ALTER TABLE `packages` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

@@ -1,4 +1,17 @@
-  <?php include(__DIR__.'/../header.php'); ?>
+  <?php include(__DIR__.'/../header.php');
+  $url = '';
+
+  if(!empty($_GET['month'])){
+     $url .= '&month='.$_GET['month'];
+  }
+  if(!empty($_GET['year'])){
+     $url .= '&year='.$_GET['year'];
+  }
+  if(!empty($_GET['id_staff'])){
+     $url .= '&id_staff='.$_GET['id_staff'];
+  }
+
+   ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
 <style type="text/css">
@@ -164,7 +177,9 @@
       </div>
         <div class="tab-pane fade" id="navs-top-bonus" role="tabpanel">
           <div class="table-responsive">
+
             <h5 class="card-header">Tổng tiền thưởng là <?php echo number_format($bonus); ?> đ</h5>
+            <a href="/addStaffBonus?<?php echo $url; ?>" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a>
             <table class="table table-bordered">
               <thead>
                 <tr class="">

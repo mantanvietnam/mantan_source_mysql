@@ -651,6 +651,10 @@ function addStaffBonus($input){
 			$data->status = 'new';
 	    }
 
+	    if(!empty($_GET['id_staff'])){
+	    	$data->id_staff = $_GET['id_staff'];
+	    }
+
 	    $mess ='';
 
 		if($isRequestPost) {
@@ -670,6 +674,11 @@ function addStaffBonus($input){
 			    $modelStaffBonu->save($data);
 
 			    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+			     if(!empty($_GET['id_staff'])){
+			    	
+			    	return $controller->redirect('/payrollstaff?month='.@$_GET['month'].'&year='.@$_GET['year'].'&id_staff='.@$_GET['id_staff']);
+			    }
 			    
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';

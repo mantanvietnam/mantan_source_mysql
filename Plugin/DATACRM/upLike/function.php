@@ -136,7 +136,6 @@ function sendRequestBuffOngTrum($type_api='', $uid=0, $chanel=0, $number_up=0, $
 
         $return = json_decode($return, true);
     }
-
     return $return;
 }
 
