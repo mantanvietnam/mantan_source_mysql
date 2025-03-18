@@ -1276,10 +1276,11 @@ function salaryPayment($input){
             $bill->created_at = time();
             $bill->time = time();
             $bill->id_member = @$user->id_member;
+            $bill->full_name = 'nhân viên '.$info_staff->name;
             $bill->id_spa = $session->read('id_spa');
             $bill->id_staff = $user->id;
             $bill->total = (int) $data->salary;
-            $bill->note = 'thanh toán luong tháng '.$data->month.'/'.$data->yer.'  cho nhân viên '.$info_staff->name.' ngày '. date('Y-m-d H:i:s');
+            $bill->note = 'thanh toán lương tháng '.$data->month.'/'.$data->yer.'  cho nhân viên '.$info_staff->name.' ngày '. date('Y-m-d H:i:s');
             $bill->type = 1; //0: Thu, 1: chi
             $bill->updated_at = time();
            	$bill->type_collection_bill = $_GET['type_collection_bill'];

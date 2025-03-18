@@ -256,4 +256,10 @@ function listPriceAPI(){
     return array('multiplier'=>$multiplier, 'listPrice'=>$listPrice);
 
 }
+
+function listTypeUpAPI(){
+    return listTypeOngtrum();
+
+}
+
  ?>

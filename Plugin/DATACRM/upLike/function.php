@@ -191,4 +191,30 @@ function listServerSmm(){
     $return = sendDataConnectMantan($url, $dataSend);
     return json_decode($return, true);
 }
+
+function listTypeOngtrum(){
+
+    return array(
+        ['type_api'=> 'facebook.buff.likepage', 'title'=>'Tăng like Fanpage Facebook'],
+        ['type_api'=> 'facebook.buff.live', 'title'=>'Tăng mắt live Facebook'],
+        ['type_api'=> 'facebook.buff.subpage', 'title'=>'Tăng theo dõi fanpage Facebook'],
+        ['type_api'=> 'facebook.buff.view', 'title'=>'Tăng lượng xem video Facebook'],
+        ['type_api'=> 'facebook.buff.friend', 'title'=>'Tăng theo dõi fanpage Facebook'],
+        ['type_api'=> 'facebook.buff.viewstory', 'title'=>'Tăng theo dõi fanpage Facebook'],
+        ['type_api'=> 'facebook.buff.share', 'title'=>'Tăng lượt chia sẻ Facebook'],
+        ['type_api'=> 'tiktok.buff.like', 'title'=>'Tăng like Fanpage Tiktok'],
+        ['type_api'=> 'tiktok.buff.sub', 'title'=>'Tăng theo dõi Tiktok'],
+        ['type_api'=> 'tiktok.buff.share', 'title'=>'Tăng lượt chia sẻ Tiktok'],
+        ['type_api'=> 'tiktok.buff.view', 'title'=>'Tăng lượt xem video Tiktok'],
+        ['type_api'=> 'tiktok.buff.cmt', 'title'=>'Tăng lượt bình luật Tiktok'],
+        ['type_api'=> 'tiktok.buff.save', 'title'=>'Tăng lượt yêu thích video Tiktok'],
+        ['type_api'=> 'tiktok.buff.download', 'title'=>'Tăng lượt tải video Tiktok'],
+        ['type_api'=> 'tiktok.buff.live', 'title'=>'Tăng lượt xem live Tiktok'],
+        ['type_api'=> 'tiktok.buff.order', 'title'=>'Tăng lượt mua hàng ảo Tiktok'],
+        ['type_api'=> 'tiktok.buff.live2', 'title'=>'Tăng lượt xem live 2 Tiktok'],
+        ['type_api'=> 'tiktok.buff.like.live', 'title'=>'Tăng lượt like live Tiktok'],
+        ['type_api'=> 'tiktok.buff.share.live', 'title'=>'Tăng lượt chia sẻ live Tiktok'],
+
+    );
+}
 ?>

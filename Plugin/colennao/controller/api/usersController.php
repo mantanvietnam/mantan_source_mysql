@@ -25,7 +25,8 @@ function registerUserApi($input): array
 
             if (isset($dataSend['email'])) {
                 $checkDuplicateEmail = $modelUser->find()->where([
-                    'email' => $dataSend['email']
+                    'email' => $dataSend['email'],
+                    'status !=' => 'delete'
                 ])->first();
             }
 
@@ -131,7 +132,8 @@ function sendEmailCodeApi($input): array
         $dataSend = $input['request']->getData();
         $conditions = array();
         if (isset($dataSend['email'])) {
-
+            $conditions['email'] = $dataSend['email'];
+            $conditions['status !='] = 'delete';
         }elseif(!empty($dataSend['token'])){
             $conditions['token'] = $dataSend['token'];
         }else{
@@ -139,15 +141,13 @@ function sendEmailCodeApi($input): array
         }
 
 
-            $user = $modelUser->find()->where([
-                'email' => $dataSend['email'],
-            ])->first();
+            $user = $modelUser->find()->where([$conditions])->first();
 
-            if (!$user) {
+            if (empty($user)){
                 return apiResponse(3, 'Email chưa được đăng kí cho bất kì tài khoản nào');
             }
 
-            if (!$user->email) {
+            if (empty($user->email)){
                 return apiResponse(3, 'Tài khoản chưa có thông tin email');
             }
 

@@ -1057,14 +1057,14 @@ function sendEmailtransactioncMoney($email='', $fullName='',$order=array(), $cer
     
         $cc = array();
         $bcc = array();
-        $subject = 'Bạn đã rút tiền thành công';
+        $subject = 'Thanh toán thành công';
 
         $content ='<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Thông tin rút tiền thành công</title>
+            <title>Thông tin thanh toán thành công</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <style>
@@ -1095,12 +1095,12 @@ function sendEmailtransactioncMoney($email='', $fullName='',$order=array(), $cer
             <div class="bao">
                 <div class="nd">
                     <div class="head">
-                        <span>Bạn đã rút tiền thành công</span>
+                        <span>Thanh toán thành công</span>
                     </div>
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
                         <br/>
-                        <b> Số tiền bạn rút là: '.number_format($order->total).'VNĐ</b>
+                        <b> Số tiền thanh toán là: '.number_format($order->total).'VNĐ</b>
                          <br/>
                         '.$order->note.'
                         <br><br>
