@@ -116,12 +116,12 @@
                     echo '<div class="col-sm-12" style="padding:  10px;">
                              <div class=" border-css">
                           <span><strong>Tên dự án: </strong>:'.$item->project->name.'</span><br>
-                          <span><strong>nhân viên: </strong>:'.$item->staff->name.'</span><br>
-                          <span><strong>tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
-                          <span><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
-                          <span><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
+                          <span><strong>Nhân viên: </strong>:'.$item->staff->name.'</span><br>
+                          <span><strong>Tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
+                          <span><strong>Thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
+                          <span><strong>Thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
                           <span><strong>Mức độ ưu tiên: </strong>:'.$level.'</span><br>
-                          <span><strong>nội dung : </strong>:'.$item->content.'</span><br>
+                          <span><strong>Nội dung : </strong>:'.$item->content.'</span><br>
                           '.$update.'
                            </div>
                           </div>';
@@ -158,12 +158,12 @@
                     echo '<div class="col-sm-12" style="padding:  10px;">
                              <div class=" border-css">
                           <span><strong>Tên dự án: </strong>:'.$item->project->name.'</span><br>
-                          <span><strong>nhân viên: </strong>:'.$item->staff->name.'</span><br>
-                          <span><strong>tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
-                          <span><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
-                          <span><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
+                          <span><strong>Nhân viên: </strong>:'.$item->staff->name.'</span><br>
+                          <span><strong>Tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
+                          <span><strong>Thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
+                          <span><strong>Thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
                           <span><strong>Mức độ ưu tiên: </strong>:'.$level.'</span><br>
-                          <span><strong>nội dung : </strong>:'.$item->content.'</span><br>
+                          <span><strong>Nội dung : </strong>:'.$item->content.'</span><br>
                           '.$update.'
                            </div>
                           </div>';
@@ -199,12 +199,12 @@
                     echo '<div class="col-sm-12" style="padding:  10px;">
                              <div class=" border-css">
                           <span><strong>Tên dự án: </strong>:'.$item->project->name.'</span><br>
-                          <span><strong>nhân viên: </strong>:'.$item->staff->name.'</span><br>
-                          <span><strong>tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
-                          <span><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
-                          <span><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
+                          <span><strong>Nhân viên: </strong>:'.$item->staff->name.'</span><br>
+                          <span><strong>Tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
+                          <span><strong>Thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
+                          <span><strong>Thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
                           <span><strong>Mức độ ưu tiên: </strong>:'.$level.'</span><br>
-                          <span><strong>nội dung : </strong>:'.$item->content.'</span><br>
+                          <span><strong>Nội dung : </strong>:'.$item->content.'</span><br>
                           '.$update.'
                            </div>
                           </div>';
@@ -241,12 +241,12 @@
                     echo '<div class="col-sm-12" style="padding:  10px;">
                              <div class=" border-css">
                           <span><strong>Tên dự án: </strong>:'.$item->project->name.'</span><br>
-                          <span><strong>nhân viên: </strong>:'.$item->staff->name.'</span><br>
-                          <span><strong>tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
-                          <span><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
-                          <span><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
+                          <span><strong>Nhân viên: </strong>:'.$item->staff->name.'</span><br>
+                          <span><strong>Tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
+                          <span><strong>Thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
+                          <span><strong>Thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
                           <span><strong>Mức độ ưu tiên: </strong>:'.$level.'</span><br>
-                          <span><strong>nội dung : </strong>:'.$item->content.'</span><br>
+                          <span><strong>Nội dung : </strong>:'.$item->content.'</span><br>
                           '.$update.'
                            </div>
                           </div>';

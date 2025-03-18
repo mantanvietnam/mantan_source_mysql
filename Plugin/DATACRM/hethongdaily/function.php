@@ -1458,7 +1458,7 @@ function getListPermission()
 
     $permission = [];
        
-    $permission[] = array( 'name'=>'Quản lý Khách hàng ',
+    $permission[] = array( 'name'=>'Quản lý khách hàng ',
                     'sub'=>array(   array('name'=>'Danh sách khách hàng','permission'=>'listCustomerAgency'),
                                     array('name'=>'Thêm và sửa khách hàng ','permission'=>'editCustomerAgency'),
                                     array('name'=>'Thêm khách hàng bằng Excel ','permission'=>'addDataCustomerAgency'),
@@ -1505,7 +1505,7 @@ function getListPermission()
                                     array('name'=>'tạo phiếu in bill','permission'=>'printBillOrderCustomerAgency')
                             )
                     );
-    $permission[] = array( 'name'=>'Quản lý Sản phẩm ',
+    $permission[] = array( 'name'=>'Quản lý sản phẩm ',
                     'sub'=>array(   array('name'=>'Danh sách sản phẩm','permission'=>'listProductAgency'),
                                     array('name'=>'Thêm và sửa sản phẩm','permission'=>'addProductAgency'),
                                     array('name'=>'Xóa sản phẩn','permission'=>'deleteProductAgency'),
@@ -1542,7 +1542,7 @@ function getListPermission()
                                     array('name'=>'Xem băng lịch sử hành dộng nhân viên','permission'=>'listActivityHistory'),
                             )
                     );
-    $permission[] = array( 'name'=>'Quản lý Thư viện ',
+    $permission[] = array( 'name'=>'Quản lý thư viện ',
                     'sub'=>array(   array('name'=>'Danh sách hình ảnh','permission'=>'listAlbum'),
                                     array('name'=>'Thêm và sửa thông tin hình ảnh','permission'=>'addAlbum'),
                                     array('name'=>'Xóa thông tin hình ảnh ','permission'=>'deleteAlbum'),
@@ -1557,7 +1557,7 @@ function getListPermission()
                                     array('name'=>'xem thông tin chi tiết tài liệu ','permission'=>'listDocumentinfo'),
                             )
                     );
-    $permission[] = array( 'name'=>'Quản lý Đào tạo ',
+    $permission[] = array( 'name'=>'Quản lý đào tạo ',
                     'sub'=>array(   array('name'=>'danh sách khóa học','permission'=>'listCourseAgency'),
                                     array('name'=>'thêm và sửa khóa học','permission'=>'addCourseAgency'),
                                     array('name'=>'xóa khóa học','permission'=>'deleteCourseAgency'),

@@ -3,7 +3,7 @@
 
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listCustomerAgency">Khách hàng</a> /</span>
-    Danh sách khách hàng yếu cấu lên tích xanh
+    Danh sách khách hàng yêu cấu lên tích xanh
   </h4>
 
 
