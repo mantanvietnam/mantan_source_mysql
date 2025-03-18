@@ -1445,9 +1445,12 @@ function checklogin($permission=''){
     }else{
       $user ='';  
     }    
-    if($user->deadline < time()){
-        $user->grant_permission = 0;
+    if(!empty($user)){
+        if($user->deadline < time()){
+            $user->grant_permission = 0;
+        }
     }
+    
 
     return $user; 
 }

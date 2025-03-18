@@ -838,7 +838,7 @@ function addCustomer()
         })
         .autocomplete({
             source: function( request, response ) {
-                $.getJSON( "/apis/searchAffiliateAPI", {
+                $.getJSON( "/apis/searchAffiliaterAPI", {
                     term: extractLast( request.term )
                 }, response );
             },

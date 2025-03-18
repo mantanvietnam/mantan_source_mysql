@@ -14,8 +14,9 @@ function searchAffiliateAPI($input)
             
         $conditions = ['id_member'=>$user->id];
 
+        
         if(!empty($dataSend['term'])){
-            $conditions['name LIKE'] = '%'.$dataSend['term'].'%';
+            $conditions['or'] = [['name LIKE' => '%'.$dataSend['term'].'%'], ['phone LIKE' => '%'.$dataSend['term'].'%']];
         }
 
         if(!empty($dataSend['id'])){

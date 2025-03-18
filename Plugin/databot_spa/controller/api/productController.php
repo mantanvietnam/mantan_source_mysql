@@ -268,4 +268,283 @@ function deleteProductAPI($input){
         return $controller->redirect('/');
     }
 }
+
+function listCategoryProductAPI($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listCategoryProduct','product');
+			if(!empty($infoUser)){ 
+				$limit = 20;
+				$order = ['status'=>'desc','id' => 'DESC'];
+
+				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+				if($page<1) $page = 1;
+		        $conditions = array('type' => 'category_product', 'id_member'=>$infoUser->id_member);
+		        $listData = $modelCategories->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+		        $totalData = $modelCategories->find()->where($conditions)->count();
+
+		      	return apiResponse(1,'lấy dữ liệu thành công',$listData, $totalData);		  	
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function addCategoryProductAPI($input){	
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $modelMembers = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
+	$modelMemberGroup = $controller->loadModel('MemberGroups');
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['name'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listCategoryProduct','staff');
+			if(!empty($infoUser)){
+
+		// lấy data edit
+	    if(!empty($dataSend['id'])){
+	        $data = $modelCategories->find()->where(['id'=> (int) $dataSend['id'], 'type'=>'category_product'])->first();
+	    }else{
+	        $data = $modelCategories->newEmptyEntity();
+	        $data->created_at = time();
+	    }
+	  
+	        	// tạo dữ liệu save
+			    $data->name = @$dataSend['name'];
+			    $data->type = 'category_product';
+			    $data->slug = createSlugMantan($data->name).'-'.time();
+
+			    $modelCategories->save($data);
+
+			    return apiResponse(1,'Lưu dữ liệu thành công',$data);
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function detailCategoryProductAPI($input){	
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $modelMembers = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
+	$modelMemberGroup = $controller->loadModel('MemberGroups');
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'deleteCategoryProduct','product');
+			if(!empty($infoUser)){
+
+	        $data = $modelCategories->find()->where(['id'=> (int) $dataSend['id'], 'type'=>'category_product'])->first();
+	        if(!empty($data)){
+			    return apiResponse(1,'Bạn lấy dữ liệu thành công',$data);
+			}
+			return apiResponse(4,'Dữ liệu không tồn tại' );
+		}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function deleteCategoryProductAPI($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+
+        $infoUser = $session->read('infoUser');
+        $modelProduct = $controller->loadModel('Products');
+    if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'deleteCategoryProduct','product');
+			if(!empty($infoUser)){
+	            $conditions = array('id'=> $dataSend['id'], 'type' => 'category_product', 'id_member'=>$infoUser->id_member);
+	            
+	            $data = $modelCategories->find()->where($conditions)->first();
+
+	            $checkSevice = $modelProduct->find()->where(array('id_category'=>$data->id))->all()->toList();
+	            if(empty($checkSevice)){
+	                if(!empty($data)){
+	                    $modelCategories->delete($data);
+	                    return apiResponse(1,'Xóa dữ liệu thành công');
+				}
+				return apiResponse(4,'Dữ liệu không tồn tại' );
+			}
+			return apiResponse(5,'không xóa được dữ liệu' );
+		}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function listTrademarkProductAPI($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $controller;
+    global $session;
+    $modelTrademark = $controller->loadModel('Trademarks');
+
+    if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listTrademarkProduct','product');
+			if(!empty($infoUser)){ 
+				$limit = 20;
+				$order = ['status'=>'desc','id' => 'DESC'];
+
+				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+				if($page<1) $page = 1;
+		        $conditions = array('id_member'=>$infoUser->id_member);
+		        $listData = $modelTrademark->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+		        $totalData = $modelTrademark->find()->where($conditions)->count();
+
+		      	return apiResponse(1,'lấy dữ liệu thành công',$listData, $totalData);		  	
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function addTrademarkProductAPI($input){	
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $modelMembers = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
+    $modelTrademark = $controller->loadModel('Trademarks');
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['name'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listTrademarkProduct','staff');
+			if(!empty($infoUser)){
+
+				// lấy data edit
+			    if(!empty($dataSend['id'])){
+			        $data = $modelTrademark->find()->where(['id'=> (int) $dataSend['id'], 'id_member'=>$infoUser->id_member])->first();
+			    }else{
+			        $data = $modelTrademark->newEmptyEntity();
+			        $data->created_at = time();
+			    }
+		  
+		        	// tạo dữ liệu save
+	            $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+	            $data->id_member = $infoUser->id_member;
+	            $data->description = str_replace(array('"', "'"), '’', @$dataSend['description']);
+	            // tạo slug
+	            $data->slug = createSlugMantan($data->name).'-'.time();
+
+			    $modelTrademark->save($data);
+
+			    return apiResponse(1,'Lưu dữ liệu thành công',$data);
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function detailTrademarkProductAPI($input){	
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $modelMembers = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
+    $modelTrademark = $controller->loadModel('Trademarks');
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listTrademarkProduct','product');
+			if(!empty($infoUser)){
+
+	        $data = $modelTrademark->find()->where(['id'=> (int) $dataSend['id'], 'id_member'=>$infoUser->id_member])->first();
+	        if(!empty($data)){
+			    return apiResponse(1,'Bạn lấy dữ liệu thành công',$data);
+			}
+			return apiResponse(4,'Dữ liệu không tồn tại' );
+		}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function deleteTrademarkProductAPI($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+
+    $infoUser = $session->read('infoUser');
+    $modelProduct = $controller->loadModel('Products');
+    $modelTrademark = $controller->loadModel('Trademarks');
+    if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'deleteTrademarkProduct','product');
+			if(!empty($infoUser)){
+	            $conditions = array('id'=> $dataSend['id'], 'id_member'=>$infoUser->id_member);
+	            
+	            $data = $modelTrademark->find()->where($conditions)->first();
+
+	            $checkSevice = $modelProduct->find()->where(array('id_trademark'=>$data->id))->all()->toList();
+	            if(empty($checkSevice)){
+	                if(!empty($data)){
+	                    $modelTrademark->delete($data);
+	                    return apiResponse(1,'Xóa dữ liệu thành công');
+				}
+				return apiResponse(4,'Dữ liệu không tồn tại' );
+			}
+			return apiResponse(5,'không xóa được dữ liệu' );
+		}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
 ?>

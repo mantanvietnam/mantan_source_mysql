@@ -12,6 +12,7 @@
   <h4 class="fw-bold py-3 mb-4">Cộng tác viên</h4>
  <p><a href="/addAffiliaterAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
+
   <div class="card">
     <h5 class="card-header">Danh sách cộng tác viên</h5>
     <?php echo @$mess;?>
@@ -181,7 +182,6 @@
                 return number.toLocaleString('en-US');
             }
 </script>
-
 <script>
     var jsonTreeData = [
     <?php
