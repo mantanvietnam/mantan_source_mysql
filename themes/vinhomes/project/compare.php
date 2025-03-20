@@ -34,6 +34,20 @@ getHeader();
 .price-details-content th {
     background-color: #f2f2f2;
 }
+table {
+    width: 100%;
+    border-collapse: collapse; /* Giúp các đường viền gọn gàng */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Viền màu xám nhạt */
+    padding: 12px;
+}
+
+th {
+    background-color: #f9fafb; /* Màu nền nhẹ cho tiêu đề */
+    text-align: left;
+}
 </style>
 
 <div class="py-10 px-4 sm:px-6 md:container xl:px-20 bg-white text-black font-plus fade-in">
@@ -521,4 +535,6 @@ getHeader();
         addRemoveEvent();
         setTimeout(fetchAllSelectedProperties, 500);
     });
+
+    
 </script>
