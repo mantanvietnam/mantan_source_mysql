@@ -792,6 +792,47 @@ function sendEmail($to=array(),$cc=array(),$bcc=array(),$subject='',$content='',
 	}
 }
 
+function sendEmailv2($to=array(), $cc=array(), $bcc=array(), $subject='', $content='', $typeConfig='default', $attachments=[])
+{
+    global $contactSite;
+    global $smtpSite;
+
+    if (!empty($to) && !empty($subject)) {
+        $from = [$contactSite['email'] => $smtpSite['display_name']];
+
+        $listAttachments = [];
+
+        if (!empty($attachments)) {
+            foreach ($attachments as $key => $item) {
+                if (file_exists($item['link'])) {
+                    $listAttachments[$item['name']] = [
+                        'file' => $item['link'],
+                        'mimetype' => $item['type'],
+                        'contentId' => 'file' . $key . '_cid'
+                    ];
+                }
+            }
+        }
+
+        $mailer = new Mailer($typeConfig);
+        $mailer->setTransport($typeConfig)
+            ->setFrom($from)
+            ->setTo($to)
+            ->setEmailFormat('html')
+            ->setAttachments($listAttachments)
+            ->setSubject($subject)
+            ->deliver($content);
+
+        if (!empty($attachments)) {
+            foreach ($attachments as $item) {
+                if (file_exists($item['link'])) {
+                    unlink($item['link']);
+                }
+            }
+        }
+    }
+}
+
 function getMenusDefault($id=0)
 {
 	global $modelCategories;

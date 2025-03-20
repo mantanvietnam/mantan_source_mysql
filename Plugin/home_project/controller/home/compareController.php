@@ -10,8 +10,6 @@ function compare($input)
     $metaTitleMantan = 'So sánh bất động sản Vinhomes';
 
     $modelProductProjects = $controller->loadModel('ProductProjects');
-    $modelCommerce = $controller->loadModel('Commerce');
-    $modelCommerceItems = $controller->loadModel('CommerceItems');
 
     $compareData = [];
     
@@ -31,7 +29,6 @@ function compare($input)
         
         if (!empty($project)) {
             $images = !empty($project->images) ? json_decode($project->images, true) : [];
-            $officially = !empty($project->officially) ? json_decode($project->officially, true) : [];
             
             $kindCategory = null;
             if (!empty($project->id_kind)) {
@@ -49,41 +46,20 @@ function compare($input)
                 'image' => $project->image,
                 'kind' => !empty($kindCategory) ? $kindCategory->name : '',
                 'address' => $project->address,
-                'description' => $project->description,
-                'status' => $project->status,
                 'map' => $project->map,
-                'text_location' => $project->text_location,
                 'acreage' => $project->acreage,
-                'officially' => $officially,
                 'investor' => $project->investor,
                 'apart_type' => !empty($apartType) ? $apartType->name : '',
                 'direction' => $project->direction,
                 'ownership_type' => $project->ownership_type,
-                'ecological_space' => $project->ecological_space,
-                'utility_services' => $project->utility_services,
-                'price' => $project->price,
-                'images' => $images
+                'images' => $images,
+                'preferential_policy' => $project->preferential_policy,
+                'construction_density' => $project->construction_density,
+                'construction_date' => $project->construction_date,
+                'studio_apartment' => $project->studio_apartment,
+                'key_amenities' => $project->key_amenities
+
             ];
-            
-            $commerceData = $modelCommerce->find()->where(['id_product' => $project->id])->first();
-            if (!empty($commerceData)) {
-                $projectData['commerce'] = [
-                    'main_title' => $commerceData->main_title,
-                    'main_description' => $commerceData->main_description,
-                    'view_type' => $commerceData->view_type
-                ];
-                
-                $commerceItems = $modelCommerceItems->find()->where(['id_commerce' => $commerceData->id])->all()->toList();
-                $projectData['amenities'] = [];
-                
-                foreach ($commerceItems as $item) {
-                    $projectData['amenities'][] = [
-                        'title' => $item->title,
-                        'description' => $item->description,
-                        'image' => $item->image
-                    ];
-                }
-            }
             
             $compareData[] = $projectData;
         }
@@ -95,23 +71,9 @@ function compare($input)
         ->all()
         ->toList();
     
-    $compareFeatures = [
-        'price' => 'Giá niêm yết',
-        'acreage' => 'Diện tích',
-        'direction' => 'Hướng',
-        'investor' => 'Chủ đầu tư',
-        'ownership_type' => 'Loại sở hữu',
-        'status' => 'Tình trạng'
-    ];
     
-    $locationFeatures = [
-        'address' => 'Địa chỉ',
-        'text_location' => 'Khu vực'
-    ];
-    
+    // Gửi dữ liệu ra view
     setVariable('compareData', $compareData);
     setVariable('allProjects', $allProjects);
-    setVariable('compareFeatures', $compareFeatures);
-    setVariable('locationFeatures', $locationFeatures);
 }
 ?>

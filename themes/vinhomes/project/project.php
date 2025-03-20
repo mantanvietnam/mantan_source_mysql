@@ -127,7 +127,7 @@
           </div>
           <div class="flex items-center mt-2 font-bold">
             <p class="mr-2">Tổng diện tích:</p>
-            <p class="text-[#142A72]"><?php echo $value->acreage; ?></p>
+            <p class="text-[#142A72]"><?php echo $value->acreage; ?> ha</p>
           </div>
           <div class="short-description">
               <?= $value->description ?>

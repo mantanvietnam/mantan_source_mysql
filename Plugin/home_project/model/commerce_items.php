@@ -7,7 +7,7 @@ class CommerceItemsTable extends Table
 	
 	public function initialize(array $config): void
     {
-        $this->setTable('commerce_items');
+        $this->setTable('product_items');
     }
     
 }

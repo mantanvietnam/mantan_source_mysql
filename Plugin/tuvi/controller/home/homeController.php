@@ -102,6 +102,7 @@ function information($input) {
            
             if ($horoscope) {
                 $overview = $horoscope->overview;
+                $price = $horoscope->price;
             } else {
                 $mess = "Không tìm thấy thông tin phù hợp.";
             }
@@ -114,7 +115,66 @@ function information($input) {
 
     setVariable('mess', $mess);
     setVariable('overview', $overview);
+    setVariable('price', $price);
 }
 
+// function information($input) {
+//     global $metaTitleMantan;
+//     global $controller;
+
+//     $metaTitleMantan = 'Thông tin chi tiết';
+
+//     $modelCustomer = $controller->loadModel('customers');
+//     $modelHoroscopes = $controller->loadModel('Horoscope');
+
+//     $mess = ''; 
+//     $overview = null;
+//     $dataSend = $input['request']->getQuery();
+
+//     if (!empty($dataSend['id'])) {
+//         $conditions = ['id' => $dataSend['id']];
+//     } else {
+//         $conditions = ['id IS' => null];
+//     }
+
+//     $customer = $modelCustomer->find()->where($conditions)->first();
+
+//     if ($customer) {
+//         if (!empty($customer->birth_datetime) && !empty($customer->gender) && !empty($customer->email) && !empty($customer->full_name)) {
+//             $birth_year = $customer->birth_datetime->format('Y');
+//             $gender = $customer->gender;
+//             $email = $customer->email;
+//             $name = $customer->full_name;
+
+//             $conditions = [
+//                 'year' => $birth_year,
+//                 'gender' => $gender
+//             ];
+
+//             $horoscope = $modelHoroscopes->find()->where($conditions)->first();
+           
+//             if ($horoscope) {
+//                 $overview = $horoscope->overview;
+
+//                 $sendStatus = sendHoroscopeEmail($email, $name, $birth_year, $gender, $horoscope);
+
+//                 if ($sendStatus) {
+//                     $mess = "Email đã được gửi đến $email.";
+//                 } else {
+//                     $mess = "Lỗi khi gửi email. Vui lòng thử lại.";
+//                 }
+//             } else {
+//                 $mess = "Không tìm thấy thông tin phù hợp.";
+//             }
+//         } else {
+//             $mess = "Dữ liệu khách hàng không hợp lệ hoặc thiếu thông tin.";
+//         }
+//     } else {
+//         $mess = "Không tìm thấy khách hàng.";
+//     }
+
+//     setVariable('mess', $mess);
+//     setVariable('overview', $overview);
+// }
 
 ?>

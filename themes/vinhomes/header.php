@@ -144,7 +144,7 @@ $setting = setting();
           </nav>
             <a
               href="/contact"
-              class="set-backgroundcontact px-4 py-2 text-white transition-all duration-300 ease-in-out bg-transparent border border-white shadow-md rounded-xl hover:bg-white hover:text-blue-700 hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              class="set-backgroundcontact px-4 py-2 text-white transition-all duration-300 ease-in-out bg-transparent border border-white shadow-md rounded-xl hover:bg-white hover:text-blue-700 hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:outline-none setcolor"
             >
               Liên hệ tư vấn
             </a>
