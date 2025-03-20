@@ -185,9 +185,11 @@
                                 <tr>
                                     <th width="20%">Tên sản phẩm</th>
                                     <th  width="15%">Số lượng</th>
-                                    <th  width="15%">Đơn giá</th>
+                                    <th  width="15%">Giá nhập</th>
                                     <th  width="15%">Đơn vị</th>
+                                    <!--
                                     <th  width="15%">Giảm giá</th>
+                                    -->
                                     <th  width="15%">Thành tiền</th>
                                     <th  width="5%">Xóa</th>
                                 </tr>
@@ -331,6 +333,7 @@ function addProduct(id, name, priceProduct, unit)
 
         $('#listProductOrder tr:first').after('\
             <tr id="tr'+row+'">\
+                <input '+readonly+' type="hidden" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(0);">\
                 <td style="text-align: initial;">\
                     <input type="hidden" name="idHangHoa['+row+']" id="idProduct'+row+'" value="'+id+'">\
                     '+name+'\
@@ -348,9 +351,6 @@ function addProduct(id, name, priceProduct, unit)
                 </td>\
                 <td id="tdunit-'+row+'">\
                     '+unit+'\
-                </td>\
-                <td>\
-                    <input '+readonly+' type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(0);">\
                 </td>\
                 <td id="totalmoney'+row+'"></td>\
                 <td>\

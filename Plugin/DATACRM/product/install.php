@@ -9,14 +9,14 @@ $sqlUpdateDatabase = [];
 
 $sqlInstallDatabase .= "CREATE TABLE `products` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
-    `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
     `id_category` INT NOT NULL , 
     `hot` BOOLEAN NOT NULL , 
-    `description` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
-    `keyword` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
-    `info` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
-    `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
-    `code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL ,
+    `keyword` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , 
+    `info` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , 
+    `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , 
+    `code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , 
     `price` INT NOT NULL , 
     `price_old` INT NOT NULL , 
     `quantity` INT NOT NULL , 
@@ -24,13 +24,13 @@ $sqlInstallDatabase .= "CREATE TABLE `products` (
     `status` VARCHAR(255) NOT NULL , 
     `slug` VARCHAR(255) NOT NULL , 
     `view` INT NOT NULL DEFAULT '0' , 
-    `images` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , 
-    `rule` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, 
+    `images` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , 
+    `rule` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL, 
     `id_product` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
     `specification` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
     `idpro_discount`  VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     `pricepro_discount` INT NULL DEFAULT NULL,
-    `evaluate` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, 
+    `evaluate` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL, 
     `unit` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     `price_fash` INT NULL DEFAULT NULL, 
     `price_agency` INT NOT NULL DEFAULT '0', 
@@ -39,12 +39,12 @@ $sqlInstallDatabase .= "CREATE TABLE `products` (
 $sqlInstallDatabase .= "CREATE TABLE `orders` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `id_user` INT NULL DEFAULT '0' , 
-    `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
     `email` VARCHAR(255) NULL , 
     `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , 
-    `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
-    `note_user` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , 
-    `note_admin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , 
+    `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+    `note_user` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , 
+    `note_admin` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , 
     `status` VARCHAR(255) NOT NULL , 
     `create_at` INT NOT NULL , 
     `money` INT NOT NULL ,
@@ -130,14 +130,14 @@ $sqlInstallDatabase .="CREATE TABLE `categorie_products` (
 
 $sqlInstallDatabase .="CREATE TABLE `address` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
-    `address_name` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `address_name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
     `id_customer` INT NOT NULL DEFAULT '0' , 
     `address_type` INT NOT NULL , 
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .="CREATE TABLE `unit_conversions` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
-    `unit`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `unit`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
     `id_product` INT NOT NULL DEFAULT '0' , 
     `quantity` INT NOT NULL DEFAULT '0' , 
     `price` INT NOT NULL DEFAULT '0' , 
@@ -160,14 +160,14 @@ $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_product';
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='manufacturer_product'; ";
 
 // Bang products
-$sqlUpdateDatabase['products']['title'] = "ALTER TABLE `products` ADD `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ; ";
+$sqlUpdateDatabase['products']['title'] = "ALTER TABLE `products` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ; ";
 $sqlUpdateDatabase['products']['id_category'] = "ALTER TABLE `products` ADD `id_category` INT NOT NULL ; ";
 $sqlUpdateDatabase['products']['hot'] = "ALTER TABLE `products` ADD `hot` BOOLEAN NOT NULL; ";
-$sqlUpdateDatabase['products']['description'] = "ALTER TABLE `products` ADD `description` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ; ";
-$sqlUpdateDatabase['products']['keyword'] = "ALTER TABLE `products` ADD `keyword` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ; ";
-$sqlUpdateDatabase['products']['info'] = "ALTER TABLE `products` ADD `info` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['products']['image'] = "ALTER TABLE `products` ADD `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['products']['code'] = "ALTER TABLE `products` ADD `code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['products']['description'] = "ALTER TABLE `products` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL ; ";
+$sqlUpdateDatabase['products']['keyword'] = "ALTER TABLE `products` ADD `keyword` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL ; ";
+$sqlUpdateDatabase['products']['info'] = "ALTER TABLE `products` ADD `info` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL; ";
+$sqlUpdateDatabase['products']['image'] = "ALTER TABLE `products` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL; ";
+$sqlUpdateDatabase['products']['code'] = "ALTER TABLE `products` ADD `code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['products']['price'] = "ALTER TABLE `products` ADD `price` INT NOT NULL; ";
 $sqlUpdateDatabase['products']['price_old'] = "ALTER TABLE `products` ADD `price_old` INT NOT NULL; ";
 $sqlUpdateDatabase['products']['quantity'] = "ALTER TABLE `products` ADD `quantity` INT NOT NULL ; ";
@@ -175,25 +175,25 @@ $sqlUpdateDatabase['products']['id_manufacturer'] = "ALTER TABLE `products` ADD 
 $sqlUpdateDatabase['products']['status'] = "ALTER TABLE `products` ADD `status` VARCHAR(255) NOT NULL ; ";
 $sqlUpdateDatabase['products']['slug'] = "ALTER TABLE `products` ADD `slug` VARCHAR(255) NOT NULL ; ";
 $sqlUpdateDatabase['products']['view'] = "ALTER TABLE `products` ADD `view` INT NOT NULL DEFAULT '0' ; ";
-$sqlUpdateDatabase['products']['images'] = "ALTER TABLE `products` ADD `images` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ; ";
-$sqlUpdateDatabase['products']['rule'] = "ALTER TABLE `products` ADD `rule` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL; ";
+$sqlUpdateDatabase['products']['images'] = "ALTER TABLE `products` ADD `images` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL ; ";
+$sqlUpdateDatabase['products']['rule'] = "ALTER TABLE `products` ADD `rule` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL; ";
 $sqlUpdateDatabase['products']['id_product'] = "ALTER TABLE `products` ADD `id_product` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ; ";
 $sqlUpdateDatabase['products']['specification'] = "ALTER TABLE `products` ADD `specification` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ; ";
 $sqlUpdateDatabase['products']['idpro_discount'] = "ALTER TABLE `products` ADD `idpro_discount`  VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['products']['pricepro_discount'] = "ALTER TABLE `products` ADD `pricepro_discount` INT NULL DEFAULT NULL; ";
-$sqlUpdateDatabase['products']['evaluate'] = "ALTER TABLE `products` ADD `evaluate` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL; ";
+$sqlUpdateDatabase['products']['evaluate'] = "ALTER TABLE `products` ADD `evaluate` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL; ";
 $sqlUpdateDatabase['products']['price_fash'] = "ALTER TABLE `products` ADD `price_fash` INT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['products']['unit'] = "ALTER TABLE `products` ADD `unit` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['products']['price_agency'] = "ALTER TABLE `products` ADD `price_agency` INT NOT NULL DEFAULT '0';";
 
 // Bang orders
 $sqlUpdateDatabase['orders']['id_user'] = "ALTER TABLE `orders` ADD `id_user` INT NULL DEFAULT '0' ; ";
-$sqlUpdateDatabase['orders']['full_name'] = "ALTER TABLE `orders` ADD `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['orders']['full_name'] = "ALTER TABLE `orders` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['orders']['email'] = "ALTER TABLE `orders` ADD `email` VARCHAR(255) NULL ; ";
 $sqlUpdateDatabase['orders']['phone'] = "ALTER TABLE `orders` ADD `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['orders']['address'] = "ALTER TABLE `orders` ADD `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['orders']['note_user'] = "ALTER TABLE `orders` ADD `note_user` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL; ";
-$sqlUpdateDatabase['orders']['note_admin'] = "ALTER TABLE `orders` ADD `note_admin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ; ";
+$sqlUpdateDatabase['orders']['address'] = "ALTER TABLE `orders` ADD `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['orders']['note_user'] = "ALTER TABLE `orders` ADD `note_user` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL; ";
+$sqlUpdateDatabase['orders']['note_admin'] = "ALTER TABLE `orders` ADD `note_admin` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL ; ";
 $sqlUpdateDatabase['orders']['id_staff'] = "ALTER TABLE `orders` ADD `id_staff` INT NULL DEFAULT '0';";
 
 $sqlUpdateDatabase['orders']['status'] = "ALTER TABLE `orders` ADD `status` VARCHAR(255) NOT NULL; ";
@@ -261,11 +261,11 @@ $sqlUpdateDatabase['categorie_products']['id_category'] = "ALTER TABLE `categori
 $sqlUpdateDatabase['categorie_products']['id_product'] = "ALTER TABLE `categorie_products` ADD `id_product` INT NOT NULL; ";
 
 // Bang address
-$sqlUpdateDatabase['address']['address_name'] = "ALTER TABLE `address` ADD `address_name` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['address']['address_name'] = "ALTER TABLE `address` ADD `address_name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['address']['id_customer'] = "ALTER TABLE `address` ADD `id_customer` INT NOT NULL DEFAULT '0'; ";
 $sqlUpdateDatabase['address']['address_type'] = "ALTER TABLE `address` ADD `address_type` INT NOT NULL; ";
 
-$sqlUpdateDatabase['unit_conversions']['unit'] = "ALTER TABLE `unit_conversions` ADD `unit`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['unit_conversions']['unit'] = "ALTER TABLE `unit_conversions` ADD `unit`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['unit_conversions']['id_product'] = "ALTER TABLE `unit_conversions` ADD `id_product` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['unit_conversions']['quantity'] = "ALTER TABLE `unit_conversions` ADD `quantity` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['unit_conversions']['price'] = "ALTER TABLE `unit_conversions` ADD `price` INT NOT NULL DEFAULT '0';";
