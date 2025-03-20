@@ -37,7 +37,7 @@ function addBookAPI($input){
 			$save->time_book = time();
 		}
 
-		if(!empty($dataSend['phone']) && !empty($dataSend['id_service'])){
+		if(!empty($dataSend['id_service'])){
 			$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
 			$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 			$conditions = ['id_member'=>$infoUser->id_member];

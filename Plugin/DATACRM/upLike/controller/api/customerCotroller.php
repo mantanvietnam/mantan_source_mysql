@@ -165,6 +165,7 @@ function customerUpAPI($input)
                     $saveRequest->money = $dataSend['total_pay'];
                     $saveRequest->number_up = $dataSend['number_up'];
                     $saveRequest->chanel = $data_value['chanel'];
+                    $saveRequest->minute = $data_value['minute'];
                     $saveRequest->url_page = $dataSend['url_page'];
                     $saveRequest->price = $dataSend['price'];
                     $saveRequest->type = 'customer';

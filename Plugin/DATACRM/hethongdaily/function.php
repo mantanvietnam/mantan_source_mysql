@@ -1823,7 +1823,7 @@ function processAddMoney($money = 0, $phone='', $type='', $note=''){
                     }elseif($histories->type_histories=='up_like'){ 
                         $saveRequest = $modelUplikeHistories->find()->where(['id'=>(int)$histories->id_uplike])->first();
                         if(!empty($saveRequest)){
-                             $sendOngTrum = sendRequestBuffOngTrum($saveRequest->type_page, $saveRequest->id_page, $saveRequest->chanel, $saveRequest->number_up, $saveRequest->url_page, $histories->id_customer);
+                             $sendOngTrum = sendRequestBuffOngTrum($saveRequest->type_page, $saveRequest->id_page, $saveRequest->chanel, $saveRequest->number_up, $saveRequest->url_page, $histories->id_customer,$histories->minute);
                             if($sendOngTrum['code']==200){
 
                                 $saveRequest->id_request_buff = $sendOngTrum['id'];

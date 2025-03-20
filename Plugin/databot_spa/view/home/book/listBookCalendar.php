@@ -730,6 +730,9 @@
     if(type4Checked) type4 = 1;
     if(repeat_book_checked) repeat_book = 1;
 
+  if(id_customer==0){
+    alert('Chưa có thông tin khách hàng ');
+  }else{
     if(name != '' && id_customer != 0 && id_service != '' && time_book != ''){
       $.ajax({
         method: "POST",
@@ -782,6 +785,9 @@
     }
   }
 
+    
+  }
+
   function checkin(id, id_staff, idbed, time_chekin,id_customer ,id_service){
 
      $('#idStaff').val(id_staff);
@@ -803,7 +809,7 @@
                 html +=' <label class="form-label" for="basic-default-phone">chọn hình thức sử dụng</label>\
                         <select name="type_order" id="type_order" class="form-select color-dropdown">\
                           <option value="service">Mua dịch vụ mới </option>\
-                          <option value="combo" >sử dụng trong combo</option>\
+                          <option value="combo" >Sử dụng dịch vụ trong combo</option>\
                         </select>\
                         <input  type="hidden" class="form-control phone-mask" name="id_order_detail" id="id_order_detail" value="'+msg.data.id_order_detail+'" />\
                         <input  type="hidden" class="form-control phone-mask" name="id_order" id="id_order" value="'+msg.data.id_order+'" />\

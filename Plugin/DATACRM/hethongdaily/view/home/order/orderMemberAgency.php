@@ -604,7 +604,7 @@
                 }
 
                 if(msg.status_pay=='wait' && msg.status!='cancel'){
-                    $htmlbtnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'+id+'">Thu tiền</a>';
+                    htmlbtnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'+id+'">Thu tiền</a>';
                   }
                     $('#status'+id).html(htmlstatus);
                     $('#statusPay'+id).html(htmlstatusPay);
@@ -671,7 +671,7 @@
                 }
 
                 if(msg.status_pay=='wait' && msg.status!='cancel'){
-                    $htmlbtnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'+id+'">Thu tiền</a>';
+                    htmlbtnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'+id+'">Thu tiền</a>';
                   }
                     $('#status'+id).html(htmlstatus);
                     $('#statusPay'+id).html(htmlstatusPay);

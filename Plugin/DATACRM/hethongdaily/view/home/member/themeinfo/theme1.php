@@ -226,11 +226,21 @@
 
                             <div class=" d-flex mt-2"> 
                                 <button class="btn1 btn-dark" onclick="saveToPhonebook()">LƯU DANH BẠ</button> 
+                                 <!-- <a class="btn1 btn-dark" id="affiliate-tab" data-toggle="tab" href="#affiliate">ĐK CTV</a> -->
                             </div> 
 
                             <div class="text mt-3"> 
                                 <?php echo $info->description;?> 
                             </div> 
+
+                            <a id="customer-tab" data-toggle="tab" onclick="buttonAffiliate();" href="#affiliate">
+                                <div class="row social mb-3">
+                                    <div class="col-12 text-center">
+                                        <span class="title">Đăng ký cộng tác viên</span><br/>
+                                        <!-- <span class="des">Kết bạn với tôi nhé</span> -->
+                                    </div>
+                                </div>
+                            </a>
 
                             <?php if(!empty($info->facebook)){ ?>
                             <a target="_blank" href="<?php echo $info->facebook;?>">
@@ -598,6 +608,65 @@
                 </div>
             </div>
 
+            <div class="tab-pane fade" id="affiliate">
+                <div class="container p-3 d-flex justify-content-center">
+                    <div class="card p-4"> 
+                        <form id="uploadFormAffiliate" enctype="multipart/form-data">
+                           <h5 style="text-align: center;" for="full_name" class="form-label">ĐĂNG KÝ CỘNG TÁC VIÊN</h5>
+                            <input type="hidden" name="token" value="<?php echo $info->token;?>">
+                            <div class="mb-3">
+                              <label for="full_name" class="form-label">Họ tên (*)</label>
+                              <input type="text" class="form-control" id="" name="full_name" value="" required />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Số điện thoại (*)</label>
+                              <input type="text" class="form-control" id="" name="phone" value="" required />
+                            </div>
+                            <div class="mb-3">
+                              <label for="avatar" class="form-label">Ảnh đại diện</label>
+                              <input type="file" class="form-control" id="" name="avatar" value="" accept="image/*" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="address" class="form-label">Địa chỉ</label>
+                              <input type="text" class="form-control" id="" name="address" value="" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Email</label>
+                              <input type="text" class="form-control" id="" name="email" value="" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Mật khẩu </label>
+                              <input type="password" class="form-control" id="" name="password" value="" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Mật khẩu </label>
+                              <input type="password" class="form-control" id="" name="password_confirmation" value="" />
+                              <input type="hidden" class="form-control" id="" name="id_member" value="<?php echo @$_GET['id'] ?>" />
+                            </div>
+                            
+                            <div class="mb-3 text-center">
+                                <div id="messAffiliater"></div>
+                                <button type="submit" class="btn btn-danger" id="" >Đăng ký</button> 
+                            </div>
+                        </form>
+
+                        <div id="show_img_card_customer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="QRCodeAffiliater">
+                <div class="container p-3 d-flex justify-content-center">
+                    <div class="card p-4"> 
+                        <h5 style="text-align: center;" for="full_name" class="form-label">Bạn đăng ký cộng tác viên thành công</h5>
+                           <div class="modal-body" id="QRAffiliater"></div>
+                        <div class="mb-3 text-center">
+                                <div id="messAffiliater"></div>
+                                <a class="btn btn-danger" href="<?php echo $urlHomes;?>affiliaterLogin" id="" >Đăng nhập</a> 
+                            </div>
+                    </div>
+                </div>
+            </div>
             <!-- Tab trang cá nhân -->
             <?php 
             /*
@@ -621,7 +690,9 @@
             <li class="nav-item">
                 <a class="nav-link" id="customer-tab" data-toggle="tab" href="#customer">Khách hàng</a>
             </li>
-            
+          <!--   <li class="nav-item">
+                <a class="nav-link" id="customer-tab" data-toggle="tab" href="#affiliate">ĐK CTV</a>
+            </li> -->
             <?php 
             /*
             if(!empty($info->web)){
@@ -1170,6 +1241,77 @@
                     }
                 });
             }
+
+            function buttonAffiliate(){
+
+                const info = document.getElementById("info");
+                const affiliate = document.getElementById("affiliate");
+                const infotab = document.getElementById("info-tab");
+
+                info.classList.remove("active");
+                info.classList.remove("show");
+
+                infotab.classList.remove("active");
+                infotab.classList.remove("show");
+
+                affiliate.classList.add("active");
+                affiliate.classList.add("show");
+            }
+
+
         </script>
+
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // Khi form được submit
+                $('#uploadFormAffiliate').on('submit', function(event) {
+                    // Ngăn chặn hành động mặc định của form (làm mới trang)
+                    event.preventDefault();
+                    
+                    // Tạo đối tượng FormData để chứa dữ liệu form
+                    var formData = new FormData(this);
+
+                  
+                    
+                    // Sử dụng AJAX jQuery để gửi dữ liệu form lên server
+                    $.ajax({
+                        url: '/apis/saveInfoAffiliaterAPI', // URL của server nơi bạn muốn upload file
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(msg) {
+                              console.log(msg);
+                              if(msg.code==1){
+                                var html = '<label for="full_name" class="form-label">QR code</label>\
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'" width="100%" />\
+                                <label for="full_name" class="form-label"> link chia sẽ mua hàng của bạn </label>\
+                                   <a style="color: #0d6efd;" href="<?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'"><?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'</a>';
+
+                                   $('#QRAffiliater').html(html); 
+
+                                const codeAffiliater = document.getElementById("QRCodeAffiliater");
+                                const affiliate = document.getElementById("affiliate");
+                                affiliate.classList.remove("active");
+                                affiliate.classList.remove("show");
+
+                                codeAffiliater.classList.add("active");
+                                codeAffiliater.classList.add("show");
+
+
+                              }else{
+                                 $('#messAffiliater').html('<span class="text-danger">'+msg.mess+'</span>');  
+                              }
+                           
+                        },
+                        
+                    });
+                });
+            });
+
+        </script>
+
+  
     </body>
 </html>
