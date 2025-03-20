@@ -282,7 +282,7 @@
                 </li>
                 <li class="menu-item">
                   <a href="/userServicestatistical/#revenueStatistical" class="menu-link <?php if(@$page_view =='userServicestatistical') echo 'menu-active';?>">
-                    <div>Thống kê sử dụng dịch vụ </div> 
+                    <div>Thống kê lượt khách </div> 
                   </a>
                 </li>
 
@@ -291,12 +291,13 @@
                     <div>Hoa hồng nhân viên</div>
                   </a>
                 </li>
-
+                <!--
                 <li class="menu-item">
                   <a href="/listUserserviceHistories/#revenueStatistical" class="menu-link <?php if(@$page_view =='listUserserviceHistories') echo 'menu-active';?>">
                     <div>Khách trong ngày</div> 
                   </a>
                 </li>
+                -->
               </ul>
             </li>
 

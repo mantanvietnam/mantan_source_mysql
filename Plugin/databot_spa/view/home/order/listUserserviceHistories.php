@@ -1,6 +1,8 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Lịch sử sử dụng dịch vụ</h4>
+  <h4 class="fw-bold py-3 mb-4">Thống kê lượng khách sử dụng dịch vụ</h4>
+
+  <p><a href="/userServicestatistical/#revenueStatistical" class="btn btn-primary"><i class='bx bx-line-chart'></i> Xem biểu đồ</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -86,10 +88,10 @@
   <div class="card">
     <div class="row">
       <div class="col-md-6">
-        <h5 class="card-header">Lịch sử sử dụng dịch vụ - <b class="text-danger"><?php echo number_format($totalData);?></b></h5>
+        <h5 class="card-header">Tổng lượt sử dụng dịch vụ - <b class="text-danger"><?php echo number_format($totalData);?></b></h5>
       </div>
       <div class="col-md-6">
-        <h5 class="card-header" style="float: right;">Lịch sử sử dụng dịch vụ ngày hôm nay - <b class="text-danger"><?php echo number_format($totaltoday);?></b></h5>
+        <h5 class="card-header" style="float: right;">Số khách ngày hôm nay - <b class="text-danger"><?php echo number_format($totaltoday);?></b></h5>
       </div>
     </div>
     
@@ -98,7 +100,7 @@
         <table class="table table-bordered">
           <thead>
             <tr class="">
-               <th>check in</th>
+              <th>check in</th>
               <th>check out</th>
               <th>Khách hàng</th>
               <th>Dịch vụ</th>

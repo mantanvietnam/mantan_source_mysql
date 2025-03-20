@@ -1,6 +1,9 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thống kê lượng dịch vụ sử dụng theo tháng</h4>
+  <h4 class="fw-bold py-3 mb-4">Thống kê lượng khách sử dụng dịch vụ</h4>
+
+  <p><a href="/listUserserviceHistories/#revenueStatistical" class="btn btn-primary"><i class='bx bx-list-ul'></i> Xem danh sách</a></p>
+
     <form method="get" action="">
         <div class="card mb-4">
             <h5 class="card-header">Tìm kiếm dữ liệu</h5>
@@ -101,7 +104,7 @@
 
              var options = {
                 chart: {
-                  title: 'Thống kê lượng dịch vụ sử dụng',
+                  title: 'Biểu đồ số lượng khách sử dụng dịch vụ',
                  // subtitle: 'in millions of dollars (USD)'
                 },
                 width: 900,
@@ -119,7 +122,7 @@
         
     </script>
 
-    <div id="order_chart" style="width: 100%; height: 500px; background: white;"></div>
+    <div id="order_chart" style="width: 100%; height: 600px; background: white; padding-top: 10px;"></div>
 </div>
 </center> 
 
