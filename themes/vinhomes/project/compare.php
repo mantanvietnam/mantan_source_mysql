@@ -34,20 +34,32 @@ getHeader();
 .price-details-content th {
     background-color: #f2f2f2;
 }
-table {
+/* table {
     width: 100%;
-    border-collapse: collapse; /* Giúp các đường viền gọn gàng */
+    border-collapse: collapse;
 }
 
 th, td {
-    border: 1px solid #ddd; /* Viền màu xám nhạt */
+    border: 1px solid #ddd; 
     padding: 12px;
 }
 
 th {
-    background-color: #f9fafb; /* Màu nền nhẹ cho tiêu đề */
+    background-color: #f9fafb; 
     text-align: left;
+} */
+table {
+    width: 100%;
+    table-layout: fixed;
 }
+
+th, td {
+    text-align: left;
+    padding: 12px;
+    word-wrap: break-word;
+    border: 1px solid #ddd;
+}
+
 </style>
 
 <div class="py-10 px-4 sm:px-6 md:container xl:px-20 bg-white text-black font-plus fade-in">

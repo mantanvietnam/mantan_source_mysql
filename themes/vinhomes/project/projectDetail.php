@@ -511,7 +511,7 @@ foreach ($allViews as $item) {
                     if (empty($project['images'][$i])) continue;
                   ?>
                     <div class="flex items-center justify-center swiper-slide">
-                      <img src="<?= strip_tags($project['images'][$i]) ?>" alt="Ảnh <?= $i ?>" class="rounded-lg shadow-lg " />
+                      <img src="<?= strip_tags($project['images'][$i]) ?>" alt="Ảnh <?= $i ?>" class="rounded-lg shadow-lg w-[100%] object-cover h-[68%]" />
                     </div>
                   <?php } ?>
                 </div>
