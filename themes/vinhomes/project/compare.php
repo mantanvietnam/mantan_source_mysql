@@ -34,20 +34,6 @@ getHeader();
 .price-details-content th {
     background-color: #f2f2f2;
 }
-/* table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid #ddd; 
-    padding: 12px;
-}
-
-th {
-    background-color: #f9fafb; 
-    text-align: left;
-} */
 table {
     width: 100%;
     table-layout: fixed;
@@ -60,6 +46,7 @@ th, td {
     border: 1px solid #ddd;
 }
 
+
 </style>
 
 <div class="py-10 px-4 sm:px-6 md:container xl:px-20 bg-white text-black font-plus fade-in">
@@ -68,7 +55,8 @@ th, td {
             So sánh bất động sản Vinhomes
         </h1>
 
-        <div id="propertyListContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div id="propertyListContainer" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div></div>
             <?php
             if (!empty($compareData)) {
                 foreach ($compareData as $index => $project) {
