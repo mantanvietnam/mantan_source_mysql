@@ -61,7 +61,26 @@
             <label class="form-label">Đến ngày</label>
             <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
           </div>
-          
+          <?php if($user->id_father==0){ ?>
+             <div class="col-md-2">
+              <label class="form-label">nhân viên phục trách </label>
+              <select name="id_staff" class="form-select color-dropdown">
+                <option value="0">chọn nhân viên</option>
+                <?php
+                if(!empty($listStaff)){
+                  foreach($listStaff as $value){
+                    $selected = '';
+                    if(!empty($_GET['id_staff']) && $_GET['id_staff']==$value->id){
+                      $selected = 'selected';
+                    }
+                    echo '<option '.$selected.' value="'.$value->id.'">'.$value->name.'</option>';
+                  }
+                }
+                ?>
+              </select>
+          </div>
+        <?php   } ?>
+
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
@@ -99,8 +118,12 @@
                   </thead>
                 </table>
               </th>
-              <th width="10%">Chi phí phát sinh</th>
               <th width="10%">Số tiền</th>
+               <?php if($user->id_father==0){
+                  echo '<th width="10%">Nhân viên phụ trách</th>';
+               } ?>
+          
+
               <th width="10%">Trạng thái</th>
               <th width="15%" colspan="2" class="text-center">Xử lý</th>
             </tr>
@@ -250,9 +273,16 @@
               }
                  
 
-                echo '</td>
-                <td>'.number_format($item->total).'đ</td>
-                 <td align="center"> <span id="status'.@$item->id.'">'.$status.' </span> <span id="statusPay'.@$item->id.'">'.$statusPay.'</span></td>
+                echo number_format($item->total).'đ</td>';
+                 if($user->id_father==0){
+                  echo '<td>';
+                  if(!empty($item->staff)){
+                    echo $item->staff->name;
+                  }
+
+                  echo '</td>';
+                 }
+                echo '<td align="center"> <span id="status'.@$item->id.'">'.$status.' </span> <span id="statusPay'.@$item->id.'">'.$statusPay.'</span></td>
                 <td align="center"> <span id="btnProcess'.@$item->id.'">'.$btnProcess.' </span> <span id="btnPay'.@$item->id.'">'.$btnPay.'</span></td>
                 <td align="center"> 
                   <span id="btnEdit'.@$item->id.'">'.$btnEdit.' </span>

@@ -21,7 +21,7 @@ function addOrderCustomer($input)
         $modelOrders = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelCustomers = $controller->loadModel('Customers');
-
+        $modelStaff = $controller->loadModel('Staffs');
         $mess = '';
 
         if($isRequestPost){
@@ -54,7 +54,7 @@ function addOrderCustomer($input)
                 $save->email = @$customer_buy->email;
                 $save->phone = @$customer_buy->phone;
                 $save->address = @$customer_buy->address;
-                $save->id_staff = @$user->id_staff;
+                $save->id_staff =  (!empty($dataSend['id_staff']))?(int)$dataSend['id_staff']:(int)@$user->id_staff;
                 $save->note_user = $dataSend['note'];
                 $save->note_admin = '';
                 $save->status = 'new';
@@ -133,6 +133,10 @@ function addOrderCustomer($input)
         $conditions = array('type' => 'costsIncurred','status'=>'active');
         $costsIncurred = $modelCategories->find()->where($conditions)->all()->toList();
 
+        $conditions = array('id_member'=>$user->id);
+        $listStaff = $modelStaff->find()->where($conditions)->all()->toList();
+
+        setVariable('listStaff', $listStaff);
         setVariable('listProduct', $listProduct);
         setVariable('costsIncurred', $costsIncurred);
         setVariable('listGroupCustomer', $listGroupCustomer);
@@ -161,6 +165,8 @@ function orderCustomerAgency($input)
         $modelOrderDetail = $controller->loadModel('OrderDetails');
         $modelCustomers = $controller->loadModel('Customers');
         $modelUnitConversion = $controller->loadModel('UnitConversions');
+        $modelStaff = $controller->loadModel('Staffs');
+
 
         $conditions = array('id_agency'=>$user->id);
         $limit = 20;
@@ -308,10 +314,14 @@ function orderCustomerAgency($input)
 
                     $listData[$key]->detail_order = $detail_order;
                 }
+
+                if(!empty($item->id_staff)){
+                $listData[$key]->staff = $modelStaff->find()->where(['id'=>(int) $item->id_staff])->first();
+
+                }
                 $listData[$key]->customer = $modelCustomers->find()->where(['id'=>(int) $item->id_user])->first();
             }
         }
-
         // phân trang
         $totalData = $modelOrder->find()->where($conditions)->all()->toList();
          $totalMoney = 0;
@@ -350,6 +360,11 @@ function orderCustomerAgency($input)
             $urlPage = $urlPage . '?page=';
         }
 
+
+        $conditions = array('id_member'=>$user->id);
+        $listStaff = $modelStaff->find()->where($conditions)->all()->toList();
+
+        setVariable('listStaff', $listStaff);
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);

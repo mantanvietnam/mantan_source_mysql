@@ -229,6 +229,24 @@
                                                 } ?>
                                             </select></span>
                                         </li>
+                                        <li>
+                                            <span>nhân viên phục trách </span>
+                                            <span><select name="id_staff" class="form-select color-dropdown">
+                                                <option value="0">chọn nhân viên</option>
+                                                <?php
+                                                if(!empty($listStaff)){
+                                                  foreach($listStaff as $value){
+                                                    $selected = '';
+                                                      if( $user->id_staff==$value->id){
+                                                        $selected = 'selected';
+                                                      }
+                                                      echo '<option '.$selected.' value="'.$value->id.'">'.$value->name.'</option>';
+                                                  }
+                                                }
+                                                ?>
+                                              </select>
+                                          </span>
+                                        </li>
                                     <?php }else{ ?>
                                     <li class="total-bh">
                                         <p>Đại lý tuyến trên</p>

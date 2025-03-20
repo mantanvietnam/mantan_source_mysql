@@ -147,6 +147,7 @@ function addRequestProductAgency($input)
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelMembers = $controller->loadModel('Members');
         $modelPartner = $controller->loadModel('Partners');
+        $modelStaff = $controller->loadModel('Staffs');
 
         $mess = '';
 
@@ -180,7 +181,7 @@ function addRequestProductAgency($input)
                 }
 
                 $save->id_member_buy = $user->id;
-                $save->id_staff_buy = (int)@$user->id_staff;
+                $save->id_staff_buy = (!empty($dataSend['id_staff']))?(int)$dataSend['id_staff']:(int)@$user->id_staff;
                 $save->note_sell = ''; // ghi chú người bán
                 $save->note_buy = $dataSend['note']; // ghi chú người mua 
                 $save->status = 'new';
@@ -230,6 +231,10 @@ function addRequestProductAgency($input)
 
         $listPartner= $modelPartner->find()->where()->all()->toList();
 
+        $conditions = array('id_member'=>$user->id);
+        $listStaff = $modelStaff->find()->where($conditions)->all()->toList();
+
+        setVariable('listStaff', $listStaff);
         setVariable('listProduct', $listProduct);
         setVariable('position', $position);
         setVariable('father', $father);
@@ -264,6 +269,7 @@ function addOrderAgency($input)
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelMembers = $controller->loadModel('Members');
         $modelDiscountProductAgency = $controller->loadModel('DiscountProductAgencys');
+        $modelStaff = $controller->loadModel('Staffs');
 
         $mess = '';
 
@@ -283,7 +289,7 @@ function addOrderAgency($input)
                     $save->id_member_buy = $member_buy->id;
                     $save->note_sell = '';
                     if($member_sell->id==$user->id){
-                         $save->id_staff_sell = (int)@$user->id_staff;
+                         $save->id_staff_sell =  (!empty($dataSend['id_staff']))?(int)$dataSend['id_staff']:(int)@$user->id_staff;
                     }
 
                    
@@ -399,9 +405,13 @@ function addOrderAgency($input)
                 }
             }
         }
-        
+
+        $conditions = array('id_member'=>$user->id);
+        $listStaff = $modelStaff->find()->where($conditions)->all()->toList();
+
 
         setVariable('listProduct', $listProduct);
+        setVariable('listStaff', $listStaff);
         setVariable('position', $position);
         setVariable('father', $father);
         setVariable('mess', $mess);

@@ -207,6 +207,8 @@ function listBookCalendar($input){
 			            'Books.name',
 			            'Books.phone',
 			            'Books.email',
+			            'Books.id_service',
+			            'Books.id_customer',
 			            'Books.time_book',
 			            'Books.status',
 			            'Books.note',
@@ -481,7 +483,16 @@ function checkinbetBook($input){
 	        $customer = $modelCustomer->get($book->id_customer);
 	        $service= $modelService->get($book->id_service);
 	        $modelBook->save($book);
+	         if(!empty($dataSend['time_checkin'])){   
 
+		     $time = explode(' ', $dataSend['time_checkin']);
+		     $date = explode('/', $time[0]);
+		     $hour = explode(':', $time[1]);
+		     $time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+		    }else{
+		     $time = time();
+		    }
+	        if(@$dataSend['type_order']=='service'){
 	        // tạo đơn hàng 
 	        $order = $modelOrder->newEmptyEntity();
 	        $order->id_member = $infoUser->id_member;
@@ -492,15 +503,7 @@ function checkinbetBook($input){
 	        $order->id_bed =@$dataSend['id_bed'];
 	        $order->note =@$dataSend['note'];
 
-	        if(!empty($dataSend['time_checkin'])){   
-
-		     $time = explode(' ', $dataSend['time_checkin']);
-		     $date = explode('/', $time[0]);
-		     $hour = explode(':', $time[1]);
-		     $time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
-		    }else{
-		     $time = time();
-		    }
+	       
 	        $order->created_at =$time;
 	        $order->updated_at =$time;
 	   		$order->status =0;
@@ -523,8 +526,11 @@ function checkinbetBook($input){
 	        $detail->type = 'service';
 
 	        $modelOrderDetail->save($detail);
-	         
-	        return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product.'&time='.$time.'&id_staff='.@$dataSend['idStaff']);
+	    	}else{
+	    		$detail = $modelOrderDetail->find()->where(['id'=>(int)$dataSend['id_order_detail'],'id_member'=>$infoUser->id_member])->first();
+	        }
+
+	        return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$book->id_service.'&time='.$time.'&id_staff='.@$dataSend['idStaff']);
 
 	    }
 

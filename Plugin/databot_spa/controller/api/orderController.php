@@ -609,5 +609,101 @@ function createOrderProductAPI($input){
 }
 
 
+function checkServiceCombo($input){
+	global $controller;
+	global $isRequestPost;
+    global $modelCategories;
+	global $metaTitleMantan;
+	global $session;
+	global $urlHomes;
 
+	$return = [];
+	$modelCustomer = $controller->loadModel('Customers');
+	$modelService = $controller->loadModel('Services');
+	$modelMembers = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+	$modelOrderDetail = $controller->loadModel('OrderDetails');
+	$modelSpas = $controller->loadModel('Spas');
+	$modelCombo = $controller->loadModel('Combos');
+	$modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token'], '','staff');
+
+            if(empty($infoMember)){
+            	return apiResponse(3,'Tài khoản không tồn tại hoặc sai token');
+           }
+
+           if(empty($dataSend['id_staff'])){
+           		$dataSend['id_staff'] = $infoMember->id;
+           }
+            if(empty($dataSend['id_spa'])){
+           		$dataSend['id_spa'] = $infoMember->id_spa;
+           }
+            if(empty($dataSend['id_member'])){
+           		$dataSend['id_member'] = $infoMember->id_member;
+           }
+       }elseif(!empty($session->read('infoUser'))){
+       		$infoMember = $session->read('infoUser');
+
+       		if(empty($dataSend['id_staff'])){
+           		$dataSend['id_staff'] = $infoMember->id;
+           }
+            if(empty($dataSend['id_spa'])){
+           		$dataSend['id_spa'] = $infoMember->id_spa;
+           }
+            if(empty($dataSend['id_member'])){
+           		$dataSend['id_member'] = $infoMember->id_member;
+           }
+       }else{
+       		return apiResponse(2,'thếu dữ liệu' );
+       }
+       $listData = $modelOrder->find()->where(['id_customer'=>$dataSend['id_customer'], 'type'=>'combo','id_member'=>$infoMember->id_member])->all()->toList();
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                $order_details = $modelOrderDetail->find()->where(array('id_order'=>$item->id))->all()->toList();
+                
+                if(!empty($order_details)){
+                    foreach($order_details as $k => $value){
+                        $combo = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
+                        $products = array();
+                        $service = array();
+                        
+                        if(!empty($combo)){
+                            $combo->quantity = $value->quantity;
+                            $combo_service = json_decode($combo->service);
+
+                            $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$value->id, 'id_services'=> (int)$dataSend['id_service']))->count();
+
+                            if(!empty($combo_service)){
+                                foreach($combo_service as $idservice => $quantityPro){
+                                	if($idservice == $dataSend['id_service']){
+
+                                		 $info_service =  $modelService->find()->where(array('id'=>$idservice))->first();
+                                		 if(!empty($info_service)){
+                                		 	$quantityAll = $quantityPro*$value->quantity;
+                                		 	if($quantity < $quantityAll){
+                                		 		$data = array('id_order_detail'=>$value->id,'id_order'=>$item->id, 'id_service'=>$idservice);
+                                		 		 return apiResponse(1,'có đơn combo liệu trình dịch vụ này ', $data);
+                                		 	}
+                                		 }
+                                	}
+                                }
+                            }
+                        }
+                      
+                    }
+                }
+            }
+        }
+
+       return apiResponse(4,'Dịch vụ không tồi tại ');
+
+
+      }
+
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
  ?>

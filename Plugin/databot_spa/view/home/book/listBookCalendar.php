@@ -136,7 +136,7 @@
       <div class="row">
         <div class="col-md-5 mb-3">
           <label class="form-label">Tên khách hàng (*)</label>
-          <input required type="text" placeholder="Vui lòng nhập tên hoặc sđt khách hàng" class="form-control phone-mask" name="name" id="name" value="" >
+          <input required type="text" placeholder="Vui lòng nhập tên hoặc sđt khách hàng" class="form-control phone-mask" name="name" id="full_name" value="" >
           <input type="hidden" name="id_customer" id="id_customer" value="">
           <input type="hidden" name="phone" id="phone" value="" />
           <input type="hidden" name="email" id="email" value="" />
@@ -172,7 +172,8 @@
                 echo '<optgroup label="'.$cService->name.'">';
                 if(!empty($cService->service)){
                   foreach($cService->service as $service){
-                  /*  if($idService==$service->id){
+                    $select = '';
+                   /* if($idService==$service->id){
                       $select= 'selected';
                                                                         //$unit= $product['unit'];
                     }else{
@@ -209,9 +210,10 @@
                   echo '<optgroup label="'.$room->name.'">';
                   if(!empty($room->bed)){
                       foreach($room->bed as $bed){
-                         if(!empty($data->id_bed) && $data->id_bed==$bed->id){
+                        $selected ='';
+                         /*if(!empty($data->id_bed) && $data->id_bed==$bed->id){
                               $selected = 'selected';
-                         }
+                         }*/
                                          
                           echo '<option data-unit="'.@$bed->id.'"  value="'.$bed->id.'" '.$selected.'>'.$bed->name.'</option>';
                      }
@@ -291,7 +293,7 @@
    <div class="modal-body">
       <label><b>Thông tin check in</b></label>
       <div class="row">
-        <div class="col-md-5 mb-3">
+        <div class="col-md-6 mb-3">
           <input type="hidden" name="id_book"  id="id_book" value="">
           <label class="form-label">Nhân viên phụ trách</label>
           <select class="form-select" required="" name="idStaff" id="idStaff">
@@ -335,6 +337,8 @@
           <input type="text" name="time_checkin"  id="time_checkin" class="form-control datetimepicker" value="<?php echo date('d/m/Y H:i')?>">
           
         </div>
+        <div class="col-md-6 mb-3" id='usercombo'>
+        </div>
       </div>
    </div>
    <div class="modal-footer">
@@ -344,8 +348,6 @@
   </div>
  </div>
 </div>
-
-
 
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.5/dist/locale-all.min.js'></script>
@@ -364,7 +366,7 @@
                     <div class="col-md-6">
                       <div class="mb-3">
                         <label class="form-label" for="basic-default-phone">Họ tên (*)</label>
-                        <input required type="text" class="form-control phone-mask" name="name" id="name" value="" />
+                        <input required type="text" class="form-control phone-mask" name="name" id="name_custome" value="" />
                         <input  type="hidden" class="form-control phone-mask" name="name" id="id_member" value="<?php echo $user->id_member; ?>" />
                         <input  type="hidden" class="form-control phone-mask" name="name" id="id_spa" value="<?php echo $user->id_spa; ?>" />
                         <input  type="hidden" class="form-control phone-mask" name="name" id="id_staff" value="<?php echo $user->id_staff; ?>" />
@@ -373,7 +375,7 @@
                     <div class="col-md-6">
                       <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
-                        <input type="text" class="form-control" placeholder="" name="phone" id="phone" value="" />
+                        <input type="text" class="form-control" placeholder="" name="phone" id="phone_custome" value="" />
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -494,10 +496,13 @@
                     time_book: "'.date("H:i d/m/Y", $time_book).'",
                     time_chekin: "'.$time_book.'",
                     start: "'.date('Y-m-d', $time_book).'",
-                     /* end: "'.date('Y-m-d', $time_book).'",
+                     end: "'.date('Y-m-d', $time_book).'",
                     service: "'.$data->Services['name'].'",
                     staff: "'.$data->Members['name'].'",
                     id_staff: "'.$data->Members['id'].'",
+                    bed: "'.$data->Beds['name'].'",
+                    id_customer: "'.$data->id_customer.'",
+                    id_service: "'.$data->id_service.'",
                     bed: "'.$data->Beds['name'].'",
                     id_bed: "'.$data->Beds['id'].'",
                     status: "'.$status.'",
@@ -507,7 +512,7 @@
                     repeat_book: "'.$data->repeat_book.'",
                     apt_times: "'.$data->apt_times.'",
                     apt_step: "'.$data->apt_step.'",
-                    color: "'.$color.'",*/
+                    color: "'.$color.'",
                   },';
               } while (!empty($data->repeat_book) && $data->apt_times>=$apt_times);
             }
@@ -548,6 +553,7 @@
         listEvent = calendar.getEvents();
         var id_staff = info.event.extendedProps.id_staff;
         var id_bed = info.event.extendedProps.id_bed;
+        console.log(info);
         if(id_staff.length==0){
           id_staff = 0;
         }
@@ -599,7 +605,7 @@
            </div>\
            <div class="modal-footer">';
            if(info.event.extendedProps.statusnote=="1"|| info.event.extendedProps.statusnote=='0'){
-             modal += '<button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+id_staff+','+id_bed+','+info.event.extendedProps.time_chekin+');"><i class="bx bxs-edit"></i> Check in</button>\
+             modal += '<button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+id_staff+','+id_bed+','+info.event.extendedProps.time_chekin+','+info.event.extendedProps.id_customer+','+info.event.extendedProps.id_service+');"><i class="bx bxs-edit"></i> Check in</button>\
             <a href="/addBook/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary"><i class="bx bxs-edit"></i> Sửa hẹn</a>\
             <button type="button" class="btn btn-danger" data-action="delete"><i class="bx bxs-trash"></i> Xóa hẹn</button>';
            }
@@ -776,12 +782,42 @@
     }
   }
 
-  function checkin(id, id_staff, idbed, time_chekin){
+  function checkin(id, id_staff, idbed, time_chekin,id_customer ,id_service){
 
      $('#idStaff').val(id_staff);
      $('#id_book').val(id);
      $('#idbed').val(idbed);
      $('#time_checkin').val(formatCustom(time_chekin));
+     
+      $.ajax({
+          method: "POST",
+          url: "/apis/checkServiceCombo",
+          data: { 
+            id_customer:id_customer,
+            id_service:id_service,
+         }
+    }).done(function( msg ) {
+            console.log(msg);
+            var html = '';
+            if(msg.code==1){
+                html +=' <label class="form-label" for="basic-default-phone">chọn hình thức sử dụng</label>\
+                        <select name="type_order" id="type_order" class="form-select color-dropdown">\
+                          <option value="service">Mua dịch vụ mới </option>\
+                          <option value="combo" >sử dụng trong combo</option>\
+                        </select>\
+                        <input  type="hidden" class="form-control phone-mask" name="id_order_detail" id="id_order_detail" value="'+msg.data.id_order_detail+'" />\
+                        <input  type="hidden" class="form-control phone-mask" name="id_order" id="id_order" value="'+msg.data.id_order+'" />\
+                        <input  type="hidden" class="form-control phone-mask" name="id_service" id="id_service" value="'+msg.data.id_service+'" /> ';
+
+            }else{
+             html = ' <input  type="hidden" class="form-control phone-mask" name="type_order" id="type_order" value="service" />';
+            }
+
+            $('#usercombo').html(html);
+        })
+
+
+
 
     //document.getElementById("createBookModal").style.display = 'none';
     $('#modalinfo').remove();
@@ -814,7 +850,7 @@
           return split( term ).pop();
         }
 
-        $("#name")
+        $("#full_name")
         // don't navigate away from the field on tab when selecting an item
         .bind( "keydown", function( event ) {
             if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
@@ -847,7 +883,7 @@
                 // add the selected item
                 terms.push( ui.item.label );
                
-                $('#name').val(ui.item.name);
+                $('#full_name').val(ui.item.name);
                 $('#id_customer').val(ui.item.id);
                 $('#phone').val(ui.item.phone);
                 $('#email').val(ui.item.email);
@@ -865,9 +901,9 @@
 function addCustomer()
 {
 
-    var name = $('#name').val();
+    var name = $('#name_custome').val();
     var id_member = $('#id_member').val();
-    var phone = $('#phone').val();
+    var phone = $('#phone_custome').val();
     var id_spa = $('#id_spa').val();
     var email = $('#email').val();
     var address = $('#address').val();
@@ -888,10 +924,6 @@ function addCustomer()
             sex:sex,
         }
     }).done(function( msg ) {
-            console.log(msg);
-
-            // var obj = jQuery.parseJSON(msg);
-             // console.log(obj);
             if(msg.code==1){
                 $('#id_customer').val(msg.data.id);
                 $('#full_name').val(msg.data.name);

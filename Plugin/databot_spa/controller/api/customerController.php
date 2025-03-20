@@ -184,7 +184,7 @@ function addCustomerApi($input)
 	$modelCampains = $controller->loadModel('Campains');
 	$modelCampainCustomers = $controller->loadModel('CampainCustomers');
 	$modelCustomer = $controller->loadModel('Customers');
-	$modelMembers  = $controller->loadModel('Customers');
+	$modelMembers  = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
 
 	if ($isRequestPost) {
@@ -205,6 +205,20 @@ function addCustomerApi($input)
             if(empty($dataSend['id_member'])){
            		$dataSend['id_member'] = $infoMember->id_member;
            }
+       }elseif(!empty($session->read('infoUser'))){
+       		$infoMember = $session->read('infoUser');
+
+       		if(empty($dataSend['id_staff'])){
+           		$dataSend['id_staff'] = $infoMember->id;
+           }
+            if(empty($dataSend['id_spa'])){
+           		$dataSend['id_spa'] = $infoMember->id_spa;
+           }
+            if(empty($dataSend['id_member'])){
+           		$dataSend['id_member'] = $infoMember->id_member;
+           }
+       }else{
+       	return apiResponse(2,'thếu dữ liệu' );
        }
 
        // lấy data edit
@@ -216,7 +230,6 @@ function addCustomerApi($input)
 			        $data->created_at = time();
 			        $data->point = 0;
 			    }
-
 
         if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['id_member']) ){
         	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
@@ -275,7 +288,7 @@ function addCustomerApi($input)
 						
 
 				        $modelCustomer->save($data);
-				        return  array(1 ,'Lưu dữ liệu thành công',$data);
+				        return  apiResponse(1 ,'Lưu dữ liệu thành công',$data);
 				    }
 				  	return apiResponse(3,'Lỗi hệ thống' );
 				}
@@ -542,15 +555,13 @@ function deleteSourceCustomerAPI($input){
 			$infoUser = getMemberByToken($dataSend['token'], 'deleteCategoryCustomer','customer');
 			if(!empty($infoUser)){
 	            $conditions = array('id'=> $dataSend['id'], 'type' => 'category_source_customer', 'id_member'=>$infoUser->id_member);
-	            
 	            $data = $modelCategories->find()->where($conditions)->first();
-
-	            $checkSevice = $modelCustomer->find()->where(array('id_category'=>$data->id))->all()->toList();
-	            if(empty($checkSevice)){
-	                if(!empty($data)){
-	                    $modelCategories->delete($data);
-	                    return apiResponse(1,'Xóa dữ liệu thành công');
-				}
+	            if(!empty($data)){
+	            	 $checkSevice = $modelCustomer->find()->where(array('source'=>$data->id))->all()->toList();
+		            if(empty($checkSevice)){
+		                $modelCategories->delete($data);
+		                return apiResponse(1,'Xóa dữ liệu thành công');
+					}
 				return apiResponse(4,'Dữ liệu không tồn tại' );
 			}
 			return apiResponse(5,'không xóa được dữ liệu' );
@@ -657,5 +668,33 @@ function detailCustomerAPI($input){
 	return apiResponse(0,'Gửi sai phương thức POST');
 }
 
+function deleteCustomerAPI($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
 
+
+    $infoUser = $session->read('infoUser');
+    $modelCustomer = $controller->loadModel('Customers');
+    if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'deleteCustomer','customer');
+			if(!empty($infoUser)){
+	            $conditions = array('id'=> $dataSend['id'], 'id_member'=>$infoUser->id_member);
+	            $data = $modelCustomer->find()->where($conditions)->first();
+	            if(!empty($data)){
+		            $modelCustomer->delete($data);
+		            return apiResponse(1,'Xóa dữ liệu thành công');
+			}
+			return apiResponse(5,'không xóa được dữ liệu' );
+		}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
 ?>

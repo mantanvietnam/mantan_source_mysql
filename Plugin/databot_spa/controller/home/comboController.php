@@ -48,7 +48,8 @@ function listCombo($input){
         }
 
 	    $listData = $modelCombo->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
+	  
+	  
 	    if(!empty($listData)){
 		    foreach($listData as $key=>$item){
 		    	$prod = array();
