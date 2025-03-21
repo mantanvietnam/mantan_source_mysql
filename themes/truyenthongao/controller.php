@@ -179,11 +179,21 @@ function indexTheme($input){
     $order = array('id'=>'desc');
     $listDatatop= $modelPosts->find()->limit(3)->where(array( 'type'=>'post'))->order($order)->all()->toList();
 
+    if(!empty($settingThemes['video'])){
+        $youtube_code = explode('v=', $settingThemes['video']);
+        if(count($youtube_code) == 2){
+            $youtube_code = $youtube_code[1];
+        }else{
+            $youtube_code = $youtube_code[0];
+        }
+    }
+
     setVariable('datafeedback', $datafeedback);
     setVariable('id_albumcustomer', $id_albumcustomer);
     setVariable('id_active', $id_active);
     setVariable('id_slidelistcustomer', $id_slidelistcustomer);
     setVariable('listDatatop', $listDatatop);
+    setVariable('youtube_code', $youtube_code);
 
   
 }

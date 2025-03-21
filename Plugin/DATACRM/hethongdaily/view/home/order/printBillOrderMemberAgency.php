@@ -140,12 +140,16 @@
                     ?>
                     
                     <div class="row text-right footer">
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-center">
-                            Người mua<br/><?php echo $member_buy->name;?>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                            Người bán<br/><?php echo $member_sell->name;?>
-                        </div>
+                        <table border="0">
+                            <tr>
+                                <td>
+                                    Người mua<br/><?php echo $member_buy->name;?>
+                                </td>
+                                <td>
+                                    Người bán<br/><?php echo $member_sell->name;?>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <?php if(!empty($member_sell->bank_number) && !empty($member_sell->bank_code) && listPonint()['bill_qrcode']=='active'){
                         $link = 'https://img.vietqr.io/image/'.$member_sell->bank_code.'-'.$member_sell->bank_number.'-compact2.png?accountName='.@$member_sell->bank_name.'&amount='.$order->total.'&addInfo= Thanh toan don hang ma '.$order->id;
@@ -184,33 +188,18 @@
                                 modal: true,
                                 close: closeFunction,
                                 buttons: {
-                                  "In hóa đơn": function() {
-                                    $( this ).dialog( "close" );
-                                    window.print();
-                                    window.location= '<?php echo $url; ?>';
-                                },
-                                 "tải về máy ": function() {
-                                    $( this ).dialog("close");
-                                    var element = document.getElementById('download');
-                                    var opt = {
-                                        margin:       1,
-                                        height:       'auto',
-                                        filename:     'myfile.pdf',
-                                        image:        { type: 'jpeg', quality: 0.98 },
-                                        html2canvas:  { scale: 2 },
-                                        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-                                    };
+                                    "In hóa đơn": function() {
+                                        $( this ).dialog( "close" );
+                                        window.print();
+                                        window.location= '<?php echo $url; ?>';
+                                    },
 
-                                    // Gọi hàm html2pdf để chuyển đổi và tải về PDF
-                                    html2pdf().from(element).set(opt).save();
-                                    location.reload();
-                                },
-                                Cancel: function() {
-                                      //$( this ).dialog( "close" );
-                                      window.location= '<?php echo $url; ?>';
+                                    "Hủy bỏ": function() {
+                                          //$( this ).dialog( "close" );
+                                          window.location= '<?php echo $url; ?>';
+                                    }
                                 }
-                              }
-                          });
+                            });
         </script>
     </body>
 </html>

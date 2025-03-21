@@ -59,7 +59,7 @@
                                     <td><b>Sản phẩm</b></td>
                                     <td><b>SL</b></td>
                                     <td><b>Giá</b></td>
-                                    <td><b>Giảm giá</b></td>
+                                    <td><b>Giảm</b></td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,7 +72,7 @@
                                             }elseif($item->discount>0){
                                               $discount= $item->discount.'%';
                                             }
-                                            echo '  <tr>
+                                            echo '  <tr style="font-size: 12px;">
                                                         <td>'.$item->product->title.'</td>
                                                         <td>'.$item->quantity.'</td>
                                                         <td>'.number_format($item->price).'</td>
@@ -138,12 +138,16 @@
                     ?>
                    
                     <div class="row footer">
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-center">
-                            Người mua<br/><?php echo $order->full_name;?>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                            Người bán<br/><?php echo $member_sell->name;?>
-                        </div>
+                        <table border="0">
+                            <tr>
+                                <td>
+                                    Người mua<br/><?php echo $order->full_name;?>
+                                </td>
+                                <td>
+                                    Người bán<br/><?php echo $member_sell->name;?>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <?php if(!empty($member_sell->bank_number) && !empty($member_sell->bank_code) && listPonint()['bill_qrcode']=='active'){
                         $link = 'https://img.vietqr.io/image/'.$member_sell->bank_code.'-'.$member_sell->bank_number.'-compact2.png?accountName='.@$member_sell->bank_name.'&amount='.$order->total.'&addInfo= Thanh toan don hang ma '.$order->id;
@@ -185,22 +189,7 @@
                                         window.print();
                                         window.location= '<?php echo $url; ?>';
                                     },
-                                    "Tải về máy": function() {
-                                       $( this ).dialog("close");
-                                        var element = document.getElementById('download');
-                                        var opt = {
-                                            margin:       1,
-                                            height:       'auto',
-                                            filename:     'myfile.pdf',
-                                            image:        { type: 'jpeg', quality: 0.98 },
-                                            html2canvas:  { scale: 2 },
-                                            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-                                        };
-
-                                        // Gọi hàm html2pdf để chuyển đổi và tải về PDF
-                                        html2pdf().from(element).set(opt).save();
-                                        location.reload();
-                                    },
+                                    
                                     "Hủy bỏ": function() {
                                       //$( this ).dialog( "close" );
                                       window.location= '<?php echo $url; ?>';
