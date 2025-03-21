@@ -63,7 +63,7 @@ function addCustomerCampainApi($input)
         	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
         	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-        	if(!empty($dataSend['id_customer'])){
+        	if(!empty($dataSend['id_campain'])){
     			$infoCampain = $modelCampains->find()->where(['id'=>(int) $dataSend['id_campain']])->first();
         	}
 
@@ -123,26 +123,28 @@ function addCustomerCampainApi($input)
 				    	
 
 				    	if(empty($checkCustomerReg)){
-				    		$infoCampain->codeUser ++;
-				    		$modelCampains->save($infoCampain);
+				    		if(!empty($infoCampain)){
+				    			$infoCampain->codeUser ++;
+				    			$modelCampains->save($infoCampain);
 
-				    		$dataCampainCustomers = $modelCampainCustomers->newEmptyEntity();
+					    		$dataCampainCustomers = $modelCampainCustomers->newEmptyEntity();
 
-				    		$dataCampainCustomers->id_campain = (int) $dataSend['id_campain'];
-				    		$dataCampainCustomers->id_customer = $checkPhone->id;
-				    		$dataCampainCustomers->create_at = time();
-				    		$dataCampainCustomers->code = $infoCampain->codeUser;
-				    		$dataCampainCustomers->note = $dataSend['note'];
+					    		$dataCampainCustomers->id_campain = (int) $dataSend['id_campain'];
+					    		$dataCampainCustomers->id_customer = $checkPhone->id;
+					    		$dataCampainCustomers->create_at = time();
+					    		$dataCampainCustomers->code = (int) @$infoCampain->codeUser;
+					    		$dataCampainCustomers->note = $dataSend['note'];
 
-				    		$modelCampainCustomers->save($dataCampainCustomers);
+					    		$modelCampainCustomers->save($dataCampainCustomers);
 
-				    		if(empty($dataSend['hiddenMessages']) || $dataSend['hiddenMessages']!=1){
-		                        $return['messages']= array(array('text'=>'Mã số đăng ký của bạn là '.$dataCampainCustomers->code));
-		                    }else{
-		                        unset($return['messages']);
-		                    }
+					    		if(empty($dataSend['hiddenMessages']) || $dataSend['hiddenMessages']!=1){
+			                        $return['messages']= array(array('text'=>'Mã số đăng ký của bạn là '.$dataCampainCustomers->code));
+			                    }else{
+			                        unset($return['messages']);
+			                    }
 
-		                    $return['set_attributes']['codeQT']= $dataCampainCustomers->code;
+			                    $return['set_attributes']['codeQT']= $dataCampainCustomers->code;
+				    		}
 				    	}else{
 				    		if(empty($dataSend['hiddenMessages']) || $dataSend['hiddenMessages']!=1){
 		                        $return['messages']= array(array('text'=>'Mã số đăng ký của bạn là '.$checkCustomerReg->code));

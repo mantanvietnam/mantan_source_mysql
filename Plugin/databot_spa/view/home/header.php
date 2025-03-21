@@ -281,8 +281,8 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/userServicestatistical/#revenueStatistical" class="menu-link <?php if(@$page_view =='userServicestatistical') echo 'menu-active';?>">
-                    <div>Thống kê lượt khách </div> 
+                  <a href="/userServicestatistical/#revenueStatistical" class="menu-link <?php if(@$page_view =='userServicestatistical' || @$page_view == 'listUserserviceHistories') echo 'menu-active';?>">
+                    <div>Thống kê sử dụng dịch vụ </div> 
                   </a>
                 </li>
 
@@ -358,12 +358,7 @@
                   </a>
                 </li>
 
-                <li class="menu-item">
-                  <a href="/guideAddCustomerCampainApi" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-support"></i>
-                    <div>Tích hợp Chatbot</div>
-                  </a>
-                </li>   
+                 
             -->
 
             <!-- Template -->
@@ -519,6 +514,13 @@
                 <div>Cơ sở Spa</div>
               </a>
             </li>
+
+            <li class="menu-item" id="guideAddCustomerCampainApi">
+              <a href="/guideAddCustomerCampainApi/#guideAddCustomerCampainApi" class="menu-link <?php if(@$page_view =='guideAddCustomerCampainApi') echo 'menu-active';?>">
+                <i class="menu-icon tf-icons bx bx-support"></i>
+                <div>Tích hợp Chatbot</div>
+              </a>
+            </li>  
           </ul>
         </aside>
 
