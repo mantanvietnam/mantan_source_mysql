@@ -109,17 +109,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
              <li class="nav-item">
-              <a  class="nav-link dropdown-toggle" href="/listOrderAffiliater" id="navbarScrollingDropdown" >Đơn hàng </a>
+              <a  class="nav-link" href="/listOrderAffiliater" id="listOrderAffiliater" >Đơn hàng </a>
               
             </li>
 
             <li class="nav-item">
-              <a  class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Báo cáo</a>
-               <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                          <a class="dropdown-item" href="/statisticAgency">Báo cáo chung</a>
-                          <a class="dropdown-item" href="/businessReport">Báo cáo biểu đồ</a>
-                          <a class="dropdown-item" href="/staticProfitAgency">Báo cáo lợi nhuận</a>
-                        </div>
+              <a  class="nav-link" href="/listTransactionAffiliater" id="listTransactionAffiliater" >Giao dịch</a>
+              
             </li>
 
             <li class="nav-item dropdown">
@@ -127,8 +123,8 @@
                 Tài khoản
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <a class="dropdown-item" href="/affiliaterchangePass">Đổi mật khẩu</a>
-                <a class="dropdown-item" href="/affiliateraccount">Đổi thông tin</a>
+                <a class="dropdown-item" href="/affiliaterChangePass">Đổi mật khẩu</a>
+                <a class="dropdown-item" href="/affiliaterAccount">Đổi thông tin</a>
                 
                 <a class="dropdown-item" href="/affiliaterLogout">Đăng xuất</a>
 

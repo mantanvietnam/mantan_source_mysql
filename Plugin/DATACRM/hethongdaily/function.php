@@ -1415,6 +1415,9 @@ function checklogin($permission=''){
         $user->id_staff = 0;
         $user->type_tv = 'Đại lý';
         $user->grant_permission = 1;
+        $father = $modelMember->find()->where(array('id'=>$user->id, 'status'=>'active' ))->first();
+        $user->deadline = $father->deadline;
+
     }elseif(!empty($session->read('infoStaff'))){
         $user = $session->read('infoStaff');
         $info_staff = $modelStaff->find()->where(['id'=>$user->id])->first();

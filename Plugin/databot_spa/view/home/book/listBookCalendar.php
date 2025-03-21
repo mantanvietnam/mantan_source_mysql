@@ -709,8 +709,6 @@
       statusnote = 4;
       color = 'Black';
     }
-
-          console.log(statustext);
     
     var type1 = 0;
     var type2 = 0;

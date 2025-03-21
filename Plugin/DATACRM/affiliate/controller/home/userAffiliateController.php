@@ -112,4 +112,131 @@ function affiliaterLogout($input)
 
 	return $controller->redirect('/affiliaterLogin');
 }
+
+
+function affiliaterAccount($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+
+    if(!empty($session->read('infoAff'))){
+        $metaTitleMantan = 'Thông tin Tài khoản';  
+        $modelAffiliaters = $controller->loadModel('Affiliaters');
+
+        $mess= '';
+
+        $infoUser = $session->read('infoAff');
+
+        // lấy data edit
+            $data = $modelAffiliaters->find()->where(['id'=> $infoUser->id])->first();
+        
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['name'])){
+                
+                  
+
+                    if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                        if(!empty($data->id)){
+                            $fileName = 'avatar_aff_'.$data->id;
+                        }else{
+                            $fileName = 'avatar_aff_'.time().rand(0,1000000);
+                        }
+
+                        $avatar = uploadImage($infoUser->id_member, 'avatar', $fileName);
+                    }
+
+                    if(!empty($avatar['linkOnline'])){
+                        $data->avatar = $avatar['linkOnline'].'?time='.time();
+                    }else{
+                        if(empty($data->avatar)){
+                            if(!empty($system->image)){
+                                $data->avatar = $system->image;
+                            }
+
+                            if(empty($data->avatar)){
+                                $data->avatar = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+                            }
+                        }
+                    }
+                    
+                    $data->name = $dataSend['name'];
+                    $data->address = $dataSend['address'];
+                    $data->email = $dataSend['email'];
+                    $data->linkedin = $dataSend['linkedin'];
+                    $data->web = $dataSend['web'];
+                    $data->instagram = $dataSend['instagram'];
+                    $data->zalo = $dataSend['zalo'];
+                    $data->twitter = $dataSend['twitter'];
+                    $data->tiktok = $dataSend['tiktok'];
+                    $data->youtube = $dataSend['youtube'];
+                    $data->facebook = $dataSend['facebook'];
+                    $data->description = $dataSend['description']; 
+
+                    $modelAffiliaters->save($data);
+
+                    $session->write('infoAff', $data);
+                     $mess= '<p class="text-success">Đổi thông tin thành công</p>';
+            }else{
+                $mess= '<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>';
+            }
+        }
+        
+        setVariable('data', $data);
+        setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function affiliaterChangePass($input)
+{
+    global $session;
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Đổi mật khẩu';
+
+     if(!empty($session->read('infoAff'))){
+        $modelAffiliaters = $controller->loadModel('Affiliaters');
+        $mess = '';
+        $user = $session->read('infoAff');
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['passOld']) && !empty($dataSend['passNew']) && !empty($dataSend['passAgain'])){
+                if($dataSend['passNew'] == $dataSend['passAgain']){
+                    $data = $modelAffiliaters->find()->where(['id'=>(int) $user->id])->first();
+
+                    if($data->password == md5($dataSend['passOld'])){
+                        $data->password = md5($dataSend['passNew']);
+
+                        $modelAffiliaters->save($data);
+                        
+                        $session->write('infoStaff', $data);
+
+                        $mess= '<p class="text-success">Đổi mật khẩu thành công</p>';
+                    }else{
+                        $mess= '<p class="text-danger">Sai mật khẩu cũ</p>';
+                    }
+                }else{
+                    $mess= '<p class="text-danger">Mật khẩu nhập lại chưa đúng</p>';
+                }
+            }else{
+                $mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+            }
+        }
+
+        setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
  ?>
