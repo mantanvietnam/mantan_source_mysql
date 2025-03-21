@@ -315,7 +315,7 @@ swiper-slide img {
 }
 #customSwiper .album-card img {
   width: 100%;
-  height: auto;
+  height: 275px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -1002,7 +1002,7 @@ swiper-slide img {
 }
 
 .product-info .action-buttons .buy-now-btn {
-  background-color: #4CAF50;
+  background-color: green;
   color: white;
   border: none;
   border-radius: 8px;
@@ -1671,5 +1671,8 @@ swiper-slide img {
   }
   .highlight{
     font-size: 2.2rem;
+  }
+  .daong{
+    flex-direction: column-reverse;
   }
  }
