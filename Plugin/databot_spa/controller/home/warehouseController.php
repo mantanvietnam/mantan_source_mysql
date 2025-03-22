@@ -171,7 +171,7 @@ function deleteWarehouse($input)
 			$data = $modelWarehouses->get($_GET['id']);
 			$user = $session->read('infoUser');
 
-			$checkWarehouseProducts = $modelWarehouseProducts->find()->where(array('id_warehouse'=>$data->id,'id_member'=>$infoUser->id_member))->all()->toList();
+			$checkWarehouseProducts = $modelWarehouseProducts->find()->where(array('id_warehouse'=>$data->id,'id_member'=>$user->id_member))->all()->toList();
 
 			 if(!empty($checkWarehouseProducts)){
                 return $controller->redirect('/listWarehouse?error=requestDelete');

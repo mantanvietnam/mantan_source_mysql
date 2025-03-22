@@ -254,11 +254,45 @@ function listPriceAPI(){
     $listPrice = getListPriceOngTrum();
 
 
+    if(!empty($listPrice['data'])) {
+        foreach($listPrice['data'] as $key => $value){
+            if(!empty($value)){
+                foreach($value as $k => $item){
+                     if(!empty($item)){
+                        foreach($item as $ks => $data){
+                             $dulieu = array();
+                            if(!empty($data)){
+                               
+                                foreach($data as $s => $d){
+                                    if(!empty($d)){
+                                        $d['id'] = $s;
+                                    }
+                                    $dulieu[] = $d; 
+                                }
+
+                            }
+
+                            $item[$ks] = $dulieu; 
+                        }
+                    }
+
+                 $value[$k] =  $item;
+                }
+            }
+            $listPrice['data'][$key] =  $value;
+        }
+    }
+
+
+
+
     return array('multiplier'=>$multiplier, 'listPrice'=>$listPrice);
 
 }
 
 function listTypeUpAPI(){
+
+
     return listTypeOngtrum();
 
 }
