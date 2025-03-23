@@ -93,7 +93,7 @@ function saveInfoAffiliaterAPI($input){
             return array('code'=>2, 'mess'=>'Mật khẩu nhập lại Không dúng ');
         }
 
-        if(!empty($dataSend['full_name']) && !empty($dataSend['phone'])){
+        if(!empty($dataSend['full_name']) && !empty($dataSend['phone']) && !empty($dataSend['password'])){
             $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
             $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 

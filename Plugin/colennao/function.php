@@ -543,6 +543,7 @@ function processAddMoney($money, $id_ransaction= 0): string
                                 $modelUser->save($affsource);
 
                                 $user->rose += $total_coin;
+                                $user->total_rose += $total_coin;
                                 $modelUser->save($user);
                             }
                         }
@@ -1057,7 +1058,7 @@ function sendEmailtransactioncMoney($email='', $fullName='',$order=array(), $cer
     
         $cc = array();
         $bcc = array();
-        $subject = 'Thanh toán thành công';
+        $subject = 'Rút tiền thành công';
 
         $content ='<!DOCTYPE html>
         <html lang="en">
@@ -1095,7 +1096,7 @@ function sendEmailtransactioncMoney($email='', $fullName='',$order=array(), $cer
             <div class="bao">
                 <div class="nd">
                     <div class="head">
-                        <span>Thanh toán thành công</span>
+                        <span>Rút tiền thành công</span>
                     </div>
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
@@ -1183,7 +1184,7 @@ function sendEmailtransactioncBy($email='', $fullName='',$order=array(),  $type)
             <div class="bao">
                 <div class="nd">
                     <div class="head">
-                        <span>Bạn đã rút tiền thành công</span>
+                        <span>Thanh toán thành công</span>
                     </div>
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>

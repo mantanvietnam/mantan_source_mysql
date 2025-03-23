@@ -619,10 +619,6 @@
                               <input type="text" class="form-control" id="" name="full_name" value="" required />
                             </div>
                             <div class="mb-3">
-                              <label for="phone" class="form-label">Số điện thoại (*)</label>
-                              <input type="text" class="form-control" id="" name="phone" value="" required />
-                            </div>
-                            <div class="mb-3">
                               <label for="avatar" class="form-label">Ảnh đại diện</label>
                               <input type="file" class="form-control" id="" name="avatar" value="" accept="image/*" />
                             </div>
@@ -635,12 +631,16 @@
                               <input type="text" class="form-control" id="" name="email" value="" />
                             </div>
                             <div class="mb-3">
-                              <label for="phone" class="form-label">Mật khẩu </label>
-                              <input type="password" class="form-control" id="" name="password" value="" />
+                              <label for="phone" class="form-label">Số điện thoại (*)</label>
+                              <input type="text" class="form-control" id="" name="phone" value="" required />
                             </div>
                             <div class="mb-3">
-                              <label for="phone" class="form-label">Mật khẩu </label>
-                              <input type="password" class="form-control" id="" name="password_confirmation" value="" />
+                              <label for="phone" class="form-label">Mật khẩu (*)</label>
+                              <input type="password" class="form-control" id="" name="password" value="" required />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Mật khẩu xác thực (*)</label>
+                              <input type="password" class="form-control" id="" name="password_confirmation" value="" required />
                               <input type="hidden" class="form-control" id="" name="id_member" value="<?php echo @$_GET['id'] ?>" />
                             </div>
                             
@@ -1274,6 +1274,8 @@
 
                   
                     
+                           /*     <label for="full_name" class="form-labe> Link chia sẽ mua hàng của bạn </label>\
+                                   <a style="color: #0d6efd;" href="<?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'"><?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'</a>\*/
                     // Sử dụng AJAX jQuery để gửi dữ liệu form lên server
                     $.ajax({
                         url: '/apis/saveInfoAffiliaterAPI', // URL của server nơi bạn muốn upload file
@@ -1284,10 +1286,12 @@
                         success: function(msg) {
                               console.log(msg);
                               if(msg.code==1){
-                                var html = '<label for="full_name" class="form-label">QR code</label>\
+                                var html = '<div class="mb-3" style=" text-align: center; font-size: 17px; font-weight: 600;"><label for="full_name" class="form-label">Mã QR của bạn</label>\
                                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'" width="100%" />\
-                                <label for="full_name" class="form-label"> link chia sẽ mua hàng của bạn </label>\
-                                   <a style="color: #0d6efd;" href="<?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'"><?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'</a>';
+                                </div>\
+                                <div class="">\
+                                   <button type="button" class="btn btn-primary mb-3" onclick="copyToClipboard('+msg.data.phone+');"><i class="bx bx-link"></i> Sao chép liên kết</button>\
+                                     <button type="button" class="btn btn-danger mb-3" onclick="downloadImageFromSrc('+msg.data.phone+');"><i class="bx bx-cloud-download"></i> Tải mã QR</button></div> ';
 
                                    $('#QRAffiliater').html(html); 
 
@@ -1311,7 +1315,45 @@
             });
 
         </script>
+<script type="text/javascript">
+    function downloadImageFromSrc(phone){
+      var fileName = 'QR_ICHAM_'+phone+'.jpg';
+      var url = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes;?>book-online/?aff='+phone;
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url, true);
+      xhr.responseType = "blob";
+      xhr.onload = function(){
+          var urlCreator = window.URL || window.webkitURL;
+          var imageUrl = urlCreator.createObjectURL(this.response);
+          var tag = document.createElement('a');
+          tag.href = imageUrl;
+          tag.download = fileName;
+          document.body.appendChild(tag);
+          tag.click();
+          document.body.removeChild(tag);
+      }
+      xhr.send();
+  }
 
+  function copyToClipboard(text) {
+      // Create a temporary input to hold the text to copy
+
+      text = '<?php echo $urlHomes;?>book-online/?aff='+text;
+      var $temp = $("<input>");
+      $("body").append($temp);
+      
+      // Select and copy the text
+      $temp.val(text).select();
+      document.execCommand("copy");
+      
+      // Remove the temporary input
+      $temp.remove();
+      
+      // Show success message
+      alert('Đã copy thành công link liên kết');
+      //$('#copySuccessMessage').show().fadeOut(2000);
+  }
+</script>
   
     </body>
 </html>

@@ -101,6 +101,7 @@
      $user = $session->read('infoAff'); ?>
     <section id="header-menu" class="container-xxl">
       <nav class="navbar navbar-expand-lg">
+          <a title="<?php echo $user->info_system->name;?>" class="navbar-brand" href="/listMember"><img src="<?php echo @$user->info_system->image;?>" width="50"></a>
       
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"><i class="bx bx-menu bx-sm"></i></span>

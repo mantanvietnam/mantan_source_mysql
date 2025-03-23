@@ -62,6 +62,25 @@
                     <label class="form-label" for="basic-default-phone">Trang Instagram</label>
                     <input type="text" class="form-control phone-mask" name="instagram" id="instagram" value="<?php echo @$data->instagram;?>" />
                   </div>
+                  <div class="mb-3">
+                    <label class="form-label">Số tài khoản ngân hàng</label>
+                    <input type="text" class="form-control phone-mask" name="bank_number" id="bank_number" value="<?php echo @$user->bank_number;?>"/>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Ngân hàng </label>
+                    <select class="form-select" name="bank_code" id="bank_code">
+                      <option value="">Chọn ngân hàng</option>
+                      <?php
+                      $listBank = listBank();
+                      foreach($listBank as $key => $item){
+                        $selected = '';
+                        if(@$user->bank_code==$item['code']){ 
+                          $selected = 'selected';
+                        }
+                        echo'<option value="'.$item['code'].'" '.$selected.' >'.$item['name'].' ('.$item['code'].')</option>';
+                      } ?>
+                    </select>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
@@ -102,6 +121,7 @@
                     <label class="form-label" for="basic-default-phone">Trang Zalo</label>
                     <input type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$data->zalo;?>" />
                   </div>
+
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Mã QR của bạn</label><br/>

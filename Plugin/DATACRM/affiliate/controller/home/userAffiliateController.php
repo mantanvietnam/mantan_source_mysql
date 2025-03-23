@@ -41,6 +41,7 @@ function affiliaterLogin($input)
 							$modelAffiliaters->save($info_aff);
 			    			$session->write('CheckAuthentication', true);
 		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$members->id.'/');
+                            $info_aff->info_system = $modelCategories->find()->where(['id'=>(int) $info_aff->id_system])->first();
 
 			    			$session->write('infoAff', $info_aff);
 			    			
@@ -73,7 +74,7 @@ function affiliaterLogin($input)
 					if($members->status == 'active'){
 						if($members->deadline > time()){
 							$info_aff->last_login = time();
-							$modelStaff->save($info_aff);
+							$modelAffiliaters->save($info_aff);
 							$session->write('CheckAuthentication', true);
 			                $session->write('urlBaseUpload', '/upload/admin/images/'.$members->id.'/');
 
@@ -178,8 +179,12 @@ function affiliaterAccount($input)
                     $data->youtube = $dataSend['youtube'];
                     $data->facebook = $dataSend['facebook'];
                     $data->description = $dataSend['description']; 
-
+                    $data->bank_number = $dataSend['bank_number']; 
+                    $data->bank_code = $dataSend['bank_code']; 
+            
                     $modelAffiliaters->save($data);
+
+                    $data->info_system = $modelCategories->find()->where(['id'=>(int) $data->id_system])->first();
 
                     $session->write('infoAff', $data);
                      $mess= '<p class="text-success">Đổi thông tin thành công</p>';
@@ -239,4 +244,70 @@ function affiliaterChangePass($input)
         return $controller->redirect('/login');
     }
 }
+
+function affiliaterForgotPass($input)
+{
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    $metaTitleMantan = 'Quên mật khẩu';
+
+    $modelAffiliaters = $controller->loadModel('Affiliaters');
+
+    setVariable('page_view', 'forgotPass');
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        $conditions = array();
+        $conditions['phone'] = $dataSend['phone'];
+        $checkMember = $modelAffiliaters->find()->where($conditions)->first();
+        if(!empty($checkMember)){
+            $pass = rand(100000,999999);
+            $checkMember->code_otp = $pass;
+            $modelAffiliaters->save($checkMember);
+            sendEmailnewpassword($checkMember->email, $checkMember->name, $pass);
+            $session->write('phone', $checkMember->phone);
+            return $controller->redirect('/affiliaterConfirm');
+        }else{
+            $mess= '<p class="text-danger">Số điện thoại không đúng!</p>';
+        }
+        setVariable('mess', $mess);
+    }
+}
+
+function affiliaterConfirm($input)
+{
+
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+    $phone = $session->read('phone');
+
+    setVariable('page_view', 'confirm');
+    $modelMembers = $controller->loadModel('Members');
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        $conditions = array();
+        $conditions = array('phone'=>@$phone, 'code_otp'=>$dataSend['code']);
+        $data = $modelMembers->find()->where($conditions)->first();
+        if(!empty($data)){
+            if($dataSend['pass'] == $dataSend['passAgain']){
+                $data->password = md5($dataSend['pass']);
+                $data->code_otp = rand(100000, 999999);
+                $modelMembers->save($data);
+                $session->destroy();
+                return $controller->redirect('/affiliaterLogin');     
+            }else{
+                $mess= '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';
+            }
+        }else{
+            $mess= '<p class="text-danger">Mã xác thực của bạn không đúng</p>';
+        }
+        setVariable('mess', $mess);
+    }
+}
+
  ?>

@@ -2,11 +2,10 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/affiliate-view-admin-transaction-listTransactionAffiliaterAdmin">Lịch sử giao dịch</a> /</span>
     Danh sách giao dịch
   </h4>
 
-  <p><a href="/listTransactionAffiliaterAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <!-- <p><a href="/listTransactionAffiliaterAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -19,11 +18,11 @@
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
-          <div class="col-md-3">
+        <!--   <div class="col-md-3">
             <label class="form-label">số điện thoại người tiếp thị</label>
             <input type="text" class="form-control" name="name_affiliater"  id="name_affiliater" value="<?php if(!empty($_GET['name_affiliater'])) echo $_GET['name_affiliater'];?>">
             <input type="hidden" class="form-control" name="id_affiliater"  id="id_affiliater" value="<?php if(!empty($_GET['id_affiliater'])) echo $_GET['id_affiliater'];?>">
-          </div>
+          </div> -->
 
           <div class="col-md-2">
             <label class="form-label">ID đơn hàng</label>

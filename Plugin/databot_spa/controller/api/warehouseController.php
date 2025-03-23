@@ -275,4 +275,104 @@ function addProductWarehouseAPI($input){
 	return apiResponse(0,'Gửi sai phương thức POST');
 }
 
+
+function importHistorytWarehouseAPI($input){
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $metaTitleMantan = 'Lịch sử nhập hàng vào kho';
+     if($isRequestPost){
+    	$dataSend = $input['request']->getData();
+        if(!empty($dataSend['token']) && !empty($dataSend['data_order'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'importHistorytWarehouse','product');
+			if(!empty($infoUser)){
+		        $modelMembers = $controller->loadModel('Members');
+		        $modelProducts = $controller->loadModel('Products');
+		        $modelWarehouses = $controller->loadModel('Warehouses');
+		        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+		        $modelWarehouseProductDetails = $controller->loadModel('WarehouseProductDetails');
+		        $modelPartner = $controller->loadModel('Partners');
+
+
+		        $conditions = array('WarehouseProducts.id_member'=>$infoUser->id_member, 'WarehouseProducts.id_spa'=>$infoUser->id_spa);
+		        $limit = 20;
+		        $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+		        if($page<1) $page = 1;
+		        $order = array('WarehouseProducts.id'=>'desc');
+
+		        if(!empty($dataSend['id'])){
+		            $conditions['WarehouseProducts.id'] = $dataSend['id'];
+		        }
+
+		        if(!empty($dataSend['id_Warehouse'])){
+		            $conditions['id_warehouse'] = $dataSend['id_Warehouse'];
+		        }
+
+		        if(!empty($dataSend['id_partner'])){
+		            $conditions['id_partner'] = $dataSend['id_partner'];
+		        }
+
+		        if(empty($dataSend['searchProduct'])){
+		            $dataSend['id_product'] = '';
+		        }
+
+		        if(!empty($dataSend['id_product'])){
+				    $conditions['wpd.id_product'] = $dataSend['id_product'];
+				        
+			        $listData = $modelWarehouseProducts->find()->join([
+		                            'table' => 'warehouse_product_details',
+		                            'alias' => 'wpd',
+		                            'type' => 'INNER',
+		                            'conditions' => 'wpd.id_warehouse_product = WarehouseProducts.id',
+		                        ])->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+		            $totalData = $modelWarehouseProducts->find()->join([
+		                            'table' => 'warehouse_product_details',
+		                            'alias' => 'wpd',
+		                            'type' => 'INNER',
+		                            'conditions' => 'wpd.id_warehouse_product = WarehouseProducts.id',
+		                        ])->where($conditions)->all()->toList();
+		            $totalData = count($totalData);
+		        }else{
+		            $listData = $modelWarehouseProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+		            $totalData = $modelWarehouseProducts->find()->where($conditions)->all()->toList();
+		            $totalData = count($totalData);
+		        }
+
+		        if(!empty($listData)){
+		            foreach($listData as $key => $item){
+		                $listData[$key]->Warehouse = $modelWarehouses->find()->where(array('id'=>$item->id_warehouse))->first();
+		                $listData[$key]->parent = $modelPartner->find()->where(array('id'=>$item->id_partner))->first();
+		                $conditionDetailed = array('id_warehouse_product'=>$item->id);
+
+		                if(!empty($dataSend['id_product'])){
+		                    $conditionDetailed['id_product'] = $dataSend['id_product'];
+		                }
+
+		                $product = $modelWarehouseProductDetails->find()->where($conditionDetailed)->all()->toList();
+		                
+		                if(!empty($product)){
+		                    foreach($product as $k => $value){
+		                        $product[$k]->prod = $modelProducts->find()->where(array('id'=>$value->id_product))->first();
+		                    }
+
+		                    $listData[$key]->product = $product;
+		                }else{
+		                    $listData[$key]->product = [];
+		                }
+		            }
+		        }
+		        return apiResponse(1,'lấy dữ liệu thành công',$listData, $totalData);		  	
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+
  ?>
