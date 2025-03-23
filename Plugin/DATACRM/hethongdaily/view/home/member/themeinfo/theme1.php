@@ -191,6 +191,20 @@
                 right: -150px;
                 font-size: 25px;
             }
+            .button-gradient{
+                background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%);
+                  color: white;
+                  border: none;
+                  border-radius: 25px;
+                  padding: 10px 25px;
+                  font-weight: 500;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+            }
+            .button-gradient:hover {
+                background: linear-gradient(45deg, #feb47b, #ff7e5f);
+            }
         </style>                            
     </head>
     
@@ -226,7 +240,6 @@
 
                             <div class=" d-flex mt-2"> 
                                 <button class="btn1 btn-dark" onclick="saveToPhonebook()">LƯU DANH BẠ</button> 
-                                 <!-- <a class="btn1 btn-dark" id="affiliate-tab" data-toggle="tab" href="#affiliate">ĐK CTV</a> -->
                             </div> 
 
                             <div class="text mt-3"> 
@@ -234,10 +247,9 @@
                             </div> 
 
                             <a id="customer-tab" data-toggle="tab" onclick="buttonAffiliate();" href="#affiliate">
-                                <div class="row social mb-3">
+                                <div class="row mb-3">
                                     <div class="col-12 text-center">
-                                        <span class="title">Đăng ký cộng tác viên</span><br/>
-                                        <!-- <span class="des">Kết bạn với tôi nhé</span> -->
+                                        <span class="title button-gradient">Đăng Ký Cộng Tác Viên</span><br/>
                                     </div>
                                 </div>
                             </a>
@@ -619,18 +631,6 @@
                               <input type="text" class="form-control" id="" name="full_name" value="" required />
                             </div>
                             <div class="mb-3">
-                              <label for="avatar" class="form-label">Ảnh đại diện</label>
-                              <input type="file" class="form-control" id="" name="avatar" value="" accept="image/*" />
-                            </div>
-                            <div class="mb-3">
-                              <label for="address" class="form-label">Địa chỉ</label>
-                              <input type="text" class="form-control" id="" name="address" value="" />
-                            </div>
-                            <div class="mb-3">
-                              <label for="phone" class="form-label">Email</label>
-                              <input type="text" class="form-control" id="" name="email" value="" />
-                            </div>
-                            <div class="mb-3">
                               <label for="phone" class="form-label">Số điện thoại (*)</label>
                               <input type="text" class="form-control" id="" name="phone" value="" required />
                             </div>
@@ -643,6 +643,19 @@
                               <input type="password" class="form-control" id="" name="password_confirmation" value="" required />
                               <input type="hidden" class="form-control" id="" name="id_member" value="<?php echo @$_GET['id'] ?>" />
                             </div>
+                            <div class="mb-3">
+                              <label for="avatar" class="form-label">Ảnh đại diện</label>
+                              <input type="file" class="form-control" id="" name="avatar" value="" accept="image/*" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="address" class="form-label">Địa chỉ</label>
+                              <input type="text" class="form-control" id="" name="address" value="" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Email</label>
+                              <input type="text" class="form-control" id="" name="email" value="" />
+                            </div>
+                            
                             
                             <div class="mb-3 text-center">
                                 <div id="messAffiliater"></div>
@@ -658,11 +671,10 @@
             <div class="tab-pane fade" id="QRCodeAffiliater">
                 <div class="container p-3 d-flex justify-content-center">
                     <div class="card p-4"> 
-                        <h5 style="text-align: center;" for="full_name" class="form-label">Bạn đăng ký cộng tác viên thành công</h5>
+                        <h5 style="text-align: center;" for="full_name" class="form-label">Đăng ký CTV thành công</h5>
                            <div class="modal-body" id="QRAffiliater"></div>
-                        <div class="mb-3 text-center">
-                                <div id="messAffiliater"></div>
-                                <a class="btn btn-danger" href="<?php echo $urlHomes;?>affiliaterLogin" id="" >Đăng nhập</a> 
+                            <div class="mb-3 text-center">
+                                <a class="btn btn-danger" target="_blank" href="<?php echo $urlHomes;?>ctv" id="" >Đăng nhập</a> 
                             </div>
                     </div>
                 </div>
@@ -1290,8 +1302,8 @@
                                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'" width="100%" />\
                                 </div>\
                                 <div class="">\
-                                   <button type="button" class="btn btn-primary mb-3" onclick="copyToClipboard('+msg.data.phone+');"><i class="bx bx-link"></i> Sao chép liên kết</button>\
-                                     <button type="button" class="btn btn-danger mb-3" onclick="downloadImageFromSrc('+msg.data.phone+');"><i class="bx bx-cloud-download"></i> Tải mã QR</button></div> ';
+                                   <button type="button" class="btn btn-primary mb-3" onclick="copyToClipboard('+msg.data.phone+');"><i class="fa fa-link" aria-hidden="true"></i> Link giới thiệu</button>\
+                                     <button type="button" class="btn btn-danger mb-3" onclick="downloadImageFromSrc('+msg.data.phone+');"><i class="fa fa-download" aria-hidden="true"></i> Tải mã QR</button></div> ';
 
                                    $('#QRAffiliater').html(html); 
 

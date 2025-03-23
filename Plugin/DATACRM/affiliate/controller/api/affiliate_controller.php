@@ -139,9 +139,16 @@ function saveInfoAffiliaterAPI($input){
                 if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
                 $data->password = md5($dataSend['password']);
                 $modelAffiliaters->save($data);
-                 return array('code'=>1, 'mess'=>'Bạn Đằng lý thành công', 'data'=>$data);
+                
+                return array('code'=>1, 'mess'=>'Bạn đăng ký thành công', 'data'=>$data);
+            }else{
+                if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
+                $checkPhone->password = md5($dataSend['password']);
+
+                $modelAffiliaters->save($checkPhone);
             }
-            return array('code'=>2, 'mess'=>'Số điện thoại đã tồn tại');
+
+            return array('code'=>1, 'mess'=>'Số điện thoại đã tồn tại', 'data'=>$checkPhone);
         }
         return array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
     }
