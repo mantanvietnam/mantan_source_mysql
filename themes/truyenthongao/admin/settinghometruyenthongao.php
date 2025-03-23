@@ -173,27 +173,27 @@
                                     <input type="text" class="form-control" name="titleoperational" value="<?php echo @$data['titleoperational'];?>" />
                                 </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Năm hoạt động</label>
+                                    <label class="form-label" for="basic-default-fullname">Tên thống kê 1</label>
                                     <input type="text" class="form-control" name="yearactive" value="<?php echo @$data['yearactive'];?>" />
                                 </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Số năm hoạt động</label>
+                                    <label class="form-label" for="basic-default-fullname">Số thống kê 1</label>
                                     <input type="text" class="form-control" name="numberactive" value="<?php echo @$data['numberactive'];?>" />
                                 </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Khách hàng</label>
+                                    <label class="form-label" for="basic-default-fullname">Tên thống kê 2</label>
                                     <input type="text" class="form-control" name="customer" value="<?php echo @$data['customer'];?>" />
                                 </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Số khách hàng</label>
+                                    <label class="form-label" for="basic-default-fullname">Số thống kê 2</label>
                                     <input type="text" class="form-control" name="numbercustomer" value="<?php echo @$data['numbercustomer'];?>" />
                                 </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Sự kiện</label>
+                                    <label class="form-label" for="basic-default-fullname">Tên thống kê 3</label>
                                     <input type="text" class="form-control" name="events" value="<?php echo @$data['events'];?>" />
                                 </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Số khách hàng</label>
+                                    <label class="form-label" for="basic-default-fullname">Số thống kê 3</label>
                                     <input type="text" class="form-control" name="numberevents" value="<?php echo @$data['numberevents'];?>" />
                                 </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
