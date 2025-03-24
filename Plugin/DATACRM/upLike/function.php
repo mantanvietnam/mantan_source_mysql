@@ -195,26 +195,62 @@ function listServerSmm(){
 function listTypeOngtrum(){
 
     return array(
-        ['type_api'=> 'facebook.buff.likepage', 'title'=>'Tăng like Fanpage Facebook'],
-        ['type_api'=> 'facebook.buff.live', 'title'=>'Tăng mắt live Facebook'],
-        ['type_api'=> 'facebook.buff.subpage', 'title'=>'Tăng theo dõi fanpage Facebook'],
-        ['type_api'=> 'facebook.buff.view', 'title'=>'Tăng lượng xem video Facebook'],
-        ['type_api'=> 'facebook.buff.friend', 'title'=>'Tăng theo dõi fanpage Facebook'],
-        ['type_api'=> 'facebook.buff.viewstory', 'title'=>'Tăng theo dõi fanpage Facebook'],
-        ['type_api'=> 'facebook.buff.share', 'title'=>'Tăng lượt chia sẻ Facebook'],
-        ['type_api'=> 'tiktok.buff.like', 'title'=>'Tăng like Fanpage Tiktok'],
-        ['type_api'=> 'tiktok.buff.sub', 'title'=>'Tăng theo dõi Tiktok'],
-        ['type_api'=> 'tiktok.buff.share', 'title'=>'Tăng lượt chia sẻ Tiktok'],
-        ['type_api'=> 'tiktok.buff.view', 'title'=>'Tăng lượt xem video Tiktok'],
-        ['type_api'=> 'tiktok.buff.cmt', 'title'=>'Tăng lượt bình luật Tiktok'],
-        ['type_api'=> 'tiktok.buff.save', 'title'=>'Tăng lượt yêu thích video Tiktok'],
-        ['type_api'=> 'tiktok.buff.download', 'title'=>'Tăng lượt tải video Tiktok'],
-        ['type_api'=> 'tiktok.buff.live', 'title'=>'Tăng lượt xem live Tiktok'],
-        ['type_api'=> 'tiktok.buff.order', 'title'=>'Tăng lượt mua hàng ảo Tiktok'],
-        ['type_api'=> 'tiktok.buff.live2', 'title'=>'Tăng lượt xem live 2 Tiktok'],
-        ['type_api'=> 'tiktok.buff.like.live', 'title'=>'Tăng lượt like live Tiktok'],
-        ['type_api'=> 'tiktok.buff.share.live', 'title'=>'Tăng lượt chia sẻ live Tiktok'],
+        ['type_api'=> 'facebook.buff.likepage', 'title'=>'Tăng like Fanpage Facebook', 'listPrice'=>listPriceSocial('facebook', 'buff' , 'likepage')],
+        ['type_api'=> 'facebook.buff.live', 'title'=>'Tăng mắt live Facebook', 'listPrice'=>listPriceSocial('facebook', 'buff' , 'live')],
+        ['type_api'=> 'facebook.buff.subpage', 'title'=>'Tăng theo dõi fanpage Facebook', 'listPrice'=>listPriceSocial('facebook', 'buff' , 'subpage')],
+        ['type_api'=> 'facebook.buff.view', 'title'=>'Tăng lượng xem video Facebook', 'listPrice'=>listPriceSocial('facebook', 'buff' , 'view')],
+        ['type_api'=> 'facebook.buff.friend', 'title'=>'Tăng theo dõi fanpage Facebook', 'listPrice'=>listPriceSocial('facebook', 'buff' , 'friend')],
+        ['type_api'=> 'facebook.buff.viewstory', 'title'=>'Tăng theo dõi fanpage Facebook', 'listPrice'=>listPriceSocial('facebook', 'buff' , 'viewstory')],
+        ['type_api'=> 'facebook.buff.share', 'title'=>'Tăng lượt chia sẻ Facebook', 'listPrice'=>listPriceSocial('facebook', 'buff' , 'share')],
+        ['type_api'=> 'tiktok.buff.like', 'title'=>'Tăng like Fanpage Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'like')],
+        ['type_api'=> 'tiktok.buff.sub', 'title'=>'Tăng theo dõi Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'sub')],
+        ['type_api'=> 'tiktok.buff.share', 'title'=>'Tăng lượt chia sẻ Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'share')],
+        ['type_api'=> 'tiktok.buff.view', 'title'=>'Tăng lượt xem video Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'view')],
+        ['type_api'=> 'tiktok.buff.cmt', 'title'=>'Tăng lượt bình luật Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'cmt')],
+        ['type_api'=> 'tiktok.buff.save', 'title'=>'Tăng lượt yêu thích video Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'save')],
+        ['type_api'=> 'tiktok.buff.download', 'title'=>'Tăng lượt tải video Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'download')],
+        ['type_api'=> 'tiktok.buff.live', 'title'=>'Tăng lượt xem live Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'live')],
+        ['type_api'=> 'tiktok.buff.order', 'title'=>'Tăng lượt mua hàng ảo Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'order')],
+        ['type_api'=> 'tiktok.buff.live2', 'title'=>'Tăng lượt xem live 2 Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'live2')],
+        ['type_api'=> 'tiktok.buff.like.live', 'title'=>'Tăng lượt like live Tiktok', 'listPrice'=>listPriceSocial('tiktok', 'buff' , 'likelive')],
+        ['type_api'=> 'tiktok.buff.share.live', 'title'=>'Tăng lượt chia sẻ live Tiktok','listPrice'=>listPriceSocial('tiktok', 'buff' , 'sharelive')],
 
     );
+
+
+}
+
+function listPriceSocial($social, $type , $interact){
+
+      global $modelOptions;
+
+    // kiểm tra cái đặt token
+    $multiplier = 1;
+    $conditions = array('key_word' => 'settingUpLikeAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    if(!empty($data_value['multiplier'])){
+        $multiplier = $data_value['multiplier'];
+    }else{
+        return $controller->redirect('/chooseUpLike/?error=tokenEmpty');
+    }
+    $listPrice = getListPriceOngTrum();
+
+    $listData = array();
+    if(!empty($listPrice['data'][$social][$type][$interact])){
+        foreach ($listPrice['data'][$social][$type][$interact] as $key => $value) {
+            $value['id'] =  $key;
+            $listData[] = $value; 
+        }
+    }
+
+
+
+
+    return array('multiplier'=>$multiplier, 'price'=>$listData);
 }
 ?>

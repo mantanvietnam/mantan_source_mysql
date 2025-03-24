@@ -27,7 +27,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `agencys` (
 $sqlInstallDatabase .= "CREATE TABLE `beds` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
@@ -48,8 +48,8 @@ $sqlInstallDatabase .= "CREATE TABLE `bills` (
   `total` int(11) NOT NULL DEFAULT 0 COMMENT 'số tiền thu chi',
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` int(11) NOT NULL COMMENT '0: Thu, 1: chi, ',
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
   `type_collection_bill` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Hình thức thanh toán',
   `id_customer` int(11) DEFAULT NULL,
   `full_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -71,7 +71,7 @@ $sqlInstallDatabase .="CREATE TABLE `books` (
   `id_member` int(11) NOT NULL,
   `id_customer` int(11) NOT NULL,
   `id_service` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` int(11) NOT NULL,
   `time_book` int(11) NOT NULL COMMENT 'thời gian đặt lịch hẹn',
   `id_staff` int(11) DEFAULT NULL,
   `status` INT(4) NOT NULL DEFAULT '0' COMMENT '0: Chưa xác nhận, 1: Xác nhận, 2:Không đến, 3:Đã đến, 4:Hủy , 5:Đặt online.',
@@ -135,8 +135,8 @@ $sqlInstallDatabase .="CREATE TABLE `combos` (
   `price` int(11) DEFAULT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` varchar(20) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
@@ -155,8 +155,8 @@ $sqlInstallDatabase .="CREATE TABLE `customers` (
   `phone` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
   `sex` tinyint(4) NOT NULL,
   `avatar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `birthday` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -212,8 +212,8 @@ $sqlInstallDatabase .="CREATE TABLE `debts` (
   `type` int(11) NOT NULL COMMENT '0: Nợ phải thu, 1: Nợ Phải trả,',
   `status` int(11) DEFAULT NULL COMMENT '0 : chưa trả ,1 đã trả  hết',
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
   `id_warehouse_product` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
@@ -227,10 +227,10 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
   `status` int(11) NOT NULL,
   `type` int(11) NOT NULL COMMENT '1 : members, 0: nhân viên ',
   `id_member` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `last_login` datetime DEFAULT NULL,
-  `dateline_at` datetime DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `last_login` int(11) DEFAULT NULL,
+  `dateline_at` int(11) DEFAULT NULL,
   `id_card`  varchar(12) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `number_spa` int(11) DEFAULT NULL,
   `birthday` varchar(255) DEFAULT NULL,
@@ -268,8 +268,8 @@ $sqlInstallDatabase .="CREATE TABLE `orders` (
   `id_bed` int(11) DEFAULT NULL,
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `time` int(11) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL,
   `total` int(11) DEFAULT NULL,
   `promotion` int(11) DEFAULT NULL,
@@ -302,8 +302,8 @@ $sqlInstallDatabase .="CREATE TABLE `partners` (
   `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_member` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -338,8 +338,8 @@ $sqlInstallDatabase .="CREATE TABLE `products` (
   `view` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
   `commission_staff_fix` int(11) NOT NULL DEFAULT 0,
   `commission_staff_percent` int(11) NOT NULL DEFAULT 0,
   `commission_affiliate_fix` int(11) NOT NULL DEFAULT 0,
@@ -350,7 +350,7 @@ $sqlInstallDatabase .="CREATE TABLE `products` (
 $sqlInstallDatabase .="CREATE TABLE `rooms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
@@ -367,8 +367,8 @@ $sqlInstallDatabase .="CREATE TABLE `services` (
   `price` int(11) DEFAULT NULL,
   `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL COMMENT 'thời lương ',
   `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(4) DEFAULT NULL,
@@ -389,8 +389,8 @@ $sqlInstallDatabase .="CREATE TABLE `spas` (
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
   `facebook` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `website` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `zalo` varchar(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci DEFAULT NULL,
@@ -401,7 +401,7 @@ $sqlInstallDatabase .="CREATE TABLE `trademarks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
   `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -429,7 +429,7 @@ $sqlInstallDatabase .="CREATE TABLE `warehouses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
   `credit` int(11) DEFAULT NULL COMMENT '1 cho bán âm, 0 không cho bán âm',
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
@@ -442,7 +442,7 @@ $sqlInstallDatabase .="CREATE TABLE `warehouse_products` (
   `id_spa` int(11) NOT NULL,
   `id_staff` int(11) DEFAULT NULL COMMENT 'ID nhân viên thực hiện',
   `id_warehouse` int(11) NOT NULL COMMENT 'ID kho',
-  `created_at` datetime DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
   `id_partner` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
@@ -455,7 +455,7 @@ $sqlInstallDatabase .="CREATE TABLE `warehouse_product_details` (
   `impor_price` int(11) DEFAULT NULL,
   `quantity` int(11) NOT NULL,
   `inventory_quantity` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` int(11) NOT NULL,
   `id_warehouse` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
@@ -477,8 +477,8 @@ $sqlInstallDatabase .="CREATE TABLE `medical_histories` (
             `id_customer` INT NOT NULL , 
             `id_member` INT NOT NULL , 
             `id_spa` INT NOT NULL , 
-            `created_at` DATETIME NULL DEFAULT NULL , 
-            `updated_at` DATETIME NULL DEFAULT NULL , 
+            `created_at` int(11) NULL DEFAULT NULL , 
+            `updated_at` int(11) NULL DEFAULT NULL , 
             `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
             `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
             `id_order` INT NULL DEFAULT NULL , 
@@ -616,7 +616,7 @@ $sqlUpdateDatabase['agencys']['id_user_service'] = "ALTER TABLE `agencys` ADD `i
 
 // Bang beds
 $sqlUpdateDatabase['beds']['name'] = "ALTER TABLE `beds` ADD `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
-$sqlUpdateDatabase['beds']['created_at'] = "ALTER TABLE `beds` ADD `created_at` datetime NOT NULL; ";
+$sqlUpdateDatabase['beds']['created_at'] = "ALTER TABLE `beds` ADD `created_at` int(11) NOT NULL; ";
 $sqlUpdateDatabase['beds']['status'] = "ALTER TABLE `beds` ADD `status` int(11) NOT NULL; ";
 $sqlUpdateDatabase['beds']['id_member'] = "ALTER TABLE `beds` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['beds']['id_spa'] = "ALTER TABLE `beds` ADD `id_spa` int(11) NOT NULL; ";
@@ -634,8 +634,8 @@ $sqlUpdateDatabase['bills']['id_staff'] = "ALTER TABLE `bills` ADD `id_staff` in
 $sqlUpdateDatabase['bills']['total'] = "ALTER TABLE `bills` ADD `total` int(11) NOT NULL DEFAULT 0 COMMENT 'số tiền thu chi'; ";
 $sqlUpdateDatabase['bills']['note'] = "ALTER TABLE `bills` ADD `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['type'] = "ALTER TABLE `bills` ADD `type` int(11) NOT NULL COMMENT '0: Thu, 1: chi, '; ";
-$sqlUpdateDatabase['bills']['created_at'] = "ALTER TABLE `bills` ADD `created_at` datetime DEFAULT NULL; ";
-$sqlUpdateDatabase['bills']['updated_at'] = "ALTER TABLE `bills` ADD `updated_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['bills']['created_at'] = "ALTER TABLE `bills` ADD `created_at` int(11) DEFAULT NULL; ";
+$sqlUpdateDatabase['bills']['updated_at'] = "ALTER TABLE `bills` ADD `updated_at` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['type_collection_bill'] = "ALTER TABLE `bills` ADD `type_collection_bill` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Hình thức thanh toán'; ";
 $sqlUpdateDatabase['bills']['id_customer'] = "ALTER TABLE `bills` ADD `id_customer` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['full_name'] = "ALTER TABLE `bills` ADD `full_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
@@ -655,7 +655,7 @@ $sqlUpdateDatabase['books']['email'] = "ALTER TABLE `books` ADD `email` text CHA
 $sqlUpdateDatabase['books']['id_member'] = "ALTER TABLE `books` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['books']['id_customer'] = "ALTER TABLE `books` ADD `id_customer` int(11) NOT NULL; ";
 $sqlUpdateDatabase['books']['id_service'] = "ALTER TABLE `books` ADD `id_service` int(11) DEFAULT NULL; ";
-$sqlUpdateDatabase['books']['created_at'] = "ALTER TABLE `books` ADD `created_at` datetime NOT NULL; ";
+$sqlUpdateDatabase['books']['created_at'] = "ALTER TABLE `books` ADD `created_at` int(11) NOT NULL; ";
 $sqlUpdateDatabase['books']['time_book'] = "ALTER TABLE `books` ADD `time_book` int(11) NOT NULL COMMENT 'thời gian đặt lịch hẹn'; ";
 $sqlUpdateDatabase['books']['id_staff'] = "ALTER TABLE `books` ADD `id_staff` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['books']['status'] = "ALTER TABLE `books` ADD `status` INT(4) NOT NULL DEFAULT '0' COMMENT '0: Chưa xác nhận, 1: Xác nhận, 2:Không đến, 3:Đã đến, 4:Hủy , 5:Đặt online.'; ";
@@ -710,8 +710,8 @@ $sqlUpdateDatabase['combos']['product'] = "ALTER TABLE `combos` ADD `product` te
 $sqlUpdateDatabase['combos']['price'] = "ALTER TABLE `combos` ADD `price` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['combos']['description'] = "ALTER TABLE `combos` ADD `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['combos']['status'] = "ALTER TABLE `combos` ADD `status` varchar(20) NOT NULL; ";
-$sqlUpdateDatabase['combos']['created_at'] = "ALTER TABLE `combos` ADD `created_at` datetime NOT NULL; ";
-$sqlUpdateDatabase['combos']['updated_at'] = "ALTER TABLE `combos` ADD `updated_at` datetime NOT NULL; ";
+$sqlUpdateDatabase['combos']['created_at'] = "ALTER TABLE `combos` ADD `created_at` int(11) NOT NULL; ";
+$sqlUpdateDatabase['combos']['updated_at'] = "ALTER TABLE `combos` ADD `updated_at` int(11) NOT NULL; ";
 $sqlUpdateDatabase['combos']['quantity'] = "ALTER TABLE `combos` ADD `quantity` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['combos']['id_member'] = "ALTER TABLE `combos` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['combos']['id_spa'] = "ALTER TABLE `combos` ADD `id_spa` int(11) NOT NULL; ";
@@ -727,8 +727,8 @@ $sqlUpdateDatabase['customers']['id_spa'] = "ALTER TABLE `customers` ADD `id_spa
 $sqlUpdateDatabase['customers']['phone'] = "ALTER TABLE `customers` ADD `phone` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` ADD `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['customers']['address'] = "ALTER TABLE `customers` ADD `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['customers']['created_at'] = "ALTER TABLE `customers` ADD `created_at` datetime NOT NULL; ";
-$sqlUpdateDatabase['customers']['updated_at'] = "ALTER TABLE `customers` ADD `updated_at` datetime NOT NULL; ";
+$sqlUpdateDatabase['customers']['created_at'] = "ALTER TABLE `customers` ADD `created_at` int(11) NOT NULL; ";
+$sqlUpdateDatabase['customers']['updated_at'] = "ALTER TABLE `customers` ADD `updated_at` int(11) NOT NULL; ";
 $sqlUpdateDatabase['customers']['sex'] = "ALTER TABLE `customers` ADD `sex` tinyint(4) NOT NULL; ";
 $sqlUpdateDatabase['customers']['avatar'] = "ALTER TABLE `customers` ADD `avatar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['customers']['birthday'] = "ALTER TABLE `customers` ADD `birthday` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
@@ -778,8 +778,8 @@ $sqlUpdateDatabase['debts']['time'] = "ALTER TABLE `debts` ADD `time` int(11) DE
 $sqlUpdateDatabase['debts']['type'] = "ALTER TABLE `debts` ADD `type` int(11) NOT NULL COMMENT '0: Nợ phải thu, 1: Nợ Phải trả,'; ";
 $sqlUpdateDatabase['debts']['status'] = "ALTER TABLE `debts` ADD `status` int(11) DEFAULT NULL COMMENT '0 : chưa trả ,1 đã trả  hết'; ";
 $sqlUpdateDatabase['debts']['note'] = "ALTER TABLE `debts` ADD `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
-$sqlUpdateDatabase['debts']['created_at'] = "ALTER TABLE `debts` ADD `created_at` datetime DEFAULT NULL; ";
-$sqlUpdateDatabase['debts']['updated_at'] = "ALTER TABLE `debts` ADD `updated_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['debts']['created_at'] = "ALTER TABLE `debts` ADD `created_at` int(11) DEFAULT NULL; ";
+$sqlUpdateDatabase['debts']['updated_at'] = "ALTER TABLE `debts` ADD `updated_at` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['debts']['id_warehouse_product'] = "ALTER TABLE `debts` ADD `id_warehouse_product` int(11) DEFAULT NULL; ";
 
 // Bang members
@@ -790,10 +790,10 @@ $sqlUpdateDatabase['members']['email'] = "ALTER TABLE `members` ADD `email` text
 $sqlUpdateDatabase['members']['status'] = "ALTER TABLE `members` ADD `status` int(11) NOT NULL; ";
 $sqlUpdateDatabase['members']['type'] = "ALTER TABLE `members` ADD `type` int(11) NOT NULL COMMENT '1 : members, 0: nhân viên '; ";
 $sqlUpdateDatabase['members']['id_member'] = "ALTER TABLE `members` ADD `id_member` int(11) DEFAULT NULL; ";
-$sqlUpdateDatabase['members']['created_at'] = "ALTER TABLE `members` ADD `created_at` datetime NOT NULL; ";
-$sqlUpdateDatabase['members']['updated_at'] = "ALTER TABLE `members` ADD `updated_at` datetime DEFAULT NULL; ";
-$sqlUpdateDatabase['members']['last_login'] = "ALTER TABLE `members` ADD `last_login` datetime DEFAULT NULL; ";
-$sqlUpdateDatabase['members']['dateline_at'] = "ALTER TABLE `members` ADD `dateline_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['members']['created_at'] = "ALTER TABLE `members` ADD `created_at` int(11) NOT NULL; ";
+$sqlUpdateDatabase['members']['updated_at'] = "ALTER TABLE `members` ADD `updated_at` int(11) DEFAULT NULL; ";
+$sqlUpdateDatabase['members']['last_login'] = "ALTER TABLE `members` ADD `last_login` int(11) DEFAULT NULL; ";
+$sqlUpdateDatabase['members']['dateline_at'] = "ALTER TABLE `members` ADD `dateline_at` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['members']['number_spa'] = "ALTER TABLE `members` ADD `number_spa` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['members']['birthday'] = "ALTER TABLE `members` ADD `birthday` varchar(255) DEFAULT NULL; ";
 $sqlUpdateDatabase['members']['address'] = "ALTER TABLE `members` ADD `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
@@ -827,8 +827,8 @@ $sqlUpdateDatabase['orders']['full_name'] = "ALTER TABLE `orders` ADD `full_name
 $sqlUpdateDatabase['orders']['id_bed'] = "ALTER TABLE `orders` ADD `id_bed` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['orders']['note'] = "ALTER TABLE `orders` ADD `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['orders']['time'] = "ALTER TABLE `orders` ADD `time` int(11) NOT NULL; ";
-$sqlUpdateDatabase['orders']['created_at'] = "ALTER TABLE `orders` ADD `created_at` datetime NOT NULL; ";
-$sqlUpdateDatabase['orders']['updated_at'] = "ALTER TABLE `orders` ADD `updated_at` datetime NOT NULL; ";
+$sqlUpdateDatabase['orders']['created_at'] = "ALTER TABLE `orders` ADD `created_at` int(11) NOT NULL; ";
+$sqlUpdateDatabase['orders']['updated_at'] = "ALTER TABLE `orders` ADD `updated_at` int(11) NOT NULL; ";
 $sqlUpdateDatabase['orders']['status'] = "ALTER TABLE `orders` ADD `status` tinyint(4) NOT NULL; ";
 $sqlUpdateDatabase['orders']['total'] = "ALTER TABLE `orders` ADD `total` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['orders']['promotion'] = "ALTER TABLE `orders` ADD `promotion` int(11) DEFAULT NULL; ";
@@ -855,8 +855,8 @@ $sqlUpdateDatabase['partners']['email'] = "ALTER TABLE `partners` ADD `email` te
 $sqlUpdateDatabase['partners']['address'] = "ALTER TABLE `partners` ADD `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['partners']['note'] = "ALTER TABLE `partners` ADD `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['partners']['id_member'] = "ALTER TABLE `partners` ADD `id_member` int(11) NOT NULL; ";
-$sqlUpdateDatabase['partners']['created_at'] = "ALTER TABLE `partners` ADD `created_at` datetime DEFAULT NULL; ";
-$sqlUpdateDatabase['partners']['updated_at'] = "ALTER TABLE `partners` ADD `updated_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['partners']['created_at'] = "ALTER TABLE `partners` ADD `created_at` int  DEFAULT NULL; ";
+$sqlUpdateDatabase['partners']['updated_at'] = "ALTER TABLE `partners` ADD `updated_at`  int DEFAULT NULL; ";
 
 // Bang prepay_cards
 $sqlUpdateDatabase['prepay_cards']['name'] = "ALTER TABLE `prepay_cards` ADD `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
@@ -885,8 +885,8 @@ $sqlUpdateDatabase['products']['slug'] = "ALTER TABLE `products` ADD `slug` varc
 $sqlUpdateDatabase['products']['view'] = "ALTER TABLE `products` ADD `view` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['products']['id_member'] = "ALTER TABLE `products` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['products']['id_spa'] = "ALTER TABLE `products` ADD `id_spa` int(11) NOT NULL; ";
-$sqlUpdateDatabase['products']['created_at'] = "ALTER TABLE `products` ADD `created_at` datetime DEFAULT NULL; ";
-$sqlUpdateDatabase['products']['updated_at'] = "ALTER TABLE `products` ADD `updated_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['products']['created_at'] = "ALTER TABLE `products` ADD `created_at` int(11) DEFAULT NULL; ";
+$sqlUpdateDatabase['products']['updated_at'] = "ALTER TABLE `products` ADD `updated_at` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['products']['commission_staff_fix'] = "ALTER TABLE `products` ADD `commission_staff_fix` int(11) NOT NULL DEFAULT 0; ";
 $sqlUpdateDatabase['products']['commission_staff_percent'] = "ALTER TABLE `products` ADD `commission_staff_percent` int(11) NOT NULL DEFAULT 0; ";
 $sqlUpdateDatabase['products']['commission_affiliate_fix'] = "ALTER TABLE `products` ADD `commission_affiliate_fix` int(11) NOT NULL DEFAULT 0; ";
@@ -894,7 +894,7 @@ $sqlUpdateDatabase['products']['commission_affiliate_percent'] = "ALTER TABLE `p
 
 // Bang rooms
 $sqlUpdateDatabase['rooms']['name'] = "ALTER TABLE `rooms` ADD `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['rooms']['created_at'] = "ALTER TABLE `rooms` ADD `created_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['rooms']['created_at'] = "ALTER TABLE `rooms` ADD `created_at` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['rooms']['status'] = "ALTER TABLE `rooms` ADD `status` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['rooms']['id_member'] = "ALTER TABLE `rooms` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['rooms']['id_spa'] = "ALTER TABLE `rooms` ADD `id_spa` int(11) NOT NULL; ";
@@ -908,8 +908,8 @@ $sqlUpdateDatabase['services']['id_spa'] = "ALTER TABLE `services` ADD `id_spa` 
 $sqlUpdateDatabase['services']['price'] = "ALTER TABLE `services` ADD `price` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['services']['image'] = "ALTER TABLE `services` ADD `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['services']['description'] = "ALTER TABLE `services` ADD `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
-$sqlUpdateDatabase['services']['created_at'] = "ALTER TABLE `services` ADD `created_at` datetime DEFAULT NULL; ";
-$sqlUpdateDatabase['services']['updated_at'] = "ALTER TABLE `services` ADD `updated_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['services']['created_at'] = "ALTER TABLE `services` ADD `created_at` int(11) DEFAULT NULL; ";
+$sqlUpdateDatabase['services']['updated_at'] = "ALTER TABLE `services` ADD `updated_at` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['services']['duration'] = "ALTER TABLE `services` ADD `duration` int(11) DEFAULT NULL COMMENT 'thời lương'; ";
 $sqlUpdateDatabase['services']['slug'] = "ALTER TABLE `services` ADD `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['services']['status'] = "ALTER TABLE `services` ADD `status` tinyint(4) DEFAULT NULL; ";
@@ -927,8 +927,8 @@ $sqlUpdateDatabase['spas']['address'] = "ALTER TABLE `spas` ADD `address` text C
 $sqlUpdateDatabase['spas']['note'] = "ALTER TABLE `spas` ADD `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['spas']['image'] = "ALTER TABLE `spas` ADD `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['spas']['slug'] = "ALTER TABLE `spas` ADD `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['spas']['created_at'] = "ALTER TABLE `spas` ADD `created_at` datetime NOT NULL; ";
-$sqlUpdateDatabase['spas']['updated_at'] = "ALTER TABLE `spas` ADD `updated_at` datetime NOT NULL; ";
+$sqlUpdateDatabase['spas']['created_at'] = "ALTER TABLE `spas` ADD `created_at` int(11) NOT NULL; ";
+$sqlUpdateDatabase['spas']['updated_at'] = "ALTER TABLE `spas` ADD `updated_at` int(11) NOT NULL; ";
 $sqlUpdateDatabase['spas']['facebook'] = "ALTER TABLE `spas` ADD `facebook` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['spas']['website'] = "ALTER TABLE `spas` ADD `website` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['spas']['zalo'] = "ALTER TABLE `spas` ADD `zalo` varchar(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci DEFAULT NULL; ";
@@ -936,7 +936,7 @@ $sqlUpdateDatabase['spas']['zalo'] = "ALTER TABLE `spas` ADD `zalo` varchar(255)
 // Bang trademarks
 $sqlUpdateDatabase['trademarks']['name'] = "ALTER TABLE `trademarks` ADD `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['trademarks']['description'] = "ALTER TABLE `trademarks` ADD `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
-$sqlUpdateDatabase['trademarks']['created_at'] = "ALTER TABLE `trademarks` ADD `created_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['trademarks']['created_at'] = "ALTER TABLE `trademarks` ADD `created_at` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['trademarks']['id_member'] = "ALTER TABLE `trademarks` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['trademarks']['image'] = "ALTER TABLE `trademarks` ADD `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['trademarks']['slug'] = "ALTER TABLE `trademarks` ADD `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
@@ -958,7 +958,7 @@ $sqlUpdateDatabase['userservice_histories']['check_out'] = "ALTER TABLE `userser
 // Bang warehouses
 $sqlUpdateDatabase['warehouses']['name'] = "ALTER TABLE `warehouses` ADD `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['warehouses']['description'] = "ALTER TABLE `warehouses` ADD `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
-$sqlUpdateDatabase['warehouses']['created_at'] = "ALTER TABLE `warehouses` ADD `created_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['warehouses']['created_at'] = "ALTER TABLE `warehouses` ADD `created_at` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['warehouses']['credit'] = "ALTER TABLE `warehouses` ADD `credit` int(11) DEFAULT NULL COMMENT '1 cho bán âm, 0 không cho bán âm'; ";
 $sqlUpdateDatabase['warehouses']['id_member'] = "ALTER TABLE `warehouses` ADD `id_member` int(11) NOT NULL; ";
 $sqlUpdateDatabase['warehouses']['id_spa'] = "ALTER TABLE `warehouses` ADD `id_spa` int(11) NOT NULL; ";
@@ -968,7 +968,7 @@ $sqlUpdateDatabase['warehouse_products']['id_member'] = "ALTER TABLE `warehouse_
 $sqlUpdateDatabase['warehouse_products']['id_spa'] = "ALTER TABLE `warehouse_products` ADD `id_spa` int(11) NOT NULL; ";
 $sqlUpdateDatabase['warehouse_products']['id_staff'] = "ALTER TABLE `warehouse_products` ADD `id_staff` int(11) DEFAULT NULL COMMENT 'ID nhân viên thực hiện'; ";
 $sqlUpdateDatabase['warehouse_products']['id_warehouse'] = "ALTER TABLE `warehouse_products` ADD `id_warehouse` int(11) NOT NULL COMMENT 'ID kho'; ";
-$sqlUpdateDatabase['warehouse_products']['created_at'] = "ALTER TABLE `warehouse_products` ADD `created_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['warehouse_products']['created_at'] = "ALTER TABLE `warehouse_products` ADD `created_at` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['warehouse_products']['id_partner'] = "ALTER TABLE `warehouse_products` ADD `id_partner` int(11) DEFAULT NULL; ";
 
 // Bang warehouse_product_details
@@ -978,7 +978,7 @@ $sqlUpdateDatabase['warehouse_product_details']['id_product'] = "ALTER TABLE `wa
 $sqlUpdateDatabase['warehouse_product_details']['impor_price'] = "ALTER TABLE `warehouse_product_details` ADD `impor_price` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['warehouse_product_details']['quantity'] = "ALTER TABLE `warehouse_product_details` ADD `quantity` int(11) NOT NULL; ";
 $sqlUpdateDatabase['warehouse_product_details']['inventory_quantity'] = "ALTER TABLE `warehouse_product_details` ADD `inventory_quantity` int(11) DEFAULT NULL; ";
-$sqlUpdateDatabase['warehouse_product_details']['created_at'] = "ALTER TABLE `warehouse_product_details` ADD `created_at` datetime NOT NULL; ";
+$sqlUpdateDatabase['warehouse_product_details']['created_at'] = "ALTER TABLE `warehouse_product_details` ADD `created_at` int(11) NOT NULL; ";
 $sqlUpdateDatabase['warehouse_product_details']['id_warehouse'] = "ALTER TABLE `warehouse_product_details` ADD `id_warehouse` int(11) NOT NULL; ";
 
 // Bang zalo_templates
@@ -1043,10 +1043,10 @@ $sqlUpdateDatabase['payrolls']['note_boss'] = "ALTER TABLE `payrolls` ADD `note_
 /*-- Bước 1: Thêm cột tạm kiểu INT 
 ALTER TABLE userservice_histories ADD COLUMN temp_int INT;
 
--- Bước 2: Chuyển dữ liệu từ DATETIME sang INT
+-- Bước 2: Chuyển dữ liệu từ int(11) sang INT
 UPDATE userservice_histories SET temp_int = UNIX_TIMESTAMP(created_at);
 
--- Bước 3: Xóa cột DATETIME cũ
+-- Bước 3: Xóa cột int(11) cũ
 ALTER TABLE userservice_histories DROP COLUMN created_at;
 
 -- Bước 4: Đổi tên cột tạm thành tên cột ban đầu

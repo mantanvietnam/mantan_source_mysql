@@ -103,123 +103,80 @@ function listPartnerAPI($input)
 	global $controller;
 	global $modelCategories;
 	global $urlCurrent;
-	global $metaTitleMantan;
+	global $isRequestPost;
     global $session;
 
-    $metaTitleMantan = 'Danh sách đối tác';
-
-	setVariable('page_view', 'listPartner');
-
 	$modelPartner = $controller->loadModel('Partners');
-	
-	if(!empty(checkLoginManager('listPartner', 'product'))){
-		$infoUser = $session->read('infoUser');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listPartner','product');
+			if(!empty($infoUser)){
 
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$limit = 20;
-		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		if($page<1) $page = 1;
 		$order = array('id'=>'desc');
 
-		if(!empty($_GET['id'])){
-			$conditions['id'] = (int) $_GET['id'];
+		if(!empty($dataSend['id'])){
+			$conditions['id'] = (int) $dataSend['id'];
 		}
 
-		if(!empty($_GET['phone'])){
-			$conditions['phone'] = $_GET['phone'];
+		if(!empty($dataSend['phone'])){
+			$conditions['phone'] = $dataSend['phone'];
 		}
 
-		if(!empty($_GET['email'])){
-			$conditions['email'] = $_GET['email'];
+		if(!empty($dataSend['email'])){
+			$conditions['email'] = $dataSend['email'];
 		}
 
-		if(!empty($_GET['name'])){
-			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+		if(!empty($dataSend['name'])){
+			$conditions['name LIKE'] = '%'.$dataSend['name'].'%';
 		}
 
-		// xử lý xuất excel
-	    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
-    		$listData = $modelPartner->find()->where($conditions)->order($order)->all()->toList();
-
-    		$titleExcel = 	[
-								['name'=>'ID', 'type'=>'text', 'width'=>10],
-								['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
-								['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
-								['name'=>'Email', 'type'=>'text', 'width'=>35],
-								['name'=>'Địa chỉ', 'type'=>'text', 'width'=>35],
-						];
-
-			$dataExcel = [];
-			if(!empty($listData)){
-				foreach ($listData as $key => $value) {
-					
-
-					$dataExcel[] = [
-									$value->id, 
-									$value->name, 
-									$value->phone, 
-									$value->email, 
-									$value->address,
-								];
-				}
-			}
-			
-			export_excel($titleExcel, $dataExcel, 'danh-sach-doi-tac'.date('d-m-Y'));
-	    }else{
-	    	$listData = $modelPartner->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-	    }
+	    $listData = $modelPartner->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    
 
 	    $totalData = $modelPartner->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
-	    $balance = $totalData % $limit;
-	    $totalPage = ($totalData - $balance) / $limit;
-	    if ($balance > 0)
-	        $totalPage+=1;
-
-	    $back = $page - 1;
-	    $next = $page + 1;
-	    if ($back <= 0)
-	        $back = 1;
-	    if ($next >= $totalPage)
-	        $next = $totalPage;
-
-	    if (isset($_GET['page'])) {
-	        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
-	        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
-	    } else {
-	        $urlPage = $urlCurrent;
-	    }
-	    if (strpos($urlPage, '?') !== false) {
-	        if (count($_GET) >= 1) {
-	            $urlPage = $urlPage . '&page=';
-	        } else {
-	            $urlPage = $urlPage . 'page=';
-	        }
-	    } else {
-	        $urlPage = $urlPage . '?page=';
-	    }
-
-	    $mess= '';
-        
-        if(!empty($_GET['error'])){
-            switch ($_GET['error']) {
-                case 'requestWarehouse':
-                    $mess= '<p class="text-danger">Bạn cần tạo đối tác trước</p>';
-                    break;
-            }
-        }
-
-	    setVariable('page', $page);
-	    setVariable('totalPage', $totalPage);
-	    setVariable('back', $back);
-	    setVariable('next', $next);
-	    setVariable('urlPage', $urlPage);
-	    setVariable('mess', $mess);
-	    
-	    setVariable('listData', $listData);
-	}else{
-		return $controller->redirect('/');
+	    return apiResponse(1,'Bạn lấy dữ liệu thành công',$listData, $totalData );
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
 	}
+	return apiResponse(0,'Gửi sai phương thức POST'); 
+}
+
+function detailPartnerAPI($input){	
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $modelMembers = $controller->loadModel('Members');
+    $modelPartner = $controller->loadModel('Partners');
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listPartner','product');
+			if(!empty($infoUser)){
+
+	        $data = $modelPartner->find()->where(['id'=> (int) $dataSend['id'], 'id_member'=>$infoUser->id_member])->first();
+	        if(!empty($data)){
+			    return apiResponse(1,'Bạn lấy dữ liệu thành công',$data);
+			}
+			return apiResponse(4,'Dữ liệu không tồn tại' );
+		}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
 }
 
 function addPartnerAPI($input)
@@ -236,79 +193,75 @@ function addPartnerAPI($input)
 	$modelPartner = $controller->loadModel('Partners');
 	$modelMembers = $controller->loadModel('Members');
 	
-	$mess= '';
-	setVariable('page_view', 'addPartner');
-	
-	if(!empty(checkLoginManager('addPartner', 'product'))){
-		$infoUser = $session->read('infoUser');
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['name']) && !empty($dataSend['phone'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'addPartner','product');
+			if(!empty($infoUser)){
 
-		// lấy data edit
-	    if(!empty($_GET['id'])){
-	        $data = $modelPartner->get( (int) $_GET['id']);
-	    }else{
-	        $data = $modelPartner->newEmptyEntity();
-			$data->created_at = time();
-	    }
+				// lấy data edit
+			    if(!empty($dataSend['id'])){
+			        $data = $modelPartner->get( (int) $dataSend['id']);
+			    }else{
+			        $data = $modelPartner->newEmptyEntity();
+					$data->created_at = time();
+			    }
+			    $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+			   	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-		if ($isRequestPost) {
-	        $dataSend = $input['request']->getData();
+			    $conditions = ['phone'=>$dataSend['phone'],'id_member'=>$infoUser->id_member];
+		    	$checkPhone = $modelPartner->find()->where($conditions)->first();
 
-	        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
-	        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
-	        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-	        	$conditions = ['phone'=>$dataSend['phone'],'id_member'=>$infoUser->id_member];
-	        	$checkPhone = $modelPartner->find()->where($conditions)->first();
-
-	        	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
+	        	if(empty($checkPhone) || (!empty($dataSend['id']) && $dataSend['id']==$checkPhone->id) ){
 			        // tạo dữ liệu save
 			        $data->name = $dataSend['name'];
 			        $data->phone = $dataSend['phone'];
-			        $data->address = $dataSend['address'];
-			        $data->email = $dataSend['email'];
-			        $data->note = $dataSend['note'];
-			        $data->id_member = $infoUser->id_member;
+			        $data->address = @$dataSend['address'];
+			        $data->email = @$dataSend['email'];
+			        $data->note = @$dataSend['note'];
+			        $data->id_member = @$infoUser->id_member;
 			        $data->updated_at = time();
 
 			        $modelPartner->save($data);
 
-			        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-			    }else{
-			    	$mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
-			    }
-		    }else{
-		    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
-		    }
-	    }
+			        return apiResponse(1,'Lưu dữ liệu thành công',$data);
+			        }
+				return apiResponse(3,'Số điện thoại đã tồn tại' );
 
-	    setVariable('data', $data);
-	    setVariable('mess', $mess);
-	    setVariable('infoUser', $infoUser);
-    }else{
-		return $controller->redirect('/');
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
 	}
+
+	return apiResponse(0,'Gửi sai phương thức POST');
 }
+
 
 function deletePartnerAPI($input){
 	global $controller;
 	global $session;
 	
 	$modelPartner = $controller->loadModel('Partners');
-	
-	if(!empty(checkLoginManager('deletePartner', 'product'))){
-		$infoUser = $session->read('infoUser');
 
-		if(!empty($_GET['id'])){
-			$data = $modelPartner->get($_GET['id']);
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'deletePartner','product');
+			if(!empty($infoUser)){
+				$data = $modelPartner->find()->where(['id'=>$dataSend['id'],'id_member'=>$infoUser->id_member])->first();
 			
-			if(!empty($data)){
-	         	$modelPartner->delete($data);
-	        }
+				if(!empty($data)){
+	        	 	$modelPartner->delete($data);
+					return apiResponse(1,'Xóa dữ liệu thành công');
+				}
+				return apiResponse(4,'Dữ liệu không tồn tại' );
+			}
+			
+			return apiResponse(3,'Tài khoản không tồn tại' );
 		}
-
-		return $controller->redirect('/listPartner');
-	}else{
-		return $controller->redirect('/');
+		return apiResponse(2,'thếu dữ liệu' );
 	}
+	return apiResponse(0,'Gửi sai phương thức POST');
 }
 ?>

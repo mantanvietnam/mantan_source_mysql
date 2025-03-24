@@ -280,12 +280,13 @@ function importHistorytWarehouseAPI($input){
     global $metaTitleMantan;
     global $session;
     global $controller;
+    global $isRequestPost;
     global $urlCurrent;
 
     $metaTitleMantan = 'Lịch sử nhập hàng vào kho';
      if($isRequestPost){
     	$dataSend = $input['request']->getData();
-        if(!empty($dataSend['token']) && !empty($dataSend['data_order'])){
+        if(!empty($dataSend['token'])){
 			$infoUser = getMemberByToken($dataSend['token'], 'importHistorytWarehouse','product');
 			if(!empty($infoUser)){
 		        $modelMembers = $controller->loadModel('Members');
