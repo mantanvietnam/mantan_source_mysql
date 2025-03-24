@@ -11,7 +11,7 @@ function listCombo($input){
 	$modelProduct = $controller->loadModel('Products');
 	$modelService = $controller->loadModel('Services');
 	
-    setVariable('page_view', 'deleteRoom');
+    setVariable('page_view', 'listCombo');
 	if(!empty(checkLoginManager('listCombo', 'combo'))){
 		$infoUser = $session->read('infoUser');
 		 $mess= '';

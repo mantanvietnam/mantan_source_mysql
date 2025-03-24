@@ -282,7 +282,7 @@
                                                     } 
                                                     
                                                     foreach($value->combo_service as $key => $item){ 
-                                                        $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$detail->id, 'id_services'=>$item->id))->all()->toList();
+                                                        $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$detail->id, 'id_services'=>$item->id, 'status'=>2))->all()->toList();
 
                                                         $quantity = count($quantity);
                                                         $quantityAll = $item->quantity_combo*$value->quantity;

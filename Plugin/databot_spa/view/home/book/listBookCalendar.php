@@ -490,7 +490,7 @@
                     id: "'.$id.'",
                     idBook: "'.$data->id.'",
                     title: "'.date("H:i", $time_book).' '.$data->Services['name'].'",
-                  name: "'.$data->name.'",
+                    name: "'.$data->name.'",
                     phone: "'.$data->phone.'",
                     email: "'.$data->email.'",
                     time_book: "'.date("H:i d/m/Y", $time_book).'",
@@ -671,7 +671,7 @@
   function createBooking()
   {
     var csrfToken = "<?php echo $csrfToken;?>";
-    var name = $('#name').val();
+    var name = $('#full_name').val();
     var id_customer = $('#id_customer').val();
     var status = $('#status').val();
     var phone = $('#phone').val();
@@ -759,6 +759,7 @@
             name: name,
             phone: phone,
             email: email,
+            id_staff: id_staff,
             time_book: time_book,
             start: startDate[2]+"-"+startDate[1]+"-"+startDate[0],
             end: startDate[2]+"-"+startDate[1]+"-"+startDate[0],
@@ -806,8 +807,8 @@
             if(msg.code==1){
                 html +=' <label class="form-label" for="basic-default-phone">chọn hình thức sử dụng</label>\
                         <select name="type_order" id="type_order" class="form-select color-dropdown">\
+                         <option value="combo" >Sử dụng dịch vụ trong combo</option>\
                           <option value="service">Mua dịch vụ mới </option>\
-                          <option value="combo" >Sử dụng dịch vụ trong combo</option>\
                         </select>\
                         <input  type="hidden" class="form-control phone-mask" name="id_order_detail" id="id_order_detail" value="'+msg.data.id_order_detail+'" />\
                         <input  type="hidden" class="form-control phone-mask" name="id_order" id="id_order" value="'+msg.data.id_order+'" />\
