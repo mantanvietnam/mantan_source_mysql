@@ -197,15 +197,19 @@ function addProject($input){
 	        }
 
         }
-        
-        $list_staff = $modelStaffProject->find()->where(['id_project'=>$data->id])->all()->toList();
-        $dataStaff = array();
-        if(!empty($list_staff)){
-            foreach($list_staff as $key => $item){
-                 $dataStaff[] =  $item->id_staff;
+
+        if(!empty($data->id)){
+            $list_staff = $modelStaffProject->find()->where(['id_project'=>$data->id])->all()->toList();
+            $dataStaff = array();
+            if(!empty($list_staff)){
+                foreach($list_staff as $key => $item){
+                     $dataStaff[] =  $item->id_staff;
+                }
             }
+            $data->list_staff = $dataStaff;
         }
-        $data->list_staff = $dataStaff;
+        
+        
 
         $dataGroupStaff = $modelGroupStaff->find()->where(['id_member'=>$user->id])->all()->toList();
         $liststaff = $modelStaff->find()->where(['id_member'=>$user->id])->all()->toList();

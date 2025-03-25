@@ -128,7 +128,7 @@
         
     </script>
 
-    <div id="order_chart" style="width: 100%; height: 500px; background: white;"></div>
+    <div id="order_chart" style="width: 100%; height: 600px; background: white; padding-top: 10px;"></div>
 </div>
 </center> 
 

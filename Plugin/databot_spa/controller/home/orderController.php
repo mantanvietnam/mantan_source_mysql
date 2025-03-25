@@ -1553,9 +1553,9 @@ function addUserService($input){
             
 
             if(empty($_GET['id_bed'])){
-                $OrderDetails->number_uses +=1;
+                 $OrderDetails->number_uses +=1;
 
-                $modelOrderDetails->save($OrderDetails);
+                 $modelOrderDetails->save($OrderDetails);
 
                 $UserService = $modelUserserviceHistories->newEmptyEntity();
                 $UserService->id_member = $user->id_member;

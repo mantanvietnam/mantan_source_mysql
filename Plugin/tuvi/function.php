@@ -34,4 +34,48 @@ $menus[3]['sub'][]= array(	'title'=>'Danh Sách Tử Vi',
 							);
 addMenuAdminMantan($menus);
 
+
+
+require_once __DIR__ . '/library/TCPDF-main/tcpdf.php';
+
+function sendHoroscopeEmail($email, $name, $birth_year, $gender, $horoscope) {
+    $pdf = new TCPDF();
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('Tử vi');
+    $pdf->SetTitle("Tử vi $birth_year - $gender");
+    $pdf->SetHeaderData('', 0, "Tử vi của $birth_year", "Năm sinh: $birth_year - Giới tính: $gender");
+    $pdf->AddPage();
+    
+    $content = "<h1>Tử vi của $birth_year</h1>";
+    $content .= "<p><strong>Năm sinh:</strong> $birth_year</p>";
+    $content .= "<p><strong>Giới tính:</strong> $gender</p>";
+    $content .= "<p><strong>Tổng quan:</strong> " . htmlspecialchars($horoscope->overview) . "</p>";
+    $pdf->writeHTML($content, true, false, true, false, '');
+
+    $folderPath = dirname(__DIR__, 2) . '/upload/';
+    if (!file_exists($folderPath)) {
+        mkdir($folderPath, 0777, true);
+    }
+
+    $filePath = $folderPath . 'tuvi_' . $birth_year . '_' . $gender . '.pdf';
+    $pdf->Output($filePath, 'F');
+
+    $to = [trim($email)];
+    $subject = '[Tử vi] Bản tử vi đầy đủ của ' . $birth_year;
+
+    $emailContent = "<p>Xin chào $name,</p>";
+    $emailContent .= "<p>Chúng tôi gửi bạn bản tử vi theo năm sinh ($birth_year) và giới tính ($gender) ở file đính kèm.</p>";
+    $emailContent .= "<p>Trân trọng,</p><p>Đội ngũ hỗ trợ</p>";
+
+    $attachments = [
+        [
+            'name' => 'TuVi_' . $birth_year . '_' . $gender . '.pdf',
+            'type' => 'application/pdf',
+            'link' => $filePath
+        ]
+    ];
+
+    return sendEmailv2($to, [], [], $subject, $emailContent, 'default', $attachments);
+}
+
 ?>

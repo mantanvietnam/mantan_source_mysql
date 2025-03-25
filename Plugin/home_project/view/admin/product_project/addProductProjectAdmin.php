@@ -52,6 +52,59 @@
     align-items: center;
     justify-content: center;
   }
+  #nav-commerce .table td {
+        padding: 8px;
+    }
+
+    #nav-commerce .table tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .modal-dialog {
+        max-width: 600px;
+        margin: 1.75rem auto;
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+    }
+
+    #nav-commerce.active ~ #saveButton {
+        display: none;
+    }
+
+    .custom-description-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .custom-description-header h5 {
+        margin-right: 15px;
+    }
+
+    .custom-description-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .custom-description-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    #imagePreviewContainer {
+        margin-top: 10px;
+    }
+    #viewImagePreview {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        display: none;
+    }
+
 </style>
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -66,11 +119,6 @@
   <div class="row">
     <div class="col-xl">
       <div class="card mb-12">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">Thông tin Dự án</h5>
-        </div>
-        <div class="card-body">
-          <p><?php echo $mess; ?></p>
           <?= $this->Form->create(null, ['type' => 'file']); ?>
           <div class="row">
             <div class="col-12">
@@ -82,32 +130,6 @@
                       Mô tả dự án
                     </button>
                   </li>
-                  <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#nav-location">
-                      Vị trí
-                    </button>
-                  </li>
-                  <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#nav-officially">
-                      Chính thức mở bán
-                    </button>
-                  </li>
-                  <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#nav-ecological_space">
-                      Không gian sinh thái
-                    </button>
-                  </li>
-                  <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#nav-utility_services">
-                      Dịch vụ tiện ích
-                    </button>
-                  </li>
-                  <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#nav-commerce">
-                      Thành phố thương mại
-                    </button>
-                  </li>
-
                   <li class="nav-item">
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-image">
                       Hình ảnh
@@ -122,10 +144,13 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="mb-3">
+                            <label class="form-label">Thứ tự hiển thị</label>
+                            <input type="number" class="form-control" name="view_id" id="view_id" value="<?php echo @$data->view_id; ?>" min="1" placeholder="Nhập số thứ tự hiển thị" required />
+                        </div>
+                        <div class="mb-3">
                           <label class="form-label">Tên dự án (*)</label>
                           <input required type="text" class="form-control" name="name" id="name" value="<?php echo @$data->name; ?>" />
                         </div>
-
                         <div class="mb-3">
                           <label class="form-label">Danh mục (*)</label>
                           <select class="form-control" name="id_kind" id="id_kind">
@@ -148,7 +173,6 @@
                             ?>
                           </select>
                         </div>
-
                         <div class="mb-3">
                           <label class="form-label"></label>
                           <div class="input-group input-group-merge">
@@ -169,7 +193,6 @@
                             </select>
                           </div>
                         </div>
-
                         <div class="mb-3">
                           <label class="form-label">Địa chỉ (*)</label>
                           <input type="text" class="form-control" name="address" id="address" value="<?php echo @$data->address; ?>" />
@@ -188,8 +211,8 @@
                           <input type="text" class="form-control" name="investor" value="<?php echo @$data->investor; ?>" />
                         </div>
                         <div class="mb-3">
-                          <label class="form-label">Mô tả</label>
-                          <?php showEditorInput('description', 'description', @$data->description); ?>
+                            <label class="form-label">Tiện ích nổi bật</label>
+                            <textarea class="form-control" name="key_amenities" rows="4"><?php echo @$data->key_amenities; ?></textarea>
                         </div>
                       </div>
 
@@ -210,205 +233,26 @@
                           <input type="text" class="form-control" name="ownership_type" id="ownership_type" value="<?php echo @$data->ownership_type; ?>" />
                         </div>
                         <div class="mb-3">
-                          <label class="form-label">Giá</label>
-                          <?php showEditorInput('price', 'price', @$data->price); ?>
+                          <label class="form-label">Chính sách ưu đãi</label>
+                          <input type="text" class="form-control" name="preferential_policy" id="preferential_policy" value="<?php echo @$data->preferential_policy; ?>" />
                         </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Tab vị trí -->
-                  <div class="tab-pane fade" id="nav-location" role="tabpanel">
-                    <div class="mb-3">
-                      <label class="form-label">Google Map</label>
-                      <?php showEditorInput('map', 'map', @$data->map); ?>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">Thông tin về vị trí</label>
-                      <?php showEditorInput('text_location', 'text_location', @$data->text_location); ?>
-                    </div>
-                  </div>
-
-                  <!-- Tab chính thức mở bán -->
-                  <div class="tab-pane fade" id="nav-officially" role="tabpanel">
-                    <div class="row">
-                      <!-- Tiêu đề -->
-                      <div class="col-md-4">
                         <div class="mb-3">
-                          <label class="form-label">Tiêu đề</label>
-                          <input type="text" name="officially[title]" class="form-control"
-                            value="<?php echo isset($data->officially['title']) ? $data->officially['title'] : ''; ?>">
+                          <label class="form-label">Mật độ xây dựng</label>
+                          <input type="text" class="form-control" name="construction_density" id="construction_density" value="<?php echo @$data->construction_density; ?>" />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Thời gian khởi công</label>
+                          <input type="number" class="form-control" name="construction_date" id="construction_date" value="<?php echo @$data->construction_date; ?>" />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Bố cục căn hộ</label>
+                          <input type="text" class="form-control" name="studio_apartment" id="studio_apartment" value="<?php echo @$data->studio_apartment; ?>" />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Google Map</label>
+                          <?php showEditorInput('map', 'map', @$data->map); ?>
                         </div>
                       </div>
-
-                      <!-- Mô tả -->
-                      <div class="mb-3">
-                          <label class="form-label">Mô tả</label>
-                          <?php 
-                              $description = (!empty($data->officially) && is_array($data->officially) && isset($data->officially['description'])) 
-                                  ? $data->officially['description'] 
-                                  : ''; 
-                                  
-                              showEditorInput('officially[description]', 'officially[description]', $description); 
-                          ?>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Tab thành phố thương mại -->
-                  <div class="tab-pane fade" id="nav-commerce" role="tabpanel">
-                    <div class="row">
-                        <!-- Tiêu đề chính -->
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Tiêu đề chính</label>
-                                <input type="text" name="commerce_main_title" class="form-control"
-                                    value="<?php echo isset($commerceData->main_title) ? htmlspecialchars($commerceData->main_title, ENT_QUOTES, 'UTF-8') : ''; ?>">
-                            </div>
-                        </div>
-
-                        <!-- Chọn loại View -->
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Chọn loại view</label>
-                                <select name="commerce_view_id" class="form-control" id="commerceViewSelect">
-                                    <option value="1" <?php echo (!empty($commerceData->view_type) && $commerceData->view_type == 1) ? 'selected' : ''; ?>>View 1</option>
-                                    <option value="2" <?php echo (!empty($commerceData->view_type) && $commerceData->view_type == 2) ? 'selected' : ''; ?>>View 2</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Mô tả chính -->
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label class="form-label">Mô tả chính</label>
-                                <?php 
-                                    $mainDescription = $commerceData->main_description ?? ''; 
-                                    showEditorInput('commerce_main_description', 'commerce_main_description', htmlspecialchars($mainDescription, ENT_QUOTES, 'UTF-8')); 
-                                ?>
-                            </div>
-                        </div>
-
-                        <!-- Nội dung View 1 -->
-                        <div id="view1" class="commerce-content" style="display: none;">
-                            <div class="col-md-12 mb-3">
-                                <h3 class="text-primary">Mặt bằng tổng thể</h3>
-                            </div>
-
-                            <?php foreach ($commerceItems as $index => $item) : ?>
-                                <div class="card p-3 mb-3">
-                                    <h5 class="text-secondary">Thông tin <?= $index + 1 ?></h5>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Tiêu đề <?= $index + 1 ?></label>
-                                            <input type="text" name="commerce_title_<?= $index + 1 ?>" class="form-control"
-                                                value="<?php echo htmlspecialchars($item->title ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Hình ảnh <?= $index + 1 ?></label>
-                                            <input type="file" name="commerce_image_<?= $index + 1 ?>" class="form-control">
-                                            <?php if (!empty($item->image)): ?>
-                                                <div class="mt-2">
-                                                    <img src="<?php echo htmlspecialchars($item->image, ENT_QUOTES, 'UTF-8'); ?>" 
-                                                        alt="Hình ảnh <?= $index + 1 ?>" 
-                                                        style="max-width: 100px; height: auto;">
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                    <label class="form-label mt-3">Mô tả <?= $index + 1 ?></label>
-                                    <?php 
-                                      showEditorInput("commerce_description_" . ($index + 1), "commerce_description_" . ($index + 1), htmlspecialchars($item->description ?? '', ENT_QUOTES, 'UTF-8'));
-                                    ?>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-
-                        <!-- Nội dung View 2 -->
-                        <div id="view2" class="commerce-content" style="display: none;">
-                            <div class="col-md-12 mb-3">
-                                <h3 class="text-primary">View 2</h3>
-                            </div>
-                            <div id="dynamic-fields">
-                                <?php if (!empty($commerceItems)) : ?>
-                                    <?php foreach ($commerceItems as $index => $item) : ?>
-                                        <div class="card p-3 mb-3 field-group">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <label class="form-label">Tiêu đề</label>
-                                                    <input type="text" name="commerce_title[]" class="form-control"
-                                                        value="<?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label class="form-label">Hình ảnh</label>
-                                                    <input type="file" name="commerce_image[]" class="form-control">
-                                                    <?php if (!empty($item->image)) : ?>
-                                                        <div class="mt-2">
-                                                            <img src="<?php echo htmlspecialchars($item->image, ENT_QUOTES, 'UTF-8'); ?>" 
-                                                                alt="Hình ảnh" 
-                                                                style="max-width: 100px; height: auto;">
-                                                        </div>
-                                                    <?php endif; ?>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <label class="form-label">Mô tả</label>
-                                                    <textarea name="commerce_description[]" class="form-control editor"><?php echo htmlspecialchars($item->description, ENT_QUOTES, 'UTF-8'); ?></textarea>
-                                                </div>
-                                                <div class="col-md-2 d-flex align-items-end">
-                                                    <button type="button" class="btn btn-danger remove-field">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                <?php else : ?>
-                                    <!-- Trường hợp chưa có dữ liệu -->
-                                    <div class="card p-3 mb-3 field-group">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label class="form-label">Tiêu đề</label>
-                                                <input type="text" name="commerce_title[]" class="form-control">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="form-label">Hình ảnh</label>
-                                                <input type="file" name="commerce_image[]" class="form-control">
-                                            </div>
-                                            <div class="col-md-10">
-                                                <label class="form-label">Mô tả</label>
-                                                <textarea name="commerce_description[]" class="form-control editor"></textarea>
-                                            </div>
-                                            <div class="col-md-2 d-flex align-items-end">
-                                                <button type="button" class="btn btn-danger remove-field">
-                                                    <i class="fas fa-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                            <div class="text-center mt-3">
-                                <button type="button" class="btn btn-success add-field">
-                                    <i class="fas fa-plus"></i> Thêm mới
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-
-                  <!-- Tab Không gian sinh thái -->
-                  <div class="tab-pane fade" id="nav-ecological_space" role="tabpanel">
-                    <div class="mb-3">
-                      <label class="form-label">Không gian sinh thái</label>
-                      <?php showEditorInput('ecological_space', 'ecological_space', @$data->ecological_space); ?>
-                    </div>
-                  </div>
-
-                  <!-- Tab Dịch vụ tiện ích -->
-                  <div class="tab-pane fade" id="nav-utility_services" role="tabpanel">
-                    <div class="mb-3">
-                      <label class="form-label">Dịch vụ tiện ích</label>
-                      <?php showEditorInput('utility_services', 'utility_services', @$data->utility_services); ?>
                     </div>
                   </div>
 
@@ -422,6 +266,17 @@
                           <input type="file" name="image" class="form-control">
                           <?php if (!empty($data->image)): ?>
                             <img src="<?= $data->image ?>" alt="Hình minh họa" class="img-preview">
+                          <?php endif; ?>
+                        </div>
+                      </div>
+
+                      <!-- Hình Tổng Quát Về Mặt Bằng -->
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label class="form-label">Hình Tổng Quát Về Mặt Bằng</label>
+                          <input type="file" name="img_premises" class="form-control">
+                          <?php if (!empty($data->images['img_premises'])): ?>
+                            <img src="<?= $data->images['img_premises']?>" alt="Hình Mặt Bằng" class="img-preview">
                           <?php endif; ?>
                         </div>
                       </div>
@@ -443,29 +298,7 @@
                             <?php endif; ?>
                           </div>
                         </div>
-                      </div>
-
-                      <!-- Hình Tổng Quát Về Map -->
-                      <div class="col-md-4">
-                        <div class="mb-3">
-                          <label class="form-label">Hình Tổng Quát Về Map</label>
-                          <input type="file" name="img_map" class="form-control">
-                          <?php if (!empty($data->images['img_map'])): ?>
-                            <img src="<?= $data->images['img_map'] ?>" alt="Hình Map" class="img-preview">
-                          <?php endif; ?>
-                        </div>
-                      </div>
-
-                      <!-- Hình Tổng Quát Về Mặt Bằng -->
-                      <div class="col-md-4">
-                        <div class="mb-3">
-                          <label class="form-label">Hình Tổng Quát Về Mặt Bằng</label>
-                          <input type="file" name="img_premises" class="form-control">
-                          <?php if (!empty($data->images['img_premises'])): ?>
-                            <img src="<?= $data->images['img_premises']?>" alt="Hình Mặt Bằng" class="img-preview">
-                          <?php endif; ?>
-                        </div>
-                      </div>
+                      </div>     
                     </div>
                   </div>
                 </div>
@@ -473,9 +306,8 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary">Lưu</button>
+          <button type="submit" class="btn btn-primary" id="saveButton">Lưu</button>
           <?= $this->Form->end() ?>
-        </div>
       </div>
     </div>
   </div>
@@ -484,101 +316,60 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
-
 <script>
 $(document).ready(function () {
     if ($.fn.select2) {
-        $('#id_kind').select2({
-            placeholder: "Chọn danh mục",
-            allowClear: true
-        });
+        const kindSelect = $('#id_kind');
+        if (kindSelect.length) {
+            kindSelect.select2({
+                placeholder: "Chọn danh mục",
+                allowClear: true
+            });
+        }
     } else {
         console.error("⚠️ Lỗi: Select2 chưa được tải!");
     }
 
-    let select = $("#commerceViewSelect");
-    let view1 = $("#view1");
-    let view2 = $("#view2");
-
-    function toggleViews() {
-        view1.toggle(select.val() === "1");
-        view2.toggle(select.val() === "2");
+    document.getElementById('saveButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        for (let instance in CKEDITOR.instances) {
+        CKEDITOR.instances[instance].updateElement();
     }
+        const form = document.querySelector('form');
+        const formData = new FormData(form);
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('id');
 
-    toggleViews();
-    select.on("change", toggleViews);
-
-    function initTinyMCE(selector) {
-        tinymce.init({
-            selector: selector,
-            height: 200,
-            plugins: 'lists link image table',
-            toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright | numlist bullist | link image',
-            menubar: false
-        });
-    }
-
-    initTinyMCE('.editor');
-
-    let container = $("#dynamic-fields");
-    let addButton = $(".add-field");
-
-    addButton.on("click", function () {
-        let uniqueId = "editor_" + Date.now();
-
-        let newField = $(`
-            <div class="card p-3 mb-3 field-group">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="form-label">Tiêu đề</label>
-                        <input type="text" name="commerce_title[]" class="form-control">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Hình ảnh</label>
-                        <input type="file" name="commerce_image[]" class="form-control">
-                    </div>
-                    <div class="col-md-10">
-                        <label class="form-label">Mô tả</label>
-                        <textarea id="${uniqueId}" name="commerce_description[]" class="form-control editor"></textarea>
-                    </div>
-                    <div class="col-md-2 d-flex align-items-end">
-                        <button type="button" class="btn btn-danger remove-field">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `);
-
-        container.append(newField);
-
-        tinymce.remove(`#${uniqueId}`);
-        setTimeout(() => {
-            initTinyMCE(`#${uniqueId}`);
-        }, 200);
-
-        newField.find(".remove-field").on("click", function () {
-            let field = $(this).closest(".field-group");
-            let editorId = field.find("textarea").attr("id");
-
-            if (editorId) {
-                tinymce.remove(`#${editorId}`);
-            }
-
-            field.remove();
-        });
-    });
-
-    $(document).on("click", ".remove-field", function () {
-        let field = $(this).closest(".field-group");
-        let editorId = field.find("textarea").attr("id");
-
-        if (editorId) {
-            tinymce.remove(`#${editorId}`);
+        if (projectId) {
+            formData.append('id', projectId);
         }
+        for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
 
-        field.remove();
+
+        $.ajax({
+            method: "POST",
+            url: "/apis/addProductProjectAPI",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                if (response.success === true) {
+                    alert('Dữ liệu đã được lưu thành công!');
+                    if (projectId) {
+                        window.location.reload();
+                    } else {
+                        window.location.href = '/plugins/admin/home_project-view-admin-product_project-addProductProjectAdmin/' + response.projectId;
+                    }
+                } else {
+                    alert('Lỗi: ' + response.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Có lỗi xảy ra. Vui lòng thử lại.');
+            }
+        });
     });
 });
 </script>

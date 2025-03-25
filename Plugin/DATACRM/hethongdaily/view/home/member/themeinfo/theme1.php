@@ -191,6 +191,20 @@
                 right: -150px;
                 font-size: 25px;
             }
+            .button-gradient{
+                background: linear-gradient(90deg, #B8CBB8 0%, #B8CBB8 0%, #B465DA 0%, #CF6CC9 33%, #EE609C 66%, #EE609C 100%);
+                  color: white;
+                  border: none;
+                  border-radius: 25px;
+                  padding: 10px 25px;
+                  font-weight: 500;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+            }
+            .button-gradient:hover {
+                background: linear-gradient(45deg, #feb47b, #ff7e5f);
+            }
         </style>                            
     </head>
     
@@ -231,6 +245,14 @@
                             <div class="text mt-3"> 
                                 <?php echo $info->description;?> 
                             </div> 
+
+                            <a id="customer-tab" data-toggle="tab" onclick="buttonAffiliate();" href="#affiliate">
+                                <div class="row mb-3">
+                                    <div class="col-12 text-center">
+                                        <span class="title button-gradient">Đăng Ký Cộng Tác Viên</span><br/>
+                                    </div>
+                                </div>
+                            </a>
 
                             <?php if(!empty($info->facebook)){ ?>
                             <a target="_blank" href="<?php echo $info->facebook;?>">
@@ -598,6 +620,65 @@
                 </div>
             </div>
 
+            <div class="tab-pane fade" id="affiliate">
+                <div class="container p-3 d-flex justify-content-center">
+                    <div class="card p-4"> 
+                        <form id="uploadFormAffiliate" enctype="multipart/form-data">
+                           <h5 style="text-align: center;" for="full_name" class="form-label">ĐĂNG KÝ CỘNG TÁC VIÊN</h5>
+                            <input type="hidden" name="token" value="<?php echo $info->token;?>">
+                            <div class="mb-3">
+                              <label for="full_name" class="form-label">Họ tên (*)</label>
+                              <input type="text" class="form-control" id="" name="full_name" value="" required />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Số điện thoại (*)</label>
+                              <input type="text" class="form-control" id="" name="phone" value="" required />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Mật khẩu (*)</label>
+                              <input type="password" class="form-control" id="" name="password" value="" required />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Mật khẩu xác thực (*)</label>
+                              <input type="password" class="form-control" id="" name="password_confirmation" value="" required />
+                              <input type="hidden" class="form-control" id="" name="id_member" value="<?php echo @$_GET['id'] ?>" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="avatar" class="form-label">Ảnh đại diện</label>
+                              <input type="file" class="form-control" id="" name="avatar" value="" accept="image/*" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="address" class="form-label">Địa chỉ</label>
+                              <input type="text" class="form-control" id="" name="address" value="" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Email</label>
+                              <input type="text" class="form-control" id="" name="email" value="" />
+                            </div>
+                            
+                            
+                            <div class="mb-3 text-center">
+                                <div id="messAffiliater"></div>
+                                <button type="submit" class="btn btn-danger" id="" >Đăng ký</button> 
+                            </div>
+                        </form>
+
+                        <div id="show_img_card_customer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="QRCodeAffiliater">
+                <div class="container p-3 d-flex justify-content-center">
+                    <div class="card p-4"> 
+                        <h5 style="text-align: center;" for="full_name" class="form-label">Đăng ký CTV thành công</h5>
+                           <div class="modal-body" id="QRAffiliater"></div>
+                            <div class="mb-3 text-center">
+                                <a class="btn btn-danger" target="_blank" href="<?php echo $urlHomes;?>ctv" id="" >Đăng nhập</a> 
+                            </div>
+                    </div>
+                </div>
+            </div>
             <!-- Tab trang cá nhân -->
             <?php 
             /*
@@ -621,7 +702,9 @@
             <li class="nav-item">
                 <a class="nav-link" id="customer-tab" data-toggle="tab" href="#customer">Khách hàng</a>
             </li>
-            
+          <!--   <li class="nav-item">
+                <a class="nav-link" id="customer-tab" data-toggle="tab" href="#affiliate">ĐK CTV</a>
+            </li> -->
             <?php 
             /*
             if(!empty($info->web)){
@@ -1170,6 +1253,119 @@
                     }
                 });
             }
+
+            function buttonAffiliate(){
+
+                const info = document.getElementById("info");
+                const affiliate = document.getElementById("affiliate");
+                const infotab = document.getElementById("info-tab");
+
+                info.classList.remove("active");
+                info.classList.remove("show");
+
+                infotab.classList.remove("active");
+                infotab.classList.remove("show");
+
+                affiliate.classList.add("active");
+                affiliate.classList.add("show");
+            }
+
+
         </script>
+
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // Khi form được submit
+                $('#uploadFormAffiliate').on('submit', function(event) {
+                    // Ngăn chặn hành động mặc định của form (làm mới trang)
+                    event.preventDefault();
+                    
+                    // Tạo đối tượng FormData để chứa dữ liệu form
+                    var formData = new FormData(this);
+
+                  
+                    
+                           /*     <label for="full_name" class="form-labe> Link chia sẽ mua hàng của bạn </label>\
+                                   <a style="color: #0d6efd;" href="<?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'"><?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'</a>\*/
+                    // Sử dụng AJAX jQuery để gửi dữ liệu form lên server
+                    $.ajax({
+                        url: '/apis/saveInfoAffiliaterAPI', // URL của server nơi bạn muốn upload file
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(msg) {
+                              console.log(msg);
+                              if(msg.code==1){
+                                var html = '<div class="mb-3" style=" text-align: center; font-size: 17px; font-weight: 600;"><label for="full_name" class="form-label">Mã QR của bạn</label>\
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'" width="100%" />\
+                                </div>\
+                                <div class="">\
+                                   <button type="button" class="btn btn-primary mb-3" onclick="copyToClipboard('+msg.data.phone+');"><i class="fa fa-link" aria-hidden="true"></i> Link giới thiệu</button>\
+                                     <button type="button" class="btn btn-danger mb-3" onclick="downloadImageFromSrc('+msg.data.phone+');"><i class="fa fa-download" aria-hidden="true"></i> Tải mã QR</button></div> ';
+
+                                   $('#QRAffiliater').html(html); 
+
+                                const codeAffiliater = document.getElementById("QRCodeAffiliater");
+                                const affiliate = document.getElementById("affiliate");
+                                affiliate.classList.remove("active");
+                                affiliate.classList.remove("show");
+
+                                codeAffiliater.classList.add("active");
+                                codeAffiliater.classList.add("show");
+
+
+                              }else{
+                                 $('#messAffiliater').html('<span class="text-danger">'+msg.mess+'</span>');  
+                              }
+                           
+                        },
+                        
+                    });
+                });
+            });
+
+        </script>
+<script type="text/javascript">
+    function downloadImageFromSrc(phone){
+      var fileName = 'QR_ICHAM_'+phone+'.jpg';
+      var url = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes;?>book-online/?aff='+phone;
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url, true);
+      xhr.responseType = "blob";
+      xhr.onload = function(){
+          var urlCreator = window.URL || window.webkitURL;
+          var imageUrl = urlCreator.createObjectURL(this.response);
+          var tag = document.createElement('a');
+          tag.href = imageUrl;
+          tag.download = fileName;
+          document.body.appendChild(tag);
+          tag.click();
+          document.body.removeChild(tag);
+      }
+      xhr.send();
+  }
+
+  function copyToClipboard(text) {
+      // Create a temporary input to hold the text to copy
+
+      text = '<?php echo $urlHomes;?>book-online/?aff='+text;
+      var $temp = $("<input>");
+      $("body").append($temp);
+      
+      // Select and copy the text
+      $temp.val(text).select();
+      document.execCommand("copy");
+      
+      // Remove the temporary input
+      $temp.remove();
+      
+      // Show success message
+      alert('Đã copy thành công link liên kết');
+      //$('#copySuccessMessage').show().fadeOut(2000);
+  }
+</script>
+  
     </body>
 </html>

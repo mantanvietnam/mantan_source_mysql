@@ -205,11 +205,11 @@ function transactioncMoneyAdmin($input){
 
 					 $dataSendNotification= array('title'=>'Bạn đã rút tiền thành công','time'=>date('H:i d/m/Y'),'content'=>'Số tiền bạn rút là: '.number_format($data->total).'VNĐ','action'=>'productNew');
 					 if(!empty($user->token_device)){
-                		sendNotification($dataSendNotification, $user->token_device);
+                		sendNotificationnew($dataSendNotification, $user->token_device);
             		}
-            		// if(!empty($user->email)){
-            		//  	sendEmailtransactioncMoney($user->email, $user->name, $data);
-            		// }
+            		 if(!empty($user->email)){
+            		  	sendEmailtransactioncMoney($user->email, $user->full_name, $data);
+            		 }
 
             		if(!empty($_GET['page'])){
 						return $controller->redirect('/plugins/admin/colennao-view-admin-transaction-listTransactionRoseAdmin?mess=1&page='.$_GET['page']);

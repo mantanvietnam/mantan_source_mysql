@@ -82,7 +82,6 @@
             <th>Tên miền</th>
             <th>Database</th>
             <th>Sửa </th>
-            <th>Xóa</th>
           </tr>
         </thead>
         <tbody>
@@ -105,7 +104,12 @@
                 }
 
                 echo '<tr>
-                        <td>'.$item->id.'</td>
+                        <td align="center">
+                          '.$item->id.'<br/><br/>
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/data_crm-views-admin-deleteRegAdmin/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
+                        </td>
                         <td>
                           <p class="text-success">'.date('d/m/Y', $item->create_at).'</p>
                           <p class="text-danger">'.date('d/m/Y', $item->deadline).'</p>
@@ -128,11 +132,6 @@
                         </td>
                         <td align="center"><a class="dropdown-item" href="/plugins/admin/data_crm-views-admin-addRegAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
-                          </a>
-                          </td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/data_crm-views-admin-deleteRegAdmin/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
                       </tr>';

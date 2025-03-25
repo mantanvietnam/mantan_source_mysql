@@ -41,5 +41,6 @@ include_once('controller/api/spaController.php'); // đặt lịch hẹn
 include_once('controller/api/statisticalController.php'); // đặt lịch hẹn
 include_once('controller/api/roomBedController.php'); // đặt lịch hẹn
 include_once('controller/api/orderController.php'); // đối tác
+include_once('controller/api/warehouseController.php'); // đối tác
 
 ?>

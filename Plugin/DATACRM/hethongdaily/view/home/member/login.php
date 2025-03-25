@@ -126,6 +126,9 @@
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Đăng nhập</button>
                 </div>
+                  <div class="mb-3">
+                    <label class="form-check-label" for="remember-me"> <a href="/affiliaterLogin">Đăng nhập cộng tác viện</a></label>
+                </div>
               </form>
             </div>
             

@@ -102,6 +102,7 @@
     </div>
     <?php }else{
       echo '<div class=""> <embed src="'.$data->file_pdf.'"  style="width:100%; height: 800px;" type="application/pdf"></div>';
+       //echo '<iframe src="https://docs.google.com/gview?url='.$data->file_pdf.'&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>';
     } ?>
 
 

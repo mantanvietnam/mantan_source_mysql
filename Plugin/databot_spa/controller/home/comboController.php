@@ -11,7 +11,7 @@ function listCombo($input){
 	$modelProduct = $controller->loadModel('Products');
 	$modelService = $controller->loadModel('Services');
 	
-    setVariable('page_view', 'deleteRoom');
+    setVariable('page_view', 'listCombo');
 	if(!empty(checkLoginManager('listCombo', 'combo'))){
 		$infoUser = $session->read('infoUser');
 		 $mess= '';
@@ -48,7 +48,8 @@ function listCombo($input){
         }
 
 	    $listData = $modelCombo->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
+	  
+	  
 	    if(!empty($listData)){
 		    foreach($listData as $key=>$item){
 		    	$prod = array();

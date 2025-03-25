@@ -11,34 +11,34 @@ $sqlFixDatabase = '';
 
 $sqlInstallDatabase .= "CREATE TABLE `members` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `avatar` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `id_father` int(11) NOT NULL COMMENT 'id member cha',
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` int(11) NOT NULL,
   `id_system` int(11) NOT NULL,
   `otp` int(11) DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `deadline` int(11) NOT NULL,
   `verify` varchar(255) NOT NULL DEFAULT 'lock',
   `birthday` varchar(255) DEFAULT NULL,
-  `facebook` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `facebook` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_position` int(11) NOT NULL DEFAULT 0,
   `create_agency` VARCHAR(255) NOT NULL DEFAULT 'active',
   `coin` INT NOT NULL DEFAULT '0',
-  `twitter` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
-  `tiktok` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
-  `youtube` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
-  `web` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
-  `linkedin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
-  `description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
-  `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
+  `twitter` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL,
+  `tiktok` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL,
+  `youtube` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL,
+  `web` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL,
+  `linkedin` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL,
+  `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL,
+  `zalo` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL,
   `view` INT NOT NULL DEFAULT '0',
-  `banner` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
-  `instagram` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `banner` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `token_device` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `token` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `last_login` INT NOT NULL DEFAULT '0',
@@ -52,7 +52,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
   `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE,
   `display_info` TINYINT NOT NULL DEFAULT '1',
-  `image_qr_pay`text CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
+  `image_qr_pay`text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL,
   `bank_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `bank_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `bank_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -65,12 +65,12 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
 
 $sqlInstallDatabase .= "CREATE TABLE `zalos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_oa` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `id_app` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `secret_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `oauth_code` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `access_token` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `refresh_token` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_oa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_app` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secret_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `oauth_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `access_token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `refresh_token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deadline` int(11) DEFAULT NULL,
   `id_system` int(11) NOT NULL,
   `template_otp` int(11) NOT NULL,
@@ -82,7 +82,7 @@ $sqlInstallDatabase .= "CREATE TABLE `transaction_histories` (
   `id_member` INT NOT NULL , 
   `coin` INT NOT NULL , 
   `type` VARCHAR(255) NOT NULL , 
-  `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `create_at` INT NOT NULL , 
   `id_system` INT NOT NULL, 
   `meta_payment` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
@@ -94,8 +94,8 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `id` INT NOT NULL AUTO_INCREMENT , 
   `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
   `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
-  `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+  `email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+  `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
   `sex` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: Nữ, 1: Nam' , 
   `id_city` TINYINT(4) NOT NULL DEFAULT '0' , 
   `id_messenger` VARCHAR(255) NOT NULL, 
@@ -115,8 +115,8 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `token_device` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `token` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `reset_password_code`INT NULL DEFAULT NULL,
-  `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
-  `id_friend_block` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `id_friend_block` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `max_export_mmtc` INT NOT NULL DEFAULT '0',
   `total_coin` INT NULL DEFAULT '0';
   `id_affsource` INT NULL DEFAULT 0 COMMENT 'id người giới thiệu' ,
@@ -132,10 +132,10 @@ $sqlInstallDatabase .= "CREATE TABLE `customer_histories` (
   `id` INT NOT NULL AUTO_INCREMENT , 
   `id_customer` INT NOT NULL , 
   `time_now` INT NOT NULL , 
-  `note_now` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+  `note_now` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
   `action_now` VARCHAR(255) NOT NULL , 
   `id_staff_now` INT NOT NULL , 
-  `status` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new',
+  `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
   `id_staff` INT NULL DEFAULT '0' COMMENT 'id nhân viên ',
   `number_call` INT  NULL DEFAULT NULL , 
   `id_campaign` INT  NULL DEFAULT NULL , 
@@ -202,7 +202,7 @@ $sqlInstallDatabase .="CREATE TABLE `zalo_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_system` int(11) NOT NULL,
   `id_zns` int(11) NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`content`)),
   `content_example` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
   PRIMARY KEY (`id`)
@@ -407,7 +407,7 @@ $sqlInstallDatabase .="CREATE TABLE `staffs` (
 `last_login` INT NULL DEFAULT '0',
 `id_group` INT NULL DEFAULT NULL, 
 `permission` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]',
-`zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
+`zalo` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -487,6 +487,8 @@ $sqlInstallDatabase .="CREATE TABLE `transaction_customers` (
 `meta_payment` VARCHAR(255) NULL DEFAULT NULL,
 `payment_type` VARCHAR(255) NOT NULL DEFAULT 'payQrcode',
 `id_package` INT NULL DEFAULT NULL,
+`type_histories` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'package',
+`id_uplike` INT NULL DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -542,6 +544,10 @@ $sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"product\
 
 $sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\",\"smaxbot\",\"keys\"]' WHERE `options`.`key_word` = 'plugin_installed'; ";
 
+$sqlFixDatabase .= "ALTER TABLE `products` CHANGE `description` `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
+$sqlFixDatabase .= "ALTER TABLE `products` CHANGE `info` `info` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL; ";
+$sqlFixDatabase .= "ALTER TABLE `products` CHANGE `image` `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL; ";
+
 /*
 $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `info` `info` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `description` `description` VARCHAR(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL;";
@@ -562,34 +568,34 @@ $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `title` `title` VARCHAR(255) C
 //$sqlFixDatabase .= "INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES (NULL, 'settingPayos', '{\"client_id\":\"977e9108-ffcb-453e-beaa-6c4bb5900f07\",\"api_key\":\"54ca742d-c2f5-44ef-8893-b56d73d4c8d6\",\"checksum_key\":\"2a7355c19147b1537d2d8b9f179b43a5969c571b0cf36ed12ada6254ec4321bb\",\"code_bank\":\"MB\"}', NULL); ";
 
 // update
-$sqlUpdateDatabase['members']['name'] = "ALTER TABLE `members` ADD `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['members']['avatar'] = "ALTER TABLE `members` ADD `avatar` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['name'] = "ALTER TABLE `members` ADD `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['avatar'] = "ALTER TABLE `members` ADD `avatar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['members']['phone'] = "ALTER TABLE `members` ADD `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['members']['id_father'] = "ALTER TABLE `members` ADD `id_father` int(11) NOT NULL COMMENT 'id member cha';";
-$sqlUpdateDatabase['members']['email'] = "ALTER TABLE `members` ADD `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['members']['password'] = "ALTER TABLE `members` ADD `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['members']['status'] = "ALTER TABLE `members` ADD `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['email'] = "ALTER TABLE `members` ADD `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['password'] = "ALTER TABLE `members` ADD `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['status'] = "ALTER TABLE `members` ADD `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['members']['created_at'] = "ALTER TABLE `members` ADD `created_at` int(11) NOT NULL;";
 $sqlUpdateDatabase['members']['id_system'] = "ALTER TABLE `members` ADD `id_system` int(11) NOT NULL;";
 $sqlUpdateDatabase['members']['otp'] = "ALTER TABLE `members` ADD `otp` int(11) DEFAULT NULL;";
-$sqlUpdateDatabase['members']['address'] = "ALTER TABLE `members` ADD `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['address'] = "ALTER TABLE `members` ADD `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['members']['deadline'] = "ALTER TABLE `members` ADD `deadline` int(11) NOT NULL;";
 $sqlUpdateDatabase['members']['verify'] = "ALTER TABLE `members` ADD `verify` varchar(255) NOT NULL DEFAULT 'lock';";
 $sqlUpdateDatabase['members']['birthday'] = "ALTER TABLE `members` ADD `birthday` varchar(255) DEFAULT NULL;";
-$sqlUpdateDatabase['members']['facebook'] = "ALTER TABLE `members` ADD `facebook` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
+$sqlUpdateDatabase['members']['facebook'] = "ALTER TABLE `members` ADD `facebook` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL;";
 $sqlUpdateDatabase['members']['id_position'] = "ALTER TABLE `members` ADD `id_position` int(11) NOT NULL DEFAULT 0;";
 $sqlUpdateDatabase['members']['create_agency'] = "ALTER TABLE `members` ADD `create_agency` VARCHAR(255) NOT NULL DEFAULT 'active';";
 $sqlUpdateDatabase['members']['coin'] = "ALTER TABLE `members` ADD `coin` INT NOT NULL DEFAULT '0';";
-$sqlUpdateDatabase['members']['twitter'] = "ALTER TABLE `members` ADD `twitter` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
-$sqlUpdateDatabase['members']['tiktok'] = "ALTER TABLE `members` ADD `tiktok` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
-$sqlUpdateDatabase['members']['youtube'] = "ALTER TABLE `members` ADD `youtube` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
-$sqlUpdateDatabase['members']['web'] = "ALTER TABLE `members` ADD `web` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
-$sqlUpdateDatabase['members']['linkedin'] = "ALTER TABLE `members` ADD `linkedin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
-$sqlUpdateDatabase['members']['description'] = "ALTER TABLE `members` ADD `description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
-$sqlUpdateDatabase['members']['zalo'] = "ALTER TABLE `members` ADD `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['twitter'] = "ALTER TABLE `members` ADD `twitter` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['tiktok'] = "ALTER TABLE `members` ADD `tiktok` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['youtube'] = "ALTER TABLE `members` ADD `youtube` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['web'] = "ALTER TABLE `members` ADD `web` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['linkedin'] = "ALTER TABLE `members` ADD `linkedin` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['description'] = "ALTER TABLE `members` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['zalo'] = "ALTER TABLE `members` ADD `zalo` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL;";
 $sqlUpdateDatabase['members']['view'] = "ALTER TABLE `members` ADD `view` INT NOT NULL DEFAULT '0';";
-$sqlUpdateDatabase['members']['banner'] = "ALTER TABLE `members` ADD `banner` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;";
-$sqlUpdateDatabase['members']['instagram'] = "ALTER TABLE `members` ADD `instagram` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
+$sqlUpdateDatabase['members']['banner'] = "ALTER TABLE `members` ADD `banner` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
+$sqlUpdateDatabase['members']['instagram'] = "ALTER TABLE `members` ADD `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL;";
 $sqlUpdateDatabase['members']['token_device'] = "ALTER TABLE `members` ADD `token_device` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
 $sqlUpdateDatabase['members']['token'] = "ALTER TABLE `members` ADD `token` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
 $sqlUpdateDatabase['members']['last_login'] = "ALTER TABLE `members` ADD `last_login` INT NOT NULL DEFAULT '0';";
@@ -612,12 +618,12 @@ $sqlUpdateDatabase['members']['id_agency_introduce'] = "ALTER TABLE `members` AD
 $sqlUpdateDatabase['members']['agent_commission'] = "ALTER TABLE `members` ADD `agent_commission` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['members']['product_distribution'] = "ALTER TABLE `members` ADD `product_distribution` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'allPoduct' COMMENT 'allPoduct: tất cả sản phẩn; agentPoduct :phân phối sản phẩm của đại lý';";
 // bảng zalos 
-$sqlUpdateDatabase['zalos']['id_oa'] = "ALTER TABLE `zalos` ADD `id_oa` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['zalos']['id_app'] = "ALTER TABLE `zalos` ADD `id_app` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['zalos']['secret_key'] = "ALTER TABLE `zalos` ADD `secret_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['zalos']['oauth_code'] = "ALTER TABLE `zalos` ADD `oauth_code` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
-$sqlUpdateDatabase['zalos']['access_token'] = "ALTER TABLE `zalos` ADD `access_token` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
-$sqlUpdateDatabase['zalos']['refresh_token'] = "ALTER TABLE `zalos` ADD `refresh_token` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
+$sqlUpdateDatabase['zalos']['id_oa'] = "ALTER TABLE `zalos` ADD `id_oa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['zalos']['id_app'] = "ALTER TABLE `zalos` ADD `id_app` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['zalos']['secret_key'] = "ALTER TABLE `zalos` ADD `secret_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['zalos']['oauth_code'] = "ALTER TABLE `zalos` ADD `oauth_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL;";
+$sqlUpdateDatabase['zalos']['access_token'] = "ALTER TABLE `zalos` ADD `access_token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL;";
+$sqlUpdateDatabase['zalos']['refresh_token'] = "ALTER TABLE `zalos` ADD `refresh_token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL;";
 $sqlUpdateDatabase['zalos']['deadline'] = "ALTER TABLE `zalos` ADD `deadline` int(11) DEFAULT NULL;";
 $sqlUpdateDatabase['zalos']['id_system'] = "ALTER TABLE `zalos` ADD `id_system` int(11) NOT NULL;";
 $sqlUpdateDatabase['zalos']['template_otp'] = "ALTER TABLE `zalos` ADD `template_otp` int(11) NOT NULL;";
@@ -626,7 +632,7 @@ $sqlUpdateDatabase['zalos']['template_otp'] = "ALTER TABLE `zalos` ADD `template
 $sqlUpdateDatabase['transaction_histories']['id_member'] = "ALTER TABLE `transaction_histories` ADD `id_member` INT NOT NULL;";
 $sqlUpdateDatabase['transaction_histories']['coin'] = "ALTER TABLE `transaction_histories` ADD `coin` INT NOT NULL;";
 $sqlUpdateDatabase['transaction_histories']['type'] = "ALTER TABLE `transaction_histories` ADD `type` VARCHAR(255) NOT NULL;";
-$sqlUpdateDatabase['transaction_histories']['note'] = "ALTER TABLE `transaction_histories` ADD `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['transaction_histories']['note'] = "ALTER TABLE `transaction_histories` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['transaction_histories']['create_at'] = "ALTER TABLE `transaction_histories` ADD `create_at` INT NOT NULL;";
 $sqlUpdateDatabase['transaction_histories']['id_system'] = "ALTER TABLE `transaction_histories` ADD `id_system` INT NOT NULL;";
 $sqlUpdateDatabase['transaction_histories']['meta_payment'] = "ALTER TABLE `transaction_histories` ADD `meta_payment` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
@@ -634,8 +640,8 @@ $sqlUpdateDatabase['transaction_histories']['payment_type'] = "ALTER TABLE `tran
 // bảng customers
 $sqlUpdateDatabase['customers']['full_name'] = "ALTER TABLE `customers` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['customers']['phone'] = "ALTER TABLE `customers` ADD `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` ADD `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['customers']['address'] = "ALTER TABLE `customers` ADD `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` ADD `email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['address'] = "ALTER TABLE `customers` ADD `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['customers']['sex'] = "ALTER TABLE `customers` ADD `sex` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: Nữ, 1: Nam';";
 $sqlUpdateDatabase['customers']['id_city'] = "ALTER TABLE `customers` ADD `id_city` TINYINT(4) NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['customers']['id_messenger'] = "ALTER TABLE `customers` ADD `id_messenger` VARCHAR(255) NOT NULL;";
@@ -655,8 +661,8 @@ $sqlUpdateDatabase['customers']['id_zalo'] = "ALTER TABLE `customers` ADD `id_za
 $sqlUpdateDatabase['customers']['token_device'] = "ALTER TABLE `customers` ADD `token_device` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customers']['token'] = "ALTER TABLE `customers` ADD `token` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customers']['reset_password_code'] = "ALTER TABLE `customers` ADD `reset_password_code`INT NULL DEFAULT NULL;";
-$sqlUpdateDatabase['customers']['link_download_mmtc'] = "ALTER TABLE `customers` ADD `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;";
-$sqlUpdateDatabase['customers']['id_friend_block'] = "ALTER TABLE `customers` ADD `id_friend_block` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;";
+$sqlUpdateDatabase['customers']['link_download_mmtc'] = "ALTER TABLE `customers` ADD `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
+$sqlUpdateDatabase['customers']['id_friend_block'] = "ALTER TABLE `customers` ADD `id_friend_block` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
 $sqlUpdateDatabase['customers']['max_export_mmtc'] = "ALTER TABLE `customers` ADD `max_export_mmtc` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['customers']['id_affsource'] = "ALTER TABLE `customers` ADD `id_affsource` INT NULL DEFAULT '0' COMMENT 'id người giới thiệu';";
 $sqlUpdateDatabase['customers']['blue_check'] = "ALTER TABLE `customers` ADD `blue_check` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock';";
@@ -668,10 +674,10 @@ $sqlUpdateDatabase['customers']['up_like'] = "ALTER TABLE `customers` ADD `up_li
 // bảng customer_histories
 $sqlUpdateDatabase['customer_histories']['id_customer'] = "ALTER TABLE `customer_histories` ADD `id_customer` INT NOT NULL;";
 $sqlUpdateDatabase['customer_histories']['time_now'] = "ALTER TABLE `customer_histories` ADD `time_now` INT NOT NULL;";
-$sqlUpdateDatabase['customer_histories']['note_now'] = "ALTER TABLE `customer_histories` ADD `note_now` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['customer_histories']['note_now'] = "ALTER TABLE `customer_histories` ADD `note_now` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['customer_histories']['action_now'] = "ALTER TABLE `customer_histories` ADD `action_now` VARCHAR(255) NOT NULL;";
 $sqlUpdateDatabase['customer_histories']['id_staff_now'] = "ALTER TABLE `customer_histories` ADD `id_staff_now` INT NOT NULL;";
-$sqlUpdateDatabase['customer_histories']['status'] = "ALTER TABLE `customer_histories` ADD `status` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new';";
+$sqlUpdateDatabase['customer_histories']['status'] = "ALTER TABLE `customer_histories` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new';";
 $sqlUpdateDatabase['customer_histories']['id_staff'] = "ALTER TABLE `customer_histories` ADD `id_staff` INT NULL DEFAULT '0' COMMENT 'id nhân viên ';";
 $sqlUpdateDatabase['customer_histories']['number_call'] = "ALTER TABLE `customer_histories` ADD `number_call` INT  NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customer_histories']['id_campaign'] = "ALTER TABLE `customer_histories` ADD `id_campaign` INT  NULL DEFAULT NULL;";
@@ -721,7 +727,7 @@ $sqlUpdateDatabase['warehouse_histories']['type_sale'] = "ALTER TABLE `warehouse
 // bảng zalo_templates
 $sqlUpdateDatabase['zalo_templates']['id_system'] = "ALTER TABLE `zalo_templates` ADD `id_system` int(11) NOT NULL;";
 $sqlUpdateDatabase['zalo_templates']['id_zns'] = "ALTER TABLE `zalo_templates` ADD `id_zns` int(11) NOT NULL;";
-$sqlUpdateDatabase['zalo_templates']['name'] = "ALTER TABLE `zalo_templates` ADD `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['zalo_templates']['name'] = "ALTER TABLE `zalo_templates` ADD `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['zalo_templates']['content'] = "ALTER TABLE `zalo_templates` ADD `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`content`));";
 $sqlUpdateDatabase['zalo_templates']['content_example'] = "ALTER TABLE `zalo_templates` ADD `content_example` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;";
 
@@ -927,6 +933,8 @@ $sqlUpdateDatabase['transaction_customers']['meta_payment'] = "ALTER TABLE `tran
 $sqlUpdateDatabase['transaction_customers']['payment_type'] = "ALTER TABLE `transaction_customers` ADD `payment_type` VARCHAR(255)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL DEFAULT 'payQrcode';";
 $sqlUpdateDatabase['transaction_customers']['status'] = "ALTER TABLE `transaction_customers` ADD `status` VARCHAR(255)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transaction_customers']['id_package'] = "ALTER TABLE `transaction_customers` ADD `id_package` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transaction_customers']['type_histories'] = "ALTER TABLE `transaction_customers` ADD `type_histories` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'package';";
+$sqlUpdateDatabase['transaction_customers']['id_uplike'] = "ALTER TABLE `transaction_customers` ADD `id_uplike` INT NULL DEFAULT NULL;";
 
 //gói dịch vụ 
 $sqlUpdateDatabase['packages']['name'] = "ALTER TABLE `packages` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

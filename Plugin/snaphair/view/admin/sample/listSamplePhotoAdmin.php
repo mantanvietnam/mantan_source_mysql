@@ -80,10 +80,14 @@
                     break;
                     }
                 }
+                $imageSrc = '/path/to/placeholder.png';
+                if (is_array($item->images) && array_key_exists('image1', $item->images) && !empty($item->images['image1'])) {
+                    $imageSrc = htmlspecialchars($item->images['image1']);
+                }
               echo '<tr>
               <td>'.$item->id.'</td>
               <td>'.$item->name.'</td>
-              <td><img src="'.$item->image.'" alt="'.$item->name.'" width="80"></td>
+              <td><img src="' . $imageSrc . '" alt="' . htmlspecialchars($item->name) . '" width="80"></td>
               <td>'.$item->color.'</td>
               <td>'.(($item->sex == 'male') ? 'Nam' : 'Nữ').'</td>
               <td>'.$categoryName.'</td>

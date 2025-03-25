@@ -73,13 +73,15 @@ function listAgency($input){
 				if(!empty($service)){
 					$listData[$key]->service = $service->name;
 				}
+				if(@$item->id_order){
+					$order = $modelOrder->find()->where(['id'=>$item->id_order])->first();
+					if(!empty($order)){
+						$order->customer = $modelCustomer->find()->where(['id'=>$order->id_customer])->first();
+					}
 
-				$order = $modelOrder->find()->where(['id'=>$item->id_order])->first();
-				if(!empty($order)){
-					$order->customer = $modelCustomer->find()->where(['id'=>$order->id_customer])->first();
+					$listData[$key]->order= $order;
 				}
-
-				$listData[$key]->order= $order;
+				
 
 			}
 		}

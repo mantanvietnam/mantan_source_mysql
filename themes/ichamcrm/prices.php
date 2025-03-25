@@ -13,7 +13,7 @@
             <div class="container">
                 <div class="ib-1-title">
                     <h1>
-                        BẢNG GIÁ CHÍNH SÁCH ĐẠI LÝ BỘ GIẢI PHÁP iCHAM
+                        BẢNG GIÁ BỘ GIẢI PHÁP iCHAM
                     </h1>
                 </div>
                 <div class="ib-1-price-list">
@@ -22,14 +22,14 @@
                             <div class="price-item">
                                 <div class="pt-block-1">
                                     <div class="pt-name">
-                                        <p>Bán lẻ</p>
+                                        <p>Mua 01 năm</p>
                                     </div>
                                     <div class="all-cost">
                                         <div class="old-cost" style="display: none;">
                                             <p>1000<i class="fa-solid fa-dong-sign"></i></p>
                                         </div>
                                         <div class="new-cost">
-                                            <p>3,500,000<i class="fa-solid fa-dong-sign"></i></p>
+                                            <p>5,100,000<i class="fa-solid fa-dong-sign"></i></p>
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                     <div class="pt-list">
                                         <p><i class="fa-solid fa-play"></i>Quà tặng</p>
                                         <ul>
-                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">01 tháng EZPICS PRO</li>
+                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">03 tháng EZPICS PRO</li>
                                         </ul>
                                     </div>
 
@@ -62,33 +62,33 @@
                             <div class="price-item">
                                 <div class="pt-block-1">
                                     <div class="pt-name">
-                                        <p>Combo 05</p>
+                                        <p>Mua 03 năm</p>
                                     </div>
                                     <div class="old-cost">
-                                        <p>17,000,000<i class="fa-solid fa-dong-sign"></i></p>
+                                        <p>15,300,000<i class="fa-solid fa-dong-sign"></i></p>
                                     </div>
                                     <div class="new-cost">
-                                        <p>15,750,000<i class="fa-solid fa-dong-sign"></i></p>
+                                        <p>12,000,000<i class="fa-solid fa-dong-sign"></i></p>
                                     </div>
                                 </div>
                                 <div class="pt-block-2">
                                     <div class="pt-list">
                                         <p><i class="fa-solid fa-play"></i>Số lượng</p>
                                         <ul>
-                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">05 thẻ iCham</li>
-                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">01 năm sử dụng phần mềm chăm sóc khách hàng</li>
+                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">03 thẻ iCham</li>
+                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">03 năm sử dụng phần mềm chăm sóc khách hàng</li>
                                         </ul>
                                     </div>
                                     <div class="pt-list">
                                         <p><i class="fa-solid fa-play"></i>Quà tặng</p>
                                         <ul>
-                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">03 tháng EZPICS PRO</li>
+                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">06 tháng EZPICS PRO</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="pt-block-3">
                                     <p>
-                                        -10%
+                                        -22%
                                     </p>
                                 </div>
                                 <div class="pt-block-4">
@@ -103,33 +103,33 @@
                             <div class="price-item">
                                 <div class="pt-block-1">
                                     <div class="pt-name">
-                                        <p>Combo 10</p>
+                                        <p>Mua 05 năm</p>
                                     </div>
                                     <div class="old-cost">
-                                        <p>35,000,000<i class="fa-solid fa-dong-sign"></i></p>
+                                        <p>25,500,000<i class="fa-solid fa-dong-sign"></i></p>
                                     </div>
                                     <div class="new-cost">
-                                        <p>29,750,000<i class="fa-solid fa-dong-sign"></i></p>
+                                        <p>17,500,000<i class="fa-solid fa-dong-sign"></i></p>
                                     </div>
                                 </div>
                                 <div class="pt-block-2">
                                     <div class="pt-list">
                                         <p><i class="fa-solid fa-play"></i>Số lượng</p>
                                         <ul>
-                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">10 thẻ iCham</li>
-                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">01 năm sử dụng phần mềm chăm sóc khách hàng</li>
+                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">05 thẻ iCham</li>
+                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">05 năm sử dụng phần mềm chăm sóc khách hàng</li>
                                         </ul>
                                     </div>
                                     <div class="pt-list">
                                         <p><i class="fa-solid fa-play"></i>Quà tặng</p>
                                         <ul>
-                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">06 tháng EZPICS PRO</li>
+                                            <li><img src="<?php echo @$urlThemeActive; ?>/asset/image/checklist.png" alt="">01 năm EZPICS PRO</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="pt-block-3">
                                     <p>
-                                        -15%
+                                        -33%
                                     </p>
                                 </div>
                                 <div class="pt-block-4">
@@ -141,6 +141,7 @@
                         </div>
                     </div>
 
+                    <!--
                     <div class="row row-2">
                         <div class="col-lg-4">
                             <div class="price-item">
@@ -442,6 +443,7 @@
                             </div>
                         </div>
                     </div>
+                    -->
                 </div>
         </section>
 

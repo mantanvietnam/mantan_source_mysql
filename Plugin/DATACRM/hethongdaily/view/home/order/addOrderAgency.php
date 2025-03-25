@@ -131,8 +131,8 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/requestProductAgency">Yêu cầu nhập hàng</a> /</span>
-    Tạo yêu cầu
+    <span class="text-muted fw-light"><a href="/requestProductAgency">Đơn hàng đại lý</a> /</span>
+    Lên đơn đại lý
   </h4>
 
     <form id="summary-form" action="" method="post" class="form-horizontal">
@@ -285,6 +285,26 @@
                                             <?php if(!empty($father)) echo @$father->name.' '.@$father->phone;?>
                                         </p>
                                     </li>
+                                    <?php if($user->id_father==0){ ?>
+                                    <li>
+                                        <span>nhân viên phục trách </span>
+                                        <span><select name="id_staff" class="form-select color-dropdown">
+                                            <option value="0">chọn nhân viên</option>
+                                            <?php
+                                            if(!empty($listStaff)){
+                                              foreach($listStaff as $value){
+                                                $selected = '';
+                                                  if( $user->id_staff==$value->id){
+                                                    $selected = 'selected';
+                                                  }
+                                                  echo '<option '.$selected.' value="'.$value->id.'">'.$value->name.'</option>';
+                                              }
+                                            }
+                                            ?>
+                                          </select>
+                                      </span>
+                                    </li>
+                                        <?php   } ?>
 
                                     <li style="display: contents;"><span>Ghi chú</span><br/>
                                         <textarea class="form-control phone-mask" rows="3" name="note"></textarea>
@@ -295,7 +315,7 @@
                             <div class="action-cta">
                                 <ul>
                                     <li><a href="/addRequestProductAgency" class="btn  btn-secondary">Nhập lại</a></li>
-                                    <li><a href="javascript:void(0);" class="btn btn-danger" onclick="createOrder();">Tạo yêu cầu nhập hàng</a></li>
+                                    <li><a href="javascript:void(0);" class="btn btn-danger" onclick="createOrder();">Tạo đơn đại lý</a></li>
                                 </ul>
                             </div>
                         </div>

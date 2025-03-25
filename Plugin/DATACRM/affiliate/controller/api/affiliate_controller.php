@@ -14,8 +14,9 @@ function searchAffiliateAPI($input)
             
         $conditions = ['id_member'=>$user->id];
 
+        
         if(!empty($dataSend['term'])){
-            $conditions['name LIKE'] = '%'.$dataSend['term'].'%';
+            $conditions['or'] = [['name LIKE' => '%'.$dataSend['term'].'%'], ['phone LIKE' => '%'.$dataSend['term'].'%']];
         }
 
         if(!empty($dataSend['id'])){
@@ -66,3 +67,91 @@ function searchAffiliateAPI($input)
         return $controller->redirect('/login');
     }
 }
+
+function saveInfoAffiliaterAPI($input){
+    global $controller;
+    global $isRequestPost;
+    global $metaTitleMantan;
+    global $modelCategories;
+    global $urlHomes;
+    global $session;
+ 
+    if($isRequestPost){
+
+        $modelAffiliaters = $controller->loadModel('Affiliaters');
+        $modelMembers = $controller->loadModel('Members');
+        $modelCustomers = $controller->loadModel('Customers');
+
+     
+        $data = $modelAffiliaters->newEmptyEntity();
+        $data->created_at = time();
+
+        $dataSend = $input['request']->getData();
+      
+        if($dataSend['password']!=$dataSend['password_confirmation']){
+
+            return array('code'=>2, 'mess'=>'Mật khẩu nhập lại Không dúng ');
+        }
+
+        if(!empty($dataSend['full_name']) && !empty($dataSend['phone']) && !empty($dataSend['password'])){
+            $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+            $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+            $conditions = ['phone'=>$dataSend['phone']];
+            $checkPhone = $modelAffiliaters->find()->where($conditions)->first();
+            if(empty($checkPhone)){
+              
+                if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                    $avatar = uploadImage($dataSend['id_member'], 'avatar', 'avatar_'.$dataSend['phone']);
+                    if(!empty($avatar['linkOnline'])){
+                        $data->avatar = $avatar['linkOnline'];
+                    }
+                }
+
+                if(empty($data->avatar)){
+                        $data->avatar = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-ezpics.png';
+                    
+                }
+
+                // tạo dữ liệu save
+                $data->name = @$dataSend['full_name'];
+                $data->address = @$dataSend['address'];
+                $data->portrait = @$dataSend['portrait'];
+                $data->phone = @$dataSend['phone'];
+                $data->email = @$dataSend['email'];
+                $data->description = @$dataSend['description'];
+                    
+                $data->linkedin = @$dataSend['linkedin'];
+                $data->web = @$dataSend['web'];
+                $data->instagram = @$dataSend['instagram'];
+                $data->zalo = @$dataSend['zalo'];
+                $data->facebook = @$dataSend['facebook'];
+                $data->twitter = @$dataSend['twitter'];
+                $data->tiktok = @$dataSend['tiktok'];
+                $data->youtube = @$dataSend['youtube'];
+
+                $data->id_father =0;
+                $data->id_system =1;
+
+                $data->id_customer = 0;
+                $data->id_member = $dataSend['id_member'];
+
+                if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
+                $data->password = md5($dataSend['password']);
+                $modelAffiliaters->save($data);
+                
+                return array('code'=>1, 'mess'=>'Bạn đăng ký thành công', 'data'=>$data);
+            }else{
+                if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
+                $checkPhone->password = md5($dataSend['password']);
+
+                $modelAffiliaters->save($checkPhone);
+            }
+
+            return array('code'=>1, 'mess'=>'Số điện thoại đã tồn tại', 'data'=>$checkPhone);
+        }
+        return array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+    }
+    return array('code'=>0, 'mess'=>'gửi sai kiểu POST');
+}
+?>

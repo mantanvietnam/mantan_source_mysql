@@ -4,6 +4,7 @@ include_once('controller/admin/settings_controller.php'); // cài đặt công t
 include_once('controller/admin/transaction_affiliate_histories_controller.php'); // lịch sử giao dịch
 
 include_once('controller/home/orders_controller.php'); // cài đặt công thức tính hoa hồng
+include_once('controller/home/userAffiliateController.php'); // cài đặt công thức tính hoa hồng
 
 include_once('controller/api/affiliate_controller.php'); 
 ?>

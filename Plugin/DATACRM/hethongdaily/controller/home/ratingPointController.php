@@ -72,7 +72,7 @@ function listRatingPoint($input){
 
             }
         }
-        $conditions = [];
+        $conditions = ['status !='=>'delete'];
         $listData = $modelRatingPointCustomer->find()->where($conditions)->all()->toList();
 
 
@@ -93,17 +93,22 @@ function deleteRatingPoint($input){
         if(empty($user->grant_permission)){
             return $controller->redirect('/statisticAgency');
         }
+       
         if(!empty($_GET['id'])){
             $data = $modelRatingPointCustomer->get($_GET['id']);
             
-            if($data){
-                $data->status = 'lock';
+            if(!empty($data)){
+                $data->status = 'delete';
                 $modelRatingPointCustomer->save($data);
                 //deleteSlugURL($data->slug);
                 $note = $user->type_tv.' '. $user->name.' xóa thông tin xếp hạng '.$data->name.' có id là:'.$data->id;
                 addActivityHistory($user,$note,'deleteRatingPoint',$data->id);
+
+
+                return array('code'=>1);
             }
         }
+        return array('code'=>0);
 
     // return $controller->redirect('/listProductAgency');
 

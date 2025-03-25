@@ -50,6 +50,7 @@
             <th>Danh mục</th>
             <th>Mô hình</th>
             <th>Trạng thái</th>
+            <th>Cài đặt</th>
             <th>Sửa</th>
             <th>Xóa</th>
 
@@ -85,8 +86,11 @@
                         <td>'.$category_name.'</td>
                         <td>'.$model_name.'</td>
                         <td>'.$status.'</td>
-
-
+                        <td align="center">
+                            <a class="dropdown-item" href="/plugins/admin/home_project-view-admin-product_project-details-settingProductDetail/?id=' . $project_item->id . '">
+                                <i class="bx bx-cog me-1"></i>
+                            </a>
+                        </td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/home_project-view-admin-product_project-addProductProjectAdmin/?id='.$project_item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

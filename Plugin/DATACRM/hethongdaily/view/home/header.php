@@ -150,7 +150,7 @@
                                 <a class="dropdown-item" href="/listStaff">Nhân viên</a>
                                 <a class="dropdown-item" href="/timesheetStaff">Chấm công nhân viên</a>
                                 <a class="dropdown-item" href="/listGroupStaff">Nhóm nhân viên</a>
-                                <a class="dropdown-item" href="/listActivityHistory">Lịch sử Hoạt động nhân viên</a>
+                                <a class="dropdown-item" href="/listActivityHistory">Lịch sử hoạt động nhân viên</a>
                               </div>
                             </div>';
                           }
@@ -180,7 +180,7 @@
                               <div class="dropdown-menu menuSub3">
                                 <a class="dropdown-item" href="/settingWebsiteShop">Cài đặt giao diện</a>
                                 <a class="dropdown-item" href="/listPost">Tin tức</a>
-                                <a class="dropdown-item" href="/listCategoryPost">Danh mục Tin tức</a>
+                                <a class="dropdown-item" href="/listCategoryPost">Danh mục tin tức</a>
                               </div>
                             </div>';
                       }

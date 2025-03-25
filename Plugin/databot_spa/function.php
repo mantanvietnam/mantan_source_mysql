@@ -282,6 +282,7 @@ function getListPermission($id=0)
                                                     array('name'=>'xem bảng chấm công nhân viên','permission'=>'timesheetStaff'),
                                                     array('name'=>'chấm công nhân viên','permission'=>'checktimesheet'),
                                                     array('name'=>'tính lương nhân viên','permission'=>'payrollstaff'),
+                                                    array('name'=>'Bảng lương nhân viên','permission'=>'listPayroll'),
                                             ),
                             );
         }

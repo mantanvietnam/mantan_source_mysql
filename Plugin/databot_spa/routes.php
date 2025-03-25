@@ -62,6 +62,7 @@
 	$routesPlugin['addStaffPunish']= 'databot_spa/view/home/staff/addStaffBonus.php';
 	$routesPlugin['timesheetStaff']= 'databot_spa/view/home/staff/timesheetStaff.php';
 	$routesPlugin['payrollstaff']= 'databot_spa/view/home/staff/payrollstaff.php';
+	$routesPlugin['listPayroll']= 'databot_spa/view/home/staff/listPayroll.php';
 
 	$routesPlugin['listService']= 'databot_spa/view/home/service/listService.php';
 	$routesPlugin['addService']= 'databot_spa/view/home/service/addService.php';

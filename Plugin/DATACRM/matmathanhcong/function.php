@@ -183,7 +183,7 @@ function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $addr
 
                 $linkFull = sendDataConnectMantan($urlAPI.'/api/GetLink', $dataSend, $header, $typeData, $typeSend);
                 
-                // debug($linkFull);
+                //debug($linkFull);
                 // debug($dataSend);
                 
                 if(!empty($linkFull)){

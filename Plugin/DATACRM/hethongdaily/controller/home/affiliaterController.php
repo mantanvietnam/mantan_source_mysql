@@ -84,8 +84,8 @@ function listAffiliaterAgency($input)
             }
         }*/
 
-        //$listData = $modelAffiliaters->find()->where(['id_father'=>0 , 'id_member'=>$user->id])->all()->toList();
-        $listData = $modelAffiliaters->find()->where($conditions)->all()->toList();
+        $listData = $modelAffiliaters->find()->where(['id_father'=>0 , 'id_member'=>$user->id])->all()->toList();
+        //$listData = $modelAffiliaters->find()->where($conditions)->all()->toList();
         $percent = getPercentAffiliate();
        
         if(!empty($listData)){
@@ -246,6 +246,8 @@ function addAffiliaterAgency($input)
                     $data->twitter = $dataSend['twitter'];
                     $data->tiktok = $dataSend['tiktok'];
                     $data->youtube = $dataSend['youtube'];
+                    $data->bank_code = $dataSend['bank_code'];
+                    $data->bank_number = $dataSend['bank_number'];
                     
                     $data->id_father =(int) @$father->id;
                     $data->id_system = $user->id_system;

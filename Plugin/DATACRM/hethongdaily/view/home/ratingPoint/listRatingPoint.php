@@ -122,10 +122,11 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/listRatingPoint';
+            console.log(msg);
+             window.location = '/listRatingPoint';
           })
           .fail(function() {
-            window.location = '/listRatingPoint';
+             window.location = '/listRatingPoint';
           });
       }
     }

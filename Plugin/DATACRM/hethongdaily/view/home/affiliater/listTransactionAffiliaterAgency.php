@@ -168,10 +168,24 @@
                     $type = 'Khách hàng';
                   }
 
+                  $bank = "";
+                  $qrcode = "";
+                  if(!empty($items->aff->bank_code) && !empty($items->aff->bank_number)){
+                      foreach(listBank() as $key => $value){
+                        if(@$items->aff->bank_code==$value['code']){ 
+                          $bank = $value['name'].'('.$value['code'].')';
+                        }
+                      }
+
+                    $qrcode = 'https://img.vietqr.io/image/'.$items->aff->bank_code.'-'.$items->aff->bank_number.'-compact2.png?amount='.$items->money_back;
+                  }
+
                    $info = '';
                   if(!empty($items->aff)){
                     $info = '<p><label class="form-label">Tên người tiếp thị:</label> '.$items->aff->name.'</p>
-                            <p><label class="form-label">Số điện thoại:</label> '.$items->aff->phone.'</p>';
+                            <p><label class="form-label">Số điện thoại:</label> '.$items->aff->phone.'</p>
+                            <p><label class="form-label">Số tài khoản:</label> '.@$items->aff->bank_number.'</p>
+                            <p><label class="form-label">Ngân hàng:</label> '.@$bank.'</p>';
                   }
 
 
@@ -192,7 +206,7 @@
                                     <div class="col-md-12">
                                       <?php echo $info; ?>
                                       <p><label class="form-label">Số tiền thanh thoán:</label> <?php echo number_format($items->money_back) ?> đ</p>
-                                      
+
                                     </div>
                                     <div class="col-md-12">
                                       <label class="form-label">Hình thức thanh toán</label>
@@ -209,13 +223,22 @@
                                       <label class="form-label">Nội dung trả </label>
                                       <textarea  class="form-control" rows="5" name="note"></textarea>
                                     </div>
-                                  </div>
-                                </div>
-                                
+                                  
+                                 <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary">Thanh thoán </button>
                               </div>
+                               <div class="col-md-12">
+                                  <?php if(!empty($qrcode)){
+                                        echo '   <p style="text-align: center;"><label class="form-label">qrcode thanh toán</label> 
+                                        <p style="text-align: center;" > <img src="'.$qrcode.'" style="width:80%"></p>';
+
+                                      } ?>
+                                    </div>
+                                   </div>
+                                </div>   
+                              </div>
                              </form>
-                              
+
                             </div>
                           </div>
                         </div>

@@ -7,6 +7,13 @@ global $urlThemeActive;
             transform: translate3d(0px, 0px, 0px)!important;
     }
 </style>
+
+<script>
+    function scrollToContent() {
+        document.getElementById("places").scrollIntoView({ behavior: "smooth" });
+    }
+</script>
+
   <main>
        <!--  Phần Banner 360  -->
     <section id="banner360">
@@ -23,7 +30,7 @@ global $urlThemeActive;
         -->
         
         <a href="javascript:void(0)" class="banner360-2 banner360" style="display: none;">Dừng xem 360</a>
-        <a href="javascript:void(0)" class="banner360-1 banner360" style="display: none;">Xem toàn cảnh 360</a>
+        <a href="javascript:void(0)" class="banner360-1 banner360" onclick="scrollToContent();" >Xem tiếp <i class="fa-solid fa-chevron-down"></i></a>
     </section>
 
     <!--  Phần Places  -->

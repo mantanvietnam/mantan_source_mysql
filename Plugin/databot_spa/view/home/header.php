@@ -281,7 +281,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/userServicestatistical/#revenueStatistical" class="menu-link <?php if(@$page_view =='userServicestatistical') echo 'menu-active';?>">
+                  <a href="/userServicestatistical/#revenueStatistical" class="menu-link <?php if(@$page_view =='userServicestatistical' || @$page_view == 'listUserserviceHistories') echo 'menu-active';?>">
                     <div>Thống kê sử dụng dịch vụ </div> 
                   </a>
                 </li>
@@ -291,12 +291,13 @@
                     <div>Hoa hồng nhân viên</div>
                   </a>
                 </li>
-
+                <!--
                 <li class="menu-item">
                   <a href="/listUserserviceHistories/#revenueStatistical" class="menu-link <?php if(@$page_view =='listUserserviceHistories') echo 'menu-active';?>">
                     <div>Khách trong ngày</div> 
                   </a>
                 </li>
+                -->
               </ul>
             </li>
 
@@ -357,12 +358,7 @@
                   </a>
                 </li>
 
-                <li class="menu-item">
-                  <a href="/guideAddCustomerCampainApi" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-support"></i>
-                    <div>Tích hợp Chatbot</div>
-                  </a>
-                </li>   
+                 
             -->
 
             <!-- Template -->
@@ -471,7 +467,7 @@
               </ul>
             </li>
             
-            <li class="menu-item  <?php if(!empty(@$page_view) && in_array(@$page_view, ['listStaff','listGroupStaff','addStaff','addGroupStaff','timesheetStaff'])) echo 'open';?>" id="listStaff">
+            <li class="menu-item  <?php if(!empty(@$page_view) && in_array(@$page_view, ['listStaff','listGroupStaff','addStaff','addGroupStaff','timesheetStaff','listPayroll'])) echo 'open';?>" id="listStaff">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('staff', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div>Đội ngũ</div>
@@ -502,6 +498,11 @@
                     <div>chấm công nhân viên</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="/listPayroll/#listStaff" class="menu-link <?php if(@$page_view =='listPayroll') echo 'menu-active';?>">
+                    <div>Bảng lương nhân viên</div>
+                  </a>
+                </li>
               </ul>
             </li>
             
@@ -513,6 +514,13 @@
                 <div>Cơ sở Spa</div>
               </a>
             </li>
+
+            <li class="menu-item" id="guideAddCustomerCampainApi">
+              <a href="/guideAddCustomerCampainApi/#guideAddCustomerCampainApi" class="menu-link <?php if(@$page_view =='guideAddCustomerCampainApi') echo 'menu-active';?>">
+                <i class="menu-icon tf-icons bx bx-support"></i>
+                <div>Tích hợp Chatbot</div>
+              </a>
+            </li>  
           </ul>
         </aside>
 

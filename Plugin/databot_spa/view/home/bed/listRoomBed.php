@@ -61,7 +61,7 @@ rel='stylesheet' type='text/css'>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelRoomProcess();">Xác nhận</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancelRoomProcess();">Xác nhận</button>
             </div>
         </div>
     </div>

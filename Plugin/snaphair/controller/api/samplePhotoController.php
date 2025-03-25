@@ -219,6 +219,27 @@ function listSamplePhotoApi($input)
                     ->toList();
 
                 foreach ($listData as &$item) {
+                    $item->images = json_decode($item->image, true);
+
+                    $item->image1 = null;
+                    $item->image2 = null;
+                    $item->image3 = null;
+
+                    if (is_array($item->images)) {
+                        if (array_key_exists('image1', $item->images)) {
+                            $item->image1 = $item->images['image1'];
+                        }
+                        if (array_key_exists('image2', $item->images)) {
+                            $item->image2 = $item->images['image2'];
+                        }
+                        if (array_key_exists('image3', $item->images)) {
+                            $item->image3 = $item->images['image3'];
+                        }
+                    }
+
+                    unset($item->image);
+                    unset($item->images);
+
                     if (!empty($item['id_sample_cate'])) {
                         $category = $modelCategories->find()
                             ->where(['id' => $item['id_sample_cate']])
@@ -271,6 +292,25 @@ function detailSamplePhotoApi($input)
 			if(!empty($user)){
 				
 			    $listData = $modelSamplePhoto->find()->where(['id'=> (int) $dataSend['id']])->first();
+                $listData->images = json_decode($listData->image, true);
+                $listData->image1 = null;
+                $listData->image2 = null;
+                $listData->image3 = null;
+
+                if (is_array($listData->images)) {
+                    if (array_key_exists('image1', $listData->images)) {
+                        $listData->image1 = $listData->images['image1'];
+                    }
+                    if (array_key_exists('image2', $listData->images)) {
+                        $listData->image2 = $listData->images['image2'];
+                    }
+                    if (array_key_exists('image3', $listData->images)) {
+                        $listData->image3 = $listData->images['image3'];
+                    }
+                }
+
+                unset($listData->image);
+                unset($listData->images);
 			    
 			    return apiResponse(1,'Bạn lấy dữ liệu thành công',$listData);		   
 			}

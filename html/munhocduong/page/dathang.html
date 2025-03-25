@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chương trình Mụn Học Đường</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <!-- Swiper.js CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="../asset/css/cssvu.css" />
+  </head>
+  <body class="bg-light">
+    <header
+      class="navbar navbar-expand-lg navbar-dark container-fluid"
+      style="background-color: green"
+    >
+      <div class="container">
+        <img src="../asset/img/logo.png" alt="" />
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../page/landdingpage.html">Trang chủ</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Công ty</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Về chương trình</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Hình ảnh chương trình</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="../page/danhmucsp.html"
+                id="productDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >Sản phẩm</a
+              >
+              <ul class="dropdown-menu" aria-labelledby="productDropdown">
+                <li><a class="dropdown-item" href="#">Sản phẩm 1</a></li>
+                <li><a class="dropdown-item" href="#">Sản phẩm 2</a></li>
+                <li><a class="dropdown-item" href="#">Sản phẩm 3</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Sự kiện</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="../page/lienhe.html">Liên hệ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="container mt-5">
+      <!-- Bước 1: Giỏ hàng -->
+      <div class="step-content mb-5" data-step="1">
+        <div class="text-center mb-4">
+          <div class="progress-container">
+            <div class="progress-step active">
+              <div class="step-icon">
+                <i class="fas fa-shopping-bag"></i>
+              </div>
+              <p>Giỏ hàng</p>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+              <div class="step-icon">
+                <i class="fas fa-user"></i>
+              </div>
+              <p>Thông tin đặt hàng</p>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+              <div class="step-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <p>Hoàn tất</p>
+            </div>
+          </div>
+        </div>
+        <div class="card p-3">
+          <div
+            class="cart-item d-flex align-items-center justify-content-between p-3 border-bottom"
+          >
+            <div class="d-flex align-items-center">
+              <img
+                src="../asset/img/sp.png"
+                alt="Sản phẩm"
+                class="img-thumbnail"
+                style="width: 80px; height: 80px"
+              />
+              <div class="ms-3">
+                <h6 class="mb-1">Bột mướp đắng/ Khổ qua MỘC MIÊN</h6>
+                <p class="text-muted small my-3">Trị mụn, Giảm thâm mờ sẹo</p>
+                <p
+                  class="text-danger small remove-item"
+                  style="cursor: pointer"
+                >
+                  🗑 Xóa sản phẩm
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="total-eng d-flex align-items-center"
+              style="flex-direction: row"
+            >
+              <div class="d-flex align-items-center">
+                <button class="btn btn-outline-secondary btn-decrease">
+                  -
+                </button>
+                <input
+                  type="text"
+                  class="form-control text-center product-quantity mx-2"
+                  value="1"
+                  style="width: 50px"
+                  readonly
+                />
+                <button class="btn btn-outline-secondary btn-increase">
+                  +
+                </button>
+              </div>
+
+              <p class="fw-bold text-end ms-3">
+                <span class="total-price">600.000đ</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Hiển thị tổng tiền -->
+          <div class="d-flex justify-content-between p-3">
+            <h5 class="fw-bold">Tổng tiền:</h5>
+            <h5 class="fw-bold text-success">
+              <span id="final-total">600.000đ</span>
+            </h5>
+          </div>
+
+          <div class="text-center w-100">
+            <button class="btn btn-success w-40" id="next-step">
+              ĐẶT HÀNG NGAY
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bước 2: Nhập thông tin -->
+      <div class="step-content d-none mb-5" data-step="2">
+        <div class="text-center mb-4">
+          <div class="progress-container">
+            <div class="progress-step active">
+              <div class="step-icon">
+                <i class="fas fa-shopping-bag"></i>
+              </div>
+              <p>Giỏ hàng</p>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+              <div class="step-icon">
+                <i class="fas fa-user"></i>
+              </div>
+              <p>Thông tin đặt hàng</p>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+              <div class="step-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <p>Hoàn tất</p>
+            </div>
+          </div>
+        </div>
+        <div class="card p-3">
+          <h5 class="fw-bold my-3">Thông tin khách hàng</h5>
+          <div class="mb-3">
+            <label class="form-label">Họ và tên</label>
+            <input type="text" class="form-control" value="Đặng Quỳnh Trang" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" value="0123 456 789" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Địa chỉ giao hàng</label>
+            <input
+              type="text"
+              class="form-control"
+              value="Quán Toan, Hồng Bàng, Hải Phòng"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ghi chú (nếu có)</label>
+            <textarea
+              class="form-control"
+              rows="3"
+              placeholder="Nhập ghi chú..."
+            ></textarea>
+          </div>
+          <h5 class="fw-bold my-3">Hình thức vận chuyển</h5>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="shipping"
+              checked
+            />
+            <label class="form-check-label">GIAO NHANH (35.000đ)</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="shipping" />
+            <label class="form-check-label">GIAO CHẬM (15.000đ)</label>
+          </div>
+          <hr />
+          <div class="d-flex justify-content-between">
+            <p class="fw-bold">Tổng tiền</p>
+            <p class="text-success fw-bold">635.000đ</p>
+          </div>
+          <div class="text-center w-100">
+            <button class="btn btn-success w-50 my-3" id="next-step">
+              HOÀN TẤT ĐẶT HÀNG NGAY
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bước 3: Hoàn tất -->
+      <div class="step-content d-none mb-5" data-step="3">
+        <div class="text-center mb-4">
+          <div class="progress-container">
+            <div class="progress-step active">
+              <div class="step-icon">
+                <i class="fas fa-shopping-bag"></i>
+              </div>
+              <p>Giỏ hàng</p>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+              <div class="step-icon">
+                <i class="fas fa-user"></i>
+              </div>
+              <p>Thông tin đặt hàng</p>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+              <div class="step-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <p>Hoàn tất</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="card p-3 text-center w-100 d-flex"
+          style="flex-direction: column; align-items: center"
+        >
+          <img
+            style="width: 310px; height: 310px"
+            src="../asset/img/dtahang.png"
+            alt=""
+          />
+          <h4 class="text-success my-4" style="font-size: 24px">
+            Bạn đã đặt hàng thành công
+          </h4>
+          <p class="text-muted mb-5">
+            Bạn có thể kiểm tra đơn hàng <a href="#">tại đây</a>.
+          </p>
+
+          <div class="text-center w-100">
+            <button class="btn btn-success w-40 my-3" id="next-step">
+              Tiếp tục mua hàng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="new-products container py-4 my-5">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <h4 class="fw-bold text-uppercase" style="color: black">
+          Sản phẩm mới
+        </h4>
+        <a href="#" class="text-success fw-medium" style="text-decoration: none"
+          >Xem thêm &nbsp; →</a
+        >
+      </div>
+
+      <div class="row my-5">
+        <!-- Sản phẩm 1 -->
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+          <div class="card product-card">
+            <img
+              src="../asset/img/sp.png"
+              class="card-img-top"
+              alt="Sản phẩm"
+            />
+            <div class="card-body">
+              <span class="badge bg-success">COMBO</span>
+              <h6 class="card-title my-3">
+                COMBO X2 đặc trị mụn alkdhahdja hakdhskj
+              </h6>
+              <div class="coin d-flex justify-content-between my-3">
+                <p class="text-danger fw-bold">329,000đ</p>
+                <p class="text-decoration-line-through text-muted">574,000đ</p>
+              </div>
+              <div
+                class="click-buy d-flex justify-content-between align-items-center"
+              >
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+                <div class="buy">
+                  <a href="#">Mua ngay</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sản phẩm 2 -->
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+          <div class="card product-card">
+            <img
+              src="../asset/img/sp.png"
+              class="card-img-top"
+              alt="Sản phẩm"
+            />
+            <div class="card-body">
+              <span class="badge bg-success">COMBO</span>
+              <h6 class="card-title my-3">
+                COMBO X2 đặc trị mụn alkdhahdja hakdhskj
+              </h6>
+              <div class="coin d-flex justify-content-between my-3">
+                <p class="text-danger fw-bold">329,000đ</p>
+                <p class="text-decoration-line-through text-muted">574,000đ</p>
+              </div>
+              <div
+                class="click-buy d-flex justify-content-between align-items-center"
+              >
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+                <div class="buy">
+                  <a href="#">Mua ngay</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sản phẩm 3 -->
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+          <div class="card product-card">
+            <img
+              src="../asset/img/sp.png"
+              class="card-img-top"
+              alt="Sản phẩm"
+            />
+            <div class="card-body">
+              <span class="badge bg-success">COMBO</span>
+              <h6 class="card-title my-3">
+                COMBO X2 đặc trị mụn alkdhahdja hakdhskj
+              </h6>
+              <div class="coin d-flex justify-content-between my-3">
+                <p class="text-danger fw-bold">329,000đ</p>
+                <p class="text-decoration-line-through text-muted">574,000đ</p>
+              </div>
+              <div
+                class="click-buy d-flex justify-content-between align-items-center"
+              >
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+                <div class="buy">
+                  <a href="#">Mua ngay</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sản phẩm 4 -->
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+          <div class="card product-card">
+            <img
+              src="../asset/img/sp.png"
+              class="card-img-top"
+              alt="Sản phẩm"
+            />
+            <div class="card-body">
+              <span class="badge bg-success">COMBO</span>
+              <h6 class="card-title my-3">
+                COMBO X2 đặc trị mụn alkdhahdja hakdhskj
+              </h6>
+              <div class="coin d-flex justify-content-between my-3">
+                <p class="text-danger fw-bold">329,000đ</p>
+                <p class="text-decoration-line-through text-muted">574,000đ</p>
+              </div>
+              <div
+                class="click-buy d-flex justify-content-between align-items-center"
+              >
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+                <div class="buy">
+                  <a href="#">Mua ngay</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- Bên trái (col-5) -->
+          <div class="col-md-4 footer-left">
+            <div class="footer-about">
+              <img
+                src="../asset/img/logooo.png"
+                alt="Mụn Học Đường"
+                class="footer-logo"
+              />
+              <p class="my-4">
+                Mụn học đường là chương trình cung cấp nguồn thông tin và dịch
+                vụ liên quan đến việc chăm sóc da và bảo vệ làn da cho học sinh
+                - sinh viên.
+              </p>
+              <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bên phải (col-7) -->
+          <div class="col-md-8 footer-right">
+            <div class="row">
+              <div class="col-md-3 footer-menu">
+                <h5>Mụn học đường</h5>
+                <ul>
+                  <li><a href="#">Trang chủ</a></li>
+                  <li><a href="#">Công ty</a></li>
+                  <li><a href="#">Về chương trình</a></li>
+                  <li><a href="#">Dịch vụ</a></li>
+                </ul>
+              </div>
+
+              <div class="col-md-3 footer-menu">
+                <h5>Sản phẩm</h5>
+                <ul>
+                  <li><a href="#">Các sản phẩm</a></li>
+                  <li><a href="#">Danh mục sản phẩm</a></li>
+                </ul>
+              </div>
+
+              <div class="col-md-3 footer-menu">
+                <h5>Đối tác</h5>
+                <ul>
+                  <li><a href="#">Đối tác của chương trình</a></li>
+                  <li><a href="#">Người tham gia</a></li>
+                </ul>
+              </div>
+
+              <div class="col-md-3 footer-contact">
+                <h5>Liên hệ</h5>
+                <p><i class="fa-solid fa-phone mx-1"></i>+61 77010 6803</p>
+                <p><i class="fa-solid fa-envelope mx-1"></i>abcxy@gmail.com</p>
+                <p>
+                  <i class="fa-solid fa-location-dot mx-1"></i>38 Khúc Thừa dụ,
+                  Cầu Giấy,Hà Nội
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dòng dưới cùng -->
+        <div class="footer-bottom">
+          <p>© 2025 Toptop Company</p>
+          <p>Developed By TopTop Company</p>
+          <p>
+            <a href="#">Terms & Conditions</a> ·
+            <a href="#">Privacy Policy</a> ·
+            <a href="#">Sitemap</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap Icons -->
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Slick Slider JS -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <!-- Custom JS -->
+    <script src="../asset/js/jsvu.js"></script>
+  </body>
+</html>

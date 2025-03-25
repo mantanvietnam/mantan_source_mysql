@@ -156,7 +156,7 @@
     font-size: 30px;
     /* Kích thước đồng nhất cho tất cả */
     border-radius: 50px;
-    margin: 0 28px;
+    margin: 0 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -171,7 +171,7 @@
     
     background-color: transparent;
     padding: 0;
-    margin: 0 28px 0 0;
+    /* margin: 0 28px 0 0; */
     /* Thêm margin bên phải để giữ khoảng cách */
     font-size: 30px;
     /* Thay đổi từ 40px xuống 30px */
@@ -191,7 +191,7 @@
 }
 
 #contact .contact-content .contact-icon .combo-icon a:last-child {
-    margin: 0 0 0 28px;
+    /* margin: 0 0 0 28px; */
     /* Thêm margin bên trái để giữ khoảng cách */
     font-size: 30px;
     /* Thay đổi từ 22px lên 30px */

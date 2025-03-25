@@ -30,8 +30,12 @@ $sqlInstallDatabase .= "CREATE TABLE `affiliaters` (
     `twitter` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
     `tiktok` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
     `youtube` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+    `bank_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+    `bank_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
     `last_login` INT NOT NULL DEFAULT '0',
     `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
+    `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'active',
+    `code_otp` INT NULL DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -75,6 +79,11 @@ $sqlUpdateDatabase['affiliaters']['tiktok'] = "ALTER TABLE `affiliaters` ADD `ti
 $sqlUpdateDatabase['affiliaters']['youtube'] = "ALTER TABLE `affiliaters` ADD `youtube` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL; ";
 $sqlUpdateDatabase['affiliaters']['last_login'] = "ALTER TABLE `affiliaters` ADD `last_login` INT NOT NULL DEFAULT '0'; ";
 $sqlUpdateDatabase['affiliaters']['portrait'] = "ALTER TABLE `affiliaters` ADD `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL; ";
+
+$sqlUpdateDatabase['affiliaters']['status'] = "ALTER TABLE `affiliaters` ADD `status` VARCHAR(20) NOT NULL DEFAULT 'active'; ";
+$sqlUpdateDatabase['affiliaters']['bank_number'] = "ALTER TABLE `affiliaters` ADD `bank_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['affiliaters']['bank_code'] = "ALTER TABLE `affiliaters` ADD `bank_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
+$sqlUpdateDatabase['affiliaters']['code_otp'] = "ALTER TABLE `affiliaters` ADD `code_otp` INT NULL DEFAULT NULL;";
 
 // bảng transaction_affiliate_histories
 $sqlUpdateDatabase['transaction_affiliate_histories']['id_affiliater'] = "ALTER TABLE `transaction_affiliate_histories` ADD `id_affiliater` INT NOT NULL; ";

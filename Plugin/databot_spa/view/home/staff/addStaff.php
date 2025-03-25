@@ -59,7 +59,10 @@
                     <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
                     <input type="text" class="form-control" placeholder="" name="address" id="address" value="<?php echo @$data->address;?>" />
                   </div>
-
+                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Số căn cước công dân</label>
+                    <input type="text" class="form-control" placeholder="" name="id_card" id="id_card" value="<?php echo @$data->id_card;?>" />
+                  </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Trạng thái</label>
                     <div class="input-group input-group-merge">
