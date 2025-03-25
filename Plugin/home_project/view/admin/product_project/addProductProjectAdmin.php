@@ -262,7 +262,7 @@
                       <!-- Hình minh họa -->
                       <div class="col-md-4">
                         <div class="mb-3">
-                          <label class="form-label">Hình minh họa</label>
+                          <label class="form-label">Hình minh họa(800*450px)</label>
                           <input type="file" name="image" class="form-control">
                           <?php if (!empty($data->image)): ?>
                             <img src="<?= $data->image ?>" alt="Hình minh họa" class="img-preview">
@@ -284,7 +284,7 @@
                       <!-- Upload nhiều hình từ 1 đến 8 -->
                       <div class="col-md-12">
                         <div class="mb-3">
-                          <label class="form-label">Chọn nhiều hình ảnh (Hình 1 -> Hình 8)</label>
+                          <label class="form-label">Chọn nhiều hình ảnh (Hình 1 -> Hình 8)&(800*450px)</label>
                           <input type="file" name="images[]" class="form-control" multiple>
                           <div class="image-list">
                             <?php if (!empty($data->images)): ?>

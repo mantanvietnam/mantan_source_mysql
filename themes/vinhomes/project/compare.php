@@ -5,45 +5,51 @@ getHeader();
 <style>
   .background-header {
     background-image: none !important;
-}
+    }
 
-.nav-projectpage a {
-    color: black !important;
-}
+    .nav-projectpage a {
+        color: black !important;
+    }
 
-.setcolor, .setcolor a {
-    color: #333 !important;
-}
+    .setcolor, .setcolor a {
+        color: #333 !important;
+    }
 
-.set-backgroundcontact {
-    background-color: #182c77;
-}
+    .set-backgroundcontact {
+        background-color: #182c77;
+    }
 
-.price-details-content table {
-    width: 100%;
-    border-collapse: collapse;
-}
+    .price-details-content table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-.price-details-content th, 
-.price-details-content td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
+    .price-details-content th, 
+    .price-details-content td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
 
-.price-details-content th {
-    background-color: #f2f2f2;
-}
-table {
-    width: 100%;
-    table-layout: fixed;
-}
+    .price-details-content th {
+        background-color: #f2f2f2;
+    }
+    table {
+        width: 100%;
+        table-layout: fixed;
+    }
 
-th, td {
-    text-align: left;
-    padding: 12px;
-    word-wrap: break-word;
-    border: 1px solid #ddd;
+    th, td {
+        text-align: left;
+        padding: 12px;
+        word-wrap: break-word;
+        border: 1px solid #ddd;
+    }
+
+    #propertyListContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
 }
 
 
@@ -56,7 +62,6 @@ th, td {
         </h1>
 
         <div id="propertyListContainer" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div></div>
             <?php
             if (!empty($compareData)) {
                 foreach ($compareData as $index => $project) {
@@ -120,11 +125,14 @@ th, td {
 
         <!-- Bảng Thông Tin Chi Tiết -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
-            <div class="p-4 border-b">
-                <h5 class="font-semibold text-lg">Thông tin chi tiết</h5>
-            </div>
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
+                    <tr>
+                            <th class="text-left p-4 bg-gray-50" style="width: 120px;">Thông tin chi tiết</th>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td>
+                            <td class="p-4"></td> 
+                    </tr>
                     <tbody>
                         <tr class="border-b">
                             <th class="text-left p-4 bg-gray-50">Chủ đầu tư</th>
@@ -211,6 +219,11 @@ th, td {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_RELOAD) {
+            const url = new URL(window.location.href);
+            const baseUrl = url.origin + url.pathname;
+            window.history.replaceState({}, '', baseUrl);
+        }
         loadPropertiesFromURL();
         // Xử lý chọn vị trí
         document.addEventListener("click", function(event) {
@@ -238,10 +251,6 @@ th, td {
 
         // Cập nhật bảng so sánh
         function updateComparisonTables(properties) {
-            document.querySelectorAll("table td").forEach(cell => {
-                cell.innerHTML = "";
-            });
-            
             const table = document.querySelector("table.w-full.border-collapse");
             
             if (!table) {
@@ -256,24 +265,43 @@ th, td {
                 return;
             }
 
-            for (let i = 0; i < Math.min(properties.length, 3); i++) {
+            detailsRows.forEach(row => {
+                const th = row.querySelector("th");
+                
+                while (row.firstChild) {
+                    row.removeChild(row.firstChild);
+                }
+                
+                if (th) {
+                    row.appendChild(th);
+                }
+                
+                for (let i = 0; i < properties.length; i++) {
+                    const td = document.createElement("td");
+                    td.className = "p-4";
+                    row.appendChild(td);
+                }
+            });
+
+            for (let i = 0; i < properties.length; i++) {
                 const property = properties[i];
                 if (!property || !property.id) continue;
 
                 const columnIndex = i + 1;
 
-                if (detailsRows.length >= 10) {
-                    updateCellByRowAndColumn(detailsRows[0], columnIndex, property.investor || '');
-                    updateCellByRowAndColumn(detailsRows[1], columnIndex, property.acreage || '');                       
-                    updateCellByRowAndColumn(detailsRows[2], columnIndex, property.address || '');
-                    updateCellByRowAndColumn(detailsRows[3], columnIndex, property.direction || '');
-                    updateCellByRowAndColumn(detailsRows[4], columnIndex, property.apart_type || '');
-                    updateCellByRowAndColumn(detailsRows[5], columnIndex, property.ownership_type || '');
-                    updateCellByRowAndColumn(detailsRows[6], columnIndex, property.construction_density  || '');
-                    updateCellByRowAndColumn(detailsRows[7], columnIndex, property.construction_date  || '');
-                    updateCellByRowAndColumn(detailsRows[8], columnIndex, property.key_amenities  || '');
-                    updateCellByRowAndColumn(detailsRows[9], columnIndex, property.studio_apartment  || '');
-                    updateCellByRowAndColumn(detailsRows[10], columnIndex, property.preferential_policy  || '');
+                if (detailsRows.length >= 12) {
+                    updateCellByRowAndColumn(detailsRows[0], columnIndex, property.name || '');
+                    updateCellByRowAndColumn(detailsRows[1], columnIndex, property.investor || '');
+                    updateCellByRowAndColumn(detailsRows[2], columnIndex, property.acreage || '');                       
+                    updateCellByRowAndColumn(detailsRows[3], columnIndex, property.address || '');
+                    updateCellByRowAndColumn(detailsRows[4], columnIndex, property.direction || '');
+                    updateCellByRowAndColumn(detailsRows[5], columnIndex, property.apart_type || '');
+                    updateCellByRowAndColumn(detailsRows[6], columnIndex, property.ownership_type || '');
+                    updateCellByRowAndColumn(detailsRows[7], columnIndex, property.construction_density  || '');
+                    updateCellByRowAndColumn(detailsRows[8], columnIndex, property.construction_date  || '');
+                    updateCellByRowAndColumn(detailsRows[9], columnIndex, property.key_amenities  || '');
+                    updateCellByRowAndColumn(detailsRows[10], columnIndex, property.studio_apartment  || '');
+                    updateCellByRowAndColumn(detailsRows[11], columnIndex, property.preferential_policy  || '');
                 }
             }
         }
@@ -347,24 +375,7 @@ th, td {
                 .then(project => {
                     if (!project || !project.id) return;
                     
-                    const columnIndex = parseInt(position);
-                    const table = document.querySelector("table.w-full.border-collapse");
-                    if (!table) return;
-                    const detailsRows = table.querySelectorAll("tr");
-                    
-                    if (detailsRows.length >= 10) {
-                        updateCellByRowAndColumn(detailsRows[0], columnIndex, project.investor || '');
-                        updateCellByRowAndColumn(detailsRows[1], columnIndex, project.acreage || '');                       
-                        updateCellByRowAndColumn(detailsRows[2], columnIndex, project.address || '');
-                        updateCellByRowAndColumn(detailsRows[3], columnIndex, project.direction || '');
-                        updateCellByRowAndColumn(detailsRows[4], columnIndex, project.apart_type || '');
-                        updateCellByRowAndColumn(detailsRows[5], columnIndex, project.ownership_type || '');
-                        updateCellByRowAndColumn(detailsRows[6], columnIndex, project.construction_density  || '');
-                        updateCellByRowAndColumn(detailsRows[7], columnIndex, project.construction_date  || '');
-                        updateCellByRowAndColumn(detailsRows[8], columnIndex, project.key_amenities  || '');
-                        updateCellByRowAndColumn(detailsRows[9], columnIndex, project.studio_apartment  || '');
-                        updateCellByRowAndColumn(detailsRows[10], columnIndex, project.preferential_policy  || '');
-                    }
+                    fetchAllSelectedProperties();
                 })
                 .catch(error => console.error(`❌ Lỗi khi lấy chi tiết dự án ID ${projectId}:`, error));
         }
@@ -421,22 +432,23 @@ th, td {
 
             let projectId = this.getAttribute("data-project-id");
             let position = this.getAttribute("data-position");
+            console.log(`Đang xóa dự án ID: ${projectId} ở vị trí: ${position}`);
 
             let propertySlot = document.getElementById(`property${position}`);
-            if (propertySlot) propertySlot.remove();
-
-            let emptySlot = `
-                <div data-bs-toggle="modal" data-bs-target="#realEstateModal" data-position="${position}" class="border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center p-4 h-full min-h-[250px] hover:border-gray-400 cursor-pointer transition-all add-property-btn">
-                    <div class="mb-3 text-gray-400">
-                        <i class="fas fa-plus-circle text-5xl"></i>
+            if (propertySlot) {
+                propertySlot.outerHTML = `
+                    <div data-bs-toggle="modal" data-bs-target="#realEstateModal" data-position="${position}" class="border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center p-4 h-full min-h-[250px] hover:border-gray-400 cursor-pointer transition-all add-property-btn">
+                        <div class="mb-3 text-gray-400">
+                            <i class="fas fa-plus-circle text-5xl"></i>
+                        </div>
+                        <h5 class="text-lg font-medium text-gray-600">Chọn bất động sản</h5>
                     </div>
-                    <h5 class="text-lg font-medium text-gray-600">Chọn bất động sản</h5>
-                </div>
-            `;
-
-            document.getElementById("propertyListContainer").insertAdjacentHTML("beforeend", emptySlot);
-            fetchAllSelectedProperties();
-
+                `;
+                
+                setTimeout(fetchAllSelectedProperties, 100);
+            }
+            
+            addRemoveEvent();
             updateURLWithProperties();
         }
 
@@ -444,7 +456,9 @@ th, td {
             const propertyElements = document.querySelectorAll("[id^='property']");
             const url = new URL(window.location.href);
             
-            ['p1', 'p2', 'p3'].forEach(param => url.searchParams.delete(param));
+            for (let i = 1; i <= 4; i++) {
+                url.searchParams.delete(`p${i}`);
+            }
 
             let hasProperties = false;
 
@@ -457,10 +471,17 @@ th, td {
                 }
             });
 
+            window.history.pushState({}, '', url.toString());
+
             if (hasProperties) {
-                window.history.pushState({}, '', url.toString());
                 updateShareButton(url.toString());
+            } else {
+                const baseUrl = url.origin + url.pathname;
+                updateShareButton(baseUrl);
+                // const shareBtn = document.getElementById('shareComparisonBtn');
+                // if (shareBtn) shareBtn.style.display = 'none';
             }
+            console.log("URL đã được cập nhật: " + url.toString());
         }
 
 
@@ -494,11 +515,14 @@ th, td {
 
         function loadPropertiesFromURL() {
             const url = new URL(window.location.href);
-            const propertyParams = {
-                p1: url.searchParams.get('p1'),
-                p2: url.searchParams.get('p2'),
-                p3: url.searchParams.get('p3')
-            };
+            const propertyParams = {};
+            for (let i = 1; i <= 4; i++) {
+                const paramName = `p${i}`;
+                const value = url.searchParams.get(paramName);
+                if (value) {
+                    propertyParams[paramName] = value;
+                }
+            }
             
             let hasProperties = false;
             Object.keys(propertyParams).forEach(key => {

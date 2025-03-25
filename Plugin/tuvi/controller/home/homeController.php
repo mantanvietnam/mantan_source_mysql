@@ -41,7 +41,7 @@ function registerform($input) {
                     $dataSend['birth_month'],
                     $dataSend['birth_day'],
                     $dataSend['birth_hour'],
-                    $dataSend['birth_minute']
+                    $dataSend['birth_minute'],
                 );
                 $data->full_name = $dataSend['full_name'];
                 $data->phone_number = $dataSend['phone_number'];
@@ -67,6 +67,65 @@ function registerform($input) {
     setVariable('mess', $mess);
 }
 //khi người dùng nhập thông tin xong xong so sánh năm sinh và giới tính xem có trùng với dữ liệu trong bảng database horoscopes không nếu trùng thì hiển thị thông tin mascots trong bảng horoscopes có năm sinh và giới tính trùng với năm sinh và giới tính người dùng nhập vào
+// function information($input) {
+//     global $metaTitleMantan;
+//     global $controller;
+
+//     $metaTitleMantan = 'Thông tin chi tiết';
+
+//     $modelCustomer = $controller->loadModel('customers');
+//     $modelHoroscopes = $controller->loadModel('Horoscope');
+
+//     $mess = ''; 
+//     $overview = null;
+//     $price = null;
+//     $id_customer = null;
+
+//     $dataSend = $input['request']->getQuery();
+
+//     if (!empty($dataSend['id'])) {
+//         $conditions = ['id' => $dataSend['id']];
+//     } else {
+//         $conditions = ['id IS' => null];
+//     }
+
+//     $customer = $modelCustomer->find()->where($conditions)->first();
+
+//     if ($customer) {
+//         if (!empty($customer->birth_datetime) && !empty($customer->gender)) {
+//             $birth_year = $customer->birth_datetime->format('Y');
+//             $gender = $customer->gender;
+//             $id_customer = $customer->id;
+
+//             $conditions = [
+//                 'year' => $birth_year,
+//                 'gender' => $gender
+//             ];
+
+//             $horoscope = $modelHoroscopes->find()->where($conditions)->first();
+           
+//             if ($horoscope) {
+//                 $overview = $horoscope->overview;
+//                 $price = $horoscope->price;
+
+//                 $customer->id_horoscoper = $horoscope->id;
+//                 $modelCustomer->save($customer);
+//             } else {
+//                 $mess = "Không tìm thấy thông tin phù hợp.";
+//             }
+//         } else {
+//             $mess = "Dữ liệu khách hàng không hợp lệ.";
+//         }
+//     } else {
+//         $mess = "Không tìm thấy khách hàng.";
+//     }
+
+//     setVariable('mess', $mess);
+//     setVariable('overview', $overview);
+//     setVariable('price', $price);
+//     setVariable('id_customer', $id_customer);
+// }
+
 function information($input) {
     global $metaTitleMantan;
     global $controller;
@@ -89,9 +148,11 @@ function information($input) {
     $customer = $modelCustomer->find()->where($conditions)->first();
 
     if ($customer) {
-        if (!empty($customer->birth_datetime) && !empty($customer->gender)) {
+        if (!empty($customer->birth_datetime) && !empty($customer->gender) && !empty($customer->email) && !empty($customer->full_name)) {
             $birth_year = $customer->birth_datetime->format('Y');
             $gender = $customer->gender;
+            $email = $customer->email;
+            $name = $customer->full_name;
 
             $conditions = [
                 'year' => $birth_year,
@@ -103,11 +164,22 @@ function information($input) {
             if ($horoscope) {
                 $overview = $horoscope->overview;
                 $price = $horoscope->price;
+
+                $customer->id_horoscoper = $horoscope->id;
+                $modelCustomer->save($customer);
+
+                $sendStatus = sendHoroscopeEmail($email, $name, $birth_year, $gender, $horoscope);
+
+                if ($sendStatus) {
+                    $mess = "Email đã được gửi đến $email.";
+                } else {
+                    $mess = "Lỗi khi gửi email. Vui lòng thử lại.";
+                }
             } else {
                 $mess = "Không tìm thấy thông tin phù hợp.";
             }
         } else {
-            $mess = "Dữ liệu khách hàng không hợp lệ.";
+            $mess = "Dữ liệu khách hàng không hợp lệ hoặc thiếu thông tin.";
         }
     } else {
         $mess = "Không tìm thấy khách hàng.";
@@ -116,65 +188,7 @@ function information($input) {
     setVariable('mess', $mess);
     setVariable('overview', $overview);
     setVariable('price', $price);
+    setVariable('id_customer', $id_customer);
 }
-
-// function information($input) {
-//     global $metaTitleMantan;
-//     global $controller;
-
-//     $metaTitleMantan = 'Thông tin chi tiết';
-
-//     $modelCustomer = $controller->loadModel('customers');
-//     $modelHoroscopes = $controller->loadModel('Horoscope');
-
-//     $mess = ''; 
-//     $overview = null;
-//     $dataSend = $input['request']->getQuery();
-
-//     if (!empty($dataSend['id'])) {
-//         $conditions = ['id' => $dataSend['id']];
-//     } else {
-//         $conditions = ['id IS' => null];
-//     }
-
-//     $customer = $modelCustomer->find()->where($conditions)->first();
-
-//     if ($customer) {
-//         if (!empty($customer->birth_datetime) && !empty($customer->gender) && !empty($customer->email) && !empty($customer->full_name)) {
-//             $birth_year = $customer->birth_datetime->format('Y');
-//             $gender = $customer->gender;
-//             $email = $customer->email;
-//             $name = $customer->full_name;
-
-//             $conditions = [
-//                 'year' => $birth_year,
-//                 'gender' => $gender
-//             ];
-
-//             $horoscope = $modelHoroscopes->find()->where($conditions)->first();
-           
-//             if ($horoscope) {
-//                 $overview = $horoscope->overview;
-
-//                 $sendStatus = sendHoroscopeEmail($email, $name, $birth_year, $gender, $horoscope);
-
-//                 if ($sendStatus) {
-//                     $mess = "Email đã được gửi đến $email.";
-//                 } else {
-//                     $mess = "Lỗi khi gửi email. Vui lòng thử lại.";
-//                 }
-//             } else {
-//                 $mess = "Không tìm thấy thông tin phù hợp.";
-//             }
-//         } else {
-//             $mess = "Dữ liệu khách hàng không hợp lệ hoặc thiếu thông tin.";
-//         }
-//     } else {
-//         $mess = "Không tìm thấy khách hàng.";
-//     }
-
-//     setVariable('mess', $mess);
-//     setVariable('overview', $overview);
-// }
 
 ?>

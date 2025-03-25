@@ -404,6 +404,7 @@ function addProductDetailView2($input){
                             }
                             
                             $item->title = $title;
+                            $item->setting_view = !empty($dataSend['setting_view'][$i]) ? (int)$dataSend['setting_view'][$i] : 1;
                             if (!empty($dataSend['description'][$i])) {
                                 $item->description = $dataSend['description'][$i];
                             } elseif (!empty($dataSend['description_'.$i])) {
@@ -495,6 +496,7 @@ function addProductDetailView3($input){
             $commerceData->main_title = $dataSend['main_title'];
             $commerceData->main_view_id = $dataSend['main_view_id'];
             $commerceData->main_description = $dataSend['main_description'];
+            $commerceData->setting_view = $dataSend['setting_view'];
             $commerceData->view_type = $dataSend['view_type'];
             $commerceData->id_product = !empty($dataSend['id_product']) ? $dataSend['id_product'] : $id_product;
 

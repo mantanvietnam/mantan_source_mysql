@@ -18,11 +18,22 @@
                                        value="<?php echo isset($commerceData->main_title) ? htmlspecialchars($commerceData->main_title, ENT_QUOTES, 'UTF-8') : ''; ?>">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Hình ảnh</label>
+                                <label class="form-label">Hình ảnh (2000*1000px)</label>
                                 <input type="file" name="main_image" class="form-control">
                                 <?php if (!empty($commerceData->main_image)): ?>
                                     <img src="<?= $commerceData->main_image ?>" alt="Hình minh họa" class="img-preview" style="max-width: 150px;">
                                 <?php endif; ?>
+                            </div>
+                            <div class="mb-3" id="settingViewContainer" style="display: none;">
+                                <label class="form-label">Hiển thị ảnh</label>
+                                <select class="form-control" name="setting_view" id="setting_view" required>
+                                    <option value="1" <?php echo (isset($commerceData->setting_view) && $commerceData->setting_view == 1) ? 'selected' : ''; ?>>
+                                        Trái
+                                    </option>
+                                    <option value="2" <?php echo (isset($commerceData->setting_view) && $commerceData->setting_view == 2) ? 'selected' : ''; ?>>
+                                        Phải
+                                    </option>
+                                </select>
                             </div>
                         </div>
 
@@ -72,12 +83,39 @@
         const imgElement = document.getElementById('viewImagePreview');
 
         imgElement.src = imageUrl;
-        imgElement.style.width = "500px";  // Điều chỉnh kích thước ảnh
+        imgElement.style.width = "500px";
         imgElement.style.height = "auto";
+
+        updateSettingViewVisibility(); 
+        toggleImageUpload();
+    }
+
+    function updateSettingViewVisibility() {
+        const select = document.getElementById('viewTypeSelect');
+        const settingViewDiv = document.getElementById('settingViewContainer');
+        const selectedValue = parseInt(select.value);
+
+        if (selectedValue === 4 || selectedValue === 6 || selectedValue === 3) {
+            settingViewDiv.style.display = "block";
+        } else {
+            settingViewDiv.style.display = "none";
+        }
+    }
+
+    function toggleImageUpload() {
+        const select = document.getElementById('viewTypeSelect');
+        const imageUploadField = document.querySelector('input[name="main_image"]').closest('.mb-3');
+        const selectedValue = parseInt(select.value);
+
+        if (selectedValue === 7 || selectedValue === 8) {
+            imageUploadField.style.display = "none"; 
+        } else {
+            imageUploadField.style.display = "block"; 
+        }
     }
 
     window.onload = function() {
         updateImagePreview();
     };
-
 </script>
+

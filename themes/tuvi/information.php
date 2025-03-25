@@ -1,3 +1,7 @@
+<?php
+// debug($_GET['id']);
+// die();
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -77,6 +81,47 @@
         .close-btn:hover {
             background: darkred;
         }
+
+        .popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+    .popup-content {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+    }
+
+    .popup img {
+        width: 200px;
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .close-btn {
+        margin-top: 10px;
+        padding: 8px 15px;
+        background: red;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .close-btn:hover {
+        background: darkred;
+    }
+
     </style>
 </head>
 <body>
@@ -89,33 +134,107 @@
             </p>
         </div>
 
-        <!-- Đăng ký nhận bản đầy đủ -->
         <p><a href="#" onclick="openPopup()">Đăng ký nhận bản đầy đủ</a></p>
 
-        <!-- Nút quay lại -->
         <a href="/registerform" class="back-button">Quay lại</a>
     </div>
 
-    <!-- Popup -->
     <div class="popup" id="paymentPopup">
         <div class="popup-content">
             <h3>Nhận bản tử vi đầy đủ</h3>
             <p><strong>Giá bản đầy đủ:</strong> <?= !empty($price) ? number_format($price, 0, ',', '.') . ' VNĐ' : 'Liên hệ'; ?></p>
             <p>Quét mã QR bên dưới để thanh toán:</p>
-            <img src="https://tuvi.mundaythi.com/upload/admin/files/t%E1%BA%A3i%20xu%E1%BB%91ng.png" alt="QR Code Thanh Toán">
+            <img id="qrImage" src="" alt="QR Code Thanh Toán">
             <br>
-            <button class="close-btn" onclick="closePopup()">Đóng</button>
+            <button class="close-btn" onclick="checkTransaction()">Kiểm tra giao dịch</button>
         </div>
     </div>
 
-    <script>
-        function openPopup() {
-            document.getElementById("paymentPopup").style.display = "flex";
-        }
-        function closePopup() {
-            document.getElementById("paymentPopup").style.display = "none";
-        }
-    </script>
+    <div class="popup" id="successPopup">
+        <div class="popup-content">
+            <h3>✅ Thanh toán thành công!</h3>
+            <p>Truy cập email của bạn để nhận bản đầy đủ.</p>
+            <img src="upload/admin/images/Success.gif" alt="Thanh toán thành công" style="width: 200px; height: auto;">
+            <br>
+            <button class="close-btn" onclick="document.getElementById('successPopup').style.display='none'">Đóng</button>
+        </div>
+    </div>
+
 
 </body>
 </html>
+
+<script>
+        function openPopup() {
+            let userId = <?= !empty($id_customer) ? $id_customer : 0 ?>;
+            let amount = <?= !empty($price) ? $price : 0 ?>;
+
+            if (userId <= 0 || amount <= 0) {
+                alert("Lỗi: Không thể lấy thông tin thanh toán!");
+                return;
+            }
+
+            fetch('/apis/createQRPayAPI', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id_customer: userId,
+                    money: amount
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("qrImage").src = data.data.link_qr_bank;
+                    document.getElementById("paymentPopup").style.display = "flex";
+                } else {
+                    alert("Lỗi: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy QR code:", error);
+                alert("Lỗi hệ thống! Vui lòng thử lại sau.");
+            });
+        }
+
+        function checkTransaction() {
+            let userId = <?= !empty($id_customer) ? $id_customer : 0 ?>;
+
+            if (userId <= 0) {
+                alert("Lỗi: Không thể kiểm tra giao dịch!");
+                return;
+            }
+
+            fetch('/apis/checkTransaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id_customer: userId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.data.status == 1) {
+                        document.getElementById("paymentPopup").style.display = "none";
+                        document.getElementById("successPopup").style.display = "flex";
+
+                        setTimeout(() => {
+                            document.getElementById("successPopup").style.display = "none";
+                        }, 10000);
+                    } else {
+                        alert("⏳ Đang chờ thanh toán");
+                    }
+                } else {
+                    alert("Lỗi: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi kiểm tra giao dịch:", error);
+                alert("Lỗi hệ thống! Vui lòng thử lại sau.");
+            });
+        }
+
+    </script>

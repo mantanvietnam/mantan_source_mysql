@@ -17,13 +17,13 @@
                                 <input type="text" name="main_title" class="form-control"
                                        value="<?php echo isset($commerceData->main_title) ? htmlspecialchars($commerceData->main_title, ENT_QUOTES, 'UTF-8') : ''; ?>">
                             </div>
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label class="form-label">Hình ảnh</label>
                                 <input type="file" name="main_image" class="form-control">
                                 <?php if (!empty($commerceData->main_image)): ?>
                                     <img src="<?= $commerceData->main_image ?>" alt="Hình minh họa" class="img-preview" style="max-width: 150px;">
                                 <?php endif; ?>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="col-md-6">
@@ -58,7 +58,7 @@
                                                        value="<?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>">
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="form-label">Hình ảnh</label>
+                                                <label class="form-label">Hình ảnh (800*450px)</label>
                                                 <input type="file" name="detail_image[]" class="form-control">
                                                 <?php if (!empty($item->detail_image)) : ?>
                                                     <div class="mt-2">
@@ -67,6 +67,17 @@
                                                              style="max-width: 100px; height: auto;">
                                                     </div>
                                                 <?php endif; ?>
+                                            </div>
+                                            <div class="col-mb-4">
+                                                <label class="form-label">Hiển thị ảnh</label>
+                                                <select class="form-control" name="setting_view[]" id="setting_view" required>
+                                                    <option value="1" <?php echo (isset($item->setting_view) && $item->setting_view == 1) ? 'selected' : ''; ?>>
+                                                        Trái
+                                                    </option>
+                                                    <option value="2" <?php echo (isset($item->setting_view) && $item->setting_view == 2) ? 'selected' : ''; ?>>
+                                                        Phải
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="col-md-10">
                                                 <label class="form-label">Mô tả</label>
@@ -90,6 +101,13 @@
                                         <div class="col-md-4">
                                             <label class="form-label">Hình ảnh</label>
                                             <input type="file" name="detail_image[]" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Hiển thị ảnh</label>
+                                            <select name="setting_view[]" class="form-control">
+                                                <option value="1">Trái</option>
+                                                <option value="2">Phải</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-10">
                                             <label class="form-label">Mô tả</label>
@@ -150,6 +168,13 @@
                         <div class="col-md-4">
                             <label class="form-label">Hình ảnh</label>
                             <input type="file" name="detail_image[]" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Hiển thị ảnh</label>
+                            <select name="setting_view[]" class="form-control">
+                                <option value="1">Trái</option>
+                                <option value="2">Phải</option>
+                            </select>
                         </div>
                         <div class="col-md-10">
                             <label class="form-label">Mô tả</label>

@@ -58,5 +58,8 @@ $sqlDeleteDatabase .= "DROP TABLE product_details; ";
 $sqlDeleteDatabase .= "DROP TABLE product_items; ";
 
 
+$sqlUpdateDatabase['product_details']['setting_view'] = "ALTER TABLE `product_details` ADD `setting_view` INT NULL AFTER `main_view_id`;";
+
+
 ?>
 

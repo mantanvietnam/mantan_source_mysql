@@ -229,109 +229,139 @@ foreach ($allViews as $item) {
               class="w-[100%]" />
           <?php endif; ?>
         </div>
-
+      
         <div class="py-8 text-white fade-in" style="background: linear-gradient(270deg, #236093 0%, #345574 100%)">
           <?php if (!empty($item->items)) : ?>
-            <?php for ($i = 0; $i < count($item->items); $i++) : ?>
-              <div class="flex flex-col justify-center p-8 md:flex-row <?= ($i % 2 == 0) ? 'slide-right' : 'slide-left' ?>">
-                <?php if ($i % 2 == 0) : ?>
+            <?php foreach ($item->items as $i => $detail) : ?>
+              <div class="flex flex-col justify-center p-8 md:flex-row <?= ($detail->setting_view == 1) ? 'slide-right' : 'slide-left' ?>">
+                <?php if ($detail->setting_view == 1) : // Hiển thị ảnh bên trái ?>
                   <div class="flex items-center justify-center mt-8 md:mt-0 md:mr-8">
-                    <img src="<?= htmlspecialchars($item->items[$i]->detail_image ?? 'default.jpg') ?>"
-                      alt="<?= htmlspecialchars($item->items[$i]->title ?? '') ?>"
+                    <img src="<?= htmlspecialchars($detail->detail_image ?? 'default.jpg') ?>"
+                      alt="<?= htmlspecialchars($detail->title ?? '') ?>"
                       class="object-cover border-8 border-gray-200 w-[600px] h-[360px]" />
                   </div>
                   <div class="pt-6 md:max-w-xs md:pl-6 md:pt-0">
                     <h1 class="mb-4 text-xl font-semibold text-center uppercase">
-                      <?= htmlspecialchars_decode($item->items[$i]->title ?? '') ?>
+                      <?= htmlspecialchars_decode($detail->title ?? '') ?>
                     </h1>
                     <p class="text-xs leading-relaxed" style="font-size: 14px;">
-                      <?= strip_tags($item->items[$i]->description) ?>
+                      <?= strip_tags($detail->description) ?>
                     </p>
                   </div>
-                <?php else : ?>
-                  <div class="flex flex-col justify-center p-8 md:flex-row">
-                    <div class="md:pr-6 md:max-w-xs">
-                      <h1 class="mb-4 text-xl font-semibold text-center uppercase">
-                        <?= htmlspecialchars_decode($item->items[$i]->title ?? '') ?>
-                      </h1>
-                      <p class="text-xs leading-relaxed" style="font-size: 14px;">
-                        <?= strip_tags($item->items[$i]->description) ?>
-                      </p>
-                    </div>
-                    <div class="flex items-center justify-center mt-6 md:mt-0 md:ml-8">
-                      <img src="<?= htmlspecialchars($item->items[$i]->detail_image ?? 'default.jpg') ?>"
-                        alt="<?= htmlspecialchars($item->items[$i]->title ?? '') ?>"
-                        class="object-cover border-8 border-gray-200 w-[600px] h-[360px]" />
-                    </div>
+                <?php else : // Hiển thị ảnh bên phải ?>
+                  <div class="md:pr-6 md:max-w-xs">
+                    <h1 class="mb-4 text-xl font-semibold text-center uppercase">
+                      <?= htmlspecialchars_decode($detail->title ?? '') ?>
+                    </h1>
+                    <p class="text-xs leading-relaxed" style="font-size: 14px;">
+                      <?= strip_tags($detail->description) ?>
+                    </p>
+                  </div>
+                  <div class="flex items-center justify-center mt-6 md:mt-0 md:ml-8">
+                    <img src="<?= htmlspecialchars($detail->detail_image ?? 'default.jpg') ?>"
+                      alt="<?= htmlspecialchars($detail->title ?? '') ?>"
+                      class="object-cover border-8 border-gray-200 w-[600px] h-[360px]" />
                   </div>
                 <?php endif; ?>
               </div>
-            <?php endfor; ?>
+            <?php endforeach; ?>
           <?php endif; ?>
         </div>
       <?php
-    break;
+      break;      
 
-    case 'view3':
-      ?>
-        <div class="relative text-[#444444] slide-right">
-          <?php if (!empty($item->main_image)) : ?>
-            <img src="<?= $item->main_image ?>"
-              alt="Aerial view of Vinhomes Global Gate"
-              class="w-full h-[440px]" />
-          <?php endif; ?>
-
-          <div class="absolute inset-0 items-center justify-center left-[-29%] hidden md:flex">
-            <div class="max-w-lg p-8 bg-white shadow-lg">
-              <h1 class="mb-4 text-3xl font-semibold text-center">
-                <?= htmlspecialchars_decode($item->main_title) ?>
-              </h1>
-              <p class="mb-4 text-sm">
-                <?= htmlspecialchars_decode($item->main_description) ?>
-              </p>
+      case 'view3':
+        ?>
+          <div class="relative text-[#444444] slide-right">
+            <?php if (!empty($item->main_image)) : ?>
+              <img src="<?= $item->main_image ?>"
+                alt="Aerial view of Vinhomes Global Gate"
+                class="w-full h-[440px]" />
+            <?php endif; ?>
+      
+            <?php
+              $positionClass = (isset($item->setting_view) && $item->setting_view == 2) ? 'left-auto right-[22%]' : 'left-[-38%]';
+            ?>
+      
+            <div class="absolute inset-0 items-center justify-center <?= $positionClass ?> hidden md:flex">
+              <div class="max-w-lg p-8 bg-white shadow-lg">
+                <h1 class="mb-4 text-3xl font-semibold text-center">
+                  <?= htmlspecialchars_decode($item->main_title) ?>
+                </h1>
+                <p class="mb-4 text-sm">
+                  <?= htmlspecialchars_decode($item->main_description) ?>
+                </p>
+              </div>
+            </div>
+      
+            <div class="flex items-center justify-center md:hidden">
+              <div class="max-w-lg p-8 bg-white">
+                <h1 class="mb-4 text-3xl font-semibold text-center">
+                  <?= htmlspecialchars_decode($item->main_title) ?>
+                </h1>
+                <p class="mb-4 text-sm">
+                  <?= htmlspecialchars_decode($item->main_description) ?>
+                </p>
+              </div>
             </div>
           </div>
-
-          <div class="flex items-center justify-center md:hidden">
-            <div class="max-w-lg p-8 bg-white">
-              <h1 class="mb-4 text-3xl font-semibold text-center">
-                <?= htmlspecialchars_decode($item->main_title) ?>
-              </h1>
-              <p class="mb-4 text-sm">
-                <?= htmlspecialchars_decode($item->main_description) ?>
-              </p>
-            </div>
-          </div>
-        </div>
-      <?php
-    break;
+        <?php
+      break; 
 
     case 'view4':
       ?>
         <div class="flex flex-col items-center justify-center p-8 md:flex-row slide-left"
           style="background: linear-gradient(270deg, #236093 0%, #345574 100%)">
-          <div class="max-w-lg p-8 text-white border border-white">
-            <h1 class="px-12 mb-4 text-xl font-bold text-center">
-              <?= isset($item->main_title) ? htmlspecialchars_decode($item->main_title) : '' ?>
-            </h1>
-            <?php if (!empty($item->main_description)) : ?>
-              <ul class="pl-2 space-y-2 text-sm">
-                <?= htmlspecialchars_decode($item->main_description) ?>
-              </ul>
-            <?php endif; ?>
-          </div>
+          
+          <?php if ($item->setting_view == 1) : ?>
+            <div class="flex items-center justify-center md:mr-8">
+              <?php if (!empty($item->main_image)) : ?>
+                <img src="<?= $item->main_image ?>"
+                  alt="<?= htmlspecialchars_decode($item->main_title) ?>"
+                  class="object-cover border-8 border-white rounded-full w-[400px] h-[400px]" />
+              <?php else : ?>
+                <img src="default.jpg"
+                  alt="Default Image"
+                  class="object-cover border-8 border-white rounded-full w-[400px] h-[400px]" />
+              <?php endif; ?>
+            </div>
 
-          <div class="flex items-center justify-center mt-8 md:mt-0 md:ml-8">
-            <?php if (!empty($item->main_image)) : ?>
-              <img src="<?= $item->main_image ?>"
-                alt="<?= htmlspecialchars_decode($item->main_title) ?>"
-                class="object-cover border-8 border-white rounded-full w-[400px] h-[400px]" />
-            <?php else : ?>
-              <img src="default.jpg"
-                alt="Default Image"
-                class="object-cover border-8 border-white rounded-full w-[400px] h-[400px]" />
-            <?php endif; ?>
-          </div>
+            <div class="max-w-lg p-8 mt-8 text-white border border-white md:mt-0">
+              <h1 class="px-12 mb-4 text-xl font-bold text-center">
+                <?= isset($item->main_title) ? htmlspecialchars_decode($item->main_title) : '' ?>
+              </h1>
+              <?php if (!empty($item->main_description)) : ?>
+                <ul class="pl-2 space-y-2 text-sm">
+                  <?= htmlspecialchars_decode($item->main_description) ?>
+                </ul>
+              <?php endif; ?>
+            </div>
+          
+          <?php else : ?>
+            <div class="max-w-lg p-8 text-white border border-white">
+              <h1 class="px-12 mb-4 text-xl font-bold text-center">
+                <?= isset($item->main_title) ? htmlspecialchars_decode($item->main_title) : '' ?>
+              </h1>
+              <?php if (!empty($item->main_description)) : ?>
+                <ul class="pl-2 space-y-2 text-sm">
+                  <?= htmlspecialchars_decode($item->main_description) ?>
+                </ul>
+              <?php endif; ?>
+            </div>
+
+            <div class="flex items-center justify-center mt-8 md:mt-0 md:ml-8">
+              <?php if (!empty($item->main_image)) : ?>
+                <img src="<?= $item->main_image ?>"
+                  alt="<?= htmlspecialchars_decode($item->main_title) ?>"
+                  class="object-cover border-8 border-white rounded-full w-[400px] h-[400px]" />
+              <?php else : ?>
+                <img src="default.jpg"
+                  alt="Default Image"
+                  class="object-cover border-8 border-white rounded-full w-[400px] h-[400px]" />
+              <?php endif; ?>
+            </div>
+          <?php endif; ?>
+          
         </div>
       <?php
     break;
@@ -436,7 +466,7 @@ foreach ($allViews as $item) {
             <h1 class="mb-4 text-2xl font-semibold text-center">
               <?= htmlspecialchars_decode($item->main_title) ?>
             </h1>
-            <div class="text-xs">
+            <div>
               <?= nl2br(htmlspecialchars_decode($item->main_description)) ?>
             </div>
           </div>
@@ -449,7 +479,7 @@ foreach ($allViews as $item) {
           <img
             src=" <?= htmlspecialchars_decode($item->main_image) ?>"
             alt=""
-            class="w-[80%]" />
+            class="w-[100%]" />
         </div>
 
         <div class="flex flex-col items-center justify-center mt-8 slide-right">
@@ -467,25 +497,52 @@ foreach ($allViews as $item) {
     case 'view6':
       ?>
         <div class="flex flex-col items-center justify-center p-8 md:flex-row fade-in">
-          <div class="max-w-lg p-8 border border-white">
-            <h1 class="px-12 mb-4 text-xl font-semibold text-center uppercase">
-              <?= htmlspecialchars_decode($item->main_title) ?>
-            </h1>
-            <p class="text-xs leading-relaxed">
-              <?= htmlspecialchars_decode($item->main_description) ?>
-            </p>
-          </div>
-          <div class="flex items-center justify-center mt-8 md:mt-0 md:ml-8">
-            <?php if (!empty($item->main_image)) : ?>
-              <img src="<?= $item->main_image ?>"
-                alt="<?= htmlspecialchars_decode($item->main_title) ?>"
-                class="object-cover border-8 border-gray-200 rounded-full w-[400px] h-[400px]" />
-            <?php else : ?>
-              <img src="./image/detail/vinhomes-global-gate-banner.jpg"
-                alt="Aerial view of Vinhomes Global Gate with buildings, roads, and water bodies"
-                class="object-cover border-8 border-gray-200 rounded-full w-[400px] h-[400px]" />
-            <?php endif; ?>
-          </div>
+          
+          <?php if ($item->setting_view == 1) : ?>
+            <div class="flex items-center justify-center md:mr-8">
+              <?php if (!empty($item->main_image)) : ?>
+                <img src="<?= $item->main_image ?>"
+                  alt="<?= htmlspecialchars_decode($item->main_title) ?>"
+                  class="object-cover border-8 border-gray-200 rounded-full w-[400px] h-[400px]" />
+              <?php else : ?>
+                <img src="./image/detail/vinhomes-global-gate-banner.jpg"
+                  alt="Aerial view of Vinhomes Global Gate with buildings, roads, and water bodies"
+                  class="object-cover border-8 border-gray-200 rounded-full w-[400px] h-[400px]" />
+              <?php endif; ?>
+            </div>
+            
+            <div class="max-w-lg p-8 mt-8 border border-white md:mt-0">
+              <h1 class="px-12 mb-4 text-xl font-semibold text-center uppercase">
+                <?= htmlspecialchars_decode($item->main_title) ?>
+              </h1>
+              <p class="text-xs leading-relaxed">
+                <?= htmlspecialchars_decode($item->main_description) ?>
+              </p>
+            </div>
+          
+          <?php else : ?>
+            <div class="max-w-lg p-8 border border-white">
+              <h1 class="px-12 mb-4 text-xl font-semibold text-center uppercase">
+                <?= htmlspecialchars_decode($item->main_title) ?>
+              </h1>
+              <p class="text-xs leading-relaxed">
+                <?= htmlspecialchars_decode($item->main_description) ?>
+              </p>
+            </div>
+            
+            <div class="flex items-center justify-center mt-8 md:mt-0 md:ml-8">
+              <?php if (!empty($item->main_image)) : ?>
+                <img src="<?= $item->main_image ?>"
+                  alt="<?= htmlspecialchars_decode($item->main_title) ?>"
+                  class="object-cover border-8 border-gray-200 rounded-full w-[400px] h-[400px]" />
+              <?php else : ?>
+                <img src="./image/detail/vinhomes-global-gate-banner.jpg"
+                  alt="Aerial view of Vinhomes Global Gate with buildings, roads, and water bodies"
+                  class="object-cover border-8 border-gray-200 rounded-full w-[400px] h-[400px]" />
+              <?php endif; ?>
+            </div>
+          <?php endif; ?>
+          
         </div>
       <?php
     break;

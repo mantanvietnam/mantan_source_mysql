@@ -34,9 +34,9 @@
     <form action="" method="get">
     <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
       <div
-        class="slide-top flex flex-col md:flex-row items-center p-4 mx-4 bg-[#E2E8F0] rounded-xl shadow-md sm:mx-6 lg:mx-20 font-plus justify-between"
+        class="slide-top flex flex-col md:flex-row items-center p-4 mx-4 bg-[#E2E8F0] rounded-xl  shadow-md sm:mx-6 lg:mx-20 font-plus justify-between"
       >
-        <div class="w-full md:w-[30%]">
+        <div class="w-full md:w-[30%] mt-4 md:mt-0">
           <input
             type="text"
             placeholder="Tìm kiếm tại đây"
@@ -109,11 +109,11 @@
               class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
               src="<?=$value->image?>"
             />
-            <div
+            <!-- <div
               class="absolute text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
             >
               <?=$value->info?>
-            </div>
+            </div> -->
           </div>
 
           <h2 class="mt-4 text-xl font-bold"><?=$value->name?></h2>

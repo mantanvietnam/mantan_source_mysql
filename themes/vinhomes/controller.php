@@ -43,7 +43,8 @@ function settingHomeTheme($input){
                         'content1_why_choose' => @$dataSend['content1_why_choose'],       
                         'content2_why_choose' => @$dataSend['content2_why_choose'],       
                         'content3_why_choose' => @$dataSend['content3_why_choose'],       
-                        'content4_why_choose' => @$dataSend['content5_why_choose'],       
+                        'content4_why_choose' => @$dataSend['content4_why_choose'],       
+                        'content5_why_choose' => @$dataSend['content5_why_choose'],       
                         'image1_news_hot' => @$dataSend['image1_news_hot'],       
                         'image2_news_hot' => @$dataSend['image2_news_hot'],     
                         'care_about_1' => @$dataSend['care_about_1'],     
@@ -96,7 +97,7 @@ function indexTheme($input){
     $listDatacategory = $modelcategory->find()->where(['type'=>'category_kind'])->all()->toList();
     $searchCategory = $modelcategory->find()
     ->where(['type' => 'category_kind'])
-    ->limit(5)
+    ->limit(4)
     ->all()
     ->toList();
 

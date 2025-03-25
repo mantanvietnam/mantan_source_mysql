@@ -738,8 +738,8 @@
       class="px-4 py-10 mx-auto md:py-20 sm:px-6 md:container xl:px-20 font-plus slide-bottom"
     >
       <div class="flex flex-col items-center justify-between lg:flex-row">
-        <div class="flex flex-col md:flex-row md:space-x-4">
-          <div class="relative w-[60%] md:w-auto justify-center">
+        <div class="flex flex-col md:flex-row md:space-x-4 lg:w-[50%] w-[100%]">
+          <div class="relative justify-center">
             <img
               alt="Children playing in a park with high-rise buildings in the background"
               class="rounded-lg"
@@ -756,7 +756,7 @@
             />
           </div>
         </div>
-        <div class="mt-6 lg:mt-0 lg:ml-6 w-auto lg:w-[50%]">
+        <div class="mt-6 lg:mt-0 lg:ml-6 w-[100%] lg:w-[50%]">
           <h2
             class="mb-2 text-lg font-bold text-gray-800 sm:text-4xl text-[#142A72]"
           >
@@ -783,7 +783,7 @@
               <i class="text-yellow-500 fas fa-check"></i> <?php echo @$setting['content4_why_choose']; ?>
             </li>
             <li>
-              <i class="text-yellow-500 fas fa-check"></i><?php echo @$setting['content55_why_choose']; ?>
+              <i class="text-yellow-500 fas fa-check"></i><?php echo @$setting['content5_why_choose']; ?>
             </li>
           </ul>
           <button

@@ -196,7 +196,7 @@ footer a:hover {
                         </div>
                         <div class="body">
                             <div class="content">
-                            <?= htmlspecialchars_decode($post->content) ?>
+                            <?= !empty($post->content) ? $post->content : "Không có nội dung." ?>
 
                             </div>
                         </div>

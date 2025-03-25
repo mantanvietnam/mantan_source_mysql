@@ -40,6 +40,14 @@ $sqlInstallDatabase .= "CREATE TABLE `horoscopes` (
   `name_by_age` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
+$sqlInstallDatabase .= "CREATE TABLE `transactions` (
+  `id` int(11) NOT NULL,
+  `id_customer` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0,
+  `created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
 $sqlDeleteDatabase .= "DROP TABLE collaborators; ";
 $sqlDeleteDatabase .= "DROP TABLE customers; ";
 $sqlDeleteDatabase .= "DROP TABLE horoscopes; ";
@@ -48,3 +56,4 @@ $sqlUpdateDatabase['collaborators']['id'] = "ALTER TABLE `collaborators` CHANGE 
 $sqlUpdateDatabase['horoscopes']['slug'] = "ALTER TABLE `horoscopes` ADD `slug` VARCHAR(255) NOT NULL AFTER `name_by_age`;";
 $sqlUpdateDatabase['horoscopes']['price'] = "ALTER TABLE `horoscopes` ADD `price` INT NOT NULL AFTER `image`;";
 $sqlUpdateDatabase['customers']['id_collaborator']="ALTER TABLE `customers` ADD `id_collaborator` INT(11) NOT NULL AFTER `created_at`;";
+$sqlUpdateDatabase['transactions']['timeupdate']="ALTER TABLE `transactions` ADD `timeupdate` INT NULL AFTER `created`;";
