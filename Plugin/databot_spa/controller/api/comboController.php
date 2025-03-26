@@ -116,7 +116,7 @@ function listComboAPI($input){
 	return apiResponse(0,'Gửi sai phương thức POST');
 }
 
-function detailComboAPI($input){	
+function detailComboAPI($input){
 	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -164,6 +164,140 @@ function detailComboAPI($input){
 			}
 			return apiResponse(4,'Dữ liệu không tồn tại' );
 		}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function addComboAPI($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+    global $urlHomes;
+
+    if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'addCombo','product');
+			if(!empty($infoUser)){
+		        $modelMembers = $controller->loadModel('Members');
+		        $modelCombo = $controller->loadModel('Combos');
+		        $modelProducts = $controller->loadModel('Products');
+		        $modelService = $controller->loadModel('Services');
+		        $modelTrademarks = $controller->loadModel('Trademarks');
+		        
+		        $mess= '';
+
+		        // lấy data edit
+		        if(!empty($dataSend['id'])){
+		            $data = $modelCombo->get( (int) $dataSend['id']);
+		        }else{
+		            $data = $modelCombo->newEmptyEntity();
+		            $data->created_at = time();
+		        }
+
+
+                if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
+						$image = uploadImage($infoUser->phone, 'image', 'image_combo'.time());
+				}
+				if(!empty($image['linkOnline'])){
+					$data->image = $image['linkOnline'].'?time='.time();
+			    }
+
+			    if(empty($data->image)){
+			    	$data->image = $urlHomes.'/plugins/databot_spa/view/home/assets/img/default-thumbnail.png';
+			    }
+
+                // tạo dữ liệu save
+                if(!empty($dataSend['name'])){
+                	$data->name = @$dataSend['name'];
+            	}
+                if(!empty($dataSend['price'])){
+                	$data->price = (int)@$dataSend['price'];
+            	}
+                if(!empty($dataSend['description'])){
+                	$data->description = @$dataSend['description'];
+            	}
+                if(!empty($dataSend['status'])){
+                	$data->status = @$dataSend['status'];
+            	}
+                $data->updated_at = time();
+                if(!empty($dataSend['quantity'])){
+                	$data->quantity = (int) @$dataSend['quantity'];
+            	}
+                $data->id_member = $infoUser->id_member;
+                $data->id_spa = (int) $infoUser->id_spa;
+                if(!empty($dataSend['commission_staff_fix'])){
+                	$data->commission_staff_fix = (int) @$dataSend['commission_staff_fix'];
+            	}
+                if(!empty($dataSend['commission_staff_percent'])){
+                	$data->commission_staff_percent = (int) @$dataSend['commission_staff_percent'];
+            	}
+                if(!empty($dataSend['use_time'])){
+                	$data->use_time = (int) @$dataSend['use_time'];
+                }
+                
+                $product = array();
+                if(!empty($dataSend['data_product'])) {
+                	$data_product =  json_decode($dataSend['data_product'], true);
+                    foreach($data_product as $key =>$value){
+                        if($value['quantity']>0){
+                            $product[$value['id_product']]= (double) $value['quantity'];
+                        }
+                    }
+
+                    $data->product = json_encode($product);
+                }
+
+                $service = array();
+                if (!empty($dataSend['data_service'])) {
+                	$data_service =  json_decode($dataSend['data_service'], true);
+                    foreach($data_service as $key=>$value){
+                        if($value['quantity']>0){
+                            $service[$value['id_service']]= (double) $value['quantity'];
+                        }
+                    }
+                    $data->service = json_encode($service);
+                }
+              
+                $modelCombo->save($data);
+
+               
+			    return apiResponse(1,'Lưu dữ liệu thành công',$data);
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function deleteComboAPI($input){
+    global $controller;
+    global $isRequestPost;
+    global $session;
+
+    $modelService = $controller->loadModel('Services');
+    $modelCombo = $controller->loadModel('Combos');
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
+    if($isRequestPost){
+		$dataSend = $input['request']->getData();
+  	 	if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'deleteCategoryProduct','product');
+			if(!empty($infoUser)){
+            	$data = $modelCombo->find()->where(['id'=>$dataSend['id'], 'id_member'=>$infoUser->id_member])->first();
+            	if(!empty($data)){
+            		$modelCombo->delete($data);
+             		return apiResponse(1,'Xóa dữ liệu thành công');
+				}
+				return apiResponse(4,'Dữ liệu không tồn tại' );
+			}
 			return apiResponse(3,'Tài khoản không tồn tại' );
 		}
 		return apiResponse(2,'thếu dữ liệu' );

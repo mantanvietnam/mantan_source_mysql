@@ -134,7 +134,7 @@ function addCombo($input){
 
     $metaTitleMantan = 'Thông tin combo dịch vụ';
     
-    setVariable('page_view', 'deleteRoom');
+    setVariable('page_view', 'addCombo');
     if(!empty(checkLoginManager('addCombo', 'combo'))){
         $modelMembers = $controller->loadModel('Members');
         $modelCombo = $controller->loadModel('Combos');

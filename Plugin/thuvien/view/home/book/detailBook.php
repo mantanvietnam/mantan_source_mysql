@@ -64,6 +64,7 @@
     <script src="/plugins/thuvien/view/home/assets/js/config.js"></script>
   </head>
 
+  </style>
   <body>
     <?php if(empty($data->file_pdf)){ ?>
     <!-- Content -->
@@ -100,10 +101,43 @@
         </div>
       </div>
     </div>
-    <?php }else{
-      echo '<div class=""> <embed src="'.$data->file_pdf.'"  style="width:100%; height: 800px;" type="application/pdf"></div>';
-       //echo '<iframe src="https://docs.google.com/gview?url='.$data->file_pdf.'&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>';
-    } ?>
+    <?php }else{ ?> 
+      
+
+         <iframe src="https://docs.google.com/gview?url=<?php echo $data->file_pdf ?>&embedded=true"  style="width:100%; height:850px;" frameborder="0"  sandbox="allow-scripts allow-same-origin allow-forms allow-modals"></iframe>
+        
+
+      <!--  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+
+
+
+<canvas id="pdf-render"></canvas>
+
+<script>
+    var url = '<?php echo $data->file_pdf; ?>';
+
+    var pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+    pdfjsLib.getDocument(url).promise.then(function(pdf) {
+        pdf.getPage(1).then(function(page) {
+            var scale = 1.5;
+            var viewport = page.getViewport({ scale: scale });
+
+            var canvas = document.getElementById('pdf-render');
+            var context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            var renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            page.render(renderContext);
+        });
+    });
+</script> -->
+    <?php } ?>
 
 
 

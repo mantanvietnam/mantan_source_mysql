@@ -254,14 +254,15 @@ function addExerciseWorkout($input){
     global $session;
     global $isRequestPost;
 
-
     $metaTitleMantan = 'Thông tin bài luyện tập';
+
+    $modelCategoryConnect = $controller->loadModel('CategoryConnects');
 
     $modelWorkout = $controller->loadModel('Workouts');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
     $modelDevices = $controller->loadModel('Devices');
     $modelAreas = $controller->loadModel('Areas');
-
+    $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
 
     if(!empty($_GET['id_workout'])) {
 
@@ -279,6 +280,18 @@ function addExerciseWorkout($input){
         // lấy data edit
         if(!empty($_GET['id'])){
             $data = $modelExerciseWorkouts->get( (int) $_GET['id']);
+            $tota_time = 0;
+            $listChild = $modelCategoryConnect->find()->where(['id_category'=>$data->id, 'keyword'=>'child_exercise'])->all()->toList();
+            if(!empty($listChild)){
+                foreach($listChild as $key => $value){
+                    $tota_time += $modelChildExerciseWorkouts->find()->where(['id'=>$value->id_group])->first()->time;
+                }
+            }
+            if(!empty($tota_time)){
+                $time = $tota_time/60;
+
+                $data->time = (int)$time;  
+            }
 
         }else{
             $data = $modelExerciseWorkouts->newEmptyEntity();

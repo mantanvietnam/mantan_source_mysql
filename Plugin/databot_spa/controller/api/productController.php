@@ -221,53 +221,31 @@ function addProductAPI($input){
 
 function deleteProductAPI($input){
     global $controller;
+    global $isRequestPost;
     global $session;
 
     $modelService = $controller->loadModel('Services');
     $modelOrderDetails = $controller->loadModel('OrderDetails');
-
-    if(!empty(checkLoginManager('deleteService', 'product'))){
-        $infoUser = $session->read('infoUser');
-        $modelCombo = $controller->loadModel('Combos');
-
-        
-
-        if(!empty($dataSend['id'])){
-            $data = $modelService->get($dataSend['id']);
-
-            $checkCombo = $modelCombo->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
-
-            if(!empty($checkCombo)){
-                foreach($checkCombo as $key => $item){
-                    if(!empty($item->service)){
-                        $service = json_decode(@$item->service, true);
-                        foreach($service as $k => $value){
-                            if($k==$data->id){
-                                return $controller->redirect('/listService?error=requestDelete');
-                            }
-                        }
-                    }
-                }
-            }
-
-            $checkOrder = $modelOrderDetails->find()->where(array('id_product'=>$data->id,'type'=>'service','id_member'=>$infoUser->id_member))->all()->toList();
-
-            if(!empty($checkOrder)){
-                return $controller->redirect('/listService?error=requestDelete');
-
-            }
-            
-            if($data){
-                $modelService->delete($data);
-                return $controller->redirect('/listService?error=requestDeleteSuccess');
-            }
-        }
-
-        return $controller->redirect('/listService');
-    }else{
-        return $controller->redirect('/');
-    }
+    if($isRequestPost){
+		$dataSend = $input['request']->getData();
+  	 	if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'deleteCategoryProduct','product');
+			if(!empty($infoUser)){
+        		$modelProduct = $controller->loadModel('Products');
+            	$data = $modelProduct->find()->where(['id'=>$dataSend['id'], 'id_member'=>$infoUser->id_member])->first();
+            	if(!empty($data)){
+            		$modelProduct->delete($data);
+             		return apiResponse(1,'Xóa dữ liệu thành công');
+				}
+				return apiResponse(4,'Dữ liệu không tồn tại' );
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
 }
+
 
 function listCategoryProductAPI($input){
     global $isRequestPost;
