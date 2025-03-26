@@ -911,35 +911,7 @@ function createComboAPI($input){
 		        $modelAgency = $controller->loadModel('Agencys');
 		        $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
 		        $dataSend['data_order'] = json_decode($dataSend['data_order'], true);
-
-
-		         foreach($dataSend['idHangHoa'] as $key => $value){
-                        // sản phẩm 
-	                            // sử lý trử số lương trong kho ở sản phẩm trong combo
-	                    $combo = $modelCombo->get($value);
-
-	                    if(!empty($combo->quantity>=$dataSend['soluong'][$key])){
-	                  
-	                    $combo->quantity = $combo->quantity - $dataSend['soluong'][$key];
-	                    
-	                    $modelCombo->save($combo);
-	                    }else{
-	                         return $controller->redirect('/orderCombo?mess=combo');
-	                    }
-	                    if(!empty($combo->product)){
-	                        $combo_product = json_decode($combo->product);
-	                        foreach($combo_product as $idProduct => $quantityPro){
-	                            $WarehouseProduct =   $modelWarehouseProductDetails->find()->where(array('id_product'=>$idProduct, 'inventory_quantity >='=>$quantityPro*$dataSend['soluong'][$key],'id_warehouse'=>$dataSend['id_warehouse'] ))->first();
-	                            if(empty($WarehouseProduct)){
-	                                return $controller->redirect('/orderCombo?mess=kho');
-	                            }
-	                        }
-
-	                    }
-	                }
-	            
-		  
-
+		  		
 		       	foreach($dataSend['data_order'] as $key => $value){
 		       		$combo = $modelCombo->find()->where(['id'=>$value['id_combo'], 'id_member'=>$infoUser->id_member])->first();
 
@@ -954,7 +926,7 @@ function createComboAPI($input){
 	                        foreach($combo_product as $idProduct => $quantityPro){
 	                            $WarehouseProduct =   $modelWarehouseProductDetails->find()->where(array('id_product'=>$idProduct, 'inventory_quantity >='=>$quantityPro*$value['quantity'],'id_warehouse'=>$dataSend['id_warehouse'] ))->first();
 	                            if(empty($WarehouseProduct)){
-	                                return apiResponse(3,'Sản phẩm '.$product->name.' trong kho không đủ' );;
+	                                return apiResponse(3,'Sản phẩm '.$product->name.' trong kho không đủ' );
 	                            }
 	                        }
 
@@ -1107,23 +1079,6 @@ function createComboAPI($input){
 			            }
 
 			        }
-			                        
-
-			        // trừ số lượng trong kho 
-			        if(!empty($dataSend['data_order'])){
-			        	foreach($dataSend['data_order'] as $key => $value){
-			          		$WarehouseProductDetail =   $modelWarehouseProductDetails->find()->where(array('id_product'=>$value['id_product'], 'inventory_quantity >='=>$value['quantity'],'id_warehouse'=>$dataSend['id_warehouse'] ))->first();
-
-			        		$WarehouseProductDetail->inventory_quantity -= $value['quantity'];
-
-			        		$modelWarehouseProductDetails->save($WarehouseProductDetail);
-
-			        		$product = $modelProduct->get($value['id_product']);
-			       			$product->quantity -= $value['quantity'];
-			       			$modelProduct->save($product);
-			        	}
-			        }
-
 			         // trừ số lượng trong kho 
 			        if(!empty($dataSend['id_warehouse'])){
 			        	foreach($dataSend['data_order'] as $key => $value){
@@ -1147,6 +1102,185 @@ function createComboAPI($input){
 
 			  
         		return apiResponse(1,'Tạo đơn thành công',$order);		  	
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
+function listOrderComboAPI($input){
+    global $controller;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $session;
+
+    if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listOrderCombo','product');
+			if(!empty($infoUser)){
+
+		        $modelCombo = $controller->loadModel('Combos');
+		        $modelProduct = $controller->loadModel('Products');
+		        $modelWarehouses = $controller->loadModel('Warehouses');
+		        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+		        $modelWarehouseProductDetails = $controller->loadModel('WarehouseProductDetails');
+		        $modelService = $controller->loadModel('Services');
+		        $modelRoom = $controller->loadModel('Rooms');
+		        $modelCustomer = $controller->loadModel('Customers');
+		        $modelBed = $controller->loadModel('Beds');
+		        $modelDebts = $controller->loadModel('Debts');
+		        $modelMembers = $controller->loadModel('Members');
+		        $modelOrder = $controller->loadModel('Orders');
+		        $modelOrderDetails = $controller->loadModel('OrderDetails');
+		        $modelBill = $controller->loadModel('Bills');
+		        $modelAgency = $controller->loadModel('Agencys');
+		        $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
+		        $modelPrepayCard = $controller->loadModel('PrepayCards');
+		        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+
+		        $conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$infoUser->id_spa, 'type'=>'combo');
+		        $limit = 20;
+		        $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+		        if($page<1) $page = 1;
+		        $order = array('time'=>'desc');
+
+		        if(!empty($dataSend['id'])){
+		           $conditions['id']= $dataSend['id']; 
+		        }
+
+		        if(!empty($dataSend['id_customer'])){
+		           $conditions['id_customer']= $dataSend['id_customer']; 
+		        }
+
+		        if(!empty($dataSend['date_start'])){
+		            $date_start = explode('/', $dataSend['date_start']);
+		            $conditions['time >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+		        }
+
+		        if(!empty($dataSend['date_end'])){
+		            $date_end = explode('/', $dataSend['date_end']);
+		            $conditions['time <='] = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);     
+		        }
+
+		        $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+		        if(!empty($listData)){
+		            foreach($listData as $key => $item){
+		              $OrderDetail = $modelOrderDetails->find()->where(['id_order'=>$item->id])->all()->toList();
+		              if(!empty($OrderDetail)){
+		                foreach($OrderDetail as $k => $value){
+		                    $OrderDetail[$k]->combo = $modelCombo->find()->where(['id'=>$value->id_product])->first();
+		                }
+		                $listData[$key]->OrderDetail = $OrderDetail;
+		                $customer = $modelCustomer->find()->where(['id'=>$item->id_customer])->first();
+		                if(!empty($customer)){
+		                	$conditionscatd =[];
+		                    $conditioncard['id_customer'] = $customer->id;
+		                    $conditioncard['total >='] = $item->total_pay;
+		                                 
+		                    $card = $modelCustomerPrepaycards->find()->where($conditioncard)->all()->toList();
+		                    if(!empty($card)){
+		                        foreach($card as $k => $value){
+		                            $value->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$value->id_prepaycard))->first();
+		                            $card[$k] = $value;
+		                        }
+
+		                       $customer->card = $card;
+		                    }
+		                }
+		                $listData[$key]->customer = $customer;
+		              }
+		            }
+		        }
+		        $totalData = $modelOrder->find()->where($conditions)->all()->toList();
+		        $totalMoney = 0;
+		        if(!empty($totalData)){
+		            foreach($totalData as $key => $item){
+		                $totalMoney += $item->total;
+		            }
+		        }
+
+		        $totalData = count($totalData);
+
+          		return apiResponse(1,'Bạn lấy dữ liệu thành công',$listData, $totalData );
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');    
+}
+
+function detailOrderComboAPI($input){
+    global $controller;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $session;
+
+    if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listOrderCombo','product');
+			if(!empty($infoUser)){
+
+		        $modelCombo = $controller->loadModel('Combos');
+		        $modelProduct = $controller->loadModel('Products');
+		        $modelWarehouses = $controller->loadModel('Warehouses');
+		        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+		        $modelWarehouseProductDetails = $controller->loadModel('WarehouseProductDetails');
+		        $modelService = $controller->loadModel('Services');
+		        $modelRoom = $controller->loadModel('Rooms');
+		        $modelCustomer = $controller->loadModel('Customers');
+		        $modelBed = $controller->loadModel('Beds');
+		        $modelDebts = $controller->loadModel('Debts');
+		        $modelMembers = $controller->loadModel('Members');
+		        $modelOrder = $controller->loadModel('Orders');
+		        $modelOrderDetails = $controller->loadModel('OrderDetails');
+		        $modelBill = $controller->loadModel('Bills');
+		        $modelAgency = $controller->loadModel('Agencys');
+		        $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
+		        $modelPrepayCard = $controller->loadModel('PrepayCards');
+		        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+
+		        $conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$infoUser->id_spa, 'type'=>'combo');
+				$conditions['id']= $dataSend['id']; 
+		       
+
+		        $data = $modelOrder->find()->where($conditions)->first();
+
+		        if(!empty($data)){
+		              $OrderDetail = $modelOrderDetails->find()->where(['id_order'=>$data->id])->all()->toList();
+		              if(!empty($OrderDetail)){
+		                foreach($OrderDetail as $k => $value){
+		                    $OrderDetail[$k]->combo = $modelCombo->find()->where(['id'=>$value->id_product])->first();
+		                }
+		                $data->OrderDetail = $OrderDetail;
+		                $customer = $modelCustomer->find()->where(['id'=>$data->id_customer])->first();
+		                if(!empty($customer)){
+		                    $conditioncard['id_customer'] = $customer->id;
+		                    $conditioncard['total >='] = $data->total_pay;
+		                                 
+		                    $card = $modelCustomerPrepaycards->find()->where($conditioncard)->all()->toList();
+		                    if(!empty($card)){
+		                        foreach($card as $k => $value){
+		                            $value->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$value->id_prepaycard))->first();
+		                            $card[$k] = $value;
+		                        }
+
+		                       $customer->card = $card;
+		                    }
+		                }
+		                $data->customer = $customer;
+		              }
+		            }
+          		return apiResponse(1,'Bạn lấy dữ liệu thành công',$data);
 			}
 			return apiResponse(3,'Tài khoản không tồn tại' );
 		}
