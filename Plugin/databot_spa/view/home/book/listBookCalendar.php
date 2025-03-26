@@ -66,20 +66,28 @@
             </select>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-4">
             <label class="form-label">Dịch vụ</label>
             <select name="id_service" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <?php 
-              if(!empty($listService)){
-                foreach ($listService as $key => $value) {
-                  if(empty($_GET['id_service']) || $_GET['id_service']!=$value->id){
-                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
-                  }else{
-                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+            if(!empty($CategoryService)){
+               foreach ($CategoryService as $cService) { 
+                echo '<optgroup label="'.$cService->name.'">';
+                if(!empty($cService->service)){
+                  foreach($cService->service as $service){
+                    $select = '';
+                    if(@$_GET['id_service']==$service->id){
+                      $select= 'selected';
+                    }
+                      
+                    echo '<option '.$select.' value="'.$service->id.'">'.$service->name.'</option>';
                   }
                 }
+                echo '</optgroup>';
               }
+            }
+            ?>
               ?>
             </select>
           </div>

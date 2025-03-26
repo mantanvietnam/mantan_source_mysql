@@ -281,12 +281,19 @@ function addExerciseWorkout($input){
         if(!empty($_GET['id'])){
             $data = $modelExerciseWorkouts->get( (int) $_GET['id']);
             $tota_time = 0;
+            $so_bani = 0;
             $listChild = $modelCategoryConnect->find()->where(['id_category'=>$data->id, 'keyword'=>'child_exercise'])->all()->toList();
+
             if(!empty($listChild)){
                 foreach($listChild as $key => $value){
-                    $tota_time += $modelChildExerciseWorkouts->find()->where(['id'=>$value->id_group])->first()->time;
+                    $ChildExercise = $modelChildExerciseWorkouts->find()->where(['id'=>$value->id_parent])->first();
+                    if(!empty($ChildExercise->time)){
+                         $tota_time += $ChildExercise->time;
+                          $so_bani +=  1; 
+                    }
                 }
             }
+
             if(!empty($tota_time)){
                 $time = $tota_time/60;
 
@@ -531,7 +538,8 @@ function listChildExerciseWorkout($input)
         }
         setVariable('mess', $mess);
     
-
+    // debug(count($totalUser));
+    // die;
     setVariable('page', $page);
     setVariable('dataWorkout', $dataWorkout);
     setVariable('dataExercise', $dataExercise);
