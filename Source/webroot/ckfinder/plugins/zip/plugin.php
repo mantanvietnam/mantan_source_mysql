@@ -193,7 +193,7 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
    * @param string $type
    * @param string $path
    */
-  protected function appendErrorNode($oErrorsNode, $errorCode=0, $name, $type=null, $path=null)
+  protected function appendErrorNode($oErrorsNode=[], $errorCode=0, $name='', $type=null, $path=null)
   {
     $oErrorNode = new CKFinder_Connector_Utils_XmlNode("Error");
     $oErrorNode->addAttribute("code", $errorCode);

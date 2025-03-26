@@ -119,9 +119,10 @@
                             </div>
                                  <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">file pdf</label>
-                              <?php //showUploadFile('file_pdf','file_pdf',@$data->file_pdf,1);?>
+                              <?php showUploadFile('file_pdf','file_pdf',@$data->file_pdf,1);?>
+                              <!--
                                <input type="file" class="form-control phone-mask" name="file_pdf"  id="file_pdf" value=""/>                              
-
+                              -->
                             </div>
 
                                 <!-- <div class="mb-3">

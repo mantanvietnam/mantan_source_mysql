@@ -103,40 +103,72 @@
     </div>
     <?php }else{ ?> 
       
+        <!--
+        <iframe src="https://docs.google.com/gview?url=<?php echo urlencode($data->file_pdf);?>&embedded=true"  style="width:100%; height:850px;" frameborder="0"  sandbox="allow-scripts allow-same-origin allow-forms allow-modals"></iframe>
+        -->
 
-         <iframe src="https://docs.google.com/gview?url=<?php echo $data->file_pdf ?>&embedded=true"  style="width:100%; height:850px;" frameborder="0"  sandbox="allow-scripts allow-same-origin allow-forms allow-modals"></iframe>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                margin: 0;
+                background-color: #f4f4f4;
+                flex-direction: column;
+            }
+            #pdfContainer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                max-width: 900px;
+                padding: 10px;
+            }
+            canvas {
+                margin-bottom: 10px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                background-color: white;
+                width: 100%;
+                height: auto;
+            }
+        </style>
         
+        <div id="pdfContainer"></div>
 
-      <!--  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+        <script>
+          var url = '<?php echo $data->file_pdf;?>'; // Đường dẫn file PDF
+          var pdfContainer = document.getElementById('pdfContainer');
 
+          pdfjsLib.getDocument(url).promise.then(function(pdf) {
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                pdf.getPage(pageNum).then(function(page) {
+                    var viewport = page.getViewport({ scale: 1 }); // Scale gốc
+                    var scale = window.innerWidth < 768 ? 0.5 : 0.8; // Responsive scale
+                    var responsiveViewport = page.getViewport({ scale: scale });
 
+                    var canvas = document.createElement('canvas');
+                    var context = canvas.getContext('2d');
+                    canvas.height = responsiveViewport.height;
+                    canvas.width = responsiveViewport.width;
 
-<canvas id="pdf-render"></canvas>
+                    pdfContainer.appendChild(canvas);
 
-<script>
-    var url = '<?php echo $data->file_pdf; ?>';
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: responsiveViewport
+                    };
 
-    var pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
-
-    pdfjsLib.getDocument(url).promise.then(function(pdf) {
-        pdf.getPage(1).then(function(page) {
-            var scale = 1.5;
-            var viewport = page.getViewport({ scale: scale });
-
-            var canvas = document.getElementById('pdf-render');
-            var context = canvas.getContext('2d');
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-
-            var renderContext = {
-                canvasContext: context,
-                viewport: viewport
-            };
-            page.render(renderContext);
+                    page.render(renderContext);
+                });
+            }
         });
-    });
-</script> -->
+        </script>
+
+
+
     <?php } ?>
 
 
