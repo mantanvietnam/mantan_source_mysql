@@ -15,7 +15,7 @@
                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Logo</label>
-                        <?php showUploadFile('image_logo','image_logo', @$setting['image_logo'],1);?>
+                        <?php showUploadFile('image_logo','image_logo', @$setting['image_logo'],0);?>
                     </div>
                 </div>
                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -131,7 +131,7 @@
                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Ảnh</label>
-                        <?php showUploadFile('image_story','image_story', @$setting['image_story'],1);?>
+                        <?php showUploadFile('image_story','image_story', @$setting['image_story'],4);?>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Nội dung lớn</label>
@@ -163,7 +163,7 @@
                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Ảnh</label>
-                        <?php showUploadFile('legit_icon','legit_icon', @$setting['legit_icon'],1);?>
+                        <?php showUploadFile('legit_icon','legit_icon', @$setting['legit_icon'],5);?>
                     </div>
                 </div>
                 <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
