@@ -295,6 +295,89 @@ class HomesController extends AppController{
         $this->set('category', $category);
     }
 
+    public function allPost()
+    {
+        global $themeActive;
+        global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+        global $urlCurrent;
+        global $modelCategories;
+        global $modelCategoryConnects;
+        global $infoSite;
+        global $isCategory;
+        global $categoryDetail;
+
+        $isCategory = true;
+
+        $modelPosts = $this->Posts;
+        
+        $conditions = ['Posts.type'=>'post'];
+        
+        $limit = (!empty($infoSite['number_post']))?$infoSite['number_post']:12;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        
+
+        $listData = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order(['Posts.id' => 'DESC'])->all()->toList();
+
+        $totalData = $modelPosts->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        if(function_exists('categoryPostTheme')){
+            $url= '/themes/'.$themeActive.'/category_post.php';
+
+            $input= array('fileProcess'=>$url,'request'=>$this->request);
+            categoryPostTheme($input);
+        }
+
+        if(empty($category->name)) $category->name = 'Tin tức';
+        if(empty($category->keyword)) $category->keyword = 'Tin tức';
+        if(empty($category->description)) $category->description = 'Tất cả các bài viết trên trang '.$page;
+
+        $metaTitleMantan = $category->name;
+        $metaKeywordsMantan = $category->keyword;
+        $metaDescriptionMantan = $category->description;
+        $categoryDetail = $category;
+
+        $this->set('page', $page);
+        $this->set('totalPage', $totalPage);
+        $this->set('back', $back);
+        $this->set('next', $next);
+        $this->set('urlPage', $urlPage);
+
+        $this->set('listPosts', $listData);
+        $this->set('category', $category);
+    }
+
     public function infoAlbum()
     {
         global $themeActive;
