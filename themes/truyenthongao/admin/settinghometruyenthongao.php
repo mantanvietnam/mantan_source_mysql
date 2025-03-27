@@ -121,87 +121,88 @@
                         </div>
                         <div class="tab-pane fade show" id="navs-top-2" role="tabpanel">
                             <div class="card-body row ">
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Tiêu đề in đậm giới thiệu</label>
                                     <input type="text" class="form-control" name="titleintroduce" value="<?php echo @$data['titleintroduce'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Mô tả ngắn giới thiệu</label>
                                     <input type="text" class="form-control" name="descriptionintroduce" value="<?php echo @$data['descriptionintroduce'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">tiêu đề 1</label>
                                     <input type="text" class="form-control" name="vision" value="<?php echo @$data['vision'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Mô tả tiêu đề 1</label>
                                     <input type="text" class="form-control" name="descriptionvision" value="<?php echo @$data['descriptionvision'];?>" />
                                 </div>
 
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">tiêu đề 2</label>
                                     <input type="text" class="form-control" name="mission" value="<?php echo @$data['mission'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Mô tả tiêu đề 2</label>
                                     <input type="text" class="form-control" name="descriptionmission" value="<?php echo @$data['descriptionmission'];?>" />
                                 </div>
                                 
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Tiêu đề 3</label>
                                     <input type="text" class="form-control" name="target" value="<?php echo @$data['target'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Mô tả Tiêu đề 3</label>
                                     <input type="text" class="form-control" name="descriptiontarget" value="<?php echo @$data['descriptiontarget'];?>" />
                                 </div>
 
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">triết lý tiêu đề 4</label>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Tiêu đề 4</label>
                                     <input type="text" class="form-control" name="business" value="<?php echo @$data['business'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Mô tả triết lý tiêu đề 4</label>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Mô tả tiêu đề 4</label>
                                     <input type="text" class="form-control" name="descriptionbusiness" value="<?php echo @$data['descriptionbusiness'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Link youtube</label>
+                                    <input type="text" class="form-control" name="video" value="<?php echo @$data['video'];?>" />
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade show" id="navs-top-3" role="tabpanel">
                             <div class="card-body row ">
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                     <label class="form-label" for="basic-default-fullname">Tiêu đề khối</label>
                                     <input type="text" class="form-control" name="titleoperational" value="<?php echo @$data['titleoperational'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Tên thống kê 1</label>
                                     <input type="text" class="form-control" name="yearactive" value="<?php echo @$data['yearactive'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Số thống kê 1</label>
                                     <input type="text" class="form-control" name="numberactive" value="<?php echo @$data['numberactive'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Tên thống kê 2</label>
                                     <input type="text" class="form-control" name="customer" value="<?php echo @$data['customer'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Số thống kê 2</label>
                                     <input type="text" class="form-control" name="numbercustomer" value="<?php echo @$data['numbercustomer'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Tên thống kê 3</label>
                                     <input type="text" class="form-control" name="events" value="<?php echo @$data['events'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Số thống kê 3</label>
                                     <input type="text" class="form-control" name="numberevents" value="<?php echo @$data['numberevents'];?>" />
                                 </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Link youtube</label>
-                                    <input type="text" class="form-control" name="video" value="<?php echo @$data['video'];?>" />
-                                </div>
-                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">id_slide albums khách hàng</label>
+                                
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Slide albums khách hàng</label>
                                     <select class="form-control" name="id_active">
                                         <option value="">-- Chọn album --</option>
                                         <?php foreach ($dataalbums as $album): ?>

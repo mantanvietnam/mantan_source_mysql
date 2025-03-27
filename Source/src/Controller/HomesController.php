@@ -359,14 +359,9 @@ class HomesController extends AppController{
             categoryPostTheme($input);
         }
 
-        if(empty($category->name)) $category->name = 'Tin tức';
-        if(empty($category->keyword)) $category->keyword = 'Tin tức';
-        if(empty($category->description)) $category->description = 'Tất cả các bài viết trên trang '.$page;
-
-        $metaTitleMantan = $category->name;
-        $metaKeywordsMantan = $category->keyword;
-        $metaDescriptionMantan = $category->description;
-        $categoryDetail = $category;
+        $metaTitleMantan = 'Tin tức';
+        $metaKeywordsMantan = 'Tin tức';
+        $metaDescriptionMantan = 'Tất cả các bài viết trên trang '.$page;
 
         $this->set('page', $page);
         $this->set('totalPage', $totalPage);
@@ -375,7 +370,6 @@ class HomesController extends AppController{
         $this->set('urlPage', $urlPage);
 
         $this->set('listPosts', $listData);
-        $this->set('category', $category);
     }
 
     public function infoAlbum()

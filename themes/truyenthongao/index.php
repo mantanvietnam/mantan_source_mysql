@@ -314,7 +314,7 @@
                         </div>
                         <!-- View All Button -->
                         <div class="text-center">
-                            <a href="\posts" class="news__btn-all" style="text-decoration:none">Xem toàn bộ</a>
+                            <a href="/news" class="news__btn-all" style="text-decoration:none">Xem toàn bộ</a>
                         </div>
                     </div>
                 </div>

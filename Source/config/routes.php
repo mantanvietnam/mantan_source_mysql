@@ -112,6 +112,7 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/posts/', ['controller' => 'Homes', 'action' => 'category_post']);
         $builder->connect('/albums/', ['controller' => 'Homes', 'action' => 'category_album']);
         $builder->connect('/videos/', ['controller' => 'Homes', 'action' => 'category_video']);
+        $builder->connect('/news/', ['controller' => 'Homes', 'action' => 'all_post']);
 
         $builder->connect('/apis/*', ['controller' => 'Apis', 'action' => 'index']);
 
