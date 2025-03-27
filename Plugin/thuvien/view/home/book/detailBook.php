@@ -136,7 +136,9 @@
             }
         </style>
         
-        <div id="pdfContainer"></div>
+        <div id="pdfContainer" class="text-center">
+          <img src="/plugins/thuvien/view/image/loading.gif">
+        </div>
 
         <script>
           var url = '<?php echo $data->file_pdf;?>'; // Đường dẫn file PDF
@@ -153,6 +155,10 @@
                     var context = canvas.getContext('2d');
                     canvas.height = responsiveViewport.height;
                     canvas.width = responsiveViewport.width;
+
+                    if(pageNum==1){
+                      pdfContainer.innerHTML = '';
+                    }
 
                     pdfContainer.appendChild(canvas);
 

@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">id_slide albums khách hàng</label>
-                                    <select class="form-control" name="id_slidelistcustomer">
+                                    <select class="form-select color-dropdown" name="id_slidelistcustomer">
                                         <option value="">-- Chọn album --</option>
                                         <?php foreach ($dataalbums as $album): ?>
                                             <option value="<?php echo $album->id; ?>" 
@@ -203,7 +203,7 @@
                                 
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Slide albums khách hàng</label>
-                                    <select class="form-control" name="id_active">
+                                    <select class="form-select color-dropdown" name="id_active">
                                         <option value="">-- Chọn album --</option>
                                         <?php foreach ($dataalbums as $album): ?>
                                             <option value="<?php echo $album->id; ?>" 
