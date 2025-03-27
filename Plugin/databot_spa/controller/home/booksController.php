@@ -115,7 +115,7 @@ function listBook($input){
 	    $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
 
 	    // danh sách dịch vụ
-	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
+	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'),'status'=>1);
 	    $listService = $modelService->find()->where($service)->order(['name' => 'ASC'])->all()->toList();
 
 	    setVariable('page', $page);
@@ -276,7 +276,7 @@ function listBookCalendar($input){
 
         if(!empty($CategoryService)){
 	    	foreach ($CategoryService as $key => $Service) {
-	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id, 'id_spa'=>(int) $session->read('id_spa')))->order($order)->all()->toList();
+	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id, 'id_spa'=>(int) $session->read('id_spa'),'status'=>1))->order($order)->all()->toList();
 	    	}
 	    }
 
@@ -410,7 +410,7 @@ function addBook($input){
 
         if(!empty($CategoryService)){
 	    	foreach ($CategoryService as $key => $Service) {
-	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id, 'id_spa'=>(int) $session->read('id_spa')))->order($order)->all()->toList();
+	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id, 'id_spa'=>(int) $session->read('id_spa'), 'status'=>1))->order($order)->all()->toList();
 	    	}
 	    }
 

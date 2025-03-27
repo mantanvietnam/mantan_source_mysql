@@ -108,6 +108,7 @@ function listBookAPI($input){
     $modelService = $controller->loadModel('Services');
 	$modelBook = $controller->loadModel('Books');
 	$modelMembers = $controller->loadModel('Members');
+	$modelCustomer = $controller->loadModel('Customers');
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
@@ -172,8 +173,10 @@ function listBookAPI($input){
 			    if(!empty($listData)){
 			        foreach ($listData as $key => $value) {
 			            $listData[$key]->service  = $modelService->find()->where(['id'=>$value->id_service])->first();
+			            $listData[$key]->info_customer  = $modelCustomer->find()->where(['id'=>$value->id_customer])->first();
 			        }
 			    }
+
 
 			    $totalData = $modelBook->find()->where($conditions)->all()->toList();
 			    $totalData = count($totalData);

@@ -254,8 +254,8 @@ function buyPrepayCard($input){
                 $card->id_spa = $session->read('id_spa');;
                 $card->id_prepaycard = $value;
                 $card->id_customer = @$dataSend['id_customer'];
-                $card->price_sell = (int) $dataSend['money'][$key];
-                $card->price = (int) $dataSend['priceCard'][$key];
+                $card->price = (int) $dataSend['money'][$key];
+                $card->price_sell = (int) $dataSend['priceCard'][$key];
                 $card->total = (int) $dataSend['priceCard'][$key] *(int) $dataSend['soluong'][$key];
                 $card->quantity = (int) $dataSend['soluong'][$key];
             	$card->created_at = time();

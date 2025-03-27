@@ -66,7 +66,7 @@
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Thời gian tính thành phút</label>
-                              <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>"  placeholder="thời gian tính thành phút"/>
+                              <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>"  placeholder="thời gian tính thành phút" disabled/>
                             </div>
                             
                             <div class="mb-3">

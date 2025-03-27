@@ -207,7 +207,7 @@ function addCombo($input){
 
         if(!empty($categoryProduct)){
 	    	foreach ($categoryProduct as $key => $value) {
-	    		$categoryProduct[$key]->product = $modelProducts->find()->where(array('id_category'=>$value->id, 'id_spa'=>(int) $session->read('id_spa')))->order($order)->all()->toList();
+	    		$categoryProduct[$key]->product = $modelProducts->find()->where(array('id_category'=>$value->id, 'id_spa'=>(int) $session->read('id_spa'),'status'=>'active'))->order($order)->all()->toList();
 	    	}
 	    }
 
@@ -216,7 +216,7 @@ function addCombo($input){
 
         if(!empty($CategoryService)){
 	    	foreach ($CategoryService as $key => $Service) {
-	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id, 'id_spa'=>(int) $session->read('id_spa')))->order($order)->all()->toList();
+	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id, 'id_spa'=>(int) $session->read('id_spa'),'status'=>1))->order($order)->all()->toList();
 	    	}
 	    }
 

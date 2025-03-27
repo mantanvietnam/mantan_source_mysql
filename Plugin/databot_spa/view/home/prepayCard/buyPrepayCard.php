@@ -149,7 +149,7 @@
                     <div class="row diagram">
 
                     <?php   foreach($listData as $key => $item){ ?>
-                                <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $item->image ?>');" onclick="addProduct('<?php echo $item->id ?>','<?php echo $item->name ?>',<?php echo $item->price_sell ?>, <?php echo $item->price ?>);" id='service<?php echo $item->id ?>'>
+                                <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $item->image ?>');" onclick="addProduct('<?php echo $item->id ?>','<?php echo $item->name ?>',<?php echo $item->price ?>, <?php echo $item->price_sell ?>);" id='service<?php echo $item->id ?>'>
                                     <div class="item_produc">
                                         <div class="customer-name"><span class="service_name"><?php echo $item->name ?></span></div>
                                         <div class="customer-name"><span class="service_name"><?php echo $item->duration ?></span></div>

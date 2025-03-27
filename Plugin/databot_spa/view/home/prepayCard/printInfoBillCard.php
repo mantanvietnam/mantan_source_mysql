@@ -65,7 +65,7 @@
                                             echo '  <tr>
                                                         <td>'.$item->infoPrepayCard->name.'</td>
                                                         <td>'.$item->quantity.'</td>
-                                                        <td>'.number_format($item->price_sell).'</td>
+                                                        <td>'.number_format($item->price).'</td>
                                                     </tr>';
                                         }
                                     }

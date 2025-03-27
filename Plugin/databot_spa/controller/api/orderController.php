@@ -9,7 +9,7 @@ function createOrderServiceAPI($input){
 
     if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		if(!empty($dataSend['token']) && !empty($dataSend['data_order']) && !empty($dataSend['id_customer']) && !empty($dataSend['id_staff'])){
+		if(!empty($dataSend['token']) && !empty($dataSend['data_order']) && !empty($dataSend['id_customer']) &&  $dataSend['id_staff']!=''){
 			$infoUser = getMemberByToken($dataSend['token'], 'orderService','product');
 			if(!empty($infoUser)){
 
@@ -398,7 +398,7 @@ function createOrderProductAPI($input){
     $metaTitleMantan = 'Tạo đơn hàng';
     if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		if(!empty($dataSend['token']) && !empty($dataSend['data_order']) && !empty($dataSend['id_customer']) && !empty($dataSend['id_staff']) && !empty($dataSend['id_warehouse'])){
+		if(!empty($dataSend['token']) && !empty($dataSend['data_order']) && !empty($dataSend['id_customer']) && $dataSend['id_staff']!='' && !empty($dataSend['id_warehouse'])){
 			$infoUser = getMemberByToken($dataSend['token'], 'orderProduct','product');
 			if(!empty($infoUser)){
 
@@ -890,7 +890,7 @@ function createComboAPI($input){
     $metaTitleMantan = 'Tạo đơn hàng';
     if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		if(!empty($dataSend['token']) && !empty($dataSend['data_order']) && !empty($dataSend['id_customer']) && !empty($dataSend['id_staff']) && !empty($dataSend['id_warehouse'])){
+		if(!empty($dataSend['token']) && !empty($dataSend['data_order']) && !empty($dataSend['id_customer']) && $dataSend['id_staff']!='' && !empty($dataSend['id_warehouse'])){
 			$infoUser = getMemberByToken($dataSend['token'], 'orderProduct','product');
 			if(!empty($infoUser)){
 

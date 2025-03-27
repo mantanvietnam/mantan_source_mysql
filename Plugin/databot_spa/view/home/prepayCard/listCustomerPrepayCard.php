@@ -84,7 +84,7 @@
                           <td> '.$item->infoCustomer->name.'<br/>
                             '.$item->infoCustomer->phone.'<br/>
                             '.$item->infoCustomer->email.'</td>
-                          <td>'.number_format($item->total).'đ/'.number_format($item->price).'đ</td>
+                          <td>'.number_format($item->total).'đ/'.number_format($item->price_sell*$item->quantity).'đ</td>
                            <td align="center">
                             <a class="dropdown-item" href="/listCollectionBill/?id_card='.$item->id.'">
                               <i class="bx bxs-show me-1"></i>

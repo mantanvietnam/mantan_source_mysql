@@ -303,6 +303,7 @@ function addExerciseWorkout($input){
         }else{
             $data = $modelExerciseWorkouts->newEmptyEntity();
             $data->created_at = time();
+            $data->time = 0;
         }
 
 
@@ -355,7 +356,6 @@ function addExerciseWorkout($input){
                 $data->description = @$dataSend['description'];
                 $data->description_en = @$dataSend['description_en'];
                 $data->youtube_code = @$dataSend['youtube_code'];
-                $data->time =(int) @$dataSend['time'];
                 $data->level = @$dataSend['level'];
                 $data->kcal =(int)@$dataSend['kcal'];
                 $data->sort_order = (int) @$dataSend['sort_order'];
@@ -460,7 +460,7 @@ function listChildExerciseWorkout($input)
     if ($page < 1) $page = 1;
 
     if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
-        $conditions['id'] =(int) $_GET['id'];
+        $conditions['ChildExerciseWorkouts.id'] =(int) $_GET['id'];
     }
 
     if(!empty($_GET['id_workout'])) {
