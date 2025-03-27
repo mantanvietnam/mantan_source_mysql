@@ -96,8 +96,8 @@
                           </div>
                            <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label">Bật tắc chức năng QP code ở hóa đơn</label>
-                              < <select name="bill_qrcode" class="form-select"  id="bill_qrcode">
+                              <label class="form-label">Bật tắt mã QR code ở hóa đơn</label>
+                              <select name="bill_qrcode" class="form-select"  id="bill_qrcode">
                                 <option value="active" <?php if(@$data['bill_qrcode']=='active') echo 'selected';?> >Bật</option>
                                 <option value="lock" <?php if(@$data['bill_qrcode']=='lock') echo 'selected';?> >Tắt</option>
                               </select>

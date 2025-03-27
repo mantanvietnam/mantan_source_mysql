@@ -173,7 +173,7 @@ function listBookAPI($input){
 			    if(!empty($listData)){
 			        foreach ($listData as $key => $value) {
 			            $listData[$key]->service  = $modelService->find()->where(['id'=>$value->id_service])->first();
-			            $listData[$key]->info_customer  = $modelCustomer->find()->where(['id'=>$value->id_customer])->first();
+			            $listData[$key]->avatar  = $modelCustomer->find()->where(['id'=>$value->id_customer])->first()->avatar;
 			        }
 			    }
 
