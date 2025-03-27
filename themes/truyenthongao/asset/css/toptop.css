@@ -85,7 +85,7 @@ video {
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
+    /* font: inherit; */
     vertical-align: baseline;
 }
 
@@ -1646,7 +1646,7 @@ header .nav-item a{
 
 .news-detail h3{
     font-size: 18px;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .news-detail ul,.news-detail ol{
