@@ -89,6 +89,10 @@ video {
     vertical-align: baseline;
 }
 
+em{
+    font-size: 85%;
+    font-weight: normal;
+}
 
 /* HTML5 display-role reset cho các trình duyệt cũ */
 
