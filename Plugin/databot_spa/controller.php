@@ -45,5 +45,6 @@ include_once('controller/api/warehouseController.php'); // đối tác
 
 include_once('controller/home/orderController.php'); // đối tác
 include_once('controller/api/prepayCardController.php'); // combo
+include_once('controller/api/billController.php'); // combo
 
 ?>

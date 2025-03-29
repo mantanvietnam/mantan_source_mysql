@@ -277,7 +277,7 @@ function listCustomerCardAPI($input){
     global $controller;
     global $urlCurrent;
     global $metaTitleMantan;
-    global $session;
+    global $isRequestPost;
 
    
     if($isRequestPost){
@@ -290,7 +290,7 @@ function listCustomerCardAPI($input){
 		        $modelPrepayCard = $controller->loadModel('PrepayCards');
 		        $modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 
-		        $conditions = array('id_member'=>$user->id_member);
+		        $conditions = array('id_member'=>$infoUser->id_member);
 		        $limit = 20;
 		        $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		        if($page<1) $page = 1;
@@ -331,6 +331,7 @@ function listCustomerCardAPI($input){
 		        $totalData = $modelCustomerPrepaycard->find()->where($conditions)->all()->toList();
 		        $totalData = count($totalData);
 
+
         		return apiResponse(1,'lấy dữ liệu thành công',$listData, $totalData);		  	
 			}
 			return apiResponse(3,'Tài khoản không tồn tại' );
@@ -339,11 +340,8 @@ function listCustomerCardAPI($input){
 	}
 	return apiResponse(0,'Gửi sai phương thức POST');
 }
-
-
-
       
-function listCustomerUserCardAPI($input){
+function listCustomerCardCheckMoneyAPI($input){
     global $controller;
     global $modelCategories;
     global $urlCurrent;
@@ -355,17 +353,17 @@ function listCustomerUserCardAPI($input){
       
     if($isRequestPost){
 		$dataSend = $input['request']->getData();
-			if(!empty($dataSend['token'])){
+			if(!empty($dataSend['token']) && !empty($dataSend['id_cusotmer']) && !empty($dataSend['total'])){
 			$infoUser = getMemberByToken($dataSend['token'], 'listCustomerPrepayCard','prepaid_cards');
 			if(!empty($infoUser)){
         
 		        $modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 		        $modelPrepayCard = $controller->loadModel('PrepayCards');
 
-		        $conditions = array('id_member'=>$user->id_member);
+		        $conditions = array('id_member'=>$infoUser->id_member);
 
 
-		        $conditions['id_customer'] = $dataSend['id_customer'];
+		        $conditions['id_cusotmer'] = $dataSend['id_customer'];
 		        $conditions['total >='] = $dataSend['total'];
 		        
 		           
@@ -377,8 +375,7 @@ function listCustomerUserCardAPI($input){
 		                
 		            }
 
-		            $return =  array('code'=>1, 'data'=>$listData);
-		       return apiResponse(1,'lấy dữ liệu thành công',$listData, $totalData);		  	
+		       return apiResponse(1,'lấy dữ liệu thành công',$listData, count($listData));		  	
 			}
 			return apiResponse(3,'Tài khoản không tồn tại' );
 		}
