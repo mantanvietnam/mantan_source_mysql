@@ -91,7 +91,7 @@
               <?php 
               if(!empty($listGroup)){
                 foreach ($listGroup as $key => $value) {
-                  if(empty($_GET['id_group']) || in_array($value->id, $_GET['id_group'])){
+                  if(empty($_GET['id_group']) || (is_array($_GET['id_group']) && in_array($value->id, $_GET['id_group'])) ){
                     // echo '<option value="'.$value->id.'">'.$value->name.'</option>';
                     echo '<label><input type="checkbox" class="checkAll" name="id_group[]" checked value="'.$value->id.'"> &nbsp; '.$value->name.'</label>';
                   }else{
