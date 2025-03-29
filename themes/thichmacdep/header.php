@@ -72,7 +72,7 @@
     height: 40px; /* Chiều cao khớp với input */
     padding: 0 16px; /* Khoảng cách nội dung nút */
     border: none; /* Xóa viền */
-    background-color: #4CAF50; /* Màu nền xanh lá */
+    background-color: #7AC5E4; /* Màu nền xanh lá */
     color: #fff; /* Màu chữ */
     border-radius: 0 20px 20px 0; /* Bo góc bên phải */
     font-size: 16px; /* Kích thước chữ */
@@ -119,8 +119,8 @@
     <div class="mx-mobile md:mx-6 lg:mx-16 xl:mx-20 header-container">
       <!-- logo -->
       <a href="/">
-        <img src="<?php echo @$settingThemes['image_logo']; ?>" alt="logo">
-      </a>
+  <img src="<?php echo @$settingThemes['image_logo']; ?>" alt="logo" style="max-width: 150px; height: auto; margin: 10px 0;">
+</a>
       <!-- Thanh tìm kiếm với icon kính lúp -->
       <div class="d-sm-flex d-none input-group header-search-container">
         <form action="/search-product" method="get" style= "display:flex">

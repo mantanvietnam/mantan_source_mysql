@@ -28,7 +28,7 @@
 }
 
 .search-btn:hover {
-  background-color: #25982b;
+  background-color: #7AC5E4;
   opacity: 0.8;
 }
 
@@ -56,7 +56,7 @@
   left: 0;
   width: 0; /* Bắt đầu từ 0 */
   height: 2px; /* Độ dày của gạch chân */
-  background-color: #25982b; /* Màu của gạch chân */
+  background-color: #7AC5E4; /* Màu của gạch chân */
   transition: width 0.3s ease; /* Hiệu ứng mượt */
 }
 
@@ -70,7 +70,7 @@
 }
 
 .drop-menu {
-  background-color: #25982b;
+  background-color: #7AC5E4;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -183,14 +183,14 @@
 }
 
 .intro-title {
-  color: #25982b;
+  color: #7AC5E4;
 }
 
 .intro-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #25982b;
+  background-color: #7AC5E4;
   width: 240px;
   height: 44px;
   border-radius: 16px;
@@ -422,7 +422,7 @@
 .list-category-header .more-btn {
   display: flex;
   text-decoration: none;
-  color: #25982b;
+  color: #7AC5E4;
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
@@ -484,7 +484,7 @@
 }
 
 .category-item span:hover {
-  color: #25982b;
+  color: #7AC5E4;
 }
 
 @media (min-width: 992px) {
@@ -668,7 +668,7 @@
 }
 
 .bestsell-product-title span:hover {
-  color: #25982b;
+  color: #7AC5E4;
 }
 
 .bestsell-product-price-container {
@@ -678,7 +678,7 @@
 }
 
 .bestsell-product-current-price {
-  color: #25982b;
+  color: #7AC5E4;
   font-weight: 700;
   font-size: 18px;
   line-height: 24px;
@@ -847,7 +847,7 @@
 }
 
 .collection-nav-item.active {
-  background-color: #25982b;
+  background-color: #7AC5E4;
 }
 
 .collection-nav-item.active span {
@@ -894,7 +894,7 @@
 }
 
 .collection-frist-des h5:hover {
-  color: #25982b;
+  color: #7AC5E4;
 }
 
 .collection-frist-price span {
@@ -1005,7 +1005,7 @@
 }
 
 .event-content h3:hover {
-  color: #25982b;
+  color: #7AC5E4;
 }
 
 .event-content span {
@@ -1095,7 +1095,7 @@
 }
 
 .news-nav-item.active {
-  background-color: #25982b;
+  background-color: #7AC5E4;
 }
 
 .news-nav-item.active span {
@@ -1143,7 +1143,7 @@
 }
 
 .news-items h3:hover {
-  color: #25982b;
+  color: #7AC5E4;
 }
 
 .news-items span {
@@ -1253,7 +1253,7 @@
 }
 
 .list-btn:hover {
-  background-color: #25982b;
+  background-color: #7AC5E4;
   border: 1px white solid;
 }
 
@@ -1262,13 +1262,13 @@
 }
 
 .list-btn:active {
-  background-color: #25982b;
+  background-color: #7AC5E4;
   color: white;
   border: 1px white solid;
 }
 
 .list-btn:focus-visible {
-  background-color: #25982b;
+  background-color: #7AC5E4;
   color: white;
   border: 1px white solid;
 }
@@ -1307,12 +1307,12 @@
 }
 
 .category-nav-item:hover {
-  color: #25982b;
+  color: #7AC5E4;
 }
 
 .category-nav-item.active {
-  border: 1px solid #25982b; /* Chỉ đổi màu viền */
-  color: #25982b;
+  border: 1px solid #7AC5E4; /* Chỉ đổi màu viền */
+  color: #7AC5E4;
 }
 
 /* pagination */

@@ -8,9 +8,12 @@
         <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 pt-5 pb-5'>
           <div class='row'>
             <div class="col-lg-3 col-12 footer-frist-container d-flex flex-column">
-              <div class='gap-3 d-flex align-items-center'>
-                <div><img src="<?php echo @$settingThemes['image_logo']; ?>" alt="logo"></div>
-              </div>
+              
+<div class='gap-3 d-flex align-items-start'>
+  <div>
+    <img src="<?php echo @$settingThemes['image_logo']; ?>" alt="logo" style="max-width: 80%; margin-top: -10px;">
+  </div>
+</div>
               <div class='mt-4 mb-3 bestnew-info'>
                 <div class='gap-3 bn-contacts'>
                   <div class='bn-contact'>
