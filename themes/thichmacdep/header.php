@@ -95,7 +95,7 @@
   <div>
     <!-- contact -->
      <div class='content-center text-white bg-green contact'>
-        <span class="">Hotline Mộc Miên: <?php echo @$settingThemes['title_main'];?></span>
+        <span class="">Hotline Thích Mặc Đẹp: <?php echo @$settingThemes['title_main'];?></span>
      </div>
      <!-- responsive search -->
      <div class="mx-mobilemobile md:mx-6 lg:mx-16 xl:mx-20 pt-4 d-sm-none d-flex input-group">

@@ -26,7 +26,7 @@
               </div>
             </div>
             <div class="gap-3 text-white col-lg-3 col-6 d-flex flex-column footer-mid">
-              <h2>VỀ MỘC MIÊN</h2>
+              <h2>VỀ THÍCH MẶC ĐẸP</h2>
               <span>Câu chuyện thương hiệu</span>
               <span>Về chúng tôi</span>
               <span>Liên hệ</span>
@@ -39,7 +39,7 @@
               <span>Điều khoản sử dụng</span>
             </div>
             <div class="gap-3 text-white col-lg-3 col-6 d-flex flex-column footer-mid">
-              <h2>TẠI MỘC MIÊN</h2>
+              <h2>TẠI THÍCH MẶC ĐẸP</h2>
               <span>Quyền lợi thành viên</span>
               <span>Thông tin thành viên</span>
               <span>Theo dõi đơn hàng</span>
@@ -52,7 +52,7 @@
               </div>
             </div>
           </div>
-          <h2 class='footer-slogant color-green'>MỘC MIÊN - ĐẸP THUẦN NHIÊN!</h2>
+          <h2 class='footer-slogant color-green'>THÍCH MẶC ĐẸP - NÂNG TẦM THỜI TRANG !</h2>
         </div>
       </div>
   </div>

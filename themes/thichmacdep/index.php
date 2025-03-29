@@ -61,9 +61,9 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
     <!-- giới thiệu -->
     <div class='recommend-intro'>
       <div class='d-flex flex-column'>
-        <div class='intro-title intro-text'>Mộc Miên</div>
+        <div class='intro-title intro-text'>THÍCH MẶC ĐẸP</div>
         <div class='intro-text'>Hành trình</div>
-        <div class='intro-text'>tái tạo làn da</div>
+        <div class='intro-text'>tỏa sáng mỗi ngày</div>
         <div class='intro-btn'>
           <a href="/categories" class=''>Khám phá sản phẩm</a>
         </div>
@@ -113,8 +113,8 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
         <div>
           <img src="<?= $urlThemeActive?>/assets/images/star.png" alt="star">
         </div>
-        <div class='review'>“Sử dụng các sản phẩm tái tạo làn da của Mộc Miên giúp tôi như trở về tuổi thanh xuân”</div>
-        <div class='review-text-1'>Người dùng Mộc Miên -</div>
+        <div class='review'>“Những bộ váy và set đồ ở Thích Mặc Đẹp giúp tôi tự tin và nổi bật hơn mỗi ngày!”</div>
+        <div class='review-text-1'>Người dùng Thích Mặc Đẹp -</div>
         <div>
           <img src="<?= $urlThemeActive?>/assets/images/groupp.png" alt="">
         </div>
@@ -190,7 +190,7 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
         <img src="<?php echo @$settingThemes['image_story'] ?>" alt="ceo">
       </div>
       <div class='story-content'>
-        <span><span class='color-green'>CÂU CHUYỆN</span> MỘC MIÊN</span>
+        <span><span class='color-green'>CÂU CHUYỆN</span> THÍCH MẶC ĐẸP </span>
         <div class='graph-containe'>
           <div class='text-style'><?php echo @$settingThemes['big_content']; ?></div>
           <div class='text-style-2'><?php echo nl2br(@$settingThemes['small_content']); ?></div>
@@ -302,7 +302,7 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
       </div>
 
       <!-- Hướng dẫn sử dụng -->
-      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 gap-3 mt-5 instruction-container d-none d-xxl-flex justify-content-center align-items-center'>
+      <!-- <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 gap-3 mt-5 instruction-container d-none d-xxl-flex justify-content-center align-items-center'>
         <div>
           <img src="<?= $urlThemeActive?>/assets/images/huongdan1.png" alt="huongdan1">
         </div>
@@ -314,7 +314,7 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
             <img src="<?= $urlThemeActive?>/assets/images/huongdan3.png" alt="">
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- sản phẩm theo combo -->
       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 container-combo'>
@@ -451,7 +451,7 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
        <!-- Tin tức từ mộc miên -->
       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 new-section-container'>
         <div class='list-category-header'>
-          <span><span class='color-green'>TIN TỨC</span> TỪ MỘC MIÊN</span>
+          <span><span class='color-green'>TIN TỨC</span> TỪ THÍCH MẶC ĐẸP</span>
           <a class='more-btn' href="/posts">
             <div class=''>Xem thêm</div>
             <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="">
