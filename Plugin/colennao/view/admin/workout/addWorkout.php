@@ -69,11 +69,11 @@
                             </div> -->
                             <div class="mb-3">
                               <label class="form-label">Mô tả ngắn tiếng Vệt </label>
-                              <textarea maxlength="160" rows="5" class="form-control" placeholder="Mô tả ngắn tiếng Vệt" name="description" id="description"><?php echo @$data->description;?></textarea>
+                              <textarea maxlength="500" rows="5" class="form-control" placeholder="Mô tả ngắn tiếng Vệt" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
                               <div class="mb-3">
                               <label class="form-label">Mô tả ngắn tiếng Anh </label>
-                              <textarea maxlength="160" rows="5" class="form-control" placeholder="Mô tả ngắn tiếng Anh" name="description_en" id="description_en"><?php echo @$data->description_en;?></textarea>
+                              <textarea maxlength="500" rows="5" class="form-control" placeholder="Mô tả ngắn tiếng Anh" name="description_en" id="description_en"><?php echo @$data->description_en;?></textarea>
                             </div>
                         </div>
                       </div>

@@ -18,9 +18,9 @@ addMenuAdminMantan($menus);
 
 function callApiViettelpost($url, $data, $token){
     $curl = curl_init();
-
     curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://partnerdev.viettelpost.vn/v2/'.$url,
+     // CURLOPT_URL => 'https://partnerdev.viettelpost.vn/v2/'.$url,
+      CURLOPT_URL => 'https://partner.viettelpost.vn/v2/'.$url,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,

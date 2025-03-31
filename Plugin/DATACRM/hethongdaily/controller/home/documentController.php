@@ -1,4 +1,101 @@
 <?php 
+function listCategoryDocument($input){
+	global $isRequestPost;
+	global $modelCategories;
+	global $metaTitleMantan;
+	global $session;
+
+	$metaTitleMantan = 'Nhóm khách hàng';
+	setVariable('page_view', 'listCategoryCustomer');
+
+	if(!empty(checkLoginManager('listCategoryCustomer', 'customer'))){
+		$infoUser = $session->read('infoUser');
+
+		$url= explode('?', $urlCurrent);	    
+	    if($url[0]=='/listCategoryAlbum'){
+	    	$user = checklogin('listAlbum');   
+    		if(empty($user->grant_permission)){
+    			return $controller->redirect('/statisticAgency');
+    		}
+	    	$conditions['type']= 'album';
+	    	$conditioneverybody['type']= 'album';
+	    	$title = 'Hình ảnh';
+	    	$slug = 'Album';
+	    	$type ='category_album';
+	    }elseif($url[0]=='/listCategoryVideo'){
+	    	$user = checklogin('listVideo');   
+    		if(empty($user->grant_permission)){
+    			return $controller->redirect('/statisticAgency');
+    		}
+	    	$conditions['type']= 'video';
+	    	$conditioneverybody['type']= 'video';
+	    	$title = 'Video';
+	    	$slug = 'Video';
+	    	$type ='category_video';
+	    }else{
+	    	$user = checklogin('listDocument');   
+    		if(empty($user->grant_permission)){
+    			return $controller->redirect('/statisticAgency');
+    		}
+	    	$conditions['type']= 'document';
+	    	$conditioneverybody['type']= 'document';
+	    	$title = 'Tài liệu';
+	    	$slug = 'Document';
+	    	$type ='category_document';
+	    }
+
+		$mess = '';
+		if(!empty($_GET['error'])){
+			switch ($_GET['error']) {
+				case 'requestCategoryCustomer':
+				$mess= '<p class="text-danger">Bạn cần tạo nhóm khách hàng trước</p>';
+				break;
+				case 'requestCategoryDelete':
+				$mess= '<p class="text-danger">Bạn không được xóa nhóm khách hàng này</p>';
+				break;
+
+				case 'requestCategoryDeleteSuccess':
+				$mess= '<p class="text-success">Bạn xóa thành công</p>';
+				break;
+			}
+		}
+
+		if ($isRequestPost) {
+			$dataSend = $input['request']->getData();
+
+            // tính ID category
+			if(!empty($dataSend['idCategoryEdit'])){
+				$infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+			}else{
+				$infoCategory = $modelCategories->newEmptyEntity();
+			}
+
+            // tạo dữ liệu save
+			$infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+			$infoCategory->parent = (int) $dataSend['parent'];
+			$infoCategory->image = $dataSend['image'];
+			$infoCategory->id_parent = $infoUser->id;
+			$infoCategory->keyword = $dataSend['keyword'];
+			$infoCategory->description = $dataSend['description'];
+			$infoCategory->type = $type;
+			$infoCategory->slug = $dataSend['value_phone'];
+
+			$modelCategories->save($infoCategory);
+
+			$mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+		}
+
+		$conditions = array('type' => $type, 'id_parent'=>$infoUser->id);
+
+		$listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+		setVariable('listData', $listData);
+		setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/');
+	}
+}
+
 function listDocument($input){
 	global $controller;
     global $urlCurrent;

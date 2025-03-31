@@ -134,11 +134,11 @@
 
                             <div class="mb-3">
                               <label class="form-label">Mô tả ngắn tiếng Việt</label>
-                              <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
+                              <textarea maxlength="500" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Mô tả ngắn tiếng Việt</label>
-                              <textarea maxlength="160" rows="5" class="form-control" name="description_en" id="description"><?php echo @$data->description_en;?></textarea>
+                              <textarea maxlength="500" rows="5" class="form-control" name="description_en" id="description"><?php echo @$data->description_en;?></textarea>
                             </div>
                             
                           </div>
