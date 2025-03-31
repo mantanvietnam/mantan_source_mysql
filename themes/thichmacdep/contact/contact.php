@@ -34,8 +34,8 @@
     margin: 0;
 }
 .btn-primary {
-    background-color: #25982b !important;
-    border-color: #25982b !important;
+    background-color: #7AC5E4 !important;
+    border-color: #7AC5E4 !important;
 }
 
 
