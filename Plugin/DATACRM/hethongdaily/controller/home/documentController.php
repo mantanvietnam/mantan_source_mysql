@@ -4,12 +4,12 @@ function listCategoryDocument($input){
 	global $modelCategories;
 	global $metaTitleMantan;
 	global $session;
+	global $urlCurrent;
 
-	$metaTitleMantan = 'Nhóm khách hàng';
-	setVariable('page_view', 'listCategoryCustomer');
+	$metaTitleMantan = 'Danh muc';
 
-	if(!empty(checkLoginManager('listCategoryCustomer', 'customer'))){
-		$infoUser = $session->read('infoUser');
+	if(!empty(checklogin())){
+		$infoUser = checklogin();
 
 		$url= explode('?', $urlCurrent);	    
 	    if($url[0]=='/listCategoryAlbum'){
@@ -48,10 +48,10 @@ function listCategoryDocument($input){
 		if(!empty($_GET['error'])){
 			switch ($_GET['error']) {
 				case 'requestCategoryCustomer':
-				$mess= '<p class="text-danger">Bạn cần tạo nhóm khách hàng trước</p>';
+				$mess= '<p class="text-danger">Bạn cần tạo danh mục trước</p>';
 				break;
 				case 'requestCategoryDelete':
-				$mess= '<p class="text-danger">Bạn không được xóa nhóm khách hàng này</p>';
+				$mess= '<p class="text-danger">Bạn không được xóa danh mục này</p>';
 				break;
 
 				case 'requestCategoryDeleteSuccess':
@@ -72,28 +72,65 @@ function listCategoryDocument($input){
 
             // tạo dữ liệu save
 			$infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-			$infoCategory->parent = (int) $dataSend['parent'];
 			$infoCategory->image = $dataSend['image'];
-			$infoCategory->id_parent = $infoUser->id;
+			$infoCategory->parent = $infoUser->id;
 			$infoCategory->keyword = $dataSend['keyword'];
 			$infoCategory->description = $dataSend['description'];
 			$infoCategory->type = $type;
-			$infoCategory->slug = $dataSend['value_phone'];
+			$infoCategory->status = 'active';
+			$infoCategory->slug = createSlugMantan($infoCategory->name);
 
 			$modelCategories->save($infoCategory);
 
 			$mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 		}
 
-		$conditions = array('type' => $type, 'id_parent'=>$infoUser->id);
+		$conditions = array('type' => $type, 'parent'=>$infoUser->id, 'status !='=>'delete');
 
 		$listData = $modelCategories->find()->where($conditions)->all()->toList();
 
 		setVariable('listData', $listData);
 		setVariable('mess', $mess);
+		setVariable('title', $title);
+	    setVariable('slug', $slug);
+	    setVariable('type', $type);
 	}else{
 		return $controller->redirect('/');
 	}
+}
+
+
+function deleteCategoryDocument($input){
+    global $controller;
+    global $session;
+
+    global $modelCategories;
+     $user = checklogin('deleteDocument');  
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCategoryProductAgency?mess=noPermissiondelete');
+        }
+
+
+        if(!empty($_GET['id'])){
+            $data = $modelCategories->get($_GET['id']);
+            
+            if($data){
+                $data->status = 'delete';
+                $modelCategories->save($data);
+                $note = $user->type_tv.' '. $user->name.' xóa thông tin danh mục '.$data->name.' có id là:'.$data->id;
+                
+
+            addActivityHistory($user,$note,'deleteCategoryProductAgency',$data->id);
+                //deleteSlugURL($data->slug);
+            }
+        }
+
+     return $controller->redirect('/listCategoryProductAgency');
+
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 
 function listDocument($input){
@@ -248,6 +285,7 @@ function addDocument($input){
 	global $controller;
     global $urlCurrent;
     global $modelCategories;
+    global $modelCategoryConnects;
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
@@ -370,8 +408,12 @@ function addDocument($input){
 		                    $_FILES['listImages'.$key]['error'] = $_FILES['listImage']['error'][$key];
 		                    $_FILES['listImages'.$key]['size'] = $_FILES['listImage']['size'][$key];
 		                }
-	                }	                
-		            $totalImage = count(@$dataSend['anh'])+1;
+	                }
+	                $totalImage = 0;
+                	if(!empty(@$dataSend['anh'])){
+                		$totalImage = count(@$dataSend['anh'])+1;
+                	}
+		            
 		            $listImages = [];
 		           
 		            for($y=0;$y<=$totalImage;$y++){
@@ -392,6 +434,7 @@ function addDocument($input){
 		                    }
 		                }
 		            }
+
 		            $total = count($_FILES['listImage']['name']);
 		                
 		            for($i=0;$i<=$total;$i++){
@@ -407,6 +450,8 @@ function addDocument($input){
 		            		}
 		            	}
 		            }
+		     
+		            	
 		            $so = 0;
 		            if(!empty($listImages)){
 		            	$conditions = ['id_document'=>$data->id];
@@ -419,6 +464,7 @@ function addDocument($input){
 		            		$info->id_document = $data->id;
 		            		$info->description = '';
 		            		$info->slug = createSlugMantan(trim( 'hình '.$so));
+
 		            		$modelDocumentinfo->save($info);
 
 		            	}
@@ -428,6 +474,24 @@ function addDocument($input){
 		            }
 
 		        }
+
+		        // lưu danh mục sản phẩm
+                if(!empty($dataSend['id_category'])){
+                    $conditions = ['id_parent'=>$data->id, 'keyword'=>'category_'.$type];
+                    $modelCategoryConnects->deleteAll($conditions);
+
+                    foreach ($dataSend['id_category'] as $id_category) {
+                        $category = $modelCategoryConnects->newEmptyEntity();
+
+                        $category->id_parent = $data->id;
+                        $category->keyword = 'category_'.$type;
+                        $category->id_category = $id_category;
+                        $modelCategoryConnects->save($category);
+                    }
+                }else{
+                    $conditions = ['id_parent'=>$data->id, 'keyword'=>'category_'.$type];
+                    $modelCategoryConnects->deleteAll($conditions);
+                }
 
 		        if(!empty($_GET['id'])){
 		        	if($type=='album'){
@@ -470,9 +534,25 @@ function addDocument($input){
             $data->info = $modelDocumentinfo->find()->where($conditions)->all()->toList();
         }
 
+        $conditions = array('type' => 'category_'.$type, 'parent'=>$user->id, 'status'=>'active');
+
+		$listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
+		 $listCategoryCheck = [];
+        if(!empty($data->id)){
+        	$conditions = ['id_parent'=>$data->id, 'keyword'=>'category_'.$type];
+            $listCheck = $modelCategoryConnects->find()->where($conditions)->all()->toList();
+            if(!empty($listCheck)){
+                foreach ($listCheck as $check) {
+                    $listCategoryCheck[] = $check->id_category;
+                }
+            }
+        }
 
 	    setVariable('mess', $mess);
 	    setVariable('data', $data);
+	    setVariable('listCategory', $listCategory);
+        setVariable('listCategoryCheck', $listCategoryCheck);
 
 	    setVariable('title', $title);
 	    setVariable('type', $type);

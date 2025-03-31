@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Danh mục sản phẩm</h4>
+    <h4 class="fw-bold py-3 mb-4">Danh mục <?php echo $title; ?></h4>
 
     <!-- Basic Layout -->
       <div class="row">
@@ -35,7 +35,7 @@
                                       </a>
                                     </td>
                                     <td align="center">
-                                      <a class="dropdown-item"  href="/deleteCategoryProductAgency?id='.$item->id.'">
+                                      <a class="dropdown-item" onclick="deleteCategory('.$item->id.')"  href="javascript:void(0);">
                                         <i class="bx bx-trash me-1"></i>
                                       </a>
                                     </td>
@@ -43,7 +43,7 @@
                           }
                         }else{
                           echo '<tr>
-                                  <td colspan="5" align="center">Chưa có danh mục sản phẩm</td>
+                                  <td colspan="5" align="center">Chưa có danh mục '.$title.'</td>
                                 </tr>';
                         }
                       ?>
@@ -116,18 +116,18 @@
 
     function deleteCategory(id){
       var check = confirm('Bạn có chắc chắn muốn xóa không?');
-
+      var slug = '<?php  echo $slug ?>';
       if(check){
         $.ajax({
           method: "GET",
-          url: "/deleteCategoryProductAgency?id="+id,
+          url: "/deleteCategoryDocument?id="+id,
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/listCategoryProductAgency';
+            window.location = '/listCategory'+slug+'?error=requestCategoryDeleteSuccess';
           })
           .fail(function() {
-            window.location = '/listCategoryProductAgency';
+            window.location = '/listCategory'+slug+'?error=requestCategoryDelete';
           });
       }
     }

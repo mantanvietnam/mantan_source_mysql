@@ -75,6 +75,25 @@
                           <label class="form-label" for="basic-default-message">Mô tả ngắn</label>
                           <textarea class="form-control" name="description" rows="5"><?php echo @$data->description;?></textarea>
                         </div>
+                        <div class="mb-3">
+                              <label class="form-label">Danh mục (*)</label>
+                              <div class="input-group input-group-merge">
+                                <?php 
+                                  if(!empty($listCategory)){
+                                     echo '<ul class = "list-inline">';
+                                        foreach ($listCategory as $Category) {
+                                          $check = '';
+                                          if(!empty($listCategoryCheck)){
+                                            $check = (in_array($Category->id, $listCategoryCheck))? 'checked':'';
+                                          }
+
+                                          echo '<li><input type="checkbox" '.$check.' name="id_category[]" value="'.$Category->id.'"> '.$Category->name.'</li>';
+                                        }
+                                        echo '</ul>';
+                                      }?>
+                                
+                              </div>
+                            </div>
                       </div>
 
                     </div>

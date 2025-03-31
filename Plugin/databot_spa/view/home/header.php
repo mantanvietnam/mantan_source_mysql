@@ -291,13 +291,13 @@
                     <div>Hoa hồng nhân viên</div>
                   </a>
                 </li>
-                <!--
+                
                 <li class="menu-item">
                   <a href="/listUserserviceHistories/#revenueStatistical" class="menu-link <?php if(@$page_view =='listUserserviceHistories') echo 'menu-active';?>">
                     <div>Khách trong ngày</div> 
                   </a>
                 </li>
-                -->
+               
               </ul>
             </li>
 

@@ -1018,7 +1018,7 @@ $sqlUpdateDatabase['staff_timekeepers']['id_staff'] = "ALTER TABLE `staff_timeke
 $sqlUpdateDatabase['staff_timekeepers']['id_member'] = "ALTER TABLE `staff_timekeepers` ADD `id_member` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['id_spa'] = "ALTER TABLE `staff_timekeepers` ADD `id_spa` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['check_in'] = "ALTER TABLE `staff_timekeepers` ADD `check_in` INT NULL DEFAULT NULL;";
-$sqlUpdateDatabase['staff_timekeepers']['created_at'] = "ALTER TABLE `staff_timekeepers` ADD `created_at` INT NULL DEFAULT NUL;";
+$sqlUpdateDatabase['staff_timekeepers']['created_at'] = "ALTER TABLE `staff_timekeepers` ADD `created_at` INT NULL DEFAULT NULl;";
 
 $sqlUpdateDatabase['payrolls']['salary'] = "ALTER TABLE `payrolls` ADD `salary` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['payrolls']['work'] = "ALTER TABLE `payrolls` ADD `work` INT NULL DEFAULT NULL;";

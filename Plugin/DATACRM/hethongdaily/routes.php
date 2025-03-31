@@ -158,6 +158,11 @@
 	$routesPlugin['listDocumentinfo']= 'hethongdaily/view/home/document/listDocumentinfo.php';
 	$routesPlugin['addDocumentinfo']= 'hethongdaily/view/home/document/addDocumentinfo.php';
 
+	$routesPlugin['listCategoryDocument']= 'hethongdaily/view/home/document/listCategoryDocument.php';
+	$routesPlugin['listCategoryAlbum']= 'hethongdaily/view/home/document/listCategoryDocument.php';
+	$routesPlugin['listCategoryVideo']= 'hethongdaily/view/home/document/listCategoryDocument.php';
+	
+
 	// bill phiếu thu chi 
 	$routesPlugin['listBill']= 'hethongdaily/view/home/bill/listBill.php';
 	$routesPlugin['listCollectionBill']= 'hethongdaily/view/home/bill/listCollectionBill.php';

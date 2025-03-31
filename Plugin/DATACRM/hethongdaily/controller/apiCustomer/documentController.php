@@ -1,8 +1,57 @@
 <?php 
+function listCategoryDocumentCustomerAPI($input){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $modelCategoryConnects;
+    global $isRequestPost;
+
+
+	$modelDocument = $controller->loadModel('Documents');
+	$modelDocumentinfo = $controller->loadModel('Documentinfos');
+    $modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);	
+	if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['type'])){
+            	 $boss = $modelMember->find()->where(['id_father'=>0])->first();
+                $conditions = array('parent'=>$boss->id,'status'=>'active','type'=>'category_'.$dataSend['type']);
+			    if(!empty($dataSend['name'])){
+			        $key=createSlugMantan($dataSend['name']);
+			        $conditions['slug LIKE']= '%'.$key.'%';
+			    }
+
+			        
+			    $limit = 20;
+			    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+			    if($page<1) $page = 1;
+			    $order = array('id'=>'desc');
+			    
+			    $listData = $modelCategories->find()->where($conditions)->order($order)->all()->toList();
+
+			    // phân trang
+			    $totalData = $modelCategories->find()->where($conditions)->all()->toList();
+			    $totalData = count($totalData);
+
+			    
+			     $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+			
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+        $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
+    }
+
+    return $return;
+}
+
 function listDocumentCustomerAPI($input){
 	global $controller;
     global $urlCurrent;
     global $modelCategories;
+    global $modelCategoryConnects;
     global $isRequestPost;
 
 
@@ -21,7 +70,17 @@ function listDocumentCustomerAPI($input){
 			        $conditions['slug LIKE']= '%'.$key.'%';
 			    }
 
-
+			     if(!empty($dataSend['id_category'])){
+			        $list_id = [];
+			        $listCheck = $modelCategoryConnects->find()->where(['id_category'=>$dataSend['id_category'], 'keyword'=>'category_'.$dataSend['type']])->all()->toList();
+			        if(!empty($listCheck)){
+			            foreach ($listCheck as $check) {
+			                $list_id[] = $check->id_parent;
+		                }
+		            }
+		            $conditions['id IN'] = $list_id;
+			    }
+			        
 			    $limit = 20;
 			    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 			    if($page<1) $page = 1;

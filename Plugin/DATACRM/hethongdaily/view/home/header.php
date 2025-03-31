@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                 <!DOCTYPE html>
 
 <!-- =========================================================
 * Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
@@ -319,9 +319,28 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                          <a class="dropdown-item" href="/listAlbum">Hình ảnh</a>
-                          <a class="dropdown-item" href="/listVideo">Video</a>
-                          <a class="dropdown-item" href="/listDocument">Tài liệu</a>
+                          <div class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Hình ảnh</a>
+                             <div class="dropdown-menu menuSub3">
+                                <a class="dropdown-item" href="/listCategoryAlbum">Danh mục hình ảnh</a>
+                                <a class="dropdown-item" href="/listAlbum">Hình ảnh</a>
+                              </div>
+                          </div>
+                          <div class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Video</a>
+                             <div class="dropdown-menu menuSub3">
+                                <a class="dropdown-item" href="/listCategoryVideo">Danh mục video</a>
+                                <a class="dropdown-item" href="/listVideo">Video</a>
+                              </div>
+                          </div>
+                          <div class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Tài liệu</a>
+                             <div class="dropdown-menu menuSub3">
+                                <a class="dropdown-item" href="/listCategoryDocument">Danh mục tài liệu</a>
+                                <a class="dropdown-item" href="/listDocument">Tài liệu</a>
+                              </div>
+                          </div>
+
                         </div>
                       </li>';
               }
