@@ -40,6 +40,41 @@ function searchCustomerApi($input)
 	return $return;
 }
 
+function searchCustomersApi($input)
+{
+	global $controller;
+	global $isRequestPost;
+
+	$return = [];
+
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$infoUser = getMemberByToken($dataSend['token'], 'listCustomer','customer');
+			if(!empty($infoUser)){	
+				
+			$modelCustomer = $controller->loadModel('Customers');
+
+			if(!empty($dataSend['key'])){
+	            $conditions = array('id_member'=>$infoUser->id_member);
+	            $conditions['OR'] = [['name LIKE' => '%'.$dataSend['key'].'%'], ['phone LIKE' => '%'.$dataSend['key'].'%'], ['email LIKE' => '%'.$dataSend['key'].'%']];
+	          
+	            $order = array('name' => 'asc');
+
+	            $listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
+	            
+	             return apiResponse(1,'Bạn lấy dữ liệu thành công',$listData);
+				}
+				return apiResponse(4,'Dữ liệu không tồn tại' );
+			}
+			return apiResponse(3,'Tài khoản không tồn tại' );
+		}
+		return apiResponse(2,'thếu dữ liệu' );
+	}
+	return apiResponse(0,'Gửi sai phương thức POST');
+}
+
 function addCustomerCampainApi($input)
 {
 	global $controller;
