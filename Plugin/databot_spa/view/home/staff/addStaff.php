@@ -38,7 +38,7 @@
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label">Nhóm nhân viên</label>
+                    <label class="form-label">Nhóm nhân viên (*)</label>
                     <select name="id_group" class="form-select color-dropdown" required>
                       <option value="">Chọn nhóm nhân viên</option>
                       <?php
@@ -76,26 +76,26 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
-                    <input type="text"  <?php if(!empty($_GET['id'])) echo 'readonly=""'; ?> class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone; ?>" />
+                    <input type="text"  <?php if(!empty($_GET['id'])){ echo 'readonly=""';}else{ echo 'required';} ?> class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone; ?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Lương cứng (*)</label>
-                    <input type="text" class="form-control" placeholder="" name="fixed_salary" id="" value="<?php echo @$data->fixed_salary; ?>" />
+                    <input type="text" class="form-control" placeholder="" name="fixed_salary" id="" required value="<?php echo (int) @$data->fixed_salary; ?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Tiền đóng bảo hiểm (*)</label>
-                    <input type="text" class="form-control" placeholder="" name="insurance" id="" value="<?php echo @$data->insurance; ?>" />
+                    <input type="text" class="form-control" placeholder="" name="insurance" id="" required value="<?php echo (int) @$data->insurance; ?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Phụ cấp  (*)</label>
-                    <input type="text" class="form-control" placeholder="" name="allowance" id="" value="<?php echo @$data->allowance; ?>" />
+                    <input type="text" class="form-control" placeholder="" name="allowance" id="" required value="<?php echo (int) @$data->allowance; ?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Số tài khoản ngây hàng  (*)</label>
+                    <label class="form-label" for="basic-default-fullname">Số tài khoản ngân hàng</label>
                     <input type="text" class="form-control" placeholder="" name="account_bank" id="phone" value="<?php echo @$data->account_bank; ?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"> ngây hàng  (*)</label>
+                    <label class="form-label" for="basic-default-fullname">Ngân hàng</label>
                     <select class="form-select" name="code_bank" id="code_bank">
                       <option value="">Chọn ngân hàng</option>
                       <?php

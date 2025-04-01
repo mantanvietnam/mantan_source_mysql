@@ -99,7 +99,7 @@ if(@$data->order->promotion>101){
                                     <thead>
                                         <tr>
                                             <th >Dịch vụ</th>
-                                            <th>LẦN THỪ</th>
+                                            <th>Lần thứ</th>
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyservice">
@@ -276,10 +276,10 @@ if(@$data->order->promotion>101){
                             <p><label>Tiên khách hàng:</label> <?php echo $data->customer->name ?></p>
                             <p><label>Điện thoại:</label> <?php echo $data->customer->phone ?></p>
                             <p><label>Email:</label> <?php echo $data->customer->email ?></p>
-                            <b><label>check in:</label> <?php echo date('H:i d/m/Y',$data->order->time); ?>
-                            <label class="form-label">Check out</label>
+                            <p><label>Check in:</label> <?php echo date('H:i d/m/Y',$data->order->time); ?></p>
+                            <p><label class="form-label">Check out</label></p>
                             <input type="text" name="time_checkout"  id="time_checkout" class="form-control datetimepicker" value="<?php echo date('d/m/Y H:i')?>">
-                            <label class="form-label">Kết quả sử dụng dịch vụ</label>
+                            <p><label class="form-label">Kết quả sử dụng dịch vụ</label></p>
                             <textarea class="form-control" name="note"></textarea>
                         </div>
                     </div>

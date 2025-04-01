@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Cơ sở SPA</h4>
+  <h4 class="fw-bold py-3 mb-4">Cơ sở kinh doanh</h4>
   <?php if ($infoUser->number_spa > $totalData){ ?>
      <p><a href="/addSpa" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <?php } ?>
@@ -44,7 +44,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách SPA  </h5>
+    <h5 class="card-header">Danh sách cơ sở kinh doanh  </h5>
     <p><?php echo @$mess;?></p>
 
     <div class="card-body row">
@@ -91,7 +91,7 @@
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có cơ sở spa nào</td>
+                        <td colspan="10" align="center">Chưa có cơ sở kinh doanh nào</td>
                       </tr>';
               }
             ?>

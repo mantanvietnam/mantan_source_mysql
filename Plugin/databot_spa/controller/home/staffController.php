@@ -489,13 +489,13 @@ function listStaffBonus($input){
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$url= explode('?', $urlCurrent);
 		if($url[0]=='/listStaffPunish'){
-	    	 setVariable('page_view', 'listStaffPunish');
+	    	setVariable('page_view', 'listStaffPunish');
 	    	$conditions['type']= 'punish';
 	    	$title = 'Phạt';
 	    	$slug = 'Punish';
 	    	$type ='phạt';
 	    }else{
-	    	 setVariable('page_view', 'listStaffBonus');
+	    	setVariable('page_view', 'listStaffBonus');
 	    	$conditions['type']= 'bonus';
 	    	$title = 'Thưởng';
 	    	$slug = 'Bonus';
@@ -629,13 +629,13 @@ function addStaffBonus($input){
 
 		$url= explode('?', $urlCurrent);
 		if($url[0]=='/addStaffPunish'){
-	    	 setVariable('page_view', 'addStaffPunish');
+	    	setVariable('page_view', 'addStaffPunish');
 	    	$datatype= 'punish';
 	    	$title = 'Phạt';
 	    	$slug = 'Punish';
 	    	$type ='phạt';
 	    }else{
-	    	 setVariable('page_view', 'addStaffBonus');
+	    	setVariable('page_view', 'addStaffBonus');
 	    	$datatype= 'bonus';
 	    	$title = 'Thưởng';
 	    	$slug = 'Bonus';
@@ -713,6 +713,7 @@ function timesheetStaff($input){
     global $modelCategoryConnects;
 
     if(!empty(checkLoginManager('timesheetStaff', 'staff'))){
+    	setVariable('page_view', 'timesheetStaff');
         
         $metaTitleMantan = 'Bảng chấm công nhân viên';
         $user = $session->read('infoUser');
@@ -771,7 +772,7 @@ function timesheetStaff($input){
 }
 
 function checktimesheet($input){
-     global $controller;
+    global $controller;
     global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
@@ -779,6 +780,7 @@ function checktimesheet($input){
     global $modelCategoryConnects;
 
      if(!empty(checkLoginManager('checktimesheet', 'staff'))){
+     	setVariable('page_view', 'checktimesheet');
         
         $metaTitleMantan = 'Bảng chấm công nhân viên';
         $user = $session->read('infoUser');
@@ -832,6 +834,7 @@ function payrollstaff($input){
     global $modelCategoryConnects;
 
     if(!empty(checkLoginManager('payrollstaff', 'staff'))){
+    	setVariable('page_view', 'payrollstaff');
         
         $metaTitleMantan = 'Bảng chấm công nhân viên';
         $user = $session->read('infoUser');
@@ -1000,6 +1003,7 @@ function addPayroll($input){
     global $modelCategoryConnects;
 
     if(!empty(checkLoginManager('payrollstaff', 'staff'))){
+    	setVariable('page_view', 'addPayroll');
         
         $metaTitleMantan = 'Bảng chấm công nhân viên';
         $user = $session->read('infoUser');
@@ -1086,7 +1090,8 @@ function listPayroll($input){
     global $listBank;
 	global $type_collection_bill;
     global $modelCategoryConnects;
-     setVariable('page_view', 'listPayroll');
+    
+    setVariable('page_view', 'listPayroll');
     if(!empty(checkLoginManager('listPayroll', 'staff'))){
         
         $metaTitleMantan = 'Bảng chấm công nhân viên';
@@ -1208,8 +1213,9 @@ function salaryVerification($input){
     global $session;
     global $modelCategoryConnects;
 
-	 if(!empty(checkLoginManager('salaryVerification', 'staff'))){
-        
+	if(!empty(checkLoginManager('salaryVerification', 'staff'))){
+        setVariable('page_view', 'salaryVerification');
+
         $metaTitleMantan = 'Bảng chấm công nhân viên';
         $user = $session->read('infoUser');
        
@@ -1245,7 +1251,8 @@ function salaryPayment($input){
     global $session;
     global $modelCategoryConnects;
 
-	 if(!empty(checkLoginManager('salaryVerification', 'staff'))){
+	 if(!empty(checkLoginManager('salaryPayment', 'staff'))){
+        setVariable('page_view', 'salaryPayment');
         
         $metaTitleMantan = 'Bảng chấm công nhân viên';
         $user = $session->read('infoUser');
