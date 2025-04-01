@@ -88,6 +88,7 @@ $sqlInstallDatabase .="CREATE TABLE `notifications` (
  `action` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
  `content` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
  `id_object` INT NULL DEFAULT NULL,
+ `type` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'customer',
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -169,6 +170,7 @@ $sqlUpdateDatabase['notifications']['created_at'] = "ALTER TABLE `notifications`
 $sqlUpdateDatabase['notifications']['action'] = "ALTER TABLE `notifications` ADD `action` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['notifications']['content'] = "ALTER TABLE `notifications` ADD `content` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['notifications']['id_object'] = "ALTER TABLE `notifications` ADD `id_object` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['notifications']['type'] = "ALTER TABLE `notifications` ADD `type` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'customer';";
 
 $sqlUpdateDatabase['verify_accounts']['id_customer'] = "ALTER TABLE `verify_accounts` ADD `id_customer` INT NOT NULL;";
 $sqlUpdateDatabase['verify_accounts']['image_face'] = "ALTER TABLE `verify_accounts` ADD `image_face` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

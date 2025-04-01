@@ -23,6 +23,14 @@ $sqlInstallDatabase .= "CREATE TABLE `lessons` (
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `history_lessons` ( 
+	`id` INT NOT NULL , 
+	`id_lesson` INT NOT NULL , 
+	`minute` INT NOT NULL , 
+	`created_at` INT NOT NULL , 
+	`id_customer` INT NOT NULL 
+) ENGINE = InnoDB;";
+
 $sqlInstallDatabase .= "CREATE TABLE `tests` ( 
 	`id` INT NOT NULL AUTO_INCREMENT , 
 	`description` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
@@ -136,6 +144,11 @@ $sqlUpdateDatabase['historytests']['time_start'] = "ALTER TABLE `historytests` A
 $sqlUpdateDatabase['historytests']['time_end'] = "ALTER TABLE `historytests` ADD `time_end` INT NOT NULL;";
 $sqlUpdateDatabase['historytests']['status'] = "ALTER TABLE `historytests` ADD `status` VARCHAR(255) NOT NULL;";
 $sqlUpdateDatabase['historytests']['type'] = "ALTER TABLE `historytests` ADD `type` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
+
+$sqlUpdateDatabase['historytests']['id_lesson'] = "ALTER TABLE `historytests` ADD `id_lesson` INT NOT NULL;";
+$sqlUpdateDatabase['historytests']['minute'] = "ALTER TABLE `historytests` ADD `minute` INT NOT NULL;";
+$sqlUpdateDatabase['historytests']['created_at'] = "ALTER TABLE `historytests` ADD `created_at` INT NOT NULL;";
+$sqlUpdateDatabase['historytests']['id_customer'] = "ALTER TABLE `historytests` ADD `id_customer` INT NOT NULL;";
 // bảng courses
 $sqlUpdateDatabase['courses']['title'] = "ALTER TABLE `courses` ADD `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['courses']['image'] = "ALTER TABLE `courses` ADD `image` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";

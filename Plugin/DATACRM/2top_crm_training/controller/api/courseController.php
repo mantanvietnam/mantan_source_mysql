@@ -286,6 +286,7 @@ function getlessonCustomerAPI($input)
 
     $modelLesson = $controller->loadModel('Lessons');
 	$modelTest = $controller->loadModel('Tests');
+	$modelHistoryLesson = $controller->loadModel('HistoryLessons');
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
@@ -319,6 +320,8 @@ function getlessonCustomerAPI($input)
 
 		            $data->test =$tests;
 		            $data->otherData =$otherData;
+
+		            $data->history_lesson = $modelHistoryLesson->find()->where(['id_lesson'=>$data->id, 'id_customer'=>$infoCustomer->id])->first();
 
 					$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$data);
             	}else{
@@ -581,6 +584,52 @@ function historyTestCustomerAPI($input)
 
 	return $return;
 }
+
+function saveHistoryLesson($input){
+	global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategoryConnects;
+
+    $metaTitleMantan = 'Danh sách khóa học';
+
+    $modelLesson = $controller->loadModel('Lessons');
+    $modelHistoryLesson = $controller->loadModel('HistoryLessons');
+
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+	    if(!empty($dataSend['token']) && !empty($dataSend['id']) && !empty($dataSend['minute'])){
+	    	$infoCustomer = getCustomerByToken($dataSend['token']);
+	    	if(!empty($infoCustomer)){
+	    		$conditions = array('id_lesson'=>(int)$dataSend['id'], 'id_customer'=>$infoCustomer->id);
+	    		$data = $modelHistoryLesson->find()->where($conditions)->first();
+	    		if(empty($data)){
+	    			$data = $modelHistoryLesson->newEmptyEntity();
+	    			$data->id_lesson = (int)$dataSend['id'];
+	    			$data->id_customer = $infoCustomer->id;
+	    		}
+
+	    		$data->minute = $dataSend['minute'];
+				$data->created_at = time();
+				$modelHistoryLesson->save($data);
+
+
+	    		return array('code'=>1, 'mess'=>'lưu dữ liệu thành công ', 'data'=>$data);
+		    }
+			return  array('code'=>3, 'mess'=>'Sai mã token');
+			
+		}
+		return array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+	}
+	return array('code'=>0, 'mess'=>' gửi sai kiểu POST');
+}
+
+
 
 
  ?>

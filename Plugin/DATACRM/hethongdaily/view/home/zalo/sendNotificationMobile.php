@@ -20,7 +20,7 @@
             <form enctype="multipart/form-data" method="post" action="">
               <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Đối tượng nhận tin</label>
                     <select class="form-select color-dropdown" name="type_user" id="type_user" onchange="selectTypeUser();">
@@ -33,6 +33,26 @@
                       <option value="test_member">Gửi test kiểm tra app đại lý</option>
                       <option value="test_customer">Gửi test kiểm tra app khách hàng</option>
                     </select>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label class="form-label">quy ước hành động thông báo</label>
+                    <select class="form-select color-dropdown" name="action" id="action" onchange="selectTypeUser();">
+                      <option value="notificationAdmin">thông báo text</option>
+                      <option value="news"> thông tin chi tiết bài viết</option>
+                      <option value="courses">thông tin chi tiết khóa học</option>
+                      <option value="campaign">thông tin chi tiết chiến dịch</option>
+                      <option value="document">thông tin chi tiết tài liệu</option>
+                    </select>
+                  </div>
+                </div>
+                 <div class="col-md-2">
+                  <div class="mb-3">
+                    <label class="form-label">id đối tượng</label>
+                  <input type="text" autocomplete="off" class="form-control" name="id_object" id="id_object" value="">
+              
                   </div>
                 </div>
 

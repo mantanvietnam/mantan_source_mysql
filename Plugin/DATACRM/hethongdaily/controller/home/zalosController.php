@@ -245,7 +245,13 @@ function sendNotificationMobile($input)
 	        $dataSend = $input['request']->getData();
 
 	        if(!empty($dataSend['content']) && !empty($dataSend['title'])){
-	        	$dataSendNotification= array('title'=>$dataSend['title'],'time'=>date('H:i d/m/Y'),'content'=>$dataSend['content'],'action'=>'notificationAdmin');
+	        	$dataSendNotification= array(
+	        			'title'=>$dataSend['title'],
+	        			'time'=>date('H:i d/m/Y'),
+	        			'content'=>$dataSend['content'],
+	        			'action'=>$dataSend['action'] ,
+	        			'id_object'=>$dataSend['id_object']
+	        		);
                 $token_device = [];
                 $listTokenDevice = [];
                 $type = '';
@@ -382,18 +388,41 @@ function sendNotificationMobile($input)
 	        		$type = 'Gửi toàn hệ thống';
 	        		$listTokenDevice =  $modelTokenDevices->find()->where()->all()->toList();
 	        	}
-
+	        	$id_customer = [];
+	        	$id_member = [];
                 if(!empty($listTokenDevice)){
                     foreach ($listTokenDevice as $tokenDevice) {
                         if(!empty($tokenDevice->token_device)){
                             $token_device[] = $tokenDevice->token_device;
+
+                            if(!empty($tokenDevice->id_customer) && !in_array($tokenDevice->id_customer, $id_customer)){
+                            	$id_customer[] =  $tokenDevice->id_customer;
+                            	
+                            }
+                            if(!empty($tokenDevice->id_member) && !in_array($tokenDevice->id_member, $id_member)){
+                            	$id_member[] =  $tokenDevice->id_member;
+                            	
+                            }
                         }
                     }
 
+
                     if(!empty($token_device)){
                         $return = sendNotification($dataSendNotification, $token_device);
+
+                        if(!empty($id_customer)){
+                        	saveNotification($dataSendNotification, $id_customer, @$dataSend['id_object'], 'customer');
+                        }
+
+                        if(!empty($id_member)){
+                        	saveNotification($dataSendNotification, $id_member, @$dataSend['id_object'], 'member');
+                        }
+
                     }
                 }
+
+
+
 
                 $note = $user->type_tv.' '. $user->name.' đã gửi thông báo app cho '.$type.' nội dung gửi '.$dataSend['title'];
        			addActivityHistory($user,$note,'sendNotificationMobile',0);

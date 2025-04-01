@@ -63,7 +63,7 @@ function checkKeyword($keyword){
 }
 
 
-function saveNotification($notification, $id_user, $id=null){
+function saveNotification($notification, $id_user, $id=null, $type='customer'){
     global $controller;
     if(is_array($id_user)){
         foreach($id_user as $key => $item){
@@ -78,6 +78,7 @@ function saveNotification($notification, $id_user, $id=null){
     $data->title = $notification['title'];
     $data->created_at = time();
     $data->action = $notification['action'];
+    $data->type = $type;
     $data->content = $notification['content'];
     $data->id_object = $id;
     $modelNotification->save($data);
