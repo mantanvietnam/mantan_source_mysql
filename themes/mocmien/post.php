@@ -19,11 +19,22 @@ a {
     color : blue;
 }
 
-h1, h2, h3, h4, .card-title {
+h1, h2, h4, .card-title {
     font-weight: 700;
     color: #222;
 }
 
+h3 {
+    /* Define h3 properties separately here */
+    font-weight: 400; /* Example: using a lighter weight */
+    color: #222; /* Keeping the same color */
+    font-size : 18px;
+}
+
+em {
+    font-size : 85%;
+    font-weight : normal;
+}
 p, .author {
     color: #555;
     font-size: 15px;
