@@ -34,6 +34,7 @@ h3 {
 em {
     font-size : 85%;
     font-weight : normal;
+    font-style: italic;
 }
 p, .author {
     color: #555;
