@@ -1724,7 +1724,7 @@ function paymentOrders($input){
                 $debt->id_spa = $session->read('id_spa');
                 $debt->id_staff = $infoUser->id;
                 $debt->total =  $order->total_pay;
-                $debt->note =  'án hàng ID đơn hàng là '.$data->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
+                $debt->note =  'án hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
                $debt->type = 0; //0: Thu, 1: chi
                $debt->ceated_at =$time;
                $debt->updated_a =$time;

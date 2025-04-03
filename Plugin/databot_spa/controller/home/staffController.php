@@ -488,7 +488,7 @@ function listStaffBonus($input){
 		$infoUser = $session->read('infoUser');
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$url= explode('?', $urlCurrent);
-		if($url[0]=='/listStaffPunish'){
+		if(strpos($url[0], 'listStaffPunish') !== false){
 	    	setVariable('page_view', 'listStaffPunish');
 	    	$conditions['type']= 'punish';
 	    	$title = 'Phạt';
@@ -502,7 +502,8 @@ function listStaffBonus($input){
 	    	$type ='thưởng';
 	    }
 		
-		
+
+	
 		$limit = 20;
 		$order = ['status'=>'desc','id' => 'DESC'];
 
@@ -605,6 +606,10 @@ function listStaffBonus($input){
 	    setVariable('listCategory', $listCategory);
 	    setVariable('listData', $listData);
 	    setVariable('listStaffs', $listStaffs);
+
+	    setVariable('title', $title);
+	    setVariable('slug', $slug);
+	    setVariable('type', $type);
 	}else{
 		return $controller->redirect('/');
 	}
@@ -624,11 +629,11 @@ function addStaffBonus($input){
     $modelMember = $controller->loadModel('Members');
 	$modelStaffBonu = $controller->loadModel('StaffBonus');
 	
-	if(!empty(checkLoginManager('addGroupStaff', 'staff'))){
+	if(!empty(checkLoginManager('addStaffPunish', 'staff'))){
 		$infoUser = $session->read('infoUser');
 
 		$url= explode('?', $urlCurrent);
-		if($url[0]=='/addStaffPunish'){
+		if(strpos($url[0], 'addStaffPunish') !== false){
 	    	setVariable('page_view', 'addStaffPunish');
 	    	$datatype= 'punish';
 	    	$title = 'Phạt';
@@ -690,6 +695,9 @@ function addStaffBonus($input){
 									['id_member'=>$infoUser->id_member],
 								];
 	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
+
+
+
 
 	    setVariable('data', $data);
 	    setVariable('listStaffs', $listStaffs);

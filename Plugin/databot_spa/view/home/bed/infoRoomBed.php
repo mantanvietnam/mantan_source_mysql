@@ -80,7 +80,7 @@ if(@$data->order->promotion>101){
                                     <thead>
                                         <tr>
                                             <th>dịch vụ</th>
-                                            <th>lần thừ </th>
+                                            <th>Số Lượng</th>
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyservice">
@@ -91,7 +91,7 @@ if(@$data->order->promotion>101){
                                             $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$item->id_order_details, 'id_services'=>$item->id_services, 'status <'=>3))->count(); 
                                        echo "<tr>
                                             <td>".$item->service->name."</td>
-                                            <td>".number_format($quantity)."</td>
+                                            <td>".number_format($quantity)."/".number_format($item->orderDetail->quantity)."</td>
                                         </tr>";
                                     }
                                 }

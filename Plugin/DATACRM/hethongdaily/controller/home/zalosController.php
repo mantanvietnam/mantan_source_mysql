@@ -229,6 +229,8 @@ function sendNotificationMobile($input)
 
 		$infoUser = $modelMembers->find()->where(['id'=>$session->read('infoUser')->id])->first();
 
+		
+
 		// danh sách chiến dịch
 		$conditions = array('id_member'=>$session->read('infoUser')->id);
 		$listCampaign = $modelCampaigns->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();

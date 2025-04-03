@@ -205,7 +205,25 @@ function infoRoomBed($input){
                     foreach($id_user_service as $id_userservice){
                         if(!empty($id_userservice)){
                             $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>$id_userservice, 'status'=>1))->first();
-                            $user_service->orderDetail = $modelOrderDetails->find()->where(['id'=>$user_service->id_order_details,'id_order'=>$user_service->id_order])->first();
+                              $orderDetail = $modelOrderDetails->find()->where(['id'=>$user_service->id_order_details,'id_order'=>$user_service->id_order])->first();
+
+                            if($orderDetail->type=='combo'){
+                                $combo = $modelCombo->find()->where(array('id'=>$orderDetail->id_product))->first();
+
+                                $combo_service = json_decode($combo->service);
+                                if(!empty($combo_service)){
+                                    foreach($combo_service as $idservice => $quantityPro){
+                                        if($idservice == $user_service->id_services){
+                                            $orderDetail->quantity = $quantityPro * $orderDetail->quantity;
+
+                                        }
+                                        
+                                    }
+                                }
+                            }
+
+                            $user_service->orderDetail = $orderDetail; 
+
                             $user_service->service = $modelService->find()->where(array('id'=>$user_service->id_services))->first();
 
                             $userservice[] =  $user_service;
@@ -389,7 +407,23 @@ function checkoutBed($input){
                     foreach($id_user_service as $id_userservice){
                         if(!empty($id_userservice)){
                             $user_service = $modelUserserviceHistories->find()->where(array('id_bed'=>$data->id,'id'=>$id_userservice, 'status'=>1))->first();
-                            $user_service->orderDetail = $modelOrderDetails->find()->where(['id'=>$user_service->id_order_details,'id_order'=>$user_service->id_order])->first();
+                            $orderDetail = $modelOrderDetails->find()->where(['id'=>$user_service->id_order_details,'id_order'=>$user_service->id_order])->first();
+                            if($orderDetail->type=='combo'){
+                                $combo = $modelCombo->find()->where(array('id'=>$orderDetail->id_product))->first();
+
+                                $combo_service = json_decode($combo->service);
+                                if(!empty($combo_service)){
+                                    foreach($combo_service as $idservice => $quantityPro){
+                                        if($idservice == $user_service->id_services){
+                                            $orderDetail->quantity = $quantityPro * $orderDetail->quantity;
+
+                                        }
+                                        
+                                    }
+                                }
+                            }
+
+                            $user_service->orderDetail = $orderDetail;
                             $user_service->service = $modelService->find()->where(array('id'=>$user_service->id_services))->first();
 
                             $userservice[] =  $user_service;

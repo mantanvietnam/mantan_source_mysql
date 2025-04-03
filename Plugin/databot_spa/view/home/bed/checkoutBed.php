@@ -4,7 +4,7 @@
 if(@$data->order->promotion>101){
             $promotion = number_format(@$data->order->promotion).'đ';
         }else{
-            $promotion = @$data->order->promotion.'%';
+            $promotion = number_format(@$data->order->promotion).'%';
         } 
         $type = '<span style="color: red">Chưa thanh toán';
         if(@$data->order->status==1){
@@ -99,18 +99,19 @@ if(@$data->order->promotion>101){
                                     <thead>
                                         <tr>
                                             <th >Dịch vụ</th>
-                                            <th>Lần thứ</th>
+                                            <th>Số lượng</th>
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyservice">
                                     <?php
                                     if(!empty($data->userservice)){
                                         foreach($data->userservice as $key => $item){
-                                            $quantity = 0;
-                                            $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$item->id_order_details, 'id_services'=>$item->id_services, 'status <'=>3))->count(); 
+                                            $quantity = $modelUserserviceHistories->find()->where(array('id_order_details'=>$item->id_order_details, 'id_services'=>$item->id_services, 'status <'=>3))->count();
+
+
                                        echo "<tr>
                                             <td>".$item->service->name."</td>
-                                            <td>".number_format($quantity)."</td>
+                                            <td>".number_format($quantity)."/".number_format($item->orderDetail->quantity)."</td>
                                         </tr>";
                                     }
                                 }

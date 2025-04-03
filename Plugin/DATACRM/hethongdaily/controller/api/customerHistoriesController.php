@@ -97,7 +97,7 @@ function saveCustomerHistoryAPI($input)
 
                     $modelCustomerHistories->save($customer_histories);
 
-                    $note = $infoMember->type_tv.' '. $infoMember->name.' tạo mới lịch hẹn khách hàng '.$checkCustomer->full_name.' có id lịch hẹn là:'.$data->id;
+                    $note = $infoMember->type_tv.' '. $infoMember->name.' tạo mới lịch hẹn khách hàng '.$infoCustomer->full_name.' có id lịch hẹn là:'.$data->id;
 
                      addActivityHistory($infoMember,$note,'addCustomerGiftAgency',$data->id);
 

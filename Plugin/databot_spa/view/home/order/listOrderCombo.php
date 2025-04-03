@@ -288,7 +288,7 @@
                                                         $quantityAll = $item->quantity_combo*$value->quantity;
 
                                                         if($quantity < $quantityAll){
-                                                            $btn = '<a class="btn btn-primary d-block" title="Sử dụng" data-bs-toggle="modal" data-bs-target="#sudung'.$value->id.'" style=" color: white; ">Sử dụng</a>';
+                                                            $btn = '<a class="btn btn-primary d-block" title="Sử dụng" data-bs-toggle="modal" data-bs-target="#sudung'.$detail->id.'" style=" color: white; ">Sử dụng</a>';
                                                         }else{
                                                             $btn = 'Đã hết';
                                                         }
@@ -317,7 +317,7 @@
 
                     foreach($value->combo_service as $key => $item){ ?>
 
-                        <div class="modal fade" id="sudung<?php echo $value->id; ?>"  name="id"> 
+                        <div class="modal fade" id="sudung<?php echo $detail->id; ?>"  name="id"> 
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">

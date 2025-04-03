@@ -141,6 +141,45 @@ function saveInfoAffiliaterAPI($input){
                 $modelAffiliaters->save($data);
                 
                 return array('code'=>1, 'mess'=>'Bạn đăng ký thành công', 'data'=>$data);
+
+                if(!empty($data->id_member) && function_exists('sendNotification')){
+                    $modelTokenDevices = $controller->loadModel('TokenDevices');
+                    $modelMembers = $controller->loadModel('Members');
+
+                    $infoMember = $modelMembers->find()->where(['id'=>$data->id_member])->first();
+
+                    if(!empty($infoMember->noti_new_order)){
+                        $dataSendNotification= array('title'=>'Có cộng tác viên mới','time'=>date('H:i d/m/Y'),'content'=>$data->name.' đã trở thành cộng tác viên mới của bạn','action'=>'createAffiliater','id_aff'=>$data->id);
+                        $token_device = [];
+
+                        $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                        $id_member = [];
+                        if(!empty($listTokenDevice)){
+                            foreach ($listTokenDevice as $tokenDevice) {
+                                if(!empty($tokenDevice->token_device)){
+                                    $token_device[] = $tokenDevice->token_device;
+                                    if(!empty($tokenDevice->id_member) && !in_array($tokenDevice->id_member, $id_member)){
+                                        $id_member[] =  $tokenDevice->id_member;
+                                    }
+                                }
+                            }
+
+                            if(!empty($token_device)){
+                                $return = sendNotification($dataSendNotification, $token_device);
+
+                                if(!empty($id_member)){
+                                    saveNotification($dataSendNotification, $id_member, @$data->id, 'member');
+                                }
+                            }
+                        }
+                    }
+
+                    /*if(!empty($infoMember->email)){
+                        getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data, $infoMember->email);
+                    }*/
+                }
+
             }else{
                 if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
                 $checkPhone->password = md5($dataSend['password']);

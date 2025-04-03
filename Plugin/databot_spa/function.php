@@ -732,6 +732,7 @@ function sendEmailRegAcc($email='', $fullName='', $user= '', $pass= '', $code_ot
         </html>';
 
         sendEmail($to, $cc, $bcc, $subject, $content);
+        
     }
 }
 

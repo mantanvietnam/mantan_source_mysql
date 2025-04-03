@@ -340,6 +340,8 @@ function getUserWorkoutAPI($input){
     $modelUserPackages = $controller->loadModel('UserPackages');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
     $modelAreas = $controller->loadModel('Areas');
+    $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
+    $modelCategoryConnect = $controller->loadModel('CategoryConnects');
 
     if($isRequestPost){
     	$dataSend = $input['request']->getData();	
@@ -454,12 +456,36 @@ function getUserWorkoutAPI($input){
 		        				$item->level_en = null;
 		        				$item->level = null;
 		        			}
+		        			$tota_time = 0;
+				            $so_bani = 0;
+				            $listChild = $modelCategoryConnect->find()->where(['id_category'=>$item->id, 'keyword'=>'child_exercise'])->all()->toList();
+
+				            if(!empty($listChild)){
+				                foreach($listChild as $k => $value){
+				                    $ChildExercise = $modelChildExerciseWorkouts->find()->where(['id'=>$value->id_parent])->first();
+				                    if(!empty($ChildExercise->time)){
+				                         $tota_time += $ChildExercise->time;
+				                          $so_bani +=  1; 
+				                    }
+				                }
+				            }
+
+				            if(!empty($tota_time)){
+				                $time = $tota_time/60;
+				                $item->time = (int)$time;  
+				            }
+
+		    			
+		    				$exerciseWorkout[$key] = $item;
+
+
 		    			}
-		    			$exerciseWorkout[$key] = $item;
 		    		}
 
 		    		$data->ExerciseWorkout = $exerciseWorkout;
 		    		$data->total_exercise = count($data->ExerciseWorkout);
+
+
 			    }
 
 

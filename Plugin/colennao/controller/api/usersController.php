@@ -1012,11 +1012,12 @@ function checkUserDateline($input)
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
+        $modelUser = $controller->loadModel('Users');
         if (empty($dataSend['token'])) {
             return apiResponse(3, 'thiếu dữ liệu');
         }
 
-            $user = getUserByToken($dataSend['token']);
+            $user = $modelUser->find()->where(['token'=>$dataSend['token'], 'status'=>'active'])->first();
 
             if(!empty($user)){
          

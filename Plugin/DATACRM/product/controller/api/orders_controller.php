@@ -113,7 +113,7 @@ function createOrderProductAPI($input)
                     getContentEmailOrderSuccess(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
                 }
 
-                // gửi cho admin
+                // gửi cho admin 
                 //getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
 
                 // gửi cho đại lý
@@ -129,15 +129,23 @@ function createOrderProductAPI($input)
 
                         $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
 
+                        $id_member = [];
                         if(!empty($listTokenDevice)){
                             foreach ($listTokenDevice as $tokenDevice) {
                                 if(!empty($tokenDevice->token_device)){
                                     $token_device[] = $tokenDevice->token_device;
+                                    if(!empty($tokenDevice->id_member) && !in_array($tokenDevice->id_member, $id_member)){
+                                        $id_member[] =  $tokenDevice->id_member;
+                                    }
                                 }
                             }
 
                             if(!empty($token_device)){
                                 $return = sendNotification($dataSendNotification, $token_device);
+
+                                if(!empty($id_member)){
+                                    saveNotification($dataSendNotification, $id_member, @$data->id, 'member');
+                                }
                             }
                         }
                     }

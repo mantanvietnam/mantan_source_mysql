@@ -2,7 +2,6 @@
 // danh sách khóa học
 function listCoursesMemberAPI($input)
 {
-
     global $controller;
     global $isRequestPost;
     global $modelOptions;
