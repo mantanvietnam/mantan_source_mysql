@@ -9,6 +9,25 @@ $menus[0]['sub'][0]= array(	'title'=>'Cài đặt phân quyền',
 
 addMenuAdminMantan($menus);
 
+global $clientIdDrive;
+global $clientSecretDrive;
+global $spreadsheetIdOrder;
+global $modelOptions;
+
+$clientIdDrive = '';
+$clientSecretDrive = '';
+$spreadsheetIdOrder = '';
+
+$conditions = array('key_word' => 'settingSecretDrive');
+$settingSecretDrive = $modelOptions->find()->where($conditions)->first();
+if(!empty($settingSecretDrive->value)){
+	$value = json_decode($settingSecretDrive->value, true);
+
+	$clientIdDrive = $value['clientIdDrive'];
+	$clientSecretDrive = $value['clientSecretDrive'];
+	$spreadsheetIdOrder = $value['spreadsheetIdOrder'];
+}
+
 function getListFileDrive($id_folder='')
 {
 	$apiKeyDrive = 'AIzaSyCOoYx8DCIEM7LTgZfiATh3gaLhplMPd34';
@@ -76,33 +95,65 @@ function getListFileDrive($id_folder='')
 	return $files;
 }
 
-function showButtonPermissionDrive($client_id='770286303827-8o6n91equnisth2u99n9o3f4f2va4cpv.apps.googleusercontent.com')
+function showButtonPermissionDrive()
 {
 	global $urlHomes;
-	//$client_id = "YOUR_CLIENT_ID"; // Thay bằng Client ID từ Google
-	$redirect_uri = $urlHomes."googleDriveCallback"; // URL nhận phản hồi OAuth
+	global $clientIdDrive;
+
+
+	$redirectUri = $urlHomes."googleDriveCallback"; 
 	$scope = "https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets";
+	$responseType = "code";
+	$accessType = "offline"; // Để lấy refresh_token
+	$prompt = "consent"; // Luôn hiển thị yêu cầu cấp quyền
 
-	$auth_url = "https://accounts.google.com/o/oauth2/auth?"
-	    . "response_type=code"
-	    . "&client_id=" . $client_id
-	    . "&redirect_uri=" . urlencode($redirect_uri)
-	    . "&scope=" . urlencode($scope)
-	    . "&access_type=offline"
-	    . "&prompt=consent";
+	$authUrl = "https://accounts.google.com/o/oauth2/auth?" . http_build_query([
+	    "client_id" => $clientIdDrive,
+	    "redirect_uri" => $redirectUri,
+	    "scope" => $scope,
+	    "response_type" => $responseType,
+	    "access_type" => $accessType,
+	    "prompt" => $prompt
+	]);
 
-	echo '	<a href="'.$auth_url.'">
+	return '<a href="'.$authUrl.'">
 		        <button class="btn btn-danger">Ủy quyền Google Drive</button>
 		    </a>';
+	
 }
 
-function addRowExcelDrive($spreadsheetId='', $newRow=[])
+function getFirstSheetName($accessToken, $spreadsheetId) {
+    $url = "https://sheets.googleapis.com/v4/spreadsheets/$spreadsheetId";
+    
+    $headers = [
+        "Authorization: Bearer $accessToken",
+        "Content-Type: application/json"
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $data = json_decode($response, true);
+    
+    if (isset($data['sheets'][0]['properties']['title'])) {
+        return $data['sheets'][0]['properties']['title']; // Tên sheet đầu tiên
+    } else {
+        return null; // Không tìm thấy sheet nào
+    }
+}
+
+function addRowToGoogleSheet($values=[], $spreadsheetId='', $sheetName='') 
 {
-	require __DIR__.'/library/apiclient/vendor/autoload.php';
-
 	global $modelOptions;
+	global $spreadsheetIdOrder;
 
-	if(!empty($spreadsheetId) && !empty($newRow)){
+	if(!empty($spreadsheetId) && !empty($values)){
+
 		$conditions = array('key_word' => 'tokenPermissionDrive');
 	    $data = $modelOptions->find()->where($conditions)->first();
 	    if(empty($data)){
@@ -112,47 +163,92 @@ function addRowExcelDrive($spreadsheetId='', $newRow=[])
 	    if(!empty($data->value)){
 		    $token = json_decode($data->value, true);
 
-			$client = new Google_Client();
-			$client->setAuthConfig(__DIR__.'/config/credentials.json');
-			$client->setAccessToken($token);
+	    	$deadline = $token['created']+$token['expires_in'];
 
-			$sheets = new Google_Service_Sheets($client);
+	    	if($deadline<=time()){
+	    		$token = getNewTokenDrive($token['refresh_token']);
+	    	}
 
-			// Chọn sheet cần ghi dữ liệu (VD: "Sheet1")
-			$range = "Sheet1"; // Nếu muốn chỉ định cột, có thể dùng "Sheet1!A:C"
+	    	if(empty($spreadsheetId)){
+	    		$spreadsheetId = $spreadsheetIdOrder;
+	    	}
 
-			// Dữ liệu mới cần thêm vào hàng tiếp theo
-			$newRow = [
-			    "Nguyễn Văn B",     // Cột A - Họ Tên
-			    "nguyenvanb@gmail.com", // Cột B - Email
-			    date('Y-m-d H:i:s') // Cột C - Ngày Ghi
-			];
+	    	if(empty($sheetName)){
+	    		$sheetName = getFirstSheetName($token['access_token'], $spreadsheetId);
+	    	}
 
-			// Chuẩn bị dữ liệu gửi lên Google Sheets
-			$body = new Google_Service_Sheets_ValueRange([
-			    'values' => [$newRow]
-			]);
+		    $url = "https://sheets.googleapis.com/v4/spreadsheets/$spreadsheetId/values/". urlencode($sheetName) .":append?valueInputOption=RAW";
 
-			// Cấu hình API để thêm dòng mới vào vị trí tiếp theo
-			$params = [
-			    'valueInputOption' => 'RAW', // Giữ nguyên định dạng dữ liệu
-			    'insertDataOption' => 'INSERT_ROWS' // Thêm dòng mới vào cuối bảng
-			];
+		    $postData = [
+		        "values" => [$values]
+		    ];
 
-			// Gửi yêu cầu API
-			$response = $sheets->spreadsheets_values->append($spreadsheetId, $range, $body, $params);
+		    $headers = [
+		        "Authorization: Bearer ".$token['access_token'],
+		        "Content-Type: application/json"
+		    ];
 
-			// Thông báo kết quả
-			if ($response) {
-			    echo "✅ Thêm dữ liệu thành công vào Google Sheets! <a href='https://docs.google.com/spreadsheets/d/$spreadsheetId' target='_blank'>Xem bảng tính</a>";
-			} else {
-			    echo "❌ Lỗi khi thêm dữ liệu!";
-			}
+		    $ch = curl_init();
+		    curl_setopt($ch, CURLOPT_URL, $url);
+		    curl_setopt($ch, CURLOPT_POST, 1);
+		    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+		    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		    $response = curl_exec($ch);
+		    curl_close($ch);
+		  
+		    return json_decode($response, true);
 		}else{
-			echo "Chưa cấp quyền Google Sheets!";
+			echo 'Chưa cấp quyền truy cập Drive';die;
 		}
 	}else{
-		echo "Chưa có ID file Google Sheets!";
+		echo 'Gửi thiếu dữ liệu GG Drive';die;
 	}
+}
+
+function getNewTokenDrive($refresh_token='')
+{
+	global $modelOptions;
+	global $clientIdDrive;
+	global $clientSecretDrive;
+
+	$new_token = [];
+	$old_token = [];
+
+	if(!empty($refresh_token)){
+		$url = 'https://oauth2.googleapis.com/token';
+
+	    $postFields = [
+	        'client_id'     => $clientIdDrive,
+	        'client_secret' => $clientSecretDrive,
+	        'refresh_token' => $refresh_token,
+	        'grant_type'    => 'refresh_token',
+	    ];
+
+	    $ch = curl_init();
+	    curl_setopt($ch, CURLOPT_URL, $url);
+	    curl_setopt($ch, CURLOPT_POST, 1);
+	    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postFields));
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	    $new_token = curl_exec($ch);
+	    curl_close($ch);
+
+	    $new_token = json_decode($new_token, true);
+
+		$conditions = array('key_word' => 'tokenPermissionDrive');
+	    $data = $modelOptions->find()->where($conditions)->first();
+	    
+	    $old_token = json_decode($data->value, true);
+	    $old_token['access_token'] = $new_token['access_token'];
+	    $old_token['created'] = time();
+
+	    $data->value = json_encode($old_token);
+
+        $modelOptions->save($data);
+	}
+
+	return $old_token;
 }
 ?>
