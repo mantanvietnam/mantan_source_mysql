@@ -36,7 +36,7 @@ if(@$data->order->promotion>101){
                     
                     <div class="form-group col-sm-12 row">
                         <label class="col-sm-4 control-label"><strong>Tên khách hàng:</strong></label>
-                        <div class="col-sm-8"><?php echo $data->customer->name; ?> </div>
+                        <div class="col-sm-8"><?php echo $data->full_name; ?> </div>
                     </div>
                     <div class="form-group col-sm-12 row">
                         <label class="col-sm-4 control-label"><strong>Địa chỉ:</strong></label>
@@ -151,7 +151,7 @@ if(@$data->order->promotion>101){
             <input type="hidden" value="checkout"  name="type">
             <input type="hidden" value="<?php echo $data->id_services; ?>"  name="id_service">
             <input type="hidden" value="<?php echo $data->id; ?>"  name="id_Userservice">
-            <input type="hidden" value="<?php echo $data->customer->name; ?>"  name="full_name">
+            <input type="hidden" value="<?php echo $data->full_name; ?>"  name="full_name">
             <input type="hidden" value="<?php echo @$data->id; ?>"  name="id_bed">
             <input type="hidden" value="listRoomBed"  name="url">
 
@@ -159,15 +159,15 @@ if(@$data->order->promotion>101){
                 <div class="card-body">
                     <div class="row gx-3 gy-2 align-items-center">
                         <div class="col-md-6">
-                            <b>Tên khách hàng:</b> <?php echo $data->customer->name ?>
+                            <b>Tên khách hàng:</b> <?php echo $data->full_name ?>
                         </div>
                             
                         <div class="col-md-6">
-                            <b>Điện thoại:</b> <?php echo $data->customer->phone ?>
+                            <b>Điện thoại:</b> <?php echo @$data->customer->phone ?>
                         </div>
 
                         <div class="col-md-6">
-                            <b>Email:</b> <?php echo $data->customer->email ?>
+                            <b>Email:</b> <?php echo @$data->customer->email ?>
                         </div>
 
                         <div class="col-md-6">
@@ -272,11 +272,11 @@ if(@$data->order->promotion>101){
                             <input type="hidden" value="checkout"  name="type">
                             <input type="hidden" value="<?php echo $data->id_services; ?>"  name="id_service">
                             <input type="hidden" value="<?php echo $data->id; ?>"  name="id_Userservice">
-                            <input type="hidden" value="<?php echo $data->customer->name; ?>"  name="full_name">
+                            <input type="hidden" value="<?php echo @$data->customer->name; ?>"  name="full_name">
                             <input type="hidden" value="<?php echo @$data->id; ?>"  name="id_bed">
-                            <p><label>Tiên khách hàng:</label> <?php echo $data->customer->name ?></p>
-                            <p><label>Điện thoại:</label> <?php echo $data->customer->phone ?></p>
-                            <p><label>Email:</label> <?php echo $data->customer->email ?></p>
+                            <p><label>Tên khách hàng:</label> <?php echo $data->full_name ?></p>
+                            <p><label>Điện thoại:</label> <?php echo @$data->customer->phone ?></p>
+                            <p><label>Email:</label> <?php echo @$data->customer->email ?></p>
                             <p><label>Check in:</label> <?php echo date('H:i d/m/Y',$data->order->time); ?></p>
                             <p><label class="form-label">Check out</label></p>
                             <input type="text" name="time_checkout"  id="time_checkout" class="form-control datetimepicker" value="<?php echo date('d/m/Y H:i')?>">

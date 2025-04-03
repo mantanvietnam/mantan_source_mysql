@@ -136,8 +136,13 @@ function listRoomBed($input){
                     if(!empty($value->id_order)){
                         $order = $modelOrder->find()->where(array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id'=>$value->id_order))->first();
                         if(!empty($order)){
-                        $order->customer = $modelCustomer->find()->where(array('id'=>$order->id_customer))->first();
+                            $customer = $modelCustomer->find()->where(array('id'=>$order->id_customer))->first();
+                            if(empty( $order->customer)){
+                                $order->name = 'khách lẻ';
+                            }else{
+                                 $order->name = $customer->name;
                             }
+                        }
                         $databed[$k]->order = $order;
 
                         $conditionsOrder = array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id_bed'=>$value->id,'status'=>0);
@@ -237,6 +242,9 @@ function infoRoomBed($input){
 
             if(!empty($data->id_customer)){
                 $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
+                $data->full_name =  $data->customer->name;
+            }else{
+                $data->full_name = 'khách lẻ';
             }
 
             if(!empty($data->id_order)){
@@ -443,8 +451,12 @@ function checkoutBed($input){
                 $customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
                 if(!empty($customer)){
                      $customer->card = $modelCustomerPrepaycards->find()->where(['total >= '=>$data->order->total_pay, 'id_customer'=>$customer->id])->all()->toList();
+
+                    $data->full_name = $customer->name;
                 }
                 $data->customer = $customer;
+            }else{
+                $data->full_name = 'Khách lẻ';
             }
            
 
@@ -495,6 +507,7 @@ function checkoutBed($input){
 
             return $controller->redirect('/listRoomBed');
         }
+        
 
         setVariable('data', $data);
         setVariable('mess', @$mess);

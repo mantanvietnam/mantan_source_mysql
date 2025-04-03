@@ -81,27 +81,30 @@
                 global $type_collection_bill;
                 foreach ($listData as $item) {
                    
-
-                   if($item->status=='new'){
+                  $edit='';
+                  $type='';
+                  if($item->status=='new'){
                       $status = '<p class="text-danger">chưa thanh toán</p>';
-                   }else{
-                      $status = '<p class="text-success">Đã thanh toán</p>';
-                   }
-
-
+                      if($item->type=='bonus'){
+                        $type = ' <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
+                  <i class="bx bxs-credit-card"></i>
+                  </a>';
+                      }
+                        $edit =' <a class="dropdown-item" href="/addStaff'.@$slug.'/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>';
+                      
+                  }else{
+                      $status = '<p class="text-success">Đã thanh toán</p>';   
+                  }
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>'.date('H:i d/m/Y', $item->time).'</td>
+                          <td>'.date('H:i d/m/Y', $item->created_at).'</td>
                           <td>'.$item->infoStaff->name.'</td>
-                          <td>'.number_format($item->total).'đ</td>
+                          <td>'.number_format($item->money).'đ</td>
                           <td>'.$item->note.'</td>
-                          <td>'.$status.'</td>
-                          <td align="center">
-                            <a class="dropdown-item" href="/addStaff'.@$slug.'/?id='.$item->id.'">
-                              <i class="bx bx-edit-alt me-1"></i>
-                            </a>
-                          </td>
-                          
+                          <td>'.$status.$type.'</td>
+                          <td align="center">'.$edit.'</td>
                         </tr>';
                 }
               }else{
@@ -161,5 +164,61 @@
   </div>
   <!--/ Responsive Table -->
 </div>
+<?php  if(!empty($listData)){
+      foreach ($listData as $items) {
+       if($item->type=='bonus'){
+
+      $info = '';
+      if(!empty($items->infoStaff)){
+        $info = '<p><label class="form-label">Nhân viên:</label> '.$items->infoStaff->name.'</p>
+        <p><label class="form-label">Số điện thoại:</label> '.$items->infoStaff->phone.'</p>';
+      }
+
+
+  ?>
+  <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header form-label border-bottom">
+          <h5 class="modal-title" id="exampleModalLabel1">Thanh toán tiền hoa hồng cho nhân viên  </h5>
+          <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/payBonus" method="GET">
+         <div class="modal-footer">
+          <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+          <div class="card-body">
+            <div class="row gx-3 gy-2 align-items-center">
+              <div class="col-md-12">
+                <?php echo $info; ?>
+                <p><label class="form-label">Số tiền thanh thoán:</label> <?php echo number_format($items->money) ?> đ</p>
+
+              </div>
+              <div class="col-md-12">
+                <label class="form-label">Hình thức thanh toán</label>
+                <select name="type_collection_bill" class="form-select color-dropdown" required>
+                  <option value="">Chọn hình thức thanh toán</option>
+                  <option value="tien_mat">Tiền mặt</option>
+                  <option value="chuyen_khoan">Chuyển khoản</option>
+                  <option value="the_tin_dung">Quẹt thẻ</option>
+                  <option value="vi_dien_tu">Ví điện tử</option>
+                  <option value="hinh_thuc_khac">Hình thức khác</option>
+                </select>
+              </div>
+              <div class="col-md-12">
+                <label class="form-label">Nội dung trả </label>
+                <textarea  class="form-control" rows="5" name="note"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Thanh thoán </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+<?php }}}?>
 
 <?php include(__DIR__.'/../footer.php'); ?>

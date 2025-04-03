@@ -405,6 +405,30 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
   }
 }
 
+function getAllCategoryProductActive(){
+  global $controller;
+  global $modelCategories;
+
+  $modelProduct = $controller->loadModel('Products');
+  $modelCategorieProduct = $controller->loadModel('CategorieProducts');
+  $conditions = array('type' => 'category_product','status'=>'active');
+  $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+  if(!empty($listData)){
+    foreach($listData as $key => $item){
+      $category_product =  $modelCategorieProduct->find()->where(['id_category'=>$item->id]);
+      $listProduct = [];
+      if(!empty($category_product)){
+        foreach($category_product as $k => $value){
+           $listProduct[] = $modelProduct->find()->where(['id'=>$value->id_product,'status'=>'active'])->first();
+        }
+      }
+      $listData[$key]->listProduct = $listProduct;
+    }
+  }
+  return $listData;
+}
+
 function getAllProductActive()
 {
   global $controller;

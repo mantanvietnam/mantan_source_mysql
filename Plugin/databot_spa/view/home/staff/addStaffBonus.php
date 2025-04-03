@@ -47,6 +47,10 @@
                             <label class="form-label">Ghi chú</label>
                              <input required type="text" class="form-control" name="note" id="note" value="<?php echo @$data->note; ?>" />
                           </div>
+                          <div class="col-md-6 mb-3 ">
+                            <label class="form-label">Ngày</label>
+                            <input type="text" class="form-control hasDatepicker datetimepicker" name="created_at" value="<?php if(!empty($data->created_at)) echo date('d/m/Y H:i',$data->created_at);?>">
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Lưu</button>

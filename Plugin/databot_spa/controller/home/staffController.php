@@ -537,7 +537,7 @@ function listStaffBonus($input){
 		}
 	    
 	    $listData = $modelStaffBonu->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
+	    
 	    if(!empty($listData)){
 	    	foreach($listData as $key => $item){
 	    		$listData[$key]->infoStaff = $modelMember->find()->where(['id'=>$item->id_staff])->first();
@@ -585,6 +585,7 @@ function listStaffBonus($input){
 	    $conditionsCategories = array('type' => 'category_member', 'id_member' => $infoUser->id_member);
         $order = array('name'=>'asc');
         $listCategory = $modelCategories->find()->where($conditionsCategories)->order($order)->all()->toList();
+
 
         $conditionsStaff['OR'] = [ 
 									['id'=>$infoUser->id_member],
@@ -647,13 +648,15 @@ function addStaffBonus($input){
 	    	$type ='thưởng';
 	    }
 
+	    
+
 		// lấy data edit
 	    if(!empty($_GET['id'])){
 	        $data = $modelStaffBonu->get( (int) $_GET['id']);
 	    }else{
 	        $data = $modelStaffBonu->newEmptyEntity();
-	        $data->created_at = time();
 			$data->status = 'new';
+			$data->created_at = time();
 	    }
 
 	    if(!empty($_GET['id_staff'])){
@@ -664,10 +667,19 @@ function addStaffBonus($input){
 
 		if($isRequestPost) {
 	        $dataSend = $input['request']->getData();
+	        if(!empty($dataSend['created_at'])){
+	    	$time = explode(' ', $dataSend['created_at']);
+	    	$date = explode('/', $time[0]);
+	    	$time = explode(':', $time[1]);
+	    	$create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+	    }else{
+	    	$create_at = time();
+	    }
 
 	        if(!empty($dataSend['money'])){
 	        	// tạo dữ liệu save
 	        	$data->id_staff =(int)@$dataSend['id_staff'];
+	        	$data->created_at = $create_at;
 	        	$data->id_member = @$infoUser->id_member;
 	        	$data->note = @$dataSend['note'];
 	        	$data->type = @$datatype;
@@ -866,7 +878,7 @@ function payrollstaff($input){
         	$conditions['id']= $_GET['id_staff'];
         }
 
-        // phân trang
+
         $dataStaff = $modelMember->find()->where($conditions)->first();
         // Thiết lập tháng và năm
 
@@ -926,6 +938,7 @@ function payrollstaff($input){
 
 		$listStaffTimekeeper = $modelStaffTimekeepers->find()->where($conditions)->all()->toList();
 		$conditions['type'] = 'punish';
+		$conditions['type'] = 'new';
 	    $listDatapunish = $modelStaffBonu->find()->where($conditions)->all()->toList();
 
 	    $conditions['type'] = 'bonus';
@@ -975,6 +988,13 @@ function payrollstaff($input){
         }
         if(!empty($data)){
         	$day = $data->work;
+        	if($data->status=='done'){
+        		$working_day = $data->working_day;
+        		$commission = $data->commission;
+        		$bonus = $bonus;
+        		$working_day = $data->working_day;
+
+        	}
         }else{
         	$day = date('d',$end);
         }
@@ -983,6 +1003,7 @@ function payrollstaff($input){
         $salary = (($dataStaff->fixed_salary/$day)* $working_day)+ ($commission + $bonus + $dataStaff->allowance) -(0 + $dataStaff->insurance + $punish);
         
 
+        setVariable('data', $data);
         setVariable('date', $date);
     	setVariable('thang', $thang);
     	setVariable('nam', $nam);
@@ -1028,6 +1049,7 @@ function addPayroll($input){
 		$modelPayroll = $controller->loadModel('Payrolls');
         $conditions = array('id_member'=>$user->id_member );
 
+        $dataStaff = $modelMember->find()->where(['id'=>(int)$_GET['id_staff']])->first();
         if(!empty($_GET['thang'])){
             $thang = (int) $_GET['thang'];
         }else{
@@ -1074,6 +1096,32 @@ function addPayroll($input){
         $start = strtotime($date['start']);  
         $end  = strtotime($date['end']);
 
+        $conditions = array('id_member'=>$user->id_member,'id_staff'=>$dataStaff->id);
+		$conditions['created_at >='] = (int) strtotime($date['start']);
+		$conditions['created_at <='] = (int) strtotime($date['end']);
+
+		$listStaffTimekeeper = $modelStaffTimekeepers->find()->where($conditions)->all()->toList();
+		$conditions['type'] = 'punish';
+		$conditions['status'] = 'new';
+	    $listDatapunish = $modelStaffBonu->find()->where($conditions)->all()->toList();
+
+	    $conditions['type'] = 'bonus';
+	    $listDatabonus = $modelStaffBonu->find()->where($conditions)->all()->toList();
+	    if(!empty($listDatapunish)){
+            foreach($listDatapunish as $key => $value){
+            	$value->status = 'done';
+            	$modelStaffBonu->save($value);
+
+            } 
+        }
+	    if(!empty($listDatabonus)){
+            foreach($listDatabonus as $key => $value){
+            	$value->status = 'done';
+            	$modelStaffBonu->save($value);
+
+            } 
+        }
+
         $conditions = array('id_member'=>$user->id_member,'id_staff'=>(int) $_GET['id_staff']);
 		$conditions['created_at >='] = (int) $start;
 		$conditions['created_at <='] = (int) $end;
@@ -1081,7 +1129,7 @@ function addPayroll($input){
 	     if(!empty($listDatacommission)){
             foreach($listDatacommission as $key => $value){
                 $value->status = 1;
-                $modelAgency->save($data);
+                $modelAgency->save($value);
             } 
         }
         return $controller->redirect('/listStaff');
@@ -1308,5 +1356,61 @@ function salaryPayment($input){
         return $controller->redirect('/listPayroll');
     }
     return $controller->redirect('/listPayroll');
+}
+
+function payBonus(){
+    global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+	global $type_collection_bill;
+    $modelBill = $controller->loadModel('Bills');
+    if(!empty(checkLoginManager('listAgency', 'static'))){
+	    $metaTitleMantan = 'Hoa hồng cho nhân viên';
+
+	    $modelMember = $controller->loadModel('Members');
+	    $modelService = $controller->loadModel('Services');
+		$modelStaffBonu = $controller->loadModel('StaffBonus');
+		$user =  $session->read('infoUser');
+		
+       /* if(empty($user->grant_permission)){
+            return $controller->redirect('/listAgency');
+        }*/
+        if(!empty($_GET['id'])){
+            $data = $modelStaffBonu->get($_GET['id']);
+            
+            if(!empty($data)){
+                $data->status = 'done';
+
+                $modelStaffBonu->save($data);
+                $time= time();
+                 // bill cho người mua
+                $bill = $modelBill->newEmptyEntity();
+
+                $info_staff = $modelMember->find()->where(['id'=>$data->id_staff])->first();
+                
+                $bill->created_at = time();
+                $bill->time = time();
+                $bill->id_member = @$user->id_member;
+                $bill->id_spa = $session->read('id_spa');
+                $bill->id_staff = $user->id;
+                $bill->total = (int) $data->money;
+                $bill->note = 'thanh toán tiền thưởng cho nhân viên '.$info_staff->name.' ngày '. date('Y-m-d H:i:s');
+                $bill->type = 1; //0: Thu, 1: chi
+                $bill->updated_at = time();
+                $bill->type_collection_bill = $_GET['type_collection_bill'];
+                $bill->id_customer = 0;
+                $bill->full_name =0;
+                $bill->id_warehouse_product = 0;
+                $bill->id_bonu=(int)$_GET['id'];
+                $modelBill->save($bill);
+            }
+        }
+
+        return $controller->redirect('/listAgency');
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 ?>

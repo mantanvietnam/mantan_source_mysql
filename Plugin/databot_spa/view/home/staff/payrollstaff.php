@@ -116,7 +116,7 @@
     </ul>
     <div class="tab-content">
       <div class="tab-pane fade " id="navs-top-home" role="tabpanel">
-        <form id="summary-form" action="addPayroll" method="get" class="form-horizontal">
+        <form id="summary-form" action="/addPayroll" method="get" class="form-horizontal">
           <div class="row">
             <div class="mb-3 col-md-6">
               <label class="form-label">Ngày làm việc: </label>: <?php echo $working_day; ?>
@@ -164,11 +164,13 @@
               <input type="hidden" class="form-control" name="id_staff" id="id_staff" value="<?php echo (int)$dataStaff->id; ?>">
             </div>
              <div class="mb-3 col-md-6"></div>
-             <div class="mb-3 col-md-6">
-               
-            <button type="submit" class="btn btn-primary d-block">Chấm công</button>
+             <div class="mb-3 col-md-2">
+            <?php if($data->status=='done'){
+              echo '<a href="/listPayroll/#listStaff" class="btn btn-primary d-block">Quay lại</a>';
+            }else{
+              echo ' <button type="submit" class="btn btn-primary d-block">Chấm công</button>';
+            } ?>
              </div>
-
             <div class="mb-3 col-md-12">
              <label class="form-label">  <b>Lương = ((lương cứng / công )* ngày công) + (hoa hồng  + tiền thưởng  + phục cấp) – (tiền phạt + Bảo hiểm)</b></label>
             </div>
@@ -308,11 +310,7 @@
                     foreach ($listDatacommission as $item) {
                       $status = '<span class="text-success">Đã thanh toán</span>';
                       if($item->status ==0){
-                        $status = '<span class="text-danger">Chưa thanh toán</span>
-
-                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
-                        <i class="bx bxs-credit-card"></i>
-                        </a>';
+                        $status = '<span class="text-danger">Chưa thanh toán</span>';
                       }
 
                       echo '<tr>

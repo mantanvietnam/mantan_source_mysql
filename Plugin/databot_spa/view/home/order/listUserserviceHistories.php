@@ -143,10 +143,15 @@
                     }
                   }
 
+                  $full_name = 'Khách lẻ';
+                  if(!empty($item->customer->name)){
+                    $full_name = $item->customer->name;
+                  }
+
                   echo '<tr>
                           <td>'.$created_at.'</td>
                           <td>'.$check_out.'</td>
-                          <td>'.$item->customer->name.'</td>
+                          <td>'.$full_name.'</td>
                           <td>'.$item->service->name.'</td>
                           <td>'.$item->staff->name.'</td>
                           <td>'.$type.'</td>

@@ -119,6 +119,16 @@
     }
 </style>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+</script>
+
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/requestProductAgency">Yêu cầu nhập hàng</a> /</span>
@@ -132,10 +142,54 @@
 
                 <div class="card mb-4">
                     <h4 class="fw-bold m-3 mb-0">Sản phẩm</h4>
+                      <?php if(!empty($listCategoryProduct)){ ?>
+                        <div class="row">
+                            <div class="m-4 col-md-11 mb-0">
+                                <?php echo @$mess;?>
+                                <input type="text" placeholder="Tìm sản phẩm"  class="form-control phone-mask" id="searchProduct">
+                            </div>
+                        </div>
+                        <div >
+                          <div class="card card-body">
+                            <div id="tabs">
+                                <ul>
+                            <?php foreach($listCategoryProduct as $value){
+                                echo '<li><a href="#tabs-'.$value->id.'">'.$value->name.'</a></li>';
+                            } ?>
+                                <!-- <li><a href="#tabs-2">Quà tặng</a></li> -->
+                              </ul>
+                               <?php foreach($listCategoryProduct as $value){
+                                    echo '<div id="tabs-'.$value->id.'">
+                                <div class="row diagram">';
+                                    if(!empty($value->listProduct)){
+                                        foreach($value->listProduct as $key => $Product){
+                                             if(!empty($Product)){
+                                         ?>
+                                            <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price_agency ?>, '','<?php echo @$Product->unit ?>');" id='product_<?php echo $Product->id ?>' >
+                                            <div class="item_produc">
+                                                <div class="customer-name">
+                                                    <span class="service_name"><b><?php echo $Product->title ?></b></span>
+                                                </div>
+                                                
+                                                <div class="customer-name">
+                                                    <span class="service_price"><?php echo number_format($Product->price_agency).'đ/'.$Product->unit; ?></span>
+                                                </div>
+                                            </div>
+                                         </div>
 
+                                      <?php  }}
+                                    }
+                                echo '  </div>
+                              </div>';
+                                }
+                                ?>
+                            </div>
+                          </div>
+                        </div>
+                    <?php   } ?>
                     <?php
                     
-                    if(!empty($listProduct)){ ?>
+                    /*if(!empty($listProduct)){ ?>
                         <div class="row">
                             <div class="m-3 col-md-11 mb-0">
                                 <?php echo @$mess;?>
@@ -162,7 +216,7 @@
                             </div>
                           </div>
                         </div>
-                    <?php   } ?>
+                    <?php   }*/ ?>
                 </div>
             </div>
 

@@ -1,7 +1,7 @@
 <?php include(__DIR__ . '/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Bảng tính lương nhân viên </h4>
-  <!-- <p><a href="/addStaff" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
+  <p><a data-bs-toggle="modal" data-bs-target="#basiPayrolle " style="color: white;" class="btn btn-primary"><i class='bx bx-plus'></i>Tính lương</a></p> 
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -10,7 +10,7 @@
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-3 ">
-            <label class="form-label">Nhân viên thu</label>
+            <label class="form-label">Nhân viên</label>
             <select name="id_staff" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <?php 
@@ -228,125 +228,184 @@
 </div>
 <?php 
   if (!empty($listData)) {
-    foreach ($listData as $item) {
-      $code_bank = '';
-      foreach($listBank as $key => $value){                 
+
+    foreach($listData as $key => $item) {
+      $code_bank = '';      
+      foreach($listBank as $k => $value){                 
         if(@$item->infoStaff->code_bank==$value['code']){ 
           $code_bank = $value['name'];
         }
-  }
+      }
+
     $link = 'https://img.vietqr.io/image/'.$item->infoStaff->code_bank.'-'.$item->infoStaff->account_bank.'-compact2.png?accountName='.@$item->infoStaff->name.'&amount='.$item->salary;
+    
        ?>
-   <div class="modal fade" id="basicModal<?php echo $item->id; ?>"  name="id">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header form-label border-bottom">
-          <h5 class="modal-title" id="exampleModalLabel1">Thông tin bảng lương nhân viên </h5>
-          <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="/salaryVerification" method="GET">
-         <div class="modal-footer">
-          <input type="hidden" value="<?php echo $item->id; ?>"  name="id">
-          <div class="card-body">
-            <div class="row gx-3 gy-2 align-items-center">
-              <div class="col-md-12">
-                <span><label class="form-label">Tên:</label> <?php echo $item->infoStaff->name; ?></span></br>
-               <!--  <span><label class="form-label">SĐT:</label> <?php echo $item->infoStaff->phone; ?></span></br>
-                <span><label class="form-label">Email:</label> <?php echo $item->infoStaff->email; ?></span></br>
-                <span><label class="form-label">STK:</label> <?php echo $item->infoStaff->account_bank; ?></span></br>
-                <span><label class="form-label">Ngân hàng:</label> <?php echo $code_bank; ?></span></br> -->
-                <span><label class="form-label">Lương cứng:</label> <?php echo number_format($item->fixed_salary); ?> đ</span></br>
-                <span><label class="form-label"> Công:</label> <?php echo  $item->working_day.'/'.$item->work; ?></span></br>
-                <span><label class="form-label"> Phục cấp:</label> <?php echo number_format($item->allowance); ?>đ</span></br>
-                <span><label class="form-label"> Hoa hồng:</label> <?php echo number_format($item->commission); ?>đ</span></br>
-                <span><label class="form-label"> Thưởng:</label> <?php echo number_format($item->bonus); ?>đ</span></br>
-                <span><label class="form-label">Phạt:</label> <?php echo number_format($item->fine); ?>đ</span></br>
-                <span><label class="form-label"> Bảo hiểm:</label> <?php echo number_format($item->insurance); ?>đ</span></br>
-                <span><label class="form-label">Lương thanh toán:</label> <b class="text-danger"><?php echo number_format($item->salary); ?>đ</b></span></br>
-                <span><label class="form-label">Tháng :</label> <?php echo $item->month.'/'.$item->yer; ?></span>
-              </div>
-              <div class="col-md-12">
-                <label class="form-label">Phê duyệt</label>
-                <select name="status" class="form-select color-dropdown" required>
-                  <option value="">Chọn phê duyệt </option>
-                  <option value="browse">Duyệt</option>
-                  <option value="not_browse">Chưa duyệt </option>
-                </select>
-              </div>
-              <div class="col-md-12">
-                <label class="form-label">Ý kiến</label>
-                <textarea  class="form-control" rows="5" name="note_boss"></textarea>
-              </div>
+      <div class="modal fade" id="basicModal<?php echo $item->id; ?>"  name="id">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header form-label border-bottom">
+              <h5 class="modal-title" id="exampleModalLabel1">Thông tin bảng lương nhân viên </h5>
+              <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>
+            <form action="/salaryVerification" method="GET">
+             <div class="modal-footer">
+              <input type="hidden" value="<?php echo $item->id; ?>"  name="id">
+              <div class="card-body">
+                <div class="row gx-3 gy-2 align-items-center">
+                  <div class="col-md-12">
+                    <span><label class="form-label">Tên:</label> <?php echo $item->infoStaff->name; ?></span><br>
+                    <span><label class="form-label">Lương cứng:</label> <?php echo number_format($item->fixed_salary); ?> đ</span><br>
+                    <span><label class="form-label"> Công:</label> <?php echo  $item->working_day.'/'.$item->work; ?></span><br>
+                    <span><label class="form-label"> Phục cấp:</label> <?php echo number_format($item->allowance); ?>đ</span><br>
+                    <span><label class="form-label"> Hoa hồng:</label> <?php echo number_format($item->commission); ?>đ</span><br>
+                    <span><label class="form-label"> Thưởng:</label> <?php echo number_format($item->bonus); ?>đ</span><br>
+                    <span><label class="form-label">Phạt:</label> <?php echo number_format($item->fine); ?>đ</span><br>
+                    <span><label class="form-label"> Bảo hiểm:</label> <?php echo number_format($item->insurance); ?>đ</span><br>
+                    <span><label class="form-label">Lương thanh toán:</label> <b class="text-danger"><?php echo number_format($item->salary); ?>đ</b></span><br>
+                    <span><label class="form-label">Tháng :</label> <?php echo $item->month.'/'.$item->yer; ?></span>
+                  </div>
+                  <div class="col-md-12">
+                    <label class="form-label">Phê duyệt</label>
+                    <select name="status" class="form-select color-dropdown" required>
+                      <option value="">Chọn phê duyệt </option>
+                      <option value="browse">Duyệt</option>
+                      <option value="not_browse">Chưa duyệt </option>
+                    </select>
+                  </div>
+                  <div class="col-md-12">
+                    <label class="form-label">Ý kiến</label>
+                    <textarea  class="form-control" rows="5" name="note_boss"></textarea>
+                  </div>
+                </div>
+              </div>
 
-          <button type="submit" class="btn btn-primary">Xác nhận</button>
+              <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </div>
+          </form>
+
         </div>
-      </form>
-
+      </div>
     </div>
-  </div>
-</div>
 
- <div class="modal fade" id="basicpay<?php echo $item->id; ?>"  name="id">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header form-label border-bottom">
-          <h5 class="modal-title" id="exampleModalLabel1">Thông tin thanh toán lương cho nhân viên </h5>
-          <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="/salaryPayment" method="GET">
-         <div class="modal-footer">
-          <input type="hidden" value="<?php echo $item->id; ?>"  name="id">
-          <div class="card-body">
-            <div class="row gx-3 gy-2 align-items-center">
-              <div class="col-md-6">
-                <span><label class="form-label">Tên:</label> <?php echo $item->infoStaff->name; ?></span></br>
-                 <span><label class="form-label">SĐT:</label> <?php echo $item->infoStaff->phone; ?></span></br>
-                <span><label class="form-label">Email:</label> <?php echo $item->infoStaff->email; ?></span></br>
-                <span><label class="form-label">STK:</label> <?php echo $item->infoStaff->account_bank; ?></span></br>
-                <span><label class="form-label">Ngân hàng:</label> <?php echo $code_bank; ?></span></br>
-                <span><label class="form-label">Lương cứng:</label> <?php echo number_format($item->fixed_salary); ?> đ</span></br>
-                <span><label class="form-label"> Công:</label> <?php echo  $item->working_day.'/'.$item->work; ?></span></br>
-                <span><label class="form-label"> Phục cấp:</label> <?php echo number_format($item->allowance); ?>đ</span></br>
-                <span><label class="form-label"> Hoa hồng:</label> <?php echo number_format($item->commission); ?>đ</span></br>
-                <span><label class="form-label"> Thưởng:</label> <?php echo number_format($item->bonus); ?>đ</span></br>
-                <span><label class="form-label">Phạt:</label> <?php echo number_format($item->fine); ?>đ</span></br>
-                <span><label class="form-label"> Bảo hiểm:</label> <?php echo number_format($item->insurance); ?>đ</span></br>
-                <span><label class="form-label">Lương thanh toán:</label> <b class="text-danger"><?php echo number_format($item->salary); ?>đ</b></span></br>
-                <span><label class="form-label">Tháng :</label> <?php echo $item->month.'/'.$item->yer; ?></span>
-              </div>
-              <div class="col-md-6">
-                <div class=" footer " style="padding-top: 5px; text-align: center;">
-                            <h5>Mã QR thanh toán</h5>
-                            <img src="<?php echo $link; ?>" style="width: 100%;">
-                    </div>
-              </div>
+     <div class="modal fade" id="basicpay<?php echo $item->id; ?>"  name="id">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header form-label border-bottom">
+            <h5 class="modal-title" id="exampleModalLabel1">Thông tin thanh toán lương cho nhân viên </h5>
+            <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="/salaryPayment" method="GET">
+           <div class="modal-footer">
+            <input type="hidden" value="<?php echo $item->id; ?>"  name="id">
+            <div class="card-body">
+              <div class="row gx-3 gy-2 align-items-center">
+                <div class="col-md-6">
+                  <span><label class="form-label">Tên:</label> <?php echo $item->infoStaff->name; ?></span></br>
+                  <span><label class="form-label">SĐT:</label> <?php echo $item->infoStaff->phone; ?></span></br>
+                  <span><label class="form-label">Email:</label> <?php echo $item->infoStaff->email; ?></span></br>
+                  <span><label class="form-label">STK:</label> <?php echo $item->infoStaff->account_bank; ?></span></br>
+                  <span><label class="form-label">Ngân hàng:</label> <?php echo $code_bank; ?></span></br>
+                  <span><label class="form-label">Lương cứng:</label> <?php echo number_format($item->fixed_salary); ?> đ</span></br>
+                  <span><label class="form-label"> Công:</label> <?php echo  $item->working_day.'/'.$item->work; ?></span></br>
+                  <span><label class="form-label"> Phục cấp:</label> <?php echo number_format($item->allowance); ?>đ</span></br>
+                  <span><label class="form-label"> Hoa hồng:</label> <?php echo number_format($item->commission); ?>đ</span></br>
+                  <span><label class="form-label"> Thưởng:</label> <?php echo number_format($item->bonus); ?>đ</span></br>
+                  <span><label class="form-label">Phạt:</label> <?php echo number_format($item->fine); ?>đ</span></br>
+                  <span><label class="form-label"> Bảo hiểm:</label> <?php echo number_format($item->insurance); ?>đ</span></br>
+                  <span><label class="form-label">Lương thanh toán:</label> <b class="text-danger"><?php echo number_format($item->salary); ?>đ</b></span></br>
+                  <span><label class="form-label">Tháng :</label> <?php echo $item->month.'/'.$item->yer; ?></span>
+                </div>
+                <div class="col-md-6">
+                  <div class=" footer " style="padding-top: 5px; text-align: center;">
+                    <h5>Mã QR thanh toán</h5>
+                    <img src="<?php echo $link; ?>" style="width: 100%;">
+                  </div>
+                </div>
 
-              <div class="col-md-12">
-                <label class="form-label">Chọn hình thức thanh toán</label>
-                <select name="type_collection_bill" class="form-select color-dropdown" required>
-                  <option value="">Chọn hình thức thanh toán</option>
-                  <?php
-                  foreach ($type_collection_bill as $key => $value) {
-                    echo '<option value="'.$key.'">'.$value.'</option>';
-                  }
-                  ?>
-                </select>
-              </div>
-               <div class="col-md-12">
+                <div class="col-md-12">
+                  <label class="form-label">Chọn hình thức thanh toán</label>
+                  <select name="type_collection_bill" class="form-select color-dropdown" required>
+                    <option value="">Chọn hình thức thanh toán</option>
+                    <?php
+                    foreach ($type_collection_bill as $i => $value) {
+                      echo '<option value="'.$i.'">'.$value.'</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
+                <div class="col-md-12">
                  <button type="submit" class="btn btn-primary">Xác nhận</button>
-                <!-- <a class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn muốn thanh toán lương cho nhận viên <?php echo $item->infoStaff->name; ?>  không?');"   href="/salaryPayment?id=<?php echo $item->id; ?>">Xác nhận</a> -->
-            </div>
-          </div>
+                 <!-- <a class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn muốn thanh toán lương cho nhận viên <?php echo $item->infoStaff->name; ?>  không?');"   href="/salaryPayment?id=<?php echo $item->id; ?>">Xác nhận</a> -->
+               </div>
+             </div>
 
-         
-        </div>
-      </form>
 
-    </div>
-  </div>
-</div>
+           </div>
+         </div>
+         </form>
+
+       </div>
+     </div>
+   </div>
+
 <?php }} ?>
 
+ <div class="modal fade" id="basiPayrolle"  name="id">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header form-label border-bottom">
+            <h5 class="modal-title" id="exampleModalLabel1">Chọn nhân viên tính lương</h5>
+            <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="/payrollstaff" method="GET">
+           <div class="card-body">
+        <div class="row gx-3 gy-2 align-items-center">
+          <div class="col-md-12 ">
+            <label class="form-label">Nhân viên</label>
+            <select name="id_staff" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php 
+              if(!empty($listStaffs)){
+                foreach ($listStaffs as $key => $value) {
+                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                }
+              }
+              ?>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="basic-default-phone">Tháng</label>
+            <select name="month" class="form-select color-dropdown">
+              <option value="0">Tháng</option>
+              <?php
+              for ($i=1; $i <= 12 ; $i++) { 
+                  echo '<option value="'.$i.'">'.$i.'</option>';
+              }
+              ?>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="basic-default-phone">năm</label>
+            <select name="year" class="form-select color-dropdown">
+              <option value="0">Năm</option>
+              <?php
+              for ($i = date("Y"); $i >= 2020; $i--) { 
+                  echo '<option value="'.$i.'">'.$i.'</option>';
+              }
+              ?>
+            </select>  
+          </div>
+          
+          <div class="col-md-6">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary d-block">Tính lương</button>
+          </div>
+        </div>
+      </div>
+         </form>
+
+       </div>
+     </div>
+   </div>
 <?php include(__DIR__ . '/../footer.php'); ?>

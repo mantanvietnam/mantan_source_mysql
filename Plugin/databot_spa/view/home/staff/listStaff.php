@@ -97,7 +97,6 @@
              
               <th>Nhóm nhân viên</th>
               <th>Trạng thái</th>
-              <th>Tính lương</th>
               <th>Đổi mật khẩu</th>
               <th>Sửa</th>
               <th>Khóa</th>
@@ -125,11 +124,7 @@
                           Email:  ' . $item->email . '</td>
                           <td>' . @$group->name . '</td>
                           <td>' . $status . '</td>
-                         <td align="center">
-                            <a class="dropdown-item" href="/payrollstaff?&id_staff=' . $item->id . '">
-                              <i class="bx bxs-calculator"></i>
-                            </a>
-                          </td>
+                      
                           <td align="center">
                             <a class="dropdown-item" href="/changePassStaff?id=' . $item->id . '">
                               <i class="bx bx-transfer"></i>

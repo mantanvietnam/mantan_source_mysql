@@ -127,6 +127,11 @@ function addOrderCustomer($input)
             $listProduct = getAllProductActive();
         }
 
+        $listCategoryProduct = [];
+        if(function_exists('getAllCategoryProductActive')){
+           $listCategoryProduct = getAllCategoryProductActive();
+        }
+
         $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
         $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
 
@@ -139,6 +144,7 @@ function addOrderCustomer($input)
         setVariable('listStaff', $listStaff);
         setVariable('listProduct', $listProduct);
         setVariable('costsIncurred', $costsIncurred);
+        setVariable('listCategoryProduct', $listCategoryProduct);
         setVariable('listGroupCustomer', $listGroupCustomer);
         setVariable('mess', $mess);
     }

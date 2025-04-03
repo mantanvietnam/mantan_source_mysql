@@ -79,6 +79,10 @@ function orderProduct($input){
          }
      }
     }
+    if(empty($dataSend['full_name'])){
+        $dataSend['full_name']= 'Khách lẻ';
+    }
+
 
     			// tạo đơn hàng 
     $order = $modelOrder->newEmptyEntity();
@@ -1741,7 +1745,7 @@ function paymentOrders($input){
                 $bill->id_spa =  @$infoUser->id_spa;
                 $bill->id_staff = (int)@$infoUser->id;
                 $bill->total =(int) $order->total_pay;
-                $bill->note = 'Bán hàng IDđơn hàng là '.$order->id.', ngườibán là '.$infoUser->name.', thời gian '.date('Y-m-dH:i:s');
+                $bill->note = 'Bán hàng IDđơn hàng là '.$order->id.', ngườibán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
                 $bill->type = 0; //0: Thu, 1: hi
                 $bill->id_order = $order->id;
                 $bill->created_at =$time;

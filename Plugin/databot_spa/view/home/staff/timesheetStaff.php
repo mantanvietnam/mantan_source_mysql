@@ -61,10 +61,7 @@
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
           
-          <div class="col-md-2">
-          <label class="form-label">&nbsp;</label></br>
-            <a class="btn btn-danger"  data-bs-toggle="modal" style="color: white;" data-bs-target="#basicModal" ><i class='bx bx-plus'></i> Chấm công</a>
-          </div> 
+
         </div>
       </div>
     </div>
@@ -74,6 +71,7 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Bảng chấm công nhân viên tháng <?php echo @$thang.'/'.$nam ?></h5>
+    <p> <a class="btn btn-danger"  data-bs-toggle="modal" style="color: white;" data-bs-target="#basicModal" ><i class='bx bx-plus'></i> Chấm công</a></p>
     <?php echo @$mess;?>
     <div id="desktop_view">
       <div class="table-responsive">
@@ -140,7 +138,7 @@
               <div class="card-body">
                 <div class="row gx-3 gy-2 align-items-center">
                   <div class="col-md-12">
-                    <label class="form-label"><b>Nhân viên</b></label>
+                    <label class="form-label"><b>Nhân viên (*)</b></label>
                     <select class="form-select" name="id_staff" id="id_staff" required="">
                                 <option value="">Chọn nhân viên</option>
                                 <?php 
@@ -158,8 +156,8 @@
                     <input type="checkbox" name="shift[]" id="toi" value="tối"> Tối
                   </div>
                   <div class="col-md-12">
-                    <label class="form-label"><b>Ngày làm việc</b></label>
-                    <input type="text" class="form-control datepicker" name="date" id="ngay" value="<?php echo date('d/m/Y'); ?>">
+                    <label class="form-label"><b>Ngày làm việc (*)</b></label>
+                    <input type="text" class="form-control datepicker" name="date" id="ngay" required="" value="<?php echo date('d/m/Y'); ?>">
                   </div>
                 </div>
               </div>

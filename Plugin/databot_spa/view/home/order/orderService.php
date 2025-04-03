@@ -544,7 +544,7 @@ function addProduct(id, name, priceProduct,type){
         $('#luudonhang').show();
         $('#thanhtoan').remove();
         $('#nhankhach').remove();
-        if(id_customer>0){
+        if(id_customer>=0){
             if(numberProduct>0){
                 r = confirm("bạn lưu đơn này?");
                 if (r == true) {
@@ -574,7 +574,7 @@ function addProduct(id, name, priceProduct,type){
         $('#nhankhach').remove();
 
          var type_collection_bill = $('#type_collection_bill').val();
-        if(id_customer>0){
+        if(id_customer>=0){
             if(type_collection_bill==0){
                 alert('Bạn chưa chọn hình thức thanh toán');
             }else{
@@ -607,7 +607,7 @@ function addProduct(id, name, priceProduct,type){
         $('#luudonhang').remove();
         $('#luudonhang').remove();
         $('#nhankhach').show();
-        if(id_customer>0){
+        if(id_customer>=0){
             if(numberProduct>0){
                 r = confirm("Bạn nhận khách này vào giường?");
                 if (r == true) {

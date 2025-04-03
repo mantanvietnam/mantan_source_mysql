@@ -59,6 +59,9 @@ $sqlInstallDatabase .= "CREATE TABLE `bills` (
   `id_order` int(11) DEFAULT NULL,
   `id_payroll` INT NULL DEFAULT 0,
   `moneyCustomerPay` int(11) DEFAULT NULL,
+  `id_agency` INT NULL DEFAULT NULL,
+  `id_bonu` INT NULL DEFAULT NULL,
+  `id_card` INT NULL DEFAULT NULL,
   `type_card` int(11) DEFAULT NULL COMMENT '0: tiền thật, 1 tiền thẻ trả trước',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
@@ -646,9 +649,11 @@ $sqlUpdateDatabase['bills']['id_warehouse_product'] = "ALTER TABLE `bills` ADD `
 $sqlUpdateDatabase['bills']['id_order'] = "ALTER TABLE `bills` ADD `id_order` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['moneyCustomerPay'] = "ALTER TABLE `bills` ADD `moneyCustomerPay` int(11) DEFAULT NULL; ";
 $sqlUpdateDatabase['bills']['type_card'] = "ALTER TABLE `bills` ADD `type_card` int(11) DEFAULT NULL COMMENT '0: tiền thật, 1 tiền thẻ trả trước'; ";
- 
+$sqlUpdateDatabase['bills']['id_agency'] = "ALTER TABLE `bills` ADD `id_agency` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['bills']['id_bonu'] = "ALTER TABLE `bills` ADD `id_bonu` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['bills']['id_card'] = "ALTER TABLE `bills` ADD `id_card` INT NULL DEFAULT NULL;";
 
-// Bang books
+// Bang books 
 $sqlUpdateDatabase['books']['name'] = "ALTER TABLE `books` ADD `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['books']['phone'] = "ALTER TABLE `books` ADD `phone` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['books']['email'] = "ALTER TABLE `books` ADD `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";

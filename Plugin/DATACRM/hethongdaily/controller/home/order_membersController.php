@@ -233,8 +233,14 @@ function addRequestProductAgency($input)
 
         $conditions = array('id_member'=>$user->id);
         $listStaff = $modelStaff->find()->where($conditions)->all()->toList();
+        $listCategoryProduct = [];
+        if(function_exists('getAllCategoryProductActive')){
+           $listCategoryProduct = getAllCategoryProductActive();
+        }
 
         setVariable('listStaff', $listStaff);
+        setVariable('listCategoryProduct', $listCategoryProduct);
+        setVariable('listProduct', $listProduct);
         setVariable('listProduct', $listProduct);
         setVariable('position', $position);
         setVariable('father', $father);
@@ -379,6 +385,11 @@ function addOrderAgency($input)
             $listProduct = getAllProductActive();
         }
 
+         $listCategoryProduct = [];
+        if(function_exists('getAllCategoryProductActive')){
+           $listCategoryProduct = getAllCategoryProductActive();
+        }
+
         // mức chiết khấu của đại lý theo chức danh
         $position = [];
         $member_buy = [];
@@ -406,11 +417,27 @@ function addOrderAgency($input)
             }
         }
 
+        if(!empty($listCategoryProduct)){
+            foreach($listCategoryProduct as $key =>$item){
+                if(!empty($item->listProduct)){
+                    foreach($item->listProduct as $i => $value){
+                        if(!empty($value)){
+                            if(empty($value->price_agency)){
+                                $item->listProduct[$i]->price_agency = $value->price;
+                            }
+                        }
+                    }
+                }
+                $listCategoryProduct[$key] = $item;
+            }
+        }
+
         $conditions = array('id_member'=>$user->id);
         $listStaff = $modelStaff->find()->where($conditions)->all()->toList();
 
 
         setVariable('listProduct', $listProduct);
+        setVariable('listCategoryProduct', $listCategoryProduct);
         setVariable('listStaff', $listStaff);
         setVariable('position', $position);
         setVariable('father', $father);

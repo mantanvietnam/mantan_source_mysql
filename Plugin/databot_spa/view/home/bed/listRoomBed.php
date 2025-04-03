@@ -33,7 +33,7 @@ rel='stylesheet' type='text/css'>
                                                 <div class="customer-name">
                                                     <span class="room-number"><?php echo $bed->name ?></span><br/>
                                                 <?php if(!empty($bed->order)){ ?>
-                                                       <span class="full-name"><?php echo @$bed->order->customer->name ?></span>
+                                                       <span class="full-name"><?php echo @$bed->order->name ?></span>
                                                 <?php } ?>
                                                 </div> 
                                             </div>               

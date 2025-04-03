@@ -194,7 +194,7 @@ function payAgency($input)
                 $bill->id_spa = $session->read('id_spa');
                 $bill->id_staff = $user->id;
                 $bill->total = (int) $data->money;
-                $bill->note = 'thanh toán tiền hoan hồng cho nhân viên '.$info_staff->name.' ngày '. date('Y-m-d H:i:s');
+                $bill->note = 'thanh toán tiền hoa hồng cho nhân viên '.$info_staff->name.' ngày '. date('Y-m-d H:i:s');
                 $bill->type = 1; //0: Thu, 1: chi
                 $bill->updated_at = time();
                 $bill->type_collection_bill = $_GET['type_collection_bill'];
