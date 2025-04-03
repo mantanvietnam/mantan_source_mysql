@@ -262,7 +262,7 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
     </div>
   </div>
   
-  <div class='row gx-3 gy-4 bestsell-list-container row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5'>
+  <div class='row gx-3 gy-4 bestsell-list-container row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4'>
     <?php if (!empty($best_selling_products)): ?>
       <?php foreach ($best_selling_products as $seller_product): ?>
         <?php $link = '/product/' . htmlspecialchars($seller_product->slug) . '.html'; ?>
