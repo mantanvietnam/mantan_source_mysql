@@ -251,55 +251,59 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
 
       <!-- sửa -->
       <!-- sản phẩm bán chạy -->
-      <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 bestsell-container'>
-        <div class='list-category-header'>
-          <span><span class='color-green'>SẢN PHẨM</span> ĐƯỢC QUAN TÂM NHẤT</span>
-          <a href="/categories" class='more-btn'>
-            <div class=''>Xem thêm</div>
-            <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="">
+<div class='container-fluid px-3 px-md-4 px-lg-5 mt-5 bestsell-container'>
+  <div class='row mb-3'>
+    <div class='col-12 d-flex justify-content-between align-items-center list-category-header'>
+      <span><span class='color-green'>SẢN PHẨM</span> ĐƯỢC QUAN TÂM NHẤT</span>
+      <a href="/categories" class='more-btn d-flex align-items-center'>
+        <div class='me-2'>Xem thêm</div>
+        <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="">
+      </a>
+    </div>
+  </div>
+  
+  <div class='row gx-3 gy-4 bestsell-list-container row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5'>
+    <?php if (!empty($best_selling_products)): ?>
+      <?php foreach ($best_selling_products as $seller_product): ?>
+        <?php $link = '/product/' . htmlspecialchars($seller_product->slug) . '.html'; ?>
+        <!-- product card -->
+        <div class="col">
+          <a href="<?= $link ?>" class="bestsell-product-container">
+            <div class='bestsell-product-image'>
+              <img src="<?php echo htmlspecialchars($seller_product->image); ?>" alt="">
+            </div>
+            <div class='d-flex gap-2 mt-2'>
+              <div class='tag-container combo-tag'>
+                <span>COMBO</span>
+              </div>
+              <div class='tag-container new-tag'>
+                <span>NEW</span>
+              </div>
+            </div>
+            <div class='bestsell-product-title mt-2'>
+              <span><?php echo htmlspecialchars($seller_product->title); ?></span>
+            </div>
+            <div class='bestsell-product-price-container mt-2'>
+              <div class='bestsell-product-current-price'>
+                <?php echo number_format($seller_product->price, 0, ',', '.') . ' VNĐ'; ?>
+              </div>
+              <div class='bestsell-product-old-price'>
+                <?php echo number_format($seller_product->price_old, 0, ',', '.') . ' VNĐ'; ?>
+              </div>
+            </div>
+            <div class='bestsell-product-selling mt-2'>
+              <span><?php echo $seller_product->view . ' Lượt xem'; ?></span>
+            </div>
           </a>
         </div>
-        <div class='row bestsell-list-container'>
-          <?php if (!empty($best_selling_products)): ?>
-            <?php foreach ($best_selling_products as $seller_product): ?>
-              <?php $link = '/product/' . htmlspecialchars($seller_product->slug) . '.html'; ?>
-              <!-- product cart -->
-              <a href=<?= $link ?> class="col bestsell-product-container">
-                <div class='bestsell-product-image'>
-                  <img src="<?php echo htmlspecialchars($seller_product->image); ?>" alt="">
-                </div>
-                <div class='gap-2 d-flex'>
-                  <div class='tag-container combo-tag'>
-                    <span>COMBO</span>
-                  </div>
-                  <div class='tag-container new-tag'>
-                    <span>NEW</span>
-                  </div>
-                </div>
-                <div class='bestsell-product-title'>
-                  <span><?php echo htmlspecialchars($seller_product->title); ?></span>
-                </div>
-                <div class='bestsell-product-price-container'>
-                  <div class='bestsell-product-current-price'>
-                      <?php echo number_format($seller_product->price, 0, ',', '.') . ' VNĐ'; ?>
-                  </div>
-                  <div class='bestsell-product-old-price'>
-                      <?php echo number_format($seller_product->price_old, 0, ',', '.') . ' VNĐ'; ?>
-                  </div>
-                </div>
-                <div class='bestsell-product-selling'>
-                <span><?php echo $seller_product->view . ' Lượt xem'; ?></span>
-                  <!-- <div>
-                    <img src="<?= $urlThemeActive?>/assets/images/tym.png" alt="">
-                  </div> -->
-                </div>
-              </a>
-              <?php endforeach; ?>
-          <?php else: ?>
-              <p>Hiện tại không có danh mục nào.</p>
-          <?php endif; ?>
-        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <div class="col-12">
+        <p>Hiện tại không có danh mục nào.</p>
       </div>
+    <?php endif; ?>
+  </div>
+</div>
 
       <!-- Hướng dẫn sử dụng -->
       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 gap-3 mt-5 instruction-container d-none d-xxl-flex justify-content-center align-items-center'>
