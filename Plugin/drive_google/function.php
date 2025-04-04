@@ -152,7 +152,7 @@ function addRowToGoogleSheet($values=[], $spreadsheetId='', $sheetName='')
 	global $modelOptions;
 	global $spreadsheetIdOrder;
 
-	if(!empty($spreadsheetId) && !empty($values)){
+	if(!empty($values)){
 
 		$conditions = array('key_word' => 'tokenPermissionDrive');
 	    $data = $modelOptions->find()->where($conditions)->first();

@@ -3,6 +3,7 @@ function settingHomeTheme($input){
     global $modelOptions;
     global $metaTitleMantan;
     global $isRequestPost;
+    global $modelAlbums;
 
     $metaTitleMantan = 'Cài đặt giao diện trang chủ ';
     $mess= '';
@@ -19,7 +20,10 @@ function settingHomeTheme($input){
             $time = explode(' ', $dataSend['targetTime']);
             $date = explode('/', $time[1]);
             $hour = explode(':', $time[0]);
-            $targetTime = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+
+            if(count($hour) == 2 && count($date) == 3){
+                $targetTime = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+            }
         }
 
         $value = array( 'image_logo' => @$dataSend['image_logo'],
@@ -103,8 +107,11 @@ function settingHomeTheme($input){
         $data_value = json_decode($data->value, true);
     }
 
+    $dataalbums = $modelAlbums->find()->where()->all();
+
     setVariable('setting', $data_value);
     setVariable('mess', $mess);
+    setVariable('dataalbums', $dataalbums);
 }
 
 function sttingGuaranteeTheme($input){
@@ -328,21 +335,24 @@ function indexTheme($input){
     $modelEvaluate = $controller->loadModel('Evaluates');
     $modelProduct = $controller->loadModel('Products');
 
-    
-
-     $data_value = array();
+    $data_value = array();
     if(!empty($data->value)){
         $data_value = json_decode($data->value, true);
     }
 
-
-    $slide_home = $modelAlbums->find()->where(['id'=>(int)$data_value['id_slide']])->first();
+    $slide_home = [];
+    if(!empty($data_value['id_slide'])){
+        $slide_home = $modelAlbums->find()->where(['id'=>(int)$data_value['id_slide']])->first();
+    }
 
     if(!empty($slide_home)){
         $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->order(['id'=>'desc'])->all()->toList();
     }
 
-     $news = $modelAlbums->find()->where(['id'=>(int)$data_value['id_bc']])->first();
+    $news = [];
+    if(!empty($data_value['id_bc'])){
+        $news = $modelAlbums->find()->where(['id'=>(int)$data_value['id_bc']])->first();
+    }
 
     if(!empty($news)){
         $news->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$news->id])->all()->toList();

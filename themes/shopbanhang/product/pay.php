@@ -201,7 +201,7 @@ $infoUser = $session->read('infoUser');
                     </div>
 
                     <div class="col-lg-8 co-md-8 col-sm-12 col-12 order-right">
-                        <form action="" method="post">
+                        <form action="" method="post" id="myForm">
                             <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                             <div class="order-right-info">
                                 <div class="order-right-title-input">
@@ -276,7 +276,7 @@ $infoUser = $session->read('infoUser');
                             </div>
                            
                             <div class="order-right-group-button">
-                                <button type="submit" class="btn btn-primary">Đặt hàng</button>
+                                <button type="submit" class="btn btn-primary" id="submitBtn" onclick="disableButton();">Đặt hàng</button>
 
                                 <a href="/gio-hang" > <button type="button" class="btn btn-primary">Quay lại</button></a>
                             </div>
@@ -286,6 +286,22 @@ $infoUser = $session->read('infoUser');
             </div>
         </section>
     </main>
+
+    <script>
+        function disableButton()
+        {
+            // Lấy button
+            const btn = document.getElementById('submitBtn');
+
+            // Disable button
+            //btn.disabled = true;
+
+            // Đổi nội dung button
+            btn.innerText = 'Đang tạo đơn';
+
+            //document.getElementById('myForm').submit();
+        }
+    </script>
 
      <script>
         // Sự kiện xảy ra khi người dùng nhấn nút "Back"
