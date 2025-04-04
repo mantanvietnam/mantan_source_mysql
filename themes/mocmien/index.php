@@ -454,31 +454,33 @@ $video_2 = convertToEmbedUrl(@$settingThemes['video_2']);
 
        <!-- Tin tức từ mộc miên -->
       <div class='mx-mobile md:mx-6 lg:mx-16 xl:mx-20 mt-5 new-section-container'>
-        <div class='list-category-header'>
-          <span><span class='color-green'>TIN TỨC</span> TỪ MỘC MIÊN</span>
-          <a class='more-btn' href="/posts">
+    <div class='list-category-header'>
+        <span><span class='color-green'>TIN TỨC</span> TỪ MỘC MIÊN</span>
+        <a class='more-btn' href="/posts">
             <div class=''>Xem thêm</div>
             <img src="<?= $urlThemeActive?>/assets/images/arr.png" alt="">
-          </a>
-        </div>
+        </a>
+    </div>
 
-        <div class='gap-4 mt-5 news-container row gap-md-0'>
-            <?php 
-                if(!empty($listDatatop)){
-                    foreach ($listDatatop as $key => $value) {
-                        $link = '/'.$value->slug.'.html';
+    <div class='gap-4 mt-5 news-container row gap-md-0'>
+        <?php 
+            if(!empty($listDatatop)){
+                foreach ($listDatatop as $key => $value) {
+                    $link = '/'.$value->slug.'.html';
 
-                        echo '<div class="col-lg-4 col-12 col-md-6 news-items">
+                    echo '<div class="col-lg-4 col-12 col-md-6 news-items">
+                            <a href="'.$link.'" style="display: block; text-decoration: none; color: inherit;">
                                 <div class="news-items-img">
-                                    <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
+                                    <img src="'.$value->image.'" alt="">
                                 </div>
-                                <a href="'.$link.'"><h3>'.$value->title.'</h3></a>
+                                <h3>'.$value->title.'</h3>
                                 <span>'.$value->description.'</span>
+                            </a>
                           </div>';
-                        }   
-                      }
-                ?>
-        </div>
-      </div>
+                }   
+            }
+        ?>
+    </div>
+</div>
 
 <?php getFooter(); ?>
