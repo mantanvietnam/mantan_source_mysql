@@ -142,9 +142,7 @@
                 <div class="card mb-4">
                     <h4 class="fw-bold m-4 mb-0">Sản phẩm</h4>
 
-                    <?php
-                    
-                    if(!empty($listCategoryProduct)){ ?>
+                    <?php if(!empty($listCategoryProduct)){ ?>
                         <div class="row">
                             <div class="m-4 col-md-11 mb-0">
                                 <?php echo @$mess;?>

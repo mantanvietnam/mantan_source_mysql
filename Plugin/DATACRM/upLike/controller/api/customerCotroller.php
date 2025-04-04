@@ -297,4 +297,71 @@ function listTypeUpAPI(){
 
 }
 
+function listUplikeHistorieCustomerAPI($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;   
+    global $modelOptions;
+    global $isRequestPost;
+    global $modelOptions;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelUplikeHistories = $controller->loadModel('UplikeHistories');
+    $modelTransactionHistories = $controller->loadModel('TransactionHistories');
+    $modelTransactionCustomers = $controller->loadModel('TransactionCustomers');
+
+  
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['token'])){
+
+            $user =  getCustomerByToken($dataSend['token']);
+            if(!empty($user)){
+                $conditions = array('type'=>'customer', 'id_member'=>$user->id);
+                $limit = 20;
+                $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+                if($page<1) $page = 1;
+                $order = array('id'=>'desc');
+
+                if(!empty($dataSend['id'])){
+                    $conditions['id'] = (int) $dataSend['id'];
+                }
+
+                if(!empty($dataSend['status'])){
+                    $conditions['status'] = $dataSend['status'];
+                }
+
+                $listData = $modelUplikeHistories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+                if(!empty($listData)){
+                    foreach ($listData as $key => $value) {
+                        if($value->status == 'Running'){
+                            $checkStatus = checkRequestOngTrum($value->id_request_buff, $value->type_page);
+
+                            if($checkStatus['code'] == 200){
+                                if($checkStatus['data']['status'] != 'Running'){
+                                    $listData[$key]->status = @$checkStatus['data']['status'];
+                                }
+                                $listData[$key]->run = (int) @$checkStatus['data']['run'];
+
+                             $modelUplikeHistories->save($listData[$key]);
+                            }
+                        }
+                    }
+                }
+                
+                $totalData = $modelUplikeHistories->find()->where($conditions)->count();
+                return array('code'=>1,'mess'=>'Bạn lấy dữ liệ thành công', 'listData'=>$listData, 'totalData'=> $totalData);
+            }
+            return array('code'=>3,'mess'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+            
+        }
+        return array('code'=>2,'mess'=>'Gửi thiếu dữ liệu');
+    }
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
  ?>

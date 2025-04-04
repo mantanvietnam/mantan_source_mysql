@@ -30,94 +30,88 @@ function registerUserApi($input): array
                 ])->first();
             }
 
-            if (empty($checkDuplicateEmail)) {
-                if ($dataSend['password'] !== $dataSend['password_confirmation']) {
-                    return apiResponse(4, 'Mật khẩu nhập lại không chính xác');
+            if (!empty($checkDuplicateEmail)) {
+                if($checkDuplicateEmail->status != 'new'){
+                    return apiResponse(3, 'Gmail này đã tồn tại');
                 }
-
-                if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-                    $avatar = uploadImage($dataSend['phone'], 'avatar', 'avatar_'.$dataSend['phone']);
-                }
-
-                if(!empty($avatar['linkOnline'])){
-                    $avatars = $avatar['linkOnline'].'?time='.time();
-                }
-                $getBankAccount =getBankAccount();
-                  $user = $modelUser->newEmptyEntity();
-                if(!empty($dataSend['affsource'])){
-                    $affsource = $modelUser->find()->where(array('email'=>$dataSend['affsource']))->first();
-                    if(!empty($affsource)){
-                        $user->id_affsource =$affsource->id;
-                        
-                        $user->rose =0;
-                        
-                    }
-                }
-
-              
-                $user->full_name = $dataSend['full_name'];
-                $user->avatar = @$avatars ?? '';
-                $user->phone = @$dataSend['phone'];
-                $user->password = md5($dataSend['password']);
-                $user->info = @$dataSend['info'];
-                $user->sex = (int) @$dataSend['sex']?? 1;
-                $user->birthday = (int) strtotime(@$dataSend['birthday']);
-                $user->email = @$dataSend['email'] ?? null;
-                $user->address = @$dataSend['address'] ?? null;
-                $user->status = 'lock';
-                $user->created_at = time();
-                // $user->deadline =  strtotime("+7 days", time());
-                $user->deadline =  time();
-                $user->updated_at = time();
-                $user->last_login = time();
-                $user->token = 'web'.createToken();
-                $user->token_app = 'app'.createToken();
-                $code = rand(100000, 999999);
-                $user->reset_password_code = @$code;
-                $user->device_token = @$dataSend['device_token'];
-                $user->current_weight =  (double) @$dataSend['current_weight'];
-                $user->target_weight =  (double) @$dataSend['target_weight'];
-                $user->height =  (int) @$dataSend['height'];
-                $user->id_group_user =  (int) @$dataSend['id_group_user'];
-                $user->start_date = time();
-                $modelUser->save($user);
-
-                $loginUser = $modelUser->find()->where([
-                    'phone' => $dataSend['phone'],
-                    'password' => md5($dataSend['password']),
-                    'status' => 'lock'
-                ])->first();
-
-                // sendEmailnewUserRegistration($user->name, $user->id);
-                if($loginUser->email){
-                    sendEmailCodeForgotPassword($loginUser->email, $loginUser->full_name, $code);
-                }
-
-                if(!empty($dataSend['token'])){
-
-                    $checkHistoryResult = $modelHistoryResultUser->find()->where(['token'=>$dataSend['token']])->first();
-
-                    if(!empty($checkHistoryResult)){
-                        $checkHistoryResult->token = null;
-                        $checkHistoryResult->id_user = $loginUser->id;
-                        $modelHistoryResultUser->save($checkHistoryResult);
-
-                        $loginUser->historyResult= $checkHistoryResult;
-                    }else{
-                        $loginUser->historyResult= array();
-                    }
-                }
-
-
-                return apiResponse(0, 'Lưu thông tin thành công', $loginUser);
+                $user = $checkDuplicateEmail;
+            }else{
+                $user = $modelUser->newEmptyEntity();
+            }
+            if ($dataSend['password'] !== $dataSend['password_confirmation']) {
+                return apiResponse(4, 'Mật khẩu nhập lại không chính xác');
             }
 
-            return apiResponse(3, 'Gmail này đã tồn tại');
-        }
+            if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                $avatar = uploadImage($dataSend['phone'], 'avatar', 'avatar_'.$dataSend['phone']);
+            }
 
+            if(!empty($avatar['linkOnline'])){
+                $avatars = $avatar['linkOnline'].'?time='.time();
+            }
+            $getBankAccount =getBankAccount();
+            if(!empty($dataSend['affsource'])){
+                $affsource = $modelUser->find()->where(array('email'=>$dataSend['affsource']))->first();
+                if(!empty($affsource)){
+                    $user->id_affsource =$affsource->id;                        
+                    $user->rose =0;    
+                }
+            }
+
+              
+            $user->full_name = $dataSend['full_name'];
+            $user->avatar = @$avatars ?? '';
+            $user->phone = @$dataSend['phone'];
+            $user->password = md5($dataSend['password']);
+            $user->info = @$dataSend['info'];
+            $user->sex = (int) @$dataSend['sex']?? 1;
+            $user->birthday = (int) strtotime(@$dataSend['birthday']);
+            $user->email = @$dataSend['email'] ?? null;
+            $user->address = @$dataSend['address'] ?? null;
+            $user->status = 'new';
+            $user->created_at = time();
+            // $user->deadline =  strtotime("+7 days", time());
+            $user->deadline =  time();
+            $user->updated_at = time();
+            $user->last_login = time();
+            $user->token = 'web'.createToken();
+            $user->token_app = 'app'.createToken();
+            $code = rand(100000, 999999);
+            $user->reset_password_code = @$code;
+            $user->device_token = @$dataSend['device_token'];
+            $user->current_weight =  (double) @$dataSend['current_weight'];
+            $user->target_weight =  (double) @$dataSend['target_weight'];
+            $user->height =  (int) @$dataSend['height'];
+            $user->id_group_user =  (int) @$dataSend['id_group_user'];
+            $user->start_date = time();
+            $modelUser->save($user);
+
+            $loginUser = $modelUser->find()->where([
+                'email' => $dataSend['email'],
+                'password' => md5($dataSend['password']),
+                'status' => 'new'
+            ])->first();
+
+                // sendEmailnewUserRegistration($user->name, $user->id);
+            if($loginUser->email){
+                sendEmailCodeForgotPassword($loginUser->email, $loginUser->full_name, $code);
+            }
+            if(!empty($dataSend['token'])){
+                $checkHistoryResult = $modelHistoryResultUser->find()->where(['token'=>$dataSend['token']])->first();
+                if(!empty($checkHistoryResult)){
+                    $checkHistoryResult->token = null;
+                    $checkHistoryResult->id_user = $loginUser->id;
+                    $modelHistoryResultUser->save($checkHistoryResult);
+
+                    $loginUser->historyResult= $checkHistoryResult;
+                }else{
+                    $loginUser->historyResult= array();
+                }
+            }
+            return apiResponse(0, 'Lưu thông tin thành công', $loginUser);
+        }
         return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
-
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
@@ -242,7 +236,7 @@ function loginUserApi($input): array
                      $user->status_pay_package = 0;
                 }
 
-                if($user->status=='lock'){
+                if($user->status=='new'){
                     return apiResponse(5, 'Bạn chưa xác nhận mã OTP', $user);
                 }elseif(!empty($user->status_pay_package)){
                     return apiResponse(0, 'Đăng nhập thành công', $user);
@@ -361,7 +355,7 @@ function forgotPasswordApi($input): array
                 return apiResponse(3, 'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
             }
 
-            if ($user->status != 'active') {
+            if ($user->status == 'lock') {
                 return apiResponse(3, 'Tài khoản đang bị khóa');
             }
 

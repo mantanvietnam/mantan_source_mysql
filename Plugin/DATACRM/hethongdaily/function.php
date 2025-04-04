@@ -1,4 +1,4 @@
-<?php 
+ <?php 
 use Google\Auth\Credentials\ServiceAccountCredentials;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
@@ -73,6 +73,12 @@ $menus[1]['sub'][]= array( 'title'=>'Đơn trong hệ thống',
                             'url'=>'/plugins/admin/hethongdaily-view-admin-order-listOrderSystemAdmin',
                             'classIcon'=>'bx bx-cart-add',
                             'permission'=>'listOrderSystemAdmin'
+                        );
+
+$menus[1]['sub'][]= array( 'title'=>'Giao dịch khách hàng',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-transaction-listTransactionCustomerAdmin',
+                            'classIcon'=>'bx bx-cart-add',
+                            'permission'=>'listTransactionCustomerAdmin'
                         );
 
 addMenuAdminMantan($menus);

@@ -522,8 +522,23 @@ function listChildExerciseWorkout($input)
     $listData = $modelChildExerciseWorkouts->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->order(['cc.sort_order'=>'ASC'])->all()->toList();
 
   
-
+    $tota_time = 0;
     $totalUser = $modelChildExerciseWorkouts->find()->join($join)->where($conditions)->all()->toList();
+    if(!empty($totalUser)){
+        foreach($totalUser as $key => $item){
+            $tota_time += $item->time;
+        }
+    }
+
+    if(!empty($tota_time)){
+        $time = $tota_time/60;
+
+        $tota_time = (int)$time;
+
+    }else{
+        $tota_time = 0;
+    }
+
     $paginationMeta = createPaginationMetaData(count($totalUser),$limit,$page); 
     if(!empty($dataExercise->group_exercise)){
             $dataExercise->group_exercise = json_decode($dataExercise->group_exercise, true);
@@ -542,6 +557,8 @@ function listChildExerciseWorkout($input)
     // die;
     setVariable('page', $page);
     setVariable('dataWorkout', $dataWorkout);
+    setVariable('totalData', count($totalUser));
+    setVariable('tota_time', $tota_time);
     setVariable('dataExercise', $dataExercise);
     setVariable('totalPage', $paginationMeta['totalPage']);
     setVariable('back', $paginationMeta['back']);
@@ -918,7 +935,7 @@ function editChildExerciseWorkout($input){
     global $isRequestPost;
 
 
-    $metaTitleMantan = 'Thông tin bài luyện tập';
+    $metaTitleMantan = 'Thông tin động tác tập';
 
     $modelWorkout = $controller->loadModel('Workouts');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
@@ -978,7 +995,7 @@ function editChildExerciseWorkout($input){
                 $modelChildExerciseWorkouts->save($data);
 
 
-                return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listChildExerciseAdmin?&mess=saveSuccess');
+                return $controller->redirect('/plugins/admin/colennao-view-admin-workout-listExerciseWorkout?&mess=saveSuccess');
 
 
             }else{

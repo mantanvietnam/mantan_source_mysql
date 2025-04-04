@@ -165,7 +165,7 @@
             </div>
              <div class="mb-3 col-md-6"></div>
              <div class="mb-3 col-md-2">
-            <?php if($data->status=='done'){
+            <?php if(@$data->status=='done'){
               echo '<a href="/listPayroll/#listStaff" class="btn btn-primary d-block">Quay lại</a>';
             }else{
               echo ' <button type="submit" class="btn btn-primary d-block">Chấm công</button>';
@@ -212,7 +212,7 @@
                               <td>'.$item->id.'</td>
                               <td>'.date('H:i d/m/Y', $item->time).'</td>
                               <td>'.$item->infoStaff->name.'</td>
-                              <td>'.number_format($item->total).'đ</td>
+                              <td>'.number_format($item->money).'đ</td>
                               <td>'.$item->note.'</td>
                               <td>'.$status.'</td>
                               <td align="center">
@@ -266,7 +266,7 @@
                               <td>'.$item->id.'</td>
                               <td>'.date('H:i d/m/Y', $item->time).'</td>
                               <td>'.$item->infoStaff->name.'</td>
-                              <td>'.number_format($item->total).'đ</td>
+                              <td>'.number_format($item->money).'đ</td>
                               <td>'.$item->note.'</td>
                               <td>'.$status.'</td>
                               <td align="center">

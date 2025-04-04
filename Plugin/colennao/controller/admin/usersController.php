@@ -22,7 +22,8 @@ function listUserAdmin($input)
 
     $conditions['OR'] = [
                     ['status'=>'active'],
-                    ['status'=>'lock']
+                    ['status'=>'lock'],
+                    ['status'=>'new'],
     ];
 
     if (!empty($_GET['name'])) {

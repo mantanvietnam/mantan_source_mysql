@@ -30,6 +30,7 @@ include_once('controller/admin/ordersController.php'); // đơn hàng
 include_once('controller/admin/warehousesController.php'); // kho hàng
 include_once('controller/admin/optionsController.php'); // cài đặt module
 include_once('controller/admin/packageControler.php'); // cài đặt module
+include_once('controller/admin/transactionController.php'); // cài đặt module
 
 include_once('controller/api/membersController.php'); // đại lý
 include_once('controller/api/documentController.php'); // thống kê

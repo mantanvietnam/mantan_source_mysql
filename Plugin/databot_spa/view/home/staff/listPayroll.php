@@ -379,7 +379,11 @@
               <option value="0">Tháng</option>
               <?php
               for ($i=1; $i <= 12 ; $i++) { 
-                  echo '<option value="'.$i.'">'.$i.'</option>';
+                    $selected = '';
+                    if($i==date("m")){
+                    $selected = 'selected';
+                    }
+                  echo '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
               }
               ?>
             </select>
@@ -388,7 +392,6 @@
           <div class="col-md-6">
             <label class="form-label" for="basic-default-phone">năm</label>
             <select name="year" class="form-select color-dropdown">
-              <option value="0">Năm</option>
               <?php
               for ($i = date("Y"); $i >= 2020; $i--) { 
                   echo '<option value="'.$i.'">'.$i.'</option>';

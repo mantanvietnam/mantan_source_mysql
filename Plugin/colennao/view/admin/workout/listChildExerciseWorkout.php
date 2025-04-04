@@ -49,7 +49,14 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách động tác tập  </h5>
+    <div class="row">
+      <div class="col-md-6">
+        <h5 class="card-header">Danh sách động tác tập  - <b class="text-danger"><?php echo $totalData ?></b> động tác </h5>
+      </div>
+      <div class="col-md-6">
+        <h5 class="card-header" style="float: right;">Tổng số thời gian   <b class="text-danger"><?php echo number_format($tota_time) ?></b> phút</h5>
+      </div>
+    </div>
      <?php echo @$mess; ?>
     <div class="table-responsive">
       <table class="table table-bordered">

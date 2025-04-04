@@ -938,7 +938,7 @@ function payrollstaff($input){
 
 		$listStaffTimekeeper = $modelStaffTimekeepers->find()->where($conditions)->all()->toList();
 		$conditions['type'] = 'punish';
-		$conditions['type'] = 'new';
+		$conditions['status'] = 'new';
 	    $listDatapunish = $modelStaffBonu->find()->where($conditions)->all()->toList();
 
 	    $conditions['type'] = 'bonus';
@@ -965,6 +965,7 @@ function payrollstaff($input){
         $conditions = array('id_member'=>$user->id_member,'id_staff'=>$dataStaff->id);
 		$conditions['created_at >='] = (int) $start;
 		$conditions['created_at <='] = (int) $end;
+		$conditions['status'] = 0;
 	    $listDatacommission= $modelAgency->find()->where($conditions)->all()->toList();
 
 	     $commission= 0;

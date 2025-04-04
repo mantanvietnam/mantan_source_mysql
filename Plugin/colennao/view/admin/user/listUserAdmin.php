@@ -96,21 +96,29 @@
                     @$type = 'Đại sứ';
                 }
                 if ($item->status == 'active') {
-                    $status = '
+                    $status = '<span style="color: #66c732;">Đã kích hoạt </span><br/>
                   <a class="btn btn-success"  title="Khóa tài khoản" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');"
                     href="/plugins/admin/colennao-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=lock"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
-                  </a><br/>Đã kích hoạt ';
-                } else {
-                    $status = '
+                  </a>';
+                }elseif($item->status == 'new'){
+                     $status = '<span style="color: #03a6c9;">Tài khoản mới </span><br/>
+                  <a class="btn btn-info"  title="mở tài khoản" 
+                    onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt người dùng không?\');"
+                    href="/plugins/admin/colennao-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=active"
+                  >
+                           <i class="bx bx-message-square-add me-1" style="font-size: 22px;"></i>
+                  </a>';
+                }else {
+                    $status = ' <span style="color: red;">Đã khóa </span><br/>
                   <a class=" btn btn-danger"  title="Kích hoạt tài khoản" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt người dùng không?\');" 
                     href="/plugins/admin/colennao-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=active"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
-                  </a><br/> Đã khóa ';
+                  </a>';
                 }
                 $historyResult ='';
                 if(!empty($item->historyResult)){
@@ -155,7 +163,7 @@
                  </a>
                  </p>
                  </td>
-                 <td>'.$status.'</td>
+                 <td align="center">'.$status.'</td>
                  </tr>';
             }
         } else {
