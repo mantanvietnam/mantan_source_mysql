@@ -88,59 +88,63 @@
     </div>
 
     <!-- sản phẩm theo combo -->
-    <div class='container mt-4'>
-      	<div class='row bestsell-list-container'>
-      		<?php 
-                            if(!empty($list_product)){
-                                foreach ($list_product as $product) {
-                                    $link = '/product/'.$product->slug.'.html';
-
-                                    $giam = 0;
-                                    if(!empty($product->price_old) && !empty($product->price)){
-                                        $giam = 100 - 100*$product->price/$product->price_old;
-                                    }
-
-                                    if($giam>0){
-                                        $giam = '
-                                                    <div class="item-sale">
-                                                        <span><i class="fa-solid fa-bolt"></i> -'.round($giam).'%</span>
-                                                    </div>';
-                                    }else{
-                                        $giam = '';
-                                    }
-
-                                    if(!empty($product->price)){
-                                        $price = number_format($product->price).'đ';
-                                    }else{
-                                        $price = 'Giá liên hệ';
-                                    }
-
-                                    if(!empty($product->price_old)){
-                                        $price_old = number_format($product->price_old).'đ';
-                                    }else{
-                                        $price_old = '';
-                                    }
-
-                                    echo '  <div class="col bestsell-product-container">
-                                                <div class="bestsell-product-image">
-                                                    <a href="'.$link.'"><img src="'.$product->image.'" alt=""></a> 
-                                                </div>
-                                                <div class="bestsell-product-title">
-                                                	<span>'.$product->title.'</span>
-                                                </div>
-                                                <div class="bestsell-product-price-container">
-                                                	<div class="bestsell-product-current-price">'.$price.'</div>
-                                                	<div class="bestsell-product-old-price">'.$price_old.'</div>
-                                                </div>
-                                                <div class="bestsell-product-selling">
-                                                    <div>' . $product->view . ' Lượt xem</div>
-                                                </div>
-                                            </div>';
-                                }
-                            }
-                            ?>
-      	</div>
+<div class='container mt-4'>
+    <div class='row'>
+        <?php 
+        if(!empty($list_product)){
+            foreach ($list_product as $product) {
+                $link = '/product/'.$product->slug.'.html';
+                
+                $giam = 0;
+                if(!empty($product->price_old) && !empty($product->price)){
+                    $giam = 100 - 100*$product->price/$product->price_old;
+                }
+                
+                if($giam>0){
+                    $giam = '
+                                <div class="item-sale position-absolute">
+                                    <span><i class="fa-solid fa-bolt"></i> -'.round($giam).'%</span>
+                                </div>';
+                }else{
+                    $giam = '';
+                }
+                
+                if(!empty($product->price)){
+                    $price = number_format($product->price).'đ';
+                }else{
+                    $price = 'Giá liên hệ';
+                }
+                
+                if(!empty($product->price_old)){
+                    $price_old = number_format($product->price_old).'đ';
+                }else{
+                    $price_old = '';
+                }
+             echo '<div class="col-md-3 col-sm-6 col-12 mb-4">
+                        <div class="card bestsell-product">
+                            '.$giam.'
+                            <div class="bestsell-product-image">
+                                <a href="'.$link.'"><img src="'.$product->image.'" alt="'.$product->title.'" class="card-img-top"></a> 
+                            </div>
+                            <div class="card-body">
+                                <div class="bestsell-product-title">
+                                    <h5 class="card-title">'.$product->title.'</h5>
+                                </div>
+                                <div class="bestsell-product-price-container d-flex justify-content-between">
+                                    <div class="bestsell-product-current-price fw-bold">'.$price.'</div>
+                                    <div class="bestsell-product-old-price text-decoration-line-through text-muted">'.$price_old.'</div>
+                                </div>
+                                <div class="bestsell-product-selling mt-2 text-muted">
+                                    <small><i class="fa-solid fa-eye"></i> ' . $product->view . ' Lượt xem</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>';
+            }
+        }
+        ?>
     </div>
+</div>
 
     <!-- pagination -->
     <div class='pagination-container mt-4 d-flex gap-2'>
