@@ -283,19 +283,13 @@
                 </li>
                 <li class="menu-item">
                   <a href="/userServicestatistical/#revenueStatistical" class="menu-link <?php if(@$page_view =='userServicestatistical' || @$page_view == 'listUserserviceHistories') echo 'menu-active';?>">
-                    <div>Thống kê sử dụng dịch vụ </div> 
+                    <div>Thống kê khách hàng </div> 
                   </a>
                 </li>
 
                 <li class="menu-item">
                   <a href="/listAgency/#revenueStatistical" class="menu-link <?php if(@$page_view =='listAgency') echo 'menu-active';?>">
                     <div>Hoa hồng nhân viên</div>
-                  </a>
-                </li>
-                
-                <li class="menu-item">
-                  <a href="/listUserserviceHistories/#revenueStatistical" class="menu-link <?php if(@$page_view =='listUserserviceHistories') echo 'menu-active';?>">
-                    <div>Khách trong ngày</div> 
                   </a>
                 </li>
                

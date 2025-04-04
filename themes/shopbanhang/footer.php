@@ -19,24 +19,24 @@ $infoUser = $session->read('infoUser');
                     <div class="col-lg-4 col-md-12 col-sm-12 col-12 footer-item footer-left">
                         <div class="footer-info">
                             <div class="copyright">
-                                <?php echo $setting['company'] ?>
+                                <?php echo @$setting['company'] ?>
                             </div>
                             <div class="footer-info-list">
                                 <div class="footer-info-item">
-                                    <p><?php echo $setting['address'] ?></p>
-                                    <p>ĐT:<span class="blue-text"><?php echo $setting['phone'] ?></span>
+                                    <p><?php echo @$setting['address'] ?></p>
+                                    <p>ĐT:<span class="blue-text"><?php echo @$setting['phone'] ?></span>
                                         <!-- -Fax:<span class="blue-text"><?php echo $setting['fax'] ?></span></p> -->
                                 </div>
 
                                 <div class="footer-info-item">
-                                    <p><span class="blue-text">Giấy chứng nhận đăng ký doanh nghiệp: <?php echo $setting['business'] ?></span></p>
-                                    <p><?php echo $setting['side_plan'] ?></p>
+                                    <p><span class="blue-text">Giấy chứng nhận đăng ký doanh nghiệp: <?php echo @$setting['business'] ?></span></p>
+                                    <p><?php echo @$setting['side_plan'] ?></p>
                                 </div>
 
                                 <div class="footer-info-item">
                                     <p>Tổng đài hỗ trợ (08:00-17:00)</p>  
-                                    <p>Gọi mua: <span class="blue-text"><?php echo $setting['call_buy'] ?></span></p>  
-                                    <p>Hỗ trợ: <span class="blue-text"><?php echo $setting['complain'] ?></span></p>
+                                    <p>Gọi mua: <span class="blue-text"><?php echo @$setting['call_buy'] ?></span></p>  
+                                    <p>Hỗ trợ: <span class="blue-text"><?php echo @$setting['complain'] ?></span></p>
                                 </div>
 
                                 <div class="footer-info-item row">
@@ -58,7 +58,7 @@ $infoUser = $session->read('infoUser');
                             </div>
                             <ul>
                                  <?php
-                                if (!empty(getListLinkWeb(@$setting['id_category']))) {
+                                if (!empty($setting['id_category']) && !empty(getListLinkWeb($setting['id_category']))) {
                                     foreach (getListLinkWeb(@$setting['id_category']) as $key => $ListLink) { ?>
                                         <li>
                                             <a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a>
@@ -92,10 +92,10 @@ $infoUser = $session->read('infoUser');
                             </div>
                             <div class="group-social">
                                 <ul>
-                                    <li><a target="_blank" href="<?php echo $setting['facebook'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt=""></a></li>
-                                    <li><a target="_blank" href="<?php echo $setting['youtube'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt=""></a></li>
-                                    <li><a target="_blank" href="<?php echo $setting['instagram'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt=""></a></li>
-                                    <li><a target="_blank" href="<?php echo $setting['email'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/tiktok.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo @$setting['facebook'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo @$setting['youtube'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo @$setting['instagram'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo @$setting['email'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/tiktok.png" alt=""></a></li>
                                 </ul>
                             </div>
                         </div>

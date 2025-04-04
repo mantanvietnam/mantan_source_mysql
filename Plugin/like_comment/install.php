@@ -23,6 +23,7 @@ $sqlInstallDatabase .="CREATE TABLE `comments` (
 	`type` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
 	`comment` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
 	`created` INT NULL DEFAULT NULL, 
+	`status` VARCHAR(100) NOT NULL DEFAULT 'active',
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -41,3 +42,4 @@ $sqlUpdateDatabase['comments']['idobject'] = "ALTER TABLE `comments` ADD `idobje
 $sqlUpdateDatabase['comments']['type'] = "ALTER TABLE `comments` ADD `type` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['comments']['comment'] = "ALTER TABLE `comments` ADD `comment` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['comments']['created'] = "ALTER TABLE `comments` ADD `created` INT NULL DEFAULT NULL; ";
+$sqlUpdateDatabase['comments']['status'] = "ALTER TABLE `comments` ADD `status` VARCHAR(100) NOT NULL DEFAULT 'active'; ";

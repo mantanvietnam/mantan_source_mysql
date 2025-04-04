@@ -290,7 +290,7 @@ global $urlThemeActive;
                 </div>
 
                 <div class="title-section-sub">
-                    <p>Những đánh giá và cảm nhận từ khách hàng sau khi sử dụng sản phẩm của Bumas</p>
+                    <p>Những đánh giá và cảm nhận từ khách hàng sau khi sử dụng sản phẩm của chúng tôi</p>
                 </div>
                 <?php if(!empty(getListFeedback())){ ?>
                     <div class="container">
@@ -337,7 +337,7 @@ global $urlThemeActive;
     <div class="container-fluid">
         <div class="row">
             <div class="title-section">
-                <h2>Báo chí nói gì về BUMAS</h2>
+                <h2>Báo chí nói gì về chúng tôi</h2>
             </div>
 
             <div class="news-tell">

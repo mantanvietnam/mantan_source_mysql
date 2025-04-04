@@ -378,7 +378,8 @@ function indexTheme($input){
             }
         }
     }
-    $product_sold = $modelProduct->find()->limit(4)->where(['sold >='=>1])->order(array('sold'=>'desc'))->all()->toList();
+    //$product_sold = $modelProduct->find()->limit(4)->where(['sold >='=>1])->order(array('sold'=>'desc'))->all()->toList();
+    $product_sold = $modelProduct->find()->limit(4)->where(['hot'=>1])->order(array('id'=>'desc'))->all()->toList();
 
     if(!empty($product_sold)){
         foreach($product_sold as $key => $item){
@@ -401,7 +402,7 @@ function indexTheme($input){
     $product_search = $modelProduct->find()->limit(4)->where(['hot'=>1])->all()->toList();
      $order = array('id'=>'desc');
 
-    $listDataPost = $modelPosts->find()->limit(3)->where(array('pin'=>1,'type'=>'post'))->order($order)->all()->toList();
+    $listDataPost = $modelPosts->find()->limit(3)->where(array('type'=>'post'))->order($order)->all()->toList();
 
 
     setVariable('setting', $data_value);
