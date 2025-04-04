@@ -1302,8 +1302,8 @@
                                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes;?>book-online/?aff='+msg.data.phone+'" width="100%" />\
                                 </div>\
                                 <div class="">\
-                                   <button type="button" class="btn btn-primary mb-3" onclick="copyToClipboard('+msg.data.phone+');"><i class="fa fa-link" aria-hidden="true"></i> Link giới thiệu</button>\
-                                     <button type="button" class="btn btn-danger mb-3" onclick="downloadImageFromSrc('+msg.data.phone+');"><i class="fa fa-download" aria-hidden="true"></i> Tải mã QR</button></div> ';
+                                   <button type="button" class="btn btn-primary mb-3" onclick="copyToClipboard(\''+msg.data.phone+'\');"><i class="fa fa-link" aria-hidden="true"></i> Link giới thiệu</button>\
+                                     <button type="button" class="btn btn-danger mb-3" onclick="downloadImageFromSrc(\''+msg.data.phone+'\');"><i class="fa fa-download" aria-hidden="true"></i> Tải mã QR</button></div> ';
 
                                    $('#QRAffiliater').html(html); 
 
