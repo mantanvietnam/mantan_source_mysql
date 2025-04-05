@@ -18,23 +18,6 @@ $slide_home= slide_home($setting['id_slide']);
             </div>
         </section>
 
-        <div class="container">
-            <section id="section-banner-home">
-                <div class="">
-                    <div class="banner-home-slide">
-                        <?php if(!empty($slide_home->imageinfo)){
-                            foreach($slide_home->imageinfo as $key => $item){ ?>
-                    <div class="banner-home-item">
-                        <a href="<?php echo $item->link ?>">
-                        <img src="<?php echo $item->image ?>" alt="">
-                        </a>
-                    </div>
-                <?php }} ?>
-                    </div>
-                </div>
-            </section>
-        </div>
-      
 
         <section id="section-group-by">
             <div class="container">

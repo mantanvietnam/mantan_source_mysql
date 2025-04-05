@@ -1,9 +1,6 @@
 /* --- Trang Guarantee --- */
 
-#policy .container {
-    width: 760px;
-    padding-bottom: 89px;
-}
+
 
 #policy .nav-tabs {
     justify-content: space-around;

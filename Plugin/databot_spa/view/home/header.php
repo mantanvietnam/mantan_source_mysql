@@ -464,7 +464,7 @@
               </ul>
             </li>
             
-            <li class="menu-item  <?php if(!empty(@$page_view) && in_array(@$page_view, ['listStaff','listGroupStaff','addStaff','addGroupStaff','timesheetStaff','listPayroll','addStaffBonus','listStaffBonus','listStaffPunish','addStaffPunish'])) echo 'open';?>" id="listStaff">
+            <li class="menu-item  <?php if(!empty(@$page_view) && in_array(@$page_view, ['listStaff','listGroupStaff','addStaff','addGroupStaff','timesheetStaff','listPayroll','addStaffBonus','listStaffBonus','listStaffPunish','addStaffPunish','payrollstaff'])) echo 'open';?>" id="listStaff">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('staff', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div>Đội ngũ</div>
@@ -496,7 +496,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listPayroll/#listStaff" class="menu-link <?php if(@$page_view =='listPayroll') echo 'menu-active';?>">
+                  <a href="/listPayroll/#listStaff" class="menu-link <?php if(@$page_view =='listPayroll' || $page_view =='payrollstaff') echo 'menu-active';?>">
                     <div>Bảng lương nhân viên</div>
                   </a>
                 </li>

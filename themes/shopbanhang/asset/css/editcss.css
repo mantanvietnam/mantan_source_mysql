@@ -1,11 +1,12 @@
 /* Header */
 header{
     background-color: #fff;
-    position: fixed;
+    /*position: fixed;
     top: 0;
     right: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 1000;*/
+    padding-bottom: 5px;
 }
 
 /* .sticky{
@@ -66,7 +67,7 @@ header{
 
 /* breadcrumb */
 #section-breadcrumb{
-    margin-top: 137px;
+    margin-top: 35px;
 }
 
 header{
@@ -1692,10 +1693,6 @@ background: #555;
 @media(min-width: 445px){
     .detail-file label {
         width: 150px;
-    }
-    
-    #section-breadcrumb{
-        margin-top: 137px;
     }
 
     .topbar-mobile{

@@ -19,15 +19,15 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-contact">
             <div class="container">
                 <div class="contact-title">
-                    <h1>Liên hệ với BUMAS</h1>
+                    <h1>Liên hệ với chúng tôi</h1>
                 </div>
 
                 <div class="contact-description">
-                    <p>Bất kỳ thắc mắc hay cần sự hỗ trợ, bạn có thể liên hệ với BUMAS bằng một trong các phương thức dưới đây mà bạn cảm thấy phù hợp nhất:</p>
+                    <p>Bất kỳ thắc mắc hay cần sự hỗ trợ, bạn có thể liên hệ với chúng tôi bằng một trong các phương thức dưới đây mà bạn cảm thấy phù hợp nhất:</p>
                 </div>
 
-                <div class="group-icon">
-                    <div class="group-icon-item">
+                <div class="group-icon row">
+                    <div class="group-icon-item col-12 text-center">
                         <div class="icon-item">
                             <img src="<?php echo $urlThemeActive ?>/asset/image/place.png" alt="">
                         </div>
@@ -37,7 +37,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
                     </div>
 
-                    <div class="group-icon-item">
+                    <div class="group-icon-item col-12 text-center">
                         <div class="icon-item">
                             <img src="<?php echo $urlThemeActive ?>/asset/image/email.png" alt="">
                         </div>
@@ -47,7 +47,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
                     </div>
 
-                    <div class="group-icon-item">
+                    <div class="group-icon-item col-12 text-center">
                         <div class="icon-item">
                             <img src="<?php echo $urlThemeActive ?>/asset/image/phone.png" alt="">
                         </div>

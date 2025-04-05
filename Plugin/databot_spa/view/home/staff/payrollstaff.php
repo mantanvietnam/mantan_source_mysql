@@ -118,6 +118,10 @@
       <div class="tab-pane fade " id="navs-top-home" role="tabpanel">
         <form id="summary-form" action="/addPayroll" method="get" class="form-horizontal">
           <div class="row">
+            <div class="mb-3 col-md-12">
+             <label class="form-label">  <b>Lương = ((lương cứng / công ) * ngày công) + hoa hồng  + tiền thưởng  + phụ cấp – tiền phạt - Bảo hiểm</b></label>
+            </div>
+            
             <div class="mb-3 col-md-6">
               <label class="form-label">Ngày làm việc: </label>: <?php echo $working_day; ?>
               <input type="hidden" class="form-control" name="working_day" id="working_day" value="<?php echo $working_day; ?>">
@@ -168,12 +172,10 @@
             <?php if(@$data->status=='done'){
               echo '<a href="/listPayroll/#listStaff" class="btn btn-primary d-block">Quay lại</a>';
             }else{
-              echo ' <button type="submit" class="btn btn-primary d-block">Chấm công</button>';
+              echo ' <button type="submit" class="btn btn-primary d-block">Tính lương</button>';
             } ?>
              </div>
-            <div class="mb-3 col-md-12">
-             <label class="form-label">  <b>Lương = ((lương cứng / công )* ngày công) + (hoa hồng  + tiền thưởng  + phục cấp) – (tiền phạt + Bảo hiểm)</b></label>
-            </div>
+            
           </div>
         </form>
       </div>
@@ -181,7 +183,7 @@
           <div class="table-responsive">
 
             <h5 class="card-header">Tổng tiền thưởng là <?php echo number_format($bonus); ?> đ</h5>
-            <a href="/addStaffBonus?<?php echo $url; ?>" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a>
+            <a href="/addStaffBonus?<?php echo $url; ?>" class="btn btn-primary mb-3"><i class="bx bx-plus"></i> Thêm mới</a>
             <table class="table table-bordered">
               <thead>
                 <tr class="">

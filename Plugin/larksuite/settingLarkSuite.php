@@ -32,11 +32,14 @@
                     <label class="form-label" for="basic-default-phone">table id</label>
                     <input type="text"  class="form-control" value="<?php echo @$data['table_id'];?>" name="table_id" id="table_id" />
                   </div>
-                   <div class="mb-3 col-md-6">
+                  <div class="mb-3 col-md-6">
                     <label class="form-label" for="basic-default-phone">base id</label>
                     <input type="text"  class="form-control" value="<?php echo @$data['base_id'];?>" name="base_id" id="base_id" />
                   </div>
-                 
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="basic-default-phone">app token</label>
+                    <input type="text"  class="form-control" value="<?php echo @$data['app_token'];?>" name="app_token" id="app_token" />
+                  </div>
 
                 </div>
               <button type="submit" class="btn btn-primary">Lưu</button>

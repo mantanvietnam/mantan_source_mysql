@@ -25,6 +25,49 @@ function getLarkSuite(){
      return $static;
 }
 
+function getLarkAccessToken($app_id, $app_secret) {
+    $url = "https://open.larksuite.com/open-apis/auth/v3/tenant_access_token/internal/";
+
+    $data = [
+        "app_id" => $app_id,
+        "app_secret" => $app_secret
+    ];
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json"]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $res = curl_exec($ch);
+    curl_close($ch);
+
+    $res = json_decode($res, true);
+    return $res['tenant_access_token'] ?? null;
+}
+
+function createLarkBaseRecord($access_token, $app_token, $table_id, $orderData) {
+    $url = "https://open.larksuite.com/open-apis/bitable/v1/apps/{$app_token}/tables/{$table_id}/records";
+
+    $record = [
+        "fields" => $orderData
+    ];
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($record));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Content-Type: application/json",
+        "Authorization: Bearer {$access_token}"
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    return $response;
+}
+
+
+
 function getOrderLarkSuite($id){
 
     global $modelOptions;
@@ -34,25 +77,27 @@ function getOrderLarkSuite($id){
     global $metaTitleMantan;
     global $isRequestPost;
     global $session;
+     
+    $modelUtm = $controller->loadModel('Utms');
 
-     $conditions = array('key_word' => 'lark_suite');
-     $modelUtm = $controller->loadModel('Utms');
+    $conditions = array('key_word' => 'lark_suite');
     $data = $modelOptions->find()->where($conditions)->first();
+    
     if(!empty($data->value)){
         $static = json_decode(@$data->value, true);
     
-     
+        /*
         $dataPost= array("app_id"=> $static['app_id'],"app_secret"=>$static['secret']);
-
         $listData= sendDataConnectMantan($static['get_access_token'], $dataPost);
-            $listData= str_replace('ï»¿', '', utf8_encode($listData));
-            $s= json_decode($listData, true);
-
-
+        $listData= str_replace('ï»¿', '', utf8_encode($listData));
+        $s= json_decode($listData, true);
 
         $headers = array(
                 'Authorization: Bearer ' .$s['app_access_token'],
-                'Content-Type: application/json; charset=utf-8');
+                'Content-Type: application/json; charset=utf-8'
+            );
+        */
+        
    
         $modelProduct = $controller->loadModel('Products');
         $modelOrder = $controller->loadModel('Orders');
@@ -61,6 +106,7 @@ function getOrderLarkSuite($id){
 
         if(!empty($id)){
             $order = $modelOrder->find()->where(['id'=>$id])->first();
+            
             if(!empty($order)){
                 $infoOrder = $modelOrderDetail->find()->where(['id_order'=>$id])->all()->toList();
                 unset($order->note_user);
@@ -69,11 +115,15 @@ function getOrderLarkSuite($id){
                 $info = ''; 
                 $str = "*";
                 $order->shipp = 35000;
+                $order->quantity = 0;
+
                 if(!empty($infoOrder)){
                     foreach($infoOrder as $key => $item){
                         // $info .= "{";
                         $product = $modelProduct->find()->where(['id'=>$item->id_product])->first();
                         $info .= $product->title.' Số lượng: '.$item->quantity.' Đơn giá: '.number_format($item->price).'đ ' ;
+                        $order->quantity += $item->quantity;
+                        
                         if(!empty(@$product->id_product)){
                             $id_product = explode(',', @$product->id_product);
                             $present = [];
@@ -122,6 +172,10 @@ function getOrderLarkSuite($id){
                       $order->utm_id = '';
                       $order->utm_term = '';
                       $order->utm_content = '';
+                      $order->utm_medium = '';
+                      $order->utm_name = '';
+                      
+
                       $order->createat = '';
                      if(!empty($session->read('id_utm'))){
                         $utm = $modelUtm->find()->where(array('id'=> (int)$session->read('id_utm')))->first();
@@ -132,6 +186,9 @@ function getOrderLarkSuite($id){
                             $order->utm_id = $utm->utm_id;
                             $order->utm_term = $utm->utm_term;
                             $order->utm_content = $utm->utm_content;
+                            $order->utm_medium = $utm->utm_medium;
+                            $order->utm_name = $utm->utm_name;
+                            
                             $order->createat = $utm->created_at;
                         }
                          $session->write('id_utm', '');
@@ -139,17 +196,24 @@ function getOrderLarkSuite($id){
 
                     
                 }
-                $dataO = array('fields'=>$order);
-            
 
-                $list= sendDataConnectMantan('https://open.larksuite.com/open-apis/bitable/v1/apps/'.$static['base_id'].'/tables/'.$static['table_id'].'/records', $dataO,$headers, 'raw');
+                // lưu dữ liệu sang Lark
+                $app_id = $static['app_id'];
+                $app_secret = $static['secret'];
+                $app_token = $static['base_id']; // Lấy từ Lark Base
+                $table_id = $static['table_id'];
 
-            $list= str_replace('ï»¿', '', utf8_encode($list));
-             $list= json_decode($list, true);
-  
-    
+                $access_token = getLarkAccessToken($app_id, $app_secret);
+                //debug($access_token);
+                $orderData = $order;
 
-             $return = array('code'=> 1 , 'data'=>$list);
+                $response = createLarkBaseRecord($access_token, $app_token, $table_id, $orderData);
+                //debug($response);
+                $response= str_replace('ï»¿', '', utf8_encode($response));
+                
+                $response= json_decode($response, true);
+
+                $return = array('code'=> 1 , 'data'=>$response, 'info_order'=>['fields'=>$order]);
             }else{
                 $return = array('code'=> 3 , 'mess'=> 'Đơn hàng không tồn tại');
             }
