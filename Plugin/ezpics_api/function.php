@@ -1,6 +1,5 @@
 <?php 
 use Google\Auth\Credentials\ServiceAccountCredentials;
-use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -30,6 +29,13 @@ $urlsCreateImage = [
                     ];
 $randIndex = array_rand($urlsCreateImage);
 $urlCreateImage = $urlsCreateImage[$randIndex];
+
+include(__DIR__.'/library/jwt/vendor/autoload.php');
+use Firebase\JWT\JWT;
+
+
+include(__DIR__.'/library/client/vendor/autoload.php');
+use GuzzleHttp\Client;
 
 //$urlCreateImage = 'http://171.244.16.76:3000/convert';
 
@@ -775,6 +781,58 @@ function getTokenFirebaseV1()
     return $authToken['access_token'];
 }
 
+
+//-----------------------
+function getFirebaseToken()
+{
+    // $serviceAccountPath = __DIR__ . '/library/ezpics-91e75-firebase-adminsdk-gjyts-e0c16579ba.json';
+    $serviceAccountPath = __DIR__ . '/library/ezpics-91e75-firebase-adminsdk-gjyts-f401fd1467.json';
+     // đổi lại nếu tên khác
+    $serviceAccount = json_decode(file_get_contents($serviceAccountPath), true);
+
+    if (!$serviceAccount || !isset($serviceAccount['private_key'])) {
+        die("Không đọc được file JSON hoặc thiếu private_key.");
+    }
+
+    $privateKey = $serviceAccount['private_key'];
+    $clientEmail = $serviceAccount['client_email'];
+
+    $now = time();
+    $jwtPayload = [
+        'iss' => $clientEmail,
+        'scope' => 'https://www.googleapis.com/auth/firebase.messaging',
+        'aud' => 'https://oauth2.googleapis.com/token',
+        'iat' => $now,
+        'exp' => $now + 3600
+    ];
+
+    $jwt = JWT::encode($jwtPayload, $privateKey, 'RS256');
+
+    $client = new Client();
+
+    try {
+        $response = $client->post('https://oauth2.googleapis.com/token', [
+            'form_params' => [
+                'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+                'assertion' => $jwt,
+            ],
+        ]);
+
+        $data = json_decode($response->getBody(), true);
+
+      
+
+        return $data['access_token'] ?? null;
+
+    } catch (\GuzzleHttp\Exception\ClientException $e) {
+        return null;
+    }
+
+}
+
+
+//-----------------------
+
 function sendNotification($data=[], $deviceTokens)
 {
     /*
@@ -783,7 +841,7 @@ function sendNotification($data=[], $deviceTokens)
                 'time'=>date('H:i d/m/Y'),
                 'content'=>'Trần Mạnh ơi. Bạn được cộng 100.000 VND do thành viên Kim Oanh đã nạp tiền. Bấm vào đây để kiểm tra ngay nhé.',
                 'action'=>'addMoneySuccess',
-                'image'=>'',
+                'image'=>'', getFirebaseToken
             ];
     */
 
@@ -791,7 +849,8 @@ function sendNotification($data=[], $deviceTokens)
     global $keyFirebase;
     global $projectId;
 
-    $tokenFirebase = getTokenFirebaseV1(); // Bearer token
+    //$tokenFirebase = getTokenFirebaseV1(); // Bearer token
+    $tokenFirebase = getFirebaseToken(); // Bearer token
     $number_error = 0;
     
     if(!empty($tokenFirebase)){

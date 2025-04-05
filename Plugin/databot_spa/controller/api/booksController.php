@@ -278,6 +278,7 @@ function listBookCalendarAPI($input){
 			            'Books.apt_times',
 			            'Books.apt_step',
 			            'Services.name',
+			            'Services.id',
 			            'Members.name',
 			            'Members.id',
 			            'Beds.name',

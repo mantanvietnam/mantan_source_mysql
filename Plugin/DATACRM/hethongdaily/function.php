@@ -1,10 +1,16 @@
  <?php 
 use Google\Auth\Credentials\ServiceAccountCredentials;
-use GuzzleHttp\Client;
+//use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Exception\RequestException;
+
+include(__DIR__.'/library/jwt/vendor/autoload.php');
+use Firebase\JWT\JWT;
+include(__DIR__.'/library/client/vendor/autoload.php');
+use GuzzleHttp\Client;
+
 
 $menus= array();
 $menus[0]['title']= "Hệ thống đại lý";
@@ -473,7 +479,6 @@ function getTreeSystem($id_father, $modelMembers)
 function checkDuplicateSystem($id_father, $modelMembers, $id_check, $i)
 {
     $listData = $modelMembers->find()->where(['id_father'=>$id_father])->all()->toList();
-  
         if(!empty($listData)){
             foreach ($listData as $key => $value) {
                 if($id_check==$value->id){
@@ -485,12 +490,7 @@ function checkDuplicateSystem($id_father, $modelMembers, $id_check, $i)
                 
             }
         }
-     
-    return $i;
-
-
-
-     
+    return $i;    
 }
 
 function getTreeAffiliater($id_father, $number)
@@ -807,6 +807,51 @@ function getTokenFirebaseV1()
     return $authToken['access_token'];
 }
 
+function getFirebaseToken()
+{
+     //$serviceAccountPath = __DIR__ . '/library/phoenix-crm-f6f64-firebase-adminsdk-lhgro-42139e7d2b.json'; // đổi lại nếu tên khác
+    $serviceAccountPath = __DIR__ . '/library/phoenix-crm-f6f64-firebase-adminsdk-lhgro-70eecdee1a.json'; // đổi lại nếu tên khác
+     // đổi lại nếu tên khác
+    $serviceAccount = json_decode(file_get_contents($serviceAccountPath), true);
+
+    if (!$serviceAccount || !isset($serviceAccount['private_key'])) {
+        die("Không đọc được file JSON hoặc thiếu private_key.");
+    }
+
+    $privateKey = $serviceAccount['private_key'];
+    $clientEmail = $serviceAccount['client_email'];
+
+    $now = time();
+    $jwtPayload = [
+        'iss' => $clientEmail,
+        'scope' => 'https://www.googleapis.com/auth/firebase.messaging',
+        'aud' => 'https://oauth2.googleapis.com/token',
+        'iat' => $now,
+        'exp' => $now + 3600
+    ];
+
+    $jwt = JWT::encode($jwtPayload, $privateKey, 'RS256');
+
+    $client = new Client();
+
+    try {
+        $response = $client->post('https://oauth2.googleapis.com/token', [
+            'form_params' => [
+                'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+                'assertion' => $jwt,
+            ],
+        ]);
+
+        $data = json_decode($response->getBody(), true);
+        return $data['access_token'] ?? null;
+
+    } catch (\GuzzleHttp\Exception\ClientException $e) {
+       return null;
+    }
+
+}
+
+
 function sendNotification($data=[], $deviceTokens=[])
 {
     /*
@@ -823,7 +868,8 @@ function sendNotification($data=[], $deviceTokens=[])
     global $keyFirebase;
     global $projectId;
 
-    $tokenFirebase = getTokenFirebaseV1(); // Bearer token
+   // $tokenFirebase = getTokenFirebaseV1(); // Bearer token
+    $tokenFirebase = getFirebaseToken(); // Bearer token
     $number_error = 0;
     
     if(!empty($tokenFirebase)){
@@ -1698,8 +1744,6 @@ function getListPermission()
 }
 
 function addActivityHistory($user=array(),$note='',$keyword='',$id_key=0){
-
-
     global $controller;
     $modelActivityHistory = $controller->loadModel('ActivityHistorys');
 
@@ -1712,8 +1756,6 @@ function addActivityHistory($user=array(),$note='',$keyword='',$id_key=0){
     $history->time = time();
     $history->id_key = $id_key;
     $modelActivityHistory->save($history);
-
-
 }
 
 
@@ -1733,37 +1775,37 @@ function processAddMoney($money = 0, $phone='', $type='', $note=''){
 
     if(!empty($infoUser)){
         if($type=='MMTC'){
-        $data = getMemberById($infoUser->id_parent);
-        $quantity = $money/$data->infosystem->price_export_mmtc;
+            $data = getMemberById($infoUser->id_parent);
+            $quantity = $money/$data->infosystem->price_export_mmtc;
 
-       
-        $infoUser->max_export_mmtc +=(int) $quantity;
-        $modelCustomer->save($infoUser);
-        $time =time();
-        $bill = $modelBill->newEmptyEntity();
-        $bill->id_member_sell = $data->id;
-        $bill->id_member_buy = 0;
-        $bill->id_staff_sell =  0;
-        $bill->total = $money;
-        $bill->id_order = 0;
-        $bill->type = 1;
-        $bill->type_order = 2; 
-        $bill->created_at = $time;
-        $bill->updated_at = $time;
-        $bill->id_debt = 0;
-        $bill->type_collection_bill =  'chuyen_khoan';
-        $bill->id_customer = $infoUser->id;
-        $bill->note = 'Thanh toán mua bản thần sô học của khách '.@$infoUser->full_name.' '.@$infoUser->phone;
-        $modelBill->save($bill);
+           
+            $infoUser->max_export_mmtc +=(int) $quantity;
+            $modelCustomer->save($infoUser);
+            $time =time();
+            $bill = $modelBill->newEmptyEntity();
+            $bill->id_member_sell = $data->id;
+            $bill->id_member_buy = 0;
+            $bill->id_staff_sell =  0;
+            $bill->total = $money;
+            $bill->id_order = 0;
+            $bill->type = 1;
+            $bill->type_order = 2; 
+            $bill->created_at = $time;
+            $bill->updated_at = $time;
+            $bill->id_debt = 0;
+            $bill->type_collection_bill =  'chuyen_khoan';
+            $bill->id_customer = $infoUser->id;
+            $bill->note = 'Thanh toán mua bản thần sô học của khách '.@$infoUser->full_name.' '.@$infoUser->phone;
+            $modelBill->save($bill);
 
-        $point = listPonint();
-        $note = 'bạn được công '.$point['point_deposit_money']*$quantity.'điểm khi thanh toán mua bản thần sô học ';
-        accumulatePoint($infoUser->id,$point['point_deposit_money']*$quantity,$note);
+            $point = listPonint();
+            $note = 'bạn được công '.$point['point_deposit_money']*$quantity.'điểm khi thanh toán mua bản thần sô học ';
+            accumulatePoint($infoUser->id,$point['point_deposit_money']*$quantity,$note);
 
-        $dataSendNotification= array('title'=>'Thông báo Thanh toán bản thần sô học','time'=>date('H:i d/m/Y'),'content'=>'Bạn Thanh toán bản thần số học thành Công','action'=>'notificationprocessAddMoney');
-        if(!empty($infoUser->token_device)){
-            sendNotification($dataSendNotification, $infoUser->token_device);
-        }
+            $dataSendNotification= array('title'=>'Thông báo Thanh toán bản thần sô học','time'=>date('H:i d/m/Y'),'content'=>'Bạn Thanh toán bản thần số học thành Công','action'=>'notificationprocessAddMoney');
+            if(!empty($infoUser->token_device)){
+                sendNotification($dataSendNotification, $infoUser->token_device);
+            }
 
         }elseif($type=='NAPTIEN'){
             $data = getMemberById($infoUser->id_parent);
@@ -2004,8 +2046,5 @@ function minuAccumulatePointlike($id_customer=0,$point=0,$note=''){
 global $priceExtend;
 
 $priceExtend = array( 1=> 3600000,3=> 8640000,5=> 12600000);
-
-
-
 
 ?>

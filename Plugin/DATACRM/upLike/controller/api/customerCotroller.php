@@ -122,19 +122,6 @@ function customerUpAPI($input)
     $modelTransactionCustomers = $controller->loadModel('TransactionCustomers');
 
     // kiểm tra cái đặt token
-    
-    $type_api = 'facebook.buff.likepage';
-
-     $conditions = array('key_word' => 'settingUpLikeCustomerAdmin');
-    $data = $modelOptions->find()->where($conditions)->first();
-    $data_value =[];
-    if(!empty($data)){
-         $data_value = json_decode($data->value, true);
-    }
-
-    if($data_value['function_customerUpLikePage']=='off'){
-         return array('code'=>5,'mess'=>'Chương trình này đã hết');
-    }
     if($isRequestPost){
         $dataSend = $input['request']->getData();
 
@@ -164,7 +151,7 @@ function customerUpAPI($input)
                     $saveRequest->type_page = @$dataSend['type_api'];
                     $saveRequest->money = @$dataSend['total_pay'];
                     $saveRequest->number_up = @$dataSend['number_up'];
-                    $saveRequest->chanel = @$data_value['chanel'];
+                    $saveRequest->chanel = (int)@$data_value['chanel'];
                     $saveRequest->minute = (!empty($data_value['minute']))?(int)$data_value['minute']:0;
                     $saveRequest->url_page = @$dataSend['url_page'];
                     $saveRequest->price = $dataSend['price'];
